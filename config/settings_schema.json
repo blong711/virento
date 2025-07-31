@@ -106,13 +106,87 @@
     "settings": [
       {
         "type": "header",
-        "content": "t:settings_schema.typography.settings.header__1.content"
+        "content": "Font Library Settings"
+      },
+      {
+        "type": "select",
+        "id": "font_library",
+        "label": "Font Library Source",
+        "options": [
+          {
+            "value": "shopify",
+            "label": "Shopify Fonts"
+          },
+          {
+            "value": "google",
+            "label": "Google Fonts"
+          }
+        ],
+        "default": "shopify"
+      },
+      {
+        "type": "header",
+        "content": "Heading Typography"
       },
       {
         "type": "font_picker",
-        "id": "type_header_font",
+        "id": "shopify_header_font",
+        "label": "Heading Font",
+        "info": "Select from Shopify's font library",
         "default": "assistant_n4",
-        "label": "t:settings_schema.typography.settings.type_header_font.label"
+        "visible_if": "{{ settings.font_library == 'shopify' }}"
+      },
+      {
+        "type": "font_picker",
+        "id": "shopify_body_font",
+        "label": "Body Font",
+        "info": "Select from Shopify's font library",
+        "default": "assistant_n4",
+        "visible_if": "{{ settings.font_library == 'shopify' }}"
+      },
+      {
+        "type": "text",
+        "id": "google_font_url",
+        "label": "Google Font URL",
+        "info": "Paste your Google Fonts embed code here",
+        "default": "",
+        "visible_if": "{{ settings.font_library == 'google' }}"
+      },
+      {
+        "type": "text",
+        "id": "heading_font_family",
+        "label": "Heading Font Family",
+        "info": "Example: 'Albert Sans', sans-serif",
+        "default": "Albert Sans, sans-serif",
+        "visible_if": "{{ settings.font_library == 'google' }}"
+      },
+      {
+        "type": "range",
+        "id": "heading_font_weight",
+        "label": "Heading Font Weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 400,
+        "visible_if": "{{ settings.font_library == 'google' }}"
+      },
+      {
+        "type": "text",
+        "id": "body_font_family",
+        "label": "Body Font Family",
+        "info": "Example: 'Albert Sans', sans-serif",
+        "default": "Albert Sans, sans-serif",
+        "visible_if": "{{ settings.font_library == 'google' }}"
+      },
+      {
+        "type": "range",
+        "id": "body_font_weight",
+        "label": "Body Font Weight",
+        "min": 100,
+        "max": 900,
+        "step": 100,
+        "default": 400,
+        "visible_if": "{{ settings.font_library == 'google' }}"
       },
       {
         "type": "range",
@@ -121,28 +195,103 @@
         "max": 150,
         "step": 5,
         "unit": "%",
-        "label": "t:settings_schema.typography.settings.heading_scale.label",
+        "label": "Font Size Scale",
         "default": 100
       },
       {
+        "type": "range",
+        "id": "heading_line_height",
+        "min": 100,
+        "max": 200,
+        "step": 5,
+        "unit": "%",
+        "label": "Line Height",
+        "default": 120
+      },
+      {
+        "type": "range",
+        "id": "heading_letter_spacing",
+        "min": -2,
+        "max": 2,
+        "step": 0.1,
+        "unit": "px",
+        "label": "Letter Spacing",
+        "default": 0
+      },
+      {
         "type": "header",
-        "content": "t:settings_schema.typography.settings.header__2.content"
+        "content": "Body Typography"
       },
       {
         "type": "font_picker",
         "id": "type_body_font",
         "default": "assistant_n4",
-        "label": "t:settings_schema.typography.settings.type_body_font.label"
+        "label": "Body Font Family"
+      },
+      {
+        "type": "select",
+        "id": "body_font_weight_shopify",
+        "label": "Body Font Weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light (300)"
+          },
+          {
+            "value": "400",
+            "label": "Regular (400)"
+          },
+          {
+            "value": "500",
+            "label": "Medium (500)"
+          },
+          {
+            "value": "600",
+            "label": "Semi-Bold (600)"
+          }
+        ],
+        "default": "400",
+        "visible_if": "{{ settings.font_library == 'shopify' }}"
       },
       {
         "type": "range",
-        "id": "body_scale",
+        "id": "body_size_mobile",
+        "min": 12,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "label": "Base Size (Mobile)",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "body_size_desktop",
+        "min": 12,
+        "max": 24,
+        "step": 1,
+        "unit": "px",
+        "label": "Base Size (Tablet and Desktop)",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "body_line_height",
         "min": 100,
-        "max": 130,
+        "max": 200,
         "step": 5,
         "unit": "%",
-        "label": "t:settings_schema.typography.settings.body_scale.label",
-        "default": 100
+        "label": "Line Height",
+        "default": 150
+      },
+      {
+        "type": "range",
+        "id": "body_letter_spacing",
+        "min": -1,
+        "max": 1,
+        "step": 0.1,
+        "unit": "px",
+        "label": "Letter Spacing",
+        "default": 0
       }
     ]
   },
