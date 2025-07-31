@@ -275,7 +275,6 @@
       >
     {%- endif -%}
     
-    {{ 'style.css' | asset_url | stylesheet_tag }}
     {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
     {{ 'bootstrap-select.min.css' | asset_url | stylesheet_tag }}
     {{ 'animate.css' | asset_url | stylesheet_tag }}
@@ -284,6 +283,7 @@
     {{ 'jquery.fancybox.min.css' | asset_url | stylesheet_tag }}
     {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
     {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {{ 'style.css' | asset_url | stylesheet_tag }}
 
     <script>
       if (Shopify.designMode) {
@@ -292,7 +292,7 @@
     </script>
 
     <!-- Core JS -->
-    <script src="{{ 'jquery.min.js' | asset_url }}" defer="defer"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" async></script>
     <script src="{{ 'bootstrap.min.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'bootstrap-select.min.js' | asset_url }}" defer="defer"></script>
 
@@ -307,8 +307,9 @@
     <script src="{{ 'image-compare-viewer.min.js' | asset_url }}" defer="defer"></script>
 
     <!-- Slider/Carousel JS -->
-    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.js" defer="defer"></script>
     <script src="{{ 'infinityslide.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'carousel.js' | asset_url }}" defer="defer"></script>
 
     <!-- Custom Scripts -->
     <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
