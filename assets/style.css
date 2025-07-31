@@ -301,27 +301,27 @@ li {
 }
 
 .container {
-  max-width: 1488px;
+  max-width: var(--page-width);
 }
 
 .container-2 {
-  max-width: 1436px;
+  max-width: calc(var(--page-width) * 0.96);
 }
 
 .container-3 {
-  max-width: 1560px;
+  max-width: calc(var(--page-width) * 1.05);
 }
 
 .container-4 {
-  max-width: 1688px;
+  max-width: calc(var(--page-width) * 1.13);
 }
 
 .container-5 {
-  max-width: 1728px;
+  max-width: calc(var(--page-width) * 1.16);
 }
 
 .container-6 {
-  max-width: 1288px;
+  max-width: calc(var(--page-width) * 0.86);
 }
 
 .container-6,
@@ -352,7 +352,7 @@ li {
 }
 
 .slider-layout-right {
-  width: calc(100vw - (100vw - 1488px) / 2);
+  width: calc(100vw - (100vw - var(--page-width)) / 2);
   margin-right: unset;
   max-width: 100%;
   margin-left: auto;

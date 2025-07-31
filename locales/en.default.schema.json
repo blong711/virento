@@ -353,12 +353,6 @@
         },
         "paragraph__grid": {
           "content": "Affects areas with multiple columns or rows"
-        },
-        "spacing_grid_horizontal": {
-          "label": "Horizontal space"
-        },
-        "spacing_grid_vertical": {
-          "label": "Vertical space"
         }
       }
     }

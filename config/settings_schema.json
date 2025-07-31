@@ -281,7 +281,7 @@
         "min": 1000,
         "max": 1600,
         "step": 100,
-        "default": 1200,
+        "default": 1488,
         "unit": "px",
         "label": "t:settings_schema.layout.settings.page_width.label"
       },
@@ -302,26 +302,6 @@
       {
         "type": "paragraph",
         "content": "t:settings_schema.layout.settings.paragraph__grid.content"
-      },
-      {
-        "type": "range",
-        "id": "spacing_grid_horizontal",
-        "min": 4,
-        "max": 40,
-        "step": 4,
-        "default": 8,
-        "unit": "px",
-        "label": "t:settings_schema.layout.settings.spacing_grid_horizontal.label"
-      },
-      {
-        "type": "range",
-        "id": "spacing_grid_vertical",
-        "min": 4,
-        "max": 40,
-        "step": 4,
-        "default": 8,
-        "unit": "px",
-        "label": "t:settings_schema.layout.settings.spacing_grid_vertical.label"
       }
     ]
   },
