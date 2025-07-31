@@ -181,4 +181,17 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Override the default dark color for color schemes */
+  #shopify-section-{{ section.id }} .color-{{ section.settings.color_scheme }} .marquee-child-item {
+    color: rgba(var(--color-foreground), 0.75) !important;
+  }
+
+  #shopify-section-{{ section.id }} .color-{{ section.settings.color_scheme }} .marquee-child-item p {
+    color: rgba(var(--color-foreground), 0.75) !important;
+  }
+
+  #shopify-section-{{ section.id }} .color-{{ section.settings.color_scheme }} .dot {
+    background-color: rgba(var(--color-foreground), 0.4) !important;
+  }
 {%- endstyle -%}
