@@ -545,7 +545,7 @@
         "default": false,
         "label": "t:settings_schema.search_input.settings.predictive_search_show_price.label",
         "info": "t:settings_schema.search_input.settings.predictive_search_show_price.info"
-      },
+      },  
       {
         "type": "link_list",
         "id": "search_quick_links_menu",
@@ -583,49 +583,25 @@
         "id": "cart_type",
         "options": [
           {
+            "value": "none",
+            "label": "No action. Stay on current page"
+          },
+          {
             "value": "drawer",
-            "label": "t:settings_schema.cart.settings.cart_type.drawer.label"
+            "label": "Open cart drawer"
           },
           {
-            "value": "page",
-            "label": "t:settings_schema.cart.settings.cart_type.page.label"
+            "value": "cart-page",
+            "label": "Go to cart page"
           },
           {
-            "value": "notification",
-            "label": "t:settings_schema.cart.settings.cart_type.notification.label"
-          }
+            "value": "checkout-page",
+            "label": "Go to cart page"
+          },
         ],
         "default": "notification",
         "label": "t:settings_schema.cart.settings.cart_type.label"
       },
-      {
-        "type": "checkbox",
-        "id": "show_vendor",
-        "label": "t:settings_schema.cart.settings.show_vendor.label",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "show_cart_note",
-        "label": "t:settings_schema.cart.settings.show_cart_note.label",
-        "default": false
-      },
-      {
-        "type": "header",
-        "content": "t:settings_schema.cart.settings.cart_drawer.header"
-      },
-      {
-        "type": "collection",
-        "id": "cart_drawer_collection",
-        "label": "t:settings_schema.cart.settings.cart_drawer.collection.label",
-        "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
-      },
-      {
-        "type": "color_scheme",
-        "id": "cart_color_scheme",
-        "label": "t:sections.all.colors.label",
-        "default": "scheme-1"
-      }
     ]
   }
 ]
