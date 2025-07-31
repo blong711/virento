@@ -109,7 +109,7 @@
         "content": "Font Library Settings"
       },
       {
-        "type": "select",
+        "type": "radio",
         "id": "font_library",
         "label": "Font Library Source",
         "options": [
@@ -126,44 +126,39 @@
       },
       {
         "type": "header",
-        "content": "Heading Typography"
-      },
-      {
-        "type": "font_picker",
-        "id": "shopify_header_font",
-        "label": "Heading Font",
-        "info": "Select from Shopify's font library",
-        "default": "assistant_n4",
+        "content": "Shopify Font library",
         "visible_if": "{{ settings.font_library == 'shopify' }}"
       },
       {
         "type": "font_picker",
-        "id": "shopify_body_font",
-        "label": "Body Font",
-        "info": "Select from Shopify's font library",
-        "default": "assistant_n4",
+        "id": "heading_font",
+        "label": "Heading font",
+        "default": "helvetica_n4",
         "visible_if": "{{ settings.font_library == 'shopify' }}"
       },
       {
-        "type": "text",
-        "id": "google_font_url",
-        "label": "Google Font URL",
-        "info": "Paste your Google Fonts embed code here",
-        "default": "",
+        "type": "font_picker",
+        "id": "body_font",
+        "label": "Body font",
+        "default": "helvetica_n4",
+        "visible_if": "{{ settings.font_library == 'shopify' }}"
+      },
+      {
+        "type": "header",
+        "content": "Google Font library",
         "visible_if": "{{ settings.font_library == 'google' }}"
       },
       {
         "type": "text",
         "id": "heading_font_family",
-        "label": "Heading Font Family",
-        "info": "Example: 'Albert Sans', sans-serif",
-        "default": "Albert Sans, sans-serif",
+        "label": "Heading font family",
+        "default": "'Helvetica Neue', Helvetica, Arial, sans-serif",
         "visible_if": "{{ settings.font_library == 'google' }}"
       },
       {
         "type": "range",
         "id": "heading_font_weight",
-        "label": "Heading Font Weight",
+        "label": "Heading font weight",
         "min": 100,
         "max": 900,
         "step": 100,
@@ -173,20 +168,23 @@
       {
         "type": "text",
         "id": "body_font_family",
-        "label": "Body Font Family",
-        "info": "Example: 'Albert Sans', sans-serif",
-        "default": "Albert Sans, sans-serif",
+        "label": "Body font family",
+        "default": "'Helvetica Neue', Helvetica, Arial, sans-serif",
         "visible_if": "{{ settings.font_library == 'google' }}"
       },
       {
         "type": "range",
         "id": "body_font_weight",
-        "label": "Body Font Weight",
+        "label": "Body font weight",
         "min": 100,
         "max": 900,
         "step": 100,
         "default": 400,
         "visible_if": "{{ settings.font_library == 'google' }}"
+      },
+      {
+        "type": "header",
+        "content": "Headings"
       },
       {
         "type": "range",
