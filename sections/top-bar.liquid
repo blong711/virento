@@ -141,35 +141,39 @@
                             </div>
                         </div>
                     {%- when 'language_selector' or 'currency_selector' -%}
-                        {%- if forloop.last or section.blocks[forloop.index0].type != 'language_selector' and section.blocks[forloop.index0].type != 'currency_selector' -%}
+                        {%- assign prev_index = forloop.index0 | minus: 1 -%}
+                        {%- assign next_index = forloop.index0 | plus: 1 -%}
+                        {%- assign prev_block = section.blocks[prev_index] -%}
+                        {%- assign next_block = section.blocks[next_index] -%}
+                        
+                        {%- if forloop.first or prev_block.type != 'language_selector' and prev_block.type != 'currency_selector' -%}
                             <div class="d-none d-xl-block flex-shrink-0">
                                 <div class="topbar-right">
-                                    {%- for inner_block in section.blocks offset: forloop.index0 -%}
-                                        {%- if inner_block.type == 'language_selector' or inner_block.type == 'currency_selector' -%}
-                                            {%- if inner_block.type == 'language_selector' -%}
-                                                <div class="tf-languages" {{ inner_block.shopify_attributes }}>
-                                                    <select class="image-select center style-default type-languages">
-                                                        <option>English</option>
-                                                        <option>العربية</option>
-                                                        <option>简体中文</option>
-                                                        <option>اردو</option>
-                                                    </select>
-                                                </div>
-                                            {%- else -%}
-                                                <div class="tf-currencies" {{ inner_block.shopify_attributes }}>
-                                                    <select class="image-select center style-default type-currencies">
-                                                        <option selected data-thumbnail="images/country/us.png">United States (USD $)</option>
-                                                        <option data-thumbnail="images/country/fr.png">France (EUR €)</option>
-                                                        <option data-thumbnail="images/country/ger.png">Germany (EUR €)</option>
-                                                        <option data-thumbnail="images/country/vn.png">Vietnam (VND ₫)</option>
-                                                    </select>
-                                                </div>
-                                            {%- endif -%}
-                                        {%- endif -%}
-                                    {%- endfor -%}
+                        {%- endif -%}
+
+                        {%- if block.type == 'language_selector' -%}
+                            <div class="tf-languages" {{ block.shopify_attributes }}>
+                                <select class="image-select center style-default type-languages">
+                                    <option>English</option>
+                                    <option>العربية</option>
+                                    <option>简体中文</option>
+                                    <option>اردو</option>
+                                </select>
+                            </div>
+                        {%- else -%}
+                            <div class="tf-currencies" {{ block.shopify_attributes }}>
+                                <select class="image-select center style-default type-currencies">
+                                    <option selected data-thumbnail="images/country/us.png">United States (USD $)</option>
+                                    <option data-thumbnail="images/country/fr.png">France (EUR €)</option>
+                                    <option data-thumbnail="images/country/ger.png">Germany (EUR €)</option>
+                                    <option data-thumbnail="images/country/vn.png">Vietnam (VND ₫)</option>
+                                </select>
+                            </div>
+                        {%- endif -%}
+
+                        {%- if forloop.last or next_block.type != 'language_selector' and next_block.type != 'currency_selector' -%}
                                 </div>
                             </div>
-                            {%- break -%}
                         {%- endif -%}
                 {%- endcase -%}
             {%- endfor -%}
