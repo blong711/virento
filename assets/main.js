@@ -1,0 +1,76 @@
+(function ($) {
+  "use strict";
+
+  // All the functions from the original file
+  var selectImages = function() { /* ... */ };
+  var variantPicker = function() { /* ... */ };
+  var customDropdown = function() { /* ... */ };
+  var checkClick = function() { /* ... */ };
+  var swatchColor = function() { /* ... */ };
+  var sidebarMobile = function() { /* ... */ };
+  var staggerWrap = function() { /* ... */ };
+  var clickModalSecond = function() { /* ... */ };
+  var estimateShipping = function() { /* ... */ };
+  var headerSticky = function() { /* ... */ };
+  var autoPopup = function() { /* ... */ };
+  var handleProgress = function() { /* ... */ };
+  var totalPriceVariant = function() { /* ... */ };
+  var scrollGridProduct = function() { /* ... */ };
+  var hoverVideo = function() { /* ... */ };
+  var changeValueDropdown = function() { /* ... */ };
+  var btnLoading = function() { /* ... */ };
+  var itemCheckbox = function() { /* ... */ };
+  var handleFooter = function() { /* ... */ };
+  var efectParalax = function() { /* ... */ };
+  var parallaxie = function() { /* ... */ };
+  var infiniteSlide = function() { /* ... */ };
+  var btnQuantity = function() { /* ... */ };
+  var deleteFile = function() { /* ... */ };
+  var clickControl = function() { /* ... */ };
+  var tabSlide = function() { /* ... */ };
+  var coppyText = function() { /* ... */ };
+  var wishList = function() { /* ... */ };
+  var scrollBottomSticky = function() { /* ... */ };
+  var handleSidebarFilter = function() { /* ... */ };
+  var cookieSetting = function() { /* ... */ };
+  var preloader = function() { /* ... */ };
+  var goTop = function() { /* ... */ };
+
+  // Dom Ready
+  $(function () {
+    selectImages();
+    variantPicker();
+    customDropdown();
+    checkClick();
+    swatchColor();
+    sidebarMobile();
+    staggerWrap();
+    clickModalSecond();
+    estimateShipping();
+    headerSticky();
+    autoPopup();
+    handleProgress();
+    totalPriceVariant();
+    scrollGridProduct();
+    hoverVideo();
+    changeValueDropdown();
+    btnLoading();
+    itemCheckbox();
+    handleFooter();
+    efectParalax();
+    parallaxie();
+    infiniteSlide();
+    btnQuantity();
+    deleteFile();
+    clickControl();
+    tabSlide();
+    coppyText();
+    wishList();
+    scrollBottomSticky();
+    handleSidebarFilter();
+    cookieSetting();
+    preloader();
+    goTop();
+    new WOW().init();
+  });
+})(jQuery);

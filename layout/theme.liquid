@@ -35,10 +35,6 @@
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
 
-    {%- if settings.animations_reveal_on_scroll -%}
-      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
-
     {{ content_for_header }}
 
     {%- liquid
@@ -255,17 +251,6 @@
       }
     {% endstyle %}
 
-    {{ 'base.css' | asset_url | stylesheet_tag }}
-    <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
-
-    {%- if settings.cart_type == 'drawer' -%}
-      {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
-      {{ 'component-cart.css' | asset_url | stylesheet_tag }}
-      {{ 'component-totals.css' | asset_url | stylesheet_tag }}
-      {{ 'component-price.css' | asset_url | stylesheet_tag }}
-      {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
-    {%- endif -%}
-
     {%- unless settings.type_body_font.system? -%}
       {% comment %}theme-check-disable AssetPreload{% endcomment %}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
@@ -278,34 +263,62 @@
     {%- endunless -%}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
-      {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
       <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
     {%- if settings.predictive_search_enabled -%}
       <link
         rel="stylesheet"
-        href="{{ 'component-predictive-search.css' | asset_url }}"
+        href=""
         media="print"
         onload="this.media='all'"
       >
     {%- endif -%}
+    
+    {{ 'style.css' | asset_url | stylesheet_tag }}
+    {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+    {{ 'bootstrap-select.min.css' | asset_url | stylesheet_tag }}
+    {{ 'animate.css' | asset_url | stylesheet_tag }}
+    {{ 'drift-basic.min.css' | asset_url | stylesheet_tag }}
+    {{ 'image-compare-viewer.min.css' | asset_url | stylesheet_tag }}
+    {{ 'jquery.fancybox.min.css' | asset_url | stylesheet_tag }}
+    {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
 
     <script>
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    <!-- Core JS -->
+    <script src="{{ 'jquery.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'bootstrap.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'bootstrap-select.min.js' | asset_url }}" defer="defer"></script>
+
+    <!-- UI Enhancement JS -->
+    <script src="{{ 'nouislider.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'wow.min.js' | asset_url }}" defer="defer"></script>
+
+    <!-- Image Handling JS -->
+    <script src="{{ 'drift.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'photoswipe.esm.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'photoswipe-lightbox.esm.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'image-compare-viewer.min.js' | asset_url }}" defer="defer"></script>
+
+    <!-- Slider/Carousel JS -->
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'infinityslide.js' | asset_url }}" defer="defer"></script>
+
+    <!-- Custom Scripts -->
+    <script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'shop.js' | asset_url }}" defer="defer"></script>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
-
-    {%- if settings.cart_type == 'drawer' -%}
-      {%- render 'cart-drawer' -%}
-    {%- endif -%}
 
     {% sections 'header-group' %}
 
@@ -364,10 +377,6 @@
         countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
       };
     </script>
-
-    {%- if settings.predictive_search_enabled -%}
-      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
 
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
