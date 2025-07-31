@@ -8,29 +8,6 @@
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
     },
-
-    {
-      "type": "header",
-      "content": "Announcement Messages"
-    },
-    {
-      "type": "text",
-      "id": "message_1",
-      "label": "Message 1",
-      "default": "Return extended to 60 days"
-    },
-    {
-      "type": "text",
-      "id": "message_2",
-      "label": "Message 2",
-      "default": "Life-time Guarantee"
-    },
-    {
-      "type": "text",
-      "id": "message_3",
-      "label": "Message 3",
-      "default": "Limited-Time Offer"
-    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
@@ -67,9 +44,54 @@
       "info": "Percentage of desktop padding to use on mobile devices"
     }
   ],
+  "blocks": [
+    {
+      "type": "social_icons",
+      "name": "Social Icons",
+      "limit": 1
+    },
+    {
+      "type": "announcement",
+      "name": "Announcement Messages",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "messages",
+          "label": "Announcement Messages",
+          "default": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer",
+          "info": "Enter messages separated by commas"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "type": "language_selector",
+      "name": "Language Selector",
+      "limit": 1
+    },
+    {
+      "type": "currency_selector",
+      "name": "Currency Selector",
+      "limit": 1
+    }
+  ],
   "presets": [
     {
-      "name": "Top Bar"
+      "name": "Top Bar",
+      "blocks": [
+        {
+          "type": "social_icons"
+        },
+        {
+          "type": "announcement"
+        },
+        {
+          "type": "language_selector"
+        },
+        {
+          "type": "currency_selector"
+        }
+      ]
     }
   ]
 }
@@ -78,63 +100,79 @@
 <div class="tf-topbar color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
     <div class="container">
         <div class="topbar-wraper">
-            <div class="d-none d-xl-block flex-shrink-0">
-                <ul class="tf-social-icon topbar-left">
-                    {%- if settings.social_facebook_link != blank -%}
-                        <li><a href="{{ settings.social_facebook_link }}" class="social-item social-facebook"><i class="icon icon-fb"></i></a></li>
-                    {%- endif -%}
-                    {%- if settings.social_instagram_link != blank -%}
-                        <li><a href="{{ settings.social_instagram_link }}" class="social-item social-instagram"><i class="icon icon-instagram"></i></a></li>
-                    {%- endif -%}
-                    {%- if settings.social_twitter_link != blank -%}
-                        <li><a href="{{ settings.social_twitter_link }}" class="social-item social-x"><i class="icon icon-x"></i></a></li>
-                    {%- endif -%}
-                    {%- if settings.social_snapchat_link != blank -%}
-                        <li><a href="{{ settings.social_snapchat_link }}" class="social-item social-snapchat"><i class="icon icon-snapchat"></i></a></li>
-                    {%- endif -%}
-                </ul>
-            </div>
-            <div class="overflow-hidden">
-                <div class="topbar-center marquee-wrapper">
-                    <div class="initial-child-container">
-                        {% for i in (1..5) %}
-                            <div class="marquee-child-item">
-                                <p>{{ section.settings.message_1 }}</p>
+            {%- for block in section.blocks -%}
+                {%- case block.type -%}
+                    {%- when 'social_icons' -%}
+                        <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
+                            <ul class="tf-social-icon topbar-left">
+                                {%- if settings.social_facebook_link != blank -%}
+                                    <li><a href="{{ settings.social_facebook_link }}" class="social-item social-facebook"><i class="icon icon-fb"></i></a></li>
+                                {%- endif -%}
+                                {%- if settings.social_instagram_link != blank -%}
+                                    <li><a href="{{ settings.social_instagram_link }}" class="social-item social-instagram"><i class="icon icon-instagram"></i></a></li>
+                                {%- endif -%}
+                                {%- if settings.social_twitter_link != blank -%}
+                                    <li><a href="{{ settings.social_twitter_link }}" class="social-item social-x"><i class="icon icon-x"></i></a></li>
+                                {%- endif -%}
+                                {%- if settings.social_snapchat_link != blank -%}
+                                    <li><a href="{{ settings.social_snapchat_link }}" class="social-item social-snapchat"><i class="icon icon-snapchat"></i></a></li>
+                                {%- endif -%}
+                            </ul>
+                        </div>
+                    {%- when 'announcement' -%}
+                        <div class="overflow-hidden" {{ block.shopify_attributes }}>
+                            <div class="topbar-center marquee-wrapper">
+                                <div class="initial-child-container">
+                                    {%- assign messages = block.settings.messages | split: ',' -%}
+                                    {% for i in (1..5) %}
+                                        {%- for message in messages -%}
+                                            <div class="marquee-child-item">
+                                                <p>{{ message | strip }}</p>
+                                            </div>
+                                            {%- unless forloop.last -%}
+                                                <div class="marquee-child-item"><span class="dot"></span></div>
+                                            {%- endunless -%}
+                                        {%- endfor -%}
+                                        {%- if messages.size > 0 -%}
+                                            <div class="marquee-child-item"><span class="dot"></span></div>
+                                        {%- endif -%}
+                                    {% endfor %}
+                                </div>
                             </div>
-                            <div class="marquee-child-item"><span class="dot"></span></div>
-                            <div class="marquee-child-item">
-                                <p>{{ section.settings.message_2 }}</p>
+                        </div>
+                    {%- when 'language_selector' or 'currency_selector' -%}
+                        {%- if forloop.last or section.blocks[forloop.index0].type != 'language_selector' and section.blocks[forloop.index0].type != 'currency_selector' -%}
+                            <div class="d-none d-xl-block flex-shrink-0">
+                                <div class="topbar-right">
+                                    {%- for inner_block in section.blocks offset: forloop.index0 -%}
+                                        {%- if inner_block.type == 'language_selector' or inner_block.type == 'currency_selector' -%}
+                                            {%- if inner_block.type == 'language_selector' -%}
+                                                <div class="tf-languages" {{ inner_block.shopify_attributes }}>
+                                                    <select class="image-select center style-default type-languages">
+                                                        <option>English</option>
+                                                        <option>العربية</option>
+                                                        <option>简体中文</option>
+                                                        <option>اردو</option>
+                                                    </select>
+                                                </div>
+                                            {%- else -%}
+                                                <div class="tf-currencies" {{ inner_block.shopify_attributes }}>
+                                                    <select class="image-select center style-default type-currencies">
+                                                        <option selected data-thumbnail="images/country/us.png">United States (USD $)</option>
+                                                        <option data-thumbnail="images/country/fr.png">France (EUR €)</option>
+                                                        <option data-thumbnail="images/country/ger.png">Germany (EUR €)</option>
+                                                        <option data-thumbnail="images/country/vn.png">Vietnam (VND ₫)</option>
+                                                    </select>
+                                                </div>
+                                            {%- endif -%}
+                                        {%- endif -%}
+                                    {%- endfor -%}
+                                </div>
                             </div>
-                            <div class="marquee-child-item"><span class="dot"></span></div>
-                            <div class="marquee-child-item">
-                                <p>{{ section.settings.message_3 }}</p>
-                            </div>
-                            <div class="marquee-child-item"><span class="dot"></span></div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <div class="d-none d-xl-block flex-shrink-0">
-                <div class="topbar-right">
-                  <div class="tf-languages">
-                    <select class="image-select center style-default type-languages">
-                        <option>English</option>
-                        <option>العربية</option>
-                        <option>简体中文</option>
-                        <option>اردو</option>
-                    </select>
-                  </div>
-                  <div class="tf-currencies">
-                      <select class="image-select center style-default type-currencies">
-                          <option selected data-thumbnail="images/country/us.png">United States (USD $)
-                          </option>
-                          <option data-thumbnail="images/country/fr.png">France (EUR €)</option>
-                          <option data-thumbnail="images/country/ger.png">Germany (EUR €)</option>
-                          <option data-thumbnail="images/country/vn.png">Vietnam (VND ₫)</option>
-                      </select>
-                  </div>
-                </div>
-            </div>
+                            {%- break -%}
+                        {%- endif -%}
+                {%- endcase -%}
+            {%- endfor -%}
         </div>
     </div>
 </div>
