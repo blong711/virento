@@ -294,14 +294,6 @@
         "unit": "px",
         "label": "t:settings_schema.layout.settings.spacing_sections.label",
         "default": 0
-      },
-      {
-        "type": "header",
-        "content": "t:settings_schema.layout.settings.header__grid.content"
-      },
-      {
-        "type": "paragraph",
-        "content": "t:settings_schema.layout.settings.paragraph__grid.content"
       }
     ]
   },
