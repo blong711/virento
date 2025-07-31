@@ -3,6 +3,12 @@
   "name": "Top Bar",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
       "type": "header",
       "content": "Social Media Links"
     },
@@ -51,6 +57,41 @@
       "id": "message_3",
       "label": "Message 3",
       "default": "Limited-Time Offer"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Mobile Padding Rate",
+      "default": 75,
+      "info": "Percentage of desktop padding to use on mobile devices"
     }
   ],
   "presets": [
@@ -61,7 +102,7 @@
 }
 {% endschema %}
 
-<div class="tf-topbar bg-dark-5 topbar-bg">
+<div class="tf-topbar bg-dark-5 topbar-bg color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
     <div class="container">
         <div class="topbar-wraper">
             <div class="d-none d-xl-block flex-shrink-0">
@@ -127,3 +168,17 @@
         </div>
     </div>
 </div>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
