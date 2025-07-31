@@ -13,15 +13,34 @@
   "sections": {
     "top-bar": {
       "type": "top-bar",
+      "blocks": {
+        "social_icons_bFwjmV": {
+          "type": "social_icons",
+          "settings": {}
+        },
+        "announcement_b4ry97": {
+          "type": "announcement",
+          "settings": {
+            "messages": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer"
+          }
+        },
+        "language_selector_ag3Qqn": {
+          "type": "language_selector",
+          "settings": {}
+        },
+        "currency_selector_EQmmVB": {
+          "type": "currency_selector",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "social_icons_bFwjmV",
+        "announcement_b4ry97",
+        "language_selector_ag3Qqn",
+        "currency_selector_EQmmVB"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
-        "facebook_link": "https://www.facebook.com/",
-        "instagram_link": "https://www.instagram.com/",
-        "x_link": "https://x.com/",
-        "snapchat_link": "https://www.snapchat.com/",
-        "message_1": "Return extended to 60 days",
-        "message_2": "Life-time Guarantee",
-        "message_3": "Limited-Time Offer",
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
