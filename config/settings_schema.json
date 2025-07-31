@@ -131,14 +131,14 @@
       },
       {
         "type": "font_picker",
-        "id": "heading_font",
+        "id": "type_header_font",
         "label": "Heading font",
         "default": "helvetica_n4",
         "visible_if": "{{ settings.font_library == 'shopify' }}"
       },
       {
         "type": "font_picker",
-        "id": "body_font",
+        "id": "type_body_font",
         "label": "Body font",
         "default": "helvetica_n4",
         "visible_if": "{{ settings.font_library == 'shopify' }}"
@@ -193,7 +193,7 @@
         "max": 150,
         "step": 5,
         "unit": "%",
-        "label": "Font Size Scale",
+        "label": "t:settings_schema.typography.settings.heading_scale.label",
         "default": 100
       },
       {
@@ -219,6 +219,16 @@
       {
         "type": "header",
         "content": "Body"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "t:settings_schema.typography.settings.body_scale.label",
+        "default": 100
       },
       {
         "type": "range",
