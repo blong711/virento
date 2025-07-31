@@ -8,34 +8,7 @@
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
     },
-    {
-      "type": "header",
-      "content": "Social Media Links"
-    },
-    {
-      "type": "text",
-      "id": "facebook_link",
-      "label": "Facebook URL",
-      "default": "https://www.facebook.com"
-    },
-    {
-      "type": "text",
-      "id": "instagram_link",
-      "label": "Instagram URL",
-      "default": "https://www.instagram.com"
-    },
-    {
-      "type": "text",
-      "id": "x_link",
-      "label": "X (Twitter) URL",
-      "default": "https://x.com"
-    },
-    {
-      "type": "text",
-      "id": "snapchat_link",
-      "label": "Snapchat URL",
-      "default": "https://www.snapchat.com"
-    },
+
     {
       "type": "header",
       "content": "Announcement Messages"
@@ -107,16 +80,18 @@
         <div class="topbar-wraper">
             <div class="d-none d-xl-block flex-shrink-0">
                 <ul class="tf-social-icon topbar-left">
-                    <li><a href="{{ section.settings.facebook_link }}" class="social-item social-facebook"><i
-                                class="icon icon-fb"></i></a></li>
-                    <li><a href="{{ section.settings.instagram_link }}" class="social-item social-instagram"><i
-                                class="icon icon-instagram"></i></a>
-                    </li>
-                    <li><a href="{{ section.settings.x_link }}" class="social-item social-x"><i class="icon icon-x"></i></a>
-                    </li>
-                    <li><a href="{{ section.settings.snapchat_link }}" class="social-item social-snapchat"><i
-                                class="icon icon-snapchat"></i></a>
-                    </li>
+                    {%- if settings.social_facebook_link != blank -%}
+                        <li><a href="{{ settings.social_facebook_link }}" class="social-item social-facebook"><i class="icon icon-fb"></i></a></li>
+                    {%- endif -%}
+                    {%- if settings.social_instagram_link != blank -%}
+                        <li><a href="{{ settings.social_instagram_link }}" class="social-item social-instagram"><i class="icon icon-instagram"></i></a></li>
+                    {%- endif -%}
+                    {%- if settings.social_twitter_link != blank -%}
+                        <li><a href="{{ settings.social_twitter_link }}" class="social-item social-x"><i class="icon icon-x"></i></a></li>
+                    {%- endif -%}
+                    {%- if settings.social_snapchat_link != blank -%}
+                        <li><a href="{{ settings.social_snapchat_link }}" class="social-item social-snapchat"><i class="icon icon-snapchat"></i></a></li>
+                    {%- endif -%}
                 </ul>
             </div>
             <div class="overflow-hidden">
@@ -141,28 +116,23 @@
             </div>
             <div class="d-none d-xl-block flex-shrink-0">
                 <div class="topbar-right">
-                    <div class="tf-languages">
-                        {%- form 'localization', id: 'TopBarLanguageForm', class: 'image-select center style-default type-languages' -%}
-                            <select class="image-select center style-default type-languages" name="locale_code">
-                                {%- for language in localization.available_languages -%}
-                                    <option value="{{ language.iso_code }}"{% if language.iso_code == localization.language.iso_code %} selected{% endif %}>
-                                        {{ language.endonym_name }}
-                                    </option>
-                                {%- endfor -%}
-                            </select>
-                        {%- endform -%}
-                    </div>
-                    <div class="tf-currencies">
-                        {%- form 'localization', id: 'TopBarCurrencyForm', class: 'image-select center style-default type-currencies' -%}
-                            <select class="image-select center style-default type-currencies" name="currency_code">
-                                {%- for currency in localization.available_countries -%}
-                                    <option value="{{ currency.iso_code }}"{% if currency.iso_code == localization.country.iso_code %} selected{% endif %}>
-                                        {{ currency.name }} ({{ currency.currency.iso_code }} {{ currency.currency.symbol }})
-                                    </option>
-                                {%- endfor -%}
-                            </select>
-                        {%- endform -%}
-                    </div>
+                  <div class="tf-languages">
+                    <select class="image-select center style-default type-languages">
+                        <option>English</option>
+                        <option>العربية</option>
+                        <option>简体中文</option>
+                        <option>اردو</option>
+                    </select>
+                  </div>
+                  <div class="tf-currencies">
+                      <select class="image-select center style-default type-currencies">
+                          <option selected data-thumbnail="images/country/us.png">United States (USD $)
+                          </option>
+                          <option data-thumbnail="images/country/fr.png">France (EUR €)</option>
+                          <option data-thumbnail="images/country/ger.png">Germany (EUR €)</option>
+                          <option data-thumbnail="images/country/vn.png">Vietnam (VND ₫)</option>
+                      </select>
+                  </div>
                 </div>
             </div>
         </div>

@@ -46,6 +46,7 @@
     {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
     {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
     {{ 'style.css' | asset_url | stylesheet_tag }}
+    {{ 'font-icons.css' | asset_url | stylesheet_tag }}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
