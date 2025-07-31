@@ -243,20 +243,17 @@
         "cart_type": {
           "label": "Action after added",
           "drawer": {
-            "label": "Drawer"
+            "label": "Open cart drawer"
           },
-          "page": {
-            "label": "Page"
+          "none": {
+            "label": "No action. Stay on current page"
           },
-          "notification": {
-            "label": "Popup notification"
+          "cart-page": {
+            "label": "Go to cart page"
+          },
+          "checkout-page": {
+            "label": "Go to checkout page"
           }
-        },
-        "show_vendor": {
-          "label": "Vendor"
-        },
-        "show_cart_note": {
-          "label": "Cart note"
         },
         "cart_drawer": {
           "header": "Cart drawer",
