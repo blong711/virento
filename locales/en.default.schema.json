@@ -241,7 +241,7 @@
       "name": "Cart",
       "settings": {
         "cart_type": {
-          "label": "Type",
+          "label": "Action after added",
           "drawer": {
             "label": "Drawer"
           },
@@ -263,6 +263,24 @@
           "collection": {
             "label": "Collection",
             "info": "Shown when cart drawer is empty"
+          }
+        },
+        "empty_cart_link": {
+          "label": "Empty cart link",
+          "info": "Visible when cart is empty"
+        },
+        "free_shipping": {
+          "content": "Free shipping",
+          "product": {
+            "label": "Free shipping product",
+            "info": "Choose product to taken free shipping minimum amount"
+          }
+        },
+        "gift_wrap": {
+          "content": "Gift wrap",
+          "product": {
+            "label": "Gift wrap product",
+            "info": "Show a gift wrap on cart page and cart drawer. Gift wrap needs to be set up as a product"
           }
         }
       }

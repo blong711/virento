@@ -597,11 +597,38 @@
           {
             "value": "checkout-page",
             "label": "Go to cart page"
-          },
+          }
         ],
         "default": "drawer",
         "label": "t:settings_schema.cart.settings.cart_type.label"
       },
+      {
+        "type": "url",
+        "id": "empty_cart_link",
+        "label": "t:settings_schema.cart.settings.empty_cart_link.label",
+        "info": "t:settings_schema.cart.settings.empty_cart_link.info",
+        "default": "/collections/all"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.cart.settings.free_shipping.content"
+      },
+      {
+        "type": "product",
+        "id": "free_shipping_product",
+        "label": "t:settings_schema.cart.settings.free_shipping_product.label",
+        "info": "t:settings_schema.cart.settings.free_shipping_product.info"
+      },
+      {
+        "type": "header",
+        "content": "t:settings_schema.cart.settings.gift_wrap.content"
+      },
+      {
+        "type": "product",
+        "id": "gift_wrap_product",
+        "label": "t:settings_schema.cart.settings.gift_wrap_product.label",
+        "info": "t:settings_schema.cart.settings.gift_wrap_product.info"
+      }
     ]
   }
 ]
