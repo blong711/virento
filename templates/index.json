@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main_slider": {
@@ -6,28 +15,31 @@
         "slide_1": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/slider-electric-1.jpg",
             "heading": "Elevate Your Fitness Game",
             "description": "Stay ahead with the all-new Apple Watch Series 12—track your workouts, monitor health stats, and enjoy seamless connectivity.",
-            "button_text": "Explore More",
-            "button_link": "/collections/watches"
+            "button_link": "/collections/watches",
+            "button_text": "Explore More"
           }
         },
         "slide_2": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/slider-electric-2.jpg",
             "heading": "Flex Your Power",
             "description": "The Lenovo Flex 5i 2-in-1 offers versatility, power, and precision in one sleek design.",
-            "button_text": "Explore More",
-            "button_link": "/collections/laptops"
+            "button_link": "/collections/laptops",
+            "button_text": "Explore More"
           }
         },
         "slide_3": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/slider-electric-3.jpg",
             "heading": "Unleash Sound Freedom",
             "description": "Experience immersive sound while staying aware of your surroundings with JBL's open-ear headphone design.",
-            "button_text": "Explore More",
-            "button_link": "/collections/audio"
+            "button_link": "/collections/audio",
+            "button_text": "Explore More"
           }
         }
       },
