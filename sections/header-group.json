@@ -24,11 +24,11 @@
             "messages": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer"
           }
         },
-        "language_selector_ag3Qqn": {
+        "language_selector_p7TkXJ": {
           "type": "language_selector",
           "settings": {}
         },
-        "currency_selector_EQmmVB": {
+        "currency_selector_TcTzBp": {
           "type": "currency_selector",
           "settings": {}
         }
@@ -36,8 +36,8 @@
       "block_order": [
         "social_icons_bFwjmV",
         "announcement_b4ry97",
-        "language_selector_ag3Qqn",
-        "currency_selector_EQmmVB"
+        "language_selector_p7TkXJ",
+        "currency_selector_TcTzBp"
       ],
       "settings": {
         "color_scheme": "scheme-1",
