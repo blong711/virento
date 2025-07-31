@@ -37,6 +37,16 @@
 
     {{ content_for_header }}
 
+    {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+    {{ 'bootstrap-select.min.css' | asset_url | stylesheet_tag }}
+    {{ 'animate.css' | asset_url | stylesheet_tag }}
+    {{ 'drift-basic.min.css' | asset_url | stylesheet_tag }}
+    {{ 'image-compare-viewer.min.css' | asset_url | stylesheet_tag }}
+    {{ 'jquery.fancybox.min.css' | asset_url | stylesheet_tag }}
+    {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {{ 'style.css' | asset_url | stylesheet_tag }}
+
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
@@ -305,16 +315,6 @@
         onload="this.media='all'"
       >
     {%- endif -%}
-    
-    {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
-    {{ 'bootstrap-select.min.css' | asset_url | stylesheet_tag }}
-    {{ 'animate.css' | asset_url | stylesheet_tag }}
-    {{ 'drift-basic.min.css' | asset_url | stylesheet_tag }}
-    {{ 'image-compare-viewer.min.css' | asset_url | stylesheet_tag }}
-    {{ 'jquery.fancybox.min.css' | asset_url | stylesheet_tag }}
-    {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
-    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-    {{ 'style.css' | asset_url | stylesheet_tag }}
 
     <script>
       if (Shopify.designMode) {
