@@ -545,6 +545,18 @@
         "default": false,
         "label": "t:settings_schema.search_input.settings.predictive_search_show_price.label",
         "info": "t:settings_schema.search_input.settings.predictive_search_show_price.info"
+      },
+      {
+        "type": "link_list",
+        "id": "search_quick_links_menu",
+        "label": "Quick Links Menu",
+        "info": "Select the menu to display in search quick links"
+      },
+      {
+        "type": "product",
+        "id": "search_featured_product",
+        "label": "Featured Product in Search",
+        "info": "Select a product to feature in search results"
       }
     ]
   },
