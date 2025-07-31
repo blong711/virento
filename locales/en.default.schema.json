@@ -205,13 +205,6 @@
         }
       }
     },
-    "buttons": {
-      "name": "Buttons"
-    },
-    "variant_pills": {
-      "name": "Variant pills",
-      "paragraph": "Variant pills are one way of displaying your [product variants](https://help.shopify.com/manual/online-store/themes/theme-structure/page-types/product-pages#variant-picker-block)"
-    },
     "inputs": {
       "name": "Inputs"
     },
