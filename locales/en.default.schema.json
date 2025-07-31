@@ -253,7 +253,8 @@
           },
           "checkout-page": {
             "label": "Go to checkout page"
-          }
+          },
+          "info": "Action after when an item is added to the cart success. Not working on cart page."
         },
         "cart_drawer": {
           "header": "Cart drawer",

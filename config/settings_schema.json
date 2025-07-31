@@ -600,6 +600,7 @@
           }
         ],
         "default": "drawer",
+        "info": "t:settings_schema.cart.settings.cart_type.info",
         "label": "t:settings_schema.cart.settings.cart_type.label"
       },
       {
