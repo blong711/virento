@@ -1,3 +1,7 @@
+/*以下、jsファイル内の記述のためコピー不要******************************/
+
+//【infiniteslidev2.js】
+
 /*
    infiniteslide.js v2
    version: 2.0.1
