@@ -54,8 +54,12 @@
         "footer-1"
       ],
       "settings": {
-        "copyright_text": "<p>Copyright © 2025 by <strong>Vineta.</strong> All Rights Reserved.</p>",
-        "show_payment_methods": true
+        "heading_size": "large",
+        "heading_weight": "medium",
+        "text_size": "medium",
+        "payment_svg_list": "visa,paypal,master,american_express,diners_club",
+        "svg_height": 40,
+        "copyright_text": "<p>Copyright © 2025 by <strong>Vineta.</strong> All Rights Reserved.</p>"
       }
     }
   },
