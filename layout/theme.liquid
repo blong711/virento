@@ -38,11 +38,11 @@
     {{ content_for_header }}
 
     {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
-    {{ 'bootstrap-select.min.css' | asset_url | stylesheet_tag }}
+
     {{ 'animate.css' | asset_url | stylesheet_tag }}
     {{ 'drift-basic.min.css' | asset_url | stylesheet_tag }}
     {{ 'image-compare-viewer.min.css' | asset_url | stylesheet_tag }}
-    {{ 'jquery.fancybox.min.css' | asset_url | stylesheet_tag }}
+
     {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
     {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
     {{ 'style.css' | asset_url | stylesheet_tag }}
@@ -222,9 +222,9 @@
     </script>
 
     <!-- Core JS -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" async></script>
-    <script src="{{ 'bootstrap.min.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'bootstrap-select.min.js' | asset_url }}" defer="defer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer="defer"></script>
+
 
     <!-- UI Enhancement JS -->
     <script src="{{ 'nouislider.min.js' | asset_url }}" defer="defer"></script>
@@ -238,12 +238,12 @@
 
     <!-- Slider/Carousel JS -->
     <script src="{{'swiper-bundle.min.js' | asset_url}}" defer="defer"></script>
-    <script src="{{ 'infinityslide.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'carousel.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'infinityslide.vanilla.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'carousel.vanilla.js' | asset_url }}" defer="defer"></script>
 
     <!-- Custom Scripts -->
     <script src="{{ 'main.vanilla.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'shop.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'shop.vanilla.js' | asset_url }}" defer="defer"></script>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
