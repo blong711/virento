@@ -50,8 +50,8 @@
       ],
       "settings": {
         "width": "container",
-        "height": "fixed",
-        "height_fixed": 1000,
+        "height": "adapt",
+        "height_fixed": 500,
         "mobile_height": "adapt",
         "mobile_height_fixed": 300,
         "autoplay": true,
