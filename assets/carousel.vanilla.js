@@ -285,12 +285,57 @@ function initLightboxSlider() {
     });
 }
 
-// Initialize all carousel components when DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize all carousel components
+function initAllCarousels() {
     initSlideshow();
     initGenericSwipers();
     initSingleSlide();
     initTestimonialSlider();
     initThumbSlider();
     initLightboxSlider();
-});
+}
+
+// Initialize on DOM ready
+document.addEventListener('DOMContentLoaded', initAllCarousels);
+
+// Handle Shopify section events
+if (Shopify.designMode) {
+    document.addEventListener('shopify:section:load', (event) => {
+        // Check if the loaded section contains a slider
+        if (event.target.querySelector('.tf-sw-slideshow')) {
+            initSlideshow();
+        }
+        if (event.target.querySelector('.tf-swiper')) {
+            initGenericSwipers();
+        }
+        if (event.target.querySelector('.tf-single-slide')) {
+            initSingleSlide();
+        }
+        if (event.target.querySelector('.flat-thumbs-tes')) {
+            initTestimonialSlider();
+        }
+        if (event.target.querySelector('.slider-thumb-wrap')) {
+            initThumbSlider();
+        }
+        if (event.target.querySelector('.tf-sw-lb')) {
+            initLightboxSlider();
+        }
+    });
+
+    document.addEventListener('shopify:section:select', (event) => {
+        // Reinitialize sliders in the selected section
+        if (event.target.querySelector('.tf-sw-slideshow')) {
+            initSlideshow();
+        }
+    });
+
+    document.addEventListener('shopify:section:unload', (event) => {
+        // Destroy Swiper instances in the section being removed
+        if (event.target.querySelector('.tf-sw-slideshow')) {
+            const slider = event.target.querySelector('.tf-sw-slideshow');
+            if (slider.swiper) {
+                slider.swiper.destroy();
+            }
+        }
+    });
+}
