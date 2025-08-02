@@ -175,7 +175,12 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Slide Image"
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile Image"
         },
         {
           "type": "text",
@@ -274,17 +279,31 @@
                                 <div class="swiper-slide" {{ block.shopify_attributes }}>
                                     <div class="slider-wrap">
                                         <div class="image">
+                                            {% assign image_class = 'lazyload' %}
+                                            {% if section.settings.height == 'adapt' or section.settings.height == 'adapt-first' %}
+                                                {% assign image_class = image_class | append: ' w-100' %}
+                                            {% elsif section.settings.height == 'fill' or section.settings.height == 'fixed' %}
+                                                {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
+                                            {% endif %}
+
                                             {% if block.settings.image %}
-                                                {% assign image_class = 'lazyload' %}
-                                                {% if section.settings.height == 'adapt' or section.settings.height == 'adapt-first' %}
-                                                    {% assign image_class = image_class | append: ' w-100' %}
-                                                {% elsif section.settings.height == 'fill' or section.settings.height == 'fixed' %}
-                                                    {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
-                                                {% endif %}
-                                                
                                                 {{ block.settings.image | image_url: width: 1920 | image_tag: 
                                                     loading: 'lazy',
-                                                    class: image_class,
+                                                    class: image_class | append: ' d-none d-md-block',
+                                                    alt: block.settings.heading
+                                                }}
+                                            {% endif %}
+
+                                            {% if block.settings.image_mobile %}
+                                                {{ block.settings.image_mobile | image_url: width: 767 | image_tag: 
+                                                    loading: 'lazy',
+                                                    class: image_class | append: ' d-block d-md-none',
+                                                    alt: block.settings.heading
+                                                }}
+                                            {% elsif block.settings.image %}
+                                                {{ block.settings.image | image_url: width: 767 | image_tag: 
+                                                    loading: 'lazy',
+                                                    class: image_class | append: ' d-block d-md-none',
                                                     alt: block.settings.heading
                                                 }}
                                             {% endif %}
