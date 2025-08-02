@@ -3,6 +3,12 @@
   "name": "Main Slider",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
       "type": "select",
       "id": "width",
       "label": "Width",
@@ -81,15 +87,47 @@
       "info": "Only applies when mobile height is set to fixed"
     },
     {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Enable autoplay",
-      "default": true
+      "type": "header",
+      "content": "Slider Settings"
     },
     {
       "type": "checkbox",
       "id": "loop",
       "label": "Enable loop",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed in seconds",
+      "min": 0,
+      "max": 10,
+      "step": 0.5,
+      "default": 5,
+      "info": "Set to 0 to disable autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "draggable",
+      "label": "Enable drag on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show prev/next buttons",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show pagination dots on mobile",
       "default": true
     }
   ],
@@ -167,7 +205,7 @@
 }
 {% endstyle %}
 
-<section class="tf-slideshow slider-electric-access slider-default">
+<section class="tf-slideshow slider-electric-access slider-default color-{{ section.settings.color_scheme }} gradient">
     <div class="{{ section.settings.width }}">
         <div class="row">
             <div class="col-lg-12">
@@ -179,7 +217,11 @@
                     data-space="0" 
                     data-space-mb="0" 
                     data-loop="{{ section.settings.loop }}"
-                    data-auto-play="{{ section.settings.autoplay }}">
+                    {% assign autoplay_ms = section.settings.autoplay_speed | times: 1000 %}
+                    data-auto-play="{% if autoplay_ms > 0 %}true{% else %}false{% endif %}"
+                    data-delay="{{ autoplay_ms }}"
+                    data-simulate-touch="{{ section.settings.draggable }}"
+                    data-pause-on-hover="{{ section.settings.pause_on_hover }}">
                     <div class="swiper-wrapper">
                         {% for block in section.blocks %}
                             {% if block.type == 'slide' %}
@@ -232,11 +274,18 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-                    <div class="wrap-pagination">
-                        <div class="container">
-                            <div class="sw-dots style-dark sw-pagination-slider justify-content-center"></div>
+                    {% if section.settings.show_arrows %}
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    {% endif %}
+
+                    {% if section.settings.show_dots %}
+                        <div class="wrap-pagination">
+                            <div class="container">
+                                <div class="sw-dots style-dark sw-pagination-slider justify-content-center"></div>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
