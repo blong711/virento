@@ -49,14 +49,7 @@
     "header": {
       "type": "header",
       "settings": {
-        "logo_width": 100,
-        "menu": "main-menu",
-
-        "phone_number": "+1 123 456 789",
-        "show_search": true,
-        "show_categories_menu": true,
-        "enable_wishlist": true,
-        "show_mobile_menu": true
+        "menu": "main-menu"
       }
     }
   },
