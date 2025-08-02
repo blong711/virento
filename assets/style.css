@@ -2354,6 +2354,9 @@ a:focus, a:hover {
   display: flex;
   gap: 16px;
 }
+.header-default.header-style-2 .header-bottom .menu-item {
+  padding: 36px 0px;
+}
 .header-default .header-bottom .menu-item {
   padding: 22px 0px;
 }
