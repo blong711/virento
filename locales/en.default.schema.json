@@ -917,6 +917,7 @@
       }
     },
     "footer": {
+      "name": "Footer Group",
       "settings": {
         "heading_size": "Heading Size",
         "heading_size_small": "Small",
@@ -958,7 +959,7 @@
       }
     },
     "header": {
-      "name": "Header",
+      "name": "Header Group",
       "settings": {
         "logo_help": {
           "content": "Edit your logo in [theme settings](/editor?context=theme&category=logo)"
