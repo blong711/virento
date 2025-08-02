@@ -10,15 +10,18 @@ function initSlideshow() {
     const spacingMb = parseInt(tfSwSlideshow.dataset.spaceMb);
     const loop = tfSwSlideshow.dataset.loop === 'true';
     const play = tfSwSlideshow.dataset.autoPlay === 'true';
+    const delay = parseInt(tfSwSlideshow.dataset.delay) || 5000;
+    const pauseOnHover = tfSwSlideshow.dataset.pauseOnHover === 'true';
     const centered = tfSwSlideshow.dataset.centered === 'true';
     const effect = tfSwSlideshow.dataset.effect;
     const speed = tfSwSlideshow.dataset.speed ? parseInt(tfSwSlideshow.dataset.speed) : 1000;
+    const simulateTouch = tfSwSlideshow.dataset.simulateTouch === 'true';
 
     const swiperSlider = {
         autoplay: play ? {
-            delay: 5000,
+            delay: delay,
             disableOnInteraction: false,
-            pauseOnMouseEnter: true,
+            pauseOnMouseEnter: pauseOnHover,
         } : false,
         slidesPerView: mobile,
         loop: loop,
@@ -26,14 +29,15 @@ function initSlideshow() {
         speed: speed,
         observer: true,
         observeParents: true,
+        simulateTouch: simulateTouch,
         pagination: {
             el: ".sw-pagination-slider",
             clickable: true,
         },
         navigation: {
             clickable: true,
-            nextEl: ".navigation-next-slider",
-            prevEl: ".navigation-prev-slider",
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
         },
         centeredSlides: false,
         breakpoints: {
