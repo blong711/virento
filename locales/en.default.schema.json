@@ -3063,6 +3063,36 @@
         "name": "Slideshow"
       }
     },
+    "top_bar": {
+      "name": "Top Bar",
+      "settings": {
+        "padding_mobile_rate": {
+          "label": "Mobile Padding Rate",
+          "info": "Percentage of desktop padding to use on mobile devices"
+        }
+      },
+      "blocks": {
+        "social_icons": {
+          "name": "Social Icons"
+        },
+        "announcement": {
+          "name": "Announcement Messages",
+          "settings": {
+            "messages": {
+              "label": "Announcement Messages",
+              "default": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer",
+              "info": "Enter messages separated by commas"
+            }
+          }
+        },
+        "language_selector": {
+          "name": "Language Selector"
+        },
+        "currency_selector": {
+          "name": "Currency Selector"
+        }
+      }
+    },
     "collapsible_content": {
       "name": "Collapsible content",
       "settings": {

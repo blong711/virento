@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Top Bar",
+  "name": "t:sections.top_bar.name",
   "settings": [
     {
       "type": "color_scheme",
@@ -39,45 +39,45 @@
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "Mobile Padding Rate",
+      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
       "default": 75,
-      "info": "Percentage of desktop padding to use on mobile devices"
+      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
     }
   ],
   "blocks": [
     {
       "type": "social_icons",
-      "name": "Social Icons",
+      "name": "t:sections.top_bar.blocks.social_icons.name",
       "limit": 1
     },
     {
       "type": "announcement",
-      "name": "Announcement Messages",
+      "name": "t:sections.top_bar.blocks.announcement.name",
       "settings": [
         {
           "type": "textarea",
           "id": "messages",
-          "label": "Announcement Messages",
-          "default": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer",
-          "info": "Enter messages separated by commas"
+          "label": "t:sections.top_bar.blocks.announcement.settings.messages.label",
+          "default": "t:sections.top_bar.blocks.announcement.settings.messages.default",
+          "info": "t:sections.top_bar.blocks.announcement.settings.messages.info"
         }
       ],
       "limit": 1
     },
     {
       "type": "language_selector",
-      "name": "Language Selector",
+      "name": "t:sections.top_bar.blocks.language_selector.name",
       "limit": 1
     },
     {
       "type": "currency_selector",
-      "name": "Currency Selector",
+      "name": "t:sections.top_bar.blocks.currency_selector.name",
       "limit": 1
     }
   ],
   "presets": [
     {
-      "name": "Top Bar",
+      "name": "t:sections.top_bar.name",
       "blocks": [
         {
           "type": "social_icons"
