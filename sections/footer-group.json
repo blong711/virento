@@ -1,0 +1,56 @@
+{
+  "name": "Footer",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "contact_info": {
+          "type": "contact_info",
+          "settings": {
+            "contact_heading": "Business Contact",
+            "address": "123 Yarran st, Punchbowl, NSW 2196, Australia",
+            "phone": "(64) 8342 1245",
+            "email": "support@example.com",
+            "show_map_button": true,
+            "map_button_text": "See location"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "newsletter_heading": "Subscribe Newsletter",
+            "newsletter_text": "<p>We invite you to register to read the latest news, offers and events about our company. We promise not spam your inbox.</p>"
+          }
+        },
+        "footer-0": {
+          "type": "link_list",
+          "settings": {
+            "heading": "About Us",
+            "menu": "footer"
+          }
+        },
+        "footer-1": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Resource",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "contact_info",
+        "newsletter",
+        "footer-0",
+        "footer-1"
+      ],
+      "settings": {
+        "copyright_text": "<p>Copyright © 2025 by <strong>Vineta.</strong> All Rights Reserved.</p>",
+        "show_payment_methods": true
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}
