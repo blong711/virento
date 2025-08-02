@@ -1,11 +1,20 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "name": "Footer",
+  "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
     "footer": {
       "type": "footer",
       "blocks": {
-        "contact_info": {
+        "contact_info_iaUyRR": {
           "type": "contact_info",
           "settings": {
             "contact_heading": "Business Contact",
@@ -13,14 +22,14 @@
             "phone": "(64) 8342 1245",
             "email": "support@example.com",
             "show_map_button": true,
-            "map_button_text": "See location"
+            "map_button_text": "Get direction"
           }
         },
-        "newsletter": {
+        "newsletter_677nVh": {
           "type": "newsletter",
           "settings": {
             "newsletter_heading": "Subscribe Newsletter",
-            "newsletter_text": "<p>We invite you to register to read the latest news, offers and events about our company. We promise not spam your inbox.</p>"
+            "newsletter_text": "We invite you to register to read the latest news, offers and events about our company. We promise not spam your inbox."
           }
         },
         "footer-0": {
@@ -39,8 +48,8 @@
         }
       },
       "block_order": [
-        "contact_info",
-        "newsletter",
+        "contact_info_iaUyRR",
+        "newsletter_677nVh",
         "footer-0",
         "footer-1"
       ],
