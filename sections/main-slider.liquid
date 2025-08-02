@@ -3,6 +3,84 @@
   "name": "Main Slider",
   "settings": [
     {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "Full width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "adapt-first",
+          "label": "Adapt to first image"
+        },
+        {
+          "value": "fill",
+          "label": "Fill screen height"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed height"
+        }
+      ],
+      "default": "adapt"
+    },
+    {
+      "type": "range",
+      "id": "height_fixed",
+      "label": "Fixed height",
+      "min": 100,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 500,
+      "info": "Only applies when height is set to fixed"
+    },
+    {
+      "type": "select",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed height"
+        }
+      ],
+      "default": "adapt"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height_fixed",
+      "label": "Mobile fixed height",
+      "min": 100,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 300,
+      "info": "Only applies when mobile height is set to fixed"
+    },
+    {
       "type": "checkbox",
       "id": "autoplay",
       "label": "Enable autoplay",
@@ -71,8 +149,26 @@
 }
 {% endschema %}
 
-<section class="tf-slideshow slider-electric-access slider-default">
-    <div class="container">
+{% style %}
+.slider-height {
+  {% if section.settings.height == 'fixed' %}
+    height: {{ section.settings.height_fixed }}px;
+  {% elsif section.settings.height == 'fill' %}
+    height: 100vh;
+  {% endif %}
+}
+
+@media (max-width: 767px) {
+  .slider-height {
+    {% if section.settings.mobile_height == 'fixed' %}
+      height: {{ section.settings.mobile_height_fixed }}px;
+    {% endif %}
+  }
+}
+{% endstyle %}
+
+<section class="tf-slideshow slider-electric-access slider-default slider-height">
+    <div class="{{ section.settings.width }}">
         <div class="row">
             <div class="col-lg-12">
                 <div class="swiper tf-sw-slideshow slider-effect-fade" 
@@ -91,9 +187,16 @@
                                     <div class="slider-wrap">
                                         <div class="image">
                                             {% if block.settings.image %}
+                                                {% assign image_class = 'lazyload' %}
+                                                {% if section.settings.height == 'adapt' or section.settings.height == 'adapt-first' %}
+                                                    {% assign image_class = image_class | append: ' w-100' %}
+                                                {% elsif section.settings.height == 'fill' or section.settings.height == 'fixed' %}
+                                                    {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
+                                                {% endif %}
+                                                
                                                 {{ block.settings.image | image_url: width: 1920 | image_tag: 
                                                     loading: 'lazy',
-                                                    class: 'lazyload',
+                                                    class: image_class,
                                                     alt: block.settings.heading
                                                 }}
                                             {% endif %}
