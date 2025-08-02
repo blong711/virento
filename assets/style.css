@@ -3302,6 +3302,9 @@ header.header-bg {
 .footer-info .item a {
   color: #0d0d0d;
 }
+.footer-info .item a:hover {
+  color: var(--primary);
+}
 .footer-info .box-icon {
   width: 32px;
   height: 32px;
