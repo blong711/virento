@@ -194,15 +194,16 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="footer-bottom-wrap">
+                {%- assign current_year = "now" | date: "%Y" -%}
                 <p class="text-dark">
-                    {{ section.settings.copyright_text }}
+                    {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
                 </p>
                 {%- if section.settings.payment_svg_list != blank -%}
                     <ul class="tf-payment">
                         {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
                         {%- for url in svg_urls -%}
                             <li class="item">
-                                <img src="{{ url | payment_type_img_url }}" alt="Payment Method" width="auto" height="{{ section.settings.svg_height }}" loading="lazy">
+                                <img src="{{ url | payment_type_img_url }}" alt="Payment Method" width="{{ section.settings.svg_height }}" height="{{ section.settings.svg_height }}" loading="lazy">
                             </li>
                         {%- endfor -%}
                     </ul>
@@ -289,7 +290,11 @@
         "type": "text",
         "id": "payment_svg_list",
         "label": "Payment SVG List",
-        "info": "Add payment type URLs separated by commas"
+        "info": "Enter payment types separated by commas (e.g., visa,master,paypal). Leave blank to show all enabled payment types.",
+      },
+      {
+      "type": "paragraph",
+      "content": "Review the [list of available values](https://github.com/activemerchant/payment_icons/tree/master/app/assets/images/payment_icons) and copy the name of each icon that you need from that list, without the .svg extension."
       },
       {
         "type": "range",
@@ -299,7 +304,7 @@
         "step": 5,
         "unit": "px",
         "label": "SVG Height",
-        "default": 35
+        "default": 40
       },
     {
       "type": "header",

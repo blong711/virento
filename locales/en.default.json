@@ -335,7 +335,8 @@
       }
     },
     "footer": {
-      "payment": "Payment methods"
+      "payment": "Payment methods",
+      "copyright_html": "Copyright © {{ year }} by <span class=\"fw-medium\">Vineta</span>. All Rights Reserved."
     },
     "featured_blog": {
       "view_all": "View all",
