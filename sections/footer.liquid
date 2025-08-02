@@ -202,7 +202,7 @@
                         {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
                         {%- for url in svg_urls -%}
                             <li class="item">
-                                <img src="{{ url | strip | asset_url }}" alt="Payment Method" width="auto" height="{{ section.settings.svg_height }}" loading="lazy">
+                                <img src="{{ url | payment_type_img_url }}" alt="Payment Method" width="auto" height="{{ section.settings.svg_height }}" loading="lazy">
                             </li>
                         {%- endfor -%}
                     </ul>
