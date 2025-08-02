@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Header",
+  "name": "t:sections.header.name",
   "settings": [
     {
       "type": "color_scheme",
@@ -11,58 +11,58 @@
     {
       "type": "link_list",
       "id": "menu",
-      "label": "Main Menu",
-      "default": "main-menu"
+      "label": "t:sections.header.settings.menu.label",
+      "default": "t:sections.header.settings.menu.default"
     },
     {
       "type": "header",
-      "content": "Utility Settings"
+      "content": "t:sections.header.settings.utility_settings.content"
     },
     {
       "type": "checkbox",
       "id": "show_search",
-      "label": "Enable Search",
+      "label": "t:sections.header.settings.show_search.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_login",
-      "label": "Enable Login",
+      "label": "t:sections.header.settings.show_login.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_wishlist",
-      "label": "Enable Wishlist",
+      "label": "t:sections.header.settings.show_wishlist.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_cart",
-      "label": "Enable Cart",
+      "label": "t:sections.header.settings.show_cart.label",
       "default": true
     },
     {
       "type": "header",
-      "content": "Categories Menu"
+      "content": "t:sections.header.settings.categories_menu.content"
     },
     {
       "type": "checkbox",
       "id": "show_categories_menu",
-      "label": "Show categories menu",
+      "label": "t:sections.header.settings.show_categories_menu.label",
       "default": true
     },
     {
       "type": "collection_list",
       "id": "selected_collections",
-      "label": "Select Collections to Show",
+      "label": "t:sections.header.settings.selected_collections.label",
       "limit": 20
     }
   ],
   "presets": [
     {
-      "name": "Header",
-      "category": "Header"
+      "name": "t:sections.header.presets.name",
+      "category": "t:sections.header.presets.category"
     }
   ]
 }
@@ -103,7 +103,7 @@
                         </form>
                         {% if search.performed %}
                         <div class="search-suggests-results">
-                            <div class="search-suggests-results-inner">
+                            <div class="search-suggests-results-inner"></div>
                                 <ul>
                                     {% for product in search.results limit: 3 %}
                                     <li>
@@ -179,7 +179,7 @@
                 <div class="inner-left">
                     {% if section.settings.show_categories_menu %}
                     <div class="tf-mega-categories">
-                        <a href="/collections" class="categories-title">
+                        <a href="{{ routes.collections_url }}" class="categories-title">
                             <i class="icon icon-categories"></i>
                             {{ 'layout.navigation.browse_categories' | t }}
                         </a>
@@ -234,7 +234,7 @@
                                 </li>
                             {% endfor %}
                             <li class="menu-item">
-                                <a href="{{ shop.url }}" class="item-link">Shop All</a>
+                                <a href="{{ shop.url }}" class="item-link">{{ 'sections.header.shop_all' | t }}</a>
                             </li>
                         </ul>
                     </nav>

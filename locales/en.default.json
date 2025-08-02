@@ -295,6 +295,7 @@
     },
 
     "header": {
+      "shop_all": "Shop All",
       "announcement": "Announcement",
       "menu": "Menu",
       "cart_count": {

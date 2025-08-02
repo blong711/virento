@@ -959,6 +959,44 @@
       }
     },
     "header": {
+      "name": "Header",
+      "settings": {
+        "shop_all": "Shop All",
+        "menu": {
+          "label": "Main Menu",
+          "default": "main-menu"
+        },
+        "utility_settings": {
+          "content": "Utility Settings"
+        },
+        "show_search": {
+          "label": "Enable Search"
+        },
+        "show_login": {
+          "label": "Enable Login"
+        },
+        "show_wishlist": {
+          "label": "Enable Wishlist"
+        },
+        "show_cart": {
+          "label": "Enable Cart"
+        },
+        "categories_menu": {
+          "content": "Categories Menu"
+        },
+        "show_categories_menu": {
+          "label": "Show categories menu"
+        },
+        "selected_collections": {
+          "label": "Select Collections to Show"
+        }
+      },
+      "presets": {
+        "name": "Header",
+        "category": "Header"
+      }
+    },
+    "header_group": {
       "name": "Header Group",
       "settings": {
         "logo_help": {
