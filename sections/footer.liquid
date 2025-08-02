@@ -58,7 +58,7 @@
                         {%- when 'contact_info' -%}
                             <div class="footer-col-block s1" {{ block.shopify_attributes }}>
                                 <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                                    {{ block.settings.contact_heading | escape }}
+                                    {{ block.settings.contact_heading | escape | default: 'sections.footer.blocks.contact_info.contact_heading' | t }}
                                 </div>
                                 <div class="tf-collapse-content">
                                     <div class="footer-contact">
@@ -112,7 +112,7 @@
                         {%- when 'newsletter' -%}
                             <div class="footer-inner-wrap footer-col-block s2" {{ block.shopify_attributes }}>
                                 <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                                    {{ block.settings.newsletter_heading | escape }}
+                                    {{ block.settings.newsletter_heading | escape | default: 'sections.footer.blocks.newsletter.newsletter_heading' | t }}
                                 </div>
                                 <div class="tf-collapse-content">
                                     <div class="footer-newsletter">
@@ -170,7 +170,7 @@
                             <div class="footer-col-block inner-col" {{ block.shopify_attributes }}>
                                 {%- if block.settings.heading != blank -%}
                                     <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                                        {{ block.settings.heading | escape }}
+                                        {{ block.settings.heading | escape | default: 'sections.footer.blocks.menu.heading' | t }}
                                     </div>
                                 {%- endif -%}
                                 {%- if block.settings.menu != blank -%}
@@ -221,19 +221,19 @@
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Heading Size",
+      "label": "t:sections.footer.settings.heading_size",
       "options": [
         {
           "value": "small",
-          "label": "Small"
+          "label": "t:sections.footer.settings.heading_size_small"
         },
         {
           "value": "medium",
-          "label": "Medium"
+          "label": "t:sections.footer.settings.heading_size_medium"
         },
         {
           "value": "large",
-          "label": "Large"
+          "label": "t:sections.footer.settings.heading_size_large"
         }
       ],
       "default": "large"
@@ -241,23 +241,23 @@
     {
       "type": "select",
       "id": "heading_weight",
-      "label": "Heading Font Weight",
+      "label": "t:sections.footer.settings.heading_weight",
       "options": [
         {
           "value": "normal",
-          "label": "Normal"
+          "label": "t:sections.footer.settings.heading_weight_normal"
         },
         {
           "value": "medium",
-          "label": "Medium"
+          "label": "t:sections.footer.settings.heading_weight_medium"
         },
         {
           "value": "bold",
-          "label": "Bold"
+          "label": "t:sections.footer.settings.heading_weight_bold"
         },
         {
           "value": "extrabold",
-          "label": "Extra Bold"
+          "label": "t:sections.footer.settings.heading_weight_extrabold"
         }
       ],
       "default": "medium"
@@ -265,19 +265,19 @@
           {
         "type": "select",
         "id": "text_size",
-        "label": "Text Size",
+        "label": "t:sections.footer.settings.text_size",
         "options": [
           {
             "value": "small",
-            "label": "Small"
+            "label": "t:sections.footer.settings.text_size_small"
           },
           {
             "value": "medium",
-            "label": "Medium"
+            "label": "t:sections.footer.settings.text_size_medium"
           },
           {
             "value": "large",
-            "label": "Large"
+            "label": "t:sections.footer.settings.text_size_large"
           }
         ],
         "default": "medium"
@@ -285,8 +285,8 @@
       {
         "type": "text",
         "id": "payment_svg_list",
-        "label": "Payment SVG List",
-        "info": "Enter payment types separated by commas (e.g., visa,master,paypal). Leave blank to show all enabled payment types.",
+        "label": "t:sections.footer.settings.payment_svg_list",
+        "info": "t:sections.footer.settings.payment_svg_list_info",
       },
       {
       "type": "paragraph",
@@ -299,89 +299,89 @@
         "max": 100,
         "step": 5,
         "unit": "px",
-        "label": "SVG Height",
+        "label": "t:sections.footer.settings.svg_height",
         "default": 40
       },
     {
       "type": "header",
-      "content": "Footer Bottom"
+      "content": "t:sections.footer.settings.footer_bottom"
     }
   ],
   "blocks": [
     {
       "type": "contact_info",
-      "name": "Contact Information",
+      "name": "t:sections.footer.blocks.contact_info.title",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "contact_heading",
-          "label": "Contact Heading",
-          "default": "Business Contact"
+          "label": "t:sections.footer.blocks.contact_info.contact_heading",
+          "default": "t:sections.footer.blocks.contact_info.contact_heading"
         },
         {
           "type": "text",
           "id": "address",
-          "label": "Address"
+          "label": "t:sections.footer.blocks.contact_info.address_label"
         },
         {
           "type": "text",
           "id": "phone",
-          "label": "Phone Number"
+          "label": "t:sections.footer.blocks.contact_info.phone_label"
         },
         {
           "type": "text",
           "id": "email",
-          "label": "Email Address"
+          "label": "t:sections.footer.blocks.contact_info.email_label"
         },
         {
           "type": "checkbox",
           "id": "show_map_button",
           "default": true,
-          "label": "Show map button"
+          "label": "t:sections.footer.blocks.contact_info.show_map_button"
         },
         {
           "type": "text",
           "id": "map_button_text",
-          "label": "Map Button Text",
-          "default": "Get direction"
+          "label": "t:sections.footer.blocks.contact_info.map_button_text",
+          "default": "t:sections.footer.blocks.contact_info.map_button_text"
         }
       ]
     },
     {
       "type": "newsletter",
-      "name": "Newsletter",
+      "name": "t:sections.footer.blocks.newsletter.title",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "newsletter_heading",
-          "label": "Newsletter Heading",
-          "default": "Subscribe Newsletter"
+          "label": "t:sections.footer.blocks.newsletter.newsletter_heading",
+          "default": "t:sections.footer.blocks.newsletter.newsletter_heading"
         },
         {
           "type": "text",
           "id": "newsletter_text",
-          "label": "Newsletter Text",
-          "default": "We invite you to register to read the latest news, offers and events about our company. We promise not spam your inbox."
+          "label": "t:sections.footer.blocks.newsletter.newsletter_text",
+          "default": "t:sections.footer.blocks.newsletter.newsletter_text"
         }
       ]
     },
     {
       "type": "link_list",
-      "name": "Menu",
+      "name": "t:sections.footer.blocks.menu.title",
       "settings": [
         {
           "type": "text",
           "id": "heading",
-          "default": "Quick links",
-          "label": "Heading"
+          "default": "t:sections.footer.blocks.menu.heading",
+          "label": "t:sections.footer.blocks.menu.heading"
         },
         {
           "type": "link_list",
           "id": "menu",
           "default": "footer",
-          "label": "Menu"
+          "label": "t:sections.footer.blocks.menu.title"
         }
       ]
     }
@@ -395,26 +395,26 @@
       {
         "type": "contact_info",
         "settings": {
-          "contact_heading": "Business Contact"
+          "contact_heading": "t:sections.footer.blocks.contact_info.contact_heading"
         }
       },
       {
         "type": "newsletter",
         "settings": {
-          "newsletter_heading": "Subscribe Newsletter"
+          "newsletter_heading": "t:sections.footer.blocks.newsletter.newsletter_heading"
         }
       },
       {
         "type": "link_list",
         "settings": {
-          "heading": "About Us",
+          "heading": "t:sections.footer.blocks.menu.heading",
           "menu": "footer"
         }
       },
       {
         "type": "link_list",
         "settings": {
-          "heading": "Resource",
+          "heading": "t:sections.footer.blocks.menu.heading",
           "menu": "footer"
         }
       }
