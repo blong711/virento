@@ -1,0 +1,239 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* Fix horizontal layout - content chiếm 45% */
+  .flat-title-2.section-{{ section.id }} {
+    display: flex !important;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+
+  .flat-title-2.section-{{ section.id }} .box-title {
+    display: block !important;
+    flex: 0 0 auto;
+    width: 55%;
+    max-width: 55%;
+  }
+
+  .flat-title-2.section-{{ section.id }} .box-text {
+    flex: 0 0 auto;
+    width: 45%;
+    max-width: 45%;
+  }
+
+  @media screen and (max-width: 1199px) {
+    .flat-title-2.section-{{ section.id }} {
+      flex-direction: column !important;
+      gap: 1.5rem;
+    }
+
+    .flat-title-2.section-{{ section.id }} .box-title,
+    .flat-title-2.section-{{ section.id }} .box-text {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% endif %}">
+    <div class="flat-title-2 section-{{ section.id }} d-xl-flex justify-content-xl-between">
+      <div class="box-title">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'heading' -%}
+              {%- if block.settings.text != blank -%}
+                {%- if block.settings.size == 'small' -%}
+                  <p class="display-xs fw-medium" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- elsif block.settings.size == 'medium' -%}
+                  <p class="display-lg-2 fw-medium" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- elsif block.settings.size == 'large' -%}
+                  <p class="display-lg-3 fw-medium" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- else -%}
+                  <p class="display-lg-2 fw-medium" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- endif -%}
+              {%- endif -%}
+            {%- when 'subheading' -%}
+              {%- if block.settings.text != blank -%}
+                {%- if block.settings.size == 'small' -%}
+                  <p class="text-md" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- elsif block.settings.size == 'medium' -%}
+                  <p class="text-lg" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- elsif block.settings.size == 'large' -%}
+                  <p class="text-xl" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- else -%}
+                  <p class="text-xl" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- endif -%}
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      <div class="box-text">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'content' -%}
+              {%- if block.settings.text != blank -%}
+                {%- if block.settings.size == 'small' -%}
+                  <p class="text-sm" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- elsif block.settings.size == 'medium' -%}
+                  <p class="text-md" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- elsif block.settings.size == 'large' -%}
+                  <p class="text-lg" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- else -%}
+                  <p class="text-md" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                {%- endif -%}
+              {%- endif -%}
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Heading with text",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.heading-horizontal-about-us.settings.width.label",
+      "options": [
+        { "value": "full", "label": "t:sections.heading-horizontal-about-us.settings.width.options.full" },
+        { "value": "boxed", "label": "t:sections.heading-horizontal-about-us.settings.width.options.boxed" }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.heading-horizontal-about-us.settings.padding_top.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.heading-horizontal-about-us.settings.padding_bottom.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.heading-horizontal-about-us.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.heading-horizontal-about-us.settings.padding_mobile_rate.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.heading-horizontal-about-us.blocks.heading.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.heading-horizontal-about-us.blocks.heading.settings.text.label",
+          "default": "t:sections.heading-horizontal-about-us.blocks.heading.settings.text.default"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "t:sections.heading-horizontal-about-us.blocks.heading.settings.size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "medium"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "t:sections.heading-horizontal-about-us.blocks.subheading.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.heading-horizontal-about-us.blocks.subheading.settings.text.label",
+          "default": "t:sections.heading-horizontal-about-us.blocks.subheading.settings.text.default"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "t:sections.heading-horizontal-about-us.blocks.subheading.settings.size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "small"
+        }
+      ]
+    },
+    {
+      "type": "content",
+      "name": "t:sections.heading-horizontal-about-us.blocks.content.name",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "t:sections.heading-horizontal-about-us.blocks.content.settings.text.label",
+          "default": "t:sections.heading-horizontal-about-us.blocks.content.settings.text.default"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "t:sections.heading-horizontal-about-us.blocks.content.settings.size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "medium"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "t:sections.heading-horizontal-about-us.presets.default.name",
+      "category": "t:sections.heading-horizontal-about-us.presets.default.category",
+      "blocks": [{ "type": "heading" }, { "type": "subheading" }, { "type": "content" }]
+    }
+  ]
+}
+{% endschema %}

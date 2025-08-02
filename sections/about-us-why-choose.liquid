@@ -1,0 +1,232 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .section-{{ section.id }}-spacing {
+    margin-top: {{ section.settings.spacing_heading_content }}px;
+  }
+
+  /* Fix color scheme inheritance for all text elements */
+  .color-{{ section.settings.color_scheme }} .flat-title-2 h2,
+  .color-{{ section.settings.color_scheme }} .flat-title-2 p,
+  .color-{{ section.settings.color_scheme }} .list-esd h6,
+  .color-{{ section.settings.color_scheme }} .list-esd p {
+    color: rgba(var(--color-foreground), 0.9) !important;
+  }
+
+  .color-{{ section.settings.color_scheme }} .flat-title-2 .text-main {
+    color: rgba(var(--color-foreground), 0.75) !important;
+  }
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% endif %}">
+    <div class="flat-title-2 text-center">
+      {%- if section.settings.heading != blank -%}
+        {%- if section.settings.heading_size == 'small' -%}
+          <h2 class="display-md-2 fw-medium">{{ section.settings.heading }}</h2>
+        {%- elsif section.settings.heading_size == 'medium' -%}
+          <h2 class="display-lg-2 fw-medium">{{ section.settings.heading }}</h2>
+        {%- elsif section.settings.heading_size == 'large' -%}
+          <h2 class="display-lg-3 fw-medium">{{ section.settings.heading }}</h2>
+        {%- else -%}
+          <h2 class="display-md-2 fw-medium">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        {%- if section.settings.subheading_size == 'small' -%}
+          <p class="text-sm text-main">{{ section.settings.subheading }}</p>
+        {%- elsif section.settings.subheading_size == 'medium' -%}
+          <p class="text-md text-main">{{ section.settings.subheading }}</p>
+        {%- elsif section.settings.subheading_size == 'large' -%}
+          <p class="text-lg text-main">{{ section.settings.subheading }}</p>
+        {%- else -%}
+          <p class="text-md text-main">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    <div class="row section-{{ section.id }}-spacing">
+      <div class="col-xl-7 col-md-6">
+        <ul class="list-esd d-md-flex flex-md-column justify-content-md-center h-100">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'content_item' -%}
+              <li class="item" {{ block.shopify_attributes }}>
+                {%- if block.settings.title != blank -%}
+                  <h6>{{ block.settings.title }}</h6>
+                {%- endif -%}
+                {%- if block.settings.content != blank -%}
+                  <p class="text-md">{{ block.settings.content }}</p>
+                {%- endif -%}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+      <div class="col-xl-5 col-md-6">
+        <div class="image radius-16 overflow-hidden w-100 h-100">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 800 }}"
+              width="{{ section.settings.image.width | default: 800 }}"
+              height="{{ section.settings.image.height | default: 600 }}"
+              loading="lazy"
+              alt="{{ section.settings.image.alt | escape }}"
+              class="lazyload w-100 h-100 object-fit-cover"
+            >
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Image with text",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.image-with-text-about.settings.width.label",
+      "options": [
+        { "value": "full", "label": "t:sections.common.width.full" },
+        { "value": "boxed", "label": "t:sections.common.width.boxed" }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "t:sections.image-with-text-about.settings.heading.label",
+      "default": "t:sections.image-with-text-about.settings.heading.default"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "t:sections.image-with-text-about.settings.subheading.label",
+      "default": "t:sections.image-with-text-about.settings.subheading.default"
+    },
+    {
+      "type": "header",
+      "content": "Heading settings"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.image-with-text-about.settings.heading_size.label",
+      "options": [
+        { "value": "small", "label": "t:sections.common.size.small" },
+        { "value": "medium", "label": "t:sections.common.size.medium" },
+        { "value": "large", "label": "t:sections.common.size.large" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "select",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "options": [
+        { "value": "small", "label": "t:sections.common.size.small" },
+        { "value": "medium", "label": "t:sections.common.size.medium" },
+        { "value": "large", "label": "t:sections.common.size.large" }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "range",
+      "id": "spacing_heading_content",
+      "label": "t:sections.image-with-text-about.settings.spacing_heading_content.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.image-with-text-about.settings.image.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.image-with-text-about.settings.padding_top.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.image-with-text-about.settings.padding_bottom.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.image-with-text-about.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.image-with-text-about.settings.padding_mobile_rate.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content_item",
+      "name": "t:sections.image-with-text-about.blocks.content_item.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.image-with-text-about.blocks.content_item.settings.title.label",
+          "default": "t:sections.image-with-text-about.blocks.content_item.settings.title.default"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "t:sections.image-with-text-about.blocks.content_item.settings.content.label",
+          "default": "t:sections.image-with-text-about.blocks.content_item.settings.content.default"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "t:sections.image-with-text-about.presets.default.name",
+      "category": "t:sections.image-with-text-about.presets.default.category",
+      "blocks": [{ "type": "content_item" }, { "type": "content_item" }]
+    }
+  ]
+}
+{% endschema %}

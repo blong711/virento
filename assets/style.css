@@ -15374,6 +15374,10 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   overflow: hidden;
 }
 
+.box-testimonial-quote .icon-star {
+  font-size: 20px;
+}
+
 .mega-categories {
   background-color: var(--white);
   text-align: left;
