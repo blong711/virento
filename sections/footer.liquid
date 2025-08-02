@@ -57,12 +57,12 @@
                     {%- case block.type -%}
                         {%- when 'contact_info' -%}
                             <div class="footer-col-block s1" {{ block.shopify_attributes }}>
-                                <div class="footer-heading footer-heading-mobile text-xl fw-medium">
+                                <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
                                     {{ block.settings.contact_heading | escape }}
                                 </div>
                                 <div class="tf-collapse-content">
                                     <div class="footer-contact">
-                                        <ul class="footer-info">
+                                        <ul class="footer-info {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
                                             {%- if block.settings.address != blank -%}
                                                 <li class="item">
                                                     <span class="box-icon">
@@ -111,13 +111,15 @@
                             </div>
                         {%- when 'newsletter' -%}
                             <div class="footer-inner-wrap footer-col-block s2" {{ block.shopify_attributes }}>
-                                <div class="footer-heading footer-heading-mobile text-xl fw-medium">
+                                <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
                                     {{ block.settings.newsletter_heading | escape }}
                                 </div>
                                 <div class="tf-collapse-content">
                                     <div class="footer-newsletter">
                                         {%- if block.settings.newsletter_text != blank -%}
-                                            {{ block.settings.newsletter_text }}
+                                            <div class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                                                {{ block.settings.newsletter_text }}
+                                            </div>
                                         {%- endif -%}
                                         {%- form 'customer', id: 'ContactFooter', class: 'form-newsletter' -%}
                                             <input type="hidden" name="contact[tags]" value="newsletter">
@@ -167,13 +169,13 @@
                         {%- if block.type == 'link_list' -%}
                             <div class="footer-col-block inner-col" {{ block.shopify_attributes }}>
                                 {%- if block.settings.heading != blank -%}
-                                    <div class="footer-heading footer-heading-mobile text-xl fw-medium">
+                                    <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
                                         {{ block.settings.heading | escape }}
                                     </div>
                                 {%- endif -%}
                                 {%- if block.settings.menu != blank -%}
                                     <div class="tf-collapse-content">
-                                        <ul class="footer-menu-list">
+                                        <ul class="footer-menu-list {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
                                             {%- for link in block.settings.menu.links -%}
                                                 <li>
                                                     <a href="{{ link.url }}">{{ link.title }}</a>
@@ -195,11 +197,12 @@
                 <p class="text-dark">
                     {{ section.settings.copyright_text }}
                 </p>
-                {%- if section.settings.show_payment_methods -%}
+                {%- if section.settings.payment_svg_list != blank -%}
                     <ul class="tf-payment">
-                        {%- for type in shop.enabled_payment_types -%}
+                        {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
+                        {%- for url in svg_urls -%}
                             <li class="item">
-                                {{ type | payment_type_svg_tag: class: 'icon' }}
+                                <img src="{{ url | strip | asset_url }}" alt="Payment Method" width="auto" height="{{ section.settings.svg_height }}" loading="lazy">
                             </li>
                         {%- endfor -%}
                     </ul>
@@ -216,6 +219,90 @@
   "settings": [
     {
       "type": "header",
+      "content": "Main Settings"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "large"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "bold",
+          "label": "Bold"
+        },
+        {
+          "value": "extrabold",
+          "label": "Extra Bold"
+        }
+      ],
+      "default": "medium"
+    },
+          {
+        "type": "select",
+        "id": "text_size",
+        "label": "Text Size",
+        "options": [
+          {
+            "value": "small",
+            "label": "Small"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "large",
+            "label": "Large"
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "text",
+        "id": "payment_svg_list",
+        "label": "Payment SVG List",
+        "info": "Add payment type URLs separated by commas"
+      },
+      {
+        "type": "range",
+        "id": "svg_height",
+        "min": 20,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "SVG Height",
+        "default": 35
+      },
+    {
+      "type": "header",
       "content": "Footer Bottom"
     },
     {
@@ -223,13 +310,8 @@
       "id": "copyright_text",
       "label": "Copyright Text",
       "default": "<p>Copyright © 2025 by <strong>Vineta.</strong> All Rights Reserved.</p>"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_payment_methods",
-      "default": true,
-      "label": "Show payment methods"
     }
+
   ],
   "blocks": [
     {
@@ -312,7 +394,8 @@
   ],
   "default": {
     "settings": {
-      "show_payment_methods": true
+      "svg_height": 35,
+      "payment_svg_list": ""
     },
     "blocks": [
       {
