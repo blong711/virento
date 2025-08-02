@@ -176,38 +176,28 @@ const selectImages = () => {
     }
   }
 
-  // Function to initialize or reinitialize custom select
-  const initializeSelect = (select) => {
-    // Remove existing custom select if any
-    const nextSibling = select.nextElementSibling;
-    if (nextSibling && nextSibling.classList.contains('custom-select-container')) {
-      nextSibling.remove();
-    }
-    new CustomSelect(select);
-  };
-
   // Initialize custom select for each image-select element
-  imageSelects.forEach(initializeSelect);
+  imageSelects.forEach(select => {
+    if (!select.customSelectInitialized) {
+      new CustomSelect(select);
+      select.customSelectInitialized = true;
+    }
+  });
 
   // Watch for changes to reinitialize
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      if (mutation.type === 'childList' || mutation.type === 'attributes') {
-        const select = mutation.target.closest('.image-select');
-        if (select) {
-          initializeSelect(select);
-        }
+  const observer = new MutationObserver(() => {
+    const newSelects = document.querySelectorAll('.image-select');
+    newSelects.forEach(select => {
+      if (!select.customSelectInitialized) {
+        new CustomSelect(select);
+        select.customSelectInitialized = true;
       }
     });
   });
 
-  // Observe each select for changes
-  imageSelects.forEach(select => {
-    observer.observe(select, {
-      attributes: true,
-      childList: true,
-      subtree: true
-    });
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
   });
 };
 
