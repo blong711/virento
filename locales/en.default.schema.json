@@ -917,86 +917,43 @@
       }
     },
     "footer": {
-      "name": "Footer",
-      "blocks": {
-        "link_list": {
-          "name": "Menu",
-          "settings": {
-            "heading": {
-              "label": "Heading",
-              "default": "Quick links"
-            },
-            "menu": {
-              "label": "Menu"
-            }
-          }
-        },
-        "brand_information": {
-          "name": "Brand information",
-          "settings": {
-            "paragraph": {
-              "content": "Manage brand info in [theme settings](/editor?context=theme&category=brand%20information)"
-            },
-            "show_social": {
-              "label": "Social media icons",
-              "info": "[Manage social accounts](/editor?context=theme&category=social%20media)"
-            }
-          }
-        },
-        "text": {
-          "name": "Text",
-          "settings": {
-            "heading": {
-              "label": "Heading",
-              "default": "Heading"
-            },
-            "subtext": {
-              "label": "Subtext",
-              "default": "<p>Share contact information, store details, and brand content with your customers.</p>"
-            }
-          }
-        }
-      },
       "settings": {
-        "newsletter_enable": {
-          "label": "Email signup"
+        "heading_size": "Heading Size",
+        "heading_size_small": "Small",
+        "heading_size_medium": "Medium",
+        "heading_size_large": "Large",
+        "heading_weight": "Heading Font Weight",
+        "heading_weight_normal": "Normal",
+        "heading_weight_medium": "Medium",
+        "heading_weight_bold": "Bold",
+        "heading_weight_extrabold": "Extra Bold",
+        "text_size": "Text Size",
+        "text_size_small": "Small",
+        "text_size_medium": "Medium",
+        "text_size_large": "Large",
+        "payment_svg_list": "Payment SVG List",
+        "payment_svg_list_info": "Enter payment types separated by commas (e.g., visa,master,paypal). Leave blank to show all enabled payment types.",
+        "svg_height": "SVG Height",
+        "footer_bottom": "Footer Bottom"
+      },
+      "blocks": {
+        "contact_info": {
+          "title": "Contact Information",
+          "contact_heading": "Business Contact",
+          "address_label": "Address",
+          "phone_label": "Phone Number",
+          "email_label": "Email Address",
+          "show_map_button": "Show map button",
+          "map_button_text": "Get direction"
         },
-        "newsletter_heading": {
-          "label": "Heading",
-          "default": "Subscribe to our emails"
+        "newsletter": {
+          "title": "Newsletter",
+          "newsletter_heading": "Subscribe Newsletter",
+          "newsletter_text": "We invite you to register to read the latest news, offers and events about our company. We promise not spam your inbox."
         },
-        "header__1": {
-          "content": "Email signup",
-          "info": "Signups add [customer profiles](https://help.shopify.com/manual/customers/manage-customers)"
-        },
-        "show_social": {
-          "label": "Social media icons",
-          "info": "[Manage social accounts](/editor?context=theme&category=social%20media)"
-        },
-        "enable_country_selector": {
-          "label": "Country/region selector",
-          "info": "[Manage countries/regions](/admin/settings/markets)"
-        },
-        "enable_language_selector": {
-          "label": "Language selector",
-          "info": "[Manage languages](/admin/settings/languages)"
-        },
-        "payment_enable": {
-          "label": "Payment method icons"
-        },
-        "show_policy": {
-          "label": "Policy links",
-          "info": "[Manage policies](/admin/settings/legal)"
-        },
-        "margin_top": {
-          "label": "Top margin"
-        },
-        "header__9": {
-          "content": "Utilities"
-        },
-        "enable_follow_on_shop": {
-          "label": "Follow on Shop",
-          "info": "Shop Pay must be enabled. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/follow-on-shop)"
+        "menu": {
+          "title": "Menu",
+          "heading": "Quick links"
         }
       }
     },

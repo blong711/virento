@@ -58,7 +58,7 @@
                         {%- when 'contact_info' -%}
                             <div class="footer-col-block s1" {{ block.shopify_attributes }}>
                                 <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                                    {{ block.settings.contact_heading | escape | default: 'sections.footer.blocks.contact_info.contact_heading' | t }}
+                                    {{ block.settings.contact_heading | escape }}
                                 </div>
                                 <div class="tf-collapse-content">
                                     <div class="footer-contact">
@@ -112,7 +112,7 @@
                         {%- when 'newsletter' -%}
                             <div class="footer-inner-wrap footer-col-block s2" {{ block.shopify_attributes }}>
                                 <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                                    {{ block.settings.newsletter_heading | escape | default: 'sections.footer.blocks.newsletter.newsletter_heading' | t }}
+                                    {{ block.settings.newsletter_heading | escape }}
                                 </div>
                                 <div class="tf-collapse-content">
                                     <div class="footer-newsletter">
@@ -170,7 +170,7 @@
                             <div class="footer-col-block inner-col" {{ block.shopify_attributes }}>
                                 {%- if block.settings.heading != blank -%}
                                     <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                                        {{ block.settings.heading | escape | default: 'sections.footer.blocks.menu.heading' | t }}
+                                        {{ block.settings.heading | escape }}
                                     </div>
                                 {%- endif -%}
                                 {%- if block.settings.menu != blank -%}
