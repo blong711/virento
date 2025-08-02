@@ -1,5 +1,13 @@
 {
+  "layout": {
+    "navigation": {
+      "browse_categories": "Browse Categories"
+    }
+  },
   "general": {
+    "wishlist": {
+      "title": "Wishlist"
+    },
     "password_page": {
       "login_form_heading": "Enter store using password:",
       "login_password_button": "Enter using password",
@@ -37,9 +45,11 @@
     },
     "search": {
       "search": "Search",
-      "reset": "Clear search term"
+      "reset": "Clear search term",
+      "placeholder": "Search product"
     },
     "cart": {
+      "title": "Cart",
       "view": "View cart ({{ count }})",
       "view_empty_cart": "View cart",
       "item_added": "Item added to your cart"
@@ -386,6 +396,9 @@
     "country_results_count": "{{ count }} countries/regions found"
   },
   "customer": {
+    "login": {
+      "title": "Login"
+    },
     "account": {
       "title": "Account",
       "details": "Account details",

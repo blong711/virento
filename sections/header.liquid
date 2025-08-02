@@ -1,0 +1,248 @@
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Utility Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Enable Search",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_login",
+      "label": "Enable Login",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Enable Wishlist",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Enable Cart",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Categories Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_categories_menu",
+      "label": "Show categories menu",
+      "default": true
+    },
+    {
+      "type": "collection_list",
+      "id": "selected_collections",
+      "label": "Select Collections to Show",
+      "limit": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header",
+      "category": "Header"
+    }
+  ]
+}
+{% endschema %}
+
+<header id="header" class="header-default header-search header-uppercase header-style-2 color-{{ section.settings.color_scheme }} gradient">
+    <div class="header-top">
+        <div class="container">
+            <div class="row wrapper-header align-items-center">
+                <div class="col-md-4 col-3 d-xl-none">
+                    <a href="#mobileMenu" class="mobile-menu" data-bs-toggle="offcanvas"
+                        aria-controls="mobileMenu">
+                        <i class="icon icon-categories1"></i>
+                    </a>
+                </div>
+                <div class="col-xl-3 col-md-4 col-6">
+                    <a href="{{ routes.root_url }}" class="logo-header">
+                        {% if settings.logo != blank %}
+                            {% assign logo_width = settings.logo_width %}
+                            {{ settings.logo | image_url: width: logo_width | image_tag: class: 'logo', width: logo_width, height: 'auto', alt: shop.name }}
+                        {% else %}
+                            <span class="h2">{{ shop.name }}</span>
+                        {% endif %}
+                    </a>
+                </div>
+                {% if section.settings.show_search %}
+                <div class="col-xl-5 d-none d-xl-block text-center">
+                    <div class="tf-form-search">
+                        <form action="{{ routes.search_url }}" method="get" class="form-search">
+                            <input type="text" 
+                                   name="q" 
+                                   value="{{ search.terms | escape }}"
+                                   placeholder="{{ 'general.search.placeholder' | t }}" 
+                                   tabindex="0" 
+                                   aria-required="true"
+                                   required>
+                            <button type="submit" class="btn-search"><i class="icon icon-search"></i></button>
+                        </form>
+                        {% if search.performed %}
+                        <div class="search-suggests-results">
+                            <div class="search-suggests-results-inner">
+                                <ul>
+                                    {% for product in search.results limit: 3 %}
+                                    <li>
+                                        <a class="search-result-item" href="{{ product.url }}">
+                                            <div class="img-box">
+                                                {{ product.featured_image | image_url: width: 100 | image_tag: class: 'lazyload', loading: 'lazy' }}
+                                            </div>
+                                            <div class="box-content">
+                                                <p class="title link">{{ product.title }}</p>
+                                                <div class="price">
+                                                    {% if product.compare_at_price > product.price %}
+                                                        <span class="new-price">{{ product.price | money }}</span>
+                                                        <span class="old-price">{{ product.compare_at_price | money }}</span>
+                                                    {% else %}
+                                                        <span class="price">{{ product.price | money }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="col-xl-4 col-md-4 col-3">
+                    <ul class="nav-icon d-flex justify-content-end align-items-center">
+                        {% if section.settings.show_login %}
+                        <li class="nav-account">
+                            {% if shop.customer_accounts_enabled %}
+                                {% if customer %}
+                                    <a href="{{ routes.account_url }}" class="nav-icon-item">
+                                        <i class="icon icon-user"></i>
+                                        <span class="text d-none d-xl-block">{{ 'customer.account.title' | t }}</span>
+                                    </a>
+                                {% else %}
+                                    <a href="{{ routes.account_login_url }}" class="nav-icon-item">
+                                        <i class="icon icon-user"></i>
+                                        <span class="text d-none d-xl-block">{{ 'customer.login.title' | t }}</span>
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                        {% endif %}
+                        {% if section.settings.show_wishlist %}
+                        <li class="nav-wishlist">
+                            <a href="{{ routes.wishlist_url }}" class="nav-icon-item">
+                                <i class="icon icon-heart"></i>
+                                <span class="text d-none d-xl-block">{{ 'general.wishlist.title' | t }}</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if section.settings.show_cart %}
+                        <li class="nav-cart">
+                            <a href="{{ routes.cart_url }}" class="nav-icon-item" data-bs-toggle="offcanvas">
+                                <i class="icon icon-cart"></i>
+                                <span class="text d-none d-xl-block">{{ 'general.cart.title' | t }}</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-bottom line-bt d-none d-xl-block">
+        <div class="container">
+            <div class="wrapper-header-bottom">
+                <div class="inner-left">
+                    {% if section.settings.show_categories_menu %}
+                    <div class="tf-mega-categories">
+                        <a href="#" class="categories-title">
+                            <i class="icon icon-categories"></i>
+                            {{ 'layout.navigation.browse_categories' | t }}
+                        </a>
+                        <ul class="mega-categories">
+                            {% for collection in section.settings.selected_collections %}
+                                <li>
+                                    <a href="{{ collection.url }}" class="cate-item">
+                                        {% if collection.image %}
+                                            <div class="img">
+                                                {{ collection.image | image_url: width: 50 | image_tag: loading: 'lazy', alt: collection.title }}
+                                            </div>
+                                        {% endif %}
+                                        <span class="name-cate">{{ collection.title }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <nav class="box-navigation text-center">
+                        <ul class="box-nav-menu">
+                            {% for link in linklists[section.settings.menu].links %}
+                                <li class="menu-item{% if link.links.size > 0 %} has-submenu{% endif %}">
+                                    <a href="{{ link.url }}" class="item-link">
+                                        {{ link.title }}
+                                        {% if link.links.size > 0 %}
+                                            <i class="icon icon-arr-down"></i>
+                                        {% endif %}
+                                    </a>
+                                    {% if link.links.size > 0 %}
+                                    <div class="sub-menu mega-menu">
+                                        <div class="wrapper-sub-menu">
+                                            {% for child_link in link.links %}
+                                            <div class="mega-menu-item">
+                                                <div class="menu-heading">{{ child_link.title }}</div>
+                                                {% if child_link.links.size > 0 %}
+                                                <ul class="menu-list">
+                                                    {% for grandchild_link in child_link.links %}
+                                                    <li>
+                                                        <a href="{{ grandchild_link.url }}" class="menu-link-text link">
+                                                            {{ grandchild_link.title }}
+                                                        </a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                                {% endif %}
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                            <li class="menu-item">
+                                <a href="{{ shop.url }}" class="item-link">Shop All</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="inner-right">
+                        {% comment %}Add any additional right-side content here{% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
