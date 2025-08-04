@@ -1,0 +1,113 @@
+{
+  "sections": {
+    "hero_image": {
+      "type": "hero-image",
+      "settings": {
+        "image_height": "auto",
+        "fixed_height": 600,
+        "mobile_fixed_height": 300,
+        "border_radius": 16
+      }
+    },
+    "image_with_text_about": {
+      "type": "Image-with-text",
+      "blocks": {
+        "content_item_1": {
+          "type": "content_item",
+          "settings": {
+            "title": "Quality Service",
+            "content": "We provide exceptional service with attention to detail and commitment to excellence."
+          }
+        },
+        "content_item_2": {
+          "type": "content_item",
+          "settings": {
+            "title": "Expert Team",
+            "content": "Our experienced professionals bring years of expertise to every project."
+          }
+        },
+        "content_item_3": {
+          "type": "content_item",
+          "settings": {
+            "title": "Customer Focused",
+            "content": "Your satisfaction is our priority, and we work to exceed your expectations."
+          }
+        }
+      },
+      "block_order": [
+        "content_item_1",
+        "content_item_2",
+        "content_item_3"
+      ],
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "background-1",
+        "heading": "Why Choose Us",
+        "subheading": "Discover what makes us different",
+        "heading_size": "medium",
+        "subheading_size": "medium",
+        "spacing_heading_content": 32,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
+      }
+    },
+    "single_testimonial": {
+      "type": "single-testimonial",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "background-1",
+        "rating": 5,
+        "content": "Working with this team has been an amazing experience. Their professionalism and dedication to quality is unmatched in the industry.",
+        "author_name": "Sarah Johnson",
+        "author_image": "",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
+      }
+    },
+    "about_us_welcome": {
+      "type": "heading-with-text-horizontal",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "text": "Welcome to Our Story",
+            "size": "medium"
+          }
+        },
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "text": "About Our Journey",
+            "size": "small"
+          }
+        },
+        "content": {
+          "type": "content",
+          "settings": {
+            "text": "We are passionate about creating exceptional experiences and delivering quality solutions that make a difference in people's lives.",
+            "size": "medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "subheading",
+        "content"
+      ],
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "background-1",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    }
+  },
+  "order": [
+    "about_us_welcome",
+    "hero_image",
+    "image_with_text_about",
+    "single_testimonial"
+  ]
+}

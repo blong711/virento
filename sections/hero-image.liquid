@@ -1,0 +1,270 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .hero-image-{{ section.id }} {
+    border-radius: {{ section.settings.border_radius }}px;
+    overflow: hidden;
+
+    {% if section.settings.image_height == 'fixed' %}
+      height: {{ section.settings.fixed_height }}px;
+    {% elsif section.settings.image_height == 'fullscreen' %}
+      height: 100vh;
+    {% else %}
+      height: auto;
+    {% endif %}
+  }
+
+  .hero-image-{{ section.id }} img {
+    width: 100%;
+
+    {% if section.settings.image_height == 'adapt_image' %}
+      height: auto;
+      object-fit: contain;
+    {% else %}
+      height: 100%;
+      object-fit: cover;
+    {% endif %}
+  }
+
+  .hero-image-{{ section.id }} picture img {
+    width: 100%;
+
+    {% if section.settings.image_height == 'adapt_image' %}
+      height: auto;
+      object-fit: contain;
+    {% else %}
+      height: 100%;
+      object-fit: cover;
+    {% endif %}
+  }
+
+  @media screen and (max-width: 749px) {
+    .hero-image-{{ section.id }} picture img {
+      {% if section.settings.mobile_image != blank %}
+        {% comment %} Mobile image exists - use mobile_image_height setting for object-fit {% endcomment %}
+        {% if section.settings.mobile_image_height == 'adapt_image' %}
+          height: auto;
+          object-fit: contain;
+        {% else %}
+          height: 100%;
+          object-fit: cover;
+        {% endif %}
+      {% else %}
+        {% comment %} No mobile image - fallback to desktop image_height setting {% endcomment %}
+        {% if section.settings.image_height == 'adapt_image' %}
+          height: auto;
+          object-fit: contain;
+        {% else %}
+          height: 100%;
+          object-fit: cover;
+        {% endif %}
+      {% endif %}
+    }
+
+    .hero-image-{{ section.id }} {
+      {% if section.settings.mobile_image != blank %}
+        {% comment %} Mobile image exists - use mobile_image_height setting {% endcomment %}
+        {% if section.settings.mobile_image_height == 'fixed' %}
+          height: {{ section.settings.mobile_fixed_height }}px;
+        {% elsif section.settings.mobile_image_height == 'fullscreen' %}
+          height: 100vh;
+        {% else %}
+          height: auto;
+        {% endif %}
+      {% else %}
+        {% comment %} No mobile image - fallback to desktop image_height setting {% endcomment %}
+        {% if section.settings.image_height == 'fixed' %}
+          height: {{ section.settings.mobile_fixed_height }}px;
+        {% elsif section.settings.image_height == 'fullscreen' %}
+          height: 100vh;
+        {% else %}
+          height: auto;
+        {% endif %}
+      {% endif %}
+    }
+  }
+{%- endstyle -%}
+
+<div class="container section-{{ section.id }}-padding">
+  <div class="hero-image-{{ section.id }}">
+    {%- if section.settings.image != blank or section.settings.mobile_image != blank -%}
+      {%- if section.settings.mobile_image != blank -%}
+        <picture>
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.mobile_image | image_url: width: 375 }}"
+          >
+          <img
+            srcset="
+              {{ section.settings.image | image_url: width: 750 }} 750w,
+              {{ section.settings.image | image_url: width: 1200 }} 1200w,
+              {{ section.settings.image | image_url: width: 1600 }} 1600w
+            "
+            sizes="
+              (max-width: 999px) 750px,
+              (max-width: 1199px) 1200px,
+              1600px
+            "
+            src="{{ section.settings.image | image_url: width: 1200 }}"
+            width="{{ section.settings.image.width | default: 1200 }}"
+            height="{{ section.settings.image.height | default: 600 }}"
+            loading="lazy"
+            alt="{{ section.settings.image.alt | escape }}"
+            class="lazyload"
+          >
+        </picture>
+      {%- else -%}
+        <img
+          srcset="
+            {{ section.settings.image | image_url: width: 375 }} 375w,
+            {{ section.settings.image | image_url: width: 750 }} 750w,
+            {{ section.settings.image | image_url: width: 1200 }} 1200w,
+            {{ section.settings.image | image_url: width: 1600 }} 1600w
+          "
+          sizes="
+            (max-width: 749px) 375px,
+            (max-width: 999px) 750px,
+            (max-width: 1199px) 1200px,
+            1600px
+          "
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          width="{{ section.settings.image.width | default: 1200 }}"
+          height="{{ section.settings.image.height | default: 600 }}"
+          loading="lazy"
+          alt="{{ section.settings.image.alt | escape }}"
+          class="lazyload"
+        >
+      {%- endif -%}
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero Image",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "t:sections.hero-image-about.settings.image_height.label",
+      "options": [
+        { "value": "adapt_image", "label": "t:sections.hero-image-about.settings.image_height.options.adapt_image" },
+        { "value": "fullscreen", "label": "t:sections.hero-image-about.settings.image_height.options.fullscreen" },
+        { "value": "fixed", "label": "t:sections.hero-image-about.settings.image_height.options.fixed" }
+      ],
+      "default": "adapt_image"
+    },
+    {
+      "type": "range",
+      "id": "fixed_height",
+      "label": "t:sections.hero-image-about.settings.fixed_height.label",
+      "min": 100,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_height",
+      "label": "t:sections.hero-image-about.settings.mobile_image_height.label",
+      "options": [
+        {
+          "value": "adapt_image",
+          "label": "t:sections.hero-image-about.settings.mobile_image_height.options.adapt_image"
+        },
+        {
+          "value": "fullscreen",
+          "label": "t:sections.hero-image-about.settings.mobile_image_height.options.fullscreen"
+        },
+        { "value": "fixed", "label": "t:sections.hero-image-about.settings.mobile_image_height.options.fixed" }
+      ],
+      "default": "adapt_image"
+    },
+    {
+      "type": "range",
+      "id": "mobile_fixed_height",
+      "label": "t:sections.hero-image-about.settings.mobile_fixed_height.label",
+      "min": 100,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "t:sections.hero-image-about.settings.image.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "t:sections.hero-image-about.settings.mobile_image.label"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "t:sections.hero-image-about.settings.border_radius.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.hero-image-about.settings.padding_top.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.hero-image-about.settings.padding_bottom.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.hero-image-about.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.hero-image-about.settings.padding_mobile_rate.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.hero-image-about.presets.default.name",
+      "category": "t:sections.hero-image-about.presets.default.category"
+    }
+  ]
+}
+{% endschema %}
