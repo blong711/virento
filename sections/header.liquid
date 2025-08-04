@@ -3,6 +3,26 @@
       "name": "t:sections.header.name",
       "settings": [
         {
+          "type": "select",
+          "id": "sticky_header",
+          "label": "t:sections.header.settings.sticky_header.label",
+          "options": [
+            {
+              "value": "none",
+              "label": "t:sections.header.settings.sticky_header.options.none"
+            },
+            {
+              "value": "on_scroll_up",
+              "label": "t:sections.header.settings.sticky_header.options.on_scroll_up"
+            },
+            {
+              "value": "always",
+              "label": "t:sections.header.settings.sticky_header.options.always"
+            }
+          ],
+          "default": "on_scroll_up"
+        },
+        {
           "type": "color_scheme",
           "id": "color_scheme",
           "label": "t:sections.all.colors.label",
@@ -68,7 +88,7 @@
     }
 {% endschema %}
     
-<header id="header" class="header-default header-search header-uppercase header-style-2 color-{{ section.settings.color_scheme }} gradient">
+<header id="header" class="header-default header-search header-uppercase header-style-2 color-{{ section.settings.color_scheme }} gradient" data-sticky-type="{{ section.settings.sticky_header }}">
     <div class="header-top">
         <div class="container">
             <div class="row wrapper-header align-items-center">
