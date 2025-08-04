@@ -737,23 +737,13 @@ const headerSticky = () => {
   // If sticky type is none, don't set up scroll handling
   if (stickyType === 'none') return;
 
-  // For 'always' type, set sticky immediately
-  if (stickyType === 'always') {
-    header.classList.add('header-visible');
-    header.style.position = 'fixed';
-    header.style.top = '0';
-    header.style.width = '100%';
-    document.body.style.paddingTop = `${headerHeight}px`;
-    return;
-  }
-
-  // For 'on_scroll_up' type, handle scroll events
+  // Handle scroll events for on_scroll_up type
   window.addEventListener('scroll', () => {
     didScroll = true;
   });
 
   setInterval(() => {
-    if (didScroll && stickyType === 'on_scroll_up') {
+    if (didScroll) {
       const st = window.pageYOffset || document.documentElement.scrollTop;
       
       if (Math.abs(lastScrollTop - st) <= delta) return;

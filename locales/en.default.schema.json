@@ -1095,6 +1095,13 @@
     "header": {
       "name": "Header",
       "settings": {
+        "sticky_header": {
+          "label": "Sticky header",
+          "options": {
+            "none": "None",
+            "on_scroll_up": "On scroll up"
+          }
+        },
         "shop_all": "Shop All",
         "menu": {
           "label": "Main Menu",
