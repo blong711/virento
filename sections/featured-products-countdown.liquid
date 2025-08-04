@@ -1,6 +1,57 @@
 {% schema %}
 {
   "name": "Featured Countdown",
+  "blocks": [
+    {
+      "type": "countdown",
+      "name": "Countdown Timer",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "number",
+          "id": "year",
+          "label": "Year",
+          "default": 2024
+        },
+        {
+          "type": "range",
+          "id": "month",
+          "label": "Month",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "day",
+          "label": "Day",
+          "min": 1,
+          "max": 31,
+          "step": 1,
+          "default": 31
+        },
+        {
+          "type": "range",
+          "id": "hour",
+          "label": "Hour (24-hour format)",
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "default": 23
+        },
+        {
+          "type": "range",
+          "id": "minute",
+          "label": "Minute",
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "default": 59
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "color_scheme",
@@ -96,10 +147,8 @@
       "info": "Selected products will override collection selection"
     },
     {
-      "type": "number",
-      "id": "countdown_time",
-      "label": "Countdown Time (seconds)",
-      "default": 46556
+      "type": "header",
+      "content": "Countdown Timer"
     },
     {
       "type": "header",
@@ -202,9 +251,19 @@
                 <{{ section.settings.heading_tag }} class="title">{{ section.settings.title }}</{{ section.settings.heading_tag }}>
                 <p class="desc text-main {{ section.settings.subtitle_size }}">{{ section.settings.subtitle }}</p>
             </div>
-            <div class="wg-countdown-2">
-                <span class="js-countdown" data-timer="{{ section.settings.countdown_time }}" data-labels="Days,Hours,Mins,Secs"></span>
-            </div>
+            {% for block in section.blocks %}
+              {% if block.type == 'countdown' %}
+                <div class="wg-countdown-2" {{ block.shopify_attributes }}>
+                  {%- capture countdown_date -%}
+                    {{ block.settings.year }}-{{ block.settings.month | prepend: '00' | slice: -2, 2 }}-{{ block.settings.day | prepend: '00' | slice: -2, 2 }} {{ block.settings.hour | prepend: '00' | slice: -2, 2 }}:{{ block.settings.minute | prepend: '00' | slice: -2, 2 }}:00
+                  {%- endcapture -%}
+                  <span class="js-countdown" 
+                    data-countdown="{{ countdown_date }}"
+                    data-labels="Days,Hours,Mins,Secs">
+                  </span>
+                </div>
+              {% endif %}
+            {% endfor %}
         </div>
         <div class="hover-sw-nav">
             {%- assign show_nav = section.settings.show_navigation -%}
@@ -271,12 +330,12 @@
                     {% endif %}
                 </div>
                 {% if section.settings.show_mobile_dots %}
-                    <div class="d-flex d-xl-none sw-dot-default sw-pagination-deal justify-content-center"></div>
+                <div class="d-flex d-xl-none sw-dot-default sw-pagination-deal justify-content-center"></div>
                 {% endif %}
             </div>
             {% if section.settings.show_navigation %}
-                <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-deal"></div>
-                <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-deal"></div>
+            <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-deal"></div>
+            <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-deal"></div>
             {% endif %}
         </div>
     </div>
