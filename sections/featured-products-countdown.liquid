@@ -25,16 +25,96 @@
       "default": "container"
     },
     {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Title",
       "default": "Hot Deals"
     },
     {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Title Size",
+      "options": [
+        {
+          "value": "h3",
+          "label": "Large"
+        },
+        {
+          "value": "h4",
+          "label": "Medium"
+        },
+        {
+          "value": "h5",
+          "label": "Small"
+        }
+      ],
+      "default": "h4"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Subtitle"
+    },
+    {
       "type": "text",
       "id": "subtitle",
       "label": "Subtitle",
       "default": "Explore our most popular pieces that customers can't get enough of"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "Subtitle Size",
+      "options": [
+        {
+          "value": "text-sm",
+          "label": "Small"
+        },
+        {
+          "value": "text-md",
+          "label": "Medium"
+        },
+        {
+          "value": "text-lg",
+          "label": "Large"
+        }
+      ],
+      "default": "text-md"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_alignment",
+      "label": "Subtitle Alignment",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        }
+      ],
+      "default": ""
     },
     {
       "type": "collection",
@@ -73,8 +153,8 @@
     <div class="{{ section.settings.width }}">
         <div class="flat-title style-between wow fadeInUp">
             <div class="box-title">
-                <h4 class="title">{{ section.settings.title }}</h4>
-                <p class="desc text-main text-md">{{ section.settings.subtitle }}</p>
+                <{{ section.settings.heading_tag }} class="title {{ section.settings.title_alignment }}">{{ section.settings.title }}</{{ section.settings.heading_tag }}>
+                <p class="desc text-main {{ section.settings.subtitle_size }} {{ section.settings.subtitle_alignment }}">{{ section.settings.subtitle }}</p>
             </div>
             <div class="wg-countdown-2">
                 <span class="js-countdown" data-timer="{{ section.settings.countdown_time }}" data-labels="Days,Hours,Mins,Secs"></span>
