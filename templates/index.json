@@ -124,10 +124,54 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "offer_banner": {
+      "type": "offer-banner",
+      "blocks": {
+        "banner_1": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/offer-banner-1.jpg",
+            "title": "Smart Watches",
+            "link": "/collections/watches",
+            "button_label": "Shop Now"
+          }
+        },
+        "banner_2": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/offer-banner-2.jpg",
+            "title": "Wireless Audio",
+            "link": "/collections/audio",
+            "button_label": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "banner_1",
+        "banner_2"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "slides_per_view_desktop": 2,
+        "slides_per_view_tablet": 1,
+        "slides_per_view_mobile": 1,
+        "item_height_desktop": 400,
+        "item_height_tablet": 350,
+        "item_height_mobile": 300,
+        "space_between_desktop": 24,
+        "space_between_tablet": 12,
+        "space_between_mobile": 12,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "main_slider",
-    "featured_countdown"
+    "featured_countdown",
+    "offer_banner"
   ]
 }
