@@ -24,15 +24,11 @@
         {% endif %}
         <ul class="list-product-btn">
             <li>
-                <form method="post" action="{{ routes.cart_add_url }}" class="product-form">
-                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                    <button type="submit" 
-                        class="hover-tooltip box-icon {% unless product.available %}sold-out{% endunless %}"
-                        {% unless product.available %}disabled{% endunless %}>
-                        <span class="icon icon-cart2"></span>
-                        <span class="tooltip">{% if product.available %}Add to Cart{% else %}Sold Out{% endif %}</span>
-                    </button>
-                </form>
+                <a href="#shoppingCart" data-bs-toggle="offcanvas"
+                    class="hover-tooltip box-icon">
+                    <span class="icon icon-cart2"></span>
+                    <span class="tooltip">Add to Cart</span>
+                </a>
             </li>
             <li class="wishlist">
                 <a href="{{ product.url }}" class="hover-tooltip box-icon">
