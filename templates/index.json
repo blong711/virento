@@ -61,6 +61,7 @@
     "featured_countdown": {
       "type": "featured-products-countdown",
       "settings": {
+        "width": "container",
         "title": "Hot Deals",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "countdown_time": 46556,
