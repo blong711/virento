@@ -1,5 +1,5 @@
 <section class="section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-    <div class="container">
+    <div class="{{ section.settings.width }}">
         <div dir="ltr" class="swiper tf-swiper" data-swiper='{
                 "slidesPerView": {{ section.settings.slides_per_view_mobile }},
                 "spaceBetween": {{ section.settings.space_between_mobile }},
