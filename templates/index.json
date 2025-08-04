@@ -83,11 +83,28 @@
     },
     "featured_countdown": {
       "type": "featured-products-countdown",
+      "blocks": {
+        "countdown_zyY8KX": {
+          "type": "countdown",
+          "settings": {
+            "year": 2025,
+            "month": 12,
+            "day": 31,
+            "hour": 23,
+            "minute": 59
+          }
+        }
+      },
+      "block_order": [
+        "countdown_zyY8KX"
+      ],
       "settings": {
         "color_scheme": "",
         "width": "container",
         "title": "Hot Deals",
+        "heading_tag": "h4",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
         "collection": "",
         "product_list": [
           "wireless-premium-headphones",
@@ -97,8 +114,15 @@
           "true-wireless-bluetooth-earbuds",
           "apple-smart-keyboard"
         ],
-        "countdown_time": 46556,
-        "products_to_show": 6
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "show_navigation": true,
+        "show_mobile_dots": true,
+        "products_to_show": 6,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
       }
     }
   },
