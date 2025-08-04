@@ -375,6 +375,30 @@
             "banner_content": {
               "content": "Banner Content"
             },
+            "content_position_desktop": {
+              "label": "Content position (Desktop)",
+              "options": {
+                "top": "Top",
+                "center": "Center",
+                "bottom": "Bottom"
+              }
+            },
+            "content_position_mobile": {
+              "label": "Content position (Mobile)",
+              "options": {
+                "top": "Top",
+                "center": "Center",
+                "bottom": "Bottom"
+              }
+            },
+            "content_alignment": {
+              "label": "Content alignment",
+              "options": {
+                "left": "Left",
+                "center": "Center",
+                "right": "Right"
+              }
+            },
             "title": {
               "label": "Title"
             },
