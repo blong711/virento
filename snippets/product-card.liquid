@@ -54,9 +54,9 @@
         <a href="{{ product.url }}"
             class="name-product link fw-medium text-md">{{ product.title }}</a>
         <p class="price-wrap fw-medium">
-            <span class="price-new text-primary">{{ product.price | money }}</span>
+            <span class="price-new text-xl-2">{{ product.price | money }}</span>
             {% if product.compare_at_price > product.price %}
-                <span class="price-old text-sm">{{ product.compare_at_price | money }}</span>
+                <span class="price-old text-sm old-line">{{ product.compare_at_price | money }}</span>
             {% endif %}
         </p>
         {% if product.available and product.variants.first.inventory_management == "shopify" %}

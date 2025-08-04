@@ -10099,6 +10099,7 @@ button.animate-btn::after,
 }
 .card-product .price-wrap .price-new {
   margin-right: 4px;
+  color: var(--primary);
 }
 .card-product .card-product-wrapper {
   aspect-ratio: 0.7037037037;
