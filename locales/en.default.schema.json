@@ -347,6 +347,15 @@
         },
         "show_dots": {
           "label": "Show pagination dots on mobile"
+        },
+        "desktop_settings": {
+          "content": "Desktop"
+        },
+        "tablet_settings": {
+          "content": "Tablet"
+        },
+        "mobile_settings": {
+          "content": "Mobile"
         }
       },
       "blocks": {
