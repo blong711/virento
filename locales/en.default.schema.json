@@ -500,6 +500,17 @@
         "label": "Image shape"
       }
     },
+    "common": {
+      "size": {
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large"
+      },
+      "width": {
+        "full": "Full width",
+        "boxed": "Boxed"
+      }
+    },
     "announcement-bar": {
       "name": "Announcement bar",
       "settings": {
@@ -3482,6 +3493,224 @@
       },
       "presets": {
         "name": "Collapsible content"
+      }
+    },
+    "hero-image-about": {
+      "name": "Hero Image (About us)",
+      "settings": {
+        "image_height": {
+          "label": "Image height",
+          "options": {
+            "adapt_image": "Adapt to image",
+            "fullscreen": "Fill screen height",
+            "fixed": "Fixed height"
+          }
+        },
+        "fixed_height": {
+          "label": "Fixed height (Desktop)"
+        },
+        "mobile_image_height": {
+          "label": "Mobile image height",
+          "options": {
+            "adapt_image": "Adapt to image",
+            "fullscreen": "Full screen height",
+            "fixed": "Fixed height"
+          }
+        },
+        "mobile_fixed_height": {
+          "label": "Fixed height (Mobile)"
+        },
+        "image": {
+          "label": "Image"
+        },
+        "mobile_image": {
+          "label": "Mobile image"
+        },
+        "border_radius": {
+          "label": "Border radius"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile Padding Rate",
+          "info": "Percentage of desktop padding to use on mobile devices"
+        }
+      },
+      "presets": {
+        "default": {
+          "name": "Hero Image (About us)",
+          "category": "Image"
+        }
+      }
+    },
+    "heading-horizontal-about-us": {
+      "name": "About Us Welcome",
+      "settings": {
+        "width": {
+          "label": "Section width",
+          "options": {
+            "full": "Full width",
+            "boxed": "Boxed"
+          }
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile Padding Rate",
+          "info": "Percentage of desktop padding to use on mobile devices"
+        }
+      },
+      "blocks": {
+        "heading": {
+          "name": "Heading",
+          "settings": {
+            "text": {
+              "label": "Heading text",
+              "default": "Welcome to Our Story"
+            },
+            "size": {
+              "label": "Heading size"
+            }
+          }
+        },
+        "subheading": {
+          "name": "Subheading",
+          "settings": {
+            "text": {
+              "label": "Subheading text",
+              "default": "About Our Journey"
+            },
+            "size": {
+              "label": "Subheading size"
+            }
+          }
+        },
+        "content": {
+          "name": "Content",
+          "settings": {
+            "text": {
+              "label": "Content text",
+              "default": "We are passionate about creating exceptional experiences and delivering quality solutions that make a difference in people's lives."
+            },
+            "size": {
+              "label": "Content size"
+            }
+          }
+        }
+      },
+      "presets": {
+        "default": {
+          "name": "About Us Welcome",
+          "category": "Text"
+        }
+      }
+    },
+    "image-with-text-about": {
+      "name": "Image with text",
+      "settings": {
+        "width": {
+          "label": "Section width"
+        },
+        "heading": {
+          "label": "Heading",
+          "default": "Why Choose Us"
+        },
+        "subheading": {
+          "label": "Subheading",
+          "default": "Discover what makes us different"
+        },
+        "heading_settings": {
+          "label": "Heading settings"
+        },
+        "heading_size": {
+          "label": "Heading size"
+        },
+        "subheading_size": {
+          "label": "Subheading size"
+        },
+        "spacing_heading_content": {
+          "label": "Spacing between heading and content"
+        },
+        "image": {
+          "label": "Image"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile Padding Rate",
+          "info": "Percentage of desktop padding to use on mobile devices"
+        }
+      },
+      "blocks": {
+        "content_item": {
+          "name": "Content Item",
+          "settings": {
+            "title": {
+              "label": "Title",
+              "default": "Quality Service"
+            },
+            "content": {
+              "label": "Content",
+              "default": "We provide exceptional service with attention to detail."
+            }
+          }
+        }
+      },
+      "presets": {
+        "default": {
+          "name": "Image with text (About)",
+          "category": "Text"
+        }
+      }
+    },
+    "single-testimonial-about": {
+      "name": "Single testimonial (About)",
+      "settings": {
+        "width": {
+          "label": "Section width"
+        },
+        "rating": {
+          "label": "Rating"
+        },
+        "content": {
+          "label": "Testimonial content",
+          "default": "This company exceeded our expectations with their exceptional service and attention to detail. Highly recommended!"
+        },
+        "author_name": {
+          "label": "Author name",
+          "default": "John Smith"
+        },
+        "author_image": {
+          "label": "Author image"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile Padding Rate",
+          "info": "Percentage of desktop padding to use on mobile devices"
+        }
+      },
+      "presets": {
+        "default": {
+          "name": "Single testimonial (About)",
+          "category": "Text"
+        }
       }
     }
   }

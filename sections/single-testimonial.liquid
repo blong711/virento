@@ -1,0 +1,145 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .star-rating-{{ section.id }} .icon-star {
+    color: #ddd;
+  }
+{%- endstyle -%}
+
+<section class="section-{{ section.id }}-padding">
+  <div class="{% if section.settings.width == 'boxed' %}container{% endif %}">
+    <div class="box-testimonial-quote text-center color-{{ section.settings.color_scheme }}">
+      {%- if section.settings.rating > 0 -%}
+        <div class="list-star-default justify-content-center star-rating-{{ section.id }}">
+          {%- for i in (1..5) -%}
+            <i class="icon-star {% if i <= section.settings.rating %}text-green{% endif %}"></i>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.content != blank -%}
+        <p class="text-xl-2 lh-xl-32">"{{ section.settings.content }}"</p>
+      {%- endif -%}
+
+      <div class="box-author">
+        {%- if section.settings.author_image != blank -%}
+          <div class="avt">
+            <img
+              src="{{ section.settings.author_image | image_url }}"
+              alt="{{ section.settings.author_name | escape }}"
+              loading="lazy"
+              width="60"
+              height="60"
+            >
+          </div>
+        {%- endif -%}
+        {%- if section.settings.author_name != blank -%}
+          <p class="text-md lh-xl-26 fw-medium">
+            {{ section.settings.author_name }}
+          </p>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Single testimonial",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.single-testimonial-about.settings.width.label",
+      "options": [
+        { "value": "full", "label": "t:sections.common.width.full" },
+        { "value": "boxed", "label": "t:sections.common.width.boxed" }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "label": "t:sections.single-testimonial-about.settings.rating.label",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "textarea",
+      "id": "content",
+      "label": "t:sections.single-testimonial-about.settings.content.label",
+      "default": "t:sections.single-testimonial-about.settings.content.default"
+    },
+    {
+      "type": "text",
+      "id": "author_name",
+      "label": "t:sections.single-testimonial-about.settings.author_name.label",
+      "default": "t:sections.single-testimonial-about.settings.author_name.default"
+    },
+    {
+      "type": "image_picker",
+      "id": "author_image",
+      "label": "t:sections.single-testimonial-about.settings.author_image.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.single-testimonial-about.settings.padding_top.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.single-testimonial-about.settings.padding_bottom.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.single-testimonial-about.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.single-testimonial-about.settings.padding_mobile_rate.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.single-testimonial-about.presets.default.name",
+      "category": "t:sections.single-testimonial-about.presets.default.category"
+    }
+  ]
+}
+{% endschema %}
