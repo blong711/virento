@@ -245,6 +245,26 @@
           "default": "Slide description goes here"
         },
         {
+          "type": "radio",
+          "id": "text_size",
+          "label": "Text Size",
+          "options": [
+            {
+              "value": "text-sm",
+              "label": "Small"
+            },
+            {
+              "value": "text-md",
+              "label": "Medium"
+            },
+            {
+              "value": "text-lg",
+              "label": "Large"
+            }
+          ],
+          "default": "text-md"
+        },
+        {
           "type": "url",
           "id": "button_link",
           "label": "Button Link"
@@ -370,7 +390,7 @@
                                                                 <h4 class="heading {{ block.settings.heading_size }} {{ block.settings.heading_weight }} fade-item fade-item-1">
                                                                     {{ block.settings.heading }}
                                                                 </h4>
-                                                                <p class="sub text-md fade-item fade-item-2">
+                                                                <p class="sub {{ block.settings.text_size }} fade-item fade-item-2">
                                                                     {{ block.settings.description }}
                                                                 </p>
                                                             </div>
