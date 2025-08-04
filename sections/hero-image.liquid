@@ -49,13 +49,47 @@
   }
 
   @media screen and (max-width: 749px) {
-    .hero-image-{{ section.id }} {
-      {% if section.settings.image_height == 'fixed' %}
-        height: {{ section.settings.mobile_fixed_height }}px;
-      {% elsif section.settings.image_height == 'fullscreen' %}
-        height: 100vh;
+    .hero-image-{{ section.id }} picture img {
+      {% if section.settings.mobile_image != blank %}
+        {% comment %} Mobile image exists - use mobile_image_height setting for object-fit {% endcomment %}
+        {% if section.settings.mobile_image_height == 'adapt_image' %}
+          height: auto;
+          object-fit: contain;
+        {% else %}
+          height: 100%;
+          object-fit: cover;
+        {% endif %}
       {% else %}
-        height: auto;
+        {% comment %} No mobile image - fallback to desktop image_height setting {% endcomment %}
+        {% if section.settings.image_height == 'adapt_image' %}
+          height: auto;
+          object-fit: contain;
+        {% else %}
+          height: 100%;
+          object-fit: cover;
+        {% endif %}
+      {% endif %}
+    }
+
+    .hero-image-{{ section.id }} {
+      {% if section.settings.mobile_image != blank %}
+        {% comment %} Mobile image exists - use mobile_image_height setting {% endcomment %}
+        {% if section.settings.mobile_image_height == 'fixed' %}
+          height: {{ section.settings.mobile_fixed_height }}px;
+        {% elsif section.settings.mobile_image_height == 'fullscreen' %}
+          height: 100vh;
+        {% else %}
+          height: auto;
+        {% endif %}
+      {% else %}
+        {% comment %} No mobile image - fallback to desktop image_height setting {% endcomment %}
+        {% if section.settings.image_height == 'fixed' %}
+          height: {{ section.settings.mobile_fixed_height }}px;
+        {% elsif section.settings.image_height == 'fullscreen' %}
+          height: 100vh;
+        {% else %}
+          height: auto;
+        {% endif %}
       {% endif %}
     }
   }
@@ -144,14 +178,21 @@
       "default": 600
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "mobile_image_height",
       "label": "t:sections.hero-image-about.settings.mobile_image_height.label",
-      "min": 100,
-      "max": 800,
-      "step": 10,
-      "unit": "px",
-      "default": 400
+      "options": [
+        {
+          "value": "adapt_image",
+          "label": "t:sections.hero-image-about.settings.mobile_image_height.options.adapt_image"
+        },
+        {
+          "value": "fullscreen",
+          "label": "t:sections.hero-image-about.settings.mobile_image_height.options.fullscreen"
+        },
+        { "value": "fixed", "label": "t:sections.hero-image-about.settings.mobile_image_height.options.fixed" }
+      ],
+      "default": "adapt_image"
     },
     {
       "type": "range",

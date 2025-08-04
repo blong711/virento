@@ -3361,7 +3361,12 @@
           "label": "Fixed height (Desktop)"
         },
         "mobile_image_height": {
-          "label": "Mobile image height"
+          "label": "Mobile image height",
+          "options": {
+            "adapt_image": "Adapt to image",
+            "fullscreen": "Full screen height",
+            "fixed": "Fixed height"
+          }
         },
         "mobile_fixed_height": {
           "label": "Fixed height (Mobile)"
