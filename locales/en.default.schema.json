@@ -341,6 +341,12 @@
         },
         "space_between_mobile": {
           "label": "Space between items (Mobile)"
+        },
+        "show_arrows": {
+          "label": "Show prev/next buttons"
+        },
+        "show_dots": {
+          "label": "Show pagination dots on mobile"
         }
       },
       "blocks": {

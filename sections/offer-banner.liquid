@@ -75,7 +75,13 @@
                     {% endcase %}
                 {% endfor %}
             </div>
-            <div class="d-flex d-lg-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+            {% if section.settings.show_arrows %}
+                <div class="swiper-button-prev nav-prev-cls"></div>
+                <div class="swiper-button-next nav-next-cls"></div>
+            {% endif %}
+            {% if section.settings.show_dots %}
+                <div class="d-flex d-lg-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -113,6 +119,22 @@
             "content": "t:sections.offer_banner.settings.slider_settings.content"
         },
         {
+            "type": "checkbox",
+            "id": "show_arrows",
+            "label": "t:sections.offer_banner.settings.show_arrows.label",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "show_dots",
+            "label": "t:sections.offer_banner.settings.show_dots.label",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "t:sections.offer_banner.settings.desktop_settings.content"
+        },
+        {
             "type": "range",
             "id": "slides_per_view_desktop",
             "label": "t:sections.offer_banner.settings.slides_per_view_desktop.label",
@@ -120,54 +142,6 @@
             "max": 6,
             "step": 1,
             "default": 2
-        },
-        {
-            "type": "range",
-            "id": "slides_per_view_tablet",
-            "label": "t:sections.offer_banner.settings.slides_per_view_tablet.label",
-            "min": 1,
-            "max": 4,
-            "step": 1,
-            "default": 1
-        },
-        {
-            "type": "range",
-            "id": "slides_per_view_mobile",
-            "label": "t:sections.offer_banner.settings.slides_per_view_mobile.label",
-            "min": 1,
-            "max": 3,
-            "step": 1,
-            "default": 1
-        },
-        {
-            "type": "range",
-            "id": "item_height_desktop",
-            "label": "t:sections.offer_banner.settings.item_height_desktop.label",
-            "min": 200,
-            "max": 800,
-            "step": 10,
-            "default": 400,
-            "unit": "px"
-        },
-        {
-            "type": "range",
-            "id": "item_height_tablet",
-            "label": "t:sections.offer_banner.settings.item_height_tablet.label",
-            "min": 200,
-            "max": 600,
-            "step": 10,
-            "default": 350,
-            "unit": "px"
-        },
-        {
-            "type": "range",
-            "id": "item_height_mobile",
-            "label": "t:sections.offer_banner.settings.item_height_mobile.label",
-            "min": 150,
-            "max": 500,
-            "step": 10,
-            "default": 300,
-            "unit": "px"
         },
         {
             "type": "range",
@@ -181,6 +155,29 @@
         },
         {
             "type": "range",
+            "id": "item_height_desktop",
+            "label": "t:sections.offer_banner.settings.item_height_desktop.label",
+            "min": 200,
+            "max": 800,
+            "step": 10,
+            "default": 400,
+            "unit": "px"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.offer_banner.settings.tablet_settings.content"
+        },
+        {
+            "type": "range",
+            "id": "slides_per_view_tablet",
+            "label": "t:sections.offer_banner.settings.slides_per_view_tablet.label",
+            "min": 1,
+            "max": 4,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
             "id": "space_between_tablet",
             "label": "t:sections.offer_banner.settings.space_between_tablet.label",
             "min": 0,
@@ -191,12 +188,45 @@
         },
         {
             "type": "range",
+            "id": "item_height_tablet",
+            "label": "t:sections.offer_banner.settings.item_height_tablet.label",
+            "min": 200,
+            "max": 600,
+            "step": 10,
+            "default": 350,
+            "unit": "px"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.offer_banner.settings.mobile_settings.content"
+        },
+        {
+            "type": "range",
+            "id": "slides_per_view_mobile",
+            "label": "t:sections.offer_banner.settings.slides_per_view_mobile.label",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
             "id": "space_between_mobile",
             "label": "t:sections.offer_banner.settings.space_between_mobile.label",
             "min": 0,
             "max": 30,
             "step": 2,
             "default": 12,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "item_height_mobile",
+            "label": "t:sections.offer_banner.settings.item_height_mobile.label",
+            "min": 150,
+            "max": 500,
+            "step": 10,
+            "default": 300,
             "unit": "px"
         },
         {
