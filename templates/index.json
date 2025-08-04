@@ -57,9 +57,19 @@
         "autoplay": true,
         "loop": true
       }
+    },
+    "featured_countdown": {
+      "type": "featured-products-countdown",
+      "settings": {
+        "title": "Hot Deals",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "countdown_time": 46556,
+        "products_to_show": 6
+      }
     }
   },
   "order": [
-    "main_slider"
+    "main_slider",
+    "featured_countdown"
   ]
 }
