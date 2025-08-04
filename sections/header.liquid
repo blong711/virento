@@ -1,74 +1,74 @@
 {% schema %}
-{
-  "name": "t:sections.header.name",
-  "settings": [
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:sections.header.settings.menu.label",
-      "default": "t:sections.header.settings.menu.default"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.header.settings.utility_settings.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_search",
-      "label": "t:sections.header.settings.show_search.label",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_login",
-      "label": "t:sections.header.settings.show_login.label",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_wishlist",
-      "label": "t:sections.header.settings.show_wishlist.label",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_cart",
-      "label": "t:sections.header.settings.show_cart.label",
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": "t:sections.header.settings.categories_menu.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_categories_menu",
-      "label": "t:sections.header.settings.show_categories_menu.label",
-      "default": true
-    },
-    {
-      "type": "collection_list",
-      "id": "selected_collections",
-      "label": "t:sections.header.settings.selected_collections.label",
-      "limit": 20
+      "name": "t:sections.header.name",
+      "settings": [
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.all.colors.label",
+          "default": "scheme-1"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "t:sections.header.settings.menu.label",
+          "default": "t:sections.header.settings.menu.default"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.settings.utility_settings.content"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_search",
+          "label": "t:sections.header.settings.show_search.label",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_login",
+          "label": "t:sections.header.settings.show_login.label",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_wishlist",
+          "label": "t:sections.header.settings.show_wishlist.label",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_cart",
+          "label": "t:sections.header.settings.show_cart.label",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.settings.categories_menu.content"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_categories_menu",
+          "label": "t:sections.header.settings.show_categories_menu.label",
+          "default": true
+        },
+        {
+          "type": "collection_list",
+          "id": "selected_collections",
+          "label": "t:sections.header.settings.selected_collections.label",
+          "limit": 20
+        }
+      ],
+      "presets": [
+        {
+          "name": "t:sections.header.presets.name",
+          "category": "t:sections.header.presets.category"
+        }
+      ]
     }
-  ],
-  "presets": [
-    {
-      "name": "t:sections.header.presets.name",
-      "category": "t:sections.header.presets.category"
-    }
-  ]
-}
 {% endschema %}
-
-<header id="header" class="header-default header-search header-uppercase header-style-2 header-lg color-{{ section.settings.color_scheme }} gradient">
+    
+<header id="header" class="header-default header-search header-uppercase header-style-2 color-{{ section.settings.color_scheme }} gradient">
     <div class="header-top">
         <div class="container">
             <div class="row wrapper-header align-items-center">
@@ -93,12 +93,12 @@
                     <div class="tf-form-search">
                         <form action="{{ routes.search_url }}" method="get" class="form-search">
                             <input type="text" 
-                                   name="q" 
-                                   value="{{ search.terms | escape }}"
-                                   placeholder="{{ 'general.search.placeholder' | t }}" 
-                                   tabindex="0" 
-                                   aria-required="true"
-                                   required>
+                                    name="q" 
+                                    value="{{ search.terms | escape }}"
+                                    placeholder="{{ 'general.search.placeholder' | t }}" 
+                                    tabindex="0" 
+                                    aria-required="true"
+                                    required>
                             <button type="submit" class="btn-search"><i class="icon icon-search"></i></button>
                         </form>
                         {% if search.performed %}

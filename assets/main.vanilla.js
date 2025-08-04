@@ -8,14 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
   selectImages();
   variantPicker();
   customDropdown();
-  checkClick();
-  swatchColor();
-  sidebarMobile();
-  staggerWrap();
-  clickModalSecond();
-  estimateShipping();
-  headerSticky();
-  autoPopup();
   handleProgressBar();
   totalPriceVariant();
   scrollGridProduct();
@@ -24,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buttonLoading();
   itemCheckbox();
   handleFooter();
-  parallaxEffect();
+  efectParalax();
   infiniteSlide();
   buttonQuantity();
   deleteItem();
@@ -37,6 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
   cookieSetting();
   preloader();
   goTop();
+  checkClick();
+  swatchColor();
+  sidebarMobile();
+  staggerWrap();
+  clickModalSecond();
+  estimateShipping();
+  headerSticky();
+  autoPopup();
 });
 
 /* Custom Select with Images
@@ -533,38 +533,34 @@ const goTop = () => {
 /* Check Click
 -------------------------------------------------------------------------*/
 const checkClick = () => {
-  document.querySelectorAll('.flat-check-list').forEach(list => {
-    list.addEventListener('click', (e) => {
-      const checkItem = e.target.closest('.check-item');
-      if (!checkItem) return;
-
-      list.querySelectorAll('.check-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      checkItem.classList.add('active');
+  const checkItems = document.querySelectorAll('.flat-check-list .check-item');
+  checkItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const list = item.closest('.flat-check-list');
+      list.querySelectorAll('.check-item').forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
     });
   });
 };
 
-/* Color Swatch Product
+/* Swatch Color
 -------------------------------------------------------------------------*/
 const swatchColor = () => {
-  document.querySelectorAll('.card-product').forEach(product => {
+  const products = document.querySelectorAll('.card-product');
+  if (products.length === 0) return;
+
+  products.forEach(product => {
     const swatches = product.querySelectorAll('.color-swatch');
     swatches.forEach(swatch => {
       ['click', 'mouseover'].forEach(event => {
         swatch.addEventListener(event, () => {
           const swatchImg = swatch.querySelector('img');
-          if (!swatchImg) return;
-          
           const imgProduct = product.querySelector('.img-product');
-          if (!imgProduct) return;
-
-          imgProduct.src = swatchImg.src;
-          product.querySelectorAll('.color-swatch.active').forEach(active => {
-            active.classList.remove('active');
-          });
-          swatch.classList.add('active');
+          if (swatchImg && imgProduct) {
+            imgProduct.src = swatchImg.src;
+            product.querySelector('.color-swatch.active')?.classList.remove('active');
+            swatch.classList.add('active');
+          }
         });
       });
     });
@@ -575,61 +571,72 @@ const swatchColor = () => {
 -------------------------------------------------------------------------*/
 const sidebarMobile = () => {
   const sidebarContent = document.querySelector('.sidebar-content-wrap');
-  const sidebarMobileAppend = document.querySelector('.sidebar-mobile-append');
-  
-  if (sidebarContent && sidebarMobileAppend) {
-    sidebarMobileAppend.innerHTML = sidebarContent.innerHTML;
+  const sidebarAppend = document.querySelector('.sidebar-mobile-append');
+  if (sidebarContent && sidebarAppend) {
+    sidebarAppend.innerHTML = sidebarContent.innerHTML;
   }
 };
 
 /* Stagger Wrap
 -------------------------------------------------------------------------*/
 const staggerWrap = () => {
-  document.querySelectorAll('.stagger-wrap').forEach(wrap => {
-    const items = wrap.querySelectorAll('.stagger-item');
-    items.forEach((item, index) => {
-      const delay = (index + 1) * 0.2;
-      item.style.transitionDelay = delay + 's';
-      item.classList.add('stagger-finished');
-    });
+  const staggerWrap = document.querySelector('.stagger-wrap');
+  if (!staggerWrap) return;
+
+  const items = staggerWrap.querySelectorAll('.stagger-item');
+  items.forEach((item, index) => {
+    const delay = (index + 1) * 0.2;
+    item.style.transitionDelay = `${delay}s`;
+    item.classList.add('stagger-finished');
   });
 };
 
-/* Modal Second
+/* Click Modal Second
 -------------------------------------------------------------------------*/
 const clickModalSecond = () => {
   // Using Bootstrap 5 Modal API
-  const setupModalTrigger = (selector, modalId) => {
-    document.querySelectorAll(selector).forEach(btn => {
-      btn.addEventListener('click', () => {
-        const modal = new bootstrap.Modal(document.getElementById(modalId));
-        modal.show();
-      });
+  document.querySelectorAll('.btn-quickview').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const quickViewModal = new bootstrap.Modal(document.getElementById('quickView'));
+      quickViewModal.show();
     });
-  };
+  });
 
-  setupModalTrigger('.btn-quickview', 'quickView');
-  setupModalTrigger('.btn-addtocart', 'shoppingCart');
-
-  // Handle other toggleable elements
-  const setupToggle = (btnSelector, targetClass) => {
-    document.querySelectorAll(btnSelector).forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelector(targetClass)?.classList.add('open');
-      });
+  document.querySelectorAll('.btn-addtocart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cartModal = new bootstrap.Modal(document.getElementById('shoppingCart'));
+      cartModal.show();
     });
-  };
+  });
 
-  setupToggle('.btn-add-gift', '.add-gift');
-  setupToggle('.btn-add-note', '.add-note');
-  setupToggle('.btn-coupon', '.coupon');
-  setupToggle('.btn-estimate-shipping', '.estimate-shipping');
+  document.querySelectorAll('.btn-add-gift').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.add-gift')?.classList.add('open');
+    });
+  });
 
-  // Close button handler
+  document.querySelectorAll('.btn-add-note').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.add-note')?.classList.add('open');
+    });
+  });
+
+  document.querySelectorAll('.btn-coupon').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.coupon')?.classList.add('open');
+    });
+  });
+
+  document.querySelectorAll('.btn-estimate-shipping').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.estimate-shipping')?.classList.add('open');
+    });
+  });
+
   document.querySelectorAll('.tf-mini-cart-tool-close').forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.tf-mini-cart-tool-openable').forEach(el => {
-        el.classList.remove('open');
+      document.querySelectorAll('.tf-mini-cart-tool-openable').forEach(tool => {
+        tool.classList.remove('open');
       });
     });
   });
@@ -638,8 +645,8 @@ const clickModalSecond = () => {
 /* Estimate Shipping
 -------------------------------------------------------------------------*/
 const estimateShipping = () => {
-  const form = document.getElementById('shipping-form');
-  if (!form) return;
+  const shippingForm = document.querySelector('.estimate-shipping');
+  if (!shippingForm) return;
 
   const countrySelect = document.getElementById('shipping-country-form');
   const provinceSelect = document.getElementById('shipping-province-form');
@@ -695,30 +702,24 @@ const estimateShipping = () => {
     return patterns[country] ? patterns[country].test(zipcode) : true;
   };
 
-  if (countrySelect) {
-    countrySelect.addEventListener('change', updateProvinces);
-  }
+  countrySelect?.addEventListener('change', updateProvinces);
 
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const zipcode = zipcodeInput?.value.trim();
-      const country = countrySelect?.value;
+  document.getElementById('shipping-form')?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const zipcode = zipcodeInput?.value.trim();
+    const country = countrySelect?.value;
 
-      if (zipcode && country && zipcodeMessage && zipcodeSuccess) {
-        if (!validateZipcode(zipcode, country)) {
-          zipcodeMessage.style.display = 'block';
-          zipcodeSuccess.style.display = 'none';
-        } else {
-          zipcodeMessage.style.display = 'none';
-          zipcodeSuccess.style.display = 'block';
-        }
-      }
-    });
-  }
+    if (zipcode && country && !validateZipcode(zipcode, country)) {
+      zipcodeMessage.style.display = 'block';
+      zipcodeSuccess.style.display = 'none';
+    } else {
+      zipcodeMessage.style.display = 'none';
+      zipcodeSuccess.style.display = 'block';
+    }
+  });
 
   // Initialize provinces on load
-  window.addEventListener('load', updateProvinces);
+  updateProvinces();
 };
 
 /* Header Sticky
@@ -727,88 +728,38 @@ const headerSticky = () => {
   let lastScrollTop = 0;
   const delta = 5;
   let didScroll = false;
-  let isSticky = false;
-
-  const header = document.getElementById('header');
+  const header = document.querySelector('#header');
   if (!header) return;
 
-  // Add necessary CSS classes for transition
-  header.classList.add('header-sticky-ready');
-  
-  const getScrollTop = () => window.pageYOffset || document.documentElement.scrollTop;
-  
-  const hasScrolled = () => {
-    const st = getScrollTop();
-    const navbarHeight = header.offsetHeight;
-    const windowWidth = window.innerWidth;
+  const headerHeight = header.offsetHeight;
 
-    // Only apply sticky behavior for desktop
-    if (windowWidth < 1200) {
-      header.classList.remove('is-sticky', 'header-bg', 'header-show', 'header-hide');
-      header.style.top = '';
-      return;
-    }
+  window.addEventListener('scroll', () => {
+    didScroll = true;
+  });
 
-    // If we're at the top, remove sticky
-    if (st <= 0) {
-      header.classList.remove('is-sticky', 'header-bg', 'header-show', 'header-hide');
-      header.style.top = '';
-      isSticky = false;
-      return;
-    }
+  setInterval(() => {
+    if (didScroll) {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      
+      if (Math.abs(lastScrollTop - st) <= delta) return;
 
-    // Start sticky behavior after scrolling past header height
-    if (st > navbarHeight) {
-      if (!isSticky) {
-        header.classList.add('is-sticky');
-        isSticky = true;
-      }
-
-      // Scrolling down
-      if (st > lastScrollTop && st > navbarHeight) {
-        header.classList.remove('header-show');
-        header.classList.add('header-hide');
-        header.style.top = `-${navbarHeight}px`;
-      } 
-      // Scrolling up
-      else if (st + window.innerHeight < document.documentElement.scrollHeight) {
-        header.classList.remove('header-hide');
-        header.classList.add('header-show', 'header-bg');
+      if (st < headerHeight) {
+        header.classList.remove('header-visible', 'header-hidden');
+        header.style.top = '';
+      } else if (st > lastScrollTop) {
+        // Scrolling down
+        header.style.top = `-${headerHeight}px`;
+      } else {
+        // Scrolling up
+        header.classList.remove('header-hidden');
+        header.classList.add('header-visible');
         header.style.top = '0';
       }
-    } else {
-      header.classList.remove('is-sticky', 'header-bg', 'header-show', 'header-hide');
-      header.style.top = '';
-      isSticky = false;
+
+      lastScrollTop = st;
+      didScroll = false;
     }
-
-    lastScrollTop = st;
-  };
-
-  // Throttle scroll events
-  let ticking = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        hasScrolled();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-
-  // Handle resize events
-  window.addEventListener('resize', () => {
-    if (window.innerWidth < 1200) {
-      header.classList.remove('is-sticky', 'header-bg', 'header-show', 'header-hide');
-      header.style.top = '';
-    } else {
-      hasScrolled();
-    }
-  });
-
-  // Initial check
-  hasScrolled();
+  }, 250);
 };
 
 /* Auto Popup
@@ -828,128 +779,187 @@ const autoPopup = () => {
   }
 
   document.querySelector('.btn-hide-popup')?.addEventListener('click', () => {
-    sessionStorage.setItem(pageKey, 'true');
+    sessionStorage.setItem(pageKey, true);
   });
 };
 
-/* Parallax Effect
+/* Parallax Effects
 -------------------------------------------------------------------------*/
-const parallaxEffect = () => {
-  document.querySelectorAll('.effect-paralax').forEach(element => {
-    let offset = 0;
-    
-    const updateParallax = () => {
-      const rect = element.getBoundingClientRect();
-      const viewHeight = window.innerHeight;
-      
-      if (rect.top < viewHeight && rect.bottom > 0) {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * 0.3; // Adjust this value to control parallax intensity
-        element.style.transform = `translate3d(0, ${rate}px, 0)`;
+const efectParalax = () => {
+  const parallaxElements = document.querySelectorAll('.effect-paralax');
+  if (parallaxElements.length === 0) return;
+
+  parallaxElements.forEach(element => {
+    new SimpleParallax(element, {
+      delay: 0.5,
+      orientation: 'up',
+      scale: 1.3,
+      transition: 'cubic-bezier(0.2, 0.8, 1, 1)'
+    });
+  });
+};
+
+/* Handle Sidebar Filter
+-------------------------------------------------------------------------*/
+const handleSidebarFilter = () => {
+  // Filter shop button click handlers
+  document.querySelectorAll('#filterShop, .sidebar-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (window.innerWidth <= 1200) {
+        document.querySelector('.sidebar-filter')?.classList.add('show');
+        document.querySelector('.overlay-filter')?.classList.add('show');
       }
-    };
+    });
+  });
 
-    window.addEventListener('scroll', updateParallax);
-    window.addEventListener('resize', updateParallax);
-    updateParallax();
+  // Close filter handlers
+  document.querySelectorAll('.close-filter, .overlay-filter').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.sidebar-filter')?.classList.remove('show');
+      document.querySelector('.overlay-filter')?.classList.remove('show');
+    });
   });
 };
 
-/* Infinite Slide
+/* Bottom Sticky
 -------------------------------------------------------------------------*/
-const infiniteSlide = () => {
-  document.querySelectorAll('.infiniteslide').forEach(slider => {
-    const style = slider.dataset.style || 'left';
-    const clone = parseInt(slider.dataset.clone) || 2;
-    const speed = parseInt(slider.dataset.speed) || 100;
+const bottomSticky = () => {
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+    const stickyButton = document.querySelector('.tf-sticky-btn-atc');
 
-    const container = slider.querySelector('.slide-container');
-    if (!container) return;
-
-    const items = [...container.children];
-    
-    // Clone items
-    for (let i = 0; i < clone; i++) {
-      items.forEach(item => {
-        container.appendChild(item.cloneNode(true));
-      });
-    }
-
-    // Animation
-    const animate = () => {
-      if (style === 'left') {
-        if (container.scrollLeft >= (container.scrollWidth - container.clientWidth)) {
-          container.scrollLeft = 0;
-        } else {
-          container.scrollLeft += 1;
-        }
+    if (stickyButton) {
+      if (scrollPosition >= 500) {
+        stickyButton.classList.add('show');
       } else {
-        if (container.scrollLeft <= 0) {
-          container.scrollLeft = container.scrollWidth - container.clientWidth;
-        } else {
-          container.scrollLeft -= 1;
+        stickyButton.classList.remove('show');
+      }
+    }
+  });
+};
+
+/* Wish List
+-------------------------------------------------------------------------*/
+const wishList = () => {
+  // Handle standalone wishlist buttons
+  document.querySelectorAll('.btn-add-wishlist').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('added-wishlist');
+    });
+  });
+
+  // Handle product card wishlist buttons
+  document.querySelectorAll('.card-product .wishlist').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('addwishlist');
+
+      const icon = btn.querySelector('.icon');
+      const tooltip = btn.querySelector('.tooltip');
+
+      if (btn.classList.contains('addwishlist')) {
+        icon?.classList.remove('icon-heart2');
+        icon?.classList.add('icon-trash');
+        if (tooltip) tooltip.textContent = 'Remove Wishlist';
+      } else {
+        icon?.classList.remove('icon-trash');
+        icon?.classList.add('icon-heart2');
+        if (tooltip) tooltip.textContent = 'Add to Wishlist';
+      }
+    });
+  });
+};
+
+/* Copy Text
+-------------------------------------------------------------------------*/
+const copyText = () => {
+  const copyBtn = document.getElementById('btn-coppy-text');
+  if (!copyBtn) return;
+
+  copyBtn.addEventListener('click', () => {
+    const text = document.getElementById('coppyText');
+    if (!text) return;
+
+    try {
+      // Create a temporary textarea to handle multi-line text
+      const textarea = document.createElement('textarea');
+      textarea.value = text.innerText;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      
+      alert('Text copied: ' + text.innerText);
+    } catch (err) {
+      alert('Failed to copy text: ' + err);
+    }
+  });
+};
+
+/* Tab Slide
+-------------------------------------------------------------------------*/
+const tabSlide = () => {
+  const tabSlides = document.querySelectorAll('.tab-slide');
+  if (tabSlides.length === 0) return;
+
+  const updateTabSlide = () => {
+    tabSlides.forEach(tabSlide => {
+      const activeTab = tabSlide.querySelector('li.active');
+      if (!activeTab) return;
+
+      const width = activeTab.offsetWidth;
+      const left = activeTab.offsetLeft;
+      const sideEffect = tabSlide.querySelector('.item-slide-effect');
+      
+      if (sideEffect) {
+        sideEffect.style.width = `${width}px`;
+        sideEffect.style.transform = `translateX(${left}px)`;
+      }
+    });
+  };
+
+  // Handle tab clicks
+  tabSlides.forEach(tabSlide => {
+    const tabs = tabSlide.querySelectorAll('li');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        tabs.forEach(t => t.classList.remove('active'));
+        // Add active class to clicked tab
+        tab.classList.add('active');
+
+        const width = tab.offsetWidth;
+        const left = tab.offsetLeft;
+        const sideEffect = tabSlide.querySelector('.item-slide-effect');
+        
+        if (sideEffect) {
+          sideEffect.style.width = `${width}px`;
+          sideEffect.style.transform = `translateX(${left}px)`;
         }
-      }
-    };
-
-    setInterval(animate, speed);
-  });
-};
-
-/* Button Quantity
--------------------------------------------------------------------------*/
-const buttonQuantity = () => {
-  document.querySelectorAll('.quantity-wrapper').forEach(wrapper => {
-    const input = wrapper.querySelector('input');
-    if (!input) return;
-
-    wrapper.querySelector('.minus-btn')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      const value = parseInt(input.value, 10);
-      if (value > 1) {
-        input.value = value - 1;
-        input.dispatchEvent(new Event('change'));
-      }
-    });
-
-    wrapper.querySelector('.plus-btn')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      const value = parseInt(input.value, 10);
-      input.value = value + 1;
-      input.dispatchEvent(new Event('change'));
-    });
-  });
-};
-
-/* Delete Item
--------------------------------------------------------------------------*/
-const deleteItem = () => {
-  document.querySelectorAll('.remove').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      btn.closest('.file-delete')?.remove();
+      });
     });
   });
 
-  document.querySelectorAll('.clear-file-delete').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      btn.closest('.list-file-delete')?.querySelectorAll('.file-delete')
-        .forEach(item => item.remove());
-    });
-  });
+  // Update on window resize
+  window.addEventListener('resize', updateTabSlide);
+
+  // Initial update
+  updateTabSlide();
 };
 
 /* Click Control
 -------------------------------------------------------------------------*/
 const clickControl = () => {
   // Add Address
-  document.querySelector('.btn-add-address')?.addEventListener('click', () => {
-    document.querySelector('.show-form-address')?.classList.toggle('show');
+  document.querySelectorAll('.btn-add-address').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.show-form-address')?.classList.toggle('show');
+    });
   });
 
-  document.querySelector('.btn-hide-address')?.addEventListener('click', () => {
-    document.querySelector('.show-form-address')?.classList.remove('show');
+  document.querySelectorAll('.btn-hide-address').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelector('.show-form-address')?.classList.remove('show');
+    });
   });
 
   // Delete Address
@@ -988,126 +998,116 @@ const clickControl = () => {
     });
   });
 
-  document.querySelector('.btn-hide-edit-address')?.addEventListener('click', () => {
-    document.querySelector('.edit-form-address')?.classList.remove('show');
-    document.querySelectorAll('.account-address-item').forEach(item => {
-      item.classList.remove('editing');
-    });
-  });
-};
-
-/* Tab Slide
--------------------------------------------------------------------------*/
-const tabSlide = () => {
-  const updateTabSlide = () => {
-    document.querySelectorAll('.tab-slide').forEach(tabContainer => {
-      const activeTab = tabContainer.querySelector('li.active');
-      if (!activeTab) return;
-
-      const slideEffect = tabContainer.querySelector('.item-slide-effect');
-      if (!slideEffect) return;
-
-      const width = activeTab.offsetWidth;
-      const left = activeTab.offsetLeft;
-
-      slideEffect.style.width = width + 'px';
-      slideEffect.style.transform = `translateX(${left}px)`;
-    });
-  };
-
-  document.querySelectorAll('.tab-slide li').forEach(tab => {
-    tab.addEventListener('click', () => {
-      const tabs = tab.parentElement.querySelectorAll('li');
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      updateTabSlide();
-    });
-  });
-
-  window.addEventListener('resize', updateTabSlide);
-  updateTabSlide();
-};
-
-/* Copy Text
--------------------------------------------------------------------------*/
-const copyText = () => {
-  document.getElementById('btn-coppy-text')?.addEventListener('click', () => {
-    const text = document.getElementById('coppyText');
-    if (!text) return;
-
-    navigator.clipboard.writeText(text.innerText)
-      .then(() => alert('Text copied: ' + text.innerText))
-      .catch(err => alert('Failed to copy text: ' + err));
-  });
-};
-
-/* Wish List
--------------------------------------------------------------------------*/
-const wishList = () => {
-  document.querySelectorAll('.btn-add-wishlist').forEach(btn => {
+  document.querySelectorAll('.btn-hide-edit-address').forEach(btn => {
     btn.addEventListener('click', () => {
-      btn.classList.toggle('added-wishlist');
+      const editForm = document.querySelector('.edit-form-address');
+      editForm?.classList.remove('show');
+      document.querySelectorAll('.account-address-item').forEach(item => {
+        item.classList.remove('editing');
+      });
+    });
+  });
+};
+
+/* Delete Item
+----------------------------------------------------------------------------*/
+const deleteItem = () => {
+  document.querySelectorAll('.remove').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      btn.closest('.file-delete')?.remove();
     });
   });
 
-  document.querySelectorAll('.card-product .wishlist').forEach(wishlist => {
-    wishlist.addEventListener('click', () => {
-      wishlist.classList.toggle('addwishlist');
+  document.querySelectorAll('.clear-file-delete').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      btn.closest('.list-file-delete')?.querySelectorAll('.file-delete').forEach(item => {
+        item.remove();
+      });
+    });
+  });
+};
 
-      const icon = wishlist.querySelector('.icon');
-      const tooltip = wishlist.querySelector('.tooltip');
+/* Button Quantity
+----------------------------------------------------------------------------*/
+const buttonQuantity = () => {
+  document.querySelectorAll('.minus-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const input = btn.closest('div').querySelector('input');
+      let value = parseInt(input.value, 10);
 
-      if (wishlist.classList.contains('addwishlist')) {
-        icon?.classList.replace('icon-heart2', 'icon-trash');
-        if (tooltip) tooltip.textContent = 'Remove Wishlist';
-      } else {
-        icon?.classList.replace('icon-trash', 'icon-heart2');
-        if (tooltip) tooltip.textContent = 'Add to Wishlist';
+      if (value > 1) {
+        value = value - 1;
       }
+      input.value = value;
+    });
+  });
+
+  document.querySelectorAll('.plus-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const input = btn.closest('div').querySelector('input');
+      let value = parseInt(input.value, 10);
+
+      if (value > -1) {
+        value = value + 1;
+      }
+      input.value = value;
     });
   });
 };
 
-/* Bottom Sticky
--------------------------------------------------------------------------*/
-const bottomSticky = () => {
-  const stickyBtn = document.querySelector('.tf-sticky-btn-atc');
-  if (!stickyBtn) return;
+/* Infinite Slide
+----------------------------------------------------------------------------*/
+const infiniteSlide = () => {
+  const slides = document.querySelectorAll('.infiniteslide');
+  if (slides.length === 0) return;
 
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset >= 500) {
-      stickyBtn.classList.add('show');
-    } else {
-      stickyBtn.classList.remove('show');
+  slides.forEach(slide => {
+    const style = slide.dataset.style || 'left';
+    const clone = parseInt(slide.dataset.clone) || 2;
+    const speed = parseInt(slide.dataset.speed) || 100;
+
+    // Create a wrapper for the infinite slide
+    const wrapper = document.createElement('div');
+    wrapper.style.overflow = 'hidden';
+    wrapper.style.position = 'relative';
+    slide.parentNode.insertBefore(wrapper, slide);
+    wrapper.appendChild(slide);
+
+    // Clone the items
+    const items = Array.from(slide.children);
+    for (let i = 0; i < clone; i++) {
+      items.forEach(item => {
+        const clonedItem = item.cloneNode(true);
+        slide.appendChild(clonedItem);
+      });
     }
-  });
-};
 
-/* Handle Sidebar Filter
--------------------------------------------------------------------------*/
-const handleSidebarFilter = () => {
-  const toggleFilter = (show = true) => {
-    const elements = document.querySelectorAll('.sidebar-filter, .overlay-filter');
-    elements.forEach(el => {
-      el.classList.toggle('show', show);
-    });
-  };
-
-  ['#filterShop', '.sidebar-btn'].forEach(selector => {
-    document.querySelectorAll(selector).forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (window.innerWidth <= 1200) {
-          toggleFilter(true);
+    // Set up animation
+    let position = 0;
+    const totalWidth = slide.scrollWidth;
+    const animate = () => {
+      if (style === 'left') {
+        position -= 1;
+        if (Math.abs(position) >= totalWidth / (clone + 1)) {
+          position = 0;
         }
-      });
-    });
-  });
+        slide.style.transform = `translateX(${position}px)`;
+      } else if (style === 'right') {
+        position += 1;
+        if (position >= totalWidth / (clone + 1)) {
+          position = 0;
+        }
+        slide.style.transform = `translateX(${position}px)`;
+      }
+      requestAnimationFrame(animate);
+    };
 
-  ['.close-filter', '.overlay-filter'].forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      el.addEventListener('click', () => {
-        toggleFilter(false);
-      });
-    });
+    // Start animation
+    slide.style.display = 'flex';
+    animate();
   });
 };

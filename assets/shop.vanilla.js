@@ -399,6 +399,7 @@ function initLoadMore() {
 
 // Utility Functions
 function isElementInViewport(el) {
+    if (!el) return false;
     const rect = el.getBoundingClientRect();
     return (
         rect.top >= 0 &&
