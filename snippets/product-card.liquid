@@ -7,13 +7,11 @@
                     data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
                     src="{{ product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
                     alt="{{ product.featured_image.alt | escape }}">
-                {% if product.images[1] %}
-                    <img class="img-hover lazyload"
-                        width="460" height="460"
-                        data-src="{{ product.images[1] | image_url: width: 460, height: 460, crop: 'center' }}"
-                        src="{{ product.images[1] | image_url: width: 100, height: 100, crop: 'center' }}"
-                        alt="{{ product.images[1].alt | escape }}">
-                {% endif %}
+                <img class="img-hover lazyload"
+                    width="460" height="460"
+                    data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}">
             {% endif %}
         </a>
         {% if product.compare_at_price > product.price %}
