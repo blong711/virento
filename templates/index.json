@@ -131,8 +131,11 @@
         "banner_1": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/offer-banner-1.jpg",
+            "image": "shopify://shop_images/elt-1.jpg",
             "title": "Smart Watches",
+            "title_tag": "h4",
+            "title_weight": "fw-medium",
+            "color_scheme": "",
             "link": "/collections/watches",
             "button_label": "Shop Now"
           }
@@ -140,8 +143,11 @@
         "banner_2": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/offer-banner-2.jpg",
+            "image": "shopify://shop_images/elt-2.jpg",
             "title": "Wireless Audio",
+            "title_tag": "h4",
+            "title_weight": "fw-medium",
+            "color_scheme": "",
             "link": "/collections/audio",
             "button_label": "Shop Now"
           }
