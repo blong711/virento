@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "contact_form_with_text": {
+      "type": "contact-form-with-text",
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "title": "Contact Us"
+          }
+        },
+        "subheading": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Have a question? Please contact us using the customer support channels below."
+          }
+        },
+        "contact_info": {
+          "type": "contact_info",
+          "settings": {
+            "address": "15 Yarran st, Punchbowl, NSW, Australia",
+            "address_url": "",
+            "phone": "+1 234 567",
+            "email": "contact@gravitech.com",
+            "hours": "8am - 7pm, Mon - Sat"
+          }
+        },
+        "socials": {
+          "type": "socials",
+          "settings": {
+            "style": "large"
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "subheading", 
+        "contact_info",
+        "socials"
+      ],
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "scheme-1",
+        "form_heading": "Get In Touch",
+        "form_subheading": "Please submit all general enquiries in the contact form below and we look forward to hearing from you soon.",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
+    "map_with_text": {
+      "type": "map-with-text",
+      "settings": {
+        "width": "full",
+        "color_scheme": "scheme-1",
+        "source_map": "",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_mobile_ratio": 75
+      }
+    }
+  },
+  "order": [
+    "map_with_text",
+    "contact_form_with_text"
+  ]
+}

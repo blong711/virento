@@ -1,0 +1,421 @@
+<section
+  class="s-contact flat-spacing-13 color-{{ section.settings.color_scheme }} background-{{ section.settings.color_scheme }}"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="">
+    <div class="{% if section.settings.width == 'boxed' %} container{% endif %}">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="content-left">
+            {% for block in section.blocks %}
+              {% case block.type %}
+                {% when 'heading' %}
+                  <div class="title fw-medium display-md-2" {{ block.shopify_attributes }}>
+                    {{ block.settings.title | default: 'Contact Us' }}
+                  </div>
+
+                {% when 'subheading' %}
+                  <p class="sub-title text-main" {{ block.shopify_attributes }}>
+                    {{
+                      block.settings.subheading
+                      | default: 'Have a question? Please contact us using the customer support channels below.'
+                    }}
+                  </p>
+
+                {% when 'contact_info' %}
+                  <ul class="contact-list" {{ block.shopify_attributes }}>
+                    {% if block.settings.address != blank %}
+                      <li>
+                        <p>
+                          Address:
+                          {% if block.settings.address_url != blank %}
+                            <a class="link" href="{{ block.settings.address_url }}" target="_blank">
+                              {{ block.settings.address }}
+                            </a>
+                          {% else %}
+                            <span>{{ block.settings.address }}</span>
+                          {% endif %}
+                        </p>
+                      </li>
+                    {% endif %}
+
+                    {% if block.settings.phone != blank %}
+                      <li>
+                        <p>
+                          Phone number:
+                          <a class="link" href="tel:{{ block.settings.phone }}">
+                            {{ block.settings.phone }}
+                          </a>
+                        </p>
+                      </li>
+                    {% endif %}
+
+                    {% if block.settings.email != blank %}
+                      <li>
+                        <p>
+                          Email:
+                          <a class="link" href="mailto:{{ block.settings.email }}">
+                            {{ block.settings.email }}
+                          </a>
+                        </p>
+                      </li>
+                    {% endif %}
+
+                    {% if block.settings.hours != blank %}
+                      <li>
+                        <p>
+                          Open:
+                          <span class="text-main">
+                            {{ block.settings.hours }}
+                          </span>
+                        </p>
+                      </li>
+                    {% endif %}
+                  </ul>
+
+                {% when 'socials' %}
+                  <ul
+                    class="tf-social-icon style-large social-size-{{ block.settings.socials_size | default: 'large' }} social-style-{{ block.settings.socials_style | default: 'default' }}"
+                    {{ block.shopify_attributes }}
+                  >
+                    {% if settings.social_facebook_link != blank %}
+                      <li>
+                        <a href="{{ settings.social_facebook_link }}" class="social-item social-facebook">
+                          <i class="icon icon-fb"></i>
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if settings.social_instagram_link != blank %}
+                      <li>
+                        <a href="{{ settings.social_instagram_link }}" class="social-item social-instagram">
+                          <i class="icon icon-instagram"></i>
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if settings.social_twitter_link != blank %}
+                      <li>
+                        <a href="{{ settings.social_twitter_link }}" class="social-item social-x">
+                          <i class="icon icon-x"></i>
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if settings.social_snapchat_link != blank %}
+                      <li>
+                        <a href="{{ settings.social_snapchat_link }}" class="social-item social-snapchat">
+                          <i class="icon icon-snapchat"></i>
+                        </a>
+                      </li>
+                    {% endif %}
+                  </ul>
+              {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="content-right">
+            <div class="title fw-medium display-md-2">
+              {{ section.settings.form_heading | default: 'Get In Touch' }}
+            </div>
+            <p class="sub-title text-main">
+              {{
+                section.settings.form_subheading
+                | default: 'Please submit all general enquiries in the contact form below and we look forward to hearing from you soon.'
+              }}
+            </p>
+            <div class="form-contact-wrap">
+              {% form 'contact' %}
+                {% if form.posted_successfully? %}
+                  <div class="form-success">
+                    <p>Thank you for contacting us! We'll get back to you soon.</p>
+                  </div>
+                {% endif %}
+
+                {% if form.errors %}
+                  <div class="form-errors">
+                    {{ form.errors | default_errors }}
+                  </div>
+                {% endif %}
+
+                <div class="form-default">
+                  <div class="wrap">
+                    <div class="cols">
+                      <fieldset>
+                        <label for="ContactFormName">Your name*</label>
+                        <input id="ContactFormName" type="text" name="contact[name]" value="{{ form.name }}" required>
+                      </fieldset>
+                      <fieldset>
+                        <label for="ContactFormEmail">Your email*</label>
+                        <input
+                          id="ContactFormEmail"
+                          type="email"
+                          name="contact[email]"
+                          value="{{ form.email }}"
+                          required
+                        >
+                      </fieldset>
+                    </div>
+                    <div class="cols">
+                      <fieldset class="textarea">
+                        <label for="ContactFormMessage">Message</label>
+                        <textarea id="ContactFormMessage" name="contact[body]" required>{{ form.body }}</textarea>
+                      </fieldset>
+                    </div>
+                    <div class="button-submit">
+                      <button class="tf-btn animate-btn" type="submit">Send</button>
+                    </div>
+                  </div>
+                </div>
+              {% endform %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "contact-form-with-text",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.contact-form-with-text.settings.width.label",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "t:sections.contact-form-with-text.settings.boxed.label"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.contact-form-with-text.settings.full_width.label"
+        }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.contact-form-with-text.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "form_heading",
+      "label": "t:sections.contact-form-with-text.settings.form_heading.label",
+      "default": "Get In Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "form_subheading",
+      "label": "t:sections.contact-form-with-text.settings.form_subheading.label",
+      "default": "Please submit all general enquiries in the contact form below and we look forward to hearing from you soon."
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.contact-form-with-text.settings.padding_top.label",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.contact-form-with-text.settings.padding_bottom.label",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading",
+      "name": "t:sections.contact-form-with-text.blocks.heading.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.contact-form-with-text.blocks.heading.settings.title.label",
+          "default": "Contact Us"
+        }
+      ]
+    },
+    {
+      "type": "subheading",
+      "name": "t:sections.contact-form-with-text.blocks.subheading.name",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "subheading",
+          "label": "t:sections.contact-form-with-text.blocks.subheading.settings.subheading.label",
+          "default": "Have a question? Please contact us using the customer support channels below."
+        }
+      ]
+    },
+    {
+      "type": "contact_info",
+      "name": "Contact Information",
+      "settings": [
+        {
+          "type": "text",
+          "id": "address",
+          "label": "Address",
+          "default": "15 Yarran st, Punchbowl, NSW, Australia"
+        },
+        {
+          "type": "url",
+          "id": "address_url",
+          "label": "Address URL (Google Maps link)"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone Number",
+          "default": "+1 234 567"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email Address",
+          "default": "contact@vince.com"
+        },
+        {
+          "type": "text",
+          "id": "hours",
+          "label": "Business Hours",
+          "default": "8am - 7pm, Mon - Sat"
+        }
+      ]
+    },
+    {
+      "type": "socials",
+      "name": "t:sections.contact-form-with-text.blocks.socials.name",
+      "settings": [
+        {
+          "type": "select",
+          "id": "socials_style",
+          "label": "t:sections.contact-form-with-text.blocks.socials.settings.social_style.label",
+          "default": "simple",
+          "options": [
+            {
+              "value": "default",
+              "label": "t:sections.contact-form-with-text.blocks.socials.settings.social_style.options__1.label"
+            },
+            {
+              "value": "outline",
+              "label": "t:sections.contact-form-with-text.blocks.socials.settings.social_style.options__2.label"
+            },
+            {
+              "value": "simple",
+              "label": "t:sections.contact-form-with-text.blocks.socials.settings.social_style.options__3.label"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "socials_size",
+          "label": "t:sections.contact-form-with-text.blocks.socials.settings.social_size.label",
+          "options": [
+            {
+              "value": "small",
+              "label": "t:sections.contact-form-with-text.blocks.socials.settings.social_size.options__1.label"
+            },
+            {
+              "value": "medium",
+              "label": "t:sections.contact-form-with-text.blocks.socials.settings.social_size.options__2.label"
+            },
+            {
+              "value": "large",
+              "label": "t:sections.contact-form-with-text.blocks.socials.settings.social_size.options__3.label"
+            }
+          ],
+          "default": "large"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.contact-form-with-text.presets.default",
+      "category": "Contact",
+      "blocks": [
+        {
+          "type": "heading"
+        },
+        {
+          "type": "subheading"
+        },
+        {
+          "type": "contact_info"
+        },
+        {
+          "type": "socials"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .tf-social-icon.social-size-medium .social-item {
+    width: 30px;
+    height: 30px;
+    border-color: var(--line);
+    font-size: 16px !important;
+    color: #383d38;
+  }
+
+  .tf-social-icon.social-size-large .social-item {
+    width: 38px;
+    height: 38px;
+    border-color: var(--line);
+    font-size: 18px !important;
+    color: #383d38;
+  }
+  .tf-social-icon.social-size-small .social-item {
+    width: 25px;
+    height: 25px;
+    border-color: var(--line);
+    font-size: 14px !important;
+    color: #383d38;
+  }
+
+  .tf-social-icon.social-style-outline .social-item {
+    border-color: var(--line-5);
+    background-color: transparent;
+  }
+
+  .tf-social-icon.social-style-simple .social-item {
+    border: none;
+    background-color: transparent;
+  }
+
+  .color-{{ section.settings.color_scheme }} .tf-btn.animate-btn {
+    background-color: rgb(var(--color-button)) !important;
+    color: rgb(var(--color-button-text)) !important;
+    border-color: rgb(var(--color-button)) !important;
+  }
+
+  .color-{{ section.settings.color_scheme }} .tf-btn.animate-btn:hover {
+    background-color: rgba(var(--color-button), 0.8) !important;
+    border-color: rgba(var(--color-button), 0.8) !important;
+  }
+
+  .color-{{ section.settings.color_scheme }} .sub-title,
+  .color-{{ section.settings.color_scheme }} .contact-text,
+  .color-{{ section.settings.color_scheme }} .contact-list a,
+  .color-{{ section.settings.color_scheme }} .contact-list span {
+    color: rgba(var(--color-foreground), 0.75) !important;
+  }
+{% endstyle %}
