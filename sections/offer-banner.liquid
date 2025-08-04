@@ -1,0 +1,300 @@
+<section class="section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div class="container">
+        <div dir="ltr" class="swiper tf-swiper" data-swiper='{
+                "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+                "spaceBetween": {{ section.settings.space_between_mobile }},
+                "speed": 800,
+                "observer": true,
+                "observeParents": true,
+                "slidesPerGroup": 1,
+                "navigation": {
+                    "clickable": true,
+                    "nextEl": ".nav-next-cls",
+                    "prevEl": ".nav-prev-cls"
+                },
+                "pagination": { "el": ".sw-pagination-cls", "clickable": true },
+                "breakpoints": {
+                    "768": {
+                        "slidesPerView": {{ section.settings.slides_per_view_tablet }},
+                        "spaceBetween": {{ section.settings.space_between_tablet }},
+                        "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+                    },
+                    "1024": {
+                        "slidesPerView": {{ section.settings.slides_per_view_desktop }},
+                        "spaceBetween": {{ section.settings.space_between_desktop }},
+                        "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+                    }
+                }
+            }'>
+            <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'banner' %}
+                        <div class="swiper-slide" {{ block.shopify_attributes }}>
+                            <div class="banner-shop style-bottom style-lg-bottom hover-img">
+                                <a href="{{ block.settings.link }}" class="img-style d-block">
+                                    {% if block.settings.image %}
+                                        {{ block.settings.image | image_url: width: 800 | image_tag:
+                                            loading: 'lazy',
+                                            class: 'lazyload',
+                                            alt: block.settings.title
+                                        }}
+                                    {% else %}
+                                        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {% endif %}
+                                </a>
+                                <div class="content text-center wow fadeInUp">
+                                    <div class="box-title">
+                                        <h6>
+                                            <a href="{{ block.settings.link }}" class="title link text-white">
+                                                {{ block.settings.title }}
+                                            </a>
+                                        </h6>
+                                    </div>
+                                    {% if block.settings.button_label != blank %}
+                                        <a href="{{ block.settings.link }}" class="tf-btn btn-white hover-dark">
+                                            {{ block.settings.button_label }}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endcase %}
+                {% endfor %}
+            </div>
+            <div class="d-flex d-lg-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Offer Banner",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "default": "scheme-1"
+        },
+        {
+            "type": "select",
+            "id": "width",
+            "label": "t:sections.main_slider.settings.width.label",
+            "options": [
+                {
+                "value": "container",
+                "label": "t:sections.main_slider.settings.width.options.boxed"
+                },
+                {
+                "value": "container-full",
+                "label": "t:sections.main_slider.settings.width.options.full_width"
+                }
+            ],
+            "default": "container"
+        },
+        {
+            "type": "header",
+            "content": "Slider Settings"
+        },
+        {
+            "type": "range",
+            "id": "slides_per_view_desktop",
+            "label": "Items per row (Desktop)",
+            "min": 1,
+            "max": 6,
+            "step": 1,
+            "default": 2
+        },
+        {
+            "type": "range",
+            "id": "slides_per_view_tablet",
+            "label": "Items per row (Tablet)",
+            "min": 1,
+            "max": 4,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "slides_per_view_mobile",
+            "label": "Items per row (Mobile)",
+            "min": 1,
+            "max": 3,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "item_height_desktop",
+            "label": "Item height (Desktop)",
+            "min": 200,
+            "max": 800,
+            "step": 10,
+            "default": 400,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "item_height_tablet",
+            "label": "Item height (Tablet)",
+            "min": 200,
+            "max": 600,
+            "step": 10,
+            "default": 350,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "item_height_mobile",
+            "label": "Item height (Mobile)",
+            "min": 150,
+            "max": 500,
+            "step": 10,
+            "default": 300,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "space_between_desktop",
+            "label": "Space between items (Desktop)",
+            "min": 0,
+            "max": 50,
+            "step": 2,
+            "default": 24,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "space_between_tablet",
+            "label": "Space between items (Tablet)",
+            "min": 0,
+            "max": 40,
+            "step": 2,
+            "default": 12,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "space_between_mobile",
+            "label": "Space between items (Mobile)",
+            "min": 0,
+            "max": 30,
+            "step": 2,
+            "default": 12,
+            "unit": "px"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding_mobile_rate",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+            "default": 75,
+            "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "banner",
+            "name": "Banner",
+            "limit": 4,
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Banner Image"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": "Banner Title"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Banner Link"
+                },
+                {
+                    "type": "text",
+                    "id": "button_label",
+                    "label": "Button Label",
+                    "default": "Shop Now"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Offer Banner",
+            "blocks": [
+                {
+                    "type": "banner"
+                },
+                {
+                    "type": "banner"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    }
+  
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    .section-{{ section.id }} .banner-shop .img-style img {
+      height: {{ section.settings.item_height_mobile }}px;
+      object-fit: cover;
+    }
+
+    @media screen and (min-width: 768px) {
+      .section-{{ section.id }} .banner-shop .img-style img {
+        height: {{ section.settings.item_height_tablet }}px;
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      .section-{{ section.id }} .banner-shop .img-style img {
+        height: {{ section.settings.item_height_desktop }}px;
+      }
+    }
+{%- endstyle -%}
