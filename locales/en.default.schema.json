@@ -302,6 +302,99 @@
     }
   },
   "sections": {
+    "offer_banner": {
+      "name": "Offer Banner",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full_width": "Full Width"
+          }
+        },
+        "slider_settings": {
+          "content": "Slider Settings"
+        },
+        "slides_per_view_desktop": {
+          "label": "Items per row (Desktop)"
+        },
+        "slides_per_view_tablet": {
+          "label": "Items per row (Tablet)"
+        },
+        "slides_per_view_mobile": {
+          "label": "Items per row (Mobile)"
+        },
+        "item_height_desktop": {
+          "label": "Item height (Desktop)"
+        },
+        "item_height_tablet": {
+          "label": "Item height (Tablet)"
+        },
+        "item_height_mobile": {
+          "label": "Item height (Mobile)"
+        },
+        "space_between_desktop": {
+          "label": "Space between items (Desktop)"
+        },
+        "space_between_tablet": {
+          "label": "Space between items (Tablet)"
+        },
+        "space_between_mobile": {
+          "label": "Space between items (Mobile)"
+        }
+      },
+      "blocks": {
+        "banner": {
+          "name": "Banner",
+          "settings": {
+            "banner_media": {
+              "content": "Banner Media"
+            },
+            "image": {
+              "label": "Banner Image"
+            },
+            "image_mobile": {
+              "label": "Mobile Banner Image",
+              "info": "Optional. If not set, desktop image will be used"
+            },
+            "banner_content": {
+              "content": "Banner Content"
+            },
+            "title": {
+              "label": "Title"
+            },
+            "title_tag": {
+              "label": "Title Size",
+              "options": {
+                "h5": "Small",
+                "h4": "Medium",
+                "h3": "Large"
+              }
+            },
+            "title_weight": {
+              "label": "Title Weight",
+              "options": {
+                "fw-light": "Light",
+                "fw-normal": "Regular",
+                "fw-medium": "Medium",
+                "fw-semibold": "Semibold",
+                "fw-bold": "Bold"
+              }
+            },
+            "color_scheme": {
+              "label": "Color scheme",
+              "info": "Defines the color scheme for this banner"
+            },
+            "link": {
+              "label": "Banner Link"
+            },
+            "button_label": {
+              "label": "Button Label"
+            }
+          }
+        }
+      }
+    },
     "main_slider": {
       "name": "Main Slider",
       "settings": {
