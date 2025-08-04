@@ -15,9 +15,14 @@
         "slide_1": {
           "type": "slide",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/slider-electric-1.jpg",
             "heading": "Elevate Your Fitness Game",
+            "heading_size": "display-md",
+            "heading_weight": "fw-medium",
             "description": "Stay ahead with the all-new Apple Watch Series 12—track your workouts, monitor health stats, and enjoy seamless connectivity.",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
             "button_link": "/collections/watches",
             "button_text": "Explore More"
           }
@@ -25,9 +30,14 @@
         "slide_2": {
           "type": "slide",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/slider-electric-2.jpg",
             "heading": "Flex Your Power",
+            "heading_size": "display-md",
+            "heading_weight": "fw-medium",
             "description": "The Lenovo Flex 5i 2-in-1 offers versatility, power, and precision in one sleek design.",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
             "button_link": "/collections/laptops",
             "button_text": "Explore More"
           }
@@ -35,9 +45,14 @@
         "slide_3": {
           "type": "slide",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/slider-electric-3.jpg",
             "heading": "Unleash Sound Freedom",
+            "heading_size": "display-md",
+            "heading_weight": "fw-medium",
             "description": "Experience immersive sound while staying aware of your surroundings with JBL's open-ear headphone design.",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
             "button_link": "/collections/audio",
             "button_text": "Explore More"
           }
@@ -49,21 +64,39 @@
         "slide_3"
       ],
       "settings": {
+        "color_scheme": "",
         "width": "container",
         "height": "adapt",
         "height_fixed": 500,
         "mobile_height": "adapt",
         "mobile_height_fixed": 300,
-        "autoplay": true,
-        "loop": true
+        "loop": true,
+        "autoplay_speed": 5,
+        "pause_on_hover": true,
+        "draggable": true,
+        "show_arrows": false,
+        "show_dots": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
       }
     },
     "featured_countdown": {
       "type": "featured-products-countdown",
       "settings": {
+        "color_scheme": "",
         "width": "container",
         "title": "Hot Deals",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "collection": "",
+        "product_list": [
+          "wireless-premium-headphones",
+          "10000mah-power-go-power-bank",
+          "wireless-earbuds-for-playstation-5",
+          "magnetic-wireless-power-bank",
+          "true-wireless-bluetooth-earbuds",
+          "apple-smart-keyboard"
+        ],
         "countdown_time": 46556,
         "products_to_show": 6
       }
