@@ -195,6 +195,58 @@
           "default": "Slide Heading"
         },
         {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading Size",
+          "options": [
+            {
+              "value": "display-sm",
+              "label": "Small"
+            },
+            {
+              "value": "display-md",
+              "label": "Medium"
+            },
+            {
+              "value": "display-lg",
+              "label": "Large"
+            },
+            {
+              "value": "display-xl",
+              "label": "Extra Large"
+            }
+          ],
+          "default": "display-md"
+        },
+        {
+          "type": "select",
+          "id": "heading_weight",
+          "label": "Heading Font Weight",
+          "options": [
+            {
+              "value": "fw-light",
+              "label": "Light"
+            },
+            {
+              "value": "fw-normal",
+              "label": "Regular"
+            },
+            {
+              "value": "fw-medium",
+              "label": "Medium"
+            },
+            {
+              "value": "fw-semibold",
+              "label": "Semi Bold"
+            },
+            {
+              "value": "fw-bold",
+              "label": "Bold"
+            }
+          ],
+          "default": "fw-medium"
+        },
+        {
           "type": "textarea",
           "id": "description",
           "label": "Description",
@@ -323,7 +375,7 @@
                                                     <div class="col-9 col-sm-6 col-xl-5">
                                                         <div class="content-slider">
                                                             <div class="box-title-slider">
-                                                                <h4 class="heading display-md fw-medium fade-item fade-item-1">
+                                                                <h4 class="heading {{ block.settings.heading_size }} {{ block.settings.heading_weight }} fade-item fade-item-1">
                                                                     {{ block.settings.heading }}
                                                                 </h4>
                                                                 <p class="sub text-md fade-item fade-item-2">
