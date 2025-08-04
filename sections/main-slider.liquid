@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Main Slider",
+  "name": "t:sections.main_slider.name",
   "settings": [
     {
       "type": "color_scheme",
@@ -11,15 +11,15 @@
     {
       "type": "select",
       "id": "width",
-      "label": "Width",
+      "label": "t:sections.main_slider.settings.width.label",
       "options": [
         {
           "value": "container",
-          "label": "Boxed"
+          "label": "t:sections.main_slider.settings.width.options.boxed"
         },
         {
           "value": "container-full",
-          "label": "Full width"
+          "label": "t:sections.main_slider.settings.width.options.full_width"
         }
       ],
       "default": "container"
@@ -27,23 +27,23 @@
     {
       "type": "select",
       "id": "height",
-      "label": "Height",
+      "label": "t:sections.main_slider.settings.height.label",
       "options": [
         {
           "value": "adapt",
-          "label": "Adapt to image"
+          "label": "t:sections.main_slider.settings.height.options.adapt"
         },
         {
           "value": "adapt-first",
-          "label": "Adapt to first image"
+          "label": "t:sections.main_slider.settings.height.options.adapt_first"
         },
         {
           "value": "fill",
-          "label": "Fill screen height"
+          "label": "t:sections.main_slider.settings.height.options.fill"
         },
         {
           "value": "fixed",
-          "label": "Fixed height"
+          "label": "t:sections.main_slider.settings.height.options.fixed"
         }
       ],
       "default": "adapt"
@@ -51,26 +51,26 @@
     {
       "type": "range",
       "id": "height_fixed",
-      "label": "Fixed height",
+      "label": "t:sections.main_slider.settings.height_fixed.label",
       "min": 100,
       "max": 1000,
       "step": 10,
       "unit": "px",
       "default": 500,
-      "info": "Only applies when height is set to fixed"
+      "info": "t:sections.main_slider.settings.height_fixed.info"
     },
     {
       "type": "select",
       "id": "mobile_height",
-      "label": "Mobile height",
+      "label": "t:sections.main_slider.settings.mobile_height.label",
       "options": [
         {
           "value": "adapt",
-          "label": "Adapt to image"
+          "label": "t:sections.main_slider.settings.mobile_height.options.adapt"
         },
         {
           "value": "fixed",
-          "label": "Fixed height"
+          "label": "t:sections.main_slider.settings.mobile_height.options.fixed"
         }
       ],
       "default": "adapt"
@@ -78,56 +78,56 @@
     {
       "type": "range",
       "id": "mobile_height_fixed",
-      "label": "Mobile fixed height",
+      "label": "t:sections.main_slider.settings.mobile_height_fixed.label",
       "min": 100,
       "max": 800,
       "step": 10,
       "unit": "px",
       "default": 300,
-      "info": "Only applies when mobile height is set to fixed"
+      "info": "t:sections.main_slider.settings.mobile_height_fixed.info"
     },
     {
       "type": "header",
-      "content": "Slider Settings"
+      "content": "t:sections.main_slider.settings.slider_settings.content"
     },
     {
       "type": "checkbox",
       "id": "loop",
-      "label": "Enable loop",
+      "label": "t:sections.main_slider.settings.loop.label",
       "default": true
     },
     {
       "type": "range",
       "id": "autoplay_speed",
-      "label": "Autoplay speed in seconds",
+      "label": "t:sections.main_slider.settings.autoplay_speed.label",
       "min": 0,
       "max": 10,
       "step": 0.5,
       "default": 5,
-      "info": "Set to 0 to disable autoplay"
+      "info": "t:sections.main_slider.settings.autoplay_speed.info"
     },
     {
       "type": "checkbox",
       "id": "pause_on_hover",
-      "label": "Pause on hover",
+      "label": "t:sections.main_slider.settings.pause_on_hover.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "draggable",
-      "label": "Enable drag on desktop",
+      "label": "t:sections.main_slider.settings.draggable.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_arrows",
-      "label": "Show prev/next buttons",
+      "label": "t:sections.main_slider.settings.show_arrows.label",
       "default": false
     },
     {
       "type": "checkbox",
       "id": "show_dots",
-      "label": "Show pagination dots on mobile",
+      "label": "t:sections.main_slider.settings.show_dots.label",
       "default": true
     },
     {
@@ -169,7 +169,7 @@
   "blocks": [
     {
       "type": "slide",
-      "name": "Slide",
+      "name": "t:sections.main_slider.blocks.slide.name",
       "limit": 5,
       "settings": [
         {
@@ -180,36 +180,36 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Desktop Image"
+          "label": "t:sections.main_slider.blocks.slide.settings.image.label"
         },
         {
           "type": "image_picker",
           "id": "mobile_image",
-          "label": "Mobile Image (optional)",
-          "info": "If not set, desktop image will be used"
+          "label": "t:sections.main_slider.blocks.slide.settings.mobile_image.label",
+          "info": "t:sections.main_slider.blocks.slide.settings.mobile_image.info"
         },
         {
           "type": "text",
           "id": "heading",
-          "label": "Heading",
-          "default": "Slide Heading"
+          "label": "t:sections.main_slider.blocks.slide.settings.heading.label",
+          "default": "t:sections.main_slider.blocks.slide.settings.heading.default"
         },
         {
           "type": "select",
           "id": "heading_size",
-          "label": "Heading Size",
+          "label": "t:sections.main_slider.blocks.slide.settings.heading_size.label",
           "options": [
             {
               "value": "display-sm",
-              "label": "Small"
+              "label": "t:sections.main_slider.blocks.slide.settings.heading_size.options.small"
             },
             {
               "value": "display-md",
-              "label": "Medium"
+              "label": "t:sections.main_slider.blocks.slide.settings.heading_size.options.medium"
             },
             {
               "value": "display-lg",
-              "label": "Large"
+              "label": "t:sections.main_slider.blocks.slide.settings.heading_size.options.large"
             }
           ],
           "default": "display-md"
@@ -217,23 +217,23 @@
         {
           "type": "select",
           "id": "heading_weight",
-          "label": "Heading Font Weight",
+          "label": "t:sections.main_slider.blocks.slide.settings.heading_weight.label",
           "options": [
             {
               "value": "fw-normal",
-              "label": "Normal"
+              "label": "t:sections.main_slider.blocks.slide.settings.heading_weight.options.normal"
             },
             {
               "value": "fw-medium",
-              "label": "Medium"
+              "label": "t:sections.main_slider.blocks.slide.settings.heading_weight.options.medium"
             },
             {
               "value": "fw-semibold",
-              "label": "Semi Bold"
+              "label": "t:sections.main_slider.blocks.slide.settings.heading_weight.options.semi_bold"
             },
             {
               "value": "fw-bold",
-              "label": "Bold"
+              "label": "t:sections.main_slider.blocks.slide.settings.heading_weight.options.bold"
             }
           ],
           "default": "fw-medium"
@@ -241,25 +241,25 @@
         {
           "type": "textarea",
           "id": "description",
-          "label": "Description",
-          "default": "Slide description goes here"
+          "label": "t:sections.main_slider.blocks.slide.settings.description.label",
+          "default": "t:sections.main_slider.blocks.slide.settings.description.default"
         },
         {
           "type": "select",
           "id": "content_alignment",
-          "label": "Content Alignment",
+          "label": "t:sections.main_slider.blocks.slide.settings.content_alignment.label",
           "options": [
             {
               "value": "col-12 col-sm-6 col-lg-5",
-              "label": "Left"
+              "label": "t:sections.main_slider.blocks.slide.settings.content_alignment.options.left"
             },
             {
               "value": "col-12 col-sm-8 col-lg-6 offset-sm-2 offset-lg-3",
-              "label": "Center"
+              "label": "t:sections.main_slider.blocks.slide.settings.content_alignment.options.center"
             },
             {
               "value": "col-12 col-sm-6 col-lg-5 offset-sm-6 offset-lg-6",
-              "label": "Right"
+              "label": "t:sections.main_slider.blocks.slide.settings.content_alignment.options.right"
             }
           ],
           "default": "col-12 col-sm-6 col-lg-5"
@@ -267,19 +267,19 @@
         {
           "type": "radio",
           "id": "text_size",
-          "label": "Text Size",
+          "label": "t:sections.main_slider.blocks.slide.settings.text_size.label",
           "options": [
             {
               "value": "text-sm",
-              "label": "Small"
+              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.small"
             },
             {
               "value": "text-md",
-              "label": "Medium"
+              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.medium"
             },
             {
               "value": "text-lg",
-              "label": "Large"
+              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.large"
             }
           ],
           "default": "text-md"
@@ -287,20 +287,20 @@
         {
           "type": "url",
           "id": "button_link",
-          "label": "Button Link"
+          "label": "t:sections.main_slider.blocks.slide.settings.button_link.label"
         },
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button Text",
-          "default": "Explore More"
+          "label": "t:sections.main_slider.blocks.slide.settings.button_text.label",
+          "default": "t:sections.main_slider.blocks.slide.settings.button_text.default"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Main Slider",
+      "name": "t:sections.main_slider.presets.name",
       "blocks": [
         {
           "type": "slide"

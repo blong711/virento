@@ -302,6 +302,129 @@
     }
   },
   "sections": {
+    "main_slider": {
+      "name": "Main Slider",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full_width": "Full width"
+          }
+        },
+        "height": {
+          "label": "Height",
+          "options": {
+            "adapt": "Adapt to image",
+            "adapt_first": "Adapt to first image",
+            "fill": "Fill screen height",
+            "fixed": "Fixed height"
+          }
+        },
+        "height_fixed": {
+          "label": "Fixed height",
+          "info": "Only applies when height is set to fixed"
+        },
+        "mobile_height": {
+          "label": "Mobile height",
+          "options": {
+            "adapt": "Adapt to image",
+            "fixed": "Fixed height"
+          }
+        },
+        "mobile_height_fixed": {
+          "label": "Mobile fixed height",
+          "info": "Only applies when mobile height is set to fixed"
+        },
+        "slider_settings": {
+          "content": "Slider Settings"
+        },
+        "loop": {
+          "label": "Enable loop"
+        },
+        "autoplay_speed": {
+          "label": "Autoplay speed in seconds",
+          "info": "Set to 0 to disable autoplay"
+        },
+        "pause_on_hover": {
+          "label": "Pause on hover"
+        },
+        "draggable": {
+          "label": "Enable drag on desktop"
+        },
+        "show_arrows": {
+          "label": "Show prev/next buttons"
+        },
+        "show_dots": {
+          "label": "Show pagination dots on mobile"
+        }
+      },
+      "blocks": {
+        "slide": {
+          "name": "Slide",
+          "settings": {
+            "image": {
+              "label": "Desktop Image"
+            },
+            "mobile_image": {
+              "label": "Mobile Image (optional)",
+              "info": "If not set, desktop image will be used"
+            },
+            "heading": {
+              "label": "Heading",
+              "default": "Slide Heading"
+            },
+            "heading_size": {
+              "label": "Heading Size",
+              "options": {
+                "small": "Small",
+                "medium": "Medium",
+                "large": "Large"
+              }
+            },
+            "heading_weight": {
+              "label": "Heading Font Weight",
+              "options": {
+                "normal": "Normal",
+                "medium": "Medium",
+                "semi_bold": "Semi Bold",
+                "bold": "Bold"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "default": "Slide description goes here"
+            },
+            "content_alignment": {
+              "label": "Content Alignment",
+              "options": {
+                "left": "Left",
+                "center": "Center",
+                "right": "Right"
+              }
+            },
+            "text_size": {
+              "label": "Text Size",
+              "options": {
+                "small": "Small",
+                "medium": "Medium",
+                "large": "Large"
+              }
+            },
+            "button_link": {
+              "label": "Button Link"
+            },
+            "button_text": {
+              "label": "Button Text",
+              "default": "Explore More"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Main Slider"
+      }
+    },
     "all": {
       "animation": {
         "content": "Animations",
