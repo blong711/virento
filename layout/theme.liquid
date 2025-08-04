@@ -199,7 +199,7 @@
     {% else %}
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family={{ settings.body_font_family | replace: ' ', '+' }}:wght@{{ settings.body_font_weight }}&family={{ settings.heading_font_family | replace: ' ', '+' }}:wght@{{ settings.heading_font_weight }}&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family={{ settings.body_font_family | split: ',' | first | replace: '"', '' | replace: ' ', '+' }}:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     {% endif %}
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
