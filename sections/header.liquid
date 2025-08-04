@@ -73,6 +73,16 @@
           "id": "selected_collections",
           "label": "t:sections.header.settings.selected_collections.label",
           "limit": 20
+        },
+        {
+          "type": "range",
+          "id": "menu_spacing",
+          "min": 20,
+          "max": 60,
+          "step": 5,
+          "unit": "px",
+          "label": "t:sections.header.settings.menu_spacing.label",
+          "default": 40
         }
       ],
       "presets": [
@@ -216,7 +226,7 @@
                     </div>
                     {% endif %}
                     <nav class="box-navigation text-center">
-                        <ul class="box-nav-menu">
+                        <ul class="box-nav-menu" style="gap: {{ section.settings.menu_spacing }}px;">
                             {% for link in linklists[section.settings.menu].links %}
                                 <li class="menu-item{% if link.links.size > 0 %} has-submenu{% endif %}">
                                     <a href="{{ link.url }}" class="item-link">

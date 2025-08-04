@@ -1095,6 +1095,10 @@
     "header": {
       "name": "Header",
       "settings": {
+        "menu_spacing": {
+          "label": "Menu spacing",
+          "info": "Spacing between menu items"
+        },
         "sticky_header": {
           "label": "Sticky header",
           "options": {
