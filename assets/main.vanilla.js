@@ -295,7 +295,7 @@ const handleProgressBar = () => {
     document.addEventListener('scroll', updateProgress);
   };
 
-  handleProgress('scroll', 'DOMContentLoaded', '.progress-bar');
+  handleProgress('scroll', 'DOMContentLoaded', '.scroll-progress-bar');
 };
 
 /* Total Price Variant
