@@ -446,6 +446,8 @@
         justify-items: var(--content-alignment, center);
         gap: 24px;
         padding: 24px;
+        width: calc(100% - 24px);
+        max-width: 100%;
     }
 
     .section-{{ section.id }} .banner-shop.style-top .content {
@@ -468,6 +470,11 @@
     }
 
     @media (min-width: 1200px) {
+        .section-{{ section.id }} .banner-shop .content {
+            padding: 32px;
+            width: calc(100% - 64px);
+        }
+        
         .section-{{ section.id }} .banner-shop.style-lg-top .content {
             top: 32px;
             left: 32px;
