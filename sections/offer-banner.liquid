@@ -31,7 +31,7 @@
                     {% case block.type %}
                         {% when 'banner' %}
                         <div class="swiper-slide" {{ block.shopify_attributes }}>
-                            <div class="banner-shop style-{{ block.settings.content_position_mobile }} style-lg-{{ block.settings.content_position_desktop }} hover-img color-{{ block.settings.color_scheme }} gradient">
+                            <div class="banner-shop style-bottom style-lg-bottom hover-img color-{{ block.settings.color_scheme }} gradient"></div>
                                 <a href="{{ block.settings.link }}" class="img-style d-block">
                                     {% if block.settings.image %}
                                         {% if block.settings.image_mobile != blank and request.display_type == 'mobile' %}
@@ -56,7 +56,7 @@
                                         {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
                                     {% endif %}
                                 </a>
-                                <div class="content text-{{ block.settings.content_alignment }} wow fadeInUp">
+                                <div class="content text-center wow fadeInUp">
                                     <div class="box-title">
                                         <{{ block.settings.title_tag }} class="{{ block.settings.title_weight }}">
                                             <a href="{{ block.settings.link }}" class="title link text-white">
@@ -291,66 +291,6 @@
                     "content": "t:sections.offer_banner.blocks.banner.settings.banner_content.content"
                 },
                 {
-                    "type": "select",
-                    "id": "content_position_desktop",
-                    "label": "t:sections.offer_banner.blocks.banner.settings.content_position_desktop.label",
-                    "options": [
-                        {
-                            "value": "top",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_position_desktop.options.top"
-                        },
-                        {
-                            "value": "center",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_position_desktop.options.center"
-                        },
-                        {
-                            "value": "bottom",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_position_desktop.options.bottom"
-                        }
-                    ],
-                    "default": "bottom"
-                },
-                {
-                    "type": "select",
-                    "id": "content_position_mobile",
-                    "label": "t:sections.offer_banner.blocks.banner.settings.content_position_mobile.label",
-                    "options": [
-                        {
-                            "value": "top",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_position_mobile.options.top"
-                        },
-                        {
-                            "value": "center",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_position_mobile.options.center"
-                        },
-                        {
-                            "value": "bottom",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_position_mobile.options.bottom"
-                        }
-                    ],
-                    "default": "bottom"
-                },
-                {
-                    "type": "select",
-                    "id": "content_alignment",
-                    "label": "t:sections.offer_banner.blocks.banner.settings.content_alignment.label",
-                    "options": [
-                        {
-                            "value": "start",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_alignment.options.left"
-                        },
-                        {
-                            "value": "center",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_alignment.options.center"
-                        },
-                        {
-                            "value": "end",
-                            "label": "t:sections.offer_banner.blocks.banner.settings.content_alignment.options.right"
-                        }
-                    ],
-                    "default": "center"
-                },
-                {
                     "type": "text",
                     "id": "title",
                     "label": "t:sections.offer_banner.blocks.banner.settings.title.label",
@@ -440,61 +380,6 @@
 }
 {% endschema %}
 {%- style -%}
-    .section-{{ section.id }} .banner-shop .content {
-        position: absolute;
-        display: grid;
-        justify-items: var(--content-alignment, center);
-        gap: 24px;
-        padding: 24px;
-        width: calc(100% - 24px);
-        max-width: 100%;
-    }
-
-    .section-{{ section.id }} .banner-shop.style-top .content {
-        top: 24px;
-        left: 12px;
-        right: 12px;
-    }
-
-    .section-{{ section.id }} .banner-shop.style-center .content {
-        top: 50%;
-        left: 12px;
-        right: 12px;
-        transform: translateY(-50%);
-    }
-
-    .section-{{ section.id }} .banner-shop.style-bottom .content {
-        bottom: 24px;
-        left: 12px;
-        right: 12px;
-    }
-
-    @media (min-width: 1200px) {
-        .section-{{ section.id }} .banner-shop .content {
-            padding: 32px;
-            width: calc(100% - 64px);
-        }
-        
-        .section-{{ section.id }} .banner-shop.style-lg-top .content {
-            top: 32px;
-            left: 32px;
-            right: 32px;
-        }
-
-        .section-{{ section.id }} .banner-shop.style-lg-center .content {
-            top: 50%;
-            left: 32px;
-            right: 32px;
-            transform: translateY(-50%);
-        }
-
-        .section-{{ section.id }} .banner-shop.style-lg-bottom .content {
-            bottom: 32px;
-            left: 32px;
-            right: 32px;
-        }
-    }
-
     .section-{{ section.id }}-padding {
       padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
       padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
