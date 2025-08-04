@@ -1,92 +1,35 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero_image": {
-      "type": "hero-image",
-      "settings": {
-        "image_height": "auto",
-        "fixed_height": 600,
-        "mobile_fixed_height": 300,
-        "border_radius": 16
-      }
-    },
-    "image_with_text_about": {
-      "type": "Image-with-text",
-      "blocks": {
-        "content_item_1": {
-          "type": "content_item",
-          "settings": {
-            "title": "Quality Service",
-            "content": "We provide exceptional service with attention to detail and commitment to excellence."
-          }
-        },
-        "content_item_2": {
-          "type": "content_item",
-          "settings": {
-            "title": "Expert Team",
-            "content": "Our experienced professionals bring years of expertise to every project."
-          }
-        },
-        "content_item_3": {
-          "type": "content_item",
-          "settings": {
-            "title": "Customer Focused",
-            "content": "Your satisfaction is our priority, and we work to exceed your expectations."
-          }
-        }
-      },
-      "block_order": [
-        "content_item_1",
-        "content_item_2",
-        "content_item_3"
-      ],
-      "settings": {
-        "width": "boxed",
-        "color_scheme": "background-1",
-        "heading": "Why Choose Us",
-        "subheading": "Discover what makes us different",
-        "heading_size": "medium",
-        "subheading_size": "medium",
-        "spacing_heading_content": 32,
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "padding_mobile_rate": 75
-      }
-    },
-    "single_testimonial": {
-      "type": "single-testimonial",
-      "settings": {
-        "width": "boxed",
-        "color_scheme": "background-1",
-        "rating": 5,
-        "content": "Working with this team has been an amazing experience. Their professionalism and dedication to quality is unmatched in the industry.",
-        "author_name": "Sarah Johnson",
-        "author_image": "",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "padding_mobile_rate": 75
-      }
-    },
     "about_us_welcome": {
       "type": "heading-with-text-horizontal",
       "blocks": {
         "heading": {
           "type": "heading",
           "settings": {
-            "text": "Welcome to Our Story",
+            "text": "Welcome to Vineta",
             "size": "medium"
           }
         },
         "subheading": {
           "type": "subheading",
           "settings": {
-            "text": "About Our Journey",
+            "text": "The Ultimate Fashion Destination",
             "size": "small"
           }
         },
         "content": {
           "type": "content",
           "settings": {
-            "text": "We are passionate about creating exceptional experiences and delivering quality solutions that make a difference in people's lives.",
+            "text": "At Vineta, we bring you thoughtfully curated collections that blend contemporary\ndesigns with timeless elegance. With over 15 years of experience, we cater to\nfashion enthusiasts who appreciate quality, style, and versatility.",
             "size": "medium"
           }
         }
@@ -100,7 +43,80 @@
         "width": "boxed",
         "color_scheme": "background-1",
         "padding_top": 40,
-        "padding_bottom": 40
+        "padding_bottom": 40,
+        "padding_mobile_rate": 75
+      }
+    },
+    "hero_image": {
+      "type": "hero-image",
+      "settings": {
+        "image_height": "auto",
+        "fixed_height": 600,
+        "mobile_image_height": "adapt_image",
+        "mobile_fixed_height": 300,
+        "image": "shopify://shop_images/about.jpg",
+        "border_radius": 16,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_mobile_rate": 75
+      }
+    },
+    "image_with_text_about": {
+      "type": "Image-with-text",
+      "blocks": {
+        "content_item_1": {
+          "type": "content_item",
+          "settings": {
+            "title": "Ethics & Responsibility",
+            "content": "At Vineta, we are dedicated to upholding the highest ethical standards in production. We ensure mindful manufacturing through regular audits, training, and a strong focus on responsible sourcing."
+          }
+        },
+        "content_item_2": {
+          "type": "content_item",
+          "settings": {
+            "title": "Style Meets Durability",
+            "content": "From classic tailoring to casual staples, our Vineta collections embrace the latest trends while prioritizing comfort and long-lasting quality."
+          }
+        },
+        "content_item_3": {
+          "type": "content_item",
+          "settings": {
+            "title": "Express Yourself",
+            "content": "Our designs are crafted with the latest fashion trends in mind, offering flexibility for individual expression, especially for the modern, style-conscious youth."
+          }
+        }
+      },
+      "block_order": [
+        "content_item_1",
+        "content_item_2",
+        "content_item_3"
+      ],
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "background-1",
+        "heading": "Why Choose Vineta",
+        "subheading": "Our products are crafted with innovation and an eye for the latest trends. We push the boundaries oftraditional fashion, delivering bold, fresh designs that inspire confidence and individuality.",
+        "heading_size": "medium",
+        "subheading_size": "medium",
+        "spacing_heading_content": 32,
+        "image": "shopify://shop_images/about-2.jpg",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
+      }
+    },
+    "single_testimonial": {
+      "type": "single-testimonial",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "scheme-e379edfd-3a7b-4c25-9cc1-a180d15178ce",
+        "rating": 5,
+        "content": "Working with this team has been an amazing experience. Their professionalism and dedication to quality is unmatched in the industry.",
+        "author_name": "Sarah Johnson",
+        "author_image": "shopify://shop_images/tes-about.jpg",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
       }
     }
   },
