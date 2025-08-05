@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main_slider": {
@@ -253,14 +262,14 @@
         "title_tag": "h4",
         "subtitle": "",
         "subtitle_size": "text-md",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "padding_mobile_rate": 75,
         "show_arrows": true,
         "show_mobile_dots": true,
         "items_per_row_desktop": 6,
         "items_per_row_tablet": 4,
-        "items_per_row_mobile": 2
+        "items_per_row_mobile": 2,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
       }
     },
     "tag_products": {
@@ -271,7 +280,13 @@
           "settings": {
             "title": "What's Hot?",
             "collection": "featured",
-            "product_list": []
+            "product_list": [
+              "true-wireless-bluetooth-earbuds",
+              "wireless-earbuds-for-playstation-5",
+              "logitech-k380",
+              "apple-smart-keyboard",
+              "wireless-premium-headphones"
+            ]
           }
         },
         "tab_2": {
@@ -279,7 +294,13 @@
           "settings": {
             "title": "Best Sellers",
             "collection": "best-sellers",
-            "product_list": []
+            "product_list": [
+              "wireless-premium-headphones",
+              "apple-smart-keyboard",
+              "logitech-k380",
+              "wireless-earbuds-for-playstation-5",
+              "true-wireless-bluetooth-earbuds"
+            ]
           }
         },
         "tab_3": {
@@ -287,7 +308,13 @@
           "settings": {
             "title": "Just Arrivals",
             "collection": "new-arrivals",
-            "product_list": []
+            "product_list": [
+              "true-wireless-bluetooth-earbuds",
+              "wireless-premium-headphones",
+              "logitech-k380",
+              "apple-smart-keyboard",
+              "wireless-earbuds-for-playstation-5"
+            ]
           }
         }
       },
@@ -301,6 +328,7 @@
         "width": "container",
         "title_font_size": "36",
         "title_font_weight": "500",
+        "title_uppercase": false,
         "tab_spacing": 20,
         "show_navigation": true,
         "show_mobile_dots": true,
