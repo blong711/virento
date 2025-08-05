@@ -31,7 +31,7 @@
                     {% case block.type %}
                         {% when 'banner' %}
                         <div class="swiper-slide" {{ block.shopify_attributes }}>
-                            <div class="banner-shop style-bottom style-lg-bottom hover-img color-{{ block.settings.color_scheme }} gradient"></div>
+                            <div class="banner-shop style-bottom style-lg-bottom hover-img color-{{ block.settings.color_scheme }} gradient">
                                 <a href="{{ block.settings.link }}" class="img-style d-block">
                                     {% if block.settings.image %}
                                         {% if block.settings.image_mobile != blank and request.display_type == 'mobile' %}
