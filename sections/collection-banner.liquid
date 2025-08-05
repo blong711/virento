@@ -13,7 +13,7 @@
                     {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {% endif %}
             </div>
-            <div class="box-content text-center">
+            <div class="box-content text-{{ section.settings.content_alignment }}">
                 <div class="box-title-banner">
                     {% if section.settings.title != blank %}
                         <p class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }}">
@@ -85,6 +85,26 @@
         }
       ],
       "default": "center-left"
+    },
+    {
+    "type": "select",
+    "id": "content_alignment",
+    "label": "Content Alignment",
+    "options": [
+        {
+          "value": "start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "end",
+          "label": "Right"
+        }
+      ],
+    "default": "center"
     },
     {
       "type": "range",
