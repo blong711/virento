@@ -228,13 +228,19 @@
                                     <a href="{{ block.settings.brand_link }}">
                                 {% endif %}
                                 
-                                {% if block.settings.brand_image %}
-                                    {%- assign img_alt = block.settings.brand_name | escape -%}
-                                    {{ block.settings.brand_image | image_url: width: 200 | image_tag: img_alt, 'brand-image', loading: 'lazy' }}
-                                {% else %}
-                                    {{ 'image' | placeholder_svg_tag: 'brand-image placeholder' }}
-                                {% endif %}
-
+                                <img 
+                                    src="{{ block.settings.brand_image | image_url }}"
+                                    srcset="
+                                    {{ block.settings.brand_image | image_url: width: 180 }} 180w,
+                                    {{ block.settings.brand_image | image_url: width: 360 }} 360w
+                                    "
+                                    sizes="(max-width: 768px) 180px, 360px"
+                                    alt="{{ block.settings.brand_image.alt | escape | default: 'brands_brand_logo' | t }}"
+                                    width="{{ block.settings.brand_image.width | default: 240 }}"
+                                    height="{{ block.settings.brand_image.height | default: 114 }}"
+                                    loading="lazy"
+                                    class="brand-logo"
+                                >
                                 {% if block.settings.brand_link != blank %}
                                     </a>
                                 {% endif %}
