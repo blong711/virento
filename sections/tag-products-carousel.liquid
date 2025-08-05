@@ -3,18 +3,50 @@
   "name": "Tag Products Carousel",
   "settings": [
     {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "t:sections.all.colors.label",
+        "default": "scheme-1"
+    },
+    {
+        "type": "select",
+        "id": "width",
+        "label": "t:sections.offer_banner.settings.width.label",
+        "options": [
+            {
+            "value": "container",
+            "label": "t:sections.offer_banner.settings.width.options.boxed"
+            },
+            {
+            "value": "container-full",
+            "label": "t:sections.offer_banner.settings.width.options.full_width"
+            }
+        ],
+        "default": "container"
+    },
+    {
       "type": "header",
       "content": "Tab Navigation Settings"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "title_font_size",
-      "min": 12,
-      "max": 32,
-      "step": 1,
-      "unit": "px",
       "label": "Tab Title Font Size",
-      "default": 16
+      "options": [
+        {
+          "value": "30",
+          "label": "Small"
+        },
+        {
+          "value": "36",
+          "label": "Medium"
+        },
+        {
+          "value": "48",
+          "label": "Large"
+        }
+      ],
+      "default": "36"
     },
     {
       "type": "select",
@@ -23,19 +55,19 @@
       "options": [
         {
           "value": "400",
-          "label": "Regular (400)"
+          "label": "Regular"
         },
         {
           "value": "500",
-          "label": "Medium (500)"
+          "label": "Medium"
         },
         {
           "value": "600",
-          "label": "Semi Bold (600)"
+          "label": "Semi Bold"
         },
         {
           "value": "700",
-          "label": "Bold (700)"
+          "label": "Bold"
         }
       ],
       "default": "500"
