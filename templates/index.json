@@ -270,21 +270,24 @@
           "type": "tab",
           "settings": {
             "title": "What's Hot?",
-            "collection": "featured"
+            "collection": "featured",
+            "product_list": []
           }
         },
         "tab_2": {
           "type": "tab",
           "settings": {
             "title": "Best Sellers",
-            "collection": "best-sellers"
+            "collection": "best-sellers",
+            "product_list": []
           }
         },
         "tab_3": {
           "type": "tab",
           "settings": {
             "title": "Just Arrivals",
-            "collection": "new-arrivals"
+            "collection": "new-arrivals",
+            "product_list": []
           }
         }
       },

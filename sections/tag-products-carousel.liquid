@@ -143,6 +143,41 @@
       "step": 1,
       "default": 8,
       "label": "Products to show"
+    },
+    {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
     }
   ],
   "blocks": [
@@ -161,6 +196,12 @@
           "type": "collection",
           "id": "collection",
           "label": "Collection"
+        },
+        {
+          "type": "product_list",
+          "id": "product_list",
+          "label": "Products",
+          "info": "Selected products will override collection"
         }
       ]
     }
@@ -211,6 +252,17 @@
     text-transform: uppercase;
   {% endif %}
 }
+.section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    }
+  
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+}
 {% endstyle %}
 
 <!-- Tag Product -->
@@ -221,7 +273,7 @@
                 <div class="flat-title">
                     <ul class="menu-tab-line style2 style-lg style-lg2" role="tablist">
                         {% for block in section.blocks %}
-                            {% if block.type == 'tab' and block.settings.collection != blank %}
+                            {% if block.type == 'tab' and block.settings.collection != blank or block.settings.product_list != blank %}
                                 <li class="nav-tab-item" role="presentation">
                                     <a href="#tab-{{ block.id }}" 
                                        class="tab-link {% if forloop.first %}active{% endif %}" 
@@ -235,7 +287,7 @@
                 </div>
                 <div class="tab-content sw-height">
                     {% for block in section.blocks %}
-                        {% if block.type == 'tab' and block.settings.collection != blank %}
+                        {% if block.type == 'tab' and block.settings.collection != blank or block.settings.product_list != blank %}
                             <div class="tab-pane {% if forloop.first %}active show{% endif %}" 
                                  id="tab-{{ block.id }}" 
                                  role="tabpanel">
@@ -266,11 +318,19 @@
                                         }
                                     }'>
                                     <div class="swiper-wrapper">
-                                        {% for product in block.settings.collection.products limit: section.settings.products_to_show %}
-                                            <div class="swiper-slide">
-                                                {% render 'product-card', product: product %}
-                                            </div>
-                                        {% endfor %}
+                                        {% if block.settings.product_list != blank %}
+                                            {% for product in block.settings.product_list %}
+                                                <div class="swiper-slide">
+                                                    {% render 'product-card', product: product %}
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for product in block.settings.collection.products limit: section.settings.products_to_show %}
+                                                <div class="swiper-slide">
+                                                    {% render 'product-card', product: product %}
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
                                     </div>
                                     {% if section.settings.show_mobile_dots %}
                                         <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ block.id }} justify-content-center">
