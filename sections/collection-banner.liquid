@@ -289,7 +289,7 @@
                 {% when 'top-right' %}
                     top: 64px;
                     right: 64px;
-                    left: 50%;
+                    left: 70%;
                     transform: translateX(-50%);
                 {% when 'center-left' %}
                     top: 50%;
@@ -305,11 +305,15 @@
                     transform: translateY(-50%);
                 {% when 'bottom-left' %}
                     left: 64px;
+                    top: 70%;
+                    transform: translateX(-50%);
                 {% when 'bottom-center' %}
                     left: 50%;
                     transform: translateX(-50%);
                 {% when 'bottom-right' %}
                     right: 64px;
+                    top: 70%;
+                    transform: translateX(-50%);
             {% endcase %}
         }
     }
