@@ -4267,6 +4267,9 @@
         },
         "items_per_row_mobile": {
           "label": "Items per row (Mobile)"
+        },
+        "show_border": {
+          "label": "Show border"
         }
       }
     }
