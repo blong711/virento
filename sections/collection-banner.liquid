@@ -280,7 +280,8 @@
             {% case section.settings.content_position %}
                 {% when 'top-left' %}
                     top: 64px;
-                    left: 64px;
+                    left: 30%;
+                    transform: translateX(-50%);
                 {% when 'top-center' %}
                     top: 64px;
                     left: 50%;
@@ -288,6 +289,7 @@
                 {% when 'top-right' %}
                     top: 64px;
                     right: 64px;
+                    left: 70%;
                 {% when 'center-left' %}
                     top: 50%;
                     left: 64px;
@@ -298,17 +300,14 @@
                     transform: translate(-50%, -50%);
                 {% when 'center-right' %}
                     top: 50%;
-                    right: 64px;
+                    left: 70%;
                     transform: translateY(-50%);
                 {% when 'bottom-left' %}
-                    bottom: 64px;
                     left: 64px;
                 {% when 'bottom-center' %}
-                    bottom: 64px;
                     left: 50%;
                     transform: translateX(-50%);
                 {% when 'bottom-right' %}
-                    bottom: 64px;
                     right: 64px;
             {% endcase %}
         }
