@@ -95,7 +95,7 @@
   }
 {%- endstyle -%}
 
-<div class="container section-{{ section.id }}-padding">
+<div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %} section-{{ section.id }}-padding">
   <div class="hero-image-{{ section.id }}">
     {%- if section.settings.image != blank or section.settings.mobile_image != blank -%}
       {%- if section.settings.mobile_image != blank -%}
@@ -158,19 +158,35 @@
   "settings": [
     {
       "type": "select",
-      "id": "image_height",
-      "label": "t:sections.hero-image-about.settings.image_height.label",
+      "id": "width",
       "options": [
-        { "value": "adapt_image", "label": "t:sections.hero-image-about.settings.image_height.options.adapt_image" },
-        { "value": "fullscreen", "label": "t:sections.hero-image-about.settings.image_height.options.fullscreen" },
-        { "value": "fixed", "label": "t:sections.hero-image-about.settings.image_height.options.fixed" }
+        {
+          "value": "boxed",
+          "label": "t:sections.hero-image.settings.width.options.boxed.label"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.hero-image.settings.width.options.full.label"
+        }
+      ],
+      "default": "boxed",
+      "label": "t:sections.hero-image.settings.width.label"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "label": "t:sections.hero-image.settings.image_height.label",
+      "options": [
+        { "value": "adapt_image", "label": "t:sections.hero-image.settings.image_height.options.adapt_image" },
+        { "value": "fullscreen", "label": "t:sections.hero-image.settings.image_height.options.fullscreen" },
+        { "value": "fixed", "label": "t:sections.hero-image.settings.image_height.options.fixed" }
       ],
       "default": "adapt_image"
     },
     {
       "type": "range",
       "id": "fixed_height",
-      "label": "t:sections.hero-image-about.settings.fixed_height.label",
+      "label": "t:sections.hero-image.settings.fixed_height.label",
       "min": 100,
       "max": 1000,
       "step": 10,
@@ -180,24 +196,24 @@
     {
       "type": "select",
       "id": "mobile_image_height",
-      "label": "t:sections.hero-image-about.settings.mobile_image_height.label",
+      "label": "t:sections.hero-image.settings.mobile_image_height.label",
       "options": [
         {
           "value": "adapt_image",
-          "label": "t:sections.hero-image-about.settings.mobile_image_height.options.adapt_image"
+          "label": "t:sections.hero-image.settings.mobile_image_height.options.adapt_image"
         },
         {
           "value": "fullscreen",
-          "label": "t:sections.hero-image-about.settings.mobile_image_height.options.fullscreen"
+          "label": "t:sections.hero-image.settings.mobile_image_height.options.fullscreen"
         },
-        { "value": "fixed", "label": "t:sections.hero-image-about.settings.mobile_image_height.options.fixed" }
+        { "value": "fixed", "label": "t:sections.hero-image.settings.mobile_image_height.options.fixed" }
       ],
       "default": "adapt_image"
     },
     {
       "type": "range",
       "id": "mobile_fixed_height",
-      "label": "t:sections.hero-image-about.settings.mobile_fixed_height.label",
+      "label": "t:sections.hero-image.settings.mobile_fixed_height.label",
       "min": 100,
       "max": 800,
       "step": 10,
@@ -207,17 +223,17 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "t:sections.hero-image-about.settings.image.label"
+      "label": "t:sections.hero-image.settings.image.label"
     },
     {
       "type": "image_picker",
       "id": "mobile_image",
-      "label": "t:sections.hero-image-about.settings.mobile_image.label"
+      "label": "t:sections.hero-image.settings.mobile_image.label"
     },
     {
       "type": "range",
       "id": "border_radius",
-      "label": "t:sections.hero-image-about.settings.border_radius.label",
+      "label": "t:sections.hero-image.settings.border_radius.label",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -231,7 +247,7 @@
     {
       "type": "range",
       "id": "padding_top",
-      "label": "t:sections.hero-image-about.settings.padding_top.label",
+      "label": "t:sections.hero-image.settings.padding_top.label",
       "min": 0,
       "max": 100,
       "step": 4,
@@ -241,7 +257,7 @@
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "t:sections.hero-image-about.settings.padding_bottom.label",
+      "label": "t:sections.hero-image.settings.padding_bottom.label",
       "min": 0,
       "max": 100,
       "step": 4,
@@ -255,15 +271,15 @@
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "t:sections.hero-image-about.settings.padding_mobile_rate.label",
+      "label": "t:sections.hero-image.settings.padding_mobile_rate.label",
       "default": 75,
-      "info": "t:sections.hero-image-about.settings.padding_mobile_rate.info"
+      "info": "t:sections.hero-image.settings.padding_mobile_rate.info"
     }
   ],
   "presets": [
     {
-      "name": "t:sections.hero-image-about.presets.default.name",
-      "category": "t:sections.hero-image-about.presets.default.category"
+      "name": "t:sections.hero-image.presets.default.name",
+      "category": "t:sections.hero-image.presets.default.category"
     }
   ]
 }

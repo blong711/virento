@@ -1,0 +1,148 @@
+<section
+  class="s-term-user flat-spacing-2 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
+>
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="content">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'text_item' %}
+                <div class="term-item" {{ block.shopify_attributes }}>
+                  {% if block.settings.title != blank %}
+                    <p class="term-title">{{ block.settings.title }}</p>
+                  {% endif %}
+                  {% if block.settings.content != blank %}
+                    <div class="text-wrap">
+                      <div class="term-text">{{ block.settings.content }}</div>
+                    </div>
+                  {% endif %}
+                </div>
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  /* Fix color scheme inheritance for text elements */
+  .color-{{ section.settings.color_scheme }} .term-title {
+    color: rgba(var(--color-foreground), 0.9) !important;
+  }
+
+  .color-{{ section.settings.color_scheme }} .term-text,
+  .color-{{ section.settings.color_scheme }} .term-text p {
+    color: rgba(var(--color-foreground), 0.75) !important;
+  }
+
+  .color-{{ section.settings.color_scheme }} .term-text a {
+    color: rgb(var(--color-button)) !important;
+    text-decoration: underline;
+  }
+
+  .color-{{ section.settings.color_scheme }} .term-text a:hover {
+    color: rgba(var(--color-button), 0.8) !important;
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Vertical Text Heading",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "t:sections.heading-with-text-vertical.settings.width.options.boxed.label"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.heading-with-text-vertical.settings.width.options.full.label"
+        }
+      ],
+      "default": "boxed",
+      "label": "t:sections.heading-with-text-vertical.settings.width.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.heading-with-text-vertical.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.heading-with-text-vertical.settings.padding_top.label",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.heading-with-text-vertical.settings.padding_bottom.label",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_item",
+      "name": "t:sections.heading-with-text-vertical.blocks.text_item.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.heading-with-text-vertical.blocks.text_item.settings.title.label",
+          "default": "Section Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "t:sections.heading-with-text-vertical.blocks.text_item.settings.content.label",
+          "default": "<p>Content goes here...</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.heading-with-text-vertical.presets.default",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "text_item",
+          "settings": {
+            "title": "Welcome to Our Company",
+            "content": "<p>We are a leading company in our industry, providing exceptional services to our customers worldwide. Our team is dedicated to delivering quality and innovation in everything we do.</p>"
+          }
+        },
+        {
+          "type": "text_item",
+          "settings": {
+            "title": "Our Mission",
+            "content": "<p>To provide outstanding products and services that exceed customer expectations while maintaining the highest standards of quality and integrity.</p>"
+          }
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20
+}
+{% endschema %}
