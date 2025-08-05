@@ -76,7 +76,7 @@
         "draggable": true,
         "show_arrows": false,
         "show_dots": true,
-        "padding_top": 0,
+        "padding_top": 80,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
@@ -422,6 +422,12 @@
       "settings": {
         "color_scheme": "scheme-1",
         "width": "container",
+        "show_border": true,
+        "show_navigation": true,
+        "show_mobile_dots": true,
+        "items_per_row_desktop": 6,
+        "items_per_row_tablet": 4,
+        "items_per_row_mobile": 3,
         "title_alignment": "start",
         "title": "Shop by Brands",
         "title_tag": "h4",
