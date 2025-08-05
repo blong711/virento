@@ -11,30 +11,128 @@
     {
         "type": "select",
         "id": "width",
-        "label": "t:sections.tag-products-carousel.settings.width.label",
+        "label": "t:sections.featured-products-tab.settings.width.label",
         "options": [
             {
             "value": "container",
-            "label": "t:sections.tag-products-carousel.settings.width.options.boxed"
+            "label": "t:sections.featured-products-tab.settings.width.options.boxed"
             },
             {
             "value": "container-full",
-            "label": "t:sections.tag-products-carousel.settings.width.options.full_width"
+            "label": "t:sections.featured-products-tab.settings.width.options.full_width"
             }
         ],
         "default": "container"
     },
     {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Just For You"
-    },
+        "type": "select",
+        "id": "title_alignment",
+        "label": "t:sections.featured-products-tab.settings.title_alignment.label",
+        "options": [
+            {
+                "value": "start",
+                "label": "t:sections.featured-products-tab.settings.title_alignment.options.default"
+            },
+            {
+                "value": "center",
+                "label": "t:sections.featured-products-tab.settings.title_alignment.options.center"
+            }
+        ]
+    },    
     {
       "type": "text",
-      "id": "description",
-      "label": "Description",
-      "default": "Explore our most popular pieces that customers can't get enough of"
+      "id": "title",
+      "label": "t:sections.featured-products-tab.settings.title.label",
+      "default": "t:sections.featured-products-tab.settings.title.default"
+    },
+    {
+        "type": "select",
+        "id": "title_tag",
+        "label": "t:sections.featured-products-tab.settings.title_tag.label",
+        "options": [
+            {
+                "value": "h5",
+                "label": "t:sections.featured-products-tab.settings.title_tag.options.small"
+            },
+            {
+                "value": "h4",
+                "label": "t:sections.featured-products-tab.settings.title_tag.options.medium"
+            },
+            {
+                "value": "h3",
+                "label": "t:sections.featured-products-tab.settings.title_tag.options.large"
+            }
+        ],
+        "default": "h4"
+    },
+    {
+        "type": "text",
+        "id": "subtitle",
+        "label": "t:sections.featured-products-tab.settings.subtitle.label",
+        "default": "t:sections.featured-products-tab.settings.subtitle.default"
+    },
+    {
+        "type": "select",
+        "id": "subtitle_size",
+        "label": "t:sections.featured-products-tab.settings.subtitle_size.label",
+        "options": [
+            {
+                "value": "text-sm",
+                "label": "t:sections.featured-products-tab.settings.subtitle_size.options.small"
+            },
+            {
+                "value": "text-md",
+                "label": "t:sections.featured-products-tab.settings.subtitle_size.options.medium"
+            },
+            {
+                "value": "text-lg",
+                "label": "t:sections.featured-products-tab.settings.subtitle_size.options.large"
+            }
+        ],
+        "default": "text-md"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.featured-products-tab.settings.slider_settings_heading.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav",
+      "label": "t:sections.featured-products-tab.settings.show_nav.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots_mobile",
+      "label": "t:sections.featured-products-tab.settings.show_dots_mobile.label",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "t:sections.featured-products-tab.settings.products_per_row_desktop.label",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "t:sections.featured-products-tab.settings.products_per_row_tablet.label",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "t:sections.featured-products-tab.settings.products_per_row_mobile.label",
+      "default": 2
     },
     {
         "type": "header",
@@ -80,13 +178,20 @@
         {
           "type": "text",
           "id": "tab_title",
-          "label": "Tab Title",
-          "default": "New Tab"
+          "label": "t:sections.featured-products-tab.blocks.tab.settings.tab_title.label",
+          "default": "t:sections.featured-products-tab.blocks.tab.settings.tab_title.default"
         },
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection"
+          "label": "t:sections.featured-products-tab.blocks.tab.settings.collection.label"
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "t:sections.featured-products-tab.blocks.tab.settings.products.label",
+          "info": "t:sections.featured-products-tab.blocks.tab.settings.products.info",
+          "limit": 8
         }
       ]
     }
@@ -136,11 +241,11 @@
 <section class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
     <div class="{{ section.settings.width }}">
         <div class="flat-animate-tab">
-            <div class="flat-title style-between align-items-end">
-                <div class="box-title">
-                    <h4 class="title">{{ section.settings.title }}</h4>
-                    <p class="desc text-main text-md">
-                        {{ section.settings.description }}
+            <div class="flat-title style-between align-items-end{% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
+                <div class="box-title {% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
+                    <{{ section.settings.title_tag }} class="title">{{ section.settings.title }}</{{ section.settings.title_tag }}>
+                    <p class="desc text-main {{ section.settings.subtitle_size }}">
+                        {{ section.settings.subtitle }}
                     </p>
                 </div>
                 <ul class="menu-tab-line style-md2" role="tablist">
@@ -165,25 +270,40 @@
                          role="tabpanel"
                          {{ block.shopify_attributes }}>
                         <div dir="ltr" class="swiper tf-swiper" data-swiper='{
-                                "slidesPerView": 2,
+                                "slidesPerView": {{ section.settings.products_per_row_mobile }},
                                 "spaceBetween": 12,
                                 "speed": 800,
                                 "observer": true,
                                 "observeParents": true,
-                                "slidesPerGroup": 2,
+                                "slidesPerGroup": {{ section.settings.products_per_row_mobile }},
                                 "navigation": {
                                     "clickable": true,
                                     "nextEl": ".nav-next-{{ block.id }}",
-                                    "prevEl": ".nav-prev-{{ block.id }}"
+                                    "prevEl": ".nav-prev-{{ block.id }}",
+                                    "enabled": {{ section.settings.show_nav | json }}
                                 },
-                                "pagination": { "el": ".sw-pagination-{{ block.id }}", "clickable": true },
+                                "pagination": { 
+                                    "el": ".sw-pagination-{{ block.id }}", 
+                                    "clickable": true,
+                                    "enabled": {{ section.settings.show_dots_mobile | json }}
+                                },
                                 "breakpoints": {
-                                "768": { "slidesPerView": 3, "spaceBetween": 12, "slidesPerGroup": 3 },
-                                "1200": { "slidesPerView": 4, "spaceBetween": 24, "slidesPerGroup": 4}
+                                    "768": { 
+                                        "slidesPerView": {{ section.settings.products_per_row_tablet }}, 
+                                        "spaceBetween": 12, 
+                                        "slidesPerGroup": {{ section.settings.products_per_row_tablet }}
+                                    },
+                                    "1200": { 
+                                        "slidesPerView": {{ section.settings.products_per_row_desktop }}, 
+                                        "spaceBetween": 24, 
+                                        "slidesPerGroup": {{ section.settings.products_per_row_desktop }}
+                                    }
                                 }
                             }'>
                             <div class="swiper-wrapper">
-                                {%- for product in block.settings.collection.products limit: 8 -%}
+                                {%- assign products_to_show = block.settings.products | default: block.settings.collection.products -%}
+
+                                {%- for product in products_to_show limit: 8 -%}
                                     <div class="swiper-slide">
                                         {% render 'product-card',
                                             product: product,
@@ -194,11 +314,15 @@
                                     </div>
                                 {%- endfor -%}
                             </div>
-                            <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ block.id }} justify-content-center">
-                            </div>
+                            {% if section.settings.show_dots_mobile %}
+                                <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ block.id }} justify-content-center">
+                                </div>
+                            {% endif %}
                         </div>
-                        <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-{{ block.id }}"></div>
-                        <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-{{ block.id }}"></div>
+                        {% if section.settings.show_nav %}
+                            <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-{{ block.id }}"></div>
+                            <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-{{ block.id }}"></div>
+                        {% endif %}
                     </div>
                 {%- endfor -%}
             </div>

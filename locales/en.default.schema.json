@@ -4272,6 +4272,85 @@
           "label": "Show border"
         }
       }
+    },
+    "featured-products-tab": {
+      "name": "Featured Products Tab",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full_width": "Full Width"
+          }
+        },
+        "title_alignment": {
+          "label": "Heading Alignment",
+          "options": {
+            "default": "Default",
+            "center": "Center"
+          }
+        },
+        "title": {
+          "label": "Heading",
+          "default": "Just For You"
+        },
+        "title_tag": {
+          "label": "Heading Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "subtitle": {
+          "label": "Subheading",
+          "default": "Explore our most popular pieces that customers can't get enough of"
+        },
+        "subtitle_size": {
+          "label": "Subheading Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "slider_settings_heading": {
+          "content": "Slider Settings"
+        },
+        "show_nav": {
+          "label": "Show prev/next buttons"
+        },
+        "show_dots_mobile": {
+          "label": "Show dots on mobile"
+        },
+        "products_per_row_desktop": {
+          "label": "Products per row (Desktop)"
+        },
+        "products_per_row_tablet": {
+          "label": "Products per row (Tablet)"
+        },
+        "products_per_row_mobile": {
+          "label": "Products per row (Mobile)"
+        }
+      },
+      "blocks": {
+        "tab": {
+          "name": "Product Tab",
+          "settings": {
+            "tab_title": {
+              "label": "Tab Title",
+              "default": "New Tab"
+            },
+            "collection": {
+              "label": "Collection"
+            },
+            "products": {
+              "label": "Products",
+              "info": "Replaces collection when selected"
+            }
+          }
+        }
+      }
     }
   }
 }
