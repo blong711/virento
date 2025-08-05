@@ -226,6 +226,22 @@
             "title": "",
             "link": ""
           }
+        },
+        "category_D8q6jt": {
+          "type": "category",
+          "settings": {
+            "collection": "keyboards",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_wxghTp": {
+          "type": "category",
+          "settings": {
+            "collection": "headphones",
+            "title": "",
+            "link": ""
+          }
         }
       },
       "block_order": [
@@ -234,7 +250,9 @@
         "category_3",
         "category_4",
         "category_5",
-        "category_6"
+        "category_6",
+        "category_D8q6jt",
+        "category_wxghTp"
       ],
       "settings": {
         "color_scheme": "scheme-1",
@@ -246,7 +264,12 @@
         "subtitle_size": "text-md",
         "padding_top": 0,
         "padding_bottom": 0,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 75,
+        "show_arrows": true,
+        "show_mobile_dots": true,
+        "items_per_row_desktop": 6,
+        "items_per_row_tablet": 4,
+        "items_per_row_mobile": 2
       }
     }
   },
