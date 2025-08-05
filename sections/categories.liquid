@@ -116,15 +116,58 @@
         "default": 0
     },
     {
-        "type": "range",
-        "id": "padding_mobile_rate",
-        "min": 0,
-        "max": 100,
-        "step": 5,
-        "unit": "%",
-        "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
-        "default": 75,
-        "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+              "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Use prev/next button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_dots",
+      "label": "Use dots on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "label": "Items per row (Desktop)",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Items per row (Tablet)",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Items per row (Mobile)",
+      "default": 2
     }
   ],
   "blocks": [
@@ -199,23 +242,43 @@
         </div>
         <div class="fl-control-sw2 pos1">
             <div dir="ltr" class="swiper tf-swiper" data-swiper='{
-                    "slidesPerView": 2,
+                    "slidesPerView": {{ section.settings.items_per_row_mobile }},
                     "spaceBetween": 12,
                     "speed": 800,
                     "observer": true,
                     "observeParents": true,
-                    "slidesPerGroup": 2,
+                    "slidesPerGroup": {{ section.settings.items_per_row_mobile }},
                     "navigation": {
                         "clickable": true,
                         "nextEl": ".nav-next-categories",
                         "prevEl": ".nav-prev-categories"
                     },
-                    "pagination": { "el": ".sw-pagination-categories", "clickable": true },
+                    "pagination": { 
+                        "el": ".sw-pagination-categories", 
+                        "clickable": true,
+                        "enabled": {{ section.settings.show_mobile_dots | json }}
+                    },
                     "breakpoints": {
-                    "575": { "slidesPerView": 3, "spaceBetween": 12 ,"slidesPerGroup": 3 },
-                    "768": { "slidesPerView": 4, "spaceBetween": 12, "slidesPerGroup": 4 },
-                    "992": { "slidesPerView": 5, "spaceBetween": 24, "slidesPerGroup": 4 },
-                    "1200": { "slidesPerView": 6, "spaceBetween": 24, "slidesPerGroup": 4}
+                        "575": {
+                            "slidesPerView": {{ section.settings.items_per_row_mobile }},
+                            "spaceBetween": 12,
+                            "slidesPerGroup": {{ section.settings.items_per_row_mobile }}
+                        },
+                        "768": { 
+                            "slidesPerView": {{ section.settings.items_per_row_tablet }}, 
+                            "spaceBetween": 12,
+                            "slidesPerGroup": {{ section.settings.items_per_row_tablet }}
+                        },
+                        "992": { 
+                            "slidesPerView": 5,
+                            "spaceBetween": 24,
+                            "slidesPerGroup": 4
+                        },
+                        "1200": {
+                            "slidesPerView": {{ section.settings.items_per_row_desktop }},
+                            "spaceBetween": 24,
+                            "slidesPerGroup": {{ section.settings.items_per_row_desktop }}
+                        }
                     }
                 }'>
                 <div class="swiper-wrapper wow fadeInUp">
@@ -248,11 +311,15 @@
                         {% endif %}
                     {% endfor %}
                 </div>
+                {% if section.settings.show_mobile_dots %}
                 <div class="d-flex d-xl-none sw-dot-default sw-pagination-categories justify-content-center">
                 </div>
+                {% endif %}
             </div>
-            <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-categories"></div>
-            <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-categories"></div>
+            {% if section.settings.show_arrows %}
+                <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-categories"></div>
+                <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-categories"></div>
+            {% endif %}
         </div>
     </div>
 </section>
