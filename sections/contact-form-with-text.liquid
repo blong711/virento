@@ -1,6 +1,19 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
 <section
-  class="s-contact flat-spacing-13 color-{{ section.settings.color_scheme }} background-{{ section.settings.color_scheme }}"
-  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+  class="s-contact flat-spacing-13 color-{{ section.settings.color_scheme }} background-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
 >
   <div class="">
     <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
@@ -217,6 +230,10 @@
       "default": "Please submit all general enquiries in the contact form below and we look forward to hearing from you soon."
     },
     {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
       "type": "range",
       "id": "padding_top",
       "min": 0,
@@ -235,6 +252,17 @@
       "unit": "px",
       "label": "t:sections.contact-form-with-text.settings.padding_bottom.label",
       "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.contact-form-with-text.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.contact-form-with-text.settings.padding_mobile_rate.info"
     }
   ],
   "blocks": [
