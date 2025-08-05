@@ -586,6 +586,13 @@
         "label": "Color scheme",
         "has_cards_info": "To change the card color scheme, update your theme settings."
       },
+      "width": {
+        "label": "Width",
+        "options": {
+          "boxed": "Boxed",
+          "full_width": "Full width"
+        }
+      },
       "heading_size": {
         "label": "Heading size",
         "options__1": {

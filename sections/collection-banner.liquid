@@ -1,0 +1,220 @@
+{% comment %} Banner Collection {% endcomment %}
+<section class="s-banner-colection banner-cls-electric-acc style-abs-2 flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div class="{{ section.settings.width }}">
+        <div class="banner-content">
+            <div class="image">
+                {% if section.settings.banner_image %}
+                    {{ section.settings.banner_image | image_url: width: 1920 | image_tag:
+                        loading: 'lazy',
+                        class: 'lazyload effect-paralax',
+                        alt: section.settings.banner_image.alt | escape
+                    }}
+                {% else %}
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+            </div>
+            <div class="box-content text-center">
+                <div class="box-title-banner">
+                    {% if section.settings.title != blank %}
+                        <p class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }}">
+                            {{ section.settings.title }}
+                        </p>
+                    {% endif %}
+                    {% if section.settings.subtitle != blank %}
+                        <p class="sub {{ section.settings.subtitle_font_size }}">
+                            {{ section.settings.subtitle }}
+                        </p>
+                    {% endif %}
+                </div>
+                {% if section.settings.button_label != blank %}
+                    <div class="box-btn-banner">
+                        <a href="{{ section.settings.button_link | default: '#' }}" class="tf-btn btn-dark2 animate-btn">
+                            {{ section.settings.button_label }}
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Banner",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.all.width.label",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.width.options.boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.all.width.options.full_width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Limited Time Deals"
+    },
+    {
+      "type": "select",
+      "id": "title_font_size",
+      "label": "Title Font Size",
+      "options": [
+        {
+          "value": "display-sm",
+          "label": "Small"
+        },
+        {
+          "value": "display-md",
+          "label": "Medium"
+        },
+        {
+          "value": "display-lg",
+          "label": "Large"
+        }
+      ],
+      "default": "display-md"
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title Font Weight",
+      "options": [
+        {
+          "value": "fw-light",
+          "label": "Light"
+        },
+        {
+          "value": "fw-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "fw-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "fw-semibold",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "fw-bold",
+          "label": "Bold"
+        }
+      ],
+      "default": "fw-medium"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Shop the latest activewear designed for maximum comfort and style."
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font_size",
+      "label": "Subtitle Font Size",
+      "options": [
+        {
+          "value": "text-sm",
+          "label": "Small"
+        },
+        {
+          "value": "text-md",
+          "label": "Medium"
+        },
+        {
+          "value": "text-lg",
+          "label": "Large"
+        }
+      ],
+      "default": "text-md"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Banner",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+    .section-{{ section.id }}-padding {
+        padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+        padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+      }
+    
+      @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+      }
+{% endstyle %}
