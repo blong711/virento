@@ -43,6 +43,60 @@
   "name": "Collection Banner",
   "settings": [
     {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content Position",
+      "options": [
+        {
+          "value": "top-left",
+          "label": "Top Left"
+        },
+        {
+          "value": "top-center",
+          "label": "Top Center"
+        },
+        {
+          "value": "top-right",
+          "label": "Top Right"
+        },
+        {
+          "value": "center-left",
+          "label": "Center Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "center-right",
+          "label": "Center Right"
+        },
+        {
+          "value": "bottom-left",
+          "label": "Bottom Left"
+        },
+        {
+          "value": "bottom-center",
+          "label": "Bottom Center"
+        },
+        {
+          "value": "bottom-right",
+          "label": "Bottom Right"
+        }
+      ],
+      "default": "center-left"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 300,
+      "max": 800,
+      "step": 50,
+      "unit": "px",
+      "label": "Content Width",
+      "default": 500
+    },
+    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
@@ -209,12 +263,54 @@
     .section-{{ section.id }}-padding {
         padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
         padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
-      }
+    }
     
-      @media screen and (min-width: 750px) {
+    @media screen and (min-width: 750px) {
         .section-{{ section.id }}-padding {
-          padding-top: {{ section.settings.padding_top }}px;
-          padding-bottom: {{ section.settings.padding_bottom }}px;
+            padding-top: {{ section.settings.padding_top }}px;
+            padding-bottom: {{ section.settings.padding_bottom }}px;
         }
-      }
+    }
+
+    @media (min-width: 768px) {
+        .banner-cls-electric-acc.style-abs-2 .box-content {
+            width: {{ section.settings.content_width }}px;
+            padding: 30px 64px;
+            position: absolute;
+            {% case section.settings.content_position %}
+                {% when 'top-left' %}
+                    top: 64px;
+                    left: 64px;
+                {% when 'top-center' %}
+                    top: 64px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                {% when 'top-right' %}
+                    top: 64px;
+                    right: 64px;
+                {% when 'center-left' %}
+                    top: 50%;
+                    left: 64px;
+                    transform: translateY(-50%);
+                {% when 'center' %}
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                {% when 'center-right' %}
+                    top: 50%;
+                    right: 64px;
+                    transform: translateY(-50%);
+                {% when 'bottom-left' %}
+                    bottom: 64px;
+                    left: 64px;
+                {% when 'bottom-center' %}
+                    bottom: 64px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                {% when 'bottom-right' %}
+                    bottom: 64px;
+                    right: 64px;
+            {% endcase %}
+        }
+    }
 {% endstyle %}
