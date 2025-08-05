@@ -275,7 +275,7 @@
                         {% for block in section.blocks %}
                             {% if block.type == 'tab' and block.settings.collection != blank or block.settings.product_list != blank %}
                                 <li class="nav-tab-item" role="presentation">
-                                    <a href="#tab-{{ block.id }}" 
+                                    <a href="#tab-{{ section.id }}-{{ block.id }}" 
                                        class="tab-link {% if forloop.first %}active{% endif %}" 
                                        data-bs-toggle="tab">
                                         {{ block.settings.title }}
@@ -289,7 +289,7 @@
                     {% for block in section.blocks %}
                         {% if block.type == 'tab' and block.settings.collection != blank or block.settings.product_list != blank %}
                             <div class="tab-pane {% if forloop.first %}active show{% endif %}" 
-                                 id="tab-{{ block.id }}" 
+                                 id="tab-{{ section.id }}-{{ block.id }}" 
                                  role="tabpanel">
                                 <div dir="ltr" class="swiper tf-swiper" data-swiper='{
                                         "slidesPerView": {{ section.settings.products_per_row_mobile }},

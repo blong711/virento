@@ -24,21 +24,7 @@
         ],
         "default": "container"
     },
-    {
-        "type": "select",
-        "id": "title_alignment",
-        "label": "t:sections.featured-products-tab.settings.title_alignment.label",
-        "options": [
-            {
-                "value": "start",
-                "label": "t:sections.featured-products-tab.settings.title_alignment.options.default"
-            },
-            {
-                "value": "center",
-                "label": "t:sections.featured-products-tab.settings.title_alignment.options.center"
-            }
-        ]
-    },    
+
     {
       "type": "text",
       "id": "title",
@@ -241,8 +227,8 @@
 <section class="color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
     <div class="{{ section.settings.width }}">
         <div class="flat-animate-tab">
-            <div class="flat-title style-between align-items-end{% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
-                <div class="box-title {% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
+            <div class="flat-title style-between align-items-end">
+                <div class="box-title">
                     <{{ section.settings.title_tag }} class="title">{{ section.settings.title }}</{{ section.settings.title_tag }}>
                     <p class="desc text-main {{ section.settings.subtitle_size }}">
                         {{ section.settings.subtitle }}
@@ -251,7 +237,7 @@
                 <ul class="menu-tab-line style-md2" role="tablist">
                     {%- for block in section.blocks -%}
                         <li class="nav-tab-item" role="presentation">
-                            <a href="#tab-{{ block.id }}" 
+                            <a href="#tab-{{ section.id }}-{{ block.id }}" 
                                class="tab-link {% if forloop.first %}active{% endif %}" 
                                data-bs-toggle="tab" 
                                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
@@ -266,7 +252,7 @@
             <div class="tab-content">
                 {%- for block in section.blocks -%}
                     <div class="tab-pane hover-sw-nav {% if forloop.first %}active show{% endif %}" 
-                         id="tab-{{ block.id }}" 
+                         id="tab-{{ section.id }}-{{ block.id }}" 
                          role="tabpanel"
                          {{ block.shopify_attributes }}>
                         <div dir="ltr" class="swiper tf-swiper" data-swiper='{
