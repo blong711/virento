@@ -1,0 +1,136 @@
+{% schema %}
+{
+  "name": "Featured Products Tab",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Just For You"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Explore our most popular pieces that customers can't get enough of"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Product Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab Title",
+          "default": "New Tab"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products Tab",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "New Arrivals"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Featured"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Trending"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section>
+    <div class="container">
+        <div class="flat-animate-tab">
+            <div class="flat-title style-between align-items-end">
+                <div class="box-title">
+                    <h4 class="title">{{ section.settings.title }}</h4>
+                    <p class="desc text-main text-md">
+                        {{ section.settings.description }}
+                    </p>
+                </div>
+                <ul class="menu-tab-line style-md2" role="tablist">
+                    {%- for block in section.blocks -%}
+                        <li class="nav-tab-item" role="presentation">
+                            <a href="#tab-{{ block.id }}" 
+                               class="tab-link {% if forloop.first %}active{% endif %}" 
+                               data-bs-toggle="tab" 
+                               aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                               role="tab" 
+                               {% unless forloop.first %}tabindex="-1"{% endunless %}>
+                                {{ block.settings.tab_title }}
+                            </a>
+                        </li>
+                    {%- endfor -%}
+                </ul>
+            </div>
+            <div class="tab-content">
+                {%- for block in section.blocks -%}
+                    <div class="tab-pane hover-sw-nav {% if forloop.first %}active show{% endif %}" 
+                         id="tab-{{ block.id }}" 
+                         role="tabpanel"
+                         {{ block.shopify_attributes }}>
+                        <div dir="ltr" class="swiper tf-swiper" data-swiper='{
+                                "slidesPerView": 2,
+                                "spaceBetween": 12,
+                                "speed": 800,
+                                "observer": true,
+                                "observeParents": true,
+                                "slidesPerGroup": 2,
+                                "navigation": {
+                                    "clickable": true,
+                                    "nextEl": ".nav-next-{{ block.id }}",
+                                    "prevEl": ".nav-prev-{{ block.id }}"
+                                },
+                                "pagination": { "el": ".sw-pagination-{{ block.id }}", "clickable": true },
+                                "breakpoints": {
+                                "768": { "slidesPerView": 3, "spaceBetween": 12, "slidesPerGroup": 3 },
+                                "1200": { "slidesPerView": 4, "spaceBetween": 24, "slidesPerGroup": 4}
+                                }
+                            }'>
+                            <div class="swiper-wrapper">
+                                {%- for product in block.settings.collection.products limit: 8 -%}
+                                    <div class="swiper-slide">
+                                        {% render 'product-card',
+                                            product: product,
+                                            show_vendor: false,
+                                            show_rating: true,
+                                            show_quick_add: true
+                                        %}
+                                    </div>
+                                {%- endfor -%}
+                            </div>
+                            <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ block.id }} justify-content-center">
+                            </div>
+                        </div>
+                        <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-{{ block.id }}"></div>
+                        <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-{{ block.id }}"></div>
+                    </div>
+                {%- endfor -%}
+            </div>
+        </div>
+    </div>
+</section>
