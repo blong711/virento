@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main_slider": {
@@ -436,21 +445,42 @@
           "type": "tab",
           "settings": {
             "tab_title": "New Arrivals",
-            "collection": "new-arrivals"
+            "collection": "new-arrivals",
+            "products": [
+              "wireless-gaming-mouse",
+              "glass-elite-am-screen-protector",
+              "digital-camera-for-kids",
+              "glass-elite-privacy-screen-protector",
+              "wireless-earbuds-for-playstation-5"
+            ]
           }
         },
         "tab_2": {
           "type": "tab",
           "settings": {
             "tab_title": "Featured",
-            "collection": "featured"
+            "collection": "featured",
+            "products": [
+              "wireless-earbuds-for-playstation-5",
+              "glass-elite-privacy-screen-protector",
+              "digital-camera-for-kids",
+              "glass-elite-am-screen-protector",
+              "wireless-gaming-mouse"
+            ]
           }
         },
         "tab_3": {
           "type": "tab",
           "settings": {
-            "tab_title": "Best Sellers",
-            "collection": "best-sellers"
+            "tab_title": "Trending",
+            "collection": "best-sellers",
+            "products": [
+              "digital-camera-for-kids",
+              "glass-elite-privacy-screen-protector",
+              "wireless-gaming-mouse",
+              "glass-elite-am-screen-protector",
+              "wireless-earbuds-for-playstation-5"
+            ]
           }
         }
       },
