@@ -175,11 +175,79 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "categories": {
+      "type": "categories",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "collection": "phones",
+            "icon": "shopify://shop_images/smartphone.png"
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "collection": "earphones",
+            "icon": "shopify://shop_images/earphone.png"
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "collection": "cables",
+            "icon": "shopify://shop_images/cable.png"
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "collection": "smart-watches",
+            "icon": "shopify://shop_images/smart-watch.png"
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "collection": "chargers",
+            "icon": "shopify://shop_images/charge.png"
+          }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": {
+            "collection": "screen-protectors",
+            "icon": "shopify://shop_images/screen-protector.png"
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5",
+        "category_6"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "title_alignment": "default",
+        "title": "Shop by Categories",
+        "title_tag": "h4",
+        "subtitle": "Explore our wide range of electronic accessories, perfect for every device.",
+        "subtitle_size": "text-md",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "main_slider",
     "featured_countdown",
-    "offer_banner"
+    "offer_banner",
+    "categories"
   ]
 }
