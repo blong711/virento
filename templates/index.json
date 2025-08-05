@@ -183,42 +183,48 @@
           "type": "category",
           "settings": {
             "collection": "phones",
-            "icon": "shopify://shop_images/smartphone.png"
+            "title": "",
+            "link": ""
           }
         },
         "category_2": {
           "type": "category",
           "settings": {
             "collection": "earphones",
-            "icon": "shopify://shop_images/earphone.png"
+            "title": "",
+            "link": ""
           }
         },
         "category_3": {
           "type": "category",
           "settings": {
             "collection": "cables",
-            "icon": "shopify://shop_images/cable.png"
+            "title": "",
+            "link": ""
           }
         },
         "category_4": {
           "type": "category",
           "settings": {
             "collection": "smart-watches",
-            "icon": "shopify://shop_images/smart-watch.png"
+            "title": "",
+            "link": ""
           }
         },
         "category_5": {
           "type": "category",
           "settings": {
             "collection": "chargers",
-            "icon": "shopify://shop_images/charge.png"
+            "title": "",
+            "link": ""
           }
         },
         "category_6": {
           "type": "category",
           "settings": {
             "collection": "screen-protectors",
-            "icon": "shopify://shop_images/screen-protector.png"
+            "title": "",
+            "link": ""
           }
         }
       },
@@ -236,7 +242,7 @@
         "title_alignment": "default",
         "title": "Shop by Categories",
         "title_tag": "h4",
-        "subtitle": "Explore our wide range of electronic accessories, perfect for every device.",
+        "subtitle": "",
         "subtitle_size": "text-md",
         "padding_top": 0,
         "padding_bottom": 0,
