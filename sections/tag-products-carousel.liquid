@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Tag Products Carousel",
+  "name": "t:sections.tag-products-carousel.name",
   "settings": [
     {
         "type": "color_scheme",
@@ -11,39 +11,39 @@
     {
         "type": "select",
         "id": "width",
-        "label": "t:sections.offer_banner.settings.width.label",
+        "label": "t:sections.tag-products-carousel.settings.width.label",
         "options": [
             {
             "value": "container",
-            "label": "t:sections.offer_banner.settings.width.options.boxed"
+            "label": "t:sections.tag-products-carousel.settings.width.options.boxed"
             },
             {
             "value": "container-full",
-            "label": "t:sections.offer_banner.settings.width.options.full_width"
+            "label": "t:sections.tag-products-carousel.settings.width.options.full_width"
             }
         ],
         "default": "container"
     },
     {
       "type": "header",
-      "content": "Tab Navigation Settings"
+      "content": "t:sections.tag-products-carousel.settings.tab_navigation_settings.content"
     },
     {
       "type": "select",
       "id": "title_font_size",
-      "label": "Tab Title Font Size",
+      "label": "t:sections.tag-products-carousel.settings.title_font_size.label",
       "options": [
         {
           "value": "30",
-          "label": "Small"
+          "label": "t:sections.tag-products-carousel.settings.title_font_size.options.small"
         },
         {
           "value": "36",
-          "label": "Medium"
+          "label": "t:sections.tag-products-carousel.settings.title_font_size.options.medium"
         },
         {
           "value": "48",
-          "label": "Large"
+          "label": "t:sections.tag-products-carousel.settings.title_font_size.options.large"
         }
       ],
       "default": "36"
@@ -51,23 +51,23 @@
     {
       "type": "select",
       "id": "title_font_weight",
-      "label": "Tab Title Font Weight",
+      "label": "t:sections.tag-products-carousel.settings.title_font_weight.label",
       "options": [
         {
           "value": "400",
-          "label": "Regular"
+          "label": "t:sections.tag-products-carousel.settings.title_font_weight.options.regular"
         },
         {
           "value": "500",
-          "label": "Medium"
+          "label": "t:sections.tag-products-carousel.settings.title_font_weight.options.medium"
         },
         {
           "value": "600",
-          "label": "Semi Bold"
+          "label": "t:sections.tag-products-carousel.settings.title_font_weight.options.semi_bold"
         },
         {
           "value": "700",
-          "label": "Bold"
+          "label": "t:sections.tag-products-carousel.settings.title_font_weight.options.bold"
         }
       ],
       "default": "500"
@@ -75,33 +75,33 @@
     {
       "type": "checkbox",
       "id": "title_uppercase",
-      "label": "Transform titles to uppercase",
+      "label": "t:sections.tag-products-carousel.settings.title_uppercase.label",
       "default": false
     },
     {
       "type": "range",
       "id": "tab_spacing",
-      "min": 10,
+      "min": 0,
       "max": 50,
       "step": 5,
       "unit": "px",
-      "label": "Spacing between tabs",
+      "label": "t:sections.tag-products-carousel.settings.tab_spacing.label",
       "default": 20
     },
     {
       "type": "header",
-      "content": "Slider Settings"
+      "content": "t:sections.tag-products-carousel.settings.slider_settings.content"
     },
     {
       "type": "checkbox",
       "id": "show_navigation",
-      "label": "Show prev/next buttons",
+      "label": "t:sections.tag-products-carousel.settings.show_navigation.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_mobile_dots",
-      "label": "Show dots on mobile",
+      "label": "t:sections.tag-products-carousel.settings.show_mobile_dots.label",
       "default": true
     },
     {
@@ -111,7 +111,7 @@
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "Products per row (Desktop)"
+      "label": "t:sections.tag-products-carousel.settings.products_per_row_desktop.label"
     },
     {
       "type": "range",
@@ -120,7 +120,7 @@
       "max": 4,
       "step": 1,
       "default": 3,
-      "label": "Products per row (Tablet)"
+      "label": "t:sections.tag-products-carousel.settings.products_per_row_tablet.label"
     },
     {
       "type": "range",
@@ -129,11 +129,11 @@
       "max": 3,
       "step": 1,
       "default": 2,
-      "label": "Products per row (Mobile)"
+      "label": "t:sections.tag-products-carousel.settings.products_per_row_mobile.label"
     },
     {
       "type": "header",
-      "content": "Product Settings"
+      "content": "t:sections.tag-products-carousel.settings.product_settings.content"
     },
     {
       "type": "range",
@@ -142,7 +142,7 @@
       "max": 12,
       "step": 1,
       "default": 8,
-      "label": "Products to show"
+      "label": "t:sections.tag-products-carousel.settings.products_to_show.label"
     },
     {
         "type": "header",
@@ -183,52 +183,52 @@
   "blocks": [
     {
       "type": "tab",
-      "name": "Collection Tab",
+      "name": "t:sections.tag-products-carousel.blocks.tab.name",
       "limit": 5,
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Tab Title",
-          "default": "Collection"
+          "label": "t:sections.tag-products-carousel.blocks.tab.settings.title.label",
+          "default": "t:sections.tag-products-carousel.blocks.tab.settings.title.default"
         },
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection"
+          "label": "t:sections.tag-products-carousel.blocks.tab.settings.collection.label"
         },
         {
           "type": "product_list",
           "id": "product_list",
-          "label": "Products",
-          "info": "Selected products will override collection"
+          "label": "t:sections.tag-products-carousel.blocks.tab.settings.product_list.label",
+          "info": "t:sections.tag-products-carousel.blocks.tab.settings.product_list.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Tag Products Carousel",
-      "category": "Product",
+      "name": "t:sections.tag-products-carousel.presets.name",
+      "category": "t:sections.tag-products-carousel.presets.category",
       "blocks": [
         {
           "type": "tab",
           "settings": {
-            "title": "What's Hot?",
+            "title": "t:sections.tag-products-carousel.presets.blocks.tab1.title",
             "collection": ""
           }
         },
         {
           "type": "tab",
           "settings": {
-            "title": "Best Sellers",
+            "title": "t:sections.tag-products-carousel.presets.blocks.tab2.title",
             "collection": ""
           }
         },
         {
           "type": "tab",
           "settings": {
-            "title": "Just Arrivals",
+            "title": "t:sections.tag-products-carousel.presets.blocks.tab3.title",
             "collection": ""
           }
         }

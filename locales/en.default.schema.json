@@ -3975,6 +3975,101 @@
       "presets": {
         "default": "Map with Text"
       }
+    },
+    "tag-products-carousel": {
+      "name": "Tag Products Carousel",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full_width": "Full Width"
+          }
+        },
+        "tab_navigation_settings": {
+          "content": "Tab Navigation Settings"
+        },
+        "title_font_size": {
+          "label": "Tab Title Font Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "title_font_weight": {
+          "label": "Tab Title Font Weight",
+          "options": {
+            "regular": "Regular",
+            "medium": "Medium",
+            "semi_bold": "Semi Bold",
+            "bold": "Bold"
+          }
+        },
+        "title_uppercase": {
+          "label": "Transform titles to uppercase"
+        },
+        "tab_spacing": {
+          "label": "Spacing between tabs"
+        },
+        "slider_settings": {
+          "content": "Slider Settings"
+        },
+        "show_navigation": {
+          "label": "Show prev/next buttons"
+        },
+        "show_mobile_dots": {
+          "label": "Show dots on mobile"
+        },
+        "products_per_row_desktop": {
+          "label": "Products per row (Desktop)"
+        },
+        "products_per_row_tablet": {
+          "label": "Products per row (Tablet)"
+        },
+        "products_per_row_mobile": {
+          "label": "Products per row (Mobile)"
+        },
+        "product_settings": {
+          "content": "Product Settings"
+        },
+        "products_to_show": {
+          "label": "Products to show"
+        }
+      },
+      "blocks": {
+        "tab": {
+          "name": "Collection Tab",
+          "settings": {
+            "title": {
+              "label": "Tab Title",
+              "default": "Collection"
+            },
+            "collection": {
+              "label": "Collection"
+            },
+            "product_list": {
+              "label": "Products",
+              "info": "Selected products will override collection"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Tag Products Carousel",
+        "category": "Product",
+        "blocks": {
+          "tab1": {
+            "title": "What's Hot?"
+          },
+          "tab2": {
+            "title": "Best Sellers"
+          },
+          "tab3": {
+            "title": "Just Arrivals"
+          }
+        }
+      }
     }
   }
 }
