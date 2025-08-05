@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Categories Slider",
+  "name": "t:sections.categories.name",
   "settings": [
     {
         "type": "color_scheme",
@@ -11,15 +11,15 @@
     {
         "type": "select",
         "id": "width",
-        "label": "t:sections.offer_banner.settings.width.label",
+        "label": "t:sections.categories.settings.width.label",
         "options": [
             {
             "value": "container",
-            "label": "t:sections.offer_banner.settings.width.options.boxed"
+            "label": "t:sections.categories.settings.width.options.boxed"
             },
             {
             "value": "container-full",
-            "label": "t:sections.offer_banner.settings.width.options.full_width"
+            "label": "t:sections.categories.settings.width.options.full_width"
             }
         ],
         "default": "container"
@@ -27,40 +27,40 @@
     {
         "type": "select",
         "id": "title_alignment",
-        "label": "Heading Alignment",
+        "label": "t:sections.categories.settings.title_alignment.label",
         "options": [
             {
                 "value": "start",
-                "label": "Default"
+                "label": "t:sections.categories.settings.title_alignment.options.default"
             },
             {
                 "value": "center",
-                "label": "Center"
+                "label": "t:sections.categories.settings.title_alignment.options.center"
             }
         ]
     },    
     {
       "type": "text",
       "id": "title",
-      "label": "Heading",
-      "default": "Shop by Categories"
+      "label": "t:sections.categories.settings.title.label",
+      "default": "t:sections.categories.settings.title.default"
     },
     {
         "type": "select",
         "id": "title_tag",
-        "label": "Heading Size",
+        "label": "t:sections.categories.settings.title_tag.label",
         "options": [
             {
                 "value": "h5",
-                "label": "Small"
+                "label": "t:sections.categories.settings.title_tag.options.small"
             },
             {
                 "value": "h4",
-                "label": "Medium"
+                "label": "t:sections.categories.settings.title_tag.options.medium"
             },
             {
                 "value": "h3",
-                "label": "Large"
+                "label": "t:sections.categories.settings.title_tag.options.large"
             }
         ],
         "default": "h4"
@@ -68,43 +68,43 @@
     {
         "type": "text",
         "id": "subtitle",
-        "label": "Subheading",
-        "default": "Explore our wide range of fresh and packaged goods, perfect for every meal."
+        "label": "t:sections.categories.settings.subtitle.label",
+        "default": "t:sections.categories.settings.subtitle.default"
     },
     {
         "type": "select",
         "id": "subtitle_size",
-        "label": "Subheading Size",
+        "label": "t:sections.categories.settings.subtitle_size.label",
         "options": [
             {
                 "value": "text-sm",
-                "label": "Small"
+                "label": "t:sections.categories.settings.subtitle_size.options.small"
             },
             {
                 "value": "text-md",
-                "label": "Medium"
+                "label": "t:sections.categories.settings.subtitle_size.options.medium"
             },
             {
                 "value": "text-lg",
-                "label": "Large"
+                "label": "t:sections.categories.settings.subtitle_size.options.large"
             }
         ],
         "default": "text-md"
     },
     {
       "type": "header",
-      "content": "Slider Settings"
+      "content": "t:sections.categories.settings.slider_settings.content"
     },
     {
       "type": "checkbox",
       "id": "show_arrows",
-      "label": "Use prev/next button",
+      "label": "t:sections.categories.settings.show_arrows.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_mobile_dots",
-      "label": "Use dots on mobile",
+      "label": "t:sections.categories.settings.show_mobile_dots.label",
       "default": true
     },
     {
@@ -113,7 +113,7 @@
       "min": 3,
       "max": 6,
       "step": 1,
-      "label": "Items per row (Desktop)",
+      "label": "t:sections.categories.settings.items_per_row_desktop.label",
       "default": 6
     },
     {
@@ -122,7 +122,7 @@
       "min": 2,
       "max": 4,
       "step": 1,
-      "label": "Items per row (Tablet)",
+      "label": "t:sections.categories.settings.items_per_row_tablet.label",
       "default": 4
     },
     {
@@ -131,7 +131,7 @@
       "min": 1,
       "max": 3,
       "step": 1,
-      "label": "Items per row (Mobile)",
+      "label": "t:sections.categories.settings.items_per_row_mobile.label",
       "default": 2
     },
     {
@@ -173,37 +173,37 @@
   "blocks": [
     {
       "type": "category",
-      "name": "Category",
+      "name": "t:sections.categories.blocks.category.name",
       "settings": [
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection"
+          "label": "t:sections.categories.blocks.category.settings.collection.label"
         },
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Collection image",
-          "info": "Leave empty to use 'Collection image'"
+          "label": "t:sections.categories.blocks.category.settings.image.label",
+          "info": "t:sections.categories.blocks.category.settings.image.info"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Collection title",
-          "info": "Leave empty to use 'Collection title'"
+          "label": "t:sections.categories.blocks.category.settings.title.label",
+          "info": "t:sections.categories.blocks.category.settings.title.info"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Collection link (optional)",
-          "info": "Leave empty to use 'Collection URL'"
+          "label": "t:sections.categories.blocks.category.settings.link.label",
+          "info": "t:sections.categories.blocks.category.settings.link.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Categories Slider",
+      "name": "t:sections.categories.presets.name",
       "blocks": [
         {
           "type": "category"
