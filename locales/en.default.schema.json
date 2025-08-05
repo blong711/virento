@@ -3638,9 +3638,20 @@
         "name": "Collapsible content"
       }
     },
-    "hero-image-about": {
-      "name": "Hero Image (About us)",
+    "hero-image": {
+      "name": "Hero Image",
       "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": {
+              "label": "Boxed"
+            },
+            "full": {
+              "label": "Full width"
+            }
+          }
+        },
         "image_height": {
           "label": "Image height",
           "options": {
@@ -3685,12 +3696,12 @@
       },
       "presets": {
         "default": {
-          "name": "Hero Image (About us)",
+          "name": "Hero Image",
           "category": "Image"
         }
       }
     },
-    "heading-horizontal-about-us": {
+    "heading-with-text-horizontal": {
       "name": "About Us Welcome",
       "settings": {
         "width": {
@@ -3751,7 +3762,7 @@
       },
       "presets": {
         "default": {
-          "name": "About Us Welcome",
+          "name": "heading with text horizontal",
           "category": "Text"
         }
       }
@@ -3813,13 +3824,13 @@
       },
       "presets": {
         "default": {
-          "name": "Image with text (About)",
+          "name": "Image with text",
           "category": "Text"
         }
       }
     },
-    "single-testimonial-about": {
-      "name": "Single testimonial (About)",
+    "single-testimonial": {
+      "name": "Single testimonial",
       "settings": {
         "width": {
           "label": "Section width"
@@ -3851,7 +3862,7 @@
       },
       "presets": {
         "default": {
-          "name": "Single testimonial (About)",
+          "name": "Single testimonial",
           "category": "Text"
         }
       }
@@ -3974,6 +3985,47 @@
       },
       "presets": {
         "default": "Map with Text"
+      }
+    },
+    "heading-with-text-vertical": {
+      "name": "Vertical Text Heading",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": {
+              "label": "Boxed"
+            },
+            "full": {
+              "label": "Full width"
+            }
+          }
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        }
+      },
+      "blocks": {
+        "text_item": {
+          "name": "Text Item",
+          "settings": {
+            "title": {
+              "label": "Title"
+            },
+            "content": {
+              "label": "Content"
+            }
+          }
+        }
+      },
+      "presets": {
+        "default": "Vertical Text Heading"
       }
     },
     "tag-products-carousel": {

@@ -46,7 +46,7 @@
 {%- endstyle -%}
 
 <section class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
-  <div class="{% if section.settings.width == 'boxed' %}container{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
     <div class="flat-title-2 section-{{ section.id }} d-xl-flex justify-content-xl-between">
       <div class="box-title">
         {%- for block in section.blocks -%}
@@ -108,10 +108,10 @@
     {
       "type": "select",
       "id": "width",
-      "label": "t:sections.heading-horizontal-about-us.settings.width.label",
+      "label": "t:sections.heading-with-text-horizontal.settings.width.label",
       "options": [
-        { "value": "full", "label": "t:sections.heading-horizontal-about-us.settings.width.options.full" },
-        { "value": "boxed", "label": "t:sections.heading-horizontal-about-us.settings.width.options.boxed" }
+        { "value": "full", "label": "t:sections.heading-with-text-horizontal.settings.width.options.full" },
+        { "value": "boxed", "label": "t:sections.heading-with-text-horizontal.settings.width.options.boxed" }
       ],
       "default": "boxed"
     },
@@ -127,7 +127,7 @@
     {
       "type": "range",
       "id": "padding_top",
-      "label": "t:sections.heading-horizontal-about-us.settings.padding_top.label",
+      "label": "t:sections.heading-with-text-horizontal.settings.padding_top.label",
       "min": 0,
       "max": 100,
       "step": 4,
@@ -137,7 +137,7 @@
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "t:sections.heading-horizontal-about-us.settings.padding_bottom.label",
+      "label": "t:sections.heading-with-text-horizontal.settings.padding_bottom.label",
       "min": 0,
       "max": 100,
       "step": 4,
@@ -151,26 +151,26 @@
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "t:sections.heading-horizontal-about-us.settings.padding_mobile_rate.label",
+      "label": "t:sections.heading-with-text-horizontal.settings.padding_mobile_rate.label",
       "default": 75,
-      "info": "t:sections.heading-horizontal-about-us.settings.padding_mobile_rate.info"
+      "info": "t:sections.heading-with-text-horizontal.settings.padding_mobile_rate.info"
     }
   ],
   "blocks": [
     {
       "type": "heading",
-      "name": "t:sections.heading-horizontal-about-us.blocks.heading.name",
+      "name": "t:sections.heading-with-text-horizontal.blocks.heading.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "t:sections.heading-horizontal-about-us.blocks.heading.settings.text.label",
-          "default": "t:sections.heading-horizontal-about-us.blocks.heading.settings.text.default"
+          "label": "t:sections.heading-with-text-horizontal.blocks.heading.settings.text.label",
+          "default": "t:sections.heading-with-text-horizontal.blocks.heading.settings.text.default"
         },
         {
           "type": "select",
           "id": "size",
-          "label": "t:sections.heading-horizontal-about-us.blocks.heading.settings.size.label",
+          "label": "t:sections.heading-with-text-horizontal.blocks.heading.settings.size.label",
           "options": [
             { "value": "small", "label": "t:sections.common.size.small" },
             { "value": "medium", "label": "t:sections.common.size.medium" },
@@ -182,18 +182,18 @@
     },
     {
       "type": "subheading",
-      "name": "t:sections.heading-horizontal-about-us.blocks.subheading.name",
+      "name": "t:sections.heading-with-text-horizontal.blocks.subheading.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "t:sections.heading-horizontal-about-us.blocks.subheading.settings.text.label",
-          "default": "t:sections.heading-horizontal-about-us.blocks.subheading.settings.text.default"
+          "label": "t:sections.heading-with-text-horizontal.blocks.subheading.settings.text.label",
+          "default": "t:sections.heading-with-text-horizontal.blocks.subheading.settings.text.default"
         },
         {
           "type": "select",
           "id": "size",
-          "label": "t:sections.heading-horizontal-about-us.blocks.subheading.settings.size.label",
+          "label": "t:sections.heading-with-text-horizontal.blocks.subheading.settings.size.label",
           "options": [
             { "value": "small", "label": "t:sections.common.size.small" },
             { "value": "medium", "label": "t:sections.common.size.medium" },
@@ -205,18 +205,18 @@
     },
     {
       "type": "content",
-      "name": "t:sections.heading-horizontal-about-us.blocks.content.name",
+      "name": "t:sections.heading-with-text-horizontal.blocks.content.name",
       "settings": [
         {
           "type": "textarea",
           "id": "text",
-          "label": "t:sections.heading-horizontal-about-us.blocks.content.settings.text.label",
-          "default": "t:sections.heading-horizontal-about-us.blocks.content.settings.text.default"
+          "label": "t:sections.heading-with-text-horizontal.blocks.content.settings.text.label",
+          "default": "t:sections.heading-with-text-horizontal.blocks.content.settings.text.default"
         },
         {
           "type": "select",
           "id": "size",
-          "label": "t:sections.heading-horizontal-about-us.blocks.content.settings.size.label",
+          "label": "t:sections.heading-with-text-horizontal.blocks.content.settings.size.label",
           "options": [
             { "value": "small", "label": "t:sections.common.size.small" },
             { "value": "medium", "label": "t:sections.common.size.medium" },
@@ -230,8 +230,8 @@
   "max_blocks": 10,
   "presets": [
     {
-      "name": "t:sections.heading-horizontal-about-us.presets.default.name",
-      "category": "t:sections.heading-horizontal-about-us.presets.default.category",
+      "name": "t:sections.heading-with-text-horizontal.presets.default.name",
+      "category": "t:sections.heading-with-text-horizontal.presets.default.category",
       "blocks": [{ "type": "heading" }, { "type": "subheading" }, { "type": "content" }]
     }
   ]
