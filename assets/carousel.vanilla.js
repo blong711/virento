@@ -36,8 +36,8 @@ function initSlideshow() {
         },
         navigation: {
             clickable: true,
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
+            nextEl: ".navigation-next-slider",
+            prevEl: ".navigation-prev-slider",
         },
         centeredSlides: false,
         breakpoints: {
