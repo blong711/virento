@@ -343,13 +343,89 @@
     },
     "brands": {
       "type": "brands",
+      "blocks": {
+        "brand_3FDzy3": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/zara.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        },
+        "brand_xTkyQE": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/bear.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        },
+        "brand_WQLUWG": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/nike.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        },
+        "brand_yzpUB8": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/asos.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        },
+        "brand_ri394r": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/burberry.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        },
+        "brand_dTT4QT": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/forever.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        },
+        "brand_4TzbXT": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/zara.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        },
+        "brand_3WybrX": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/bear.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_3FDzy3",
+        "brand_xTkyQE",
+        "brand_WQLUWG",
+        "brand_yzpUB8",
+        "brand_ri394r",
+        "brand_dTT4QT",
+        "brand_4TzbXT",
+        "brand_3WybrX"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
         "width": "container",
         "title_alignment": "start",
-        "title": "t:sections.brands.settings.title.default",
+        "title": "Shop by Brands",
         "title_tag": "h4",
-        "subtitle": "t:sections.brands.settings.subtitle.default",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
         "padding_top": 100,
         "padding_bottom": 100,
