@@ -1,0 +1,207 @@
+{% schema %}
+{
+  "name": "Tag Products Carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Tab Navigation Settings"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Tab Title Font Size",
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Tab Title Font Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular (400)"
+        },
+        {
+          "value": "500",
+          "label": "Medium (500)"
+        },
+        {
+          "value": "600",
+          "label": "Semi Bold (600)"
+        },
+        {
+          "value": "700",
+          "label": "Bold (700)"
+        }
+      ],
+      "default": "500"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_uppercase",
+      "label": "Transform titles to uppercase",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "tab_spacing",
+      "min": 10,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "label": "Spacing between tabs",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Product Settings"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Collection Tab",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Collection"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tag Products Carousel",
+      "category": "Product",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "title": "What's Hot?",
+            "collection": ""
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "title": "Best Sellers",
+            "collection": ""
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "title": "Just Arrivals",
+            "collection": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+.section-{{ section.id }} .menu-tab-line .nav-tab-item {
+  margin-right: {{ section.settings.tab_spacing }}px;
+}
+.section-{{ section.id }} .menu-tab-line .nav-tab-item:last-child {
+  margin-right: 0;
+}
+.section-{{ section.id }} .menu-tab-line .tab-link {
+  font-size: {{ section.settings.title_font_size }}px;
+  font-weight: {{ section.settings.title_font_weight }};
+  {% if section.settings.title_uppercase %}
+    text-transform: uppercase;
+  {% endif %}
+}
+{% endstyle %}
+
+<!-- Tag Product -->
+<section class="section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div class="{{ section.settings.width }}">
+        {% if section.blocks.size > 0 %}
+            <div class="flat-animate-tab flat-controltab-nav">
+                <div class="flat-title">
+                    <ul class="menu-tab-line style2 style-lg style-lg2" role="tablist">
+                        {% for block in section.blocks %}
+                            {% if block.type == 'tab' and block.settings.collection != blank %}
+                                <li class="nav-tab-item" role="presentation">
+                                    <a href="#tab-{{ block.id }}" 
+                                       class="tab-link {% if forloop.first %}active{% endif %}" 
+                                       data-bs-toggle="tab">
+                                        {{ block.settings.title }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-content sw-height">
+                    {% for block in section.blocks %}
+                        {% if block.type == 'tab' and block.settings.collection != blank %}
+                            <div class="tab-pane {% if forloop.first %}active show{% endif %}" 
+                                 id="tab-{{ block.id }}" 
+                                 role="tabpanel">
+                                <div dir="ltr" class="swiper tf-swiper" data-swiper='{
+                                        "slidesPerView": 2,
+                                        "spaceBetween": 12,
+                                        "speed": 800,
+                                        "observer": true,
+                                        "observeParents": true,
+                                        "slidesPerGroup": 2,
+                                        "navigation": {
+                                            "clickable": true,
+                                            "nextEl": ".nav-next-{{ block.id }}",
+                                            "prevEl": ".nav-prev-{{ block.id }}"
+                                        },
+                                        "pagination": { "el": ".sw-pagination-{{ block.id }}", "clickable": true },
+                                        "breakpoints": {
+                                        "768": { "slidesPerView": 3, "spaceBetween": 12, "slidesPerGroup": 3 },
+                                        "1200": { "slidesPerView": 4, "spaceBetween": 24, "slidesPerGroup": 4}
+                                        }
+                                    }'>
+                                    <div class="swiper-wrapper">
+                                        {% for product in block.settings.collection.products limit: section.settings.products_to_show %}
+                                            <div class="swiper-slide">
+                                                {% render 'product-card', product: product %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ block.id }} justify-content-center">
+                                    </div>
+                                </div>
+                                <div class="box-nav-swiper style-2">
+                                    <div class="swiper-button-prev nav-swiper nav-prev-{{ block.id }} relative"></div>
+                                    <div class="swiper-button-next nav-swiper nav-next-{{ block.id }} relative"></div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+<!-- /Tag Product -->

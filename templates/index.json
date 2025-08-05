@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main_slider": {
@@ -271,12 +262,56 @@
         "items_per_row_tablet": 4,
         "items_per_row_mobile": 2
       }
+    },
+    "tag_products": {
+      "type": "tag-products-carousel",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "title": "What's Hot?",
+            "collection": "featured"
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Best Sellers",
+            "collection": "best-sellers"
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Just Arrivals",
+            "collection": "new-arrivals"
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {
+        "title_font_size": 16,
+        "title_font_weight": "500",
+        "title_uppercase": false,
+        "tab_spacing": 20,
+        "products_to_show": 8,
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "main_slider",
     "featured_countdown",
     "offer_banner",
-    "categories"
+    "categories",
+    "tag_products"
   ]
 }
