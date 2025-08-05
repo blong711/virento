@@ -90,6 +90,49 @@
     },
     {
       "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show prev/next buttons",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mobile_dots",
+      "label": "Show dots on mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Products per row (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Products per row (Tablet)"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_mobile",
+      "min": 1,
+      "max": 2,
+      "step": 1,
+      "default": 2,
+      "label": "Products per row (Mobile)"
+    },
+    {
+      "type": "header",
       "content": "Product Settings"
     },
     {
@@ -197,12 +240,12 @@
                                  id="tab-{{ block.id }}" 
                                  role="tabpanel">
                                 <div dir="ltr" class="swiper tf-swiper" data-swiper='{
-                                        "slidesPerView": 2,
+                                        "slidesPerView": {{ section.settings.products_per_row_mobile }},
                                         "spaceBetween": 12,
                                         "speed": 800,
                                         "observer": true,
                                         "observeParents": true,
-                                        "slidesPerGroup": 2,
+                                        "slidesPerGroup": {{ section.settings.products_per_row_mobile }},
                                         "navigation": {
                                             "clickable": true,
                                             "nextEl": ".nav-next-{{ block.id }}",
@@ -210,8 +253,16 @@
                                         },
                                         "pagination": { "el": ".sw-pagination-{{ block.id }}", "clickable": true },
                                         "breakpoints": {
-                                        "768": { "slidesPerView": 3, "spaceBetween": 12, "slidesPerGroup": 3 },
-                                        "1200": { "slidesPerView": 4, "spaceBetween": 24, "slidesPerGroup": 4}
+                                        "768": { 
+                                            "slidesPerView": {{ section.settings.products_per_row_tablet }}, 
+                                            "spaceBetween": 12, 
+                                            "slidesPerGroup": {{ section.settings.products_per_row_tablet }}
+                                        },
+                                        "1200": { 
+                                            "slidesPerView": {{ section.settings.products_per_row_desktop }}, 
+                                            "spaceBetween": 24, 
+                                            "slidesPerGroup": {{ section.settings.products_per_row_desktop }}
+                                        }
                                         }
                                     }'>
                                     <div class="swiper-wrapper">
@@ -221,13 +272,17 @@
                                             </div>
                                         {% endfor %}
                                     </div>
-                                    <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ block.id }} justify-content-center">
+                                    {% if section.settings.show_mobile_dots %}
+                                        <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ block.id }} justify-content-center">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                {% if section.settings.show_navigation %}
+                                    <div class="box-nav-swiper style-2">
+                                        <div class="swiper-button-prev nav-swiper nav-prev-{{ block.id }} relative"></div>
+                                        <div class="swiper-button-next nav-swiper nav-next-{{ block.id }} relative"></div>
                                     </div>
-                                </div>
-                                <div class="box-nav-swiper style-2">
-                                    <div class="swiper-button-prev nav-swiper nav-prev-{{ block.id }} relative"></div>
-                                    <div class="swiper-button-next nav-swiper nav-next-{{ block.id }} relative"></div>
-                                </div>
+                                {% endif %}
                             </div>
                         {% endif %}
                     {% endfor %}
