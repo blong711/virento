@@ -238,8 +238,8 @@
 
 <section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
     <div class="{{ section.settings.width }}">
-        <div class="flat-title style-between align-items-end wow fadeInUp">
-            <div class="box-title">
+        <div class="flat-title style-between align-items-end wow fadeInUp{% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
+            <div class="box-title{% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
                 <{{ section.settings.title_tag }} class="title">{{ section.settings.title }}</{{ section.settings.title_tag }}>
                 <p class="desc text-main {{ section.settings.subtitle_size }}">
                     {{ section.settings.subtitle }}
