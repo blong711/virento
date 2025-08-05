@@ -31,6 +31,49 @@
         "default": true
     },
     {
+        "type": "header",
+        "content": "t:sections.all.slider_settings.header"
+    },
+    {
+        "type": "checkbox",
+        "id": "show_navigation",
+        "label": "t:sections.all.slider_settings.show_navigation",
+        "default": true
+    },
+    {
+        "type": "checkbox",
+        "id": "show_mobile_dots",
+        "label": "t:sections.all.slider_settings.show_mobile_dots",
+        "default": true
+    },
+    {
+        "type": "range",
+        "id": "items_per_row_desktop",
+        "min": 3,
+        "max": 8,
+        "step": 1,
+        "label": "t:sections.all.slider_settings.items_per_row_desktop",
+        "default": 6
+    },
+    {
+        "type": "range",
+        "id": "items_per_row_tablet",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "label": "t:sections.all.slider_settings.items_per_row_tablet",
+        "default": 4
+    },
+    {
+        "type": "range",
+        "id": "items_per_row_mobile",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "label": "t:sections.all.slider_settings.items_per_row_mobile",
+        "default": 3
+    },
+    {
         "type": "select",
         "id": "title_alignment",
         "label": "t:sections.brands.settings.title_alignment.label",
@@ -206,27 +249,33 @@
                     {{ section.settings.subtitle }}
                 </p>
             </div>
-            <div class="box-nav-swiper style-2 d-none d-xl-flex">
-                <div class="swiper-button-prev nav-swiper nav-prev-brand relative"></div>
-                <div class="swiper-button-next nav-swiper nav-next-brand relative"></div>
-            </div>
+            {% if section.settings.show_navigation %}
+                <div class="box-nav-swiper style-2 d-none d-xl-flex">
+                    <div class="swiper-button-prev nav-swiper nav-prev-brand relative"></div>
+                    <div class="swiper-button-next nav-swiper nav-next-brand relative"></div>
+                </div>
+            {% endif %}
         </div>
         <div dir="ltr" class="wow fadeInUp swiper tf-swiper sw-brand border-0" data-swiper='{
-            "slidesPerView": 2,
+            "slidesPerView": {{ section.settings.items_per_row_mobile }},
             "spaceBetween": 6,
             "speed": 800,
             "observer": true,
-            "slidesPerGroup": 2,
-            "pagination": { "el": ".sw-pagination-brand", "clickable": true },
-            "navigation": {
+            "slidesPerGroup": {{ section.settings.items_per_row_mobile }},
+            "pagination": { 
+                "el": ".sw-pagination-brand", 
                 "clickable": true,
+                "enabled": {{ section.settings.show_mobile_dots | json }}
+            },
+            "navigation": {
                 "nextEl": ".nav-next-brand",
-                "prevEl": ".nav-prev-brand"
+                "prevEl": ".nav-prev-brand",
+                "enabled": {{ section.settings.show_navigation | json }}
             },
             "breakpoints": {
-            "575": { "slidesPerView": 3},
-            "991": { "slidesPerView": 4},
-            "1200": { "slidesPerView": 6}
+                "575": { "slidesPerView": {{ section.settings.items_per_row_mobile }}},
+                "991": { "slidesPerView": {{ section.settings.items_per_row_tablet }}},
+                "1200": { "slidesPerView": {{ section.settings.items_per_row_desktop }}}
             }
         }'>
             <div class="swiper-wrapper">
@@ -260,6 +309,8 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="d-flex d-xl-none sw-dot-default sw-pagination-brand justify-content-center"></div>
+        {% if section.settings.show_mobile_dots %}
+            <div class="d-flex d-xl-none sw-dot-default sw-pagination-brand justify-content-center"></div>
+        {% endif %}
     </div>
 </section>
