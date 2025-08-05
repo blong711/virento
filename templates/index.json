@@ -257,7 +257,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "width": "container",
-        "title_alignment": "default",
+        "title_alignment": "start",
         "title": "Shop by Categories",
         "title_tag": "h4",
         "subtitle": "",
