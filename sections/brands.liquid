@@ -1,0 +1,249 @@
+{% schema %}
+{
+  "name": "Brands Carousel",
+  "settings": [
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "t:sections.all.colors.label",
+        "default": "scheme-1"
+    },
+    {
+        "type": "select",
+        "id": "width",
+        "label": "t:sections.tag-products-carousel.settings.width.label",
+        "options": [
+            {
+            "value": "container",
+            "label": "t:sections.tag-products-carousel.settings.width.options.boxed"
+            },
+            {
+            "value": "container-full",
+            "label": "t:sections.tag-products-carousel.settings.width.options.full_width"
+            }
+        ],
+        "default": "container"
+    },
+    {
+        "type": "select",
+        "id": "title_alignment",
+        "label": "t:sections.brands.settings.title_alignment.label",
+        "options": [
+            {
+                "value": "start",
+                "label": "t:sections.brands.settings.title_alignment.options.default"
+            },
+            {
+                "value": "center",
+                "label": "t:sections.brands.settings.title_alignment.options.center"
+            }
+        ]
+    },    
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.brands.settings.title.label",
+      "default": "t:sections.brands.settings.title.default"
+    },
+    {
+        "type": "select",
+        "id": "title_tag",
+        "label": "t:sections.brands.settings.title_tag.label",
+        "options": [
+            {
+                "value": "h5",
+                "label": "t:sections.brands.settings.title_tag.options.small"
+            },
+            {
+                "value": "h4",
+                "label": "t:sections.brands.settings.title_tag.options.medium"
+            },
+            {
+                "value": "h3",
+                "label": "t:sections.brands.settings.title_tag.options.large"
+            }
+        ],
+        "default": "h4"
+    },
+    {
+        "type": "text",
+        "id": "subtitle",
+        "label": "t:sections.brands.settings.subtitle.label",
+        "default": "t:sections.brands.settings.subtitle.default"
+    },
+    {
+        "type": "select",
+        "id": "subtitle_size",
+        "label": "t:sections.brands.settings.subtitle_size.label",
+        "options": [
+            {
+                "value": "text-sm",
+                "label": "t:sections.brands.settings.subtitle_size.options.small"
+            },
+            {
+                "value": "text-md",
+                "label": "t:sections.brands.settings.subtitle_size.options.medium"
+            },
+            {
+                "value": "text-lg",
+                "label": "t:sections.brands.settings.subtitle_size.options.large"
+            }
+        ],
+        "default": "text-md"
+    },
+    {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "brand_image",
+          "label": "Brand Image"
+        },
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Brand Name",
+          "info": "Used for alt text"
+        },
+        {
+          "type": "url",
+          "id": "brand_link",
+          "label": "Brand Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brands Carousel",
+      "blocks": [
+        {
+          "type": "brand"
+        },
+        {
+          "type": "brand"
+        },
+        {
+          "type": "brand"
+        },
+        {
+          "type": "brand"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+.section-{{ section.id }}-padding {
+        padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+        padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    }
+    
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+}
+{% endstyle %}
+
+<section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div class="{{ section.settings.width }}">
+        <div class="flat-title style-between align-items-end wow fadeInUp">
+            <div class="box-title">
+                <{{ section.settings.title_tag }} class="title">{{ section.settings.title }}</{{ section.settings.title_tag }}>
+                <p class="desc text-main {{ section.settings.subtitle_size }}">
+                    {{ section.settings.subtitle }}
+                </p>
+            </div>
+            <div class="box-nav-swiper style-2 d-none d-xl-flex">
+                <div class="swiper-button-prev nav-swiper nav-prev-brand relative"></div>
+                <div class="swiper-button-next nav-swiper nav-next-brand relative"></div>
+            </div>
+        </div>
+        <div dir="ltr" class="wow fadeInUp swiper tf-swiper sw-brand border-0" data-swiper='{
+            "slidesPerView": 2,
+            "spaceBetween": 6,
+            "speed": 800,
+            "observer": true,
+            "slidesPerGroup": 2,
+            "pagination": { "el": ".sw-pagination-brand", "clickable": true },
+            "navigation": {
+                "clickable": true,
+                "nextEl": ".nav-next-brand",
+                "prevEl": ".nav-prev-brand"
+            },
+            "breakpoints": {
+            "575": { "slidesPerView": 3},
+            "991": { "slidesPerView": 4},
+            "1200": { "slidesPerView": 6}
+            }
+        }'>
+            <div class="swiper-wrapper">
+                {% for block in section.blocks %}
+                    {% if block.type == 'brand' %}
+                        <div class="swiper-slide" {{ block.shopify_attributes }}>
+                    <div class="brand-item line radius-8">
+                                {% if block.settings.brand_link != blank %}
+                                    <a href="{{ block.settings.brand_link }}">
+                                {% endif %}
+                                
+                                {% if block.settings.brand_image %}
+                                    {%- assign img_alt = block.settings.brand_name | escape -%}
+                                    {{ block.settings.brand_image | image_url: width: 200 | image_tag: img_alt, 'brand-image', loading: 'lazy' }}
+                                {% else %}
+                                    {{ 'image' | placeholder_svg_tag: 'brand-image placeholder' }}
+                                {% endif %}
+
+                                {% if block.settings.brand_link != blank %}
+                                    </a>
+                                {% endif %}
+                    </div>
+                </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="d-flex d-xl-none sw-dot-default sw-pagination-brand justify-content-center"></div>
+    </div>
+</section>

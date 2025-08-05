@@ -4208,6 +4208,67 @@
           }
         }
       }
+    },
+    "brands": {
+      "name": "Brands",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full_width": "Full Width"
+          }
+        },
+        "title_alignment": {
+          "label": "Heading Alignment",
+          "options": {
+            "default": "Default",
+            "center": "Center"
+          }
+        },
+        "title": {
+          "label": "Heading",
+          "default": "Shop by Brands"
+        },
+        "title_tag": {
+          "label": "Heading Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "subtitle": {
+          "label": "Subheading",
+          "default": "Explore our most popular pieces that customers can't get enough of"
+        },
+        "subtitle_size": {
+          "label": "Subheading Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "slider_settings": {
+          "content": "Slider Settings"
+        },
+        "show_arrows": {
+          "label": "Use prev/next button"
+        },
+        "show_mobile_dots": {
+          "label": "Use dots on mobile"
+        },
+        "items_per_row_desktop": {
+          "label": "Items per row (Desktop)"
+        },
+        "items_per_row_tablet": {
+          "label": "Items per row (Tablet)"
+        },
+        "items_per_row_mobile": {
+          "label": "Items per row (Mobile)"
+        }
+      }
     }
   }
 }

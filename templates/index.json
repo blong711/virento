@@ -340,6 +340,21 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "brands": {
+      "type": "brands",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "title_alignment": "start",
+        "title": "t:sections.brands.settings.title.default",
+        "title_tag": "h4",
+        "subtitle": "t:sections.brands.settings.subtitle.default",
+        "subtitle_size": "text-md",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -347,6 +362,7 @@
     "featured_countdown",
     "offer_banner",
     "categories",
-    "tag_products"
+    "tag_products",
+    "brands"
   ]
 }
