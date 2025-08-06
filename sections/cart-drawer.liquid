@@ -1,4 +1,4 @@
-<div class="offcanvas offcanvas-end popup-style-1 popup-shopping-cart" id="shoppingCart" data-cart-drawer>
+<cart-drawer class="offcanvas offcanvas-end popup-style-1 popup-shopping-cart" id="shoppingCart" data-cart-drawer>
     <div class="canvas-wrapper">
         <div class="popup-header">
             <span class="title">Shopping cart</span>
@@ -44,11 +44,7 @@
                                     <div class="tf-mini-cart-info">
                                         <div class="d-flex justify-content-between">
                                             <a class="title link text-md fw-medium" href="{{ item.url }}">{{ item.product.title }}</a>
-                                            <button type="button" 
-                                                    class="icon icon-close remove fs-12" 
-                                                    data-cart-remove 
-                                                    aria-label="Remove {{ item.product.title | escape }}">
-                                            </button>
+                                            <i class="icon icon-close remove fs-12"></i>
                                         </div>
                                         <p class="price-wrap text-sm fw-medium">
                                             <span class="new-price text-primary">{{ item.final_price | money }}</span>
@@ -75,9 +71,6 @@
                                                     data-cart-quantity-plus 
                                                     aria-label="Increase quantity">+</button>
                                         </div>
-                                        {%- if item.variant.title != 'Default Title' -%}
-                                            <p class="text-sm text-dark-1">{{ item.variant.title }}</p>
-                                        {%- endif -%}
                                     </div>
                                 </div>
                             {%- endfor -%}
@@ -290,4 +283,4 @@
             </div>
         </div>
     </div>
-</div>
+</cart-drawer>

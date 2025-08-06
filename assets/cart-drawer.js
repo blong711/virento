@@ -1,103 +1,103 @@
 class CartDrawer extends HTMLElement {
   constructor() {
     super();
-
-    this.addEventListener('keyup', (evt) => evt.code === 'Escape' && this.close());
-    this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
-    this.setHeaderCartIconAccessibility();
+    this.init();
   }
 
-  setHeaderCartIconAccessibility() {
-    const cartLink = document.querySelector('#cart-icon-bubble');
-    if (!cartLink) return;
+  init() {
+    // Set up close button functionality
+    const closeButton = this.querySelector('.icon-close-popup');
+    if (closeButton) {
+      closeButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.close();
+      });
+    }
 
-    cartLink.setAttribute('role', 'button');
-    cartLink.setAttribute('aria-haspopup', 'dialog');
-    cartLink.addEventListener('click', (event) => {
-      event.preventDefault();
-      this.open(cartLink);
+    // Set up remove item buttons
+    this.setupRemoveButtons();
+  }
+
+  setupRemoveButtons() {
+    const removeButtons = this.querySelectorAll('.remove');
+    removeButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const cartItem = button.closest('[data-cart-item]');
+        if (cartItem) {
+          const itemKey = cartItem.getAttribute('data-cart-item-key');
+          this.removeItem(itemKey);
+        }
+      });
     });
-    cartLink.addEventListener('keydown', (event) => {
-      if (event.code.toUpperCase() === 'SPACE') {
-        event.preventDefault();
-        this.open(cartLink);
-      }
+  }
+
+  removeItem(itemKey) {
+    const formData = new FormData();
+    formData.append('id', itemKey);
+    formData.append('quantity', 0);
+
+    fetch('/cart/change.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(cart => {
+      this.updateCart(cart);
+    })
+    .catch(error => {
+      console.error('Error removing item:', error);
     });
   }
 
   open(triggeredBy) {
     if (triggeredBy) this.setActiveElement(triggeredBy);
-    const cartDrawerNote = this.querySelector('[id^="Details-"] summary');
-    if (cartDrawerNote && !cartDrawerNote.hasAttribute('role')) this.setSummaryAccessibility(cartDrawerNote);
-    // here the animation doesn't seem to always get triggered. A timeout seem to help
-    setTimeout(() => {
-      this.classList.add('animate', 'active');
-    });
-
-    this.addEventListener(
-      'transitionend',
-      () => {
-        const containerToTrapFocusOn = this.classList.contains('is-empty')
-          ? this.querySelector('.drawer__inner-empty')
-          : document.getElementById('CartDrawer');
-        const focusElement = this.querySelector('.drawer__inner') || this.querySelector('.drawer__close');
-        trapFocus(containerToTrapFocusOn, focusElement);
-      },
-      { once: true }
-    );
-
-    document.body.classList.add('overflow-hidden');
+    
+    // Use Bootstrap's offcanvas API to open the cart drawer
+    const offcanvas = new bootstrap.Offcanvas(this);
+    offcanvas.show();
   }
 
   close() {
-    this.classList.remove('active');
-    removeTrapFocus(this.activeElement);
-    document.body.classList.remove('overflow-hidden');
+    // Use Bootstrap's offcanvas API to close the cart drawer
+    const offcanvas = bootstrap.Offcanvas.getInstance(this);
+    if (offcanvas) {
+      offcanvas.hide();
+    }
   }
 
-  setSummaryAccessibility(cartDrawerNote) {
-    cartDrawerNote.setAttribute('role', 'button');
-    cartDrawerNote.setAttribute('aria-expanded', 'false');
-
-    if (cartDrawerNote.nextElementSibling.getAttribute('id')) {
-      cartDrawerNote.setAttribute('aria-controls', cartDrawerNote.nextElementSibling.id);
-    }
-
-    cartDrawerNote.addEventListener('click', (event) => {
-      event.currentTarget.setAttribute('aria-expanded', !event.currentTarget.closest('details').hasAttribute('open'));
-    });
-
-    cartDrawerNote.parentElement.addEventListener('keyup', onKeyUpEscape);
+  setActiveElement(element) {
+    this.activeElement = element;
   }
 
   renderContents(parsedState) {
-    this.querySelector('.drawer__inner').classList.contains('is-empty') &&
-      this.querySelector('.drawer__inner').classList.remove('is-empty');
-    this.productId = parsedState.id;
-    this.getSectionsToRender().forEach((section) => {
-      const sectionElement = section.selector
-        ? document.querySelector(section.selector)
-        : document.getElementById(section.id);
+    // Update cart contents based on the response
+    if (parsedState.sections && parsedState.sections['cart-drawer']) {
+      const cartDrawerContent = this.getSectionInnerHTML(parsedState.sections['cart-drawer'], '#shoppingCart');
+      if (cartDrawerContent) {
+        this.innerHTML = cartDrawerContent;
+        this.init(); // Re-initialize after content update
+      }
+    }
 
-      if (!sectionElement) return;
-      sectionElement.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.id], section.selector);
-    });
-
+    // Open the cart drawer after update
     setTimeout(() => {
-      this.querySelector('#CartDrawer-Overlay').addEventListener('click', this.close.bind(this));
       this.open();
-    });
+    }, 100);
   }
 
   getSectionInnerHTML(html, selector = '.shopify-section') {
-    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector).innerHTML;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const element = doc.querySelector(selector);
+    return element ? element.innerHTML : '';
   }
 
   getSectionsToRender() {
     return [
       {
         id: 'cart-drawer',
-        selector: '#CartDrawer',
+        selector: '#shoppingCart',
       },
       {
         id: 'cart-icon-bubble',
@@ -105,24 +105,34 @@ class CartDrawer extends HTMLElement {
     ];
   }
 
-  getSectionDOM(html, selector = '.shopify-section') {
-    return new DOMParser().parseFromString(html, 'text/html').querySelector(selector);
-  }
-
-  setActiveElement(element) {
-    this.activeElement = element;
+  updateCart(cartData) {
+    // Update cart contents without full page reload
+    fetch('/?sections=cart-drawer')
+      .then(response => response.json())
+      .then(sections => {
+        if (sections['cart-drawer']) {
+          const cartDrawerContent = this.getSectionInnerHTML(sections['cart-drawer'], '#shoppingCart');
+          if (cartDrawerContent) {
+            this.innerHTML = cartDrawerContent;
+            this.init(); // Re-initialize after content update
+          }
+        }
+      })
+      .catch(error => {
+        console.error('Error updating cart:', error);
+      });
   }
 }
 
 customElements.define('cart-drawer', CartDrawer);
 
-class CartDrawerItems extends CartItems {
+class CartDrawerItems extends HTMLElement {
   getSectionsToRender() {
     return [
       {
-        id: 'CartDrawer',
+        id: 'cart-drawer',
         section: 'cart-drawer',
-        selector: '.drawer__inner',
+        selector: '#shoppingCart',
       },
       {
         id: 'cart-icon-bubble',

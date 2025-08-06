@@ -13229,6 +13229,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .tf-mini-cart-item .remove {
   cursor: pointer;
 }
+.tf-mini-cart-item .remove:hover {
+  color: var(--primary);
+}
 
 .tf-mini-cart-tool-openable {
   position: absolute;
