@@ -512,20 +512,10 @@ const preloader = () => {
 -------------------------------------------------------------------------*/
 const goTop = () => {
   const goTopBtn = document.querySelector('.go-top');
-  const borderProgress = document.querySelector('.border-progress');
   if (!goTopBtn) return;
 
   window.addEventListener('scroll', () => {
-    const scrollTop = window.pageYOffset;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    const progressAngle = (scrollPercent / 100) * 360;
-
-    if (borderProgress) {
-      borderProgress.style.setProperty('--progress-angle', progressAngle + 'deg');
-    }
-
-    if (scrollTop > 100) {
+    if (window.pageYOffset > 200) {
       goTopBtn.classList.add('show');
     } else {
       goTopBtn.classList.remove('show');
