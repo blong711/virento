@@ -24,7 +24,7 @@
   </style>
 {%- endif -%}
 
-<button id="goTop" class="go-top{% if hidden_mobile %} hidden-mobile{% endif %}">
+<button id="{{ section_id }}" class="go-top{% if hidden_mobile %} hidden-mobile{% endif %}">
   {%- if enable_progress -%}
     <span class="border-progress"></span>
   {%- endif -%}
