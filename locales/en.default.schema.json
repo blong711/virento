@@ -4358,6 +4358,70 @@
           }
         }
       }
+    },
+    "featured-product-carousel": {
+      "name": "Featured Product Carousel",
+      "settings": {
+        "title": {
+          "label": "Title",
+          "default": "Top Picks"
+        },
+        "subtitle": {
+          "label": "Subtitle",
+          "default": "Explore our most popular pieces that customers can't get enough of"
+        },
+        "title_alignment": {
+          "label": "Title Alignment",
+          "options": {
+            "default": "Left",
+            "center": "Center"
+          }
+        },
+        "title_tag": {
+          "label": "Title Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "subtitle_size": {
+          "label": "Subtitle Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "featured_collection": {
+          "label": "Collection"
+        },
+        "product_list": {
+          "label": "Products",
+          "info": "Selected products will override collection products"
+        },
+        "products_to_show": {
+          "label": "Number of products to show"
+        },
+        "header__slider": {
+          "content": "Slider Settings"
+        },
+        "show_navigation": {
+          "label": "Show prev/next buttons"
+        },
+        "show_dots_mobile": {
+          "label": "Show dots on mobile"
+        },
+        "products_per_row_desktop": {
+          "label": "Products per row on desktop"
+        },
+        "products_per_row_tablet": {
+          "label": "Products per row on tablet"
+        },
+        "products_per_row_mobile": {
+          "label": "Products per row on mobile"
+        }
+      }
     }
   }
 }
