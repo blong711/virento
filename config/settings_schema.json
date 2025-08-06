@@ -52,6 +52,13 @@
             "label": "t:settings_schema.colors.settings.background_gradient.label",
             "info": "t:settings_schema.colors.settings.background_gradient.info"
           },
+         {
+            "type": "color",
+            "id": "background2",
+            "label": "Secondary background",
+            "info": "Choose a color close to the primary background.",
+            "default": "#fff"
+          },
           {
             "type": "color",
             "id": "text",

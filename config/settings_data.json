@@ -69,6 +69,7 @@
       "scheme-1": {
         "settings": {
           "background": "#ffffff",
+           "background2": "#f2f2f2",
           "background_gradient": "",
           "text": "#000000",
           "button": "#121212",
@@ -83,6 +84,7 @@
       "scheme-2": {
         "settings": {
           "background": "#f3f3f3",
+          "background2": "#f2f2f2",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
@@ -97,6 +99,7 @@
       "scheme-3": {
         "settings": {
           "background": "#242833",
+           "background2": "#f2f2f2",
           "background_gradient": "",
           "text": "#ffffff",
           "button": "#ffffff",
@@ -111,6 +114,7 @@
       "scheme-4": {
         "settings": {
           "background": "#121212",
+           "background2": "#f2f2f2",
           "background_gradient": "",
           "text": "#ffffff",
           "button": "#ffffff",
@@ -125,6 +129,7 @@
       "scheme-5": {
         "settings": {
           "background": "#334fb4",
+           "background2": "#f2f2f2",
           "background_gradient": "",
           "text": "#ffffff",
           "button": "#ffffff",
@@ -139,6 +144,7 @@
       "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11": {
         "settings": {
           "background": "rgba(0,0,0,0)",
+           "background2": "#f2f2f2",
           "background_gradient": "",
           "text": "#ffffff",
           "button": "#ffffff",
@@ -153,6 +159,7 @@
       "scheme-e379edfd-3a7b-4c25-9cc1-a180d15178ce": {
         "settings": {
           "background": "#eeffde",
+           "background2": "#f2f2f2",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
@@ -173,6 +180,7 @@
         "scheme-1": {
           "settings": {
             "background": "#FFFFFF",
+             "background2": "#f2f2f2",
             "background_gradient": "",
             "text": "#121212",
             "button": "#121212",
@@ -184,6 +192,7 @@
         "scheme-2": {
           "settings": {
             "background": "#F3F3F3",
+             "background2": "#f2f2f2",
             "background_gradient": "",
             "text": "#121212",
             "button": "#121212",
@@ -195,6 +204,7 @@
         "scheme-3": {
           "settings": {
             "background": "#242833",
+             "background2": "#f2f2f2",
             "background_gradient": "",
             "text": "#FFFFFF",
             "button": "#FFFFFF",
@@ -206,6 +216,7 @@
         "scheme-4": {
           "settings": {
             "background": "#121212",
+             "background2": "#f2f2f2",
             "background_gradient": "",
             "text": "#FFFFFF",
             "button": "#FFFFFF",
@@ -217,6 +228,7 @@
         "scheme-5": {
           "settings": {
             "background": "#334FB4",
+             "background2": "#f2f2f2",
             "background_gradient": "",
             "text": "#FFFFFF",
             "button": "#FFFFFF",
