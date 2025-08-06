@@ -2,17 +2,17 @@
   assign section_id = 'back-to-top-' | append: section.id
   assign hidden_mobile = section.settings.hidden_mobile
   assign enable_progress = section.settings.enable_progress
-  assign progress_color = section.settings.progress_color
+  assign icon_color = section.settings.icon_color
   assign progress_active_color = section.settings.progress_active_color
 -%}
 
 {%- if enable_progress -%}
   <style>
-    #{{ section_id }} .border-progress {
-      background: {{ progress_color }};
-    }
-    #{{ section_id }} .border-progress {
+    #goTop .border-progress {
       border-color: {{ progress_active_color }};
+    }
+    #goTop .icon {
+      color: {{ icon_color }};
     }
     {%- if hidden_mobile -%}
     @media (max-width: 768px) {
@@ -24,7 +24,7 @@
   </style>
 {%- endif -%}
 
-<button id="{{ section_id }}" class="go-top{% if hidden_mobile %} hidden-mobile{% endif %}">
+<button id="goTop" class="go-top{% if hidden_mobile %} hidden-mobile{% endif %}">
   {%- if enable_progress -%}
     <span class="border-progress"></span>
   {%- endif -%}
@@ -33,36 +33,36 @@
 
 {% schema %}
 {
-  "name": "Back to Top",
+  "name": "t:sections.back-to-top.name",
   "settings": [
     {
       "type": "checkbox",
       "id": "hidden_mobile",
-      "label": "Hidden on mobile",
+      "label": "t:sections.back-to-top.settings.hidden_mobile.label",
       "default": false
     },
     {
       "type": "checkbox",
       "id": "enable_progress",
-      "label": "Enable progress bar",
+      "label": "t:sections.back-to-top.settings.enable_progress.label",
       "default": true
     },
     {
       "type": "color",
-      "id": "progress_color",
-      "label": "Progress bar color",
-      "default": "#e0e0e0"
+      "id": "icon_color",
+      "label": "t:sections.back-to-top.settings.icon_color.label",
+      "default": "#000000"
     },
     {
       "type": "color",
       "id": "progress_active_color",
-      "label": "Progress bar active color",
-      "default": "#007cba"
+      "label": "t:sections.back-to-top.settings.progress_active_color.label",
+      "default": "#000000"
     }
   ],
   "presets": [
     {
-      "name": "Back to Top"
+      "name": "t:sections.back-to-top.name"
     }
   ]
 }

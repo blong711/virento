@@ -4708,6 +4708,23 @@
         "trash": "Trash",
         "view": "View"
       }
+    },
+    "back-to-top": {
+      "name": "Back to Top",
+      "settings": {
+        "hidden_mobile": {
+          "label": "Hidden on mobile"
+        },
+        "enable_progress": {
+          "label": "Enable progress bar"
+        },
+        "icon_color": {
+          "label": "Icon color"
+        },
+        "progress_active_color": {
+          "label": "Progress bar active color"
+        }
+      }
     }
   }
 }
