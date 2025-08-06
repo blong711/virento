@@ -1,0 +1,69 @@
+{%- liquid
+  assign section_id = 'back-to-top-' | append: section.id
+  assign hidden_mobile = section.settings.hidden_mobile
+  assign enable_progress = section.settings.enable_progress
+  assign progress_color = section.settings.progress_color
+  assign progress_active_color = section.settings.progress_active_color
+-%}
+
+{%- if enable_progress -%}
+  <style>
+    #{{ section_id }} .border-progress {
+      background: {{ progress_color }};
+    }
+    #{{ section_id }} .border-progress {
+      border-color: {{ progress_active_color }};
+    }
+    {%- if hidden_mobile -%}
+    @media (max-width: 768px) {
+      #{{ section_id }} {
+        display: none !important;
+      }
+    }
+    {%- endif -%}
+  </style>
+{%- endif -%}
+
+<button id="goTop" class="go-top{% if hidden_mobile %} hidden-mobile{% endif %}">
+  {%- if enable_progress -%}
+    <span class="border-progress"></span>
+  {%- endif -%}
+  <span class="icon icon-arrow-right"></span>
+</button>
+
+{% schema %}
+{
+  "name": "Back to Top",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "hidden_mobile",
+      "label": "Hidden on mobile",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_progress",
+      "label": "Enable progress bar",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "progress_color",
+      "label": "Progress bar color",
+      "default": "#e0e0e0"
+    },
+    {
+      "type": "color",
+      "id": "progress_active_color",
+      "label": "Progress bar active color",
+      "default": "#007cba"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Back to Top"
+    }
+  ]
+}
+{% endschema %}

@@ -7,10 +7,14 @@
     },
     "compare-modal": {
       "type": "compare-modal"
+    },
+    "back-to-top": {
+      "type": "back-to-top"
     }
   },
   "order": [
     "cart-drawer",
-    "compare-modal"
+    "compare-modal",
+    "back-to-top"
   ]
 }

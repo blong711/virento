@@ -516,9 +516,9 @@ const goTop = () => {
 
   window.addEventListener('scroll', () => {
     if (window.pageYOffset > 200) {
-      goTopBtn.classList.add('active');
+      goTopBtn.classList.add('show');
     } else {
-      goTopBtn.classList.remove('active');
+      goTopBtn.classList.remove('show');
     }
   });
 
