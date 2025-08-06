@@ -1,0 +1,12 @@
+{% comment %}
+    Accepts:
+    - product: The product object
+{% endcomment %}
+<li>
+    <a href="{{ product.url }}" class="hover-tooltip box-icon quickview"
+        data-product-id="{{ product.id }}"
+        data-product-handle="{{ product.handle }}">
+        <span class="icon icon-view"></span>
+        <span class="tooltip">Quick View</span>
+    </a>
+</li>

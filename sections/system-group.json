@@ -4,12 +4,6 @@
   "sections": {
     "cart-drawer": {
       "type": "cart-drawer",
-      "settings": {
-        "cart_terms_conditions_enable": false,
-        "free_shipping_threshold": 10000,
-        "cart_gift_wrap_enable": false,
-        "cart_gift_wrap_price": 1000
-      }
     }
   },
   "order": [
