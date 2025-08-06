@@ -4514,6 +4514,134 @@
           "label": "Products per row on mobile"
         }
       }
+    },
+    "icon-box": {
+      "name": "Icon Box Slider",
+      "settings": {
+        "icon_position_center": {
+          "label": "Icon Position Center",
+          "info": "When enabled, icons will be centered above the text"
+        },
+        "slider_settings": {
+          "content": "Slider Settings"
+        },
+        "show_dots_mobile": {
+          "label": "Show dots on mobile",
+          "info": "Display navigation dots on mobile devices"
+        },
+        "products_per_row_desktop": {
+          "label": "Items per row (Desktop)",
+          "info": "Number of items to show per row on desktop screens"
+        },
+        "products_per_row_tablet": {
+          "label": "Items per row (Tablet)",
+          "info": "Number of items to show per row on tablet screens"
+        },
+        "products_per_row_mobile": {
+          "label": "Items per row (Mobile)",
+          "info": "Number of items to show per row on mobile screens"
+        }
+      },
+      "blocks": {
+        "icon_box": {
+          "name": "Icon Box",
+          "settings": {
+            "icon_class": {
+              "label": "Icon",
+              "info": "Choose an icon to display"
+            },
+            "title": {
+              "label": "Title",
+              "info": "The main text to display below the icon"
+            },
+            "description": {
+              "label": "Description",
+              "info": "Additional text to display below the title"
+            }
+          }
+        }
+      },
+      "preset": {
+        "name": "Icon Box Slider",
+        "category": "Promotional"
+      },
+      "presets": {
+        "free_delivery": {
+          "title": "FREE DELIVERY",
+          "description": "Enjoy free delivery on all orders"
+        },
+        "secured_payment": {
+          "title": "SECURED PAYMENT",
+          "description": "Secured payment"
+        },
+        "easy_returns": {
+          "title": "EASY RETURNS",
+          "description": "Within 14 days for a return"
+        },
+        "support": {
+          "title": "24/7 SUPPORT",
+          "description": "Outstanding premium support"
+        }
+      },
+      "icons": {
+        "menu": "Menu",
+        "check_circle": "Check Circle",
+        "arrow_left": "Arrow Left",
+        "arrow_right": "Arrow Right",
+        "arrow_top_left": "Arrow Top Left",
+        "arrow_down": "Arrow Down",
+        "arrow_up": "Arrow Up",
+        "fashion_body": "Fashion Body",
+        "precision": "Precision",
+        "elegance": "Elegance",
+        "heart": "Heart",
+        "order": "Order",
+        "quote": "Quote",
+        "minus": "Minus",
+        "plus": "Plus",
+        "location": "Location",
+        "shipped": "Shipped",
+        "confirm": "Confirm",
+        "fire": "Fire",
+        "sidebar": "Sidebar",
+        "video": "Video",
+        "car": "Car",
+        "compare": "Compare",
+        "check": "Check",
+        "eye": "Eye",
+        "copy": "Copy",
+        "share": "Share",
+        "ask": "Ask",
+        "coupon": "Coupon",
+        "note": "Note",
+        "gift": "Gift",
+        "pen": "Pen",
+        "close": "Close",
+        "mail": "Mail",
+        "support": "Support",
+        "shipping": "Shipping",
+        "return": "Return",
+        "customer": "Customer",
+        "leaf": "Leaf",
+        "clock": "Clock",
+        "headphone": "Headphone",
+        "categories": "Categories",
+        "sun": "Sun",
+        "designs": "Designs",
+        "fit": "Fit",
+        "protection": "Protection",
+        "quality": "Quality",
+        "flash_star": "Flash Star",
+        "verify": "Verify",
+        "cart": "Cart",
+        "star": "Star",
+        "phone": "Phone",
+        "user": "User",
+        "search": "Search",
+        "payment": "Payment",
+        "diamond": "Diamond",
+        "trash": "Trash"
+      }
     }
   }
 }

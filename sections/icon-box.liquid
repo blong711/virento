@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Icon Box Slider",
+  "name": "t:sections.icon-box.name",
   "tag": "section",
   "class": "section",
   "settings": [
@@ -27,14 +27,47 @@
       "default": "container"
     },
     {
+        "type": "checkbox",
+        "id": "icon_position_center",
+        "label": "t:sections.icon-box.settings.icon_position_center.label",
+        "default": true
+    },
+    {
       "type": "header",
-      "content": "Slider Settings"
+      "content": "t:sections.icon-box.settings.slider_settings.content"
     },
     {
       "type": "checkbox",
       "id": "show_dots_mobile",
-      "label": "Show dots on mobile",
+      "label": "t:sections.icon-box.settings.show_dots_mobile.label",
       "default": true
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "t:sections.icon_box.settings.products_per_row_desktop.label"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.icon_box.settings.products_per_row_tablet.label"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "label": "t:sections.icon_box.settings.products_per_row_mobile.label"
     },
     {
         "type": "header",
@@ -75,135 +108,135 @@
   "blocks": [
     {
       "type": "icon_box",
-      "name": "Icon Box",
+      "name": "t:sections.icon-box.blocks.icon_box.name",
       "limit": 8,
       "settings": [
         {
           "type": "select",
           "id": "icon_class",
-          "label": "Icon",
+          "label": "t:sections.icon-box.blocks.icon_box.settings.icon_class.label",
           "options": [
-            {"value": "icon-menu", "label": "Menu"},
-            {"value": "icon-fill-check-circle", "label": "Check Circle"},
-            {"value": "icon-arrow1-left", "label": "Arrow Left 1"},
-            {"value": "icon-arrow-right", "label": "Arrow Right"},
-            {"value": "icon-arrow-top-left", "label": "Arrow Top Left"},
-            {"value": "icon-arrow-down", "label": "Arrow Down"},
-            {"value": "icon-arrow-up", "label": "Arrow Up"},
-            {"value": "icon-fashion-body", "label": "Fashion Body"},
-            {"value": "icon-precision", "label": "Precision"},
-            {"value": "icon-elegance", "label": "Elegance"},
-            {"value": "icon-heart3", "label": "Heart 3"},
-            {"value": "icon-order", "label": "Order"},
-            {"value": "icon-quote5", "label": "Quote 5"},
-            {"value": "icon-minus", "label": "Minus"},
-            {"value": "icon-plus", "label": "Plus"},
-            {"value": "icon-location", "label": "Location"},
-            {"value": "icon-shipped", "label": "Shipped"},
-            {"value": "icon-confirm", "label": "Confirm"},
-            {"value": "icon-fire2", "label": "Fire"},
-            {"value": "icon-sidebar", "label": "Sidebar"},
-            {"value": "icon-video", "label": "Video"},
-            {"value": "icon-car2", "label": "Car"},
-            {"value": "icon-compare3", "label": "Compare"},
-            {"value": "icon-check", "label": "Check"},
-            {"value": "icon-eye", "label": "Eye"},
-            {"value": "icon-copy", "label": "Copy"},
-            {"value": "icon-share", "label": "Share"},
-            {"value": "icon-ask", "label": "Ask"},
-            {"value": "icon-coupon", "label": "Coupon"},
-            {"value": "icon-note", "label": "Note"},
-            {"value": "icon-gift2", "label": "Gift"},
-            {"value": "icon-pen", "label": "Pen"},
-            {"value": "icon-close", "label": "Close"},
-            {"value": "icon-mail", "label": "Mail"},
-            {"value": "icon-support2", "label": "Support 2"},
-            {"value": "icon-shipping3", "label": "Shipping 3"},
-            {"value": "icon-return3", "label": "Return 3"},
-            {"value": "icon-customer", "label": "Customer"},
-            {"value": "icon-return2", "label": "Return 2"},
-            {"value": "icon-shipping2", "label": "Shipping 2"},
-            {"value": "icon-leaf", "label": "Leaf"},
-            {"value": "icon-clock", "label": "Clock"},
-            {"value": "icon-head-phone", "label": "Headphone"},
-            {"value": "icon-categories", "label": "Categories"},
-            {"value": "icon-sun", "label": "Sun"},
-            {"value": "icon-designs", "label": "Designs"},
-            {"value": "icon-fit", "label": "Fit"},
-            {"value": "icon-protection", "label": "Protection"},
-            {"value": "icon-quality", "label": "Quality"},
-            {"value": "icon-flash-star", "label": "Flash Star"},
-            {"value": "icon-verifi", "label": "Verify"},
-            {"value": "icon-compare", "label": "Compare"},
-            {"value": "icon-heart2", "label": "Heart 2"},
-            {"value": "icon-view", "label": "View"},
-            {"value": "icon-cart2", "label": "Cart 2"},
-            {"value": "icon-star", "label": "Star"},
-            {"value": "icon-cart", "label": "Cart"},
-            {"value": "icon-phone", "label": "Phone"},
-            {"value": "icon-heart", "label": "Heart"},
-            {"value": "icon-user", "label": "User"},
-            {"value": "icon-search", "label": "Search"},
-            {"value": "icon-gift", "label": "Gift"},
-            {"value": "icon-return", "label": "Return"},
-            {"value": "icon-support", "label": "Support"},
-            {"value": "icon-shipping", "label": "Shipping"},
-            {"value": "icon-payment", "label": "Payment"},
-            {"value": "icon-diamond", "label": "Diamond"},
-            {"value": "icon-trash", "label": "Trash"},
-            {"value": "icon-clock2", "label": "Clock 2"}
+            {"value": "icon-menu", "label": "t:sections.icon-box.icons.menu"},
+            {"value": "icon-fill-check-circle", "label": "t:sections.icon-box.icons.check_circle"},
+            {"value": "icon-arrow1-left", "label": "t:sections.icon-box.icons.arrow_left"},
+            {"value": "icon-arrow-right", "label": "t:sections.icon-box.icons.arrow_right"},
+            {"value": "icon-arrow-top-left", "label": "t:sections.icon-box.icons.arrow_top_left"},
+            {"value": "icon-arrow-down", "label": "t:sections.icon-box.icons.arrow_down"},
+            {"value": "icon-arrow-up", "label": "t:sections.icon-box.icons.arrow_up"},
+            {"value": "icon-fashion-body", "label": "t:sections.icon-box.icons.fashion_body"},
+            {"value": "icon-precision", "label": "t:sections.icon-box.icons.precision"},
+            {"value": "icon-elegance", "label": "t:sections.icon-box.icons.elegance"},
+            {"value": "icon-heart3", "label": "t:sections.icon-box.icons.heart"},
+            {"value": "icon-order", "label": "t:sections.icon-box.icons.order"},
+            {"value": "icon-quote5", "label": "t:sections.icon-box.icons.quote"},
+            {"value": "icon-minus", "label": "t:sections.icon-box.icons.minus"},
+            {"value": "icon-plus", "label": "t:sections.icon-box.icons.plus"},
+            {"value": "icon-location", "label": "t:sections.icon-box.icons.location"},
+            {"value": "icon-shipped", "label": "t:sections.icon-box.icons.shipped"},
+            {"value": "icon-confirm", "label": "t:sections.icon-box.icons.confirm"},
+            {"value": "icon-fire2", "label": "t:sections.icon-box.icons.fire"},
+            {"value": "icon-sidebar", "label": "t:sections.icon-box.icons.sidebar"},
+            {"value": "icon-video", "label": "t:sections.icon-box.icons.video"},
+            {"value": "icon-car2", "label": "t:sections.icon-box.icons.car"},
+            {"value": "icon-compare3", "label": "t:sections.icon-box.icons.compare"},
+            {"value": "icon-check", "label": "t:sections.icon-box.icons.check"},
+            {"value": "icon-eye", "label": "t:sections.icon-box.icons.eye"},
+            {"value": "icon-copy", "label": "t:sections.icon-box.icons.copy"},
+            {"value": "icon-share", "label": "t:sections.icon-box.icons.share"},
+            {"value": "icon-ask", "label": "t:sections.icon-box.icons.ask"},
+            {"value": "icon-coupon", "label": "t:sections.icon-box.icons.coupon"},
+            {"value": "icon-note", "label": "t:sections.icon-box.icons.note"},
+            {"value": "icon-gift2", "label": "t:sections.icon-box.icons.gift"},
+            {"value": "icon-pen", "label": "t:sections.icon-box.icons.pen"},
+            {"value": "icon-close", "label": "t:sections.icon-box.icons.close"},
+            {"value": "icon-mail", "label": "t:sections.icon-box.icons.mail"},
+            {"value": "icon-support2", "label": "t:sections.icon-box.icons.support"},
+            {"value": "icon-shipping3", "label": "t:sections.icon-box.icons.shipping"},
+            {"value": "icon-return3", "label": "t:sections.icon-box.icons.return"},
+            {"value": "icon-customer", "label": "t:sections.icon-box.icons.customer"},
+            {"value": "icon-return2", "label": "t:sections.icon-box.icons.return"},
+            {"value": "icon-shipping2", "label": "t:sections.icon-box.icons.shipping"},
+            {"value": "icon-leaf", "label": "t:sections.icon-box.icons.leaf"},
+            {"value": "icon-clock", "label": "t:sections.icon-box.icons.clock"},
+            {"value": "icon-head-phone", "label": "t:sections.icon-box.icons.headphone"},
+            {"value": "icon-categories", "label": "t:sections.icon-box.icons.categories"},
+            {"value": "icon-sun", "label": "t:sections.icon-box.icons.sun"},
+            {"value": "icon-designs", "label": "t:sections.icon-box.icons.designs"},
+            {"value": "icon-fit", "label": "t:sections.icon-box.icons.fit"},
+            {"value": "icon-protection", "label": "t:sections.icon-box.icons.protection"},
+            {"value": "icon-quality", "label": "t:sections.icon-box.icons.quality"},
+            {"value": "icon-flash-star", "label": "t:sections.icon-box.icons.flash_star"},
+            {"value": "icon-verifi", "label": "t:sections.icon-box.icons.verify"},
+            {"value": "icon-compare", "label": "t:sections.icon-box.icons.compare"},
+            {"value": "icon-heart2", "label": "t:sections.icon-box.icons.heart"},
+            {"value": "icon-view", "label": "t:sections.icon-box.icons.view"},
+            {"value": "icon-cart2", "label": "t:sections.icon-box.icons.cart"},
+            {"value": "icon-star", "label": "t:sections.icon-box.icons.star"},
+            {"value": "icon-cart", "label": "t:sections.icon-box.icons.cart"},
+            {"value": "icon-phone", "label": "t:sections.icon-box.icons.phone"},
+            {"value": "icon-heart", "label": "t:sections.icon-box.icons.heart"},
+            {"value": "icon-user", "label": "t:sections.icon-box.icons.user"},
+            {"value": "icon-search", "label": "t:sections.icon-box.icons.search"},
+            {"value": "icon-gift", "label": "t:sections.icon-box.icons.gift"},
+            {"value": "icon-return", "label": "t:sections.icon-box.icons.return"},
+            {"value": "icon-support", "label": "t:sections.icon-box.icons.support"},
+            {"value": "icon-shipping", "label": "t:sections.icon-box.icons.shipping"},
+            {"value": "icon-payment", "label": "t:sections.icon-box.icons.payment"},
+            {"value": "icon-diamond", "label": "t:sections.icon-box.icons.diamond"},
+            {"value": "icon-trash", "label": "t:sections.icon-box.icons.trash"},
+            {"value": "icon-clock2", "label": "t:sections.icon-box.icons.clock"}
           ],
           "default": "icon-shipping"
         },
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
-          "default": "FREE DELIVERY"
+          "label": "t:sections.icon-box.blocks.icon_box.settings.title.label",
+          "default": "t:sections.icon-box.presets.free_delivery.title"
         },
         {
           "type": "text",
           "id": "description",
-          "label": "Description",
-          "default": "Enjoy free delivery on all orders"
+          "label": "t:sections.icon-box.blocks.icon_box.settings.description.label",
+          "default": "t:sections.icon-box.presets.free_delivery.description"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Icon Box Slider",
+      "name": "t:sections.icon-box.name",
       "blocks": [
         {
           "type": "icon_box",
           "settings": {
             "icon_class": "icon-shipping",
-            "title": "FREE DELIVERY",
-            "description": "Enjoy free delivery on all orders"
+            "title": "t:sections.icon-box.presets.free_delivery.title",
+            "description": "t:sections.icon-box.presets.free_delivery.description"
           }
         },
         {
           "type": "icon_box",
           "settings": {
             "icon_class": "icon-payment",
-            "title": "SECURED PAYMENT",
-            "description": "Secured payment"
+            "title": "t:sections.icon-box.presets.secured_payment.title",
+            "description": "t:sections.icon-box.presets.secured_payment.description"
           }
         },
         {
           "type": "icon_box",
           "settings": {
             "icon_class": "icon-return",
-            "title": "EASY RETURNS",
-            "description": "Within 14 days for a return"
+            "title": "t:sections.icon-box.presets.easy_returns.title",
+            "description": "t:sections.icon-box.presets.easy_returns.description"
           }
         },
         {
           "type": "icon_box",
           "settings": {
             "icon_class": "icon-support",
-            "title": "24/7 SUPPORT",
-            "description": "Outstanding premium support"
+            "title": "t:sections.icon-box.presets.support.title",
+            "description": "t:sections.icon-box.presets.support.description"
           }
         }
       ]
@@ -222,30 +255,34 @@
                 "observeParents": true,
                 "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
                 "breakpoints": {
-                    "575": { "slidesPerView": 2, "spaceBetween": 12, "slidesPerGroup": 2}, 
-                    "768": { "slidesPerView": 3, "spaceBetween": 24, "slidesPerGroup": 2},
-                    "1200": { "slidesPerView": 4, "spaceBetween": 42, "slidesPerGroup": 2}
+                    "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": 12, "slidesPerGroup": 1}, 
+                    "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": 2},
+                    "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": 2}
                 }
             }'>
             <div class="swiper-wrapper wow fadeInUp">
                 {% for block in section.blocks %}
                     {% if block.type == 'icon_box' %}
                         <div class="swiper-slide" {{ block.shopify_attributes }}>
-                            <div class="tf-icon-box style-2">
-                                <div class="box-icon">
+                            <div class="tf-icon-box {% if section.settings.icon_position_center %} style-2 {% else %} style-3 {% endif %}">
+                        <div class="box-icon">
                                     <i class="icon {{ block.settings.icon_class }} text-primary"></i>
-                                </div>
-                                <div class="content">
-                                    <div class="title">{{ block.settings.title }}</div>
-                                    <p class="desc">{{ block.settings.description }}</p>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="content">
+                                    {% if block.settings.title != blank %}
+                                        <div class="title">{{ block.settings.title }}</div>
+                                    {% endif %}
+                                    {% if block.settings.description != blank %}
+                                        <p class="desc">{{ block.settings.description }}</p>
+                                    {% endif %}
+                    </div>
+                </div>
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
             {% if section.settings.show_dots_mobile %}
-                <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
+            <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
             {% endif %}
         </div>
     </div>
