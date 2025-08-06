@@ -20,6 +20,9 @@ class CartDrawer extends HTMLElement {
     // Set up quantity buttons
     this.setupQuantityButtons();
     
+    // Set up variant selection
+    this.setupVariantSelection();
+    
     // Check empty cart state on initialization
     this.checkEmptyCart();
   }
@@ -106,6 +109,79 @@ class CartDrawer extends HTMLElement {
     })
     .catch(error => {
       console.error('Error updating quantity:', error);
+    });
+  }
+
+  setupVariantSelection() {
+    const variantSelects = this.querySelectorAll('.info-variant select');
+    variantSelects.forEach(select => {
+      select.addEventListener('change', (e) => {
+        this.updateItemVariant(e.target);
+      });
+    });
+
+    // Set up edit buttons for variant selection
+    const editButtons = this.querySelectorAll('.info-variant .edit');
+    editButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const variantSelect = button.closest('.info-variant').querySelector('select');
+        if (variantSelect) {
+          variantSelect.focus();
+        }
+      });
+    });
+  }
+
+  updateItemVariant(selectElement) {
+    const cartItem = selectElement.closest('[data-cart-item]');
+    if (!cartItem) return;
+
+    const itemKey = cartItem.getAttribute('data-cart-item-key');
+    const selectedVariant = selectElement.value;
+    const currentQuantity = parseInt(cartItem.querySelector('[data-cart-quantity-input]').value);
+
+    // Find the variant ID from the selected option
+    const selectedOption = selectElement.querySelector(`option[value="${selectedVariant}"]`);
+    const variantId = selectedOption ? selectedOption.getAttribute('data-variant-id') : null;
+
+    if (!variantId) {
+      console.error('No variant ID found for selected option');
+      return;
+    }
+
+    // Remove the current item and add the new variant
+    const formData = new FormData();
+    formData.append('id', itemKey);
+    formData.append('quantity', 0); // Remove current item
+
+    fetch('/cart/change.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(cart => {
+      // Now add the new variant
+      const addFormData = new FormData();
+      addFormData.append('id', variantId);
+      addFormData.append('quantity', currentQuantity);
+
+      return fetch('/cart/add.js', {
+        method: 'POST',
+        body: addFormData
+      });
+    })
+    .then(response => response.json())
+    .then(result => {
+      if (result.status) {
+        console.error('Error adding new variant:', result.description);
+      } else {
+        // Update cart display
+        this.updateCart(result);
+      }
+    })
+    .catch(error => {
+      console.error('Error updating variant:', error);
     });
   }
 

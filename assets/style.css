@@ -19244,5 +19244,34 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
     margin-bottom: 60px;
   }
 }
+.tf-mini-cart-item .tf-mini-cart-info .info-variant {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  width: max-content;
+}
+.tf-mini-cart-item .tf-mini-cart-info .info-variant select {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding-left: 5px;
+  margin-left: -5px;
+  padding-right: 20px;
+  cursor: pointer !important;
+  z-index: 1;
+}
+.tf-mini-cart-item .tf-mini-cart-info .info-variant .edit {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  font-size: 10px;
+  line-height: 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
 
 /*# sourceMappingURL=styles.css.map */
