@@ -1,0 +1,502 @@
+{% comment %}
+  Cart drawer section
+  Usage:
+  {% section 'cart-drawer' %}
+{% endcomment %}
+
+{%- liquid
+  assign free_shipping_threshold = settings.free_shipping_threshold | default: 10000
+  assign progress_bar_width = cart.total_price | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100
+-%}
+
+
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_terms_conditions_enable",
+      "label": "Enable terms and conditions",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "cart_terms_conditions_link",
+      "label": "Terms and conditions page"
+    },
+    {
+      "type": "header",
+      "content": "Free shipping"
+    },
+    {
+      "type": "number",
+      "id": "free_shipping_threshold",
+      "label": "Free shipping threshold",
+      "default": 10000
+    },
+    {
+      "type": "header",
+      "content": "Gift wrap"
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_gift_wrap_enable",
+      "label": "Enable gift wrap option",
+      "default": false
+    },
+    {
+      "type": "number",
+      "id": "cart_gift_wrap_price",
+      "label": "Gift wrap price",
+      "default": 1000
+    }
+  ]
+}
+{% endschema %}
+
+<div class="offcanvas offcanvas-end popup-style-1 popup-shopping-cart" id="cart-drawer" role="dialog" aria-modal="true" aria-label="{{ 'sections.cart.title' | t }}">
+    <div class="canvas-wrapper">
+        <div class="popup-header">
+            <span class="title">{{ 'sections.cart.title' | t }}</span>
+            <button type="button" class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="{{ 'accessibility.close' | t }}"></button>
+        </div>
+        <div class="wrap">
+            {%- unless cart.empty -%}
+              <div class="tf-mini-cart-threshold">
+                {%- assign remaining_amount = free_shipping_threshold | minus: cart.total_price -%}
+                {%- if remaining_amount > 0 -%}
+                  <div class="text">
+                    {{ 'sections.cart.general.spend_more_html' | t: amount: remaining_amount | money }}
+                    <span class="fw-medium">{{ 'sections.cart.general.free_shipping' | t }}</span>
+                  </div>
+                  <div class="tf-progress-bar tf-progress-ship">
+                    <div class="value" style="width: {{ progress_bar_width }}%;" data-progress="{{ progress_bar_width }}">
+                      <i class="icon icon-car"></i>
+                    </div>
+                  </div>
+                {%- else -%}
+                  <div class="text text-success">
+                    {{ 'sections.cart.general.free_shipping_qualified' | t }}
+                  </div>
+                  <div class="tf-progress-bar tf-progress-ship">
+                    <div class="value" style="width: 100%;" data-progress="100">
+                      <i class="icon icon-car"></i>
+                    </div>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endunless -%}
+            <div class="tf-mini-cart-wrap">
+                <div class="tf-mini-cart-main">
+                    <div class="tf-mini-cart-sroll">
+                        <div class="tf-mini-cart-items" id="cart-drawer-items">
+                          {%- if cart.empty -%}
+                            <div class="cart-empty-message">
+                              <p>{{ 'sections.cart.empty' | t }}</p>
+                              <a href="{{ routes.all_products_collection_url }}" class="tf-btn animate-btn d-inline-flex bg-dark-2">
+                                {{ 'sections.cart.continue_shopping' | t }}
+                              </a>
+                            </div>
+                          {%- else -%}
+                            {%- for item in cart.items -%}
+                              <div class="tf-mini-cart-item" id="CartDrawerItem-{{ item.index | plus: 1 }}" data-cart-item="{{ item.key }}">
+                                <div class="tf-mini-cart-image">
+                                  {%- if item.image -%}
+                                    <a href="{{ item.url }}">
+                                      <img class="lazyload"
+                                        data-src="{{ item.image | image_url: width: 150 }}"
+                                        src="{{ item.image | image_url: width: 150 }}"
+                                        alt="{{ item.image.alt | escape }}"
+                                        width="150"
+                                        height="{{ 150 | divided_by: item.image.aspect_ratio | round }}"
+                                        loading="lazy">
+                                    </a>
+                                  {%- endif -%}
+                                </div>
+                                <div class="tf-mini-cart-info">
+                                  <div class="d-flex justify-content-between">
+                                    <a class="title link text-md fw-medium" href="{{ item.url }}">{{ item.product.title }}</a>
+                                    <button type="button" 
+                                      class="cart-remove-button"
+                                      aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
+                                      data-cart-remove="{{ item.key }}">
+                                      <i class="icon icon-close remove fs-12"></i>
+                                    </button>
+                                  </div>
+                                  
+                                  {%- if item.original_price != item.final_price -%}
+                                    <p class="price-wrap text-sm fw-medium">
+                                      <span class="new-price text-primary">{{ item.final_price | money }}</span>
+                                      <span class="old-price text-decoration-line-through text-dark-1">{{ item.original_price | money }}</span>
+                                    </p>
+                                  {%- else -%}
+                                    <p class="price-wrap text-sm fw-medium">
+                                      <span class="new-price">{{ item.original_price | money }}</span>
+                                    </p>
+                                  {%- endif -%}
+
+                                  {%- if item.product.has_only_default_variant == false -%}
+                                    {%- for option in item.options_with_values -%}
+                                      <p class="product-option text-sm">
+                                        {{ option.name }}: {{ option.value }}
+                                      </p>
+                                    {%- endfor -%}
+                                  {%- endif -%}
+
+                                  <div class="wg-quantity small" data-cart-quantity="{{ item.key }}">
+                                    <button type="button" 
+                                      class="btn-quantity minus-btn quantity-button" 
+                                      name="minus" 
+                                      data-cart-update="{{ item.key }}"
+                                      data-quantity="{{ item.quantity | minus: 1 }}"
+                                      {%- if item.quantity == 1 -%}disabled{%- endif -%}>-</button>
+                                    <input class="quantity-product font-4" 
+                                      type="number" 
+                                      name="updates[]" 
+                                      value="{{ item.quantity }}" 
+                                      min="0" 
+                                      data-index="{{ item.index | plus: 1 }}"
+                                      id="Drawer-quantity-{{ item.index | plus: 1 }}"
+                                      data-cart-quantity-input="{{ item.key }}">
+                                    <button type="button" 
+                                      class="btn-quantity plus-btn quantity-button" 
+                                      name="plus"
+                                      data-cart-update="{{ item.key }}"
+                                      data-quantity="{{ item.quantity | plus: 1 }}">+</button>
+                                  </div>
+                                </div>
+                              </div>
+                            {%- endfor -%}
+                          {%- endif -%}
+                        </div>
+                        {%- if cart != empty -%}
+                          <div class="tf-minicart-recommendations">
+                            <div class="tf-minicart-recommendations-heading d-flex justify-content-between align-items-end">
+                              <div class="tf-minicart-recommendations-title text-md fw-medium">
+                                {{ 'sections.cart.recommendations.title' | t }}
+                              </div>
+                              <div class="d-flex gap-10">
+                                <button type="button" class="swiper-button-prev nav-swiper arrow-1 size-30 nav-prev-also-product" aria-label="{{ 'accessibility.previous_slide' | t }}">
+                                </button>
+                                <button type="button" class="swiper-button-next nav-swiper arrow-1 size-30 nav-next-also-product" aria-label="{{ 'accessibility.next_slide' | t }}">
+                                </button>
+                              </div>
+                            </div>
+                            
+                            {%- assign main_product = cart.items.first.product -%}
+                            {%- if main_product != blank -%}
+                              <div dir="ltr" class="swiper tf-swiper" data-swiper='{
+                                "slidesPerView": 1,
+                                "spaceBetween": 10,
+                                "speed": 800,
+                                "observer": true,
+                                "observeParents": true,
+                                "slidesPerGroup": 1,
+                                "navigation": {
+                                  "clickable": true,
+                                  "nextEl": ".nav-next-also-product",
+                                  "prevEl": ".nav-prev-also-product"
+                                }
+                              }'>
+                                <div class="swiper-wrapper" id="cart-drawer-recommendations">
+                                  {%- render 'loading-spinner' -%}
+                                </div>
+                              </div>
+                              
+                              <template id="cart-drawer-recommendations-template">
+                                <div class="swiper-slide">
+                                  <div class="tf-mini-cart-item line radius-16">
+                                    <div class="tf-mini-cart-image">
+                                      <a href="[[product_url]]">
+                                        <img class="lazyload"
+                                          data-src="{{ product.featured_image | image_url: width: 150 }}"
+                                          src="{{ product.featured_image | image_url: width: 150 }}"
+                                          alt="[[product_image_alt]]"
+                                          width="150"
+                                          height="150"
+                                          loading="lazy">
+                                      </a>
+                                    </div>
+                                    <div class="tf-mini-cart-info justify-content-center">
+                                      <a class="title link text-md fw-medium" href="[[product_url]]">[[product_title]]</a>
+                                      <p class="price-wrap text-sm fw-medium">
+                                        <span class="new-price text-primary">[[product_price]]</span>
+                                        <span class="old-price text-decoration-line-through text-dark-1 [[compare_at_class]]">[[product_compare_at_price]]</span>
+                                      </p>
+                                      <button type="button"
+                                        class="tf-btn animate-btn d-inline-flex bg-dark-2 w-max-content"
+                                        data-product-id="[[product_id]]"
+                                        data-variant-id="[[variant_id]]">
+                                        {{ 'products.product.add_to_cart' | t }}
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </template>
+
+                              <script>
+                                window.addEventListener('DOMContentLoaded', () => {
+                                  const productId = {{ main_product.id | json }};
+                                  if (!productId) return;
+
+                                  fetch(window.Shopify.routes.root + `recommendations/products.json?product_id=${productId}&limit=3`)
+                                    .then(response => response.json())
+                                    .then(({ products }) => {
+                                      const container = document.getElementById('cart-drawer-recommendations');
+                                      const template = document.getElementById('cart-drawer-recommendations-template');
+                                      
+                                      if (!products.length) {
+                                        container.innerHTML = '<p class="text-center">{{ "sections.cart.recommendations.no_results" | t }}</p>';
+                                        return;
+                                      }
+
+                                      container.innerHTML = '';
+                                      
+                                      products.forEach(product => {
+                                        const variant = product.variants[0];
+                                        const slide = template.innerHTML
+                                          .replace(/\[\[product_url\]\]/g, product.url)
+                                          .replace(/\[\[product_image_url\]\]/g, product.featured_image)
+                                          .replace(/\[\[product_image_alt\]\]/g, product.title)
+                                          .replace(/\[\[product_title\]\]/g, product.title)
+                                          .replace(/\[\[product_price\]\]/g, Shopify.formatMoney(variant.price))
+                                          .replace(/\[\[product_compare_at_price\]\]/g, variant.compare_at_price ? Shopify.formatMoney(variant.compare_at_price) : '')
+                                          .replace(/\[\[compare_at_class\]\]/g, variant.compare_at_price ? '' : 'd-none')
+                                          .replace(/\[\[product_id\]\]/g, product.id)
+                                          .replace(/\[\[variant_id\]\]/g, variant.id);
+                                          
+                                        container.insertAdjacentHTML('beforeend', slide);
+                                      });
+                                    })
+                                    .catch(e => {
+                                      console.error('Error loading recommendations:', e);
+                                    });
+                                });
+                              </script>
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                    </div>
+                </div>
+                <div class="tf-mini-cart-bottom">
+                    {%- unless cart.empty -%}
+                  <div class="tf-mini-cart-tool">
+                    {%- if settings.cart_gift_wrap_enable -%}
+                      <button type="button" class="tf-mini-cart-tool-btn btn-add-gift" aria-label="{{ 'sections.cart.gift_wrap.button_label' | t }}">
+                        <i class="icon icon-gift2"></i>
+                        <div class="text-xxs">{{ 'sections.cart.gift_wrap.title' | t }}</div>
+                      </button>
+                    {%- endif -%}
+                    
+                    <button type="button" class="tf-mini-cart-tool-btn btn-add-note" aria-label="{{ 'sections.cart.note.button_label' | t }}">
+                      <i class="icon icon-note"></i>
+                      <div class="text-xxs">{{ 'sections.cart.note.title' | t }}</div>
+                    </button>
+                    
+                    <button type="button" class="tf-mini-cart-tool-btn btn-coupon" aria-label="{{ 'sections.cart.discount.button_label' | t }}">
+                      <i class="icon icon-coupon"></i>
+                      <div class="text-xxs">{{ 'sections.cart.discount.title' | t }}</div>
+                    </button>
+                    
+                    <button type="button" class="tf-mini-cart-tool-btn btn-estimate-shipping" aria-label="{{ 'sections.cart.shipping.button_label' | t }}">
+                      <i class="icon icon-car"></i>
+                      <div class="text-xxs">{{ 'sections.cart.shipping.title' | t }}</div>
+                    </button>
+                  </div>
+                {%- endunless -%}
+                    <div class="tf-mini-cart-bottom-wrap">
+                      {%- unless cart.empty -%}
+                        <div class="tf-cart-totals-discounts">
+                          {%- if cart.cart_level_discount_applications.size > 0 -%}
+                            {%- for discount_application in cart.cart_level_discount_applications -%}
+                              <div class="cart-discount">
+                                <span class="cart-discount__label">{{ discount_application.title }}</span>
+                                <span class="cart-discount__amount">-{{ discount_application.total_allocated_amount | money }}</span>
+                              </div>
+                            {%- endfor -%}
+                          {%- endif -%}
+                          
+                          <div class="tf-cart-total text-xl fw-medium">{{ 'sections.cart.total' | t }}:</div>
+                          <div class="tf-totals-total-value text-xl fw-medium" id="cart-drawer-total">{{ cart.total_price | money_with_currency }}</div>
+                        </div>
+                        
+                        <div class="tf-cart-tax text-sm opacity-8">
+                          {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                        </div>
+                        
+                        {%- if settings.cart_terms_conditions_enable -%}
+                          <div class="tf-cart-checkbox">
+                            <div class="tf-checkbox-wrapp">
+                              <input type="checkbox" 
+                                id="CartDrawer-Form_agree" 
+                                name="agree_checkbox"
+                                class="required"
+                                data-terms-required="{{ 'sections.cart.terms.agreement_required' | t }}">
+                              <div>
+                                <i class="icon-check"></i>
+                              </div>
+                            </div>
+                            <label for="CartDrawer-Form_agree" class="text-sm">
+                              {{ 'sections.cart.terms.agreement_html' | t: terms_url: settings.cart_terms_conditions_link }}
+                            </label>
+                          </div>
+                        {%- endif -%}
+                        
+                        <div class="tf-mini-cart-view-checkout">
+                          <a href="{{ routes.cart_url }}"
+                            class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">
+                            {{ 'sections.cart.view_cart' | t }}
+                          </a>
+                          <form action="{{ routes.cart_url }}" method="post" id="cart-drawer-form">
+                            <button type="submit" 
+                              name="checkout"
+                              class="tf-btn btn-out-line-dark2 w-100 justify-content-center"
+                              {%- if settings.cart_terms_conditions_enable -%}
+                                data-terms-required
+                              {%- endif -%}
+                              form="cart-drawer-form">
+                              <span>{{ 'sections.cart.checkout' | t }}</span>
+                            </button>
+                          </form>
+                        </div>
+                      {%- endunless -%}
+                    </div>
+                </div>
+                {%- if settings.cart_gift_wrap_enable -%}
+                  <div class="tf-mini-cart-tool-openable add-gift" id="cart-drawer-gift-wrap">
+                    <div class="overplay tf-mini-cart-tool-close"></div>
+                    <form action="{{ routes.cart_url }}" method="post" class="tf-mini-cart-tool-content">
+                      <input type="hidden" name="attributes[Gift Wrap]" value="false">
+                      <div class="tf-mini-cart-tool-text text-sm fw-medium">{{ 'sections.cart.gift_wrap.title' | t }}</div>
+                      <div class="tf-mini-cart-tool-text1 text-dark-1">
+                        {{ 'sections.cart.gift_wrap.description_html' | t: price: settings.cart_gift_wrap_price | money }}
+                      </div>
+                      <div class="tf-cart-tool-btns">
+                        <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100" type="submit" name="attributes[Gift Wrap]" value="true">
+                          {{ 'sections.cart.gift_wrap.add' | t }}
+                        </button>
+                        <button type="button" class="tf-btn btn-out-line-dark2 w-100 tf-mini-cart-tool-close">
+                          {{ 'sections.cart.gift_wrap.cancel' | t }}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                {%- endif -%}
+
+                <div class="tf-mini-cart-tool-openable add-note" id="cart-drawer-note">
+                  <div class="overplay tf-mini-cart-tool-close"></div>
+                  <form action="{{ routes.cart_url }}" method="post" class="tf-mini-cart-tool-content">
+                    <label for="Cart-note" class="tf-mini-cart-tool-text text-sm fw-medium">
+                      {{ 'sections.cart.note.title' | t }}
+                    </label>
+                    <textarea 
+                      name="note" 
+                      id="Cart-note" 
+                      placeholder="{{ 'sections.cart.note.placeholder' | t }}"
+                    >{{ cart.note }}</textarea>
+                    <div class="tf-cart-tool-btns">
+                      <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100" type="submit">
+                        {{ 'sections.cart.note.save' | t }}
+                      </button>
+                      <button type="button" class="tf-btn btn-out-line-dark2 w-100 tf-mini-cart-tool-close">
+                        {{ 'sections.cart.note.cancel' | t }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="tf-mini-cart-tool-openable coupon" id="cart-drawer-discount">
+                  <div class="overplay tf-mini-cart-tool-close"></div>
+                  <form action="{{ routes.cart_url }}" method="post" class="tf-mini-cart-tool-content">
+                    <div class="tf-mini-cart-tool-text text-sm fw-medium">{{ 'sections.cart.discount.title' | t }}</div>
+                    <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.discount.description' | t }}</div>
+                    <input 
+                      type="text" 
+                      name="discount" 
+                      id="CartDrawer-Discount"
+                      value="{{ cart.discount_code }}"
+                      placeholder="{{ 'sections.cart.discount.placeholder' | t }}">
+                    <div class="tf-cart-tool-btns">
+                      <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100" type="submit">
+                        {{ 'sections.cart.discount.apply' | t }}
+                      </button>
+                      <button type="button" class="tf-btn btn-out-line-dark2 w-100 tf-mini-cart-tool-close">
+                        {{ 'sections.cart.discount.cancel' | t }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="tf-mini-cart-tool-openable estimate-shipping" id="cart-drawer-shipping">
+                  <div class="overplay tf-mini-cart-tool-close"></div>
+                  <form id="shipping-calculator-form" class="tf-mini-cart-tool-content">
+                    <div class="tf-mini-cart-tool-text text-sm fw-medium">{{ 'sections.cart.shipping.title' | t }}</div>
+                    
+                    <div class="field">
+                      <p class="text-sm">{{ 'sections.cart.shipping.country' | t }}</p>
+                      <div class="tf-select">
+                        <select 
+                          class="w-100" 
+                          id="shipping-country-form" 
+                          name="shipping_address[country]" 
+                          data-default="{{ cart.shipping_address.country }}">
+                          {{ all_country_option_tags }}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <p class="text-sm">{{ 'sections.cart.shipping.province' | t }}</p>
+                      <div class="tf-select">
+                        <select 
+                          id="shipping-province-form" 
+                          name="shipping_address[province]" 
+                          data-default="{{ cart.shipping_address.province }}">
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <p class="text-sm">{{ 'sections.cart.shipping.zip' | t }}</p>
+                      <input 
+                        type="text" 
+                        id="shipping-zip-form" 
+                        name="shipping_address[zip]" 
+                        value="{{ cart.shipping_address.zip }}"
+                        placeholder="{{ 'sections.cart.shipping.zip_placeholder' | t }}">
+                    </div>
+
+                    <div id="shipping-rates-feedback" style="display: none;">
+                      <p class="shipping-rates-success" style="display: none;">
+                        {{ 'sections.cart.shipping.success_text' | t }}
+                      </p>
+                      <p class="shipping-rates-error" style="display: none;">
+                        {{ 'sections.cart.shipping.error_text' | t }}
+                      </p>
+
+                      <div id="shipping-rates" style="display: none;"></div>
+                    </div>
+
+                    <div class="tf-cart-tool-btns">
+                      <button 
+                        class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100" 
+                        type="submit"
+                        id="get-shipping-rates-submit">
+                        {{ 'sections.cart.shipping.calculate' | t }}
+                      </button>
+                      <button type="button" class="tf-btn btn-out-line-dark2 w-100 tf-mini-cart-tool-close">
+                        {{ 'sections.cart.shipping.cancel' | t }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
