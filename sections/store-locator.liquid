@@ -1,0 +1,325 @@
+{% comment %}
+  Store Locator Section
+  Displays a list of stores with interactive map functionality
+{% endcomment %}
+
+{%- liquid
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign padding_mobile_rate = section.settings.padding_mobile_rate
+  assign color_scheme = section.settings.color_scheme
+  assign width = section.settings.width
+-%}
+
+<section
+  class="s-store-location flat-spacing-2 color-{{ color_scheme }}{% if width == 'full' %} section-full-width{% endif %}"
+  style="
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+    --padding-mobile-rate: {{ padding_mobile_rate }}%;
+  "
+>
+  <div class="{% if width == 'boxed' %}container{% endif %}">
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Map Container -->
+        <div class="wg-map" id="store-map">
+          {%- assign first_map_found = false -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.map_iframe != blank and first_map_found == false -%}
+              {{ block.settings.map_iframe }}
+              {%- assign first_map_found = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- comment -%} Fallback if no maps are provided {%- endcomment -%}
+          {%- if section.blocks.size == 0 or first_map_found == false -%}
+            <div
+              class="placeholder-map"
+              style="height: 400px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; border-radius: 8px;"
+            >
+              <p style="color: #666; font-size: 16px;">
+                {{ 'sections.store-locator.no_stores' | t | default: 'No store maps available' }}
+              </p>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <!-- Store List -->
+        <div class="tf-grid-layout lg-col-3 sm-col-2">
+          {%- for block in section.blocks -%}
+            {%- liquid
+              assign store_name = block.settings.store_name
+              assign address = block.settings.address
+              assign phone = block.settings.phone
+              assign email = block.settings.email
+              assign open_time = block.settings.open_time
+              assign map_iframe = block.settings.map_iframe
+            -%}
+
+            <div
+              class="box-store{% if forloop.first %} active{% endif %}"
+              data-store-id="{{ forloop.index }}"
+              data-map-iframe="{{ map_iframe | escape }}"
+              style="cursor: pointer;"
+              {{ block.shopify_attributes }}
+            >
+              <div class="content">
+                {%- if store_name != blank -%}
+                  <p class="title">{{ store_name }}</p>
+                {%- endif -%}
+
+                <ul class="contact-list">
+                  {%- if address != blank -%}
+                    <li>
+                      <p>
+                        {{ 'sections.store-locator.address_label' | t }}:
+                        <a
+                          class="link"
+                          href="https://www.google.com/maps?q={{ address | url_encode }}"
+                          target="_blank"
+                          rel="noopener"
+                        >
+                          {{ address }}
+                        </a>
+                      </p>
+                    </li>
+                  {%- endif -%}
+
+                  {%- if phone != blank -%}
+                    <li>
+                      <p>
+                        {{ 'sections.store-locator.phone_label' | t }}:
+                        <a class="link" href="tel:{{ phone | replace: ' ', '' | replace: '-', '' }}">{{ phone }}</a>
+                      </p>
+                    </li>
+                  {%- endif -%}
+
+                  {%- if email != blank -%}
+                    <li>
+                      <p>
+                        {{ 'sections.store-locator.email_label' | t }}:
+                        <a class="link" href="mailto:{{ email }}">{{ email }}</a>
+                      </p>
+                    </li>
+                  {%- endif -%}
+
+                  {%- if open_time != blank -%}
+                    <li>
+                      <p>
+                        {{ 'sections.store-locator.hours_label' | t }}:
+                        <span class="text-main">{{ open_time }}</span>
+                      </p>
+                    </li>
+                  {%- endif -%}
+                </ul>
+              </div>
+
+              <div class="bot">
+                {%- if address != blank -%}
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener"
+                    class="tf-btn btn-line"
+                  >
+                    {{ 'sections.store-locator.get_direction' | t }}
+                    <i class="icon-arrow-top-left"></i>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} Mobile padding media query {%- endcomment -%}
+<style>
+  @media (max-width: 767px) {
+    .s-store-location {
+      padding-top: calc({{padding_top}}px * var(--padding-mobile-rate) / 100);
+      padding-bottom: calc({{padding_bottom}}px * var(--padding-mobile-rate) / 100);
+    }
+    .wg-map iframe {
+      height: 350px !important;
+    }
+  }
+
+  .wg-map iframe {
+    border-radius: 16px;
+    overflow: hidden;
+    height: 589px;
+    width: 100%;
+  }
+
+  .tf-btn.btn-line:hover {
+    color: var(--primary) !important;
+    background-color: initial !important;
+  }
+
+  .color-{{ color_scheme }} .box-store {
+    background-color: var(--gradient-background);
+  }
+
+  .color-{{ color_scheme }} .box-store a,
+  .color-{{ color_scheme }} .box-store .text-main {
+    color: var(--text-color) !important;
+  }
+</style>
+
+{%- comment -%} Store Locator JavaScript {%- endcomment -%}
+<script src="{{ 'store-locator.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "t:sections.store-locator.name",
+  "tag": "section",
+  "class": "section-store-locator",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.store-locator.settings.width.label",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "t:sections.store-locator.settings.width.options.boxed"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.store-locator.settings.width.options.full"
+        }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.store-locator.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.store-locator.settings.padding_top.label",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.store-locator.settings.padding_bottom.label",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.store-locator.settings.padding_mobile_rate.label",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store_item",
+      "name": "t:sections.store-locator.blocks.store_item.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "store_name",
+          "label": "t:sections.store-locator.blocks.store_item.settings.store_name.label",
+          "default": "Store Name"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "t:sections.store-locator.blocks.store_item.settings.address.label",
+          "default": "123 Store Street, City, Country"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "t:sections.store-locator.blocks.store_item.settings.phone.label",
+          "default": "+1 234 567 890"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "t:sections.store-locator.blocks.store_item.settings.email.label",
+          "default": "contact@store.com"
+        },
+        {
+          "type": "text",
+          "id": "open_time",
+          "label": "t:sections.store-locator.blocks.store_item.settings.open_time.label",
+          "default": "8am - 7pm, Mon - Sat"
+        },
+        {
+          "type": "liquid",
+          "id": "map_iframe",
+          "label": "t:sections.store-locator.blocks.store_item.settings.map_iframe.label",
+          "info": "t:sections.store-locator.blocks.store_item.settings.map_iframe.info"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.store-locator.presets.default",
+      "category": "Store",
+      "blocks": [
+        {
+          "type": "store_item",
+          "settings": {
+            "store_name": "Store 1 Sydney",
+            "address": "15 Yarran st, Punchbowl, NSW, Australia",
+            "phone": "+1 234 567",
+            "email": "contact@vince.com",
+            "open_time": "8am - 7pm, Mon - Sat",
+            "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27294.62418958524!2d151.25730233429948!3d-33.82005608618041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ab8bc95a137f%3A0x358f04a7f6f5f6a6!2sGrotto%20Point%20Lighthouse!5e0!3m2!1sen!2s!4v1733976867160!5m2!1sen!2s\" width=\"100%\" height=\"589px\" style=\"border:none;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+          }
+        },
+        {
+          "type": "store_item",
+          "settings": {
+            "store_name": "Store 2 Melbourne",
+            "address": "456 Collins Street, Melbourne, VIC, Australia",
+            "phone": "+1 234 568",
+            "email": "melbourne@vince.com",
+            "open_time": "9am - 6pm, Mon - Fri",
+            "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.42441908905!2d151.0467274757111!3d-33.92606517320474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12bbff3cb96e71%3A0xad3243fb988463dc!2s15%20Yarran%20St%2C%20Punchbowl%20NSW%202196%2C%20%C3%9Ac!5e1!3m2!1svi!2s!4v1754467955216!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+          }
+        },
+        {
+          "type": "store_item",
+          "settings": {
+            "store_name": "Store 3 Brisbane",
+            "address": "789 Queen Street, Brisbane, QLD, Australia",
+            "phone": "+1 234 569",
+            "email": "brisbane@vince.com",
+            "open_time": "8:30am - 7:30pm, Mon - Sat",
+            "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1661.086504984023!2d151.06474891672218!3d-33.91551166244523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12bbdc573b7063%3A0xdea76199c1a34ee8!2sWestern%20Ravens%20Volleyball%20Club!5e1!3m2!1svi!2s!4v1754468020986!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

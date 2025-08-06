@@ -11,21 +11,14 @@
     }
   }
 
-  {% comment %} Other content block color styling {% endcomment %}
-  {% for block in section.blocks %}
-    {% if block.type == 'other_content' %}
-      {% if block.settings.heading_color != blank and block.settings.heading_color != 'rgba(0,0,0,0)' %}
-        #section-{{ section.id }} .other-content-{{ block.id }} .title {
-          color: {{ block.settings.heading_color }} !important;
-        }
-      {% endif %}
-      {% if block.settings.content_color != blank and block.settings.content_color != 'rgba(0,0,0,0)' %}
-        #section-{{ section.id }} .other-content-{{ block.id }} .sub {
-          color: {{ block.settings.content_color }} !important;
-        }
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+  .sb-contact {
+    background-color: rgb(var(--color-background2));
+    color: rgb(var(--color-foreground), 0.75) !important;
+  }
+
+  .sb-contact .sub {
+    color: rgb(var(--color-foreground), 0.75) !important;
+  }
 {%- endstyle -%}
 
 <section
@@ -40,7 +33,7 @@
         <div class="col-lg-4">
           {% for block in section.blocks %}
             {% if block.type == 'other_content' %}
-              <div class="sb-contact sticky-top other-content-{{ block.id }}" {{ block.shopify_attributes }}>
+              <div class="sb-contact sticky-top" {{ block.shopify_attributes }}>
                 {% if block.settings.heading != blank %}
                   <p class="title">{{ block.settings.heading }}</p>
                 {% endif %}
@@ -216,7 +209,7 @@
         <div class="col-lg-4">
           {% for block in section.blocks %}
             {% if block.type == 'other_content' %}
-              <div class="sb-contact sticky-top other-content-{{ block.id }}" {{ block.shopify_attributes }}>
+              <div class="sb-contact sticky-top" {{ block.shopify_attributes }}>
                 {% if block.settings.heading != blank %}
                   <p class="title">{{ block.settings.heading }}</p>
                 {% endif %}
@@ -370,16 +363,6 @@
           "id": "content",
           "label": "t:sections.faq.blocks.other_content.settings.content.label",
           "default": "<p>Additional content here</p>"
-        },
-        {
-          "type": "color",
-          "id": "heading_color",
-          "label": "Heading Color"
-        },
-        {
-          "type": "color",
-          "id": "content_color",
-          "label": "Content Color"
         },
         {
           "type": "text",
