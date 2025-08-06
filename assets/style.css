@@ -6326,7 +6326,7 @@ button.animate-btn::after,
 .offcanvas-backdrop {
   background-color: var(--backdrop);
   z-index: 2000;
-  cursor: url(../images/cursor-close.svg), auto;
+  cursor: url('cursor-close.svg'), auto;
 }
 .offcanvas-backdrop.show {
   opacity: 1;
@@ -6349,7 +6349,7 @@ button.animate-btn::after,
 }
 
 .modal {
-  cursor: url(../images/cursor-close.svg), auto;
+  cursor: url('cursor-close.svg'), auto;
 }
 .modal .icon-close,
 .modal .icon-close-popup {
