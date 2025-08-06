@@ -17,6 +17,9 @@ class CartDrawer extends HTMLElement {
     // Set up remove item buttons
     this.setupRemoveButtons();
     
+    // Set up quantity buttons
+    this.setupQuantityButtons();
+    
     // Check empty cart state on initialization
     this.checkEmptyCart();
   }
@@ -32,6 +35,77 @@ class CartDrawer extends HTMLElement {
           this.removeItem(itemKey);
         }
       });
+    });
+  }
+
+  setupQuantityButtons() {
+    const quantityContainers = this.querySelectorAll('[data-cart-quantity]');
+    quantityContainers.forEach(container => {
+      const minusBtn = container.querySelector('[data-cart-quantity-minus]');
+      const plusBtn = container.querySelector('[data-cart-quantity-plus]');
+      const quantityInput = container.querySelector('[data-cart-quantity-input]');
+      
+      if (minusBtn && plusBtn && quantityInput) {
+        // Minus button
+        minusBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const currentValue = parseInt(quantityInput.value);
+          if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+            this.updateItemQuantity(quantityInput);
+          } else if (currentValue === 1) {
+            // Remove item if quantity becomes 0
+            const cartItem = container.closest('[data-cart-item]');
+            if (cartItem) {
+              const itemKey = cartItem.getAttribute('data-cart-item-key');
+              this.removeItem(itemKey);
+            }
+          }
+        });
+
+        // Plus button
+        plusBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const currentValue = parseInt(quantityInput.value);
+          quantityInput.value = currentValue + 1;
+          this.updateItemQuantity(quantityInput);
+        });
+
+        // Input change
+        quantityInput.addEventListener('change', (e) => {
+          this.updateItemQuantity(quantityInput);
+        });
+      }
+    });
+  }
+
+  updateItemQuantity(quantityInput) {
+    const cartItem = quantityInput.closest('[data-cart-item]');
+    if (!cartItem) return;
+
+    const itemKey = cartItem.getAttribute('data-cart-item-key');
+    const newQuantity = parseInt(quantityInput.value);
+
+    if (newQuantity <= 0) {
+      // Remove item if quantity is 0 or less
+      this.removeItem(itemKey);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('id', itemKey);
+    formData.append('quantity', newQuantity);
+
+    fetch('/cart/change.js', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(cart => {
+      this.updateCart(cart);
+    })
+    .catch(error => {
+      console.error('Error updating quantity:', error);
     });
   }
 

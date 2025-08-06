@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleFooter();
   efectParalax();
   infiniteSlide();
-  buttonQuantity();
+  // buttonQuantity();
   deleteItem();
   clickControl();
   tabSlide();
