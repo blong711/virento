@@ -4566,6 +4566,8 @@
       },
       "presets": {
         "default": "Store Locator"
+      }
+    },
     "icon-box": {
       "name": "Icon Box Slider",
       "settings": {
