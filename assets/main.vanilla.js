@@ -39,13 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
   autoPopup();
 });
 
-// Reinitialize components when sections are updated
-document.addEventListener('shopify:section:load', (event) => {
-  if (event.target.id.includes('back-to-top')) {
-    goTop();
-  }
-});
-
 /* Custom Select with Images
 ---------------------------------------------------------------------------*/
 const selectImages = () => {
