@@ -3900,6 +3900,10 @@
         },
         "padding_bottom": {
           "label": "Bottom padding"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile padding ratio",
+          "info": "Mobile padding as percentage of desktop padding"
         }
       },
       "blocks": {
@@ -4033,6 +4037,94 @@
       },
       "presets": {
         "default": "Vertical Text Heading"
+      }
+    },
+    "faq": {
+      "name": "FAQ",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full width"
+          }
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "faq_content_position": {
+          "label": "FAQ content position",
+          "options": {
+            "left": "Left",
+            "right": "Right"
+          }
+        },
+        "enable_auto_open_first": {
+          "label": "Auto open first FAQ item"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile padding ratio",
+          "info": "Mobile padding as percentage of desktop padding"
+        }
+      },
+      "blocks": {
+        "item_heading": {
+          "name": "Item heading",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            }
+          }
+        },
+        "faq_item": {
+          "name": "FAQ Item",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "content": {
+              "label": "Content"
+            }
+          }
+        },
+        "other_content": {
+          "name": "Other Content",
+          "settings": {
+            "heading": {
+              "label": "Heading"
+            },
+            "content": {
+              "label": "Content"
+            },
+            "heading_color": {
+              "label": "Heading Color"
+            },
+            "content_color": {
+              "label": "Content Color"
+            },
+            "solid_button_text": {
+              "label": "Solid button text"
+            },
+            "solid_button_link": {
+              "label": "Solid button link"
+            },
+            "white_button_text": {
+              "label": "White button text"
+            },
+            "white_button_link": {
+              "label": "White button link"
+            }
+          }
+        }
+      },
+      "presets": {
+        "default": "FAQ"
       }
     },
     "categories": {
