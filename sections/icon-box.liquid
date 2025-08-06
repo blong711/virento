@@ -189,6 +189,34 @@
           "default": "icon-shipping"
         },
         {
+          "type": "textarea",
+          "id": "custom_svg",
+          "label": "t:sections.icon-box.blocks.icon_box.settings.custom_svg.label",
+          "info": "t:sections.icon-box.blocks.icon_box.settings.custom_svg.info"
+        },
+        {
+          "type": "range",
+          "id": "icon_width",
+          "min": 20,
+          "max": 120,
+          "step": 4,
+          "unit": "px",
+          "label": "t:sections.icon-box.blocks.icon_box.settings.icon_width.label",
+          "info": "t:sections.icon-box.blocks.icon_box.settings.icon_width.info",
+          "default": 64
+        },
+        {
+          "type": "range",
+          "id": "icon_width_mobile",
+          "min": 16,
+          "max": 80,
+          "step": 4,
+          "unit": "px",
+          "label": "t:sections.icon-box.blocks.icon_box.settings.icon_width_mobile.label",
+          "info": "t:sections.icon-box.blocks.icon_box.settings.icon_width_mobile.info",
+          "default": 64
+        },
+        {
           "type": "text",
           "id": "title",
           "label": "t:sections.icon-box.blocks.icon_box.settings.title.label",
@@ -265,9 +293,15 @@
                     {% if block.type == 'icon_box' %}
                         <div class="swiper-slide" {{ block.shopify_attributes }}>
                             <div class="tf-icon-box {% if section.settings.icon_position_center %} style-2 {% else %} style-3 {% endif %}">
-                        <div class="box-icon">
-                                    <i class="icon {{ block.settings.icon_class }} text-primary"></i>
-                        </div>
+                                                        {% assign icon_width = block.settings.icon_width | default: 48 %}
+                                {% assign icon_width_mobile = block.settings.icon_width_mobile | default: 32 %}
+                                <div class="box-icon" style="--icon-width: {{ icon_width }}px; --icon-width-mobile: {{ icon_width_mobile }}px;">
+                                    {% if block.settings.custom_svg != blank %}
+                                        {{ block.settings.custom_svg }}
+                                    {% else %}
+                                        <i class="icon {{ block.settings.icon_class }} text-primary"></i>
+                                    {% endif %}
+                                </div>
                         <div class="content">
                                     {% if block.settings.title != blank %}
                                         <div class="title">{{ block.settings.title }}</div>
@@ -287,3 +321,18 @@
         </div>
     </div>
 </div>
+<style>
+.tf-icon-box.style-2 .box-icon {
+    width: var(--icon-width);
+    height: var(--icon-width);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+}
+.tf-icon-box.style-3 .box-icon {
+    width: var(--icon-width);
+    height: var(--icon-width);
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+}
+</style>

@@ -4550,6 +4550,18 @@
               "label": "Icon",
               "info": "Choose an icon to display"
             },
+            "custom_svg": {
+              "label": "Custom SVG",
+              "info": "Paste your SVG code here to replace the selected icon. Make sure to include width, height, and viewBox attributes."
+            },
+            "icon_width": {
+              "label": "Icon Width",
+              "info": "Set the width of the icon on desktop screens"
+            },
+            "icon_width_mobile": {
+              "label": "Icon Width (Mobile)",
+              "info": "Set the width of the icon on mobile screens"
+            },
             "title": {
               "label": "Title",
               "info": "The main text to display below the icon"
