@@ -16,6 +16,9 @@ class CartDrawer extends HTMLElement {
 
     // Set up remove item buttons
     this.setupRemoveButtons();
+    
+    // Check empty cart state on initialization
+    this.checkEmptyCart();
   }
 
   setupRemoveButtons() {
@@ -115,12 +118,59 @@ class CartDrawer extends HTMLElement {
           if (cartDrawerContent) {
             this.innerHTML = cartDrawerContent;
             this.init(); // Re-initialize after content update
+            
+            // Check if cart is empty and show appropriate message
+            this.checkEmptyCart();
           }
         }
       })
       .catch(error => {
         console.error('Error updating cart:', error);
       });
+  }
+
+  checkEmptyCart() {
+    const cartItems = this.querySelectorAll('[data-cart-item]');
+    const emptyCartMessage = this.querySelector('.tf-mini-cart-empty');
+    const cartBottom = this.querySelector('.tf-mini-cart-bottom');
+    const recommendations = this.querySelector('.tf-minicart-recommendations');
+    const freeShippingProgress = this.querySelector('.tf-mini-cart-threshold');
+    
+    if (cartItems.length === 0) {
+      // Show empty cart message
+      if (emptyCartMessage) {
+        emptyCartMessage.style.display = 'block';
+      }
+      // Hide cart bottom section (totals, checkout buttons)
+      if (cartBottom) {
+        cartBottom.style.display = 'none';
+      }
+      // Hide recommendations
+      if (recommendations) {
+        recommendations.style.display = 'none';
+      }
+      // Hide free shipping progress
+      if (freeShippingProgress) {
+        freeShippingProgress.style.display = 'none';
+      }
+    } else {
+      // Hide empty cart message
+      if (emptyCartMessage) {
+        emptyCartMessage.style.display = 'none';
+      }
+      // Show cart bottom section
+      if (cartBottom) {
+        cartBottom.style.display = 'block';
+      }
+      // Show recommendations if they exist
+      if (recommendations) {
+        recommendations.style.display = 'block';
+      }
+      // Show free shipping progress
+      if (freeShippingProgress) {
+        freeShippingProgress.style.display = 'block';
+      }
+    }
   }
 }
 

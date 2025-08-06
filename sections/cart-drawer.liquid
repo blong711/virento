@@ -75,6 +75,20 @@
                                 </div>
                             {%- endfor -%}
                         </div>
+                        {%- if cart.item_count == 0 -%}
+                            <div class="tf-mini-cart-empty">
+                                <div class="empty-cart-message text-center">
+                                    <div class="empty-cart-icon mb-3">
+                                        <i class="icon icon-cart2" style="font-size: 3rem; opacity: 0.5;"></i>
+                                    </div>
+                                    <h4 class="empty-cart-title text-md fw-medium mb-2">Your cart is empty</h4>
+                                    <p class="empty-cart-subtitle text-sm opacity-8 mb-4">Looks like you haven't added any items to your cart yet.</p>
+                                    <a href="{{ routes.all_products_collection_url }}" class="tf-btn animate-btn d-inline-flex bg-dark-2">
+                                        Start Shopping
+                                    </a>
+                                </div>
+                            </div>
+                        {%- endif -%}
                         {%- if cart.item_count > 0 -%}
                             <div class="tf-minicart-recommendations">
                                 <div class="tf-minicart-recommendations-heading d-flex justify-content-between align-items-end">

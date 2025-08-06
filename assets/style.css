@@ -19186,6 +19186,59 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   }
 }
 
+/* Cart button spinner styles */
+.cart-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.box-icon.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.box-icon.loading .cart-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 0.125em;
+}
+
+/* Empty cart styles */
+.tf-mini-cart-empty {
+  padding: 100px 10px;
+  text-align: center;
+}
+
+.empty-cart-message {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.empty-cart-icon {
+  margin-bottom: 1rem;
+}
+
+.empty-cart-title {
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+}
+
+.empty-cart-subtitle {
+  margin-bottom: 1.5rem;
+  color: var(--dark-1);
+  opacity: 0.8;
+}
+
 @media (max-width: 767px) {
   .s-contact .wg-map {
     margin-bottom: 60px;

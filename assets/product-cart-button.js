@@ -59,7 +59,10 @@ if (!customElements.get('product-cart-button')) {
         // Disable button during request
         button.style.pointerEvents = 'none';
         const originalText = this.getButtonText(button);
-        this.setButtonText(button, 'Adding...');
+        const originalHTML = button.innerHTML;
+        
+        // Add spinner to button
+        this.addSpinner(button);
 
         // Get cart element
         this.cart = document.querySelector('cart-notification') || 
@@ -136,6 +139,7 @@ if (!customElements.get('product-cart-button')) {
           })
           .finally(() => {
             button.style.pointerEvents = 'auto';
+            this.removeSpinner(button, originalHTML);
             CartPerformance.measureFromEvent("add:user-action", evt);
           });
       }
@@ -166,6 +170,46 @@ if (!customElements.get('product-cart-button')) {
         }
         
         button.textContent = text;
+      }
+
+      addSpinner(button) {
+        // Create spinner element
+        const spinner = document.createElement('div');
+        spinner.className = 'cart-spinner';
+        spinner.innerHTML = `
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        `;
+        
+        // Store original content and add spinner
+        button.setAttribute('data-original-content', button.innerHTML);
+        button.innerHTML = '';
+        button.appendChild(spinner);
+        
+        // Add loading class
+        button.classList.add('loading');
+      }
+
+      removeSpinner(button, originalHTML) {
+        // Remove spinner and restore original content
+        const spinner = button.querySelector('.cart-spinner');
+        if (spinner) {
+          spinner.remove();
+        }
+        
+        // Restore original content
+        if (originalHTML) {
+          button.innerHTML = originalHTML;
+        } else {
+          const originalContent = button.getAttribute('data-original-content');
+          if (originalContent) {
+            button.innerHTML = originalContent;
+          }
+        }
+        
+        // Remove loading class
+        button.classList.remove('loading');
       }
     }
   );
