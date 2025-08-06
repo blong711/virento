@@ -4,9 +4,13 @@
   "sections": {
     "cart-drawer": {
       "type": "cart-drawer",
+    },
+    "compare-modal": {
+      "type": "compare-modal"
     }
   },
   "order": [
-    "cart-drawer"
+    "cart-drawer",
+    "compare-modal"
   ]
 }

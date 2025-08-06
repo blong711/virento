@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
   efectParalax();
   infiniteSlide();
   // buttonQuantity();
-  deleteItem();
+  // deleteItem();
   clickControl();
   tabSlide();
   copyText();
-  wishList();
+  // wishList();
   bottomSticky();
   handleSidebarFilter();
   cookieSetting();
