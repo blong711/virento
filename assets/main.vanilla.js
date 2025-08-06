@@ -39,13 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
   autoPopup();
 });
 
-// Reinitialize goTop when sections are updated
-document.addEventListener('shopify:section:load', (event) => {
-  if (event.target.id.includes('back-to-top')) {
-    goTop();
-  }
-});
-
 /* Custom Select with Images
 ---------------------------------------------------------------------------*/
 const selectImages = () => {
@@ -517,24 +510,12 @@ const preloader = () => {
 
 /* Go Top
 -------------------------------------------------------------------------*/
-let goTopScrollHandler = null;
-let goTopClickHandler = null;
-
 const goTop = () => {
   const goTopBtn = document.querySelector('.go-top');
   const borderProgress = document.querySelector('.border-progress');
   if (!goTopBtn) return;
 
-  // Remove existing event listeners if they exist
-  if (goTopScrollHandler) {
-    window.removeEventListener('scroll', goTopScrollHandler);
-  }
-  if (goTopClickHandler) {
-    goTopBtn.removeEventListener('click', goTopClickHandler);
-  }
-
-  // Create scroll handler
-  goTopScrollHandler = () => {
+  window.addEventListener('scroll', () => {
     const scrollTop = window.pageYOffset;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPercent = (scrollTop / docHeight) * 100;
@@ -549,19 +530,14 @@ const goTop = () => {
     } else {
       goTopBtn.classList.remove('show');
     }
-  };
+  });
 
-  // Create click handler
-  goTopClickHandler = () => {
+  goTopBtn.addEventListener('click', () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
-  };
-
-  // Add event listeners
-  window.addEventListener('scroll', goTopScrollHandler);
-  goTopBtn.addEventListener('click', goTopClickHandler);
+  });
 };
 
 /* Check Click
