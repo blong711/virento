@@ -8,15 +8,8 @@ if (!customElements.get('product-cart-button')) {
       }
 
       init() {
-        // Find all possible cart buttons on the page
-        this.cartButtons = document.querySelectorAll([
-          'a[data-product-id]',           // Your current button structure
-          'button[data-product-id]',       // Button with product ID
-          'form[action*="/cart/add"]',     // Forms that add to cart
-          '[data-cart-add]',              // Generic cart add attribute
-          '.add-to-cart',                 // Common class name
-          '[data-add-to-cart]'            // Another common pattern
-        ].join(','));
+        // Find all cart buttons with the specific class
+        this.cartButtons = document.querySelectorAll('.product-cart-button');
         
         this.cartButtons.forEach(button => {
           button.addEventListener('click', this.onCartButtonClick.bind(this));
@@ -217,7 +210,7 @@ if (!customElements.get('product-cart-button')) {
 
 // Initialize cart buttons when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  if (document.querySelector('a[data-product-id], button[data-product-id], form[action*="/cart/add"], [data-cart-add], .add-to-cart, [data-add-to-cart]')) {
+  if (document.querySelector('.product-cart-button')) {
     const cartButtonElement = document.createElement('product-cart-button');
     document.body.appendChild(cartButtonElement);
   }
@@ -229,8 +222,8 @@ if (!window.cartButtonObserver) {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
         if (node.nodeType === Node.ELEMENT_NODE) {
-          const cartButtons = node.querySelectorAll ? node.querySelectorAll('a[data-product-id], button[data-product-id], form[action*="/cart/add"], [data-cart-add], .add-to-cart, [data-add-to-cart]') : [];
-          if (node.matches && node.matches('a[data-product-id], button[data-product-id], form[action*="/cart/add"], [data-cart-add], .add-to-cart, [data-add-to-cart]')) {
+          const cartButtons = node.querySelectorAll ? node.querySelectorAll('.product-cart-button') : [];
+          if (node.matches && node.matches('.product-cart-button')) {
             cartButtons.push(node);
           }
           
