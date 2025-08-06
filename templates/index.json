@@ -423,16 +423,16 @@
         "color_scheme": "scheme-1",
         "width": "container",
         "show_border": true,
-        "show_navigation": true,
-        "show_mobile_dots": true,
-        "items_per_row_desktop": 6,
-        "items_per_row_tablet": 4,
-        "items_per_row_mobile": 3,
         "title_alignment": "start",
         "title": "Shop by Brands",
         "title_tag": "h4",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
+        "show_navigation": true,
+        "show_mobile_dots": true,
+        "items_per_row_desktop": 6,
+        "items_per_row_tablet": 4,
+        "items_per_row_mobile": 3,
         "padding_top": 100,
         "padding_bottom": 100,
         "padding_mobile_rate": 75
@@ -519,8 +519,11 @@
         "subtitle_font_size": "text-md",
         "button_label": "Shop Now",
         "button_link": "/collections/all",
+        "content_position": "center-left",
+        "content_alignment": "center",
+        "content_width": 478,
         "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     },
@@ -535,12 +538,90 @@
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
         "featured_collection": "featured",
+        "product_list": [
+          "apple-smart-keyboard",
+          "apple-iphone-16-promax",
+          "micro-portable-bluetooth-speaker",
+          "apple-magsafe-charger",
+          "digital-camera-for-kids",
+          "wireless-gaming-mouse"
+        ],
         "products_to_show": 6,
         "show_navigation": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2
+        "products_per_row_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "icon_box": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_1": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "FREE DELIVERY",
+            "description": "Enjoy free delivery on all orders"
+          }
+        },
+        "icon_2": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-payment",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "SECURED PAYMENT",
+            "description": "Secured payment"
+          }
+        },
+        "icon_3": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "EASY RETURNS",
+            "description": "Within 14 days for a return"
+          }
+        },
+        "icon_4": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "24/7 SUPPORT",
+            "description": "Outstanding premium support"
+          }
+        }
+      },
+      "block_order": [
+        "icon_1",
+        "icon_2",
+        "icon_3",
+        "icon_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "icon_position_center": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_mobile_rate": 75
       }
     }
   },
@@ -553,6 +634,7 @@
     "brands",
     "featured_products_tab",
     "collection_banner",
-    "featured_product_carousel"
+    "featured_product_carousel",
+    "icon_box"
   ]
 }

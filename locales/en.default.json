@@ -97,7 +97,9 @@
     "total_reviews": "total reviews",
     "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
     "collapsible_content_title": "Collapsible content",
-    "complementary_products": "Complementary products"
+    "complementary_products": "Complementary products",
+    "previous_slide": "Previous slide",
+    "next_slide": "Next slide"
   },
   "blogs": {
     "article": {
@@ -309,7 +311,6 @@
       "remove_title": "Remove {{ title }}",
       "estimated_total": "Estimated total",
       "new_estimated_total": "New estimated total",
-      "note": "Order special instructions",
       "checkout": "Check out",
       "empty": "Your cart is empty",
       "cart_error": "There was an error while updating your cart. Please try again.",
@@ -322,6 +323,57 @@
       "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Duties included. Taxes, discounts and shipping calculated at checkout.",
       "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Taxes, discounts and <a href=\"{{ link }}\">shipping</a> calculated at checkout.",
       "taxes_at_checkout_shipping_at_checkout_without_policy": "Taxes, discounts and shipping calculated at checkout.",
+      "general": {
+        "spend_more_html": "Spend {{ amount }} more to get",
+        "free_shipping": "Free Shipping",
+        "free_shipping_qualified": "Congratulations! Your order qualifies for free shipping!"
+      },
+      "recommendations": {
+        "title": "You may also like",
+        "no_results": "No recommendations available"
+      },
+      "gift_wrap": {
+        "title": "Add gift wrap",
+        "button_label": "Add gift wrap option",
+        "description_html": "The product will be wrapped carefully. Free is only {{ price }}. Do you want a gift wrap?",
+        "add": "Add gift wrap",
+        "cancel": "Cancel"
+      },
+      "note": {
+        "title": "Order note",
+        "button_label": "Add order note",
+        "placeholder": "Instructions for seller...",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "discount": {
+        "title": "Add coupon",
+        "button_label": "Add discount code",
+        "description": "* Discount will be calculated and applied at checkout",
+        "placeholder": "Enter discount code",
+        "apply": "Apply",
+        "cancel": "Cancel"
+      },
+      "shipping": {
+        "title": "Shipping estimates",
+        "button_label": "Calculate shipping",
+        "country": "Country",
+        "province": "State/Province",
+        "zip": "Zipcode",
+        "zip_placeholder": "Enter your zipcode",
+        "success_text": "We found one shipping rate available for your address:",
+        "error_text": "We found one shipping rate available for undefined.",
+        "calculate": "Calculate",
+        "cancel": "Cancel"
+      },
+      "terms": {
+        "agreement_required": "Please agree to the terms and conditions",
+        "agreement_html": "I agree with the <a href=\"{{ terms_url }}\" class=\"fw-medium\">terms and conditions</a>"
+      },
+      "total": "Total",
+      "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
+      "view_cart": "View cart",
+      "continue_shopping": "Continue shopping",
       "headings": {
         "product": "Product",
         "price": "Price",

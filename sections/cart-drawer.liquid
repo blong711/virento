@@ -1,0 +1,312 @@
+<cart-drawer class="offcanvas offcanvas-end popup-style-1 popup-shopping-cart" id="shoppingCart" data-cart-drawer>
+    <div class="canvas-wrapper">
+        <div class="popup-header">
+            <span class="title">Shopping cart</span>
+            <button type="button" class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="wrap">
+            {%- assign free_shipping_threshold = 10000 -%}
+            {%- assign cart_total = cart.total_price -%}
+            {%- assign remaining_amount = free_shipping_threshold | minus: cart_total -%}
+            {%- assign progress_percentage = cart_total | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100 -%}
+            
+            <div class="tf-mini-cart-threshold">
+                <div class="text">
+                    {% if cart_total < free_shipping_threshold %}
+                        Spend <span class="fw-medium">{{ remaining_amount | money }}</span> more to get <span class="fw-medium">Free Shipping</span>
+                    {% else %}
+                        <span class="fw-medium">Congratulations! You've got Free Shipping!</span>
+                    {% endif %}
+                </div>
+                <div class="tf-progress-bar tf-progress-ship">
+                    <div class="value" style="width: {{ progress_percentage }}%;" data-progress="{{ progress_percentage }}">
+                        <i class="icon icon-car"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="tf-mini-cart-wrap">
+                <div class="tf-mini-cart-main">
+                    <div class="tf-mini-cart-sroll">
+                        <div class="tf-mini-cart-items">
+                            {%- for item in cart.items -%}
+                                <div class="tf-mini-cart-item" data-cart-item data-cart-item-key="{{ item.key }}">
+                                    <div class="tf-mini-cart-image">
+                                        <a href="{{ item.url }}">
+                                            <img class="lazyload"
+                                                data-src="{{ item.image | image_url: width: 150 }}"
+                                                src="{{ item.image | image_url: width: 150 }}" 
+                                                alt="{{ item.image.alt | escape }}"
+                                                width="150"
+                                                height="150"
+                                                loading="lazy">
+                                        </a>
+                                    </div>
+                                    <div class="tf-mini-cart-info">
+                                        <div class="d-flex justify-content-between">
+                                            <a class="title link text-md fw-medium" href="{{ item.url }}">{{ item.product.title }}</a>
+                                            <i class="icon icon-close remove fs-12"></i>
+                                        </div>
+                                        <div class="info-variant">
+                                            <select class="text-xs" data-current-variant="{{ item.variant.id }}">
+                                                {%- for variant in item.product.variants -%}
+                                                    <option value="{{ variant.title }}" 
+                                                            data-variant-id="{{ variant.id }}"
+                                                            {% if variant.id == item.variant.id %}selected{% endif %}>
+                                                        {{ variant.title }}
+                                                    </option>
+                                                {%- endfor -%}
+                                            </select>
+                                            <i class="icon-pen edit"></i>
+                                        </div>
+                                        <p class="price-wrap text-sm fw-medium">
+                                            <span class="new-price text-primary">{{ item.final_price | money }}</span>
+                                            {%- if item.original_price > item.final_price -%}
+                                                <span class="old-price text-decoration-line-through text-dark-1">{{ item.original_price | money }}</span>
+                                            {%- endif -%}
+                                        </p>
+                                        <div class="wg-quantity small" data-cart-quantity>
+                                            <button type="button" 
+                                                    class="btn-quantity minus-btn" 
+                                                    name="minus" 
+                                                    data-cart-quantity-minus 
+                                                    aria-label="Decrease quantity">-</button>
+                                            <input class="quantity-product font-4" 
+                                                   type="number" 
+                                                   name="updates[]" 
+                                                   value="{{ item.quantity }}" 
+                                                   min="0" 
+                                                   data-cart-quantity-input 
+                                                   aria-label="Item quantity">
+                                            <button type="button" 
+                                                    class="btn-quantity plus-btn" 
+                                                    name="plus" 
+                                                    data-cart-quantity-plus 
+                                                    aria-label="Increase quantity">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {%- endfor -%}
+                        </div>
+                        {%- if cart.item_count == 0 -%}
+                            <div class="tf-mini-cart-empty">
+                                <div class="empty-cart-message text-center">
+                                    <div class="empty-cart-icon mb-3">
+                                        <i class="icon icon-cart2" style="font-size: 3rem; opacity: 0.5;"></i>
+                                    </div>
+                                    <h4 class="empty-cart-title text-md fw-medium mb-2">Your cart is empty</h4>
+                                    <p class="empty-cart-subtitle text-sm opacity-8 mb-4">Looks like you haven't added any items to your cart yet.</p>
+                                    <a href="{{ routes.all_products_collection_url }}" class="tf-btn animate-btn d-inline-flex bg-dark-2">
+                                        Start Shopping
+                                    </a>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                        {%- if cart.item_count > 0 -%}
+                            <div class="tf-minicart-recommendations">
+                                <div class="tf-minicart-recommendations-heading d-flex justify-content-between align-items-end">
+                                    <div class="tf-minicart-recommendations-title text-md fw-medium">You may also like</div>
+                                    <div class="d-flex gap-10">
+                                        <div class="swiper-button-prev nav-swiper arrow-1 size-30 nav-prev-also-product"></div>
+                                        <div class="swiper-button-next nav-swiper arrow-1 size-30 nav-next-also-product"></div>
+                                    </div>
+                                </div>
+                                <div dir="ltr" class="swiper tf-swiper" data-swiper='{
+                                    "slidesPerView": 1,
+                                    "spaceBetween": 10,
+                                    "speed": 800,
+                                    "observer": true,
+                                    "observeParents": true,
+                                    "slidesPerGroup": 1,
+                                    "navigation": {
+                                        "clickable": true,
+                                        "nextEl": ".nav-next-also-product",
+                                        "prevEl": ".nav-prev-also-product"
+                                    }
+                                }'>
+                                    <div class="swiper-wrapper">
+                                        {%- for product in recommendations.products limit: 4 -%}
+                                            <div class="swiper-slide">
+                                                <div class="tf-mini-cart-item line radius-16">
+                                                    <div class="tf-mini-cart-image">
+                                                        <a href="{{ product.url }}">
+                                                            <img class="lazyload"
+                                                                data-src="{{ product.featured_image | image_url: width: 150 }}"
+                                                                src="{{ product.featured_image | image_url: width: 150 }}"
+                                                                alt="{{ product.featured_image.alt | escape }}"
+                                                                width="150"
+                                                                height="150"
+                                                                loading="lazy">
+                                                        </a>
+                                                    </div>
+                                                    <div class="tf-mini-cart-info justify-content-center">
+                                                        <a class="title link text-md fw-medium"
+                                                            href="{{ product.url }}">{{ product.title }}</a>
+                                                        <p class="price-wrap text-sm fw-medium">
+                                                            <span class="new-price text-primary">{{ product.price | money }}</span>
+                                                            {%- if product.compare_at_price > product.price -%}
+                                                                <span class="old-price text-decoration-line-through text-dark-1">{{ product.compare_at_price | money }}</span>
+                                                            {%- endif -%}
+                                                        </p>
+                                                        <form method="post" action="/cart/add" class="w-max-content">
+                                                            <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+                                                            <button type="submit" 
+                                                                    class="tf-btn animate-btn d-inline-flex bg-dark-2"
+                                                                    {% unless product.available %}disabled{% endunless %}
+                                                                    data-cart-add>
+                                                                {%- if product.available -%}
+                                                                    Add to cart
+                                                                {%- else -%}
+                                                                    Sold out
+                                                                {%- endif -%}
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {%- endfor -%}
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    </div>
+                </div>
+                <div class="tf-mini-cart-bottom">
+                    <div class="tf-mini-cart-tool">
+                        <div class="tf-mini-cart-tool-btn btn-add-gift">
+                            <i class="icon icon-gift2"></i>
+                            <div class="text-xxs">Add gift wrap</div>
+                        </div>
+                        <div class="tf-mini-cart-tool-btn btn-add-note">
+                            <i class="icon icon-note"></i>
+                            <div class="text-xxs">Order note</div>
+                        </div>
+                        <div class="tf-mini-cart-tool-btn btn-coupon">
+                            <i class="icon icon-coupon"></i>
+                            <div class="text-xxs">Coupon</div>
+                        </div>
+                        <div class="tf-mini-cart-tool-btn btn-estimate-shipping">
+                            <i class="icon icon-car"></i>
+                            <div class="text-xxs">Shipping</div>
+                        </div>
+                    </div>
+                    <div class="tf-mini-cart-bottom-wrap">
+                        <div class="tf-cart-totals-discounts">
+                            {%- if cart.total_discounts > 0 -%}
+                                <div class="tf-cart-discount text-sm">
+                                    <span>Discount</span>
+                                    <span>-{{ cart.total_discounts | money }}</span>
+                                </div>
+                            {%- endif -%}
+                            <div class="tf-cart-total text-xl fw-medium">Total:</div>
+                            <div class="tf-totals-total-value text-xl fw-medium">{{ cart.total_price | money }}</div>
+                        </div>
+                        <div class="tf-cart-tax text-sm opacity-8">
+                            {%- if cart.taxes_included -%}
+                                Including taxes
+                            {%- endif -%}
+                            Taxes and shipping calculated at checkout
+                        </div>
+                        <div class="tf-cart-checkbox">
+                            <div class="tf-checkbox-wrapp">
+                                <input class="" type="checkbox" id="CartDrawer-Form_agree" name="agree_checkbox" required>
+                                <div>
+                                    <i class="icon-check"></i>
+                                </div>
+                            </div>
+                            <label for="CartDrawer-Form_agree" class="text-sm">
+                                I agree with the
+                                <a href="{{ routes.legal_notice_url }}" title="Terms of Service" class="fw-medium">terms and conditions</a>
+                            </label>
+                        </div>
+                        <div class="tf-mini-cart-view-checkout">
+                            <a href="{{ routes.cart_url }}"
+                                class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">View cart</a>
+                            <a href="{{ routes.checkout_url }}"
+                                class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>Check out</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tf-mini-cart-tool-openable add-gift">
+                    <div class="overplay tf-mini-cart-tool-close"></div>
+                    <form action="{{ routes.cart_url }}" method="post" class="tf-mini-cart-tool-content" data-cart-gift-wrap>
+                        <div class="tf-mini-cart-tool-text text-sm fw-medium">Add gift wrap</div>
+                        <div class="tf-mini-cart-tool-text1 text-dark-1">The product will be wrapped carefully.
+                            Free is only <span class="text fw-medium text-dark">$10.00</span>. Do you want a
+                            gift wrap?</div>
+                        <div class="tf-cart-tool-btns">
+                            <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                                type="submit" data-cart-gift-wrap-add>Save</button>
+                            <button type="button" class="tf-btn btn-out-line-dark2 w-100 tf-mini-cart-tool-close">Close</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tf-mini-cart-tool-openable add-note">
+                    <div class="overplay tf-mini-cart-tool-close"></div>
+                    <form action="{{ routes.cart_update_url }}" method="post" class="tf-mini-cart-tool-content" data-cart-note>
+                        <label for="Cart-note" class="tf-mini-cart-tool-text text-sm fw-medium">Order note</label>
+                        <textarea name="note" id="Cart-note" placeholder="Instructions for seller...">{{ cart.note }}</textarea>
+                        <div class="tf-cart-tool-btns">
+                            <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                                type="submit" data-cart-note-add>Save</button>
+                            <button type="button" class="tf-btn btn-out-line-dark2 w-100 tf-mini-cart-tool-close">Close</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tf-mini-cart-tool-openable coupon">
+                    <div class="overplay tf-mini-cart-tool-close"></div>
+                    <form action="{{ routes.cart_url }}" method="post" class="tf-mini-cart-tool-content" data-cart-discount>
+                        <div class="tf-mini-cart-tool-text text-sm fw-medium">Add discount code</div>
+                        <div class="tf-mini-cart-tool-text1 text-dark-1">* Discount will be calculated and
+                            applied at checkout</div>
+                        <input type="text" name="discount" placeholder="Enter discount code" data-cart-discount-input>
+                        <div class="tf-cart-tool-btns">
+                            <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                                type="submit" data-cart-discount-add>Apply discount</button>
+                            <button type="button" class="tf-btn btn-out-line-dark2 w-100 tf-mini-cart-tool-close">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tf-mini-cart-tool-openable estimate-shipping">
+                    <div class="overplay tf-mini-cart-tool-close"></div>
+                    <form id="shipping-form" class="tf-mini-cart-tool-content" data-shipping-calculator>
+                        <div class="tf-mini-cart-tool-text text-sm fw-medium">Shipping estimates</div>
+                        <div class="field">
+                            <p class="text-sm">Country</p>
+                            <div class="tf-select">
+                                <select class="w-100" id="shipping-country-form" name="shipping_address[country]"
+                                    data-shipping-country>
+                                    {{ all_country_option_tags }}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <p class="text-sm">State/Province</p>
+                            <div class="tf-select">
+                                <select id="shipping-province-form" name="shipping_address[province]"
+                                    data-shipping-province></select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <p class="text-sm">Zipcode</p>
+                            <input type="text" 
+                                   id="shipping-zip" 
+                                   name="shipping_address[zip]" 
+                                   value="{{ cart.shipping_address.zip }}"
+                                   data-shipping-zip>
+                        </div>
+                        <div id="shipping-rates" class="shipping-rates" style="display: none;" data-shipping-rates>
+                            <p class="shipping-rates__heading"></p>
+                            <ul class="shipping-rates__list"></ul>
+                        </div>
+                        <div class="tf-cart-tool-btns">
+                            <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                                type="submit" data-shipping-calculator-submit>Calculate shipping</button>
+                            <button type="button" class="tf-mini-cart-tool-primary text-center fw-6 w-100 tf-mini-cart-tool-close">
+                                Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</cart-drawer>
