@@ -467,6 +467,14 @@
       "min_error": "This item has a minimum of {{ min }}",
       "max_error": "This item has a maximum of {{ max }}",
       "step_error": "You can only add this item in increments of {{ step }}"
+    },
+    "store-locator": {
+      "no_stores": "No stores available",
+      "address_label": "Address",
+      "phone_label": "Phone",
+      "email_label": "Email",
+      "hours_label": "Hours",
+      "get_direction": "Get Directions"
     }
   },
   "localization": {

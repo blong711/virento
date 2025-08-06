@@ -20,6 +20,21 @@
   </div>
 </section>
 
+{% style %}
+  @media (max-width: 767px) {
+    .wg-map iframe {
+      height: 350px !important;
+    }
+  }
+
+  .wg-map iframe {
+    border-radius: 16px;
+    overflow: hidden;
+    height: 589px;
+    width: 100%;
+  }
+{% endstyle %}
+
 {% schema %}
 {
   "name": "map-with-text",

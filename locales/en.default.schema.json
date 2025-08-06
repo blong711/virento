@@ -4515,6 +4515,57 @@
         }
       }
     },
+    "store-locator": {
+      "name": "Store Locator",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full Width"
+          }
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile padding rate"
+        }
+      },
+      "blocks": {
+        "store_item": {
+          "name": "Store Item",
+          "settings": {
+            "store_name": {
+              "label": "Store name"
+            },
+            "address": {
+              "label": "Address"
+            },
+            "phone": {
+              "label": "Phone number"
+            },
+            "email": {
+              "label": "Email"
+            },
+            "open_time": {
+              "label": "Opening hours"
+            },
+            "map_iframe": {
+              "label": "Map iframe",
+              "info": "Paste Google Maps embed iframe code here"
+            }
+          }
+        }
+      },
+      "presets": {
+        "default": "Store Locator"
     "icon-box": {
       "name": "Icon Box Slider",
       "settings": {
