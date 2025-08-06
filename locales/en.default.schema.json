@@ -4540,6 +4540,13 @@
         "products_per_row_mobile": {
           "label": "Items per row (Mobile)",
           "info": "Number of items to show per row on mobile screens"
+        },
+        "show_dots_mobile": {
+          "label": "Show dots on mobile",
+          "info": "Display navigation dots on mobile devices"
+        },
+        "slider_settings": {
+          "content": "Slider Settings"
         }
       },
       "blocks": {
