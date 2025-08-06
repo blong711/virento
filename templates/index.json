@@ -556,6 +556,57 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "icon_box": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_1": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "title": "FREE DELIVERY",
+            "description": "Enjoy free delivery on all orders"
+          }
+        },
+        "icon_2": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-payment",
+            "title": "SECURED PAYMENT",
+            "description": "Secured payment"
+          }
+        },
+        "icon_3": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "title": "EASY RETURNS",
+            "description": "Within 14 days for a return"
+          }
+        },
+        "icon_4": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "title": "24/7 SUPPORT",
+            "description": "Outstanding premium support"
+          }
+        }
+      },
+      "block_order": [
+        "icon_1",
+        "icon_2",
+        "icon_3",
+        "icon_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "show_dots_mobile": true,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -567,6 +618,7 @@
     "brands",
     "featured_products_tab",
     "collection_banner",
-    "featured_product_carousel"
+    "featured_product_carousel",
+    "icon_box"
   ]
 }

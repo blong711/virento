@@ -1,0 +1,252 @@
+{% schema %}
+{
+  "name": "Icon Box Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.all.width.label",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.width.options.boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.all.width.options.full_width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots_mobile",
+      "label": "Show dots on mobile",
+      "default": true
+    },
+    {
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 0
+    },
+    {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_box",
+      "name": "Icon Box",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_class",
+          "label": "Icon",
+          "options": [
+            {"value": "icon-menu", "label": "Menu"},
+            {"value": "icon-fill-check-circle", "label": "Check Circle"},
+            {"value": "icon-arrow1-left", "label": "Arrow Left 1"},
+            {"value": "icon-arrow-right", "label": "Arrow Right"},
+            {"value": "icon-arrow-top-left", "label": "Arrow Top Left"},
+            {"value": "icon-arrow-down", "label": "Arrow Down"},
+            {"value": "icon-arrow-up", "label": "Arrow Up"},
+            {"value": "icon-fashion-body", "label": "Fashion Body"},
+            {"value": "icon-precision", "label": "Precision"},
+            {"value": "icon-elegance", "label": "Elegance"},
+            {"value": "icon-heart3", "label": "Heart 3"},
+            {"value": "icon-order", "label": "Order"},
+            {"value": "icon-quote5", "label": "Quote 5"},
+            {"value": "icon-minus", "label": "Minus"},
+            {"value": "icon-plus", "label": "Plus"},
+            {"value": "icon-location", "label": "Location"},
+            {"value": "icon-shipped", "label": "Shipped"},
+            {"value": "icon-confirm", "label": "Confirm"},
+            {"value": "icon-fire2", "label": "Fire"},
+            {"value": "icon-sidebar", "label": "Sidebar"},
+            {"value": "icon-video", "label": "Video"},
+            {"value": "icon-car2", "label": "Car"},
+            {"value": "icon-compare3", "label": "Compare"},
+            {"value": "icon-check", "label": "Check"},
+            {"value": "icon-eye", "label": "Eye"},
+            {"value": "icon-copy", "label": "Copy"},
+            {"value": "icon-share", "label": "Share"},
+            {"value": "icon-ask", "label": "Ask"},
+            {"value": "icon-coupon", "label": "Coupon"},
+            {"value": "icon-note", "label": "Note"},
+            {"value": "icon-gift2", "label": "Gift"},
+            {"value": "icon-pen", "label": "Pen"},
+            {"value": "icon-close", "label": "Close"},
+            {"value": "icon-mail", "label": "Mail"},
+            {"value": "icon-support2", "label": "Support 2"},
+            {"value": "icon-shipping3", "label": "Shipping 3"},
+            {"value": "icon-return3", "label": "Return 3"},
+            {"value": "icon-customer", "label": "Customer"},
+            {"value": "icon-return2", "label": "Return 2"},
+            {"value": "icon-shipping2", "label": "Shipping 2"},
+            {"value": "icon-leaf", "label": "Leaf"},
+            {"value": "icon-clock", "label": "Clock"},
+            {"value": "icon-head-phone", "label": "Headphone"},
+            {"value": "icon-categories", "label": "Categories"},
+            {"value": "icon-sun", "label": "Sun"},
+            {"value": "icon-designs", "label": "Designs"},
+            {"value": "icon-fit", "label": "Fit"},
+            {"value": "icon-protection", "label": "Protection"},
+            {"value": "icon-quality", "label": "Quality"},
+            {"value": "icon-flash-star", "label": "Flash Star"},
+            {"value": "icon-verifi", "label": "Verify"},
+            {"value": "icon-compare", "label": "Compare"},
+            {"value": "icon-heart2", "label": "Heart 2"},
+            {"value": "icon-view", "label": "View"},
+            {"value": "icon-cart2", "label": "Cart 2"},
+            {"value": "icon-star", "label": "Star"},
+            {"value": "icon-cart", "label": "Cart"},
+            {"value": "icon-phone", "label": "Phone"},
+            {"value": "icon-heart", "label": "Heart"},
+            {"value": "icon-user", "label": "User"},
+            {"value": "icon-search", "label": "Search"},
+            {"value": "icon-gift", "label": "Gift"},
+            {"value": "icon-return", "label": "Return"},
+            {"value": "icon-support", "label": "Support"},
+            {"value": "icon-shipping", "label": "Shipping"},
+            {"value": "icon-payment", "label": "Payment"},
+            {"value": "icon-diamond", "label": "Diamond"},
+            {"value": "icon-trash", "label": "Trash"},
+            {"value": "icon-clock2", "label": "Clock 2"}
+          ],
+          "default": "icon-shipping"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "FREE DELIVERY"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Enjoy free delivery on all orders"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon Box Slider",
+      "blocks": [
+        {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "title": "FREE DELIVERY",
+            "description": "Enjoy free delivery on all orders"
+          }
+        },
+        {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-payment",
+            "title": "SECURED PAYMENT",
+            "description": "Secured payment"
+          }
+        },
+        {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "title": "EASY RETURNS",
+            "description": "Within 14 days for a return"
+          }
+        },
+        {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "title": "24/7 SUPPORT",
+            "description": "Outstanding premium support"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="line-top flat-spacing-5 section-{{ section.id }}-padding {{ section.settings.color_scheme }}">
+    <div class="{{ section.settings.width }}">
+        <div dir="ltr" class="swiper tf-swiper" data-swiper='{
+                "slidesPerView": 1,
+                "spaceBetween": 12,
+                "speed": 800,
+                "observer": true,
+                "observeParents": true,
+                "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
+                "breakpoints": {
+                    "575": { "slidesPerView": 2, "spaceBetween": 12, "slidesPerGroup": 2}, 
+                    "768": { "slidesPerView": 3, "spaceBetween": 24, "slidesPerGroup": 2},
+                    "1200": { "slidesPerView": 4, "spaceBetween": 42, "slidesPerGroup": 2}
+                }
+            }'>
+            <div class="swiper-wrapper wow fadeInUp">
+                {% for block in section.blocks %}
+                    {% if block.type == 'icon_box' %}
+                        <div class="swiper-slide" {{ block.shopify_attributes }}>
+                            <div class="tf-icon-box style-2">
+                                <div class="box-icon">
+                                    <i class="icon {{ block.settings.icon_class }} text-primary"></i>
+                                </div>
+                                <div class="content">
+                                    <div class="title">{{ block.settings.title }}</div>
+                                    <p class="desc">{{ block.settings.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% if section.settings.show_dots_mobile %}
+                <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
+            {% endif %}
+        </div>
+    </div>
+</div>
