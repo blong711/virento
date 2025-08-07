@@ -453,33 +453,15 @@
               {% unless product.metafields.affiliate.url %}
                 <div class="tf-product-total-quantity">
                   {% if product.available %}
-                      <div class="group-btn">
-                        <div class="wg-quantity">
-                          <button class="btn-quantity minus-btn" 
-                                  type="button"
-                                  aria-label="{{ 'sections.product.decrease_quantity' | t }}">
-                            <span aria-hidden="true">-</span>
-                          </button>
-                          <input class="quantity-product font-4" 
-                                 type="text" 
-                                 name="number" 
-                                 value="1" 
-                                 min="1"
-                                 aria-label="{{ 'sections.product.quantity' | t }}">
-                          <button class="btn-quantity plus-btn" 
-                                  type="button"
-                                  aria-label="{{ 'sections.product.increase_quantity' | t }}">
-                            <span aria-hidden="true">+</span>
-                          </button>
-                        </div>
-                        <button type="button"
-                                class="tf-btn hover-primary add-to-cart add-to-cart-btn" 
-                                data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                                data-quantity="1"
-                                aria-label="{{ 'sections.product.add_to_cart_with_title' | t: title: product.title }}">
-                          <span>{{ 'sections.product.add_to_cart' | t }}</span>
-                        </button>
+                    <div class="group-btn">
+                      <div class="wg-quantity">
+                          <button class="btn-quantity btn-decrease">-</button>
+                          <input class="quantity-product" type="text" name="number" value="1">
+                          <button class="btn-quantity btn-increase">+</button>
                       </div>
+                      <a href="#shoppingCart" data-bs-toggle="offcanvas"
+                          class="tf-btn hover-primary btn-add-to-cart">Add to cart</a>
+                    </div>
                       {% form 'product', product %}
                         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                         <input type="hidden" name="quantity" value="1">
@@ -556,52 +538,26 @@
                         {% if block.settings.show_wishlist or block.settings.show_compare or block.settings.show_ask_question or block.settings.show_share %}
                           <div class="tf-product-info-extra-link" {{ block.shopify_attributes }}>
                             {% if block.settings.show_wishlist %}
-                              <a href="#" 
-                                 class="product-extra-icon link btn-wishlist" 
-                                 data-wishlist 
-                                 data-id="{{ product.id }}" 
-                                 data-action="add"
-                                 aria-label="{{ 'sections.product.add_to_wishlist' | t }}">
-                                <span class="wishlist-content add">
-                                  <i class="icon icon-heart" aria-hidden="true"></i>
-                                  <span class="text">{{ 'sections.product.add_to_wishlist' | t }}</span>
-                                </span>
-                                <span class="wishlist-content remove">
-                                  <i class="icon icon-trash" aria-hidden="true"></i>
-                                  <span class="text">{{ 'sections.product.remove_from_wishlist' | t }}</span>
-                                </span>
-                              </a>
+                              <a href="javascript:void(0);" class="product-extra-icon link btn-add-wishlist">
+                                <i class="icon add icon-heart"></i><span class="add">Add to wishlist</span>
+                                <i class="icon added icon-trash"></i><span class="added">Remove from
+                                    wishlist</span>
+                            </a>
                             {% endif %}
                             {% if block.settings.show_compare %}
-                              <a href="#" 
-                                 class="product-extra-icon link" 
-                                 data-compare 
-                                 data-id="{{ product.id }}" 
-                                 data-action="add"
-                                 aria-label="{{ 'sections.product.add_to_compare' | t }}">
-                                <i class="icon icon-compare2" aria-hidden="true"></i>                              
-                                <span class="text">{{ 'sections.product.compare' | t }}</span>
-                              </a>
+                              <a href="#compare" data-bs-toggle="modal" class="product-extra-icon link">
+                                <i class="icon icon-compare2"></i>Compare
+                            </a>
                             {% endif %}
                             {% if block.settings.show_ask_question %}
-                              <a href="#askQuestion" 
-                                 data-bs-toggle="modal" 
-                                 class="product-extra-icon link"
-                                 aria-label="{{ 'sections.product.ask_question' | t }}"
-                                 aria-expanded="false">
-                                <i class="icon icon-ask" aria-hidden="true"></i>
-                                <span class="text">{{ 'sections.product.ask_question' | t }}</span>
-                              </a>
+                              <a href="#askQuestion" data-bs-toggle="modal" class="product-extra-icon link">
+                                <i class="icon icon-ask"></i>Ask a question
+                            </a>
                             {% endif %}
                             {% if block.settings.show_share %}
-                              <a href="#shareSocial" 
-                                 data-bs-toggle="modal" 
-                                 class="product-extra-icon link"
-                                 aria-label="{{ 'sections.product.share' | t }}"
-                                 aria-expanded="false">
-                                <i class="icon icon-share" aria-hidden="true"></i>
-                                <span class="text">{{ 'sections.product.share' | t }}</span>
-                              </a>
+                              <a href="#shareSocial" data-bs-toggle="modal" class="product-extra-icon link">
+                                <i class="icon icon-share"></i>Share
+                            </a>
                             {% endif %}
                           </div>
                         {% endif %}
@@ -831,17 +787,14 @@
               </div>
               <div class="tf-sticky-atc-btns">
                 <div class="tf-product-info-quantity">
-                  <div class="wg-quantity">
-                    <button class="btn-quantity minus-btn">-</button>
-                    <input class="quantity-product font-4" type="text" name="number" value="1" min="1">
-                    <button class="btn-quantity plus-btn">+</button>
-                  </div>
+                    <div class="wg-quantity">
+                        <button class="btn-quantity minus-btn">-</button>
+                        <input class="quantity-product font-4" type="text" name="number" value="1">
+                        <button class="btn-quantity plus-btn">+</button>
+                    </div>
                 </div>
-                <a href="#" 
-                   class="tf-btn hover-primary add-to-cart sticky-add-to-cart" 
-                   data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                   data-quantity="1"
-                   aria-label="{{ 'sections.product.add_to_cart' | t }}">{{ 'sections.product.add_to_cart' | t }}</a>
+                <a href="#shoppingCart" data-bs-toggle="offcanvas"
+                    class="tf-btn animate-btn d-inline-flex justify-content-center">Add to cart</a>
               </div>
             </form>
           </div>
