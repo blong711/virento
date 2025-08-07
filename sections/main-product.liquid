@@ -44,7 +44,7 @@
 
 
   <div class="tf-main-product section-image-zoom">
-    <div class="container" style="padding-left: 15px; padding-right: 15px;">
+    <div class="{{ section.settings.width }}">
       <div class="row">
         <!-- Product Images -->
         <div class="col-md-6">
@@ -766,7 +766,7 @@
 
   {% if section.settings.show_sticky_cart %}
     <div class="tf-sticky-btn-atc">
-      <div class="container" style="padding-left: 15px; padding-right: 15px;">
+      <div class="{{ section.settings.width }}">
         <div class="tf-height-observer w-100 d-flex align-items-center">
           <div class="tf-sticky-atc-product d-flex align-items-center">
             <div class="tf-sticky-atc-img">
@@ -913,7 +913,7 @@
 
 {% schema %}
 {
-  "name": "Product",
+  "name": "Main Product",
   "settings": [
     {
       "type": "select",
@@ -955,18 +955,18 @@
     {
       "type": "select",
       "id": "width",
-      "label": "Section width",
+      "label": "t:sections.all.width.label",
       "options": [
         {
-          "value": "full",
-          "label": "Full width"
+          "value": "container",
+          "label": "t:sections.all.width.options.boxed"
         },
         {
-          "value": "boxed",
-          "label": "Boxed"
+          "value": "container-full",
+          "label": "t:sections.all.width.options.full_width"
         }
       ],
-      "default": "boxed"
+      "default": "container"
     },
     {
       "type": "checkbox",
