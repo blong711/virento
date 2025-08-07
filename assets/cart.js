@@ -119,30 +119,7 @@ class CartItems extends HTMLElement {
     }
   }
 
-  getSectionsToRender() {
-    return [
-      {
-        id: 'main-cart-items',
-        section: document.getElementById('main-cart-items').dataset.id,
-        selector: '.js-contents',
-      },
-      {
-        id: 'cart-icon-bubble',
-        section: 'cart-icon-bubble',
-        selector: '.shopify-section',
-      },
-      {
-        id: 'cart-live-region-text',
-        section: 'cart-live-region-text',
-        selector: '.shopify-section',
-      },
-      {
-        id: 'main-cart-footer',
-        section: document.getElementById('main-cart-footer').dataset.id,
-        selector: '.js-contents',
-      },
-    ];
-  }
+
 
   updateQuantity(line, quantity, event, name, variantId) {
     this.enableLoading(line);
@@ -150,7 +127,7 @@ class CartItems extends HTMLElement {
     const body = JSON.stringify({
       line,
       quantity,
-      sections: this.getSectionsToRender().map((section) => section.section),
+      sections: ['main-cart-items', 'cart-live-region-text', 'main-cart-footer'],
       sections_url: window.location.pathname,
     });
     const eventTarget = event.currentTarget instanceof CartRemoveButton ? 'clear' : 'change';
@@ -180,14 +157,35 @@ class CartItems extends HTMLElement {
           if (cartFooter) cartFooter.classList.toggle('is-empty', parsedState.item_count === 0);
           if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle('is-empty', parsedState.item_count === 0);
 
-          this.getSectionsToRender().forEach((section) => {
-            const elementToReplace =
-              document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
+          // Update main cart items
+          const mainCartItems = document.getElementById('main-cart-items');
+          if (mainCartItems && parsedState.sections['main-cart-items']) {
+            const elementToReplace = mainCartItems.querySelector('.js-contents') || mainCartItems;
             elementToReplace.innerHTML = this.getSectionInnerHTML(
-              parsedState.sections[section.section],
-              section.selector
+              parsedState.sections['main-cart-items'],
+              '.js-contents'
             );
-          });
+          }
+
+          // Update cart live region text
+          const cartLiveRegion = document.getElementById('cart-live-region-text');
+          if (cartLiveRegion && parsedState.sections['cart-live-region-text']) {
+            const elementToReplace = cartLiveRegion.querySelector('.shopify-section') || cartLiveRegion;
+            elementToReplace.innerHTML = this.getSectionInnerHTML(
+              parsedState.sections['cart-live-region-text'],
+              '.shopify-section'
+            );
+          }
+
+          // Update main cart footer
+          const mainCartFooter = document.getElementById('main-cart-footer');
+          if (mainCartFooter && parsedState.sections['main-cart-footer']) {
+            const elementToReplace = mainCartFooter.querySelector('.js-contents') || mainCartFooter;
+            elementToReplace.innerHTML = this.getSectionInnerHTML(
+              parsedState.sections['main-cart-footer'],
+              '.js-contents'
+            );
+          }
           const updatedValue = parsedState.items[line - 1] ? parsedState.items[line - 1].quantity : undefined;
           let message = '';
           if (items.length === parsedState.items.length && updatedValue !== parseInt(quantityElement.value)) {
@@ -215,6 +213,9 @@ class CartItems extends HTMLElement {
         CartPerformance.measureFromEvent(`${eventTarget}:user-action`, event);
 
         publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: parsedState, variantId: variantId });
+        
+        // Trigger cart count update event
+        document.dispatchEvent(new CustomEvent('cart:updated'));
       })
       .catch(() => {
         this.querySelectorAll('.loading__spinner').forEach((overlay) => overlay.classList.add('hidden'));

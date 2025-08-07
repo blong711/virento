@@ -17,6 +17,12 @@
     "breadcrumbs": {
       "home": "Home"
     },
+    "navigation": {
+      "home": "Home",
+      "shop": "Shop",
+      "wishlist": "Wishlist",
+      "cart": "Cart"
+    },
     "accessibility": {
       "close": "Close"
     },

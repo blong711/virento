@@ -295,7 +295,6 @@
     <script src="{{ 'simpleParallaxVanilla.umd.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'main.vanilla.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'shop.vanilla.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'product-cart-button.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
 
@@ -372,6 +371,7 @@
 
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'cart-count-updater.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
   </body>
 </html>

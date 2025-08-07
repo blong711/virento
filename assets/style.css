@@ -3235,6 +3235,12 @@ header.header-bg {
   color: var(--text);
   background-color: var(--white);
 }
+@media (max-width: 767px) {
+  .footer-default {
+      font-size: 14px;
+      line-height: 22px;
+  }
+}
 .footer-default a {
   color: var(--text);
 }
@@ -19330,5 +19336,23 @@ shopify-accelerated-checkout {
   border-color: var(--primary) !important;
   transform: scale(1.02) !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+@media (min-width: 1200px) {
+  .tf-product-info-wrap .product-stock .stock {
+      margin-right: 14px;
+  }
+}
+.tf-product-info-wrap .product-stock .in-stock {
+  background-color: rgba(44, 163, 21, 0.1);
+  color: #1d770b;
+}
+.tf-product-info-wrap .product-stock .stock {
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: 8px;
+  font-weight: 500;
+}
+.tf-product-info-wrap .product-stock .icon {
+  animation: tf-ani-flash 2s infinite;
 }
 /*# sourceMappingURL=styles.css.map */

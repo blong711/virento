@@ -23,11 +23,15 @@
       "type": "back-to-top",
       "settings": {}
     },
-
+    "mobile-toolbar": {
+      "type": "mobile-toolbar",
+      "settings": {}
+    }
   },
   "order": [
     "cart-drawer",
     "compare-modal",
-    "back-to-top"
+    "back-to-top",
+    "mobile-toolbar"
   ]
 }

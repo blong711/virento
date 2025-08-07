@@ -246,17 +246,7 @@ class CartDrawer extends HTMLElement {
     return element ? element.innerHTML : '';
   }
 
-  getSectionsToRender() {
-    return [
-      {
-        id: 'cart-drawer',
-        selector: '#shoppingCart',
-      },
-      {
-        id: 'cart-icon-bubble',
-      },
-    ];
-  }
+
 
   updateCart(cartData) {
     // Update cart contents without full page reload
@@ -277,6 +267,9 @@ class CartDrawer extends HTMLElement {
       .catch(error => {
         console.error('Error updating cart:', error);
       });
+    
+    // Trigger cart count update event
+    document.dispatchEvent(new CustomEvent('cart:updated'));
   }
 
   checkEmptyCart() {
@@ -325,22 +318,3 @@ class CartDrawer extends HTMLElement {
 }
 
 customElements.define('cart-drawer', CartDrawer);
-
-class CartDrawerItems extends HTMLElement {
-  getSectionsToRender() {
-    return [
-      {
-        id: 'cart-drawer',
-        section: 'cart-drawer',
-        selector: '#shoppingCart',
-      },
-      {
-        id: 'cart-icon-bubble',
-        section: 'cart-icon-bubble',
-        selector: '.shopify-section',
-      },
-    ];
-  }
-}
-
-customElements.define('cart-drawer-items', CartDrawerItems);

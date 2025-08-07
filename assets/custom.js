@@ -127,6 +127,9 @@ function handleWishlistClick(button, productId, productHandle) {
     bubbles: true,
     detail: arr_wishlist_list
   }));
+  
+  // Update wishlist count in mobile toolbar
+  updateWishlistCount();
 }
 
 // Update all wishlist buttons for a specific product
@@ -155,6 +158,9 @@ function updateAllWishlistButtons(productId, action) {
 document.addEventListener('DOMContentLoaded', function() {
   initializeWishlistButtons();
   initializeCompareButtons();
+  
+  // Update wishlist count on page load
+  updateWishlistCount();
 });
 
 // Also initialize for dynamically loaded content
@@ -190,6 +196,22 @@ if (window.isPageCompare) {
   } else {
     window.history.replaceState({}, document.title, conver_to_link_fn('compare', []));
   }
+}
+
+// Update wishlist count in mobile toolbar
+function updateWishlistCount() {
+  const wishlistCountElements = document.querySelectorAll('.toolbar-count.wishlist-count');
+  const count = arr_wishlist_list.length;
+  
+  wishlistCountElements.forEach(element => {
+    element.textContent = count;
+    
+    // Add visual feedback
+    element.style.transform = 'scale(1.2)';
+    setTimeout(() => {
+      element.style.transform = 'scale(1)';
+    }, 200);
+  });
 }
 
 // Update count

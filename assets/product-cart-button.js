@@ -80,10 +80,9 @@ if (!customElements.get('product-cart-button')) {
         formData.append('quantity', quantity);
 
         if (this.cart) {
-          formData.append(
-            'sections',
-            this.cart.getSectionsToRender().map((section) => section.id)
-          );
+          // Add sections that need to be updated
+          const sections = ['cart-drawer', 'cart-live-region-text'];
+          formData.append('sections', sections);
           formData.append('sections_url', window.location.pathname);
           this.cart.setActiveElement(document.activeElement);
         }
@@ -125,6 +124,9 @@ if (!customElements.get('product-cart-button')) {
             CartPerformance.measure("add:paint-updated-sections", () => {
               this.cart.renderContents(response);
             });
+
+            // Trigger cart count update event
+            document.dispatchEvent(new CustomEvent('cart:updated'));
 
             // Show success feedback
             this.setButtonText(button, 'Added!');
