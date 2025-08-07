@@ -14,6 +14,9 @@
     }
   },
   "general": {
+    "breadcrumbs": {
+      "home": "Home"
+    },
     "accessibility": {
       "close": "Close"
     },
@@ -389,6 +392,68 @@
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
       }
+    },
+    "product": {
+      "submit": "Submit",
+      "thank_you": "Thank you!",
+      "notification_success": "You've been successfully added to our notification list. We'll notify you when this product is back in stock.",
+      "pickup_available": "Pickup available at",
+      "usually_ready": "Usually ready in",
+      "add_to_wishlist": "Add to wishlist",
+      "remove_from_wishlist": "Remove from wishlist",
+      "compare": "Compare",
+      "ask_question": "Ask a question",
+      "share": "Share",
+      "buy": "Buy",
+      "get": "Get",
+      "off": "Off",
+      "sku": "SKU:",
+      "categories": "Categories:",
+      "name": "Name",
+      "email": "Email",
+      "notification_description": "Enter your email address to be notified if the product becomes available again.",
+      "notify_when_available": "Notify me when it back in stock",
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "unit_price": "Unit price",
+      "vendor": "Vendor",
+      "tax_policy_html": "Tax included. Shipping calculated at checkout.",
+      "media": {
+        "image_available": "Image {index} of {count}"
+      },
+      "quick_view": "Quick view",
+      "breadcrumb_home": "Home",
+      "buy_it_now": "Buy it now",
+      "more_payment_options": "More payment options",
+      "add_selected_to_cart": "Add selected to cart",
+      "total_price": "Total price:",
+      "size_guide_error": "Error: The selected page \"{{ page_title }}\" has no content. Please add content to this page or select a different page.",
+      "size_guide_empty": "No size guide content found. Please select a page in the theme settings.",
+      "error_add_to_cart": "Failed to add item to cart. Please try again.",
+      "error_select_product": "Please select at least one product",
+      "adding_to_cart": "Adding to cart...",
+      "error_add_items_to_cart": "Failed to add items to cart. Please try again.",
+      "copied": "Copied!",
+      "adding": "Adding...",
+      "added": "Added!",
+      "free_shipping_unlocked": "Congratulations! You've unlocked <span class='fw-medium'>Free Shipping</span>",
+      "free_shipping_progress": "Spend <span class='fw-medium'>[amount]</span> more to get <span class='fw-medium'>Free Shipping</span>",
+      "decrease_quantity": "Decrease quantity",
+      "increase_quantity": "Increase quantity",
+      "add_to_cart_with_title": "Add to cart {{ title }}",
+      "add_to_compare": "Add to compare",
+      "video_autoplay_settings": "Video Autoplay Settings",
+      "video_autoplay_description": "Would you like to enable video autoplay? This may consume mobile data.",
+      "video_autoplay_enable": "Enable Autoplay",
+      "video_autoplay_no_thanks": "No, Thanks",
+      "variant_not_available": "This color is not available in the selected size",
+      "color_not_available": "This color is currently not available",
+      "size_not_available": "This size is currently not available",
+      "variant_error": "Selected variant is not available"
     },
     "footer": {
       "payment": "Payment methods",

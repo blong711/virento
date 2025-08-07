@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "product_breadcrumb": {
+      "type": "product-breadcrumb",
+      "settings": {}
+    },
+    "main_product": {
+      "type": "main-product",
+    }
+  },
+  "order": [
+    "product_breadcrumb",
+    "main_product"
+  ]
+} 

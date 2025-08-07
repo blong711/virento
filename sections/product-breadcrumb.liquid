@@ -1,0 +1,23 @@
+<div class="tf-breadcrumb mb-0">
+    <div class="container">
+        <ul class="breadcrumb-list">
+            <li class="item-breadcrumb">
+                <a href="{{ routes.root_url }}" class="text">{{ 'general.breadcrumbs.home' | t }}</a>
+            </li>
+            {% if collection %}
+            <li class="item-breadcrumb dot">
+                <span></span>
+            </li>
+            <li class="item-breadcrumb">
+                <a href="{{ collection.url }}" class="text">{{ collection.title }}</a>
+            </li>
+            {% endif %}
+            <li class="item-breadcrumb dot">
+                <span></span>
+            </li>
+            <li class="item-breadcrumb">
+                <span class="text">{{ product.title }}</span>
+            </li>
+        </ul>
+    </div>
+</div>

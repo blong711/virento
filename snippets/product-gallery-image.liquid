@@ -1,0 +1,116 @@
+{%- comment -%}
+  Product Gallery Image Snippet with Zoom Support
+  Usage: {% render 'product-gallery-image', media: media, product: product %}
+  
+  Parameters:
+  - media: The media object (image, video, model)
+  - product: The product object
+  - class: CSS class(es) for the image
+  - sizes: Custom sizes attribute (optional)
+  - lazy: Whether to use lazy loading (default: true)
+  - zoom: Whether to enable zoom functionality (default: true)
+{%- endcomment -%}
+
+{%- assign lazy_loading = lazy | default: true -%}
+{%- assign enable_zoom = zoom | default: true -%}
+{%- assign image_class = class | default: 'gallery-image' -%}
+
+{%- comment -%}Gallery specific sizes for larger images{%- endcomment -%}
+{%- assign default_sizes = '(max-width: 768px) 100vw, 50vw' -%}
+{%- assign image_sizes = sizes | default: default_sizes -%}
+
+{%- case media.media_type -%}
+  {%- when 'image' -%}
+    <a href="{{ media | image_url: width: 1200, format: 'webp' }}" 
+       target="_blank" 
+       class="item item-scroll-target" 
+       data-media-id="{{ media.id }}"
+       data-pswp-width="{{ media.width }}px" 
+       data-pswp-height="{{ media.height }}px"
+       {%- if enable_zoom -%}
+         data-zoom="{{ media | image_url: width: 1200, format: 'webp' }}"
+       {%- endif -%}>
+      
+      {%- render 'responsive-image',
+        image: media,
+        alt: media.alt | default: product.title,
+        class: image_class | append: ' tf-image-zoom',
+        sizes: image_sizes,
+        lazy: lazy_loading,
+        preload: false,
+        max_width: 1200 -%}
+    </a>
+    
+  {%- when 'video' -%}
+    <a href="{{ media | image_url: width: 1200, format: 'webp' }}" 
+       target="_blank" 
+       class="item item-scroll-target" 
+       data-media-id="{{ media.id }}"
+       data-pswp-width="{{ media.width }}px" 
+       data-pswp-height="{{ media.height }}px">
+      
+      <div class="wrap-btn-viewer style-video">
+        <i class="icon icon-video"></i>
+      </div>
+      
+      {%- if media.preview_image != blank -%}
+        {%- render 'responsive-image',
+          image: media.preview_image,
+          alt: 'Video thumbnail',
+          class: image_class | append: ' tf-image-zoom',
+          sizes: image_sizes,
+          lazy: lazy_loading,
+          preload: false,
+          max_width: 1200 -%}
+      {%- endif -%}
+    </a>
+    
+  {%- when 'model' -%}
+    <a href="{{ media | image_url: width: 1200, format: 'webp' }}" 
+       target="_blank" 
+       class="item item-scroll-target" 
+       data-media-id="{{ media.id }}"
+       data-pswp-width="{{ media.width }}px" 
+       data-pswp-height="{{ media.height }}px">
+      
+      <div class="wrap-btn-viewer">
+        <i class="icon icon-btn3d"></i>
+      </div>
+      
+      {%- if media.preview_image != blank -%}
+        {%- render 'responsive-image',
+          image: media.preview_image,
+          alt: '3D model thumbnail',
+          class: image_class | append: ' tf-image-zoom',
+          sizes: image_sizes,
+          lazy: lazy_loading,
+          preload: false,
+          max_width: 1200 -%}
+      {%- endif -%}
+    </a>
+    
+  {%- when 'external_video' -%}
+    <a href="{{ media | image_url: width: 1200, format: 'webp' }}" 
+       target="_blank" 
+       class="item item-scroll-target" 
+       data-media-id="{{ media.id }}"
+       data-pswp-width="{{ media.width }}px" 
+       data-pswp-height="{{ media.height }}px">
+      
+      <div class="wrap-btn-viewer style-video">
+        <i class="icon icon-video"></i>
+      </div>
+      
+      {%- if media.preview_image != blank -%}
+        {%- render 'responsive-image',
+          image: media.preview_image,
+          alt: 'External video thumbnail',
+          class: image_class | append: ' tf-image-zoom',
+          sizes: image_sizes,
+          lazy: lazy_loading,
+          preload: false,
+          max_width: 1200 -%}
+      {%- endif -%}
+    </a>
+    
+{%- endcase -%} 
