@@ -3,9 +3,18 @@
     - product: The product object
 {% endcomment %}
 <li>
-    <a href="{{ product.url }}" class="hover-tooltip box-icon quickview"
-        data-product-id="{{ product.id }}"
-        data-product-handle="{{ product.handle }}">
+    <a href="#" 
+       class="hover-tooltip box-icon quickview btn-quickview" 
+       data-product-id="{{ product.id }}"
+       data-product-handle="{{ product.handle }}"
+       data-product-title="{{ product.title | escape }}"
+       data-product-price="{{ product.price | money }}"
+       data-product-compare-price="{{ product.compare_at_price | money }}"
+       data-product-description="{{ product.description | strip_html | truncate: 150 | escape }}"
+       data-product-url="{{ product.url }}"
+       data-product-images="{% for image in product.images %}{{ image | img_url: '600x' }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+       data-product-variants="{{ product.variants | json | escape }}"
+       data-product-options="{{ product.options_with_values | json | escape }}">
         <span class="icon icon-view"></span>
         <span class="tooltip">Quick View</span>
     </a>

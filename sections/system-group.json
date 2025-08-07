@@ -22,11 +22,16 @@
     "back-to-top": {
       "type": "back-to-top",
       "settings": {}
+    },
+    "quickview-modal": {
+      "type": "quickview-modal",
+      "settings": {}
     }
   },
   "order": [
     "cart-drawer",
     "compare-modal",
-    "back-to-top"
+    "back-to-top",
+    "quickview-modal"
   ]
 }

@@ -606,11 +606,204 @@ const staggerWrap = () => {
 const clickModalSecond = () => {
   // Using Bootstrap 5 Modal API
   document.querySelectorAll('.btn-quickview').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      const productData = {
+        id: btn.getAttribute('data-product-id'),
+        handle: btn.getAttribute('data-product-handle'),
+        title: btn.getAttribute('data-product-title'),
+        price: btn.getAttribute('data-product-price'),
+        comparePrice: btn.getAttribute('data-product-compare-price'),
+        description: btn.getAttribute('data-product-description'),
+        url: btn.getAttribute('data-product-url'),
+        images: btn.getAttribute('data-product-images') ? btn.getAttribute('data-product-images').split(',') : [],
+        variants: btn.getAttribute('data-product-variants') ? JSON.parse(btn.getAttribute('data-product-variants')) : [],
+        options: btn.getAttribute('data-product-options') ? JSON.parse(btn.getAttribute('data-product-options')) : []
+      };
+      
       const quickViewModal = new bootstrap.Modal(document.getElementById('quickView'));
+      const modalElement = document.getElementById('quickView');
+      const mediaWrap = document.querySelector('#quickView .tf-product-media-wrap');
+      const infoWrap = document.querySelector('#quickView .tf-product-info-wrap');
+      
+      // Store product variants data in modal for variant selection
+      modalElement.setAttribute('data-product-variants', JSON.stringify(productData.variants));
+      
+      // Generate HTML content from product data
+      const { mediaHTML, infoHTML } = generateQuickviewContent(productData);
+      mediaWrap.innerHTML = mediaHTML;
+      infoWrap.innerHTML = infoHTML;
+      
       quickViewModal.show();
+      
+      // Initialize swiper after content is loaded
+      setTimeout(() => {
+        const swiperContainer = document.querySelector('#quickView .tf-single-slide');
+        if (swiperContainer && typeof Swiper !== 'undefined') {
+          new Swiper(swiperContainer, {
+            slidesPerView: 1,
+            spaceBetween: 0,
+            navigation: {
+              nextEl: '.single-slide-next',
+              prevEl: '.single-slide-prev',
+            },
+          });
+        }
+        
+        // Reinitialize quantity buttons and variant picker
+        buttonQuantity();
+        variantPicker();
+        
+        // Initialize variant selection for quickview
+        initializeQuickviewVariants();
+      }, 100);
     });
   });
+  
+  // Function to generate quickview content HTML
+  const generateQuickviewContent = (product) => {
+    const hasSale = product.comparePrice && product.comparePrice !== product.price;
+    const hasVariants = product.options && product.options.length > 0;
+    
+    let imagesHTML = '';
+    if (product.images && product.images.length > 0) {
+      imagesHTML = product.images.map((image, index) => `
+        <div class="swiper-slide" data-color="default">
+          <div class="item">
+            <img class="lazyload" 
+                 data-src="${image}"
+                 src="${image}" 
+                 alt="${product.title}"
+                 width="600"
+                 height="600">
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    let variantsHTML = '';
+    if (hasVariants) {
+      const colorOption = product.options.find(option => 
+        option.name === 'Color' || option.name === 'Colour'
+      );
+      
+      if (colorOption) {
+        const colorValues = colorOption.values.map((value, index) => `
+          <div class="hover-tooltip color-btn${index === 0 ? ' active' : ''}" 
+               data-color="${value.toLowerCase().replace(/\s+/g, '-')}">
+            <span class="check-color bg-${value.toLowerCase().replace(/\s+/g, '-')}"></span>
+            <span class="tooltip">${value}</span>
+          </div>
+        `).join('');
+        
+        variantsHTML = `
+          <div class="tf-product-info-variant">
+            <div class="variant-picker-item variant-color">
+              <div class="variant-picker-label">
+                ${colorOption.name}:<span class="variant-picker-label-value value-currentColor">${colorOption.selected_value || colorOption.values[0]}</span>
+              </div>
+              <div class="variant-picker-values">
+                ${colorValues}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+    
+    const mediaHTML = `
+      <div dir="ltr" class="swiper tf-single-slide">
+        <div class="swiper-wrapper">
+          ${imagesHTML}
+        </div>
+        <div class="swiper-button-prev nav-swiper arrow-1 nav-prev-cls single-slide-prev"></div>
+        <div class="swiper-button-next nav-swiper arrow-1 nav-next-cls single-slide-next"></div>
+      </div>
+    `;
+    
+    const infoHTML = `
+      <div class="tf-product-info-inner">
+        <div class="tf-product-info-heading">
+          <h6 class="product-info-name">${product.title}</h6>
+          <div class="product-info-price">
+            ${hasSale ? `
+              <h6 class="price-new price-on-sale">${product.price}</h6>
+              <h6 class="price-old">${product.comparePrice}</h6>
+            ` : `
+              <h6 class="price-new">${product.price}</h6>
+            `}
+          </div>
+          <p class="text">${product.description}</p>
+        </div>
+        
+        ${variantsHTML}
+        
+        <div class="tf-product-total-quantity">
+          <div class="group-btn">
+            <div class="wg-quantity">
+              <button type="button" class="btn-quantity minus-btn">-</button>
+              <input class="quantity-product font-4" type="number" name="quantity" value="1" min="1">
+              <button type="button" class="btn-quantity plus-btn">+</button>
+            </div>
+            <a href="#" 
+               class="tf-btn hover-primary product-cart-button" 
+               data-variant-id="${product.variants[0]?.id || ''}"
+               data-product-id="${product.id}"
+               data-selected-variant="${product.variants[0]?.id || ''}">
+              Add to cart
+            </a>
+          </div>
+          <a href="${product.url}" class="tf-btn w-100 animate-btn paypal btn-primary">Buy It Now</a>
+          <a href="/cart" class="more-choose-payment link">More payment options</a>
+        </div>
+        <a href="${product.url}" class="view-details link">View full details <i class="icon icon-arrow-right"></i></a>
+      </div>
+    `;
+    
+    return { mediaHTML, infoHTML };
+  };
+  
+  // Function to handle variant selection in quickview
+  const initializeQuickviewVariants = () => {
+    const quickviewModal = document.getElementById('quickView');
+    if (!quickviewModal) return;
+    
+    const colorButtons = quickviewModal.querySelectorAll('.color-btn');
+    const cartButton = quickviewModal.querySelector('.product-cart-button');
+    const productData = JSON.parse(quickviewModal.getAttribute('data-product-variants') || '[]');
+    
+    colorButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        colorButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to clicked button
+        button.classList.add('active');
+        
+        // Update the selected color label
+        const colorValue = button.getAttribute('data-color');
+        const colorLabel = quickviewModal.querySelector('.value-currentColor');
+        const tooltip = button.querySelector('.tooltip');
+        if (colorLabel && tooltip) {
+          colorLabel.textContent = tooltip.textContent;
+        }
+        
+        // Find the corresponding variant
+        const selectedVariant = productData.find(variant => {
+          // Check if variant has the selected color option
+          return variant.option1 === tooltip.textContent || 
+                 variant.option2 === tooltip.textContent || 
+                 variant.option3 === tooltip.textContent;
+        });
+        
+        // Update cart button with selected variant
+        if (cartButton && selectedVariant) {
+          cartButton.setAttribute('data-variant-id', selectedVariant.id);
+          cartButton.setAttribute('data-selected-variant', selectedVariant.id);
+        }
+      });
+    });
+  };
 
   document.querySelectorAll('.btn-addtocart').forEach(btn => {
     btn.addEventListener('click', () => {
