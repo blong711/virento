@@ -1,0 +1,35 @@
+<!-- register -->
+<div class="offcanvas offcanvas-end popup-style-1 popup-register" id="register">
+    <div class="canvas-wrapper">
+        <div class="canvas-header popup-header">
+            <span class="title">{{ 'customer.register.title' | t }}</span>
+            <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="{{ 'general.accessibility.close' | t }}"></button>
+        </div>
+        <div class="canvas-body popup-inner">
+            {% form 'create_customer', class: 'form-login' %}
+                <div class="">
+                    <fieldset class="text mb_12">
+                        <input type="text" name="customer[first_name]" placeholder="{{ 'customer.register.first_name' | t }}" required>
+                    </fieldset>
+                    <fieldset class="text mb_12">
+                        <input type="text" name="customer[last_name]" placeholder="{{ 'customer.register.last_name' | t }}" required>
+                    </fieldset>
+                    <fieldset class="email mb_12">
+                        <input type="email" name="customer[email]" placeholder="{{ 'customer.register.email' | t }}*" required>
+                    </fieldset>
+                    <fieldset class="password">
+                        <input type="password" name="customer[password]" placeholder="{{ 'customer.register.password' | t }}*" required>
+                    </fieldset>
+                </div>
+                <div class="bot">
+                    <p class="text text-sm text-main-2">{{ 'customer.register.newsletter_text' | t }}</p>
+                    <div class="button-wrap">
+                        <button class="subscribe-button tf-btn animate-btn bg-dark-2 w-100" type="submit">{{ 'customer.register.submit' | t }}</button>
+                        <button type="button" data-bs-target="#login" data-bs-toggle="offcanvas" class="tf-btn btn-out-line-dark2 w-100">{{ 'customer.register.sign_in' | t }}</button>
+                    </div>
+                </div>
+            {% endform %}
+        </div>
+    </div>
+</div>
+<!-- /register -->

@@ -263,7 +263,7 @@
         "step": 1,
         "unit": "px",
         "label": "Base Size (Mobile)",
-        "default": 16
+        "default": 14
       },
       {
         "type": "range",
@@ -273,7 +273,7 @@
         "step": 1,
         "unit": "px",
         "label": "Base Size (Tablet and Desktop)",
-        "default": 16
+        "default": 14
       },
       {
         "type": "range",
