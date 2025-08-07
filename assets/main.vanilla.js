@@ -640,15 +640,26 @@ const clickModalSecond = () => {
       // Initialize swiper after content is loaded
       setTimeout(() => {
         const swiperContainer = document.querySelector('#quickView .tf-single-slide');
+        let quickviewSwiper = null;
+        
         if (swiperContainer && typeof Swiper !== 'undefined') {
-          new Swiper(swiperContainer, {
+          quickviewSwiper = new Swiper(swiperContainer, {
             slidesPerView: 1,
             spaceBetween: 0,
             navigation: {
               nextEl: '.single-slide-next',
               prevEl: '.single-slide-prev',
             },
+            on: {
+              slideChange: function () {
+                // Update variant selection when swiper changes
+                updateVariantFromSwiper(this.activeIndex);
+              }
+            }
           });
+          
+          // Store swiper instance in modal for access
+          modalElement.setAttribute('data-swiper-instance', 'initialized');
         }
         
         // Reinitialize quantity buttons and variant picker
@@ -668,18 +679,51 @@ const clickModalSecond = () => {
     
     let imagesHTML = '';
     if (product.images && product.images.length > 0) {
-      imagesHTML = product.images.map((image, index) => `
-        <div class="swiper-slide" data-color="default">
-          <div class="item">
-            <img class="lazyload" 
-                 data-src="${image}"
-                 src="${image}" 
-                 alt="${product.title}"
-                 width="600"
-                 height="600">
+      // Create a mapping of colors to variants for better matching
+      const colorToVariantMap = {};
+      if (product.variants && product.variants.length > 0) {
+        product.variants.forEach(variant => {
+          const color = variant.option1 || variant.option2 || variant.option3 || '';
+          if (color) {
+            colorToVariantMap[color.toLowerCase()] = variant;
+          }
+        });
+      }
+      
+      imagesHTML = product.images.map((image, index) => {
+        // Try to determine which variant this image belongs to
+        let variantId = '';
+        let variantColor = '';
+        
+        // First, try to match by image position if we have enough variants
+        if (product.variants && product.variants.length > index) {
+          const variant = product.variants[index];
+          variantId = variant.id;
+          variantColor = variant.option1 || variant.option2 || variant.option3 || '';
+        } else if (product.variants && product.variants.length > 0) {
+          // If we don't have enough variants, use the first variant
+          const variant = product.variants[0];
+          variantId = variant.id;
+          variantColor = variant.option1 || variant.option2 || variant.option3 || '';
+        }
+        
+        return `
+          <div class="swiper-slide" 
+               data-variant-id="${variantId}"
+               data-variant-color="${variantColor.toLowerCase().replace(/\s+/g, '-')}"
+               data-color="${variantColor.toLowerCase().replace(/\s+/g, '-')}"
+               data-image-index="${index}">
+            <div class="item">
+              <img class="lazyload" 
+                   data-src="${image}"
+                   src="${image}" 
+                   alt="${product.title}"
+                   width="600"
+                   height="600">
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
     
     let variantsHTML = '';
@@ -764,6 +808,146 @@ const clickModalSecond = () => {
     return { mediaHTML, infoHTML };
   };
   
+  // Function to update variant selection when swiper changes
+  const updateVariantFromSwiper = (activeIndex) => {
+    const quickviewModal = document.getElementById('quickView');
+    if (!quickviewModal) return;
+    
+    // Prevent recursive updates
+    if (quickviewModal.getAttribute('data-updating-variant') === 'true') return;
+    
+    const swiperContainer = quickviewModal.querySelector('.tf-single-slide');
+    if (!swiperContainer) return;
+    
+    const activeSlide = swiperContainer.querySelector(`.swiper-slide:nth-child(${activeIndex + 1})`);
+    if (!activeSlide) return;
+    
+    const variantColor = activeSlide.getAttribute('data-variant-color');
+    if (!variantColor) return;
+    
+    // Find the corresponding color button
+    const colorButtons = quickviewModal.querySelectorAll('.color-btn');
+    const matchingButton = Array.from(colorButtons).find(button => {
+      const buttonColor = button.getAttribute('data-color');
+      return buttonColor === variantColor;
+    });
+    
+    if (matchingButton) {
+      // Remove active class from all buttons
+      colorButtons.forEach(btn => btn.classList.remove('active'));
+      // Add active class to matching button
+      matchingButton.classList.add('active');
+      
+      // Update the selected color label
+      const colorLabel = quickviewModal.querySelector('.value-currentColor');
+      const tooltip = matchingButton.querySelector('.tooltip');
+      if (colorLabel && tooltip) {
+        colorLabel.textContent = tooltip.textContent;
+      }
+      
+      // Update cart button with selected variant
+      const productData = JSON.parse(quickviewModal.getAttribute('data-product-variants') || '[]');
+      const selectedVariant = productData.find(variant => {
+        return variant.option1 === tooltip.textContent || 
+               variant.option2 === tooltip.textContent || 
+               variant.option3 === tooltip.textContent;
+      });
+      
+      const cartButton = quickviewModal.querySelector('.product-cart-button');
+      if (cartButton && selectedVariant) {
+        cartButton.setAttribute('data-variant-id', selectedVariant.id);
+        cartButton.setAttribute('data-selected-variant', selectedVariant.id);
+      }
+    } else {
+      // If no exact match found, try to find the closest match or use the first variant
+      const productData = JSON.parse(quickviewModal.getAttribute('data-product-variants') || '[]');
+      if (productData.length > 0) {
+        const firstVariant = productData[0];
+        const firstColorButton = colorButtons[0];
+        
+        if (firstColorButton) {
+          // Remove active class from all buttons
+          colorButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to first button
+          firstColorButton.classList.add('active');
+          
+          // Update the selected color label
+          const colorLabel = quickviewModal.querySelector('.value-currentColor');
+          const tooltip = firstColorButton.querySelector('.tooltip');
+          if (colorLabel && tooltip) {
+            colorLabel.textContent = tooltip.textContent;
+          }
+          
+          // Update cart button with first variant
+          const cartButton = quickviewModal.querySelector('.product-cart-button');
+          if (cartButton) {
+            cartButton.setAttribute('data-variant-id', firstVariant.id);
+            cartButton.setAttribute('data-selected-variant', firstVariant.id);
+          }
+        }
+      }
+      
+      // Clear the flag after a short delay
+      setTimeout(() => {
+        quickviewModal.removeAttribute('data-updating-variant');
+      }, 100);
+    }
+  };
+  
+  // Function to update swiper when variant is selected
+  const updateSwiperFromVariant = (selectedColor) => {
+    const quickviewModal = document.getElementById('quickView');
+    if (!quickviewModal) return;
+    
+    // Set flag to prevent recursive updates
+    quickviewModal.setAttribute('data-updating-variant', 'true');
+    
+    const swiperContainer = quickviewModal.querySelector('.tf-single-slide');
+    if (!swiperContainer) return;
+    
+    // Find the slide that corresponds to this color
+    const slides = swiperContainer.querySelectorAll('.swiper-slide');
+    const normalizedColor = selectedColor.toLowerCase().replace(/\s+/g, '-');
+    
+    const targetSlideIndex = Array.from(slides).findIndex(slide => {
+      const slideColor = slide.getAttribute('data-variant-color');
+      return slideColor === normalizedColor;
+    });
+    
+    if (targetSlideIndex !== -1) {
+      // Get the swiper instance and slide to the target slide
+      const swiperInstance = swiperContainer.swiper;
+      if (swiperInstance && swiperInstance.slideTo) {
+        swiperInstance.slideTo(targetSlideIndex);
+      }
+    } else {
+      // If no exact match found, try to find a slide with similar color or use the first slide
+      const fallbackIndex = Array.from(slides).findIndex(slide => {
+        const slideColor = slide.getAttribute('data-variant-color');
+        // Try to find a slide that contains the color name
+        return slideColor && slideColor.includes(normalizedColor.split('-')[0]);
+      });
+      
+      if (fallbackIndex !== -1) {
+        const swiperInstance = swiperContainer.swiper;
+        if (swiperInstance && swiperInstance.slideTo) {
+          swiperInstance.slideTo(fallbackIndex);
+        }
+              } else if (slides.length > 0) {
+          // If still no match, go to the first slide
+          const swiperInstance = swiperContainer.swiper;
+          if (swiperInstance && swiperInstance.slideTo) {
+            swiperInstance.slideTo(0);
+          }
+        }
+      }
+      
+      // Clear the flag after a short delay
+      setTimeout(() => {
+        quickviewModal.removeAttribute('data-updating-variant');
+      }, 100);
+    };
+  
   // Function to handle variant selection in quickview
   const initializeQuickviewVariants = () => {
     const quickviewModal = document.getElementById('quickView');
@@ -801,6 +985,12 @@ const clickModalSecond = () => {
           cartButton.setAttribute('data-variant-id', selectedVariant.id);
           cartButton.setAttribute('data-selected-variant', selectedVariant.id);
         }
+        
+        // Update swiper to show corresponding image for this variant
+        // Add a small delay to prevent conflicts with swiper's own slideChange event
+        setTimeout(() => {
+          updateSwiperFromVariant(tooltip.textContent);
+        }, 50);
       });
     });
   };
