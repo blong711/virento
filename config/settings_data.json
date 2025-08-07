@@ -20,6 +20,8 @@
     "body_font_weight": 400,
     "heading_scale": 100,
     "body_scale": 100,
+    "body_size_mobile": 14,
+    "body_size_desktop": 14,
     "page_width": 1488,
     "spacing_sections": 0,
     "card_style": "standard",
