@@ -19286,5 +19286,49 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
+shopify-accelerated-checkout {
+  --shopify-accelerated-checkout-button-block-size: 50px;
+  --shopify-accelerated-checkout-button-border-radius: 99px;
+  --shopify-accelerated-checkout-button-box-shadow: none;
+  --shopify-accelerated-checkout-skeleton-background-color: #ff6f61;
+  --shopify-accelerated-checkout-skeleton-animation-opacity-start: 1;
+  --shopify-accelerated-checkout-skeleton-animation-opacity-end: 0.5;
+  --shopify-accelerated-checkout-skeleton-animation-duration: 4s;
+  --shopify-accelerated-checkout-skeleton-animation-timing-function: ease;
+}
 
+/* Custom styling for accelerated checkout buttons */
+.shopify-payment-button__button,
+.shopify-payment-button__button--unbranded {
+  -webkit-transition: all 0.3s ease-in-out !important;
+  -moz-transition: all 0.3s ease-in-out !important;
+  -ms-transition: all 0.3s ease-in-out !important;
+  -o-transition: all 0.3s ease-in-out !important;
+  transition: all 0.3s ease-in-out !important;
+  background-color: var(--primary) !important;
+  border: 1px solid var(--primary) !important;
+  color: var(--white) !important;
+  padding: 13px 32px !important;
+  border-radius: 99px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  font-weight: 500 !important;
+  width: 100% !important;
+  text-transform: none !important;
+  height: auto !important;
+  min-height: auto !important;
+  box-shadow: none !important;
+}
+
+.shopify-payment-button__button:hover,
+.shopify-payment-button__button--unbranded:hover {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
 /*# sourceMappingURL=styles.css.map */
