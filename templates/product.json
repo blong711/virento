@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "product_breadcrumb": {
@@ -6,10 +15,123 @@
     },
     "main_product": {
       "type": "main-product",
+      "blocks": {
+        "vendor_zHTgQB": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title_UVUbbt": {
+          "type": "title",
+          "settings": {}
+        },
+        "price_miqWQM": {
+          "type": "price",
+          "settings": {}
+        },
+        "sold_count_FhTTRW": {
+          "type": "sold_count",
+          "settings": {
+            "in_stock_text": "In Stock",
+            "out_of_stock_text": "Out of Stock",
+            "sold_count_text": "{count} sold in last 24 hours",
+            "min_sold_count": 20,
+            "max_sold_count": 50
+          }
+        },
+        "stock_count_HLePWd": {
+          "type": "stock_count",
+          "settings": {
+            "stock_count_text": "HURRY UP!",
+            "stock_prefix": "Only",
+            "stock_suffix": "items left!",
+            "stock_threshold": 50
+          }
+        },
+        "variant_picker_CFdTLh": {
+          "type": "variant_picker",
+          "settings": {
+            "pick_mode": "first_available",
+            "enable_history_state": false,
+            "hide_sold_out": false,
+            "color_selector_type": "swatch_rounded",
+            "color_selector_size": "medium"
+          }
+        },
+        "extra_links_WWFndr": {
+          "type": "extra_links",
+          "settings": {
+            "show_wishlist": true,
+            "show_compare": true,
+            "show_ask_question": true,
+            "show_share": true
+          }
+        },
+        "sku_CwEeQx": {
+          "type": "sku",
+          "settings": {}
+        },
+        "trust_and_payment_W3rWmf": {
+          "type": "trust_and_payment",
+          "settings": {
+            "trust_seal_text": "Guarantee Safe Checkout:",
+            "svg_list": "visa,paypal,master,american_express,diners"
+          }
+        },
+        "delivery_info_ifqrMR": {
+          "type": "delivery_info",
+          "settings": {
+            "delivery_icon": "icon-car2",
+            "delivery_label": "Estimated delivery time:",
+            "delivery_time": "3-5 days international",
+            "show_delivery_info": true,
+            "shipping_icon": "icon-shipping3",
+            "shipping_label": "Free shipping on",
+            "free_shipping_text": "all orders over $150",
+            "show_free_shipping": true,
+            "free_shipping_threshold": 150,
+            "icon_size": 24
+          }
+        },
+        "fbt_BjrkCe": {
+          "type": "fbt",
+          "settings": {
+            "fbt_title": "Frequently Bought Together",
+            "fbt_source": "manual",
+            "fbt_products": [],
+            "max_products": 3,
+            "fbt_margin_top": 42,
+            "fbt_margin_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "vendor_zHTgQB",
+        "title_UVUbbt",
+        "price_miqWQM",
+        "sold_count_FhTTRW",
+        "stock_count_HLePWd",
+        "variant_picker_CFdTLh",
+        "extra_links_WWFndr",
+        "sku_CwEeQx",
+        "trust_and_payment_W3rWmf",
+        "delivery_info_ifqrMR",
+        "fbt_BjrkCe"
+      ],
+      "settings": {
+        "layout": "default",
+        "thumbnail_position": "left",
+        "width": "boxed",
+        "show_sticky_cart": true,
+        "enable_video_loop": true,
+        "enable_video_autoplay": true,
+        "enable_variant_by_image": true,
+        "show_slider_nav": true,
+        "enable_image_zoom": true
+      }
     }
   },
   "order": [
     "product_breadcrumb",
     "main_product"
   ]
-} 
+}
