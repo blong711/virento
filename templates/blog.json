@@ -1,0 +1,103 @@
+{
+  "sections": {
+    "blog_sub_collection": {
+      "type": "blog-sub-collection",
+      "settings": {},
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "category_name": "Accessories",
+            "button_text": "View all",
+            "show_overlay": true
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "category_name": "Bags",
+            "button_text": "View all",
+            "show_overlay": true
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "category_name": "Lifestyle",
+            "button_text": "View all",
+            "show_overlay": true
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "category_name": "Design",
+            "button_text": "View all",
+            "show_overlay": true
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "category_name": "Tricks & Tips",
+            "button_text": "View all",
+            "show_overlay": true
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5"
+      ]
+    },
+    "blog_section": {
+      "type": "blog",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      },
+      "blocks": {
+        "blog_content": {
+          "type": "blog_content",
+          "settings": {
+            "width": "boxed",
+            "color_scheme": "background-1",
+            "layout": "list",
+            "article_limit": 6,
+            "items_per_row_dk": 2,
+            "items_per_row_tb": 2,
+            "items_per_row_mb": 1,
+            "show_excerpt": true,
+            "show_author": true,
+            "show_comment_count": true,
+            "show_readmore": false,
+            "show_date": true,
+            "date_format": "%b %d %Y"
+          }
+        },
+        "blog_sidebar": {
+          "type": "blog_sidebar",
+          "settings": {
+            "show_recent_posts": true,
+            "show_tags": true,
+            "sidebar_banner_title": "Elevate Your Style",
+            "sidebar_banner_button_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "blog_content",
+        "blog_sidebar"
+      ]
+    }
+  },
+  "order": [
+    "blog_sub_collection",
+    "blog_section"
+  ]
+}

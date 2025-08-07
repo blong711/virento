@@ -4709,6 +4709,130 @@
         "view": "View"
       }
     },
+    "blog": {
+      "name": "Blog Section",
+      "settings": {
+        "view_all": {
+          "label": "View all button text",
+          "default": "View all"
+        },
+        "posts_count": {
+          "label": "Posts count text",
+          "default": "posts"
+        },
+        "post_by": {
+          "label": "Post by text",
+          "default": "Post by"
+        },
+        "comments_count": {
+          "label": "Comments count text",
+          "default": "comments"
+        },
+        "recent_posts": {
+          "label": "Recent posts heading",
+          "default": "Recent Posts"
+        },
+        "tags": {
+          "label": "Tags heading",
+          "default": "Tags"
+        }
+      }
+    },
+    "blog-sub-collection": {
+      "name": "Blog Sub Collection",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full Width"
+          }
+        },
+        "slides_settings_heading": {
+          "label": "Slides Settings"
+        },
+        "padding_top": {
+          "label": "Top padding"
+        },
+        "padding_bottom": {
+          "label": "Bottom padding"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile Padding Rate",
+          "info": "Percentage of desktop padding to use on mobile devices"
+        },
+        "color_scheme": {
+          "label": "Color Scheme"
+        },
+        "blog_select": {
+          "label": "Blog"
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "options": {
+            "adapt": "Adapt to image",
+            "square": "Square",
+            "portrait": "Portrait",
+            "landscape": "Landscape"
+          }
+        },
+        "show_count": {
+          "label": "Show post count"
+        },
+        "show_post_count": {
+          "label": "Show Post Count"
+        },
+        "slides_per_view_mobile": {
+          "label": "Items per row (Mobile)"
+        },
+        "slides_per_group_mobile": {
+          "label": "Slides Per Group (Mobile)"
+        },
+        "slides_per_view_tablet": {
+          "label": "Items per row (Tablet)"
+        },
+        "slides_per_group_tablet": {
+          "label": "Slides Per Group (Tablet)"
+        },
+        "slides_per_view_desktop": {
+          "label": "Items per row (Desktop)"
+        },
+        "slides_per_group_desktop": {
+          "label": "Slides Per Group (Desktop)"
+        },
+        "space_between": {
+          "label": "Space Between Slides"
+        }
+      },
+      "blocks": {
+        "category": {
+          "name": "Blog Category",
+          "settings": {
+            "category_name": {
+              "label": "Category Name"
+            },
+            "blog_handle": {
+              "label": "Select Blog"
+            },
+            "category_image": {
+              "label": "Category Image"
+            },
+            "button_text": {
+              "label": "Button Text"
+            },
+            "category_url": {
+              "label": "Category URL"
+            },
+            "show_overlay": {
+              "label": "Show Overlay"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Blog Categories Slider"
+      }
+    },
     "back-to-top": {
       "name": "Back to Top",
       "settings": {

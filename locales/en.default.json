@@ -468,6 +468,14 @@
       "max_error": "This item has a maximum of {{ max }}",
       "step_error": "You can only add this item in increments of {{ step }}"
     },
+    "blog": {
+      "view_all": "View all",
+      "posts": "posts",
+      "post_by": "Post by",
+      "comments": "comments",
+      "recent_posts": "Recent Posts",
+      "tags": "Tags"
+    },
     "store-locator": {
       "no_stores": "No stores available",
       "address_label": "Address",

@@ -1,0 +1,428 @@
+<div class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
+    <div
+      dir="ltr"
+      class="swiper tf-swiper hover-sw-nav wow fadeInUp"
+      data-swiper='
+        {
+          "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+          "spaceBetween": {{ section.settings.space_between }},
+          "speed": 800,
+          "observer": true,
+          "observeParents": true,
+          "slidesPerGroup": {{ section.settings.slides_per_group_mobile }},
+          "navigation": {
+            "clickable": true,
+            "nextEl": ".nav-next-cls",
+            "prevEl": ".nav-prev-cls"
+          },
+          "pagination": { "el": ".sw-pagination-cls", "clickable": true },
+          "breakpoints": {
+            "768": {
+              "slidesPerView": {{ section.settings.slides_per_view_tablet }},
+              "spaceBetween": {{ section.settings.space_between }},
+              "slidesPerGroup": {{ section.settings.slides_per_group_tablet }}
+            },
+            "1200": {
+              "slidesPerView": {{ section.settings.slides_per_view_desktop }},
+              "spaceBetween": {{ section.settings.space_between }},
+              "slidesPerGroup": {{ section.settings.slides_per_group_desktop }}
+            }
+          }
+        }
+      '
+    >
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'category' %}
+              {% assign blog = blogs[block.settings.blog_handle] %}
+              {% assign post_count = 0 %}
+
+              {% if blog %}
+                {% assign post_count = blog.articles.size %}
+              {% endif %}
+
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="wg-cls style-abs2 hover-img">
+                  <a href="{{ block.settings.category_url | default: blog.url }}" class="image-wrap relative">
+                    <div class="image img-style">
+                      {% if block.settings.category_image %}
+                        <img
+                          src="{{ block.settings.category_image | image_url: width: 300 }}"
+                          alt="{{ block.settings.category_name }}"
+                          width="300"
+                          height="200"
+                          class="lazyload"
+                        >
+                      {% else %}
+                        <div class="placeholder-image">{{ 'image' | placeholder_svg_tag }}</div>
+                      {% endif %}
+                    </div>
+
+                    {% if block.settings.show_overlay %}
+                      <div class="cls-btn text-center">
+                        <button class="tf-btn btn-white hover-dark">
+                          {{ block.settings.button_text }}
+                        </button>
+                      </div>
+                      <span class="tf-overlay"></span>
+                    {% endif %}
+                  </a>
+
+                  <div class="cls-content text-center">
+                    <a
+                      href="{{ block.settings.category_url | default: blog.url }}"
+                      class="text-type text-xl-2 fw-medium link"
+                    >
+                      {{ block.settings.category_name }}
+                    </a>
+
+                    {% if section.settings.show_post_count %}
+                      <span class="count-item body-text-2 text-main">
+                        {{ post_count }} post{% unless post_count == 1 %}s{% endunless %}
+                      </span>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+
+      <div class="d-flex d-xl-none sw-dot-default sw-pagination-category justify-content-center"></div>
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    .text-main {
+      color: rgb(var(--color-foreground)) !important;
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "Blog Sub Collection",
+  "tag": "section",
+  "class": "blog-categories-section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "t:sections.blog-sub-collection.settings.width.options.boxed"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.blog-sub-collection.settings.width.options.full"
+        }
+      ],
+      "default": "boxed",
+      "label": "t:sections.blog-sub-collection.settings.width.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.blog-sub-collection.settings.color_scheme.label",
+      "default": "background-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_post_count",
+      "label": "t:sections.blog-sub-collection.settings.show_post_count.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.blog-sub-collection.settings.slides_settings_heading.label"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_mobile",
+      "label": "t:sections.blog-sub-collection.settings.slides_per_view_mobile.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_group_mobile",
+      "label": "t:sections.blog-sub-collection.settings.slides_per_group_mobile.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_tablet",
+      "label": "t:sections.blog-sub-collection.settings.slides_per_view_tablet.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_group_tablet",
+      "label": "t:sections.blog-sub-collection.settings.slides_per_group_tablet.label",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_view_desktop",
+      "label": "t:sections.blog-sub-collection.settings.slides_per_view_desktop.label",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "5"
+    },
+    {
+      "type": "select",
+      "id": "slides_per_group_desktop",
+      "label": "t:sections.blog-sub-collection.settings.slides_per_group_desktop.label",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        },
+        {
+          "value": "6",
+          "label": "6"
+        }
+      ],
+      "default": "5"
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "label": "t:sections.blog-sub-collection.settings.space_between.label",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.blog-sub-collection.settings.padding_top.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.blog-sub-collection.settings.padding_bottom.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.blog-sub-collection.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.blog-sub-collection.settings.padding_mobile_rate.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "t:sections.blog-sub-collection.blocks.category.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_name",
+          "label": "t:sections.blog-sub-collection.blocks.category.settings.category_name.label",
+          "default": "Lifestyle"
+        },
+        {
+          "type": "blog",
+          "id": "blog_handle",
+          "label": "t:sections.blog-sub-collection.blocks.category.settings.blog_handle.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "category_image",
+          "label": "t:sections.blog-sub-collection.blocks.category.settings.category_image.label"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:sections.blog-sub-collection.blocks.category.settings.button_text.label",
+          "default": "View all"
+        },
+        {
+          "type": "url",
+          "id": "category_url",
+          "label": "t:sections.blog-sub-collection.blocks.category.settings.category_url.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_overlay",
+          "label": "t:sections.blog-sub-collection.blocks.category.settings.show_overlay.label",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.blog-sub-collection.presets.name",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Accessories",
+            "button_text": "View all"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Bags",
+            "button_text": "View all"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Lifestyle",
+            "button_text": "View all"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Design",
+            "button_text": "View all"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "category_name": "Tricks & Tips",
+            "button_text": "View all"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
