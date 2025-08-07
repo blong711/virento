@@ -44,7 +44,16 @@ if (!customElements.get('product-cart-button')) {
         }
 
         // Get quantity if available
-        const quantityInput = button.closest('form')?.querySelector('input[name="quantity"]');
+        let quantityInput = button.closest('form')?.querySelector('input[name="quantity"]');
+        
+        // If no quantity input in form, check if we're in a quickview modal
+        if (!quantityInput) {
+          const quickviewModal = document.getElementById('quickView');
+          if (quickviewModal && quickviewModal.classList.contains('show')) {
+            quantityInput = quickviewModal.querySelector('input[name="quantity"]');
+          }
+        }
+        
         if (quantityInput) {
           quantity = parseInt(quantityInput.value) || 1;
         }

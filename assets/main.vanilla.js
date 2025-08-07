@@ -666,6 +666,12 @@ const clickModalSecond = () => {
         buttonQuantity();
         variantPicker();
         
+        // Reset quantity to 1 when modal opens
+        const quantityInput = modalElement.querySelector('input[name="quantity"]');
+        if (quantityInput) {
+          quantityInput.value = 1;
+        }
+        
         // Initialize variant selection for quickview
         initializeQuickviewVariants();
       }, 100);
@@ -1453,13 +1459,24 @@ const buttonQuantity = () => {
     });
   });
 
+  // Add input validation for quantity inputs
+  document.querySelectorAll('input[name="quantity"]').forEach(input => {
+    input.addEventListener('change', (e) => {
+      let value = parseInt(e.target.value, 10);
+      if (isNaN(value) || value < 1) {
+        value = 1;
+      }
+      e.target.value = value;
+    });
+  });
+
   document.querySelectorAll('.plus-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const input = btn.closest('div').querySelector('input');
       let value = parseInt(input.value, 10);
 
-      if (value > -1) {
+      if (value >= 1) {
         value = value + 1;
       }
       input.value = value;
