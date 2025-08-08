@@ -323,11 +323,17 @@ customElements.define('cart-drawer', CartDrawer);
 if (Shopify.designMode) {
   document.addEventListener('shopify:section:select', function(event) {
     if (event.target.id === 'shopify-section-cart-drawer') {
-      var cartDrawer = new bootstrap.Offcanvas(document.getElementById('shoppingCart'));
-      cartDrawer.show();
+      // Get the cart drawer element and open it
+      const cartDrawer = document.querySelector('cart-drawer');
+      if (cartDrawer) {
+        cartDrawer.open();
+      }
     } else {
       // Force close the drawer by triggering the close button
-      document.querySelector('#shoppingCart .icon-close-popup').click();
+      const closeButton = document.querySelector('#shoppingCart .icon-close-popup');
+      if (closeButton) {
+        closeButton.click();
+      }
     }
   });
 }
