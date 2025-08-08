@@ -1,4 +1,4 @@
-<div class="gradient">
+<div class="gradient color-{{ section.settings.color_scheme }}">
   <div class="{% if section.settings.width == 'boxed' %}container{% else %}full-width{% endif %}{% if section.settings.padding_top > 0 %} pt-{{ section.settings.padding_top }}{% endif %}{% if section.settings.padding_bottom > 0 %} pb-{{ section.settings.padding_bottom }}{% endif %}">
     {% for block in section.blocks %}
       {% case block.type %}
@@ -13,28 +13,49 @@
 
           <!-- Blog Content Section -->
           <section
-            class="{% if block.settings.layout == 'list' %}s-blog-list-v1{% else %}s-blog-grid{% endif %} sec-blog space-blog color-{{ block.settings.color_scheme | default: section.settings.color_scheme }} gradient"
+            class="{% if block.settings.layout == 'list' %}s-blog-list-v1{% else %}s-blog-grid{% endif %} sec-blog space-blog color-{{ section.settings.color_scheme }} gradient"
             {{ block.shopify_attributes }}
           >
-            <div class="container">
-              <div class="row">
-                <div class="{% if has_sidebar %}col-lg-8{% else %}col-12{% endif %}">
-                  {% comment %} Determine blog source based on settings {% endcomment %}
-                  {% assign current_blog = blog %}
-                  {% assign blog_source_type = block.settings.blog_source | default: 'current' %}
+            <div class="row">
+              <div class="{% if has_sidebar %}col-lg-8{% else %}col-12{% endif %}">
+                {% comment %} Determine blog source based on settings {% endcomment %}
+                {% assign current_blog = blog %}
+                {% assign blog_source_type = block.settings.blog_source | default: 'current' %}
 
-                  {% if blog_source_type == 'specific' and block.settings.specific_blog != blank %}
-                    {% assign current_blog = blogs[block.settings.specific_blog] %}
-                  {% endif %}
+                {% if blog_source_type == 'specific' and block.settings.specific_blog != blank %}
+                  {% assign current_blog = blogs[block.settings.specific_blog] %}
+                {% endif %}
 
-                  {% comment %} Handle single blog mode (current or specific) {% endcomment %}
-                  {%- paginate current_blog.articles by block.settings.article_limit -%}
-                    <div class="{% if block.settings.layout == 'list' %}s-content{% else %}s-blog-list-grid grid-{{ block.settings.items_per_row_dk | default: 2 }}{% endif %}">
-                      {% if current_blog.articles.size > 0 %}
-                        {% for article in current_blog.articles %}
-                          <div class="blog-post-item hover-img">
-                            <div class="entry_image">
-                              <a href="{{ article.url }}" class="img-style">
+                {% comment %} Generate image ratio class {% endcomment %}
+                {%- assign image_ratio = block.settings.image_ratio | default: '-adapt_image' -%}
+                {%- capture ratio_class -%}
+                  {%- case image_ratio -%}
+                    {%- when '-square' -%}blog-image-ratio--square
+                    {%- when '-asos' -%}blog-image-ratio--asos  
+                    {%- when '-landscape' -%}blog-image-ratio--landscape
+                    {%- when '4-3' -%}blog-image-ratio--4-3
+                    {%- else -%}blog-image-ratio--adapt
+                  {%- endcase -%}
+                {%- endcapture -%}
+
+                {% comment %} Generate content alignment class {% endcomment %}
+                {%- assign content_align = block.settings.Content_align | default: 'start' -%}
+
+                {% comment %} Generate responsive grid classes {% endcomment %}
+                {%- assign grid_dk = block.settings.items_per_row_dk | default: '2' -%}
+                {%- assign grid_tb = block.settings.items_per_row_tb | default: '2' -%}
+                {%- assign grid_mb = block.settings.items_per_row_mb | default: '1' -%}
+                {%- capture responsive_grid_class -%}grid-{{ grid_dk }} grid-tb-{{ grid_tb }} grid-mb-{{ grid_mb }}{%- endcapture -%}
+
+                {% comment %} Handle single blog mode (current or specific) {% endcomment %}
+                {%- paginate current_blog.articles by block.settings.article_limit -%}
+                  <div class="{% if block.settings.layout == 'list' %}s-content{% else %}s-blog-list-grid {{ responsive_grid_class | strip }}{% endif %}">
+                    {% if current_blog.articles.size > 0 %}
+                      {% for article in current_blog.articles %}
+                        <div class="blog-post-item hover-img">
+                          <div class="entry_image">
+                            <a href="{{ article.url }}" class="img-style">
+                              <div class="blog-image-ratio {{ ratio_class | strip }}">
                                 {% if article.image %}
                                   {% if block.settings.layout == 'list' %}
                                     <img
@@ -42,6 +63,7 @@
                                       data-src="{{ article.image | image_url: width: 600 }}"
                                       alt="{{ article.image.alt | escape }}"
                                       class="lazyload"
+                                      loading="lazy"
                                       width="600"
                                       height="400"
                                     >
@@ -51,6 +73,7 @@
                                       data-src="{{ article.image | image_url: width: 400 }}"
                                       alt="{{ article.image.alt | escape }}"
                                       class="lazyload"
+                                      loading="lazy"
                                       width="400"
                                       height="300"
                                     >
@@ -58,259 +81,260 @@
                                 {% else %}
                                   {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                                 {% endif %}
-                              </a>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="blog-content blog-content--{{ content_align }}">
+                            <div class="entry-tag">
+                              <ul class="style-list">
+                                {% for tag in article.tags limit: 1 %}
+                                  <li>
+                                    <a
+                                      href="{{ current_blog.url }}/tagged/{{ tag | handle }}"
+                                      class="type-{{ tag | handle }}"
+                                    >
+                                      {{ tag }}
+                                    </a>
+                                  </li>
+                                {% endfor %}
+                              </ul>
                             </div>
-                            <div class="blog-content">
-                              <div class="entry-tag">
-                                <ul class="style-list">
-                                  {% for tag in article.tags limit: 1 %}
-                                    <li>
-                                      <a
-                                        href="{{ current_blog.url }}/tagged/{{ tag | handle }}"
-                                        class="type-{{ tag | handle }}"
+                            <a href="{{ article.url }}" class="entry_title d-block text-xl fw-medium link">
+                              {% if block.settings.layout == 'list' %}
+                                {{ article.title }}
+                              {% else %}
+                                {{ article.title | truncate: 50 }}
+                              {% endif %}
+                            </a>
+                            {% if block.settings.show_excerpt %}
+                              <p class="entry_sub text-md text-main">
+                                {% if block.settings.layout == 'list' %}
+                                  {{ article.excerpt | strip_html | truncate: 150 }}
+                                {% else %}
+                                  {{ article.excerpt | strip_html | truncate: 100 }}
+                                {% endif %}
+                              </p>
+                            {% endif %}
+                            <ul class="entry-meta">
+                              {% if block.settings.show_author %}
+                                <li class="entry_author">
+                                  <div class="avatar">
+                                    {% if article.author.image %}
+                                      {{
+                                        article.author.image
+                                        | image_url: width: 50
+                                        | image_tag: loading: 'lazy', class: 'lazyload', alt: article.author
+                                      }}
+                                    {% else %}
+                                      <img
+                                        src="{{ 'blog-author-1.jpg' | asset_url }}"
+                                        data-src="{{ 'blog-author-1.jpg' | asset_url }}"
+                                        loading="lazy"
+                                        class="lazyload"
+                                        alt="{{ article.author }}"
+                                        width="50"
+                                        height="50"
                                       >
+                                    {% endif %}
+                                  </div>
+                                  <p class="entry_name">
+                                    {{ 'sections.blog.post_by' | t }}
+                                    <span class="fw-medium">{{ article.author | default: shop.name }}</span>
+                                  </p>
+                                </li>
+                                <li class="br-line"></li>
+                              {% endif %}
+                              {% if block.settings.show_date %}
+                                <li class="entry_date">
+                                  <p class="text-md">
+                                    {% assign date_format = block.settings.date | default: '%b %d' %}
+                                    {% case date_format %}
+                                      {% when 'abbreviated_date' %}
+                                        {{ article.published_at | date: '%b %d, %Y' }}
+                                      {% when 'basic' %}
+                                        {{ article.published_at | date: '%m/%d/%Y' }}
+                                      {% when 'date' %}
+                                        {{ article.published_at | date: '%B %d, %Y' }}
+                                      {% when '%b %d' %}
+                                        {{ article.published_at | date: '%b %d' }}
+                                      {% else %}
+                                        {{ article.published_at | date: date_format }}
+                                    {% endcase %}
+                                  </p>
+                                </li>
+                                <li class="br-line"></li>
+                              {% endif %}
+                              {% if block.settings.show_comment_count %}
+                                <li class="entry_comment">
+                                  <p class="text-md">
+                                    {{ article.comments_count }}
+                                    {{ 'sections.blog.comments' | t }}
+                                  </p>
+                                </li>
+                              {% endif %}
+                            </ul>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
+
+                  {%- if paginate.pages > 1 -%}
+                    <ul class="wg-pagination">
+                      {%- if paginate.previous -%}
+                        <li>
+                          <a href="{{ paginate.previous.url }}" class="pagination-item">
+                            <i class="icon-arr-left"></i>
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- for part in paginate.parts -%}
+                        {%- if part.is_link -%}
+                          <li>
+                            <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                          </li>
+                        {%- else -%}
+                          {%- if part.title == paginate.current_page -%}
+                            <li class="active">
+                              <div class="pagination-item">{{ part.title }}</div>
+                            </li>
+                          {%- else -%}
+                            <li>
+                              <span class="pagination-item">{{ part.title }}</span>
+                            </li>
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+
+                      {%- if paginate.next -%}
+                        <li>
+                          <a href="{{ paginate.next.url }}" class="pagination-item">
+                            <i class="icon-arr-right2"></i>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                    </ul>
+                  {%- endif -%}
+                {%- endpaginate -%}
+              </div>
+
+              {% if has_sidebar %}
+                {% for sidebar_block in section.blocks %}
+                  {% if sidebar_block.type == 'blog_sidebar' %}
+                    <div class="col-lg-4">
+                      <div class="sidebar-blog d-lg-grid d-none sidebar-content-wrap">
+                        {% if sidebar_block.settings.show_recent_posts %}
+                          <div class="sb-item">
+                            <p class="sb-title text-xl fw-medium">{{ 'sections.blog.recent_posts' | t }}</p>
+                            <div class="sb-content">
+                              {% if current_blog.articles.size > 0 %}
+                                <ul class="recent-blog-list">
+                                  {% for article in current_blog.articles limit: 3 %}
+                                    <li class="hover-img">
+                                      <div class="image">
+                                        <a href="{{ article.url }}" class="img-style d-block">
+                                          {% if article.image %}
+                                            <img
+                                              src="{{ article.image | image_url: width: 100 }}"
+                                              data-src="{{ article.image | image_url: width: 100 }}"
+                                              alt="{{ article.image.alt | escape }}"
+                                              class="lazyload"
+                                              width="100"
+                                              height="80"
+                                              loading="lazy"
+                                            >
+                                          {% else %}
+                                            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                          {% endif %}
+                                        </a>
+                                      </div>
+                                      <div class="post-content">
+                                        <a href="{{ article.url }}" class="link text-md fw-medium">
+                                          {{ article.title | truncate: 50 }}
+                                        </a>
+                                        <p class="entry_date">
+                                          {% assign date_format = block.settings.date | default: '%b %d' %}
+                                          {% case date_format %}
+                                            {% when 'abbreviated_date' %}
+                                              {{ article.published_at | date: '%b %d, %Y' }}
+                                            {% when 'basic' %}
+                                              {{ article.published_at | date: '%m/%d/%Y' }}
+                                            {% when 'date' %}
+                                              {{ article.published_at | date: '%B %d, %Y' }}
+                                            {% when '%b %d' %}
+                                              {{ article.published_at | date: '%b %d' }}
+                                            {% else %}
+                                              {{ article.published_at | date: date_format }}
+                                          {% endcase %}
+                                        </p>
+                                      </div>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </div>
+                          </div>
+                        {% endif %}
+
+                        {% if sidebar_block.settings.show_tags %}
+                          <div class="sb-item">
+                            <p class="sb-title text-xl fw-medium">{{ 'sections.blog.tags' | t }}</p>
+                            <div class="sb-content entry-tag">
+                              {% if current_blog.all_tags.size > 0 %}
+                                <ul class="tag-blog-list style-list">
+                                  {% for tag in current_blog.all_tags limit: 8 %}
+                                    <li>
+                                      <a href="{{ current_blog.url }}/tagged/{{ tag | handle }}">
                                         {{ tag }}
                                       </a>
                                     </li>
                                   {% endfor %}
                                 </ul>
-                              </div>
-                              <a href="{{ article.url }}" class="entry_title d-block text-xl fw-medium link">
-                                {% if block.settings.layout == 'list' %}
-                                  {{ article.title }}
-                                {% else %}
-                                  {{ article.title | truncate: 50 }}
-                                {% endif %}
-                              </a>
-                              {% if block.settings.show_excerpt %}
-                                <p class="entry_sub text-md text-main">
-                                  {% if block.settings.layout == 'list' %}
-                                    {{ article.excerpt | strip_html | truncate: 150 }}
-                                  {% else %}
-                                    {{ article.excerpt | strip_html | truncate: 100 }}
-                                  {% endif %}
-                                </p>
                               {% endif %}
-                              <ul class="entry-meta">
-                                {% if block.settings.show_author %}
-                                  <li class="entry_author">
-                                    <div class="avatar">
-                                      {% if article.author.image %}
-                                        {{
-                                          article.author.image
-                                          | image_url: width: 50
-                                          | image_tag: loading: 'lazy', class: 'lazyload', alt: article.author
-                                        }}
-                                      {% else %}
-                                        <img
-                                          src="{{ 'blog-author-1.jpg' | asset_url }}"
-                                          data-src="{{ 'blog-author-1.jpg' | asset_url }}"
-                                          loading="lazy"
-                                          class="lazyload"
-                                          alt="{{ article.author }}"
-                                          width="50"
-                                          height="50"
-                                        >
-                                      {% endif %}
-                                    </div>
-                                    <p class="entry_name">
-                                      {{ 'sections.blog.post_by' | t }}
-                                      <span class="fw-medium">{{ article.author | default: shop.name }}</span>
-                                    </p>
-                                  </li>
-                                  <li class="br-line"></li>
-                                {% endif %}
-                                {% if block.settings.show_date %}
-                                  <li class="entry_date">
-                                    <p class="text-md">
-                                      {% assign date_format = block.settings.date | default: '%b %d' %}
-                                      {% case date_format %}
-                                        {% when 'abbreviated_date' %}
-                                          {{ article.published_at | date: '%b %d, %Y' }}
-                                        {% when 'basic' %}
-                                          {{ article.published_at | date: '%m/%d/%Y' }}
-                                        {% when 'date' %}
-                                          {{ article.published_at | date: '%B %d, %Y' }}
-                                        {% when '%b %d' %}
-                                          {{ article.published_at | date: '%b %d' }}
-                                        {% else %}
-                                          {{ article.published_at | date: date_format }}
-                                      {% endcase %}
-                                    </p>
-                                  </li>
-                                  <li class="br-line"></li>
-                                {% endif %}
-                                {% if block.settings.show_comment_count %}
-                                  <li class="entry_comment">
-                                    <p class="text-md">
-                                      {{ article.comments_count }}
-                                      {{ 'sections.blog.comments' | t }}
-                                    </p>
-                                  </li>
-                                {% endif %}
-                              </ul>
                             </div>
                           </div>
-                        {% endfor %}
-                      {% endif %}
-                    </div>
+                        {% endif %}
 
-                    {%- if paginate.pages > 1 -%}
-                      <ul class="wg-pagination">
-                        {%- if paginate.previous -%}
-                          <li>
-                            <a href="{{ paginate.previous.url }}" class="pagination-item">
-                              <i class="icon-arr-left2"></i>
-                            </a>
-                          </li>
-                        {%- endif -%}
-
-                        {%- for part in paginate.parts -%}
-                          {%- if part.is_link -%}
-                            <li>
-                              <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
-                            </li>
-                          {%- else -%}
-                            {%- if part.title == paginate.current_page -%}
-                              <li class="active">
-                                <div class="pagination-item">{{ part.title }}</div>
-                              </li>
-                            {%- else -%}
-                              <li>
-                                <span class="pagination-item">{{ part.title }}</span>
-                              </li>
-                            {%- endif -%}
-                          {%- endif -%}
-                        {%- endfor -%}
-
-                        {%- if paginate.next -%}
-                          <li>
-                            <a href="{{ paginate.next.url }}" class="pagination-item">
-                              <i class="icon-arr-right2"></i>
-                            </a>
-                          </li>
-                        {%- endif -%}
-                      </ul>
-                    {%- endif -%}
-                  {%- endpaginate -%}
-                </div>
-
-                {% if has_sidebar %}
-                  {% for sidebar_block in section.blocks %}
-                    {% if sidebar_block.type == 'blog_sidebar' %}
-                      <div class="col-lg-4">
-                        <div class="sidebar-blog d-lg-grid d-none sidebar-content-wrap">
-                          {% if sidebar_block.settings.show_recent_posts %}
-                            <div class="sb-item">
-                              <p class="sb-title text-xl fw-medium">{{ 'sections.blog.recent_posts' | t }}</p>
-                              <div class="sb-content">
-                                {% if current_blog.articles.size > 0 %}
-                                  <ul class="recent-blog-list">
-                                    {% for article in current_blog.articles limit: 3 %}
-                                      <li class="hover-img">
-                                        <div class="image">
-                                          <a href="{{ article.url }}" class="img-style d-block">
-                                            {% if article.image %}
-                                              <img
-                                                src="{{ article.image | image_url: width: 100 }}"
-                                                data-src="{{ article.image | image_url: width: 100 }}"
-                                                alt="{{ article.image.alt | escape }}"
-                                                class="lazyload"
-                                                width="100"
-                                                height="80"
-                                              >
-                                            {% else %}
-                                              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                                            {% endif %}
-                                          </a>
-                                        </div>
-                                        <div class="post-content">
-                                          <a href="{{ article.url }}" class="link text-md fw-medium">
-                                            {{ article.title | truncate: 50 }}
-                                          </a>
-                                          <p class="entry_date">
-                                            {% assign date_format = block.settings.date | default: '%b %d' %}
-                                            {% case date_format %}
-                                              {% when 'abbreviated_date' %}
-                                                {{ article.published_at | date: '%b %d, %Y' }}
-                                              {% when 'basic' %}
-                                                {{ article.published_at | date: '%m/%d/%Y' }}
-                                              {% when 'date' %}
-                                                {{ article.published_at | date: '%B %d, %Y' }}
-                                              {% when '%b %d' %}
-                                                {{ article.published_at | date: '%b %d' }}
-                                              {% else %}
-                                                {{ article.published_at | date: date_format }}
-                                            {% endcase %}
-                                          </p>
-                                        </div>
-                                      </li>
-                                    {% endfor %}
-                                  </ul>
-                                {% endif %}
+                        {% if sidebar_block.settings.sidebar_banner_image %}
+                          <div class="sb-item">
+                            <div class="sb-banner hover-img">
+                              <div class="image img-style">
+                                <img
+                                  src="{{ sidebar_block.settings.sidebar_banner_image | image_url: width: 400 }}"
+                                  data-src="{{ sidebar_block.settings.sidebar_banner_image | image_url: width: 400 }}"
+                                  alt="{{ sidebar_block.settings.sidebar_banner_title | escape }}"
+                                  class="lazyload"
+                                  width="400"
+                                  height="300"
+                                >
                               </div>
-                            </div>
-                          {% endif %}
-
-                          {% if sidebar_block.settings.show_tags %}
-                            <div class="sb-item">
-                              <p class="sb-title text-xl fw-medium">{{ 'sections.blog.tags' | t }}</p>
-                              <div class="sb-content entry-tag">
-                                {% if current_blog.all_tags.size > 0 %}
-                                  <ul class="tag-blog-list style-list">
-                                    {% for tag in current_blog.all_tags limit: 8 %}
-                                      <li>
-                                        <a href="{{ current_blog.url }}/tagged/{{ tag | handle }}">
-                                          {{ tag }}
-                                        </a>
-                                      </li>
-                                    {% endfor %}
-                                  </ul>
+                              <div class="banner-content">
+                                {% if sidebar_block.settings.sidebar_banner_title != blank %}
+                                  <p class="title">
+                                    {{ sidebar_block.settings.sidebar_banner_title }}
+                                  </p>
                                 {% endif %}
-                              </div>
-                            </div>
-                          {% endif %}
-
-                          {% if sidebar_block.settings.sidebar_banner_image %}
-                            <div class="sb-item">
-                              <div class="sb-banner hover-img">
-                                <div class="image img-style">
-                                  <img
-                                    src="{{ sidebar_block.settings.sidebar_banner_image | image_url: width: 400 }}"
-                                    data-src="{{ sidebar_block.settings.sidebar_banner_image | image_url: width: 400 }}"
-                                    alt="{{ sidebar_block.settings.sidebar_banner_title | escape }}"
-                                    class="lazyload"
-                                    width="400"
-                                    height="300"
+                                {% if sidebar_block.settings.sidebar_banner_button_text != blank
+                                  and sidebar_block.settings.sidebar_banner_button_link != blank
+                                %}
+                                  <a
+                                    href="{{ sidebar_block.settings.sidebar_banner_button_link }}"
+                                    class="tf-btn btn-white hover-primary"
                                   >
-                                </div>
-                                <div class="banner-content">
-                                  {% if sidebar_block.settings.sidebar_banner_title != blank %}
-                                    <p class="title">
-                                      {{ sidebar_block.settings.sidebar_banner_title }}
-                                    </p>
-                                  {% endif %}
-                                  {% if sidebar_block.settings.sidebar_banner_button_text != blank
-                                    and sidebar_block.settings.sidebar_banner_button_link != blank
-                                  %}
-                                    <a
-                                      href="{{ sidebar_block.settings.sidebar_banner_button_link }}"
-                                      class="tf-btn btn-white hover-primary"
-                                    >
-                                      {{ sidebar_block.settings.sidebar_banner_button_text }}
-                                    </a>
-                                  {% endif %}
-                                </div>
+                                    {{ sidebar_block.settings.sidebar_banner_button_text }}
+                                  </a>
+                                {% endif %}
                               </div>
                             </div>
-                          {% endif %}
-                        </div>
+                          </div>
+                        {% endif %}
                       </div>
-                      {% break %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              </div>
+                    </div>
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
             </div>
           </section>
 
@@ -321,9 +345,128 @@
   </div>
 </div>
 
+{% style %}
+  .tag-blog-list li a {
+    color: rgba(var(--color-foreground), 0.9) !important;
+  }
+
+  /* Image ratio utilities for blog */
+  .blog-image-ratio {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    border-radius: inherit; /* Inherit border radius from parent */
+  }
+
+  .blog-image-ratio--adapt {
+    aspect-ratio: auto;
+  }
+
+  .blog-image-ratio--square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .blog-image-ratio--asos {
+    aspect-ratio: 4 / 5;
+  }
+
+  .blog-image-ratio--landscape {
+    aspect-ratio: 16 / 9;
+  }
+
+  .blog-image-ratio--4-3 {
+    aspect-ratio: 4 / 3;
+  }
+
+  .blog-image-ratio > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0; /* Remove border radius from image */
+  }
+
+  .blog-image-ratio--adapt > img {
+    height: auto;
+    object-fit: contain;
+    border-radius: 0; /* Remove border radius from image */
+  }
+
+  /* Ensure image container inherits styling */
+  .img-style {
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  .entry_image .img-style {
+    border-radius: inherit;
+    display: block;
+  }
+
+  /* Content alignment */
+  .blog-content--center {
+    text-align: center;
+  }
+
+  .blog-content--start {
+    text-align: left;
+  }
+
+  /* List layout specific adjustments */
+  .s-blog-list-v1 .blog-image-ratio {
+    max-height: 400px;
+    width: 100%;
+  }
+
+  /* Responsive grid system for blog */
+  .s-blog-list-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  /* Desktop grid classes */
+  .s-blog-list-grid.grid-1 {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .s-blog-list-grid.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .s-blog-list-grid.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .s-blog-list-grid.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Tablet grid classes */
+  @media (max-width: 991px) {
+    .s-blog-list-grid.grid-tb-1 {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .s-blog-list-grid.grid-tb-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .s-blog-list-grid.grid-tb-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Mobile grid classes */
+  @media (max-width: 767px) {
+    .s-blog-list-grid.grid-mb-1 {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    .s-blog-list-grid.grid-mb-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .s-blog-list-grid.grid-mb-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+{% endstyle %}
+
 {% schema %}
 {
-  "name": "Blog Section",
+  "name": "t:sections.blog.name",
   "tag": "section",
   "class": "section",
   "settings": [
@@ -333,21 +476,25 @@
       "options": [
         {
           "value": "boxed",
-          "label": "Boxed"
+          "label": "t:sections.blog.settings.width.options.boxed"
         },
         {
           "value": "full",
-          "label": "Full Width"
+          "label": "t:sections.blog.settings.width.options.full"
         }
       ],
       "default": "boxed",
-      "label": "Section Width"
+      "label": "t:sections.blog.settings.width.label"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color Scheme",
+      "label": "t:sections.blog.settings.color_scheme.label",
       "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
     },
     {
       "type": "range",
@@ -356,7 +503,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Padding Top",
+      "label": "t:sections.blog.settings.padding_top.label",
       "default": 36
     },
     {
@@ -366,53 +513,42 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Padding Bottom",
+      "label": "t:sections.blog.settings.padding_bottom.label",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.blog.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.blog.settings.padding_mobile_rate.info"
     }
   ],
   "blocks": [
     {
       "type": "blog_content",
-      "name": "Blog Content",
+      "name": "t:sections.blog.blocks.blog_content.name",
       "limit": 1,
       "settings": [
-        {
-          "type": "select",
-          "id": "width",
-          "options": [
-            {
-              "value": "boxed",
-              "label": "Boxed"
-            },
-            {
-              "value": "full",
-              "label": "Full Width"
-            }
-          ],
-          "default": "boxed",
-          "label": "Width"
-        },
-        {
-          "type": "color_scheme",
-          "id": "color_scheme",
-          "label": "Color Scheme",
-          "default": "background-1"
-        },
         {
           "type": "select",
           "id": "layout",
           "options": [
             {
               "value": "list",
-              "label": "List"
+              "label": "t:sections.blog.blocks.blog_content.settings.layout.options.list"
             },
             {
               "value": "grid",
-              "label": "Grid"
+              "label": "t:sections.blog.blocks.blog_content.settings.layout.options.grid"
             }
           ],
           "default": "list",
-          "label": "Layout"
+          "label": "t:sections.blog.blocks.blog_content.settings.layout.label"
         },
         {
           "type": "select",
@@ -420,21 +556,21 @@
           "options": [
             {
               "value": "current",
-              "label": "Current Blog"
+              "label": "t:sections.blog.blocks.blog_content.settings.blog_source.options.current"
             },
             {
               "value": "specific",
-              "label": "Specific Blog"
+              "label": "t:sections.blog.blocks.blog_content.settings.blog_source.options.specific"
             }
           ],
           "default": "current",
-          "label": "Blog Source"
+          "label": "t:sections.blog.blocks.blog_content.settings.blog_source.label"
         },
         {
           "type": "blog",
           "id": "specific_blog",
-          "label": "Select Specific Blog",
-          "info": "Only used when 'Specific Blog' is selected"
+          "label": "t:sections.blog.blocks.blog_content.settings.specific_blog.label",
+          "info": "t:sections.blog.blocks.blog_content.settings.specific_blog.info"
         },
         {
           "type": "range",
@@ -443,58 +579,95 @@
           "max": 24,
           "step": 1,
           "default": 6,
-          "label": "Number of articles to show"
+          "label": "t:sections.blog.blocks.blog_content.settings.article_limit.label"
         },
         {
-          "type": "range",
+          "type": "select",
           "id": "items_per_row_dk",
-          "min": 1,
-          "max": 4,
-          "step": 1,
-          "default": 2,
-          "label": "Items per row (Desktop)"
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            },
+            {
+              "value": "4",
+              "label": "4"
+            }
+          ],
+          "default": "2",
+          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_dk.label"
         },
         {
-          "type": "range",
+          "type": "select",
           "id": "items_per_row_tb",
-          "min": 1,
-          "max": 3,
-          "step": 1,
-          "default": 2,
-          "label": "Items per row (Tablet)"
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            }
+          ],
+          "default": "2",
+          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_tb.label"
         },
         {
-          "type": "range",
+          "type": "select",
           "id": "items_per_row_mb",
-          "min": 1,
-          "max": 3,
-          "step": 1,
-          "default": 1,
-          "label": "Items per row (Mobile)"
+          "options": [
+            {
+              "value": "1",
+              "label": "1"
+            },
+            {
+              "value": "2",
+              "label": "2"
+            },
+            {
+              "value": "3",
+              "label": "3"
+            }
+          ],
+          "default": "1",
+          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_mb.label"
         },
         {
           "type": "checkbox",
           "id": "show_excerpt",
           "default": true,
-          "label": "Show short content"
+          "label": "t:sections.blog.blocks.blog_content.settings.show_excerpt.label"
         },
         {
           "type": "checkbox",
           "id": "show_author",
           "default": true,
-          "label": "Show author"
+          "label": "t:sections.blog.blocks.blog_content.settings.show_author.label"
         },
         {
           "type": "checkbox",
           "id": "show_comment_count",
           "default": true,
-          "label": "Show comment count"
+          "label": "t:sections.blog.blocks.blog_content.settings.show_comment_count.label"
         },
         {
           "type": "checkbox",
           "id": "show_date",
           "default": true,
-          "label": "Show date"
+          "label": "t:sections.blog.blocks.blog_content.settings.show_date.label"
         },
         {
           "type": "select",
@@ -502,72 +675,120 @@
           "options": [
             {
               "value": "abbreviated_date",
-              "label": "Apr 19, 2023"
+              "label": "t:sections.blog.blocks.blog_content.settings.date.options.abbreviated_date"
             },
             {
               "value": "basic",
-              "label": "4\/19\/2023"
+              "label": "t:sections.blog.blocks.blog_content.settings.date.options.basic"
             },
             {
               "value": "date",
-              "label": "April 19, 2023"
+              "label": "t:sections.blog.blocks.blog_content.settings.date.options.date"
             },
             {
               "value": "%b %d",
-              "label": "Apr 19"
+              "label": "t:sections.blog.blocks.blog_content.settings.date.options.short"
             }
           ],
-          "label": "Date format",
-          "info": "Different format options display for various languages.",
+          "label": "t:sections.blog.blocks.blog_content.settings.date.label",
+          "info": "t:sections.blog.blocks.blog_content.settings.date.info",
           "default": "%b %d"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.blog_content.settings.header_content"
+        },
+        {
+          "type": "select",
+          "id": "Content_align",
+          "label": "t:sections.blog_content.settings.content_align.label",
+          "default": "start",
+          "options": [
+            {
+              "value": "start",
+              "label": "t:sections.blog_content.settings.content_align.option_1"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.blog_content.settings.content_align.option_2"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "image_ratio",
+          "options": [
+            {
+              "value": "-adapt_image",
+              "label": "t:sections.blog_content.image_ratio.adapt_image.label"
+            },
+            {
+              "value": "-square",
+              "label": "t:sections.blog_content.image_ratio.square.label"
+            },
+            {
+              "value": "-asos",
+              "label": "t:sections.blog_content.image_ratio.asos.label"
+            },
+            {
+              "value": "-landscape",
+              "label": "t:sections.blog_content.image_ratio.landscape.label"
+            },
+            {
+              "value": "4-3",
+              "label": "t:sections.blog_content.image_ratio.43.label"
+            }
+          ],
+          "label": "t:sections.blog_content.image_ratio.label",
+          "default": "-adapt_image"
         }
       ]
     },
     {
       "type": "blog_sidebar",
-      "name": "Blog Sidebar",
+      "name": "t:sections.blog.blocks.blog_sidebar.name",
       "limit": 1,
       "settings": [
         {
           "type": "checkbox",
           "id": "show_recent_posts",
           "default": true,
-          "label": "Show recent posts"
+          "label": "t:sections.blog.blocks.blog_sidebar.settings.show_recent_posts.label"
         },
         {
           "type": "checkbox",
           "id": "show_tags",
           "default": true,
-          "label": "Show tags"
+          "label": "t:sections.blog.blocks.blog_sidebar.settings.show_tags.label"
         },
         {
           "type": "image_picker",
           "id": "sidebar_banner_image",
-          "label": "Sidebar banner image"
+          "label": "t:sections.blog.blocks.blog_sidebar.settings.sidebar_banner_image.label"
         },
         {
           "type": "text",
           "id": "sidebar_banner_title",
           "default": "Elevate Your Style",
-          "label": "Sidebar banner title"
+          "label": "t:sections.blog.blocks.blog_sidebar.settings.sidebar_banner_title.label"
         },
         {
           "type": "text",
           "id": "sidebar_banner_button_text",
           "default": "Shop Now",
-          "label": "Sidebar banner button text"
+          "label": "t:sections.blog.blocks.blog_sidebar.settings.sidebar_banner_button_text.label"
         },
         {
           "type": "url",
           "id": "sidebar_banner_button_link",
-          "label": "Sidebar banner button link"
+          "label": "t:sections.blog.blocks.blog_sidebar.settings.sidebar_banner_button_link.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Blog Section",
+      "name": "t:sections.blog.presets.name",
       "category": "Blog",
       "blocks": [
         {

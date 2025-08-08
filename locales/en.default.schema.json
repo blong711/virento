@@ -302,6 +302,58 @@
     }
   },
   "sections": {
+    "blog_post": {
+      "name": "Blog post",
+      "settings": {
+        "width": {
+          "label": "Section width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full width"
+          }
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "article_display_options": "Article display options",
+        "show_tags": {
+          "label": "Show article tags"
+        },
+        "show_author": {
+          "label": "Show article author"
+        },
+        "show_date": {
+          "label": "Show publish date"
+        },
+        "show_social_sharing": {
+          "label": "Show social sharing buttons"
+        },
+        "show_prev_next": {
+          "label": "Show previous/next navigation"
+        },
+        "comments": "Comments",
+        "show_comments": {
+          "label": "Show comments"
+        },
+        "show_comment_form": {
+          "label": "Show comment form"
+        },
+        "section_spacing": "Section spacing",
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile padding rate"
+        }
+      },
+      "presets": {
+        "name": "Blog post",
+        "category": "Blog"
+      }
+    },
     "offer_banner": {
       "name": "Offer Banner",
       "settings": {
@@ -4712,29 +4764,144 @@
     "blog": {
       "name": "Blog Section",
       "settings": {
-        "view_all": {
-          "label": "View all button text",
-          "default": "View all"
+        "width": {
+          "label": "Section Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full Width"
+          }
         },
-        "posts_count": {
-          "label": "Posts count text",
-          "default": "posts"
+        "color_scheme": {
+          "label": "Color Scheme"
         },
-        "post_by": {
-          "label": "Post by text",
-          "default": "Post by"
+        "padding_top": {
+          "label": "Padding Top"
         },
-        "comments_count": {
-          "label": "Comments count text",
-          "default": "comments"
+        "padding_bottom": {
+          "label": "Padding Bottom"
         },
-        "recent_posts": {
-          "label": "Recent posts heading",
-          "default": "Recent Posts"
+        "padding_mobile_rate": {
+          "label": "Mobile Padding Rate",
+          "info": "Percentage of desktop padding to use on mobile devices"
+        }
+      },
+      "blocks": {
+        "blog_content": {
+          "name": "Blog Content",
+          "settings": {
+            "layout": {
+              "label": "Layout",
+              "options": {
+                "list": "List",
+                "grid": "Grid"
+              }
+            },
+             "content_align": {
+              "label": "Content align",
+              "option_1": "Default",
+              "option_2": "Center"
+            }, 
+            "blog_source": {
+              "label": "Blog Source",
+              "options": {
+                "current": "Current Blog",
+                "specific": "Specific Blog"
+              }
+            },
+            "specific_blog": {
+              "label": "Select Specific Blog",
+              "info": "Only used when 'Specific Blog' is selected"
+            },
+            "article_limit": {
+              "label": "Number of articles to show"
+            },
+            "items_per_row_dk": {
+              "label": "Items per row (Desktop)"
+            },
+            "items_per_row_tb": {
+              "label": "Items per row (Tablet)"
+            },
+            "items_per_row_mb": {
+              "label": "Items per row (Mobile)"
+            },
+            "show_excerpt": {
+              "label": "Show short content"
+            },
+            "show_author": {
+              "label": "Show author"
+            },
+            "show_comment_count": {
+              "label": "Show comment count"
+            },
+            "show_date": {
+              "label": "Show date"
+            },
+            "date": {
+              "label": "Date format",
+              "info": "Different format options display for various languages.",
+              "options": {
+                "abbreviated_date": "Apr 19, 2023",
+                "basic": "4/19/2023",
+                "date": "April 19, 2023",
+                "short": "Apr 19"
+              }
+            }
+          }
         },
-        "tags": {
-          "label": "Tags heading",
-          "default": "Tags"
+        "blog_sidebar": {
+          "name": "Blog Sidebar",
+          "settings": {
+            "show_recent_posts": {
+              "label": "Show recent posts"
+            },
+            "show_tags": {
+              "label": "Show tags"
+            },
+            "sidebar_banner_image": {
+              "label": "Sidebar banner image"
+            },
+            "sidebar_banner_title": {
+              "label": "Sidebar banner title"
+            },
+            "sidebar_banner_button_text": {
+              "label": "Sidebar banner button text"
+            },
+            "sidebar_banner_button_link": {
+              "label": "Sidebar banner button link"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Blog Section"
+      }
+    },
+    "blog_content": {
+      "name": "Blog Content",
+      "settings": {
+        "header_content": "Content Settings",
+        "content_align": {
+          "label": "Content align",
+          "option_1": "Default", 
+          "option_2": "Center"
+        }
+      },
+      "image_ratio": {
+        "label": "Image ratio",
+        "adapt_image": {
+          "label": "Adapt to image"
+        },
+        "square": {
+          "label": "Square"
+        },
+        "asos": {
+          "label": "ASOS"
+        },
+        "landscape": {
+          "label": "Landscape"
+        },
+        "43": {
+          "label": "4:3"
         }
       }
     },

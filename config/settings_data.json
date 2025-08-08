@@ -172,7 +172,19 @@
           "button_hover": "#2c2c2c",
           "button_label_hover": "#ffffff"
         }
-      }
+      },
+      "scheme-8": {
+          "settings": {
+            "background": "#FFFFFF",
+            "background2": "#cdedae",
+            "background_gradient": "",
+            "text": "#121212",
+            "button": "#121212",
+            "button_label": "#FFFFFF",
+            "secondary_button_label": "#121212",
+            "shadow": "#121212"
+          }
+        },
     }
   },
   "presets": {

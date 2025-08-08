@@ -1,0 +1,440 @@
+<article
+  class="s-blog-single line-bottom-container section-article-post color-{{ section.settings.color_scheme }}"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+  data-section-id="{{ section.id }}"
+  data-section-type="blog-post"
+>
+  <div class="{% if section.settings.width == 'full' %}container-fluid{% else %}container{% endif %}">
+    <!-- Article Header -->
+    <div class="heading blog-post-item">
+      <!-- Tags -->
+      {% if section.settings.show_tags and article.tags.size > 0 %}
+        <div class="entry-tag">
+          <ul class="style-list">
+            {% for tag in article.tags %}
+              <li>
+                <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="type-life">
+                  {{ tag }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <!-- Article Title -->
+      <h1 class="entry_title display-sm fw-medium">
+        {{ article.title }}
+      </h1>
+
+      <!-- Article Meta -->
+      {% if section.settings.show_author or section.settings.show_date %}
+        <ul class="entry-meta">
+          {% if section.settings.show_author %}
+            <li class="entry_author">
+              <div class="avatar">
+                {% if article.user.image %}
+                  <img
+                    src="{{ article.user.image | image_url: width: 40 }}"
+                    alt="{{ article.author }}"
+                    width="50"
+                    height="50"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <img
+                    src="{{ 'blog-author-1.jpg' | asset_url }}"
+                    data-src="{{ 'blog-author-1.jpg' | asset_url }}"
+                    loading="lazy"
+                    class="lazyload"
+                    alt="{{ article.author }}"
+                    width="50"
+                    height="50"
+                  >
+                {% endif %}
+              </div>
+              <p class="entry_name">By {{ article.author }}</p>
+            </li>
+          {% endif %}
+
+          {% if section.settings.show_author and section.settings.show_date %}
+            <li class="br-line"></li>
+          {% endif %}
+
+          {% if section.settings.show_date %}
+            <li class="entry_date">
+              <time class="text-md" datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                {{ article.published_at | date: '%b %d %Y' }}
+              </time>
+            </li>
+          {% endif %}
+
+          {% if section.settings.show_comments and blog.moderated? == false %}
+            <li class="br-line"></li>
+            <li class="entry_comment">
+              <p class="text-md">
+                {{ 'blogs.article.comments' | t: count: article.comments_count }}
+              </p>
+            </li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <!-- Article Content -->
+    <div class="content">
+      <!-- Article Content -->
+      <div class="article-content">
+        {{ article.content }}
+      </div>
+
+      <!-- Tags and Social Sharing Footer -->
+      <div class="bot">
+        <!-- Tags -->
+        {% if section.settings.show_tags and article.tags.size > 0 %}
+          <div class="entry-tag">
+            <p>Tags:</p>
+            <ul class="style-list">
+              {% for tag in article.tags %}
+                <li>
+                  <a href="{{ blog.url }}/tagged/{{ tag | handle }}">
+                    {{ tag }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        <!-- Social Sharing -->
+        {% if section.settings.show_social_sharing %}
+          <div class="entry-social">
+            <p>{{ 'blogs.article.share' | t }}:</p>
+            <ul class="tf-social-icon style-large">
+              {%- if settings.social_facebook_link != blank -%}
+                <li>
+                  <a
+                    href="{{ settings.social_facebook_link }}"
+                    class="social-item social-facebook"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="{{ 'general.social.links.facebook' | t }}"
+                  >
+                    <i class="icon icon-fb"></i>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_instagram_link != blank -%}
+                <li>
+                  <a
+                    href="{{ settings.social_instagram_link }}"
+                    class="social-item social-instagram"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="{{ 'general.social.links.instagram' | t }}"
+                  >
+                    <i class="icon icon-instagram"></i>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_snapchat_link != blank -%}
+                <li>
+                  <a
+                    href="{{ settings.social_snapchat_link }}"
+                    class="social-item social-linkedin"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="{{ 'general.social.links.snapchat' | t }}"
+                  >
+                    <i class="icon icon-linkedin"></i>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_twitter_link != blank -%}
+                <li>
+                  <a
+                    href="{{ settings.social_twitter_link }}"
+                    class="social-item social-x"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="{{ 'general.social.links.twitter' | t }}"
+                  >
+                    <i class="icon icon-x"></i>
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Previous/Next Navigation -->
+      {% if section.settings.show_prev_next %}
+        <div class="related-post">
+          {% if blog.previous_article %}
+            <a href="{{ blog.previous_article.url }}" class="post prev">
+              <div class="icon">
+                <i class="icon-arr-left"></i>
+              </div>
+              <div class="text-wrap-left">
+                <p>Previous Post</p>
+                <p class="name-post">{{ blog.previous_article.title }}</p>
+              </div>
+            </a>
+          {% endif %}
+
+          {% if blog.next_article %}
+            <a href="{{ blog.next_article.url }}" class="post next">
+              <div class="text-wrap-right">
+                <p>Next Post</p>
+                <p class="name-post">{{ blog.next_article.title }}</p>
+              </div>
+              <div class="icon">
+                <i class="icon-arr-right2"></i>
+              </div>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Comments Section -->
+    {% if section.settings.show_comments %}
+      {% if article.comments_count > 0 %}
+        <div class="comments-section">
+          <h3>{{ 'blogs.article.comments' | t: count: article.comments_count }}</h3>
+          {% paginate article.comments by 5 %}
+            <div class="comments-list">
+              {% for comment in article.comments %}
+                <div class="comment" id="comment-{{ comment.id }}">
+                  <div class="comment-author">{{ comment.author }}</div>
+                  <div class="comment-date">{{ comment.created_at | date: format: 'month_day_year' }}</div>
+                  <div class="comment-content">{{ comment.content }}</div>
+                </div>
+              {% endfor %}
+            </div>
+            {{ paginate | default_pagination }}
+          {% endpaginate %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <!-- Comment Form -->
+    {% if section.settings.show_comments and section.settings.show_comment_form %}
+      <div class="leave-comment-wrap">
+        <h3 class="title">{{ 'blogs.article.comment_form_title' | t }}</h3>
+
+        {% form 'new_comment', article %}
+          {% if form.errors %}
+            <div class="form-errors">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          {% if form.posted_successfully? %}
+            <div class="form-success">
+              {% if blog.moderated? %}
+                {{ 'blogs.article.success_moderated' | t }}
+              {% else %}
+                {{ 'blogs.article.success' | t }}
+              {% endif %}
+            </div>
+          {% endif %}
+
+          <div class="form-default">
+            <div class="wrap">
+              <div class="cols">
+                <fieldset>
+                  <label for="CommentAuthor">{{ 'blogs.article.name' | t }}*</label>
+                  <input
+                    id="CommentAuthor"
+                    type="text"
+                    name="comment[author]"
+                    value="{{ form.author }}"
+                    required
+                  >
+                </fieldset>
+                <fieldset>
+                  <label for="CommentEmail">{{ 'blogs.article.email' | t }}*</label>
+                  <input
+                    id="CommentEmail"
+                    type="email"
+                    name="comment[email]"
+                    value="{{ form.email }}"
+                    required
+                  >
+                </fieldset>
+              </div>
+              <div class="cols">
+                <fieldset class="textarea">
+                  <label for="CommentBody">{{ 'blogs.article.message' | t }}*</label>
+                  <textarea
+                    id="CommentBody"
+                    name="comment[body]"
+                    required
+                  >{{ form.body }}</textarea>
+                </fieldset>
+              </div>
+              <p class="notice">Your email address will not be published.</p>
+              <div class="button-submit">
+                <button class="tf-btn text-sm animate-btn" type="submit">
+                  {{ 'blogs.article.post' | t }}
+                </button>
+              </div>
+            </div>
+          </div>
+        {% endform %}
+      </div>
+    {% endif %}
+  </div>
+</article>
+
+{%- style -%}
+  @media screen and (max-width: 749px) {
+    .section-article-post {
+      padding-top: calc(
+        {{section.settings.padding_top}}px * {{section.settings.padding_mobile_rate | divided_by: 100}}
+      ) !important;
+      padding-bottom: calc(
+        {{section.settings.padding_bottom}}px * {{section.settings.padding_mobile_rate | divided_by: 100}}
+      ) !important;
+    }
+  }
+
+  .block-quote {
+    background-color: rgb(var(--color-background2));
+  }
+
+  .entry-tag .style-list a,
+  .leave-comment-wrap .title,
+  .s-blog-single .related-post p,
+  .s-blog-single .content .text,
+  .s-blog-single .related-post .icon {
+    color: rgba(var(--color-foreground), 0.9);
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "t:sections.blog_post.name",
+  "tag": "section",
+  "class": "section-article-post",
+  "enabled_on": {
+    "templates": ["article"]
+  },
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.blog_post.settings.width.label",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "t:sections.blog_post.settings.width.options.boxed"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.blog_post.settings.width.options.full"
+        }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.blog_post.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.blog_post.settings.article_display_options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "t:sections.blog_post.settings.show_tags.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "t:sections.blog_post.settings.show_author.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "t:sections.blog_post.settings.show_date.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_sharing",
+      "label": "t:sections.blog_post.settings.show_social_sharing.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_prev_next",
+      "label": "t:sections.blog_post.settings.show_prev_next.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.blog_post.settings.comments"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comments",
+      "label": "t:sections.blog_post.settings.show_comments.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comment_form",
+      "label": "t:sections.blog_post.settings.show_comment_form.label",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.blog_post.settings.section_spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.blog_post.settings.padding_top.label",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.blog_post.settings.padding_bottom.label",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.blog_post.settings.padding_mobile_rate.label",
+      "default": 75
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.blog_post.presets.name",
+      "category": "t:sections.blog_post.presets.category"
+    }
+  ]
+}
+{% endschema %}
