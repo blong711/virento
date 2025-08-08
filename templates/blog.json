@@ -95,8 +95,6 @@
         "blog_content": {
           "type": "blog_content",
           "settings": {
-            "width": "boxed",
-            "color_scheme": "background-1",
             "layout": "grid",
             "blog_source": "specific",
             "specific_blog": "design",
