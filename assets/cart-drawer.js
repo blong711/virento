@@ -25,6 +25,29 @@ class CartDrawer extends HTMLElement {
     
     // Check empty cart state on initialization
     this.checkEmptyCart();
+    
+    // Add theme customizer click detection
+    this.setupThemeCustomizerClick();
+  }
+
+  setupThemeCustomizerClick() {
+    // Check if we're in the theme customizer
+    if (window.Shopify && window.Shopify.designMode) {
+      // Add click event listener to the cart drawer element
+      this.addEventListener('click', (e) => {
+        // Only trigger if clicking on the cart drawer itself, not on interactive elements
+        if (e.target === this || e.target.closest('.canvas-wrapper')) {
+          // Prevent the click from bubbling up to avoid conflicts
+          e.stopPropagation();
+          // Open the cart drawer
+          this.open();
+        }
+      });
+      
+      // Add a visual indicator that the section is clickable
+      this.style.cursor = 'pointer';
+      this.title = 'Click to preview cart drawer';
+    }
   }
 
   setupRemoveButtons() {
