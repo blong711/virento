@@ -308,6 +308,59 @@
       "announcement_bar": "Announcement bar"
     },
 
+    "blog_post": {
+      "name": "Blog post",
+      "settings": {
+        "width": {
+          "label": "Section width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full width"
+          }
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "article_display_options": "Article display options",
+        "show_tags": {
+          "label": "Show article tags"
+        },
+        "show_author": {
+          "label": "Show article author"
+        },
+        "show_date": {
+          "label": "Show publish date"
+        },
+        "show_social_sharing": {
+          "label": "Show social sharing buttons"
+        },
+        "show_prev_next": {
+          "label": "Show previous/next navigation"
+        },
+        "comments": "Comments",
+        "show_comments": {
+          "label": "Show comments"
+        },
+        "show_comment_form": {
+          "label": "Show comment form"
+        },
+        "section_spacing": "Section spacing",
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile padding rate"
+        }
+      },
+      "presets": {
+        "name": "Blog post",
+        "category": "Blog"
+      }
+    },
+
     "header": {
       "shop_all": "Shop All",
       "announcement": "Announcement",

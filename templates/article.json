@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main": {
+      "type": "blog-post",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "scheme-1",
+        "show_tags": true,
+        "show_author": true,
+        "show_date": true,
+        "show_social_sharing": true,
+        "show_prev_next": true,
+        "show_comments": true,
+        "show_comment_form": true,
+        "padding_top": 48,
+        "padding_bottom": 64,
+        "padding_mobile_rate": 75
+      }
+    }
+  },
+  "order": ["main"]
+}
