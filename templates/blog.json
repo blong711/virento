@@ -1,0 +1,142 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "blog_sub_collection": {
+      "type": "blog-sub-collection",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": {
+            "category_name": "Accessories",
+            "blog_handle": "accessories",
+            "category_image": "shopify://shop_images/category-1.webp",
+            "button_text": "View all",
+            "category_url": "",
+            "show_overlay": true
+          }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": {
+            "category_name": "Bags",
+            "blog_handle": "bags",
+            "category_image": "shopify://shop_images/category-2.jpg",
+            "button_text": "View all",
+            "category_url": "",
+            "show_overlay": true
+          }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": {
+            "category_name": "Lifestyle",
+            "blog_handle": "lifestyle",
+            "category_image": "shopify://shop_images/category-3.jpg",
+            "button_text": "View all",
+            "category_url": "",
+            "show_overlay": true
+          }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": {
+            "category_name": "Design",
+            "blog_handle": "",
+            "button_text": "View all",
+            "category_url": "",
+            "show_overlay": true
+          }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": {
+            "category_name": "Tricks & Tips",
+            "blog_handle": "",
+            "button_text": "View all",
+            "category_url": "",
+            "show_overlay": true
+          }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5"
+      ],
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "",
+        "show_post_count": true,
+        "slides_per_view_mobile": "2",
+        "slides_per_group_mobile": "2",
+        "slides_per_view_tablet": "3",
+        "slides_per_group_tablet": "2",
+        "slides_per_view_desktop": "5",
+        "slides_per_group_desktop": "5",
+        "space_between": 20,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_mobile_rate": 75
+      }
+    },
+    "blog_section": {
+      "type": "blog",
+      "blocks": {
+        "blog_content": {
+          "type": "blog_content",
+          "settings": {
+            "width": "boxed",
+            "color_scheme": "background-1",
+            "layout": "list",
+            "blog_source": "specific",
+            "specific_blog": "design",
+            "article_limit": 6,
+            "items_per_row_dk": 2,
+            "items_per_row_tb": 2,
+            "items_per_row_mb": 1,
+            "show_excerpt": true,
+            "show_author": true,
+            "show_comment_count": true,
+            "show_date": true,
+            "date": "%b %d"
+          }
+        },
+        "blog_sidebar": {
+          "type": "blog_sidebar",
+          "settings": {
+            "show_recent_posts": true,
+            "show_tags": true,
+            "sidebar_banner_image": "shopify://shop_images/sb-banner.jpg",
+            "sidebar_banner_title": "Elevate Your Style",
+            "sidebar_banner_button_text": "Shop Now",
+            "sidebar_banner_button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "blog_content",
+        "blog_sidebar"
+      ],
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "background-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "blog_sub_collection",
+    "blog_section"
+  ]
+}

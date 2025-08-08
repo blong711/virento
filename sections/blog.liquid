@@ -1,0 +1,583 @@
+<div class="gradient">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}full-width{% endif %}{% if section.settings.padding_top > 0 %} pt-{{ section.settings.padding_top }}{% endif %}{% if section.settings.padding_bottom > 0 %} pb-{{ section.settings.padding_bottom }}{% endif %}">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'blog_content' %}
+          {% assign has_sidebar = false %}
+          {% for check_block in section.blocks %}
+            {% if check_block.type == 'blog_sidebar' %}
+              {% assign has_sidebar = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+
+          <!-- Blog Content Section -->
+          <section
+            class="{% if block.settings.layout == 'list' %}s-blog-list-v1{% else %}s-blog-grid{% endif %} sec-blog space-blog color-{{ block.settings.color_scheme | default: section.settings.color_scheme }} gradient"
+            {{ block.shopify_attributes }}
+          >
+            <div class="container">
+              <div class="row">
+                <div class="{% if has_sidebar %}col-lg-8{% else %}col-12{% endif %}">
+                  {% comment %} Determine blog source based on settings {% endcomment %}
+                  {% assign current_blog = blog %}
+                  {% assign blog_source_type = block.settings.blog_source | default: 'current' %}
+
+                  {% if blog_source_type == 'specific' and block.settings.specific_blog != blank %}
+                    {% assign current_blog = blogs[block.settings.specific_blog] %}
+                  {% endif %}
+
+                  {% comment %} Handle single blog mode (current or specific) {% endcomment %}
+                  {%- paginate current_blog.articles by block.settings.article_limit -%}
+                    <div class="{% if block.settings.layout == 'list' %}s-content{% else %}s-blog-list-grid grid-{{ block.settings.items_per_row_dk | default: 2 }}{% endif %}">
+                      {% if current_blog.articles.size > 0 %}
+                        {% for article in current_blog.articles %}
+                          <div class="blog-post-item hover-img">
+                            <div class="entry_image">
+                              <a href="{{ article.url }}" class="img-style">
+                                {% if article.image %}
+                                  {% if block.settings.layout == 'list' %}
+                                    <img
+                                      src="{{ article.image | image_url: width: 600 }}"
+                                      data-src="{{ article.image | image_url: width: 600 }}"
+                                      alt="{{ article.image.alt | escape }}"
+                                      class="lazyload"
+                                      width="600"
+                                      height="400"
+                                    >
+                                  {% else %}
+                                    <img
+                                      src="{{ article.image | image_url: width: 400 }}"
+                                      data-src="{{ article.image | image_url: width: 400 }}"
+                                      alt="{{ article.image.alt | escape }}"
+                                      class="lazyload"
+                                      width="400"
+                                      height="300"
+                                    >
+                                  {% endif %}
+                                {% else %}
+                                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                {% endif %}
+                              </a>
+                            </div>
+                            <div class="blog-content">
+                              <div class="entry-tag">
+                                <ul class="style-list">
+                                  {% for tag in article.tags limit: 1 %}
+                                    <li>
+                                      <a
+                                        href="{{ current_blog.url }}/tagged/{{ tag | handle }}"
+                                        class="type-{{ tag | handle }}"
+                                      >
+                                        {{ tag }}
+                                      </a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              </div>
+                              <a href="{{ article.url }}" class="entry_title d-block text-xl fw-medium link">
+                                {% if block.settings.layout == 'list' %}
+                                  {{ article.title }}
+                                {% else %}
+                                  {{ article.title | truncate: 50 }}
+                                {% endif %}
+                              </a>
+                              {% if block.settings.show_excerpt %}
+                                <p class="entry_sub text-md text-main">
+                                  {% if block.settings.layout == 'list' %}
+                                    {{ article.excerpt | strip_html | truncate: 150 }}
+                                  {% else %}
+                                    {{ article.excerpt | strip_html | truncate: 100 }}
+                                  {% endif %}
+                                </p>
+                              {% endif %}
+                              <ul class="entry-meta">
+                                {% if block.settings.show_author %}
+                                  <li class="entry_author">
+                                    <div class="avatar">
+                                      {% if article.author.image %}
+                                        {{
+                                          article.author.image
+                                          | image_url: width: 50
+                                          | image_tag: loading: 'lazy', class: 'lazyload', alt: article.author
+                                        }}
+                                      {% else %}
+                                        <img
+                                          src="{{ 'blog-author-1.jpg' | asset_url }}"
+                                          data-src="{{ 'blog-author-1.jpg' | asset_url }}"
+                                          loading="lazy"
+                                          class="lazyload"
+                                          alt="{{ article.author }}"
+                                          width="50"
+                                          height="50"
+                                        >
+                                      {% endif %}
+                                    </div>
+                                    <p class="entry_name">
+                                      {{ 'sections.blog.post_by' | t }}
+                                      <span class="fw-medium">{{ article.author | default: shop.name }}</span>
+                                    </p>
+                                  </li>
+                                  <li class="br-line"></li>
+                                {% endif %}
+                                {% if block.settings.show_date %}
+                                  <li class="entry_date">
+                                    <p class="text-md">
+                                      {% assign date_format = block.settings.date | default: '%b %d' %}
+                                      {% case date_format %}
+                                        {% when 'abbreviated_date' %}
+                                          {{ article.published_at | date: '%b %d, %Y' }}
+                                        {% when 'basic' %}
+                                          {{ article.published_at | date: '%m/%d/%Y' }}
+                                        {% when 'date' %}
+                                          {{ article.published_at | date: '%B %d, %Y' }}
+                                        {% when '%b %d' %}
+                                          {{ article.published_at | date: '%b %d' }}
+                                        {% else %}
+                                          {{ article.published_at | date: date_format }}
+                                      {% endcase %}
+                                    </p>
+                                  </li>
+                                  <li class="br-line"></li>
+                                {% endif %}
+                                {% if block.settings.show_comment_count %}
+                                  <li class="entry_comment">
+                                    <p class="text-md">
+                                      {{ article.comments_count }}
+                                      {{ 'sections.blog.comments' | t }}
+                                    </p>
+                                  </li>
+                                {% endif %}
+                              </ul>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+
+                    {%- if paginate.pages > 1 -%}
+                      <ul class="wg-pagination">
+                        {%- if paginate.previous -%}
+                          <li>
+                            <a href="{{ paginate.previous.url }}" class="pagination-item">
+                              <i class="icon-arr-left2"></i>
+                            </a>
+                          </li>
+                        {%- endif -%}
+
+                        {%- for part in paginate.parts -%}
+                          {%- if part.is_link -%}
+                            <li>
+                              <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                            </li>
+                          {%- else -%}
+                            {%- if part.title == paginate.current_page -%}
+                              <li class="active">
+                                <div class="pagination-item">{{ part.title }}</div>
+                              </li>
+                            {%- else -%}
+                              <li>
+                                <span class="pagination-item">{{ part.title }}</span>
+                              </li>
+                            {%- endif -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+
+                        {%- if paginate.next -%}
+                          <li>
+                            <a href="{{ paginate.next.url }}" class="pagination-item">
+                              <i class="icon-arr-right2"></i>
+                            </a>
+                          </li>
+                        {%- endif -%}
+                      </ul>
+                    {%- endif -%}
+                  {%- endpaginate -%}
+                </div>
+
+                {% if has_sidebar %}
+                  {% for sidebar_block in section.blocks %}
+                    {% if sidebar_block.type == 'blog_sidebar' %}
+                      <div class="col-lg-4">
+                        <div class="sidebar-blog d-lg-grid d-none sidebar-content-wrap">
+                          {% if sidebar_block.settings.show_recent_posts %}
+                            <div class="sb-item">
+                              <p class="sb-title text-xl fw-medium">{{ 'sections.blog.recent_posts' | t }}</p>
+                              <div class="sb-content">
+                                {% if current_blog.articles.size > 0 %}
+                                  <ul class="recent-blog-list">
+                                    {% for article in current_blog.articles limit: 3 %}
+                                      <li class="hover-img">
+                                        <div class="image">
+                                          <a href="{{ article.url }}" class="img-style d-block">
+                                            {% if article.image %}
+                                              <img
+                                                src="{{ article.image | image_url: width: 100 }}"
+                                                data-src="{{ article.image | image_url: width: 100 }}"
+                                                alt="{{ article.image.alt | escape }}"
+                                                class="lazyload"
+                                                width="100"
+                                                height="80"
+                                              >
+                                            {% else %}
+                                              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                            {% endif %}
+                                          </a>
+                                        </div>
+                                        <div class="post-content">
+                                          <a href="{{ article.url }}" class="link text-md fw-medium">
+                                            {{ article.title | truncate: 50 }}
+                                          </a>
+                                          <p class="entry_date">
+                                            {% assign date_format = block.settings.date | default: '%b %d' %}
+                                            {% case date_format %}
+                                              {% when 'abbreviated_date' %}
+                                                {{ article.published_at | date: '%b %d, %Y' }}
+                                              {% when 'basic' %}
+                                                {{ article.published_at | date: '%m/%d/%Y' }}
+                                              {% when 'date' %}
+                                                {{ article.published_at | date: '%B %d, %Y' }}
+                                              {% when '%b %d' %}
+                                                {{ article.published_at | date: '%b %d' }}
+                                              {% else %}
+                                                {{ article.published_at | date: date_format }}
+                                            {% endcase %}
+                                          </p>
+                                        </div>
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </div>
+                            </div>
+                          {% endif %}
+
+                          {% if sidebar_block.settings.show_tags %}
+                            <div class="sb-item">
+                              <p class="sb-title text-xl fw-medium">{{ 'sections.blog.tags' | t }}</p>
+                              <div class="sb-content entry-tag">
+                                {% if current_blog.all_tags.size > 0 %}
+                                  <ul class="tag-blog-list style-list">
+                                    {% for tag in current_blog.all_tags limit: 8 %}
+                                      <li>
+                                        <a href="{{ current_blog.url }}/tagged/{{ tag | handle }}">
+                                          {{ tag }}
+                                        </a>
+                                      </li>
+                                    {% endfor %}
+                                  </ul>
+                                {% endif %}
+                              </div>
+                            </div>
+                          {% endif %}
+
+                          {% if sidebar_block.settings.sidebar_banner_image %}
+                            <div class="sb-item">
+                              <div class="sb-banner hover-img">
+                                <div class="image img-style">
+                                  <img
+                                    src="{{ sidebar_block.settings.sidebar_banner_image | image_url: width: 400 }}"
+                                    data-src="{{ sidebar_block.settings.sidebar_banner_image | image_url: width: 400 }}"
+                                    alt="{{ sidebar_block.settings.sidebar_banner_title | escape }}"
+                                    class="lazyload"
+                                    width="400"
+                                    height="300"
+                                  >
+                                </div>
+                                <div class="banner-content">
+                                  {% if sidebar_block.settings.sidebar_banner_title != blank %}
+                                    <p class="title">
+                                      {{ sidebar_block.settings.sidebar_banner_title }}
+                                    </p>
+                                  {% endif %}
+                                  {% if sidebar_block.settings.sidebar_banner_button_text != blank
+                                    and sidebar_block.settings.sidebar_banner_button_link != blank
+                                  %}
+                                    <a
+                                      href="{{ sidebar_block.settings.sidebar_banner_button_link }}"
+                                      class="tf-btn btn-white hover-primary"
+                                    >
+                                      {{ sidebar_block.settings.sidebar_banner_button_text }}
+                                    </a>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              </div>
+            </div>
+          </section>
+
+        {% when 'blog_sidebar' %}
+
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog Section",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Full Width"
+        }
+      ],
+      "default": "boxed",
+      "label": "Section Width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "background-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "blog_content",
+      "name": "Blog Content",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "width",
+          "options": [
+            {
+              "value": "boxed",
+              "label": "Boxed"
+            },
+            {
+              "value": "full",
+              "label": "Full Width"
+            }
+          ],
+          "default": "boxed",
+          "label": "Width"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color Scheme",
+          "default": "background-1"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "options": [
+            {
+              "value": "list",
+              "label": "List"
+            },
+            {
+              "value": "grid",
+              "label": "Grid"
+            }
+          ],
+          "default": "list",
+          "label": "Layout"
+        },
+        {
+          "type": "select",
+          "id": "blog_source",
+          "options": [
+            {
+              "value": "current",
+              "label": "Current Blog"
+            },
+            {
+              "value": "specific",
+              "label": "Specific Blog"
+            }
+          ],
+          "default": "current",
+          "label": "Blog Source"
+        },
+        {
+          "type": "blog",
+          "id": "specific_blog",
+          "label": "Select Specific Blog",
+          "info": "Only used when 'Specific Blog' is selected"
+        },
+        {
+          "type": "range",
+          "id": "article_limit",
+          "min": 1,
+          "max": 24,
+          "step": 1,
+          "default": 6,
+          "label": "Number of articles to show"
+        },
+        {
+          "type": "range",
+          "id": "items_per_row_dk",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 2,
+          "label": "Items per row (Desktop)"
+        },
+        {
+          "type": "range",
+          "id": "items_per_row_tb",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 2,
+          "label": "Items per row (Tablet)"
+        },
+        {
+          "type": "range",
+          "id": "items_per_row_mb",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "default": 1,
+          "label": "Items per row (Mobile)"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_excerpt",
+          "default": true,
+          "label": "Show short content"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_author",
+          "default": true,
+          "label": "Show author"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_comment_count",
+          "default": true,
+          "label": "Show comment count"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_date",
+          "default": true,
+          "label": "Show date"
+        },
+        {
+          "type": "select",
+          "id": "date",
+          "options": [
+            {
+              "value": "abbreviated_date",
+              "label": "Apr 19, 2023"
+            },
+            {
+              "value": "basic",
+              "label": "4\/19\/2023"
+            },
+            {
+              "value": "date",
+              "label": "April 19, 2023"
+            },
+            {
+              "value": "%b %d",
+              "label": "Apr 19"
+            }
+          ],
+          "label": "Date format",
+          "info": "Different format options display for various languages.",
+          "default": "%b %d"
+        }
+      ]
+    },
+    {
+      "type": "blog_sidebar",
+      "name": "Blog Sidebar",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_recent_posts",
+          "default": true,
+          "label": "Show recent posts"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_tags",
+          "default": true,
+          "label": "Show tags"
+        },
+        {
+          "type": "image_picker",
+          "id": "sidebar_banner_image",
+          "label": "Sidebar banner image"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_banner_title",
+          "default": "Elevate Your Style",
+          "label": "Sidebar banner title"
+        },
+        {
+          "type": "text",
+          "id": "sidebar_banner_button_text",
+          "default": "Shop Now",
+          "label": "Sidebar banner button text"
+        },
+        {
+          "type": "url",
+          "id": "sidebar_banner_button_link",
+          "label": "Sidebar banner button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Section",
+      "category": "Blog",
+      "blocks": [
+        {
+          "type": "blog_content"
+        },
+        {
+          "type": "blog_sidebar"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
