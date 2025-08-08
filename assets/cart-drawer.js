@@ -322,13 +322,22 @@ customElements.define('cart-drawer', CartDrawer);
 // Theme customizer functionality
 if (Shopify.designMode) {
   document.addEventListener('shopify:section:select', function(event) {
+    console.log('Section selected:', event.target.id);
+    
+    // Check if this is the cart drawer section
     if (event.target.id === 'shopify-section-cart-drawer') {
+      console.log('Cart drawer section detected, opening drawer...');
+      
       // Get the cart drawer element and open it
       const cartDrawer = document.querySelector('cart-drawer');
       if (cartDrawer) {
+        console.log('Cart drawer found, calling open()');
         cartDrawer.open();
+      } else {
+        console.log('Cart drawer element not found');
       }
     } else {
+      console.log('Other section selected, closing drawer...');
       // Force close the drawer by triggering the close button
       const closeButton = document.querySelector('#shoppingCart .icon-close-popup');
       if (closeButton) {
