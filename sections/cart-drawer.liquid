@@ -14,7 +14,7 @@
             <div class="tf-mini-cart-threshold">
                 <div class="text">
                     {% if cart_total < free_shipping_threshold %}
-                        {{ 'sections.cart.drawer.spend' | t }} <span class="fw-medium">{{ remaining_amount | money }}</span> {{ 'sections.cart.drawer.more_to_get' | t }} <span class="fw-medium">{{ 'sections.cart.drawer.free_shipping' | t }}</span>
+                        {{ 'sections.cart.drawer.spend' | t }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_amount | money }}{% else %}{{ remaining_amount | money_without_currency }}{% endif %}</span> {{ 'sections.cart.drawer.more_to_get' | t }} <span class="fw-medium">{{ 'sections.cart.drawer.free_shipping' | t }}</span>
                     {% else %}
                         <span class="fw-medium">Congratulations! You've got Free Shipping!</span>
                     {% endif %}
@@ -60,9 +60,9 @@
                                             <i class="icon-pen edit"></i>
                                         </div>
                                         <p class="price-wrap text-sm fw-medium">
-                                            <span class="new-price text-primary">{{ item.final_price | money }}</span>
+                                            <span class="new-price text-primary">{% if settings.currency_code_enabled %}{{ item.final_price | money }}{% else %}{{ item.final_price | money_without_currency }}{% endif %}</span>
                                             {%- if item.original_price > item.final_price -%}
-                                                <span class="old-price text-decoration-line-through text-dark-1">{{ item.original_price | money }}</span>
+                                                <span class="old-price text-decoration-line-through text-dark-1">{% if settings.currency_code_enabled %}{{ item.original_price | money }}{% else %}{{ item.original_price | money_without_currency }}{% endif %}</span>
                                             {%- endif -%}
                                         </p>
                                         <div class="wg-quantity small" data-cart-quantity>
@@ -143,9 +143,9 @@
                                                         <a class="title link text-md fw-medium"
                                                             href="{{ product.url }}">{{ product.title }}</a>
                                                         <p class="price-wrap text-sm fw-medium">
-                                                            <span class="new-price text-primary">{{ product.price | money }}</span>
+                                                            <span class="new-price text-primary">{% if settings.currency_code_enabled %}{{ product.price | money }}{% else %}{{ product.price | money_without_currency }}{% endif %}</span>
                                                             {%- if product.compare_at_price > product.price -%}
-                                                                <span class="old-price text-decoration-line-through text-dark-1">{{ product.compare_at_price | money }}</span>
+                                                                <span class="old-price text-decoration-line-through text-dark-1">{% if settings.currency_code_enabled %}{{ product.compare_at_price | money }}{% else %}{{ product.compare_at_price | money_without_currency }}{% endif %}</span>
                                                             {%- endif -%}
                                                         </p>
                                                         <form method="post" action="/cart/add" class="w-max-content">
@@ -195,11 +195,11 @@
                             {%- if cart.total_discounts > 0 -%}
                                 <div class="tf-cart-discount text-sm">
                                     <span>{{ 'sections.cart.drawer.discount_label' | t }}</span>
-                                    <span>-{{ cart.total_discounts | money }}</span>
+                                    <span>-{% if settings.currency_code_enabled %}{{ cart.total_discounts | money }}{% else %}{{ cart.total_discounts | money_without_currency }}{% endif %}</span>
                                 </div>
                             {%- endif -%}
                             <div class="tf-cart-total text-xl fw-medium">{{ 'sections.cart.total' | t }}:</div>
-                            <div class="tf-totals-total-value text-xl fw-medium">{{ cart.total_price | money }}</div>
+                            <div class="tf-totals-total-value text-xl fw-medium">{% if settings.currency_code_enabled %}{{ cart.total_price | money }}{% else %}{{ cart.total_price | money_without_currency }}{% endif %}</div>
                         </div>
                         <div class="tf-cart-tax text-sm opacity-8">
                             {%- if cart.taxes_included -%}
@@ -236,18 +236,18 @@
                             {%- if gift_wrap_product != blank -%}
                                 <div class="tf-mini-cart-tool-text1 text-dark-1">
                                     {{ 'sections.cart.gift_wrap.description_1' | t }}
-                                    <span class="text fw-medium text-dark">{{ gift_wrap_product.price | money }}</span>
+                                    <span class="text fw-medium text-dark">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }}{% else %}{{ gift_wrap_product.price | money_without_currency }}{% endif %}</span>
                                     {{ 'sections.cart.gift_wrap.description_2' | t }}
                                 </div>
                                 <input type="hidden" name="gift_wrap_product_id" value="{{ gift_wrap_product.selected_or_first_available_variant.id }}">
                             {%- else -%}
                                 <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_1' | t }}
-                                    <span class="text fw-medium text-dark">{{ gift_wrap_product.price | money }}</span>
+                                    <span class="text fw-medium text-dark">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }}{% else %}{{ gift_wrap_product.price | money_without_currency }}{% endif %}</span>
                                     {{ 'sections.cart.gift_wrap.description_2' | t }}</div>
                             {%- endif -%}
                         {%- else -%}
                             <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_1' | t }}
-                                <span class="text fw-medium text-dark">{{ gift_wrap_product.price | money }}</span>
+                                <span class="text fw-medium text-dark">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }}{% else %}{{ gift_wrap_product.price | money_without_currency }}{% endif %}</span>
                                 {{ 'sections.cart.gift_wrap.description_2' | t }}</div>
                         {%- endif -%}
                         <div class="tf-cart-tool-btns">
