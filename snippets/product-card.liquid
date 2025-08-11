@@ -1,6 +1,27 @@
 {% assign card_style = settings.card_style | default: 'style-2' %}
+{% assign card_image_padding = settings.card_image_padding | default: 0 %}
+{% assign card_text_alignment = settings.card_text_alignment | default: 'left' %}
+{% assign card_color_scheme = settings.card_color_scheme | default: 'scheme-2' %}
+{% assign card_border_thickness = settings.card_border_thickness | default: 0 %}
+{% assign card_border_opacity = settings.card_border_opacity | default: 0 %}
+{% assign card_corner_radius = settings.card_corner_radius | default: 0 %}
+{% assign card_shadow_opacity = settings.card_shadow_opacity | default: 10 %}
+{% assign card_shadow_horizontal_offset = settings.card_shadow_horizontal_offset | default: 0 %}
+{% assign card_shadow_vertical_offset = settings.card_shadow_vertical_offset | default: 0 %}
+{% assign card_shadow_blur = settings.card_shadow_blur | default: 0 %}
+
 {% if card_style == 'style-1' %}
-<div class="card-product style-space radius-16 line">
+<div class="card-product style-space radius-16 line color-{{ card_color_scheme }}"
+     style="
+        {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
+        {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
+        {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
+        {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+        {% if card_shadow_opacity > 0 %}--card-shadow-opacity: {{ card_shadow_opacity | divided_by: 100.0 }};{% endif %}
+        {% if card_shadow_horizontal_offset != 0 %}--card-shadow-horizontal: {{ card_shadow_horizontal_offset }}px;{% endif %}
+        {% if card_shadow_vertical_offset != 0 %}--card-shadow-vertical: {{ card_shadow_vertical_offset }}px;{% endif %}
+        {% if card_shadow_blur > 0 %}--card-shadow-blur: {{ card_shadow_blur }}px;{% endif %}
+     ">
     <div class="card-product-wrapper asp-ratio-0">
         <a href="{{ product.url }}" class="product-img">
             {% if product.featured_image %}
@@ -29,7 +50,7 @@
             {% render 'product-compare-button', product: product %}
         </ul>
     </div>
-    <div class="card-product-info text-center">
+    <div class="card-product-info text-{{ card_text_alignment }}">
         <a href="{{ product.url }}"
             class="name-product link fw-medium text-md">{{ product.title }}</a>
         <p class="price-wrap fw-medium">
@@ -62,7 +83,17 @@
     </div>
 </div>
 {% else %}
-<div class="card-product style-2 style-border-2">
+<div class="card-product style-2 style-border-2 color-{{ card_color_scheme }}"
+     style="
+        {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
+        {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
+        {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
+        {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+        {% if card_shadow_opacity > 0 %}--card-shadow-opacity: {{ card_shadow_opacity | divided_by: 100.0 }};{% endif %}
+        {% if card_shadow_horizontal_offset != 0 %}--card-shadow-horizontal: {{ card_shadow_horizontal_offset }}px;{% endif %}
+        {% if card_shadow_vertical_offset != 0 %}--card-shadow-vertical: {{ card_shadow_vertical_offset }}px;{% endif %}
+        {% if card_shadow_blur > 0 %}--card-shadow-blur: {{ card_shadow_blur }}px;{% endif %}
+     ">
     <div class="card-product-wrapper asp-ratio-0">
         <a href="{{ product.url }}" class="product-img">
             {% if product.featured_image %}
@@ -91,7 +122,7 @@
             {% render 'product-compare-button', product: product %}
         </ul>
     </div>
-    <div class="card-product-info text-center">
+    <div class="card-product-info text-{{ card_text_alignment }}">
         <a href="{{ product.url }}"
             class="name-product link fw-medium text-md">{{ product.title }}</a>
         <p class="price-wrap fw-medium">
