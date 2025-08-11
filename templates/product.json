@@ -56,6 +56,14 @@
             "color_selector_size": "medium"
           }
         },
+        "quantity_and_buy_Vc7GaM": {
+          "type": "quantity_and_buy",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_more_payment": true,
+            "more_payment_text": "More payment options"
+          }
+        },
         "extra_links_WWFndr": {
           "type": "extra_links",
           "settings": {
@@ -117,6 +125,7 @@
         "sold_count_FhTTRW",
         "stock_count_HLePWd",
         "variant_picker_CFdTLh",
+        "quantity_and_buy_Vc7GaM",
         "extra_links_WWFndr",
         "sku_CwEeQx",
         "trust_and_payment_W3rWmf",
