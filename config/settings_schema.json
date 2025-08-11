@@ -381,6 +381,7 @@
         "step": 2,
         "unit": "px",
         "label": "t:settings_schema.global.settings.image_padding.label",
+        "info": "t:settings_schema.global.settings.image_padding.info",
         "default": 0
       },
       {
