@@ -539,8 +539,8 @@
                                class="more-choose-payment link buy-it-now" 
                                data-variant-id="{{ product.selected_or_first_available_variant.id }}"
                                data-quantity="1"
-                               aria-label="{{ block.settings.more_payment_text | default: 'sections.product.more_payment_options' | t }}">
-                              {{ block.settings.more_payment_text | default: 'sections.product.more_payment_options' | t }}
+                               aria-label="{{ block.settings.more_payment_text }}">
+                              {{ block.settings.more_payment_text }}
                             </a>
                           {% endif %}
                         {% else %}
