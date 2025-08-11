@@ -55,10 +55,11 @@
       "info": "Select a collection to show complementary products"
     },
     {
-      "type": "product",
-      "id": "complementary_products_product",
-      "label": "Product select",
-      "info": "Select a product that has complementary products (will replace collection if selected)"
+      "type": "product_list",
+      "id": "complementary_products_list",
+      "label": "Products select",
+      "info": "Select multiple products to display (will replace collection if selected)",
+      "limit": 10
     }
   ]
 }
@@ -194,13 +195,8 @@
                                 }'>
                                     <div class="swiper-wrapper">
                                         {%- assign complementary_collection = collections[section.settings.complementary_products_collection] -%}
-                                        {%- if section.settings.complementary_products_product != blank -%}
-                                            {%- assign selected_product = all_products[section.settings.complementary_products_product] -%}
-                                            {%- if selected_product.metafields.custom.complementary_products != blank -%}
-                                                {%- assign complementary_products = selected_product.metafields.custom.complementary_products.value -%}
-                                            {%- else -%}
-                                                {%- assign complementary_products = complementary_collection.products -%}
-                                            {%- endif -%}
+                                        {%- if section.settings.complementary_products_list != blank -%}
+                                            {%- assign complementary_products = section.settings.complementary_products_list -%}
                                         {%- else -%}
                                             {%- assign complementary_products = complementary_collection.products -%}
                                         {%- endif -%}
