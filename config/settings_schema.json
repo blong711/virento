@@ -584,10 +584,10 @@
         "content": "t:settings_schema.cart.settings.free_shipping.content"
       },
       {
-        "type": "product",
-        "id": "free_shipping_product",
-        "label": "t:settings_schema.cart.settings.free_shipping.product.label",
-        "info": "t:settings_schema.cart.settings.free_shipping.product.info"
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "t:settings_schema.cart.settings.free_shipping.threshold.label",
+        "info": "t:settings_schema.cart.settings.free_shipping.threshold.info"
       },
       {
         "type": "header",

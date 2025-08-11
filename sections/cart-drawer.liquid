@@ -6,7 +6,7 @@
             <button type="button" class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="wrap">
-            {%- assign free_shipping_threshold = 10000 -%}
+            {%- assign free_shipping_threshold = settings.free_shipping_threshold | times: 100 -%}
             {%- assign cart_total = cart.total_price -%}
             {%- assign remaining_amount = free_shipping_threshold | minus: cart_total -%}
             {%- assign progress_percentage = cart_total | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100 -%}
