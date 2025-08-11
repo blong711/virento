@@ -17,11 +17,17 @@
     },
     "compare-modal": {
       "type": "compare-modal",
-      "settings": {}
+      "settings": {
+        "title": "Compare Products"
+      }
     },
     "back-to-top": {
       "type": "back-to-top",
-      "settings": {}
+      "settings": {
+        "hidden_mobile": false,
+        "enable_progress": true,
+        "color_scheme": "scheme-1"
+      }
     },
     "mobile-toolbar": {
       "type": "mobile-toolbar",
