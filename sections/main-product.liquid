@@ -1496,7 +1496,7 @@
         {
           "type": "select",
           "id": "color_selector_type",
-          "label": "Color selector type",
+          "label": "Selector type",
           "options": [
             { "value": "swatch_rounded", "label": "Color swatch rounded" },
             { "value": "dropdown", "label": "Dropdown" }
@@ -1506,13 +1506,14 @@
         {
           "type": "select",
           "id": "color_selector_size",
-          "label": "Color selector size",
+          "label": "Selector size",
           "options": [
             { "value": "small", "label": "Small" },
             { "value": "medium", "label": "Medium" },
             { "value": "large", "label": "Large" }
           ],
-          "default": "medium"
+          "default": "medium",
+          "visible_if": "{{  block.settings.color_selector_type == 'swatch_rounded' }}"
         }
       ]
     },
