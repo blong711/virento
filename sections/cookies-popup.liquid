@@ -1,0 +1,68 @@
+{%- liquid
+  assign show_cookie_banner = section.settings.show_cookie_banner
+  assign cookie_message = section.settings.cookie_message
+  assign privacy_policy_url = section.settings.privacy_policy_url
+  assign accept_button_text = section.settings.accept_button_text
+  assign privacy_button_text = section.settings.privacy_button_text
+-%}
+
+{%- if show_cookie_banner -%}
+  <div class="cookie-banner" id="cookie-banner" data-section-id="{{ section.id }}" data-section-type="cookies-popup">
+    <div class="overlay"></div>
+    <div class="content">
+      <p class="text-md">{{ cookie_message | default: 'The cookie settings on this website are set to "allow all cookies" to give you the very best experience. Please click Accept Cookies to continue to use the site.' }}</p>
+      <div class="button-group">
+        {%- if privacy_policy_url != blank -%}
+          <a class="btn-out-line-white btn-submit-total tf-btn" href="{{ privacy_policy_url }}">
+            {{ privacy_button_text | default: 'Privacy Policy' }}
+          </a>
+        {%- endif -%}
+        <button id="accept-cookie" class="accept-button btn-out-line-white btn-submit-total tf-btn">
+          {{ accept_button_text | default: 'Accept Cookies' }}
+        </button>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cookies Popup",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_cookie_banner",
+      "label": "Show cookie banner",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "cookie_message",
+      "label": "Cookie message",
+      "default": "The cookie settings on this website are set to \"allow all cookies\" to give you the very best experience. Please click Accept Cookies to continue to use the site."
+    },
+    {
+      "type": "url",
+      "id": "privacy_policy_url",
+      "label": "Privacy Policy URL"
+    },
+    {
+      "type": "text",
+      "id": "accept_button_text",
+      "label": "Accept button text",
+      "default": "Accept Cookies"
+    },
+    {
+      "type": "text",
+      "id": "privacy_button_text",
+      "label": "Privacy Policy button text",
+      "default": "Privacy Policy"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cookies Popup"
+    }
+  ]
+}
+{% endschema %}
