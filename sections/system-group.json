@@ -13,6 +13,42 @@
   "sections": {
     "cart-drawer": {
       "type": "cart-drawer",
+      "blocks": {
+        "total_price_TnTEmD": {
+          "type": "total_price",
+          "settings": {}
+        },
+        "taxes_shipping_RPFxeU": {
+          "type": "taxes_shipping",
+          "settings": {
+            "custom_message": "Taxes and shipping calculated at checkout"
+          }
+        },
+        "terms_checkbox_rbgDJe": {
+          "type": "terms_checkbox",
+          "settings": {
+            "checkbox_text": "I agree with the",
+            "terms_link_text": "terms and conditions",
+            "terms_url": "",
+            "required": true
+          }
+        },
+        "checkout_buttons_w9Mmt6": {
+          "type": "checkout_buttons",
+          "settings": {
+            "show_view_cart": true,
+            "show_checkout": true,
+            "view_cart_text": "View cart",
+            "checkout_text": "Checkout"
+          }
+        }
+      },
+      "block_order": [
+        "total_price_TnTEmD",
+        "taxes_shipping_RPFxeU",
+        "terms_checkbox_rbgDJe",
+        "checkout_buttons_w9Mmt6"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
         "show_free_shipping_bar": true,
