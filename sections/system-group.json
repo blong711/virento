@@ -24,13 +24,12 @@
             "custom_message": "Taxes and shipping calculated at checkout"
           }
         },
-        "terms_checkbox_rbgDJe": {
+        "terms_checkbox_79LyaV": {
           "type": "terms_checkbox",
           "settings": {
             "checkbox_text": "I agree with the",
             "terms_link_text": "terms and conditions",
-            "terms_url": "",
-            "required": true
+            "terms_url": ""
           }
         },
         "checkout_buttons_w9Mmt6": {
@@ -46,7 +45,7 @@
       "block_order": [
         "total_price_TnTEmD",
         "taxes_shipping_RPFxeU",
-        "terms_checkbox_rbgDJe",
+        "terms_checkbox_79LyaV",
         "checkout_buttons_w9Mmt6"
       ],
       "settings": {
