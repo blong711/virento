@@ -61,6 +61,118 @@
       "info": "Select multiple products to display (will replace collection if selected)",
       "limit": 10
     }
+  ],
+  "blocks": [
+    {
+      "type": "total_price",
+      "name": "Total Price",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Cart and checkout prices always show currency codes. Example: $1.00 USD."
+        }
+      ]
+    },
+    {
+      "type": "taxes_shipping",
+      "name": "Taxes and Shipping",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "custom_message",
+          "label": "Custom message",
+          "default": "Taxes and shipping calculated at checkout",
+          "info": "Leave empty to use default message"
+        }
+      ]
+    },
+    {
+      "type": "terms_checkbox",
+      "name": "Terms and Conditions",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "checkbox_text",
+          "label": "Checkbox text",
+          "default": "I agree with the",
+          "info": "Text before the terms link"
+        },
+        {
+          "type": "text",
+          "id": "terms_link_text",
+          "label": "Terms link text",
+          "default": "terms and conditions",
+          "info": "Text for the terms link"
+        },
+        {
+          "type": "url",
+          "id": "terms_url",
+          "label": "Terms and conditions URL",
+          "default": "/pages/terms-and-conditions",
+          "info": "URL for the terms and conditions page"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "Required checkbox",
+          "default": true,
+          "info": "You can add an I agree with the terms and conditions checkbox to your cart page that customers must check before continuing to the checkout. If a customer doesn't check the checkbox before clicking the checkout button, an alert pop up will prevent them from continuing."
+        }
+      ]
+    },
+    {
+      "type": "checkout_buttons",
+      "name": "Checkout Buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_view_cart",
+          "label": "Enable view cart button",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_checkout",
+          "label": "Enable checkout button",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "view_cart_text",
+          "label": "View cart button text",
+          "default": "View cart"
+        },
+        {
+          "type": "text",
+          "id": "checkout_text",
+          "label": "Checkout button text",
+          "default": "Checkout"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart Drawer",
+      "blocks": [
+        {
+          "type": "total_price"
+        },
+        {
+          "type": "taxes_shipping"
+        },
+        {
+          "type": "terms_checkbox"
+        },
+        {
+          "type": "checkout_buttons"
+        }
+      ]
+    }
   ]
 }
 {% endschema %}
@@ -274,40 +386,64 @@
                         {%- endif -%}
                     </div>
                     <div class="tf-mini-cart-bottom-wrap">
-                        <div class="tf-cart-totals-discounts">
-                            {%- if cart.total_discounts > 0 -%}
-                                <div class="tf-cart-discount text-sm">
-                                    <span>{{ 'sections.cart.drawer.discount_label' | t }}</span>
-                                    <span>-{% if settings.currency_code_enabled %}{{ cart.total_discounts | money }}{% else %}{{ cart.total_discounts | money_without_currency }}{% endif %}</span>
-                                </div>
-                            {%- endif -%}
-                            <div class="tf-cart-total text-xl fw-medium">{{ 'sections.cart.total' | t }}:</div>
-                            <div class="tf-totals-total-value text-xl fw-medium">{% if settings.currency_code_enabled %}{{ cart.total_price | money }}{% else %}{{ cart.total_price | money_without_currency }}{% endif %}</div>
-                        </div>
-                        <div class="tf-cart-tax text-sm opacity-8">
-                            {%- if cart.taxes_included -%}
-                                {{ 'sections.cart.drawer.including_taxes' | t }}
-                            {%- endif -%}
-                            {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
-                        </div>
-                        <div class="tf-cart-checkbox">
-                            <div class="tf-checkbox-wrapp">
-                                <input class="" type="checkbox" id="CartDrawer-Form_agree" name="agree_checkbox" required>
-                                <div>
-                                    <i class="icon-check"></i>
-                                </div>
-                            </div>
-                            <label for="CartDrawer-Form_agree" class="text-sm">
-                                I agree with the
-                                <a href="{{ routes.legal_notice_url }}" title="Terms of Service" class="fw-medium">terms and conditions</a>
-                            </label>
-                        </div>
-                        <div class="tf-mini-cart-view-checkout">
-                            <a href="{{ routes.cart_url }}"
-                                class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">{{ 'sections.cart.view_cart' | t }}</a>
-                            <a href="/checkout"
-                                class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>{{ 'sections.cart.checkout' | t }}</span></a>
-                        </div>
+                        {%- for block in section.blocks -%}
+                            {%- case block.type -%}
+                                {%- when 'total_price' -%}
+                                    <div class="tf-cart-totals-discounts" {{ block.shopify_attributes }}>
+                                        {%- if cart.total_discounts > 0 -%}
+                                            <div class="tf-cart-discount text-sm">
+                                                <span>{{ 'sections.cart.drawer.discount_label' | t }}</span>
+                                                <span>-{% if settings.currency_code_enabled %}{{ cart.total_discounts | money }}{% else %}{{ cart.
+                                                total_discounts | money_without_currency }}{% endif %}</span>
+                                            </div>
+                                        {%- endif -%}
+                                        <div class="tf-cart-total text-xl fw-medium">{{ 'sections.cart.total' | t }}:</div>
+                                        <div class="tf-totals-total-value text-xl fw-medium">{% if settings.currency_code_enabled %}{{ cart.total_price | 
+                                        money }}{% else %}{{ cart.total_price | money_without_currency }}{% endif %}</div>
+                                    </div>
+                                {%- when 'taxes_shipping' -%}
+                                    <div class="tf-cart-tax text-sm opacity-8" {{ block.shopify_attributes }}>
+                                        {%- if cart.taxes_included -%}
+                                            {{ 'sections.cart.drawer.including_taxes' | t }}
+                                        {%- endif -%}
+                                        {%- if block.settings.custom_message != blank -%}
+                                            {{ block.settings.custom_message }}
+                                        {%- else -%}
+                                            {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                                        {%- endif -%}
+                                    </div>
+                                {%- when 'terms_checkbox' -%}
+                                    <div class="tf-cart-checkbox" {{ block.shopify_attributes }}>
+                                        <div class="tf-checkbox-wrapp">
+                                            <input class="" 
+                                                   type="checkbox" 
+                                                   id="CartDrawer-Form_agree" 
+                                                   name="agree_checkbox" 
+                                                   {% if block.settings.required %}required{% endif %}>
+                                            <div>
+                                                <i class="icon-check"></i>
+                                            </div>
+                                        </div>
+                                        <label for="CartDrawer-Form_agree" class="text-sm">
+                                            {{ block.settings.checkbox_text }}
+                                            <a href="{{ block.settings.terms_url }}" 
+                                               title="Terms of Service" 
+                                               class="fw-medium">{{ block.settings.terms_link_text }}</a>
+                                        </label>
+                                    </div>
+                                {%- when 'checkout_buttons' -%}
+                                    <div class="tf-mini-cart-view-checkout" {{ block.shopify_attributes }}>
+                                        {%- if block.settings.show_view_cart -%}
+                                            <a href="{{ routes.cart_url }}"
+                                                class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">{{ block.settings.view_cart_text | default: 'sections.cart.view_cart' | t }}</a>
+                                        {%- endif -%}
+                                        {%- if block.settings.show_checkout -%}
+                                            <a href="/checkout"
+                                                class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>{{ block.settings.checkout_text | default: 'sections.cart.checkout' | t }}</span></a>
+                                        {%- endif -%}
+                                    </div>
+                            {%- endcase -%}
+                        {%- endfor -%}
                     </div>
                 </div>
                 {%- if section.settings.show_gift_wrap -%}
