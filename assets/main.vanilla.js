@@ -1013,7 +1013,7 @@ const clickModalSecond = () => {
       } else if (cartType === 'cart-page') {
         window.location = window.routes?.cart_url || '/cart';
       } else if (cartType === 'checkout-page') {
-        window.location = `${window.routes?.cart_url || '/cart'}?checkout`;
+        window.location = `${window.routes?.checkout_url || '/checkout'}`;
       }
       // For 'none' type, do nothing
     });

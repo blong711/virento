@@ -39,7 +39,6 @@ if (!customElements.get('product-cart-button')) {
         }
 
         if (!variantId) {
-          console.error('No variant ID found');
           return;
         }
 
@@ -67,7 +66,7 @@ if (!customElements.get('product-cart-button')) {
         this.addSpinner(button);
 
         // Get cart type setting
-        const cartType = window.themeSettings?.cartType || 'drawer';
+        const cartType = (window.themeSettings?.cartType || 'drawer').trim();
 
         // Get cart element based on cart type
         let cartElement = null;
@@ -140,7 +139,9 @@ if (!customElements.get('product-cart-button')) {
               
             } else if (cartType === 'checkout-page') {
               // Redirect to checkout page
-              window.location = `${window.routes.cart_url}?checkout`;
+              const checkoutUrl = window.routes.checkout_url || '/checkout';
+              window.location.href = checkoutUrl;
+              return; // Stop execution here
               
             } else if (cartType === 'drawer' && cartElement) {
               // Update cart drawer
@@ -285,8 +286,8 @@ function initializeCartTypeHandling() {
         // Redirect to cart page
         window.location = window.routes?.cart_url || '/cart';
       } else if (cartType === 'checkout-page') {
-        // Redirect to checkout page
-        window.location = `${window.routes?.cart_url || '/cart'}?checkout`;
+        // Redirect directly to Shopify checkout
+        window.location = `${window.routes?.checkout_url || '/checkout'}`;
       }
       // For 'none' type, do nothing
     }
@@ -309,8 +310,8 @@ function initializeCartTypeHandling() {
         // Redirect to cart page
         window.location = window.routes?.cart_url || '/cart';
       } else if (cartType === 'checkout-page') {
-        // Redirect to checkout page
-        window.location = `${window.routes?.cart_url || '/cart'}?checkout`;
+        // Redirect directly to Shopify checkout
+        window.location = `${window.routes?.checkout_url || '/checkout'}`;
       }
       // For 'none' type, do nothing
     }
@@ -343,8 +344,8 @@ function initializeCartTypeHandling() {
             // Redirect to cart page
             window.location = window.routes?.cart_url || '/cart';
           } else if (cartType === 'checkout-page') {
-            // Redirect to checkout page
-            window.location = `${window.routes?.cart_url || '/cart'}?checkout`;
+            // Redirect directly to Shopify checkout
+            window.location = `${window.routes?.checkout_url || '/checkout'}`;
           }
           // For 'none' type, do nothing
         }
