@@ -3231,7 +3231,7 @@ header.header-bg {
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 400;
+  font-weight: var(--font-body-weight);
   color: var(--text);
   background-color: var(--white);
 }
