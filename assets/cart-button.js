@@ -261,9 +261,50 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(cartButtonElement);
   }
   
+  // Clean up any existing offcanvas instances to prevent duplicate backdrops
+  cleanupExistingOffcanvasInstances();
+  
   // Initialize cart type handling for all cart-related elements
   initializeCartTypeHandling();
 });
+
+// Function to safely open cart drawer without creating duplicate instances
+function safelyOpenCartDrawer() {
+  const cartDrawer = document.getElementById('shoppingCart');
+  if (cartDrawer) {
+    // Check if it's already open
+    const existingOffcanvas = bootstrap.Offcanvas.getInstance(cartDrawer);
+    if (existingOffcanvas) {
+      // If already open, just show it (no duplicate)
+      existingOffcanvas.show();
+    } else {
+      // Create new instance only if none exists
+      const offcanvas = new bootstrap.Offcanvas(cartDrawer);
+      offcanvas.show();
+    }
+  }
+}
+
+// Function to clean up existing offcanvas instances
+function cleanupExistingOffcanvasInstances() {
+  // Remove any existing offcanvas instances for the shopping cart
+  const cartDrawer = document.getElementById('shoppingCart');
+  if (cartDrawer) {
+    const existingOffcanvas = bootstrap.Offcanvas.getInstance(cartDrawer);
+    if (existingOffcanvas) {
+      existingOffcanvas.dispose();
+    }
+  }
+  
+  // Remove any duplicate backdrop elements
+  const backdrops = document.querySelectorAll('.offcanvas-backdrop');
+  if (backdrops.length > 1) {
+    // Keep only the first backdrop, remove the rest
+    for (let i = 1; i < backdrops.length; i++) {
+      backdrops[i].remove();
+    }
+  }
+}
 
 // Function to handle cart type behavior for all cart-related interactions
 function initializeCartTypeHandling() {
@@ -273,15 +314,15 @@ function initializeCartTypeHandling() {
   document.addEventListener('click', (event) => {
     const target = event.target.closest('[data-bs-toggle="offcanvas"]');
     if (target && target.getAttribute('href') === '#shoppingCart') {
-      event.preventDefault();
+      // Prevent default Bootstrap behavior when we want to handle it manually
+      if (cartType !== 'drawer') {
+        event.preventDefault();
+        event.stopPropagation();
+      }
       
       if (cartType === 'drawer') {
-        // Open cart drawer as normal
-        const cartDrawer = document.getElementById('shoppingCart');
-        if (cartDrawer) {
-          const offcanvas = new bootstrap.Offcanvas(cartDrawer);
-          offcanvas.show();
-        }
+        // Let Bootstrap handle it normally - don't create another instance
+        return;
       } else if (cartType === 'cart-page') {
         // Redirect to cart page
         window.location = window.routes?.cart_url || '/cart';
@@ -298,14 +339,11 @@ function initializeCartTypeHandling() {
     const target = event.target.closest('.nav-cart a, .cart-icon, [data-cart-toggle]');
     if (target) {
       event.preventDefault();
+      event.stopPropagation();
       
       if (cartType === 'drawer') {
-        // Open cart drawer
-        const cartDrawer = document.getElementById('shoppingCart');
-        if (cartDrawer) {
-          const offcanvas = new bootstrap.Offcanvas(cartDrawer);
-          offcanvas.show();
-        }
+        // Safely open cart drawer without creating duplicate instances
+        safelyOpenCartDrawer();
       } else if (cartType === 'cart-page') {
         // Redirect to cart page
         window.location = window.routes?.cart_url || '/cart';
@@ -331,15 +369,12 @@ function initializeCartTypeHandling() {
         // Only intercept if it's not already handled by our cart button logic
         if (!target.hasAttribute('data-cart-handled')) {
           event.preventDefault();
+          event.stopPropagation();
           target.setAttribute('data-cart-handled', 'true');
           
           if (cartType === 'drawer') {
-            // Open cart drawer
-            const cartDrawer = document.getElementById('shoppingCart');
-            if (cartDrawer) {
-              const offcanvas = new bootstrap.Offcanvas(cartDrawer);
-              offcanvas.show();
-            }
+            // Safely open cart drawer without creating duplicate instances
+            safelyOpenCartDrawer();
           } else if (cartType === 'cart-page') {
             // Redirect to cart page
             window.location = window.routes?.cart_url || '/cart';
@@ -386,4 +421,29 @@ if (!window.cartButtonObserver) {
     childList: true,
     subtree: true
   });
-} 
+}
+
+// Global event listener to prevent duplicate cart drawer instances
+document.addEventListener('show.bs.offcanvas', (event) => {
+  if (event.target.id === 'shoppingCart') {
+    // Remove any duplicate backdrop elements when cart drawer opens
+    const backdrops = document.querySelectorAll('.offcanvas-backdrop');
+    if (backdrops.length > 1) {
+      // Keep only the first backdrop, remove the rest
+      for (let i = 1; i < backdrops.length; i++) {
+        backdrops[i].remove();
+      }
+    }
+  }
+});
+
+// Global event listener to clean up when cart drawer closes
+document.addEventListener('hidden.bs.offcanvas', (event) => {
+  if (event.target.id === 'shoppingCart') {
+    // Clean up any remaining backdrop elements
+    const backdrops = document.querySelectorAll('.offcanvas-backdrop');
+    if (backdrops.length > 0) {
+      backdrops.forEach(backdrop => backdrop.remove());
+    }
+  }
+}); 

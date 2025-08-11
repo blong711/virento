@@ -206,9 +206,16 @@ class CartDrawer extends HTMLElement {
   open(triggeredBy) {
     if (triggeredBy) this.setActiveElement(triggeredBy);
     
-    // Use Bootstrap's offcanvas API to open the cart drawer
-    const offcanvas = new bootstrap.Offcanvas(this);
-    offcanvas.show();
+    // Safely open the cart drawer without creating duplicate instances
+    const existingOffcanvas = bootstrap.Offcanvas.getInstance(this);
+    if (existingOffcanvas) {
+      // If already open, just show it (no duplicate)
+      existingOffcanvas.show();
+    } else {
+      // Create new instance only if none exists
+      const offcanvas = new bootstrap.Offcanvas(this);
+      offcanvas.show();
+    }
   }
 
   close() {
