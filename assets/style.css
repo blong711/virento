@@ -2564,7 +2564,7 @@ a:hover {
 }
 
 .logo-header img {
-  width: 128px;
+  width: var(--logo-width);
 }
 
 .header-medium .header-bottom .menu-item {
@@ -3325,7 +3325,7 @@ header.header-bg {
   display: block;
 }
 .footer-logo > a img {
-  width: 100%;
+  width: var(--logo-width);
 }
 
 .footer-wrap {
