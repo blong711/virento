@@ -731,7 +731,7 @@
                         <div class="tf-product-info-delivery-return" {{ block.shopify_attributes }}>
                           {% if block.settings.show_delivery_info %}
                             <div class="product-delivery">
-                              <div class="icon {{ block.settings.delivery_icon }}"></div>
+                              <div class="icon {{ block.settings.delivery_icon }}" style="font-size: {{ block.settings.icon_size }}px;"></div>
                               <p class="text-md">
                                 {{ block.settings.delivery_label }} 
                                 <span class="fw-medium">{{ block.settings.delivery_time }}</span>
@@ -740,7 +740,7 @@
                           {% endif %}
                           {% if block.settings.show_free_shipping %}
                             <div class="product-delivery">
-                              <div class="icon {{ block.settings.shipping_icon }}"></div>
+                              <div class="icon {{ block.settings.shipping_icon }}" style="font-size: {{ block.settings.icon_size }}px;"></div>
                               <p class="text-md">
                                 {{ block.settings.shipping_label }} 
                                 <span class="fw-medium">{{ block.settings.free_shipping_text }}</span>
@@ -1382,10 +1382,10 @@
           "id": "icon_size",
           "min": 16,
           "max": 48,
-          "step": 2,
+          "step": 1,
           "unit": "px",
           "label": "Icon Size",
-          "default": 24
+          "default": 23
         }
       ]
     },
