@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   estimateShipping();
   headerSticky();
   autoPopup();
+  new WOW().init();
 });
 
 /* Custom Select with Images

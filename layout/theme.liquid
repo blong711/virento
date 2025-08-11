@@ -280,7 +280,9 @@
 
     <!-- UI Enhancement JS -->
     <script src="{{ 'nouislider.min.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'wow.min.js' | asset_url }}" defer="defer"></script>
+    {%- if settings.animations_reveal_on_scroll -%}
+      <script src="{{ 'wow.min.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
     <script src="{{ 'count-down.js' | asset_url }}" defer="defer"></script>
 
     <!-- Image Handling JS -->
@@ -303,7 +305,9 @@
 
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient">
+    {% render 'preload-screen' %}
+    
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

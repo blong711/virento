@@ -154,18 +154,9 @@
         "animations_reveal_on_scroll": {
           "label": "Reveal sections on scroll"
         },
-        "animations_hover_elements": {
-          "options__1": {
-            "label": "None"
-          },
-          "options__2": {
-            "label": "Vertical lift"
-          },
-          "options__3": {
-            "label": "3D lift"
-          },
-          "label": "Hover effect",
-          "info": "Affects cards and buttons"
+        "enable_loading_screen": {
+          "label": "Enable loading screen",
+          "info": "Enable a loading screen when the page is loading"
         }
       }
     },
