@@ -434,11 +434,11 @@
                                     <div class="tf-mini-cart-view-checkout" {{ block.shopify_attributes }}>
                                         {%- if block.settings.show_view_cart -%}
                                             <a href="{{ routes.cart_url }}"
-                                                class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">{{ block.settings.view_cart_text | default: 'sections.cart.view_cart' | t }}</a>
+                                                class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">{{ block.settings.view_cart_text }}</a>
                                         {%- endif -%}
                                         {%- if block.settings.show_checkout -%}
                                             <a href="/checkout"
-                                                class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>{{ block.settings.checkout_text | default: 'sections.cart.checkout' | t }}</span></a>
+                                                class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>{{ block.settings.checkout_text }}</span></a>
                                         {%- endif -%}
                                     </div>
                             {%- endcase -%}
