@@ -745,7 +745,9 @@ customElements.define('cart-drawer', CartDrawer);
 // Theme customizer functionality
 if (Shopify.designMode) {
   document.addEventListener('shopify:section:select', function(event) {
-    if (event.target.id === 'shopify-section-cart-drawer') {
+    // Check if the selected section is a cart-drawer section
+    // The ID pattern is: sections--{section_id}__cart-drawer
+    if (event.target.id && event.target.id.includes('__cart-drawer')) {
       // Get the cart drawer element and open it
       const cartDrawer = document.querySelector('cart-drawer');
       if (cartDrawer) {
