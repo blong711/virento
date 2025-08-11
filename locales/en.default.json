@@ -456,6 +456,19 @@
       "login": {
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
+      },
+      "drawer": {
+        "title": "Shopping cart",
+        "discount_label": "Discount",
+        "including_taxes": "Including taxes",
+        "add_to_cart": "Add to cart",
+        "sold_out": "Sold out",
+        "save": "Save",
+        "close": "Close",
+        "apply_discount": "Apply discount",
+        "spend": "Spend",
+        "more_to_get": "more to get",
+        "free_shipping": "Free Shipping"
       }
     },
     "product": {
