@@ -1932,6 +1932,12 @@ a:hover {
   bottom: 0;
 }
 
+/* Shopify section spacing */
+.shopify-section {
+  padding-top: var(--spacing-sections-desktop);
+  padding-bottom: var(--spacing-sections-desktop);
+}
+
 .radius-16 {
   border-radius: 16px !important;
 }
