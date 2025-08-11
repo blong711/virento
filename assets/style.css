@@ -13353,7 +13353,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   align-items: center;
 }
 .tf-mini-cart-tool-openable .tf-mini-cart-tool-content .tf-cart-tool-btns .tf-mini-cart-tool-primary {
-  text-decoration: underline;
+  /* text-decoration: underline; */
   text-underline-offset: 8px;
 }
 .tf-mini-cart-tool-openable.add-note textarea {

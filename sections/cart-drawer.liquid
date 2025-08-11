@@ -234,13 +234,21 @@
                         {%- if settings.gift_wrap_product != blank -%}
                             {%- assign gift_wrap_product = all_products[settings.gift_wrap_product] -%}
                             {%- if gift_wrap_product != blank -%}
-                                <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_html' | t: price: gift_wrap_product.price | money }}</div>
+                                <div class="tf-mini-cart-tool-text1 text-dark-1">
+                                    {{ 'sections.cart.gift_wrap.description_1' | t }}
+                                    <span class="text fw-medium text-dark">{{ gift_wrap_product.price | money }}</span>
+                                    {{ 'sections.cart.gift_wrap.description_2' | t }}
+                                </div>
                                 <input type="hidden" name="gift_wrap_product_id" value="{{ gift_wrap_product.selected_or_first_available_variant.id }}">
                             {%- else -%}
-                                <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_html' | t: price: '$10.00' }}</div>
+                                <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_1' | t }}
+                                    <span class="text fw-medium text-dark">{{ gift_wrap_product.price | money }}</span>
+                                    {{ 'sections.cart.gift_wrap.description_2' | t }}</div>
                             {%- endif -%}
                         {%- else -%}
-                            <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_html' | t: price: '$10.00' }}</div>
+                            <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_1' | t }}
+                                <span class="text fw-medium text-dark">{{ gift_wrap_product.price | money }}</span>
+                                {{ 'sections.cart.gift_wrap.description_2' | t }}</div>
                         {%- endif -%}
                         <div class="tf-cart-tool-btns">
                             <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
