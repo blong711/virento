@@ -388,7 +388,7 @@
         "id": "card_text_alignment",
         "options": [
           {
-            "value": "left",
+            "value": "start",
             "label": "t:settings_schema.global.settings.text_alignment.options__1.label"
           },
           {
@@ -396,7 +396,7 @@
             "label": "t:settings_schema.global.settings.text_alignment.options__2.label"
           },
           {
-            "value": "right",
+            "value": "end",
             "label": "t:settings_schema.global.settings.text_alignment.options__3.label"
           }
         ],
