@@ -1,0 +1,217 @@
+/* =========================================================
+   Product Section Styles
+   =========================================================
+   This file contains styles specifically for the product section
+   that were previously inline in product.liquid. Moving them here
+   improves:
+   - Separation of concerns
+   - Theme maintenance
+   - Code readability
+   - Performance (external CSS can be cached)
+   ========================================================= */
+
+/* Product Section Responsive Padding */
+@media (max-width: 767px) {
+    .flat-single-product {
+      padding-top: calc(var(--section-padding-top, 60px) * var(--section-padding-mobile-rate, 80) / 100);
+      padding-bottom: calc(var(--section-padding-bottom, 60px) * var(--section-padding-mobile-rate, 80) / 100);
+    }
+  }
+  
+  /* CSS Custom Properties for dynamic values */
+  .flat-single-product {
+    --section-padding-top: 60px;
+    --section-padding-bottom: 60px;
+    --section-padding-mobile-rate: 80;
+  }
+  
+  /* Notify Stock Success Message Styles */
+  .notify-success-message {
+    background: #f8f9fa;
+    border: 2px solid #28a745;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+    text-align: center;
+    animation: fadeInUp 0.5s ease-out;
+  }
+  
+  .notify-success-message .success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .notify-success-message .success-text {
+    text-align: center;
+  }
+  
+  .notify-success-message .success-text .text-xl {
+    margin-bottom: 8px;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .notify-success-message {
+      padding: 15px;
+      margin-top: 10px;
+    }
+    
+    .notify-success-message .success-content {
+      gap: 10px;
+    }
+  }
+  
+  /* Wishlist Button States */
+  .btn-wishlist .wishlist-content {
+    display: none;
+  }
+  
+  .btn-wishlist .wishlist-content.add {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .btn-wishlist[data-action="remove"] .wishlist-content.add {
+    display: none;
+  }
+  
+  .btn-wishlist[data-action="remove"] .wishlist-content.remove {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .btn-wishlist .icon {
+    margin-right: 5px;
+  }
+  
+  /* Image Zoom Styles */
+  .tf-image-zoom,
+  .tf-image-zoom-inner {
+    cursor: zoom-in;
+    transition: opacity 0.3s ease;
+  }
+  
+  @media (max-width: 991px) {
+    .tf-zoom-main {
+      display: none !important;
+    }
+  }
+  
+  /* Image Zoom at Cursor */
+  .tf-image-zoom,
+  .tf-image-zoom-inner {
+    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+    will-change: transform;
+    cursor: pointer;
+  }
+  
+  .tf-image-zoom.zoomed,
+  .tf-image-zoom-inner.zoomed {
+    transform: scale(2);
+    z-index: 2;
+    cursor: pointer;
+  }
+  
+  /* Variant Picker Dropdown Styles */
+  .option-dropdown, 
+  .color-dropdown {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: #fff url('data:image/svg+xml;utf8,<svg fill="%23333" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 0.75em center/1em 1em;
+    border: 1px solid #ddd;
+    border-radius: 24px;
+    padding: 0.5em 2.5em 0.5em 1em;
+    font-size: 1em;
+    color: #222;
+    min-width: 120px;
+    margin: 0.25em 0;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+  
+  .option-dropdown:focus, 
+  .color-dropdown:focus {
+    border-color: #888;
+    outline: none;
+    box-shadow: 0 0 0 2px #f2721c33;
+  }
+  
+  .option-dropdown:hover, 
+  .color-dropdown:hover {
+    border-color: #f2721c;
+  }
+  
+  /* Color Swatch Styles */
+  .tf-product-info-wrap .variant-color .color-btn:not(.select-item) .check-color {
+    width: 32px;
+    height: 32px;
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #dcdcdc;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .tf-product-info-wrap .variant-color .color-btn:not(.select-item) {
+    position: relative;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+  }
+  
+  /* Color Button Size Variants */
+  .color-btn.color-size-small { 
+    width: 26px !important; 
+    height: 26px !important; 
+  }
+  
+  .color-btn.color-size-medium { 
+    width: 38px !important; 
+    height: 38px !important; 
+  }
+  
+  .color-btn.color-size-large { 
+    width: 50px !important; 
+    height: 50px !important; 
+  }
+  
+  /* Color Swatch Circle Sizes */
+  .color-btn.color-size-small .check-color { 
+    width: 20px !important; 
+    height: 20px !important; 
+  }
+  
+  .color-btn.color-size-medium .check-color { 
+    width: 32px !important; 
+    height: 32px !important; 
+  }
+  
+  .color-btn.color-size-large .check-color { 
+    width: 44px !important; 
+    height: 44px !important; 
+  }
+  
+  /* Loading State for Buy It Now Buttons */
+  .buy-it-now.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  } 

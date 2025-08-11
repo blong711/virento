@@ -42,8 +42,8 @@
           "type": "stock_count",
           "settings": {
             "stock_count_text": "HURRY UP!",
-            "stock_prefix": "Only",
-            "stock_suffix": "items left!",
+            "show_inventory_count": true,
+            "show_progress_bar": true,
             "stock_threshold": 50
           }
         },

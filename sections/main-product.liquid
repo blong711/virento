@@ -303,11 +303,15 @@
                           <div class="product-info-progress-sale" {{ block.shopify_attributes }}>
                             <div class="title-hurry-up">
                               <span class="text-primary fw-medium">{{ block.settings.stock_count_text }}</span>
-                              {{ block.settings.stock_prefix }} <span class="count">{{ inventory_quantity }}</span> {{ block.settings.stock_suffix }}
+                              {% if block.settings.show_inventory_count %}
+                                {{ 'products.product.stock.only' | t }} <span class="count">{{ inventory_quantity }}</span> {{ 'products.product.stock.items_left' | t }}
+                              {% endif %}
                             </div>
-                            <div class="progress-sold">
-                              <div class="value" style="width: {{ inventory_percentage }}%;" data-progress="{{ inventory_percentage }}"></div>
-                            </div>
+                            {% if block.settings.show_progress_bar %}
+                              <div class="progress-sold">
+                                <div class="value" style="width: {{ inventory_percentage }}%;" data-progress="{{ inventory_percentage }}"></div>
+                              </div>
+                            {% endif %}
                           </div>
                         {% endif %}          
                     {% endcase %}
@@ -1151,16 +1155,16 @@
           "default": "HURRY UP!"
         },
         {
-          "type": "text",
-          "id": "stock_prefix",
-          "label": "Text before count",
-          "default": "Only"
+          "type": "checkbox",
+          "id": "show_inventory_count",
+          "label": "Show inventory count",
+          "default": true
         },
         {
-          "type": "text",
-          "id": "stock_suffix",
-          "label": "Text after count",
-          "default": "items left!"
+          "type": "checkbox",
+          "id": "show_progress_bar",
+          "label": "Show progress bar",
+          "default": true
         },
         {
           "type": "range",
@@ -1406,12 +1410,6 @@
         },
         {
           "type": "checkbox",
-          "id": "enable_history_state",
-          "label": "Enable historyState",
-          "default": false
-        },
-        {
-          "type": "checkbox",
           "id": "hide_sold_out",
           "label": "Hide sold out variants",
           "default": false
@@ -1565,3 +1563,4 @@
   ]
 }
 {% endschema %}
+<link rel="stylesheet" href="{{ 'product.css' | asset_url }}">
