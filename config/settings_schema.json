@@ -400,7 +400,7 @@
             "label": "t:settings_schema.global.settings.text_alignment.options__3.label"
           }
         ],
-        "default": "left",
+        "default": "start",
         "label": "t:settings_schema.global.settings.text_alignment.label"
       },
       {
