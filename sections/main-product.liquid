@@ -397,36 +397,78 @@
                                       <span class="text-sort-value value-current{{ option.name }}">{{ option.selected_value }}</span>
                                       <span class="icon icon-arrow-down"></span>
                                     </div>
-                                    <div class="dropdown-menu">
-                                      {% for value in option.values %}
+                                                                      <div class="dropdown-menu">
+                                    {% for value in option.values %}
+                                      {% assign show_value = true %}
+                                      {% if block.settings.hide_sold_out %}
+                                        {% assign variant_for_value = null %}
+                                        {% for variant in product.variants %}
+                                          {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                            {% if variant.available == false %}
+                                              {% assign show_value = false %}
+                                              {% break %}
+                                            {% endif %}
+                                          {% endif %}
+                                        {% endfor %}
+                                      {% endif %}
+                                      {% if show_value %}
                                         <div class="select-item{% if value == option.selected_value %} active{% endif %}"
                                             data-value="{{ value | handle }}" data-option="{{ option.name | handle }}"
                                             {% if option.name == 'Color' %} data-color="{{ value | handle }}"{% endif %} {% if option.name == 'Size' %} data-size="{{ value | handle }}"{% endif %}>
                                           <span class="text-value-item">{{ value }}</span>
                                         </div>
-                                      {% endfor %}
-                                    </div>
+                                      {% endif %}
+                                    {% endfor %}
+                                  </div>
                                   </div>
                                 {% else %}
                                   <div class="variant-picker-values">
                                     {% if option.name == 'Color' %}
                                       <span class="value-currentColor" style="display: none;">{{ option.selected_value }}</span>
                                       {% for value in option.values %}
-                                        <div class="hover-tooltip tooltip-bot color-btn btn-scroll-target color-size-{{ block.settings.color_selector_size }}{% if value == option.selected_value %} active{% endif %}"
-                                            data-scroll="{{ value | handle }}"
-                                            data-option="{{ option.name | handle }}"
-                                            data-value="{{ value | handle }}">
-                                          <span class="check-color bg-{{ value | handle }}"></span>
-                                          <span class="tooltip">{{ value }}</span>
-                                        </div>
+                                        {% assign show_value = true %}
+                                        {% if block.settings.hide_sold_out %}
+                                          {% assign variant_for_value = null %}
+                                          {% for variant in product.variants %}
+                                            {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                              {% if variant.available == false %}
+                                                {% assign show_value = false %}
+                                                {% break %}
+                                              {% endif %}
+                                            {% endif %}
+                                          {% endfor %}
+                                        {% endif %}
+                                        {% if show_value %}
+                                          <div class="hover-tooltip tooltip-bot color-btn btn-scroll-target color-size-{{ block.settings.color_selector_size }}{% if value == option.selected_value %} active{% endif %}"
+                                              data-scroll="{{ value | handle }}"
+                                              data-option="{{ option.name | handle }}"
+                                              data-value="{{ value | handle }}">
+                                            <span class="check-color bg-{{ value | handle }}"></span>
+                                            <span class="tooltip">{{ value }}</span>
+                                          </div>
+                                        {% endif %}
                                       {% endfor %}
                                     {% elsif option.name == 'Size' %}
                                       <span class="value-currentSize" style="display: none;">{{ option.selected_value }}</span>
                                       {% for value in option.values %}
-                                        <span class="size-btn{% if value == option.selected_value %} active{% endif %}"
-                                              data-size="{{ value | handle }}"
-                                              data-option="{{ option.name | handle }}"
-                                              data-value="{{ value | handle }}">{{ value }}</span>
+                                        {% assign show_value = true %}
+                                        {% if block.settings.hide_sold_out %}
+                                          {% assign variant_for_value = null %}
+                                          {% for variant in product.variants %}
+                                            {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                              {% if variant.available == false %}
+                                                {% assign show_value = false %}
+                                                {% break %}
+                                              {% endif %}
+                                            {% endif %}
+                                          {% endfor %}
+                                        {% endif %}
+                                        {% if show_value %}
+                                          <span class="size-btn{% if value == option.selected_value %} active{% endif %}"
+                                                data-size="{{ value | handle }}"
+                                                data-option="{{ option.name | handle }}"
+                                                data-value="{{ value | handle }}">{{ value }}</span>
+                                        {% endif %}
                                       {% endfor %}
                                     {% else %}
                                       <div class="tf-variant-dropdown full" data-bs-toggle="dropdown">
@@ -436,9 +478,23 @@
                                         </div>
                                         <div class="dropdown-menu">
                                           {% for value in option.values %}
-                                            <div class="select-item{% if value == option.selected_value %} active{% endif %}" data-value="{{ value | handle }}">
-                                              <span class="text-value-item">{{ value }}</span>
-                                            </div>
+                                            {% assign show_value = true %}
+                                            {% if block.settings.hide_sold_out %}
+                                              {% assign variant_for_value = null %}
+                                              {% for variant in product.variants %}
+                                                {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                                  {% if variant.available == false %}
+                                                    {% assign show_value = false %}
+                                                    {% break %}
+                                                  {% endif %}
+                                                {% endif %}
+                                              {% endfor %}
+                                            {% endif %}
+                                            {% if show_value %}
+                                              <div class="select-item{% if value == option.selected_value %} active{% endif %}" data-value="{{ value | handle }}">
+                                                <span class="text-value-item">{{ value }}</span>
+                                              </div>
+                                            {% endif %}
                                           {% endfor %}
                                         </div>
                                       </div>
@@ -892,7 +948,30 @@
   window.productMedia = {{ product.media | json }};
   window.productOptions = {{ product.options | json }};
   window.productOptionsWithValues = {{ product.options_with_values | json }};
-  window.initialVariant = {{ product.selected_or_first_available_variant | json }};
+  
+  // Get variant picker settings
+  {% assign variant_picker_block = null %}
+  {% for block in section.blocks %}
+    {% if block.type == 'variant_picker' %}
+      {% assign variant_picker_block = block %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  
+  window.variantPickerSettings = {
+    pickMode: {{ variant_picker_block.settings.pick_mode | default: 'first_available' | json }},
+    hideSoldOut: {{ variant_picker_block.settings.hide_sold_out | default: false | json }},
+    colorSelectorType: {{ variant_picker_block.settings.color_selector_type | default: 'swatch_rounded' | json }},
+    colorSelectorSize: {{ variant_picker_block.settings.color_selector_size | default: 'medium' | json }}
+  };
+  
+  // Set initial variant based on pick mode
+  {% if variant_picker_block and variant_picker_block.settings.pick_mode == 'first_available' %}
+    window.initialVariant = {{ product.selected_or_first_available_variant | json }};
+  {% else %}
+    window.initialVariant = {{ product.selected_variant | default: product.selected_or_first_available_variant | json }};
+  {% endif %}
+  
   window.enableVideoAutoplay = {{ section.settings.enable_video_autoplay | json }};
   window.enableImageZoom = {{ section.settings.enable_image_zoom | json }};
   window.showSliderNav = {{ section.settings.show_slider_nav | json }};

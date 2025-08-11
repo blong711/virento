@@ -367,6 +367,38 @@ document.addEventListener('DOMContentLoaded', function() {
       return matchingVariant ? matchingVariant.id : null;
     }
   
+    // Function to handle hiding sold out variants
+    function handleSoldOutVariants() {
+      if (!window.variantPickerSettings || !window.variantPickerSettings.hideSoldOut) {
+        return;
+      }
+      
+      // Hide sold out variant options
+      const variantOptions = document.querySelectorAll('.color-btn, .size-btn, .select-item');
+      variantOptions.forEach(option => {
+        const optionValue = option.getAttribute('data-value') || option.getAttribute('data-scroll');
+        const optionType = option.getAttribute('data-option');
+        
+        if (optionValue && optionType) {
+          // Find if this option has any available variants
+          const hasAvailableVariant = window.productVariants.some(variant => {
+            if (optionType === 'color' && variant.option1 && variant.option1.toLowerCase() === optionValue.toLowerCase()) {
+              return variant.available;
+            } else if (optionType === 'size' && variant.option2 && variant.option2.toLowerCase() === optionValue.toLowerCase()) {
+              return variant.available;
+            }
+            return false;
+          });
+          
+          if (!hasAvailableVariant) {
+            option.style.display = 'none';
+          } else {
+            option.style.display = '';
+          }
+        }
+      });
+    }
+
     // Function to update variant selection
     function updateVariantSelection(variant) {
       try {
@@ -590,7 +622,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           });
         }
-  
+        
+        // Handle hiding sold out variants after updating selection
+        handleSoldOutVariants();
 
       } catch (error) {
         console.error('Error in updateVariantSelection:', error);
@@ -742,6 +776,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Only set the active class for initial page load
     const initialVariant = window.initialVariant || null;
   
+    // Handle pick mode logic
+    if (window.variantPickerSettings && window.variantPickerSettings.pickMode === 'first_available') {
+      // Auto-select first available variant if pick mode is set to first_available
+      const firstAvailableVariant = window.productVariants.find(variant => variant.available);
+      if (firstAvailableVariant && firstAvailableVariant.id !== initialVariant.id) {
+        // Update the initial variant to the first available one
+        window.initialVariant = firstAvailableVariant;
+        updateVariantSelection(firstAvailableVariant);
+        
+        // Update hidden inputs and form data
+        const variantIdInput = document.querySelector('input[name="id"]');
+        if (variantIdInput) {
+          variantIdInput.value = firstAvailableVariant.id;
+        }
+        
+        // Update buy it now button
+        const buyItNowBtn = document.querySelector('.buy-it-now');
+        if (buyItNowBtn) {
+          buyItNowBtn.dataset.variantId = firstAvailableVariant.id;
+        }
+      }
+    }
+  
     if (initialVariant) {
       updateVariantSelection(initialVariant);
       // Set initial color button active state
@@ -762,6 +819,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     }
+    
+    // Initialize sold out variant handling
+    handleSoldOutVariants();
   
     // Initialize image zoom
     const zoomMain = document.querySelector('.tf-zoom-main');
