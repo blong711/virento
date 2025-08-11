@@ -51,7 +51,6 @@
           "type": "variant_picker",
           "settings": {
             "pick_mode": "first_available",
-            "enable_history_state": false,
             "hide_sold_out": false,
             "color_selector_type": "swatch_rounded",
             "color_selector_size": "medium"
@@ -102,6 +101,13 @@
             "fbt_margin_top": 42,
             "fbt_margin_bottom": 0
           }
+        },
+        "size_guide_NiAE8e": {
+          "type": "size_guide",
+          "settings": {
+            "size_guide_text": "Size Guide",
+            "size_guide_page": ""
+          }
         }
       },
       "block_order": [
@@ -115,7 +121,8 @@
         "sku_CwEeQx",
         "trust_and_payment_W3rWmf",
         "delivery_info_ifqrMR",
-        "fbt_BjrkCe"
+        "fbt_BjrkCe",
+        "size_guide_NiAE8e"
       ],
       "settings": {
         "layout": "default",
