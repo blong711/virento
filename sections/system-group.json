@@ -22,7 +22,12 @@
         "show_shipping_estimator": true,
         "complementary_products_heading": "You might also like",
         "complementary_products_collection": "cables",
-        "replace_complementary_products": false
+        "complementary_products_list": [
+          "10000mah-power-go-power-bank",
+          "apple-iphone-16-promax",
+          "apple-magsafe-charger",
+          "apple-smart-keyboard"
+        ]
       }
     },
     "compare-modal": {
