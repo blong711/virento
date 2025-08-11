@@ -10526,8 +10526,8 @@ button.animate-btn::after,
   opacity: 0.6;
 }
 .card-product.style-border-2 {
-  border: 1px solid var(--line);
-  border-radius: 16px;
+  border: var(--card-border-thickness, 1px) solid var(--line);
+  border-radius: var(--card-corner-radius, 16px);
 }
 .card-product.style-border-2 .card-product-wrapper {
   padding: 12px;
