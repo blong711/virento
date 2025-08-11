@@ -603,7 +603,8 @@
             }
           ],
           "default": "2",
-          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_dk.label"
+          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_dk.label",
+          "visible_if": "{{ block.settings.layout == 'grid' }}"
         },
         {
           "type": "select",
@@ -623,7 +624,8 @@
             }
           ],
           "default": "2",
-          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_tb.label"
+          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_tb.label",
+          "visible_if": "{{ block.settings.layout == 'grid' }}"
         },
         {
           "type": "select",
@@ -643,7 +645,8 @@
             }
           ],
           "default": "1",
-          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_mb.label"
+          "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_mb.label",
+          "visible_if": "{{ block.settings.layout == 'grid' }}"
         },
         {
           "type": "checkbox",

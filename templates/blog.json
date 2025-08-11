@@ -49,7 +49,8 @@
           "type": "category",
           "settings": {
             "category_name": "Design",
-            "blog_handle": "",
+            "blog_handle": "design",
+            "category_image": "shopify://shop_images/category-4.jpg",
             "button_text": "View all",
             "category_url": "",
             "show_overlay": true
@@ -59,7 +60,8 @@
           "type": "category",
           "settings": {
             "category_name": "Tricks & Tips",
-            "blog_handle": "",
+            "blog_handle": "tricks-tips",
+            "category_image": "shopify://shop_images/category-5_da008680-86cc-4a31-9915-57652eeada35.jpg",
             "button_text": "View all",
             "category_url": "",
             "show_overlay": true
@@ -95,20 +97,20 @@
         "blog_content": {
           "type": "blog_content",
           "settings": {
-            "width": "boxed",
-            "color_scheme": "background-1",
-            "layout": "grid",
-            "blog_source": "specific",
+            "layout": "list",
+            "blog_source": "current",
             "specific_blog": "design",
-            "article_limit": 6,
+            "article_limit": 3,
             "items_per_row_dk": "2",
             "items_per_row_tb": "3",
-            "items_per_row_mb": "2",
+            "items_per_row_mb": "1",
             "show_excerpt": true,
             "show_author": true,
             "show_comment_count": true,
             "show_date": true,
-            "date": "%b %d"
+            "date": "%b %d",
+            "Content_align": "start",
+            "image_ratio": "-landscape"
           }
         },
         "blog_sidebar": {
@@ -131,7 +133,8 @@
         "width": "boxed",
         "color_scheme": "background-1",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
       }
     }
   },
