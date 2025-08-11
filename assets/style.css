@@ -1937,6 +1937,24 @@ a:hover {
   padding-top: var(--spacing-sections-desktop);
   padding-bottom: var(--spacing-sections-desktop);
 }
+.shopify-section[id*="top-bar"],
+.shopify-section[id*="header"],
+.shopify-section[id*="cart-drawer"],
+.shopify-section[id*="search-drawer"],
+.shopify-section[id*="login-drawer"],
+.shopify-section[id*="register-drawer"],
+.shopify-section[id*="reset-password-drawer"],
+.shopify-section[id*="mobile-menu"],
+.shopify-section[id*="ask-question-drawer"],
+.shopify-section[id*="mobile-toolbar"],
+.shopify-section[id*="newsletter-popup"],
+.shopify-section[id*="cookie-banner"],
+.shopify-section[id*="quickview-modal"],
+.shopify-section[id*="compare-drawer"],
+.shopify-section[id*="footer"] {
+  padding-top: var(--section-padding-top, 0px);
+  padding-bottom: var(--section-padding-bottom, 0px);
+}
 
 .radius-16 {
   border-radius: 16px !important;
