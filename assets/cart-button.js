@@ -66,10 +66,16 @@ if (!customElements.get('product-cart-button')) {
         // Add spinner to button
         this.addSpinner(button);
 
-        // Get cart element
-        this.cart = document.querySelector('cart-notification') || 
-                   document.querySelector('cart-drawer') || 
-                   document.querySelector('[data-cart-drawer]');
+        // Get cart type setting
+        const cartType = window.themeSettings?.cartType || 'drawer';
+
+        // Get cart element based on cart type
+        let cartElement = null;
+        if (cartType === 'drawer') {
+          cartElement = document.querySelector('cart-notification') || 
+                       document.querySelector('cart-drawer') || 
+                       document.querySelector('[data-cart-drawer]');
+        }
 
         const config = fetchConfig('javascript');
         config.headers['X-Requested-With'] = 'XMLHttpRequest';
@@ -79,12 +85,12 @@ if (!customElements.get('product-cart-button')) {
         formData.append('id', variantId);
         formData.append('quantity', quantity);
 
-        if (this.cart) {
-          // Add sections that need to be updated
+        // Only add sections if we have a cart element and cart type is drawer
+        if (cartElement && cartType === 'drawer') {
           const sections = ['cart-drawer', 'cart-live-region-text'];
           formData.append('sections', sections);
           formData.append('sections_url', window.location.pathname);
-          this.cart.setActiveElement(document.activeElement);
+          cartElement.setActiveElement(document.activeElement);
         }
         config.body = formData;
 
@@ -105,34 +111,62 @@ if (!customElements.get('product-cart-button')) {
                 this.setButtonText(button, originalText);
               }, 2000);
               return;
-            } else if (!this.cart) {
-              window.location = window.routes.cart_url;
-              return;
             }
 
-            // Success - update cart
-            const startMarker = CartPerformance.createStartingMarker('add:wait-for-subscribers');
-            publish(PUB_SUB_EVENTS.cartUpdate, {
-              source: 'product-cart-button',
-              productVariantId: variantId,
-              cartData: response,
-            }).then(() => {
-              CartPerformance.measureFromMarker('add:wait-for-subscribers', startMarker);
-            });
+            // Success - handle based on cart type
+            if (cartType === 'none') {
+              // No action - just show success message
+              this.setButtonText(button, 'Added!');
+              setTimeout(() => {
+                this.setButtonText(button, originalText);
+              }, 1500);
+              
+              // Still trigger cart update event for other components
+              const startMarker = CartPerformance.createStartingMarker('add:wait-for-subscribers');
+              publish(PUB_SUB_EVENTS.cartUpdate, {
+                source: 'product-cart-button',
+                productVariantId: variantId,
+                cartData: response,
+              }).then(() => {
+                CartPerformance.measureFromMarker('add:wait-for-subscribers', startMarker);
+              });
+              
+              // Trigger cart count update event
+              document.dispatchEvent(new CustomEvent('cart:updated'));
+              
+            } else if (cartType === 'cart-page') {
+              // Redirect to cart page
+              window.location = window.routes.cart_url;
+              
+            } else if (cartType === 'checkout-page') {
+              // Redirect to checkout page
+              window.location = `${window.routes.cart_url}?checkout`;
+              
+            } else if (cartType === 'drawer' && cartElement) {
+              // Update cart drawer
+              const startMarker = CartPerformance.createStartingMarker('add:wait-for-subscribers');
+              publish(PUB_SUB_EVENTS.cartUpdate, {
+                source: 'product-cart-button',
+                productVariantId: variantId,
+                cartData: response,
+              }).then(() => {
+                CartPerformance.measureFromMarker('add:wait-for-subscribers', startMarker);
+              });
 
-            // Update cart display
-            CartPerformance.measure("add:paint-updated-sections", () => {
-              this.cart.renderContents(response);
-            });
+              // Update cart display
+              CartPerformance.measure("add:paint-updated-sections", () => {
+                cartElement.renderContents(response);
+              });
 
-            // Trigger cart count update event
-            document.dispatchEvent(new CustomEvent('cart:updated'));
+              // Trigger cart count update event
+              document.dispatchEvent(new CustomEvent('cart:updated'));
 
-            // Show success feedback
-            this.setButtonText(button, 'Added!');
-            setTimeout(() => {
-              this.setButtonText(button, originalText);
-            }, 1500);
+              // Show success feedback
+              this.setButtonText(button, 'Added!');
+              setTimeout(() => {
+                this.setButtonText(button, originalText);
+              }, 1500);
+            }
           })
           .catch((e) => {
             console.error(e);
@@ -225,7 +259,99 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartButtonElement = document.createElement('product-cart-button');
     document.body.appendChild(cartButtonElement);
   }
+  
+  // Initialize cart type handling for all cart-related elements
+  initializeCartTypeHandling();
 });
+
+// Function to handle cart type behavior for all cart-related interactions
+function initializeCartTypeHandling() {
+  const cartType = window.themeSettings?.cartType || 'drawer';
+  
+  // Handle cart drawer toggle buttons
+  document.addEventListener('click', (event) => {
+    const target = event.target.closest('[data-bs-toggle="offcanvas"]');
+    if (target && target.getAttribute('href') === '#shoppingCart') {
+      event.preventDefault();
+      
+      if (cartType === 'drawer') {
+        // Open cart drawer as normal
+        const cartDrawer = document.getElementById('shoppingCart');
+        if (cartDrawer) {
+          const offcanvas = new bootstrap.Offcanvas(cartDrawer);
+          offcanvas.show();
+        }
+      } else if (cartType === 'cart-page') {
+        // Redirect to cart page
+        window.location = window.routes?.cart_url || '/cart';
+      } else if (cartType === 'checkout-page') {
+        // Redirect to checkout page
+        window.location = `${window.routes?.cart_url || '/cart'}?checkout`;
+      }
+      // For 'none' type, do nothing
+    }
+  });
+  
+  // Handle cart icon clicks in header
+  document.addEventListener('click', (event) => {
+    const target = event.target.closest('.nav-cart a, .cart-icon, [data-cart-toggle]');
+    if (target) {
+      event.preventDefault();
+      
+      if (cartType === 'drawer') {
+        // Open cart drawer
+        const cartDrawer = document.getElementById('shoppingCart');
+        if (cartDrawer) {
+          const offcanvas = new bootstrap.Offcanvas(cartDrawer);
+          offcanvas.show();
+        }
+      } else if (cartType === 'cart-page') {
+        // Redirect to cart page
+        window.location = window.routes?.cart_url || '/cart';
+      } else if (cartType === 'checkout-page') {
+        // Redirect to checkout page
+        window.location = `${window.routes?.cart_url || '/cart'}?checkout`;
+      }
+      // For 'none' type, do nothing
+    }
+  });
+  
+  // Handle any other cart-related buttons that might not use the standard classes
+  document.addEventListener('click', (event) => {
+    const target = event.target.closest('a[href*="cart"], button[onclick*="cart"], .cart-button, .view-cart');
+    if (target && !target.classList.contains('product-cart-button')) {
+      const href = target.getAttribute('href');
+      const onclick = target.getAttribute('onclick');
+      
+      // Check if this is a cart-related action
+      if (href && (href.includes('cart') || href.includes('checkout')) || 
+          onclick && (onclick.includes('cart') || onclick.includes('checkout'))) {
+        
+        // Only intercept if it's not already handled by our cart button logic
+        if (!target.hasAttribute('data-cart-handled')) {
+          event.preventDefault();
+          target.setAttribute('data-cart-handled', 'true');
+          
+          if (cartType === 'drawer') {
+            // Open cart drawer
+            const cartDrawer = document.getElementById('shoppingCart');
+            if (cartDrawer) {
+              const offcanvas = new bootstrap.Offcanvas(cartDrawer);
+              offcanvas.show();
+            }
+          } else if (cartType === 'cart-page') {
+            // Redirect to cart page
+            window.location = window.routes?.cart_url || '/cart';
+          } else if (cartType === 'checkout-page') {
+            // Redirect to checkout page
+            window.location = `${window.routes?.cart_url || '/cart'}?checkout`;
+          }
+          // For 'none' type, do nothing
+        }
+      }
+    }
+  });
+}
 
 // Also handle dynamically added buttons
 if (!window.cartButtonObserver) {

@@ -374,6 +374,10 @@
         recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
         countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
       };
+
+      window.themeSettings = {
+        cartType: '{{ settings.cart_type }}'
+      };
     </script>
 
     {%- if settings.cart_type == 'drawer' -%}

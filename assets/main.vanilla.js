@@ -1004,8 +1004,18 @@ const clickModalSecond = () => {
 
   document.querySelectorAll('.btn-addtocart').forEach(btn => {
     btn.addEventListener('click', () => {
-      const cartModal = new bootstrap.Modal(document.getElementById('shoppingCart'));
-      cartModal.show();
+      // Check cart type setting
+      const cartType = window.themeSettings?.cartType || 'drawer';
+      
+      if (cartType === 'drawer') {
+        const cartModal = new bootstrap.Modal(document.getElementById('shoppingCart'));
+        cartModal.show();
+      } else if (cartType === 'cart-page') {
+        window.location = window.routes?.cart_url || '/cart';
+      } else if (cartType === 'checkout-page') {
+        window.location = `${window.routes?.cart_url || '/cart'}?checkout`;
+      }
+      // For 'none' type, do nothing
     });
   });
 
