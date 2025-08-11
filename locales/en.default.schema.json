@@ -261,9 +261,9 @@
         },
         "free_shipping": {
           "content": "Free shipping",
-          "product": {
-            "label": "Free shipping product",
-            "info": "Choose product to taken free shipping minimum amount"
+          "threshold": {
+            "label": "Free shipping threshold",
+            "info": "Set the minimum amount for free shipping"
           }
         },
         "gift_wrap": {
