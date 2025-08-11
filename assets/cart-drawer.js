@@ -622,10 +622,6 @@ class CartDrawer extends HTMLElement {
       const offcanvas = new bootstrap.Offcanvas(this);
       offcanvas.show();
     }
-    
-    // Ensure the cart drawer is visible and focused
-    this.style.display = 'block';
-    this.focus();
   }
 
   close() {
@@ -748,63 +744,18 @@ customElements.define('cart-drawer', CartDrawer);
 
 // Theme customizer functionality
 if (Shopify.designMode) {
-  // Prevent default scrolling behavior when in theme customizer
-  document.addEventListener('click', function(event) {
-    if (event.target.closest('[data-section-id="cart-drawer"]') || 
-        event.target.closest('#shopify-section-cart-drawer')) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-  }, true);
-  
   document.addEventListener('shopify:section:select', function(event) {
-    // Prevent default behavior that might cause scrolling
-    event.preventDefault();
-    event.stopPropagation();
-    
     if (event.target.id === 'shopify-section-cart-drawer') {
-      console.log('Cart drawer section selected in theme customizer');
-      
       // Get the cart drawer element and open it
       const cartDrawer = document.querySelector('cart-drawer');
       if (cartDrawer) {
-        console.log('Cart drawer custom element found, opening...');
-        // Add a small delay to ensure the section is fully loaded
-        setTimeout(() => {
-          cartDrawer.open();
-        }, 100);
-      } else {
-        console.log('Cart drawer custom element not found, trying fallback...');
-        // Fallback: try to find by ID if the custom element isn't available
-        const cartDrawerById = document.querySelector('#shoppingCart');
-        if (cartDrawerById) {
-          console.log('Cart drawer by ID found, opening with Bootstrap...');
-          // If it's a Bootstrap offcanvas, open it directly
-          if (cartDrawerById.classList.contains('offcanvas')) {
-            const offcanvas = new bootstrap.Offcanvas(cartDrawerById);
-            offcanvas.show();
-          }
-        } else {
-          console.log('No cart drawer element found');
-        }
+        cartDrawer.open();
       }
     } else {
       // Force close the drawer by triggering the close button
       const closeButton = document.querySelector('#shoppingCart .icon-close-popup');
       if (closeButton) {
         closeButton.click();
-      }
-    }
-  });
-  
-  // Also listen for section load events to ensure proper initialization
-  document.addEventListener('shopify:section:load', function(event) {
-    if (event.target.id === 'shopify-section-cart-drawer') {
-      console.log('Cart drawer section loaded in theme customizer');
-      // Re-initialize the cart drawer after section load
-      const cartDrawer = document.querySelector('cart-drawer');
-      if (cartDrawer && typeof cartDrawer.init === 'function') {
-        cartDrawer.init();
       }
     }
   });
