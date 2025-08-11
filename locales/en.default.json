@@ -434,8 +434,8 @@
         "zip_placeholder": "Enter your zipcode",
         "success_text": "We found one shipping rate available for your address:",
         "error_text": "We found one shipping rate available for undefined.",
-        "calculate": "Calculate",
-        "cancel": "Cancel"
+        "calculate": "Estimate",
+        "cancel": "Close"
       },
       "terms": {
         "agreement_required": "Please agree to the terms and conditions",
