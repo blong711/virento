@@ -5008,6 +5008,99 @@
           "label": "Progress bar active color"
         }
       }
+    },
+    "cart-drawer": {
+      "name": "Cart Drawer",
+      "settings": {
+        "color_scheme": {
+          "label": "Color Scheme"
+        },
+        "show_free_shipping_bar": {
+          "label": "Show free shipping bar"
+        },
+        "show_cart_note": {
+          "label": "Show cart note"
+        },
+        "show_gift_wrap": {
+          "label": "Show gift wrap"
+        },
+        "show_coupon": {
+          "label": "Show coupon"
+        },
+        "show_shipping_estimator": {
+          "label": "Show shipping estimator"
+        },
+        "complementary_products_heading": {
+          "label": "Heading"
+        },
+        "complementary_products_collection": {
+          "label": "Collection select",
+          "info": "Select a collection to show complementary products"
+        },
+        "complementary_products_list": {
+          "label": "Products select",
+          "info": "Select multiple products to display (will replace collection if selected)"
+        }
+      },
+      "blocks": {
+        "total_price": {
+          "name": "Total Price",
+          "settings": {
+            "paragraph": {
+              "content": "Cart and checkout prices always show currency codes. Example: $1.00"
+            }
+          }
+        },
+        "taxes_shipping": {
+          "name": "Taxes and Shipping",
+          "settings": {
+            "custom_message": {
+              "label": "Custom message",
+              "default": "Taxes and shipping calculated at checkout",
+              "info": "Leave empty to use default message"
+            }
+          }
+        },
+        "terms_checkbox": {
+          "name": "Terms and Conditions",
+          "settings": {
+            "paragraph": {
+              "content": "If Terms and Conditions are enabled, a checkbox will be displayed to the user to agree to the terms and conditions before checking out."
+            },
+            "checkbox_text": {
+              "label": "Checkbox text",
+              "default": "I agree with the",
+              "info": "Text before the terms link"
+            },
+            "terms_link_text": {
+              "label": "Terms link text",
+              "default": "terms and conditions",
+              "info": "Text for the terms link"
+            },
+            "terms_url": {
+              "label": "Terms and conditions URL",
+              "info": "URL for the terms and conditions page"
+            }
+          }
+        },
+        "checkout_buttons": {
+          "name": "Checkout Buttons",
+          "settings": {
+            "show_view_cart": {
+              "label": "Enable view cart button"
+            },
+            "show_checkout": {
+              "label": "Enable checkout button"
+            },
+            "view_cart_text": {
+              "label": "View cart button text"
+            },
+            "checkout_text": {
+              "label": "Checkout button text"
+            }
+          }
+        }
+      }
     }
   }
 }

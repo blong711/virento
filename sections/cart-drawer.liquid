@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Cart Drawer",
+  "name": "t:sections.cart-drawer.name",
   "settings": [
     {
       "type": "color_scheme",
@@ -11,31 +11,31 @@
     {
       "type": "checkbox",
       "id": "show_free_shipping_bar",
-      "label": "Show free shipping bar",
+      "label": "t:sections.cart-drawer.settings.show_free_shipping_bar.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_cart_note",
-      "label": "Show cart note",
+      "label": "t:sections.cart-drawer.settings.show_cart_note.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_gift_wrap",
-      "label": "Show gift wrap",
+      "label": "t:sections.cart-drawer.settings.show_gift_wrap.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_coupon",
-      "label": "Show coupon",
+      "label": "t:sections.cart-drawer.settings.show_coupon.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_shipping_estimator",
-      "label": "Show shipping estimator",
+      "label": "t:sections.cart-drawer.settings.show_shipping_estimator.label",
       "default": true
     },
     {
@@ -45,107 +45,107 @@
     {
       "type": "text",
       "id": "complementary_products_heading",
-      "label": "Heading",
+      "label": "t:sections.cart-drawer.settings.complementary_products_heading.label",
       "default": "You might also like"
     },
     {
       "type": "collection",
       "id": "complementary_products_collection",
-      "label": "Collection select",
-      "info": "Select a collection to show complementary products"
+      "label": "t:sections.cart-drawer.settings.complementary_products_collection.label",
+      "info": "t:sections.cart-drawer.settings.complementary_products_collection.info"
     },
     {
       "type": "product_list",
       "id": "complementary_products_list",
-      "label": "Products select",
-      "info": "Select multiple products to display (will replace collection if selected)",
+      "label": "t:sections.cart-drawer.settings.complementary_products_list.label",
+      "info": "t:sections.cart-drawer.settings.complementary_products_list.info",
       "limit": 10
     }
   ],
   "blocks": [
     {
       "type": "total_price",
-      "name": "Total Price",
+      "name": "t:sections.cart-drawer.blocks.total_price.name",
       "limit": 1,
       "settings": [
         {
           "type": "paragraph",
-          "content": "Cart and checkout prices always show currency codes. Example: $1.00"
+          "content": "t:sections.cart-drawer.blocks.total_price.settings.paragraph.content"
         }
       ]
     },
     {
       "type": "taxes_shipping",
-      "name": "Taxes and Shipping",
+      "name": "t:sections.cart-drawer.blocks.taxes_shipping.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "custom_message",
-          "label": "Custom message",
-          "default": "Taxes and shipping calculated at checkout",
-          "info": "Leave empty to use default message"
+          "label": "t:sections.cart-drawer.blocks.taxes_shipping.settings.custom_message.label",
+          "default": "t:sections.cart-drawer.blocks.taxes_shipping.settings.custom_message.default",
+          "info": "t:sections.cart-drawer.blocks.taxes_shipping.settings.custom_message.info"
         }
       ]
     },
     {
       "type": "terms_checkbox",
-      "name": "Terms and Conditions",
+      "name": "t:sections.cart-drawer.blocks.terms_checkbox.name",
       "limit": 1,
       "settings": [
         {
           "type": "paragraph",
-          "content": "If Terms and Conditions are enabled, a checkbox will be displayed to the user to agree to the terms and conditions before checking out."
+          "content": "t:sections.cart-drawer.blocks.terms_checkbox.settings.paragraph.content"
         },
         {
           "type": "text",
           "id": "checkbox_text",
-          "label": "Checkbox text",
-          "default": "I agree with the",
-          "info": "Text before the terms link"
+          "label": "t:sections.cart-drawer.blocks.terms_checkbox.settings.checkbox_text.label",
+          "default": "t:sections.cart-drawer.blocks.terms_checkbox.settings.checkbox_text.default",
+          "info": "t:sections.cart-drawer.blocks.terms_checkbox.settings.checkbox_text.info"
         },
         {
           "type": "text",
           "id": "terms_link_text",
-          "label": "Terms link text",
-          "default": "terms and conditions",
-          "info": "Text for the terms link"
+          "label": "t:sections.cart-drawer.blocks.terms_checkbox.settings.terms_link_text.label",
+          "default": "t:sections.cart-drawer.blocks.terms_checkbox.settings.terms_link_text.default",
+          "info": "t:sections.cart-drawer.blocks.terms_checkbox.settings.terms_link_text.info"
         },
         {
           "type": "url",
           "id": "terms_url",
-          "label": "Terms and conditions URL",
-          "info": "URL for the terms and conditions page"
+          "label": "t:sections.cart-drawer.blocks.terms_checkbox.settings.terms_url.label",
+          "info": "t:sections.cart-drawer.blocks.terms_checkbox.settings.terms_url.info"
         }
       ]
     },
     {
       "type": "checkout_buttons",
-      "name": "Checkout Buttons",
+      "name": "t:sections.cart-drawer.blocks.checkout_buttons.name",
       "limit": 1,
       "settings": [
         {
           "type": "checkbox",
           "id": "show_view_cart",
-          "label": "Enable view cart button",
+          "label": "t:sections.cart-drawer.blocks.checkout_buttons.settings.show_view_cart.label",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_checkout",
-          "label": "Enable checkout button",
+          "label": "t:sections.cart-drawer.blocks.checkout_buttons.settings.show_checkout.label",
           "default": true
         },
         {
           "type": "text",
           "id": "view_cart_text",
-          "label": "View cart button text",
+          "label": "t:sections.cart-drawer.blocks.checkout_buttons.settings.view_cart_text.label",
           "default": "View cart"
         },
         {
           "type": "text",
           "id": "checkout_text",
-          "label": "Checkout button text",
+          "label": "t:sections.cart-drawer.blocks.checkout_buttons.settings.checkout_text.label",
           "default": "Checkout"
         }
       ]
@@ -153,7 +153,7 @@
   ],
   "presets": [
     {
-      "name": "Cart Drawer",
+      "name": "t:sections.cart-drawer.name",
       "blocks": [
         {
           "type": "total_price"
@@ -186,8 +186,9 @@
             {%- assign remaining_amount = free_shipping_threshold | minus: cart_total -%}
             {%- assign progress_percentage = cart_total | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100 -%}
             
-            {%- if section.settings.show_free_shipping_bar -%}
             <div class="tf-mini-cart-threshold">
+                {%- if section.settings.show_free_shipping_bar -%}
+
                 <div class="text">
                     {% if cart_total < free_shipping_threshold %}
                         {{ 'sections.cart.drawer.spend' | t }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_amount | money }}{% else %}{{ remaining_amount | money_without_currency }}{% endif %}</span> {{ 'sections.cart.drawer.more_to_get' | t }} <span class="fw-medium">{{ 'sections.cart.drawer.free_shipping' | t }}</span>
@@ -200,8 +201,8 @@
                         <i class="icon icon-car"></i>
                     </div>
                 </div>
+                {%- endif -%}
             </div>
-            {%- endif -%}
             <div class="tf-mini-cart-wrap">
                 <div class="tf-mini-cart-main">
                     <div class="tf-mini-cart-sroll">
