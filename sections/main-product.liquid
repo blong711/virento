@@ -722,7 +722,7 @@
                           <ul class="list-card">
                             {% for svg in svg_list %}
                               <li class="card-item">
-                                <img src="{{ svg | payment_type_img_url}}" alt="{{ svg | capitalize }}" width="60" height="40">
+                                <img src="{{ svg | payment_type_img_url}}" alt="{{ svg | capitalize }}" width="60" height="{{ block.settings.svg_height }}">
                               </li>
                             {% endfor %}
                           </ul>
@@ -1142,6 +1142,16 @@
           "id": "svg_list",
           "label": "SVG list",
           "default": "visa,paypal,master,american_express,diners"
+        },
+        {
+          "type": "range",
+          "id": "svg_height",
+          "label": "SVG Height",
+          "min": 20,
+          "max": 80,
+          "step": 5,
+          "default": 40,
+          "unit": "px"
         }
       ]
     },
