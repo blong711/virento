@@ -751,7 +751,16 @@ if (Shopify.designMode) {
       // Get the cart drawer element and open it
       const cartDrawer = document.querySelector('cart-drawer');
       if (cartDrawer) {
+        // Store current scroll position
+        const currentScrollY = window.scrollY;
+        
+        // Open the cart drawer
         cartDrawer.open();
+        
+        // Restore scroll position to prevent jumping to bottom
+        setTimeout(() => {
+          window.scrollTo(0, currentScrollY);
+        }, 50);
       }
     } else {
       // Force close the drawer by triggering the close button
