@@ -1937,6 +1937,14 @@ a:hover {
   padding-top: var(--spacing-sections-desktop);
   padding-bottom: var(--spacing-sections-desktop);
 }
+
+/* Mobile responsive section spacing */
+@media (max-width: 767px) {
+  .shopify-section {
+    padding-top: var(--spacing-sections-mobile);
+    padding-bottom: var(--spacing-sections-mobile);
+  }
+}
 .shopify-section[id*="top-bar"],
 .shopify-section[id*="header"],
 .shopify-section[id*="cart-drawer"],
