@@ -12,20 +12,8 @@
   /* Corner radius */
   --card-corner-radius: 0px;
   
-  /* Shadow settings */
-  --card-shadow-opacity: 0.1;
-  --card-shadow-horizontal: 0px;
-  --card-shadow-vertical: 0px;
-  --card-shadow-blur: 0px;
-  --card-shadow-color: rgba(0, 0, 0, 0.1);
-  
   /* Apply dynamic styles */
   border-radius: var(--card-corner-radius);
-  box-shadow: 
-    var(--card-shadow-horizontal) 
-    var(--card-shadow-vertical) 
-    var(--card-shadow-blur) 
-    rgba(0, 0, 0, calc(var(--card-shadow-opacity) * 0.01));
 }
 
 /* Apply border if thickness is set */
@@ -63,6 +51,5 @@
 @media (max-width: 768px) {
   .card-product {
     --card-corner-radius: calc(var(--card-corner-radius) * 0.8);
-    --card-shadow-blur: calc(var(--card-shadow-blur) * 0.8);
   }
 }
