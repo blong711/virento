@@ -267,7 +267,7 @@ html {
 
 body {
   font-family: 'Poppins', sans-serif;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-body-scale));
   line-height: 20px;
   font-weight: 400;
   background-color: var(--white);
@@ -620,57 +620,57 @@ h6,
 }
 
 .text-xl {
-  font-size: 20px;
+  font-size: calc(20px * var(--font-body-scale));
   line-height: 30px;
 }
 
 .text-xl-2 {
-  font-size: 20px;
+  font-size: calc(20px * var(--font-body-scale));
   line-height: 24px;
 }
 
 .text-xl-3 {
-  font-size: 20px;
+  font-size: calc(20px * var(--font-body-scale));
   line-height: 32px;
 }
 
 .text-lg {
-  font-size: 18px;
+  font-size: calc(18px * var(--font-body-scale));
   line-height: 28px;
 }
 
 .text-md {
-  font-size: 16px;
+  font-size: calc(16px * var(--font-body-scale));
   line-height: 24px;
 }
 
 .text-sm {
-  font-size: 14px;
+  font-size: calc(14px * var(--font-body-scale));
   line-height: 20px;
 }
 
 .text-xs {
-  font-size: 12px;
+  font-size: calc(12px * var(--font-body-scale));
   line-height: 18px;
 }
 
 .text-xxs {
-  font-size: 10px;
+  font-size: calc(10px * var(--font-body-scale));
   line-height: 14px;
 }
 
 .text-caption {
-  font-size: 12px;
+  font-size: calc(12px * var(--font-body-scale));
   line-height: 15.72px;
 }
 
 .body-text {
-  font-size: 16px;
+  font-size: calc(16px * var(--font-body-scale));
   line-height: 25.6px;
 }
 
 .body-text-2 {
-  font-size: 16px;
+  font-size: calc(16px * var(--font-body-scale));
   line-height: 19.2px;
 }
 
