@@ -94,6 +94,10 @@
       "limit": 1,
       "settings": [
         {
+          "type": "paragraph",
+          "content": "If Terms and Conditions are enabled, a checkbox will be displayed to the user to agree to the terms and conditions before checking out."
+        },
+        {
           "type": "text",
           "id": "checkbox_text",
           "label": "Checkbox text",
@@ -112,13 +116,6 @@
           "id": "terms_url",
           "label": "Terms and conditions URL",
           "info": "URL for the terms and conditions page"
-        },
-        {
-          "type": "checkbox",
-          "id": "required",
-          "label": "Required checkbox",
-          "default": true,
-          "info": "You can add an I agree with the terms and conditions checkbox to your cart page that customers must check before continuing to the checkout. If a customer doesn't check the checkbox before clicking the checkout button, an alert pop up will prevent them from continuing."
         }
       ]
     },
@@ -418,7 +415,7 @@
                                                    type="checkbox" 
                                                    id="CartDrawer-Form_agree" 
                                                    name="agree_checkbox" 
-                                                   {% if block.settings.required %}required{% endif %}>
+                                                   >
                                             <div>
                                                 <i class="icon-check"></i>
                                             </div>

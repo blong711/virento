@@ -26,6 +26,9 @@ class CartDrawer extends HTMLElement {
     // Set up all tool functionality
     this.setupTools();
     
+    // Set up terms checkbox functionality
+    this.setupTermsCheckbox();
+    
     // Check empty cart state on initialization
     this.checkEmptyCart();
   }
@@ -607,6 +610,36 @@ class CartDrawer extends HTMLElement {
     });
   }
 
+  setupTermsCheckbox() {
+    const termsCheckbox = this.querySelector('#CartDrawer-Form_agree');
+    const checkoutButton = this.querySelector('a[href="/checkout"]');
+    
+    if (termsCheckbox && checkoutButton) {
+      // Initially disable checkout button if checkbox exists
+      this.updateCheckoutButtonState(termsCheckbox, checkoutButton);
+      
+      // Add event listener to checkbox
+      termsCheckbox.addEventListener('change', () => {
+        this.updateCheckoutButtonState(termsCheckbox, checkoutButton);
+      });
+    }
+  }
+
+  updateCheckoutButtonState(checkbox, checkoutButton) {
+    if (checkbox.checked) {
+      // Enable checkout button
+      checkoutButton.classList.remove('disabled');
+      checkoutButton.style.pointerEvents = 'auto';
+      checkoutButton.style.opacity = '1';
+      checkoutButton.removeAttribute('disabled');
+    } else {
+      // Disable checkout button
+      checkoutButton.classList.add('disabled');
+      checkoutButton.style.pointerEvents = 'none';
+      checkoutButton.style.opacity = '0.5';
+      checkoutButton.setAttribute('disabled', 'disabled');
+    }
+  }
 
 
   open(triggeredBy) {
@@ -648,6 +681,9 @@ class CartDrawer extends HTMLElement {
         
         // Ensure all tools are closed after content update
         this.closeAllTools();
+        
+        // Re-setup terms checkbox functionality after content update
+        this.setupTermsCheckbox();
       }
     }
 
@@ -684,6 +720,9 @@ class CartDrawer extends HTMLElement {
             
             // Ensure all tools are closed after cart update
             this.closeAllTools();
+            
+            // Re-setup terms checkbox functionality after cart update
+            this.setupTermsCheckbox();
           }
         }
       })
