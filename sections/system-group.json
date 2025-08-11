@@ -13,7 +13,17 @@
   "sections": {
     "cart-drawer": {
       "type": "cart-drawer",
-      "settings": {}
+      "settings": {
+        "color_scheme": "scheme-1",
+        "show_free_shipping_bar": true,
+        "show_cart_note": true,
+        "show_gift_wrap": true,
+        "show_coupon": true,
+        "show_shipping_estimator": true,
+        "complementary_products_heading": "You might also like",
+        "complementary_products_collection": "cables",
+        "replace_complementary_products": false
+      }
     },
     "compare-modal": {
       "type": "compare-modal",
