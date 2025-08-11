@@ -511,31 +511,44 @@
                 {% endif %}
                 {% endif %}
               {% unless product.metafields.affiliate.url %}
-                <div class="tf-product-total-quantity">
-                  {% if product.available %}
-                    <div class="group-btn">
-                      <div class="wg-quantity">
-                          <button class="btn-quantity btn-decrease">-</button>
-                          <input class="quantity-product" type="text" name="number" value="1">
-                          <button class="btn-quantity btn-increase">+</button>
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                    {% when 'quantity_and_buy' %}
+                      <div class="tf-product-total-quantity" {{ block.shopify_attributes }}>
+                        {% if product.available %}
+                          <div class="group-btn">
+                            <div class="wg-quantity">
+                                <button class="btn-quantity btn-decrease">-</button>
+                                <input class="quantity-product" type="text" name="number" value="1">
+                                <button class="btn-quantity btn-increase">+</button>
+                            </div>
+                            <a href="#shoppingCart" data-bs-toggle="offcanvas"
+                                class="tf-btn animate-btn btn-add-to-cart">Add to cart</a>
+                          </div>
+                          
+                          {% if block.settings.show_dynamic_checkout %}
+                            {% form 'product', product %}
+                              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                              <input type="hidden" name="quantity" value="1">
+                              {{ form | payment_button }}
+                            {% endform %}
+                          {% endif %}
+                          
+                          {% if block.settings.show_more_payment %}
+                            <a href="#"  
+                               class="more-choose-payment link buy-it-now" 
+                               data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                               data-quantity="1"
+                               aria-label="{{ block.settings.more_payment_text | default: 'sections.product.more_payment_options' | t }}">
+                              {{ block.settings.more_payment_text | default: 'sections.product.more_payment_options' | t }}
+                            </a>
+                          {% endif %}
+                        {% else %}
+                          <button class="tf-btn btn-out-stock w-100">{{ 'sections.product.unavailable' | t }}</button>
+                        {% endif %}
                       </div>
-                      <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                          class="tf-btn animate-btn btn-add-to-cart">Add to cart</a>
-                    </div>
-                      {% form 'product', product %}
-                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                        <input type="hidden" name="quantity" value="1">
-                        {{ form | payment_button }}
-                      {% endform %}
-                      <a href="#"  
-                         class="more-choose-payment link buy-it-now" 
-                         data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                         data-quantity="1"
-                         aria-label="{{ 'sections.product.more_payment_options' | t }}">{{ 'sections.product.more_payment_options' | t }}</a>
-                  {% else %}
-                    <button class="tf-btn btn-out-stock w-100">{{ 'sections.product.unavailable' | t }}</button>
-                  {% endif %}
-                </div>
+                  {% endcase %}
+                {% endfor %}
               {% endunless %}
                 {% unless product.available %}
                   <form class="form-out-stock" id="notify-stock-form" action="#">
@@ -1588,6 +1601,42 @@
       "settings": []
     },
     {
+      "type": "quantity_and_buy",
+      "name": "Quantity & Buy Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Dynamic Checkout Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Show dynamic checkout buttons",
+          "default": true,
+          "info": "Display Shopify's dynamic checkout buttons (Apple Pay, Google Pay, etc.)"
+        },
+        {
+          "type": "header",
+          "content": "More Payment Options"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_more_payment",
+          "label": "Show more payment options link",
+          "default": true,
+          "info": "Display a link to additional payment methods"
+        },
+        {
+          "type": "text",
+          "id": "more_payment_text",
+          "label": "More payment options text",
+          "default": "More payment options",
+          "info": "Customize the text for the more payment options link"
+        }
+      ]
+    },
+    {
       "type": "@app"
     }
   ],
@@ -1637,6 +1686,9 @@
         },
         {
           "type": "sku"
+        },
+        {
+          "type": "quantity_and_buy"
         }
       ]
     }
