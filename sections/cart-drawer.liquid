@@ -51,15 +51,14 @@
     {
       "type": "collection",
       "id": "complementary_products_collection",
-      "label": "Products select",
+      "label": "Collection select",
       "info": "Select a collection to show complementary products"
     },
     {
-      "type": "checkbox",
-      "id": "replace_complementary_products",
-      "label": "Replace products selected",
-      "info": "Replace products selected when the first product on cart had complementary products",
-      "default": false
+      "type": "product",
+      "id": "complementary_products_product",
+      "label": "Product select",
+      "info": "Select a product that has complementary products (will replace collection if selected)"
     }
   ]
 }
@@ -195,8 +194,13 @@
                                 }'>
                                     <div class="swiper-wrapper">
                                         {%- assign complementary_collection = collections[section.settings.complementary_products_collection] -%}
-                                        {%- if section.settings.replace_complementary_products and cart.items.first.product.metafields.custom.complementary_products != blank -%}
-                                            {%- assign complementary_products = cart.items.first.product.metafields.custom.complementary_products.value -%}
+                                        {%- if section.settings.complementary_products_product != blank -%}
+                                            {%- assign selected_product = all_products[section.settings.complementary_products_product] -%}
+                                            {%- if selected_product.metafields.custom.complementary_products != blank -%}
+                                                {%- assign complementary_products = selected_product.metafields.custom.complementary_products.value -%}
+                                            {%- else -%}
+                                                {%- assign complementary_products = complementary_collection.products -%}
+                                            {%- endif -%}
                                         {%- else -%}
                                             {%- assign complementary_products = complementary_collection.products -%}
                                         {%- endif -%}
