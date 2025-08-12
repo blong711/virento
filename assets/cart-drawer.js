@@ -611,7 +611,7 @@ class CartDrawer extends HTMLElement {
 
   setupTermsCheckbox() {
     const termsCheckbox = this.querySelector('#CartDrawer-Form_agree');
-    const checkoutButton = this.querySelector('a[href="/checkout"]');
+    const checkoutButton = this.querySelector('[data-checkout-button]');
     
     if (termsCheckbox && checkoutButton) {
       // Initially disable checkout button if checkbox exists
@@ -631,12 +631,14 @@ class CartDrawer extends HTMLElement {
       checkoutButton.style.pointerEvents = 'auto';
       checkoutButton.style.opacity = '1';
       checkoutButton.removeAttribute('disabled');
+      checkoutButton.style.cursor = 'pointer';
     } else {
       // Disable checkout button
       checkoutButton.classList.add('disabled');
       checkoutButton.style.pointerEvents = 'none';
       checkoutButton.style.opacity = '0.5';
       checkoutButton.setAttribute('disabled', 'disabled');
+      checkoutButton.style.cursor = 'not-allowed';
     }
   }
 

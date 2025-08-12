@@ -439,7 +439,8 @@
                                             {%- endif -%}
                                             {%- if block.settings.show_checkout -%}
                                                 <a href="{{ routes.checkout_url }}"
-                                                    class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>{{ block.settings.checkout_text }}</span></a>
+                                                    class="tf-btn btn-out-line-dark2 w-100 justify-content-center"
+                                                    data-checkout-button><span>{{ block.settings.checkout_text }}</span></a>
                                             {%- endif -%}
                                         </div>
                                 {%- endcase -%}
@@ -478,7 +479,8 @@
                                 <a href="{{ routes.cart_url }}"
                                     class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">View cart</a>
                                 <a href="{{ routes.checkout_url }}"
-                                    class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>Check out</span></a>
+                                    class="tf-btn btn-out-line-dark2 w-100 justify-content-center"
+                                    data-checkout-button><span>Check out</span></a>
                             </div>
                         {%- endif -%}
                     </div>
