@@ -52,57 +52,50 @@
     --color-text-hover: {{ scheme.settings.text_hover.red }},{{ scheme.settings.text_hover.green }},{{ scheme.settings.text_hover.blue }} !important;
     --color-button-hover: {{ scheme.settings.button_hover.red }},{{ scheme.settings.button_hover.green }},{{ scheme.settings.button_hover.blue }} !important;
     --color-button-label-hover: {{ scheme.settings.button_label_hover.red }},{{ scheme.settings.button_label_hover.green }},{{ scheme.settings.button_label_hover.blue }} !important;
-    /* Color scheme styles - only applied to sections with color schemes */
-    .color-scheme-{{ scheme.id }} h1, 
-    .color-scheme-{{ scheme.id }} h2, 
-    .color-scheme-{{ scheme.id }} h3, 
-    .color-scheme-{{ scheme.id }} h4, 
-    .color-scheme-{{ scheme.id }} h5, 
-    .color-scheme-{{ scheme.id }} h6,
-    .color-scheme-{{ scheme.id }} .h1, 
-    .color-scheme-{{ scheme.id }} .h2, 
-    .color-scheme-{{ scheme.id }} .h3, 
-    .color-scheme-{{ scheme.id }} .h4, 
-    .color-scheme-{{ scheme.id }} .h5, 
-    .color-scheme-{{ scheme.id }} .h6,
-    .color-scheme-{{ scheme.id }} .title, 
-    .color-scheme-{{ scheme.id }} .display-sm, 
-    .color-scheme-{{ scheme.id }} .display-md, 
-    .color-scheme-{{ scheme.id }} .display-lg {
-      color: rgb(var(--color-foreground));
-    }
-
-    /* Button styles - only applied to sections with color schemes */
-    .color-scheme-{{ scheme.id }} .button,
-    .color-scheme-{{ scheme.id }} button.primary-button,
-    .color-scheme-{{ scheme.id }} .tf-btn {
-      background-color: rgb(var(--color-button));
-      color: rgb(var(--color-button-text));
-      transition: all 0.2s ease-in-out;
-      border: 1px solid rgb(var(--color-secondary-button-text));
-    }
-
-    /* Button hover styles - only applied to sections with color schemes */
-    .color-scheme-{{ scheme.id }} .button:hover,
-    .color-scheme-{{ scheme.id }} button.primary-button:hover,
-    .color-scheme-{{ scheme.id }} .tf-btn:hover,
-    .color-scheme-{{ scheme.id }} .tf-btn.hover-dark:hover {
-      background-color: rgb(var(--color-button-hover)) !important;
-      color: rgb(var(--color-button-label-hover)) !important;
-    }
-
-    /* Link styles - only applied to sections with color schemes */
-    .color-scheme-{{ scheme.id }} .link {
-      color: rgb(var(--color-button-text));
-      transition: all 0.2s ease-in-out;
-    }
-
-    /* Link hover styles - only applied to sections with color schemes */
-    .color-scheme-{{ scheme.id }} .link:hover {
-      color: rgb(var(--color-button-label-hover)) !important;
-    }
   }
   {% endfor %}
+
+  body{{ scheme_classes }} {
+    color: rgba(var(--color-foreground), 0.75);
+    background-color: rgb(var(--color-background));
+  }
+
+  /* Heading styles */
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6,
+  .title, .display-sm, .display-md, .display-lg {
+    color: rgb(var(--color-foreground));
+  }
+
+  /* Button styles - only applied to sections with color schemes */
+  .button,
+  button.primary-button,
+  .tf-btn {
+    background-color: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+    transition: all 0.2s ease-in-out;
+    border: 1px solid rgb(var(--color-secondary-button-text));
+  }
+
+  /* Button hover styles - only applied to sections with color schemes */
+  .button:hover,
+  button.primary-button:hover,
+  .tf-btn:hover,
+  .tf-btn.hover-dark:hover {
+    background-color: rgb(var(--color-button-hover)) !important;
+    color: rgb(var(--color-button-label-hover)) !important;
+  }
+
+  /* Link styles - only applied to sections with color schemes */
+  .link {
+    color: rgb(var(--color-button-text));
+    transition: all 0.2s ease-in-out;
+  }
+
+  /* Link hover styles - only applied to sections with color schemes */
+  .link:hover {
+    color: rgb(var(--color-button-label-hover)) !important;
+  }
 
   :root {
     {% if settings.font_library == 'shopify' %}
