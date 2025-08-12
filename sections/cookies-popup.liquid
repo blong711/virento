@@ -5,7 +5,7 @@
   assign privacy_button_text = section.settings.privacy_button_text
 -%}
 
-  <div class="cookie-banner" id="cookie-banner" data-section-id="{{ section.id }}" data-section-type="cookies-popup" data-show-banner="{{ section.settings.show_cookie_banner }}">
+  <div class="cookie-banner color-{{ section.settings.color_scheme }}" id="cookie-banner" data-section-id="{{ section.id }}" data-section-type="cookies-popup" data-show-banner="{{ section.settings.show_cookie_banner }}">
     <div class="overlay"></div>
     <div class="content">
       <p class="text-md">{{ cookie_message }}</p>
@@ -49,6 +49,12 @@
     {
       "type": "paragraph",
       "content": "t:sections.cookies_popup.settings.paragraph_6.content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
     },
     {
       "type": "radio",
