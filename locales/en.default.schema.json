@@ -3758,7 +3758,7 @@
       }
     },
     "heading-with-text-horizontal": {
-      "name": "About Us Welcome",
+      "name": "Heading With Text",
       "settings": {
         "width": {
           "label": "Section width",
@@ -3818,7 +3818,7 @@
       },
       "presets": {
         "default": {
-          "name": "heading with text horizontal",
+          "name": "Heading With Text Horizontal",
           "category": "Text"
         }
       }
