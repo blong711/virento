@@ -3,7 +3,7 @@
         <div class="modal-content">
             <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
             <div class="modal-compare-wrap list-file-delete">
-                <h6 class="title text-center">{{ section.settings.title | default: 'Compare Products' }}</h6>
+                <h6 class="title text-center">Compare Products</h6>
                 <div class="tf-compare-inner">
                     <div class="tf-compare-list" id="compare-list">
                         <div class="tf-compare-item file-delete" data-product-id="{{ product.id }}">
@@ -41,21 +41,3 @@
         </div>
     </div>
 </div>
-{% schema %}
-{
-  "name": "Compare Modal",
-  "settings": [
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Modal Title",
-      "default": "Compare Products"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Compare Modal"
-    }
-  ]
-}
-{% endschema %}
