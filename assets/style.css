@@ -7690,6 +7690,26 @@ button.animate-btn::after,
   opacity: 0;
   transform: translateY(100px);
   transition: all 0.3s ease;
+  overflow: hidden; /* Ensure content doesn't overflow rounded corners */
+}
+
+/* Ensure color scheme backgrounds respect border-radius */
+.cookie-banner.color-scheme-1,
+.cookie-banner.color-scheme-2,
+.cookie-banner.color-scheme-3,
+.cookie-banner.color-scheme-4,
+.cookie-banner.color-scheme-5 {
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* Override any color scheme background that might not have border-radius */
+.cookie-banner.color-scheme-1 *,
+.cookie-banner.color-scheme-2 *,
+.cookie-banner.color-scheme-3 *,
+.cookie-banner.color-scheme-4 *,
+.cookie-banner.color-scheme-5 * {
+  border-radius: inherit;
 }
 
 .cookie-banner.show {
