@@ -55,7 +55,7 @@
         </div>
 
         {%- for block in section.blocks -%}
-          {%- if block.type == 'product_recommendations' and block.settings.show_recommendations and block.settings.recommendations_products != blank -%}
+          {%- if block.type == 'product_recommendations' and block.settings.recommendations_products != blank -%}
             <div class="tf-mini-cart-main">
               <div class="tf-mini-cart-sroll">
                 <div class="tf-minicart-recommendations">
@@ -242,12 +242,6 @@
       "name": "Product Recommendations",
       "limit": 1,
       "settings": [
-        {
-          "type": "checkbox",
-          "id": "show_recommendations",
-          "label": "Show Product Recommendations",
-          "default": true
-        },
         {
           "type": "text",
           "id": "recommendations_heading",
