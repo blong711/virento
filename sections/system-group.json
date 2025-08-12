@@ -93,6 +93,20 @@
         "privacy_policy_url": "shopify://pages/privacy-policy",
         "accept_button_text": "Accept Cookies"
       }
+    },
+    "newsletter-popup": {
+      "type": "newsletter-popup",
+      "settings": {
+        "title": "Sign up to our Newsletter",
+        "description": "Be the first to get the latest news about trends, promotions, and much more!",
+        "email_placeholder": "Your email address",
+        "button_text": "Send",
+        "show_social_icons": true,
+        "show_privacy_policy": true,
+        "privacy_text": "Will be used in accordance with our",
+        "privacy_policy_url": "/pages/privacy-policy",
+        "privacy_policy_link_text": "Privacy Policy"
+      }
     }
   },
   "order": [
@@ -100,6 +114,7 @@
     "compare-modal",
     "back-to-top",
     "mobile-toolbar",
-    "cookies-popup"
+    "cookies-popup",
+    "newsletter-popup"
   ]
 }
