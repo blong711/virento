@@ -4610,9 +4610,9 @@ header.header-bg {
   transform: translateY(-2px);
 }
 .tf-btn.btn-out-line-dark2 {
-  background-color: transparent;
-  border: 1px solid var(--dark-2);
-  color: var(--dark-2);
+  background-color: transparent !important;
+  border: 1px solid var(--dark-2) !important;
+  color: var(--dark-2) !important;
 }
 .tf-btn.btn-out-line-dark2:hover {
   background-color: var(--dark-2);
