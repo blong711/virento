@@ -372,11 +372,16 @@ class CartDrawer extends HTMLElement {
 
       // Set up country/province dependency
       const countrySelect = shippingForm.querySelector('[data-shipping-country]');
+      const provinceField = shippingForm.querySelector('#shipping-province-field');
       const provinceSelect = shippingForm.querySelector('[data-shipping-province]');
       
-      if (countrySelect && provinceSelect) {
+      if (countrySelect && provinceField && provinceSelect) {
+        // Initial check for province field visibility
+        this.toggleProvinceField(countrySelect.value, provinceField, provinceSelect);
+        
+        // Listen for country changes
         countrySelect.addEventListener('change', () => {
-          this.updateProvinces(countrySelect.value, provinceSelect);
+          this.toggleProvinceField(countrySelect.value, provinceField, provinceSelect);
         });
       }
     }
@@ -405,6 +410,54 @@ class CartDrawer extends HTMLElement {
       .catch(error => {
         console.error('Error fetching provinces:', error);
       });
+  }
+
+  toggleProvinceField(countryCode, provinceField, provinceSelect) {
+    if (!countryCode) {
+      provinceField.style.display = 'none';
+      return;
+    }
+
+    // Try to get provinces from Shopify data
+    let provinces = null;
+    
+    // Check if Shopify countries data is available
+    if (window.Shopify && window.Shopify.countries && window.Shopify.countries[countryCode]) {
+      provinces = window.Shopify.countries[countryCode].provinces;
+    }
+    
+    // If no Shopify data, try to get from the select options (fallback)
+    if (!provinces) {
+      const countrySelect = provinceSelect.closest('form').querySelector('[data-shipping-country]');
+      const countryOption = countrySelect.querySelector(`option[value="${countryCode}"]`);
+      if (countryOption && countryOption.dataset.provinces) {
+        try {
+          provinces = JSON.parse(countryOption.dataset.provinces);
+        } catch (e) {
+          // Ignore parsing errors
+        }
+      }
+    }
+    
+    if (provinces && Object.keys(provinces).length > 0) {
+      // Country has provinces, show the field and populate options
+      provinceField.style.display = 'block';
+      
+      // Clear existing options
+      provinceSelect.innerHTML = '';
+      
+      // Add province options
+      Object.keys(provinces).forEach(function(provinceCode) {
+        const option = document.createElement('option');
+        option.value = provinceCode;
+        option.textContent = provinces[provinceCode];
+        provinceSelect.appendChild(option);
+      });
+    } else {
+      // Country has no provinces, hide the field
+      provinceField.style.display = 'none';
+      provinceSelect.value = '';
+    }
   }
 
   calculateShipping(shippingForm) {
