@@ -8,15 +8,15 @@
   <div class="cookie-banner" id="cookie-banner" data-section-id="{{ section.id }}" data-section-type="cookies-popup" data-show-banner="{{ section.settings.show_cookie_banner }}">
     <div class="overlay"></div>
     <div class="content">
-      <p class="text-md">{{ cookie_message | default: 'The cookie settings on this website are set to "allow all cookies" to give you the very best experience. Please click Accept Cookies to continue to use the site.' }}</p>
+      <p class="text-md">{{ cookie_message | default: 'sections.cookies_popup.default_message' | t }}</p>
       <div class="button-group">
         {%- if privacy_policy_url != blank -%}
           <a class="btn-out-line-white btn-submit-total tf-btn" href="{{ privacy_policy_url }}">
-            {{ privacy_button_text | default: 'Privacy Policy' }}
+            {{ privacy_button_text | default: 'sections.cookies_popup.privacy_policy' | t }}
           </a>
         {%- endif -%}
         <button id="accept-cookie" class="accept-button btn-out-line-white btn-submit-total tf-btn">
-          {{ accept_button_text | default: 'Accept Cookies' }}
+          {{ accept_button_text | default: 'sections.cookies_popup.accept_cookies' | t }}
         </button>
       </div>
     </div>
@@ -24,44 +24,44 @@
 
 {% schema %}
 {
-  "name": "Cookies Popup",
+  "name": "t:sections.cookies_popup.name",
   "settings": [
     {
       "type": "paragraph",
-      "content": "Under EU privacy regulations, websites must make it clear to visitors what information about them is being stored. This specifically includes cookies."
+      "content": "t:sections.cookies_popup.settings.paragraph_1.content"
     },
     {
       "type": "paragraph", 
-      "content": "Turn on this option and user will see info box at the bottom of the page that your web-site is using cookies."
+      "content": "t:sections.cookies_popup.settings.paragraph_2.content"
     },
     {
       "type": "paragraph",
-      "content": "You can add a cookie compliance banner to your theme to allow customers to consent to tracking of non-essential cookies."
+      "content": "t:sections.cookies_popup.settings.paragraph_3.content"
     },
     {
       "type": "paragraph",
-      "content": "This allows customers to consent to relevant, region-specific, tracking laws such as GDPR and CCPA."
+      "content": "t:sections.cookies_popup.settings.paragraph_4.content"
     },
     {
       "type": "paragraph",
-      "content": "If you're a merchant operating in or with customers from the EU, EEA, UK, or Switzerland, you need to collect customer consent before installing cookies or gathering data."
+      "content": "t:sections.cookies_popup.settings.paragraph_5.content"
     },
     {
       "type": "paragraph",
-      "content": "Cookies are stored on the customer's computer or mobile device, which means your online store is required to ask customers for their consent before loading analytics cookies."
+      "content": "t:sections.cookies_popup.settings.paragraph_6.content"
     },
     {
       "type": "radio",
       "id": "show_cookie_banner",
-      "label": "Show cookie banner",
+      "label": "t:sections.cookies_popup.settings.show_cookie_banner.label",
       "options": [
         {
           "value": "all_regions",
-          "label": "All regions"
+          "label": "t:sections.cookies_popup.settings.show_cookie_banner.options.all_regions.label"
         },
         {
           "value": "targeted_regions",
-          "label": "Targeted regions for limited data collection"
+          "label": "t:sections.cookies_popup.settings.show_cookie_banner.options.targeted_regions.label"
         }
       ],
       "default": "all_regions"
@@ -69,30 +69,30 @@
     {
       "type": "textarea",
       "id": "cookie_message",
-      "label": "Cookie message",
-      "default": "The cookie settings on this website are set to \"allow all cookies\" to give you the very best experience. Please click Accept Cookies to continue to use the site."
+      "label": "t:sections.cookies_popup.settings.cookie_message.label",
+      "default": "t:sections.cookies_popup.settings.cookie_message.default"
     },
     {
       "type": "text",
       "id": "privacy_button_text",
-      "label": "Privacy Policy button text",
-      "default": "Privacy Policy"
+      "label": "t:sections.cookies_popup.settings.privacy_button_text.label",
+      "default": "t:sections.cookies_popup.settings.privacy_button_text.default"
     },
     {
       "type": "url",
       "id": "privacy_policy_url",
-      "label": "Privacy Policy URL"
+      "label": "t:sections.cookies_popup.settings.privacy_policy_url.label"
     },
     {
       "type": "text",
       "id": "accept_button_text",
-      "label": "Accept button text",
-      "default": "Accept Cookies"
+      "label": "t:sections.cookies_popup.settings.accept_button_text.label",
+      "default": "t:sections.cookies_popup.settings.accept_button_text.default"
     }
   ],
   "presets": [
     {
-      "name": "Cookies Popup"
+      "name": "t:sections.cookies_popup.name"
     }
   ]
 }

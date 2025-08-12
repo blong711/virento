@@ -1186,7 +1186,7 @@
               "default": "Share"
             },
             "featured_image_info": {
-              "content": "If you include a link in social media posts, the page’s featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)"
+              "content": "If you include a link in social media posts, the page's featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)"
             },
             "title_info": {
               "content": "A store title and description are included with the preview image. [Learn more](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords#set-a-title-and-description-for-your-online-store)"
@@ -1223,7 +1223,7 @@
           }
         },
         "hide_variants": {
-          "label": "Hide unselected variants’ media on desktop"
+          "label": "Hide unselected variants' media on desktop"
         },
         "enable_video_looping": {
           "label": "Loop video"
@@ -5099,6 +5099,58 @@
               "label": "Checkout button text"
             }
           }
+        }
+      }
+    },
+    "cookies_popup": {
+      "name": "Cookies Popup",
+      "default_message": "The cookie settings on this website are set to \"allow all cookies\" to give you the very best experience. Please click Accept Cookies to continue to use the site.",
+      "privacy_policy": "Privacy Policy",
+      "accept_cookies": "Accept Cookies",
+      "settings": {
+        "paragraph_1": {
+          "content": "Under EU privacy regulations, websites must make it clear to visitors what information about them is being stored. This specifically includes cookies."
+        },
+        "paragraph_2": {
+          "content": "Turn on this option and user will see info box at the bottom of the page that your web-site is using cookies."
+        },
+        "paragraph_3": {
+          "content": "You can add a cookie compliance banner to your theme to allow customers to consent to tracking of non-essential cookies."
+        },
+        "paragraph_4": {
+          "content": "This allows customers to consent to relevant, region-specific, tracking laws such as GDPR and CCPA."
+        },
+        "paragraph_5": {
+          "content": "If you're a merchant operating in or with customers from the EU, EEA, UK, or Switzerland, you need to collect customer consent before installing cookies or gathering data."
+        },
+        "paragraph_6": {
+          "content": "Cookies are stored on the customer's computer or mobile device, which means your online store is required to ask customers for their consent before loading analytics cookies."
+        },
+        "show_cookie_banner": {
+          "label": "Show cookie banner",
+          "options": {
+            "all_regions": {
+              "label": "All regions"
+            },
+            "targeted_regions": {
+              "label": "Targeted regions for limited data collection"
+            }
+          }
+        },
+        "cookie_message": {
+          "label": "Cookie message",
+          "default": "The cookie settings on this website are set to \"allow all cookies\" to give you the very best experience. Please click Accept Cookies to continue to use the site."
+        },
+        "privacy_button_text": {
+          "label": "Privacy Policy button text",
+          "default": "Privacy Policy"
+        },
+        "privacy_policy_url": {
+          "label": "Privacy Policy URL"
+        },
+        "accept_button_text": {
+          "label": "Accept button text",
+          "default": "Accept Cookies"
         }
       }
     }
