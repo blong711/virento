@@ -543,6 +543,28 @@ const cookieSetting = () => {
     }
   };
 
+  // Theme customizer functionality
+  if (window.Shopify && window.Shopify.designMode) {
+    document.addEventListener('shopify:section:select', function(event) {
+      // Check if the selected section is a cookies-popup section
+      if (event.target.id && event.target.id.includes('__cookies-popup')) {
+        // Get the cookie banner element and show it
+        const cookieBanner = document.querySelector('.cookie-banner');
+        if (cookieBanner) {
+          cookieBanner.classList.add('show');
+          cookieBanner.classList.remove('hidden');
+        }
+      } else {
+        // Hide the cookie banner when other sections are selected
+        const cookieBanner = document.querySelector('.cookie-banner');
+        if (cookieBanner) {
+          cookieBanner.classList.remove('show');
+          cookieBanner.classList.add('hidden');
+        }
+      }
+    });
+  }
+
   detectUserCountry();
   checkCookie();
 };
