@@ -141,24 +141,52 @@
     },
     "exit-popup": {
       "type": "exit-popup",
+      "blocks": {
+        "popup_text_YXkzFF": {
+          "type": "popup_text",
+          "settings": {
+            "popup_text": "Take [DISCOUNT]15% OFF[/DISCOUNT] on first order"
+          }
+        },
+        "discount_code_jAxJ3P": {
+          "type": "discount_code",
+          "settings": {
+            "code_label": "Enter the code:",
+            "discount_code": "CODE15OFF"
+          }
+        },
+        "button_b7k97P": {
+          "type": "button",
+          "settings": {
+            "button_text": "Continue Shopping",
+            "button_link": "shopify://collections"
+          }
+        },
+        "product_recommendations_JjhEw6": {
+          "type": "product_recommendations",
+          "settings": {
+            "recommendations_heading": "You may also like",
+            "recommendations_products": [
+              "10000mah-power-go-power-bank",
+              "apple-iphone-16-promax",
+              "apple-magsafe-charger"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "popup_text_YXkzFF",
+        "discount_code_jAxJ3P",
+        "button_b7k97P",
+        "product_recommendations_JjhEw6"
+      ],
       "settings": {
         "popup_trigger": "scroll",
         "popup_delay": 0,
         "scroll_threshold": 80,
         "days_next_show": 1,
         "popup_image": "shopify://shop_images/before-you-leave.jpg",
-        "popup_heading": "Before You Leave",
-        "popup_text": "Take 15% OFF on first order",
-        "discount_code": "CODE15OFF",
-        "button_text": "Continue Shopping",
-        "button_link": "shopify://collections",
-        "show_recommendations": true,
-        "recommendations_heading": "You may also like",
-        "recommendations_products": [
-          "10000mah-power-go-power-bank",
-          "apple-iphone-16-promax",
-          "apple-magsafe-charger"
-        ]
+        "popup_heading": "Before You Leave"
       }
     }
   },
