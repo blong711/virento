@@ -492,6 +492,12 @@ const cookieSetting = () => {
   };
 
   const checkCookie = () => {
+    // Check if we're in the Shopify theme customizer
+    const isThemeCustomizer = window.Shopify && window.Shopify.designMode;
+    if (isThemeCustomizer) {
+      return; // Don't show cookie banner in theme customizer
+    }
+
     const cookieConsent = getCookie('cookie_consent');
     const cookieBanner = document.querySelector('.cookie-banner');
     
