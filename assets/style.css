@@ -7081,7 +7081,7 @@ button.animate-btn::after,
   margin-left: 4px;
 }
 .wrap-code .btn-coppy-text i {
-  font-size: 16px;
+  font-size: 12px;
   color: #868686;
   cursor: pointer;
   -webkit-transition: all 0.3s ease-in-out;
@@ -7089,6 +7089,7 @@ button.animate-btn::after,
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+  margin-left: 4px;
 }
 .wrap-code .btn-coppy-text i:hover {
   color: var(--primary);
