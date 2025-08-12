@@ -1275,6 +1275,11 @@ const autoPopup = () => {
   const globalHidden = localStorage.getItem(globalPopupKey);
   if (globalHidden === 'true') return;
 
+  // Check if we're in theme customization mode
+  const isThemeCustomizer = window.Shopify && window.Shopify.designMode;
+  if (isThemeCustomizer) return;
+
+  // Only show popup on first visit to the page
   if (!JSON.parse(showPopup)) {
     setTimeout(() => {
       const modal = new bootstrap.Modal(popup);
@@ -1311,6 +1316,24 @@ const autoPopup = () => {
     }
   });
 };
+
+// Function to manually show newsletter popup
+const showNewsletterPopup = () => {
+  const popup = document.querySelector('.auto-popup');
+  if (!popup) return;
+
+  const globalPopupKey = 'newsletterPopupHidden';
+  const globalHidden = localStorage.getItem(globalPopupKey);
+  
+  // Check if user has globally hidden the popup
+  if (globalHidden === 'true') return;
+
+  const modal = new bootstrap.Modal(popup);
+  modal.show();
+};
+
+// Make function available globally
+window.showNewsletterPopup = showNewsletterPopup;
 
 /* Parallax Effects
 -------------------------------------------------------------------------*/
