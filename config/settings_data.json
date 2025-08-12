@@ -87,15 +87,15 @@
       },
       "scheme-2": {
         "settings": {
-          "background": "#f3f3f3",
+          "background": "#ffffff",
           "background_gradient": "",
-          "background2": "#d9d6d6",
-          "text": "#121212",
+          "background2": "#ffffff",
+          "text": "#ffffff",
           "button": "#121212",
-          "button_label": "#f3f3f3",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212",
-          "text_hover": "#666666",
+          "button_label": "#000000",
+          "secondary_button_label": "rgba(0,0,0,0)",
+          "shadow": "rgba(0,0,0,0)",
+          "text_hover": "#ff6f61",
           "button_hover": "#2c2c2c",
           "button_label_hover": "#ffffff"
         }
