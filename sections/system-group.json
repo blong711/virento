@@ -89,6 +89,7 @@
         "show_cookie_banner": "all_regions",
         "cookie_message": "The cookie settings on this website are set to \"allow all cookies\" to give you the very best experience. Please click Accept Cookies to continue to use the site.",
         "privacy_button_text": "Privacy Policy",
+        "privacy_policy_url": "shopify://pages/privacy-policy",
         "accept_button_text": "Accept Cookies"
       }
     }
