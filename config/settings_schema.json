@@ -55,8 +55,8 @@
          {
             "type": "color",
             "id": "background2",
-            "label": "Secondary background",
-            "info": "Choose a color close to the primary background.",
+            "label": "t:settings_schema.colors.settings.background2.label",
+            "info": "t:settings_schema.colors.settings.background2.info",
             "default": "#fff"
           },
           {
@@ -64,6 +64,12 @@
             "id": "text",
             "label": "t:settings_schema.colors.settings.text.label",
             "default": "#121212"
+          },
+          {
+            "type": "color",
+            "id": "text_hover",
+            "label": "Text Hover Color",
+            "default": "#666666"
           },
           {
             "type": "color",
@@ -79,21 +85,9 @@
           },
           {
             "type": "color",
-            "id": "secondary_button_label",
-            "label": "t:settings_schema.colors.settings.secondary_button_label.label",
+            "id": "button_outline",
+            "label": "t:settings_schema.colors.settings.button_outline.label",
             "default": "#121212"
-          },
-          {
-            "type": "color",
-            "id": "shadow",
-            "label": "t:settings_schema.colors.settings.shadow.label",
-            "default": "#121212"
-          },
-          {
-            "type": "color",
-            "id": "text_hover",
-            "label": "Text Hover Color",
-            "default": "#666666"
           },
           {
             "type": "color",
@@ -106,6 +100,18 @@
             "id": "button_label_hover",
             "label": "Button Hover Text",
             "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "button_outline_hover",
+            "label": "Button Hover Outline",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "shadow",
+            "label": "t:settings_schema.colors.settings.shadow.label",
+            "default": "#121212"
           }
         ],
         "role": {
@@ -114,14 +120,14 @@
             "solid": "background",
             "gradient": "background_gradient"
           },
-          "links": "secondary_button_label",
+          "links": "button_outline",
           "icons": "text",
           "primary_button": "button",
           "on_primary_button": "button_label",
           "primary_button_border": "button",
           "secondary_button": "background",
-          "on_secondary_button": "secondary_button_label",
-          "secondary_button_border": "secondary_button_label"
+          "on_secondary_button": "button_outline",
+          "secondary_button_border": "button_outline"
         }
       }
     ]

@@ -77,16 +77,20 @@
           "label": "Background gradient",
           "info": "Background gradient replaces background where possible."
         },
+        "background2": {
+          "label": "Secondary background",
+          "info": "Choose a color close to the secondary background."
+        },
         "text": {
           "label": "Text"
         },
         "button_background": {
-          "label": "Solid button background"
+          "label": "Button background"
         },
         "button_label": {
-          "label": "Solid button label"
+          "label": "Button text"
         },
-        "secondary_button_label": {
+        "button_outline": {
           "label": "Outline button"
         },
         "shadow": {

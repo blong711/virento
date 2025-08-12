@@ -42,9 +42,8 @@
     --color-shadow: {{ scheme.settings.shadow.red }},{{ scheme.settings.shadow.green }},{{ scheme.settings.shadow.blue }} !important;
     --color-button: {{ scheme.settings.button.red }},{{ scheme.settings.button.green }},{{ scheme.settings.button.blue }} !important;
     --color-button-text: {{ scheme.settings.button_label.red }},{{ scheme.settings.button_label.green }},{{ scheme.settings.button_label.blue }} !important;
-    --color-secondary-button: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }} !important;
-    --color-secondary-button-text: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }} !important;
-    --color-link: {{ scheme.settings.secondary_button_label.red }},{{ scheme.settings.secondary_button_label.green }},{{ scheme.settings.secondary_button_label.blue }} !important;
+    --color-button-outline: {{ scheme.settings.button_outline.red }},{{ scheme.settings.button_outline.green }},{{ scheme.settings.button_outline.blue }} !important;
+    --color-link: {{ scheme.settings.button_outline.red }},{{ scheme.settings.button_outline.green }},{{ scheme.settings.button_outline.blue }} !important;
     --color-badge-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }} !important;
     --color-badge-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }} !important;
     --color-badge-border: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }} !important;
@@ -52,6 +51,7 @@
     --color-text-hover: {{ scheme.settings.text_hover.red }},{{ scheme.settings.text_hover.green }},{{ scheme.settings.text_hover.blue }} !important;
     --color-button-hover: {{ scheme.settings.button_hover.red }},{{ scheme.settings.button_hover.green }},{{ scheme.settings.button_hover.blue }} !important;
     --color-button-label-hover: {{ scheme.settings.button_label_hover.red }},{{ scheme.settings.button_label_hover.green }},{{ scheme.settings.button_label_hover.blue }} !important;
+    --color-button-outline-hover: {{ scheme.settings.button_outline_hover.red }},{{ scheme.settings.button_outline_hover.green }},{{ scheme.settings.button_outline_hover.blue }} !important;
   }
   {% endfor %}
 
@@ -74,7 +74,7 @@
     background-color: rgb(var(--color-button));
     color: rgb(var(--color-button-text));
     transition: all 0.2s ease-in-out;
-    border: 1px solid rgb(var(--color-secondary-button-text));
+    border: 1px solid rgb(var(--color-button-outline));
   }
 
   /* Button hover styles - only applied to sections with color schemes */
@@ -84,17 +84,18 @@
   .tf-btn.hover-dark:hover {
     background-color: rgb(var(--color-button-hover)) !important;
     color: rgb(var(--color-button-label-hover)) !important;
+    border: 1px solid rgb(var(--color-button-outline-hover)) !important;
   }
 
   /* Link styles - only applied to sections with color schemes */
   .link {
-    color: rgb(var(--color-button-text));
+    color: rgb(var(--color-foreground));
     transition: all 0.2s ease-in-out;
   }
 
   /* Link hover styles - only applied to sections with color schemes */
   .link:hover {
-    color: rgb(var(--color-button-label-hover)) !important;
+    color: rgb(var(--color-text-hover)) !important;
   }
 
   :root {
