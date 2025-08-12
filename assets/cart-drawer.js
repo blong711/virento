@@ -33,6 +33,35 @@ class CartDrawer extends HTMLElement {
     this.checkEmptyCart();
   }
 
+  reinitWithoutSwiper() {
+    // Set up close button functionality
+    const closeButton = this.querySelector('.icon-close-popup');
+    if (closeButton) {
+      closeButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.close();
+      });
+    }
+
+    // Set up remove item buttons
+    this.setupRemoveButtons();
+    
+    // Set up quantity buttons
+    this.setupQuantityButtons();
+    
+    // Set up variant selection
+    this.setupVariantSelection();
+    
+    // Set up all tool functionality (excluding swiper-related)
+    this.setupToolsWithoutSwiper();
+    
+    // Set up terms checkbox functionality
+    this.setupTermsCheckbox();
+    
+    // Check empty cart state on initialization
+    this.checkEmptyCart();
+  }
+
   setupRemoveButtons() {
     const removeButtons = this.querySelectorAll('.remove');
     removeButtons.forEach(button => {
@@ -157,6 +186,26 @@ class CartDrawer extends HTMLElement {
     
     // Set up add to cart buttons in recommendations
     this.setupRecommendationAddToCart();
+  }
+
+  setupToolsWithoutSwiper() {
+    // Set up gift wrap functionality
+    this.setupGiftWrap();
+    
+    // Set up note functionality
+    this.setupNote();
+    
+    // Set up discount/coupon functionality
+    this.setupDiscount();
+    
+    // Set up shipping calculator functionality
+    this.setupShippingCalculator();
+    
+    // Set up toolbox button click handlers
+    this.setupToolboxButtons();
+    
+    // Note: Excluding setupRecommendationAddToCart() to avoid swiper re-initialization
+    // The swiper functionality should remain intact from the original initialization
   }
 
   setupToolboxButtons() {
@@ -673,10 +722,36 @@ class CartDrawer extends HTMLElement {
     if (parsedState.sections && parsedState.sections['cart-drawer']) {
       const cartDrawerContent = this.getSectionInnerHTML(parsedState.sections['cart-drawer'], '#shoppingCart');
       if (cartDrawerContent) {
-        this.innerHTML = cartDrawerContent;
+        // Parse the new content to extract only cart items
+        const parser = new DOMParser();
+        const newDoc = parser.parseFromString(cartDrawerContent, 'text/html');
         
-        // Re-initialize all functionality after content update
-        this.init();
+        // Update only the cart items section, not the entire content
+        const newCartItems = newDoc.querySelector('.tf-mini-cart-items');
+        const currentCartItems = this.querySelector('.tf-mini-cart-items');
+        
+        if (newCartItems && currentCartItems) {
+          currentCartItems.innerHTML = newCartItems.innerHTML;
+        }
+        
+        // Update cart totals and other non-swiper content
+        const newCartBottom = newDoc.querySelector('.tf-mini-cart-bottom');
+        const currentCartBottom = this.querySelector('.tf-mini-cart-bottom');
+        
+        if (newCartBottom && currentCartBottom) {
+          currentCartBottom.innerHTML = newCartBottom.innerHTML;
+        }
+        
+        // Update free shipping progress
+        const newFreeShipping = newDoc.querySelector('.tf-mini-cart-threshold');
+        const currentFreeShipping = this.querySelector('.tf-mini-cart-threshold');
+        
+        if (newFreeShipping && currentFreeShipping) {
+          currentFreeShipping.innerHTML = newFreeShipping.innerHTML;
+        }
+        
+        // Re-initialize all functionality after content update (except swiper)
+        this.reinitWithoutSwiper();
         
         // Ensure all tools are closed after content update
         this.closeAllTools();
@@ -709,10 +784,36 @@ class CartDrawer extends HTMLElement {
         if (sections['cart-drawer']) {
           const cartDrawerContent = this.getSectionInnerHTML(sections['cart-drawer'], '#shoppingCart');
           if (cartDrawerContent) {
-            this.innerHTML = cartDrawerContent;
+            // Parse the new content to extract only cart items
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(cartDrawerContent, 'text/html');
             
-            // Re-initialize all functionality after content update
-            this.init();
+            // Update only the cart items section, not the entire content
+            const newCartItems = newDoc.querySelector('.tf-mini-cart-items');
+            const currentCartItems = this.querySelector('.tf-mini-cart-items');
+            
+            if (newCartItems && currentCartItems) {
+              currentCartItems.innerHTML = newCartItems.innerHTML;
+            }
+            
+            // Update cart totals and other non-swiper content
+            const newCartBottom = newDoc.querySelector('.tf-mini-cart-bottom');
+            const currentCartBottom = this.querySelector('.tf-mini-cart-bottom');
+            
+            if (newCartBottom && currentCartBottom) {
+              currentCartBottom.innerHTML = newCartBottom.innerHTML;
+            }
+            
+            // Update free shipping progress
+            const newFreeShipping = newDoc.querySelector('.tf-mini-cart-threshold');
+            const currentFreeShipping = this.querySelector('.tf-mini-cart-threshold');
+            
+            if (newFreeShipping && currentFreeShipping) {
+              currentFreeShipping.innerHTML = newFreeShipping.innerHTML;
+            }
+            
+            // Re-initialize all functionality after content update (except swiper)
+            this.reinitWithoutSwiper();
             
             // Check if cart is empty and show appropriate message
             this.checkEmptyCart();
