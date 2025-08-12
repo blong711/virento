@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   clickModalSecond();
   estimateShipping();
   headerSticky();
-  autoPopup();
+  newsletterPopup();
   new WOW().init();
 });
 
@@ -1261,10 +1261,10 @@ const headerSticky = () => {
   }, 250);
 };
 
-/* Auto Popup
+/* Newsletter Popup
 -------------------------------------------------------------------------*/
-const autoPopup = () => {
-  const popup = document.querySelector('.auto-popup');
+const newsletterPopup = () => {
+  const popup = document.querySelector('.newsletter-popup');
   if (!popup) return;
 
   // Get popup settings from data attributes
@@ -1345,14 +1345,14 @@ const autoPopup = () => {
       // Check if the selected section is a newsletter-popup section
       if (event.target.id && event.target.id.includes('__newsletter-popup')) {
         // Get the newsletter popup element and show it
-        const newsletterPopup = document.querySelector('.auto-popup');
+        const newsletterPopup = document.querySelector('.newsletter-popup');
         if (newsletterPopup) {
           const modal = new bootstrap.Modal(newsletterPopup);
           modal.show();
         }
       } else {
         // Hide the newsletter popup when other sections are selected
-        const newsletterPopup = document.querySelector('.auto-popup');
+        const newsletterPopup = document.querySelector('.newsletter-popup');
         if (newsletterPopup) {
           const modal = bootstrap.Modal.getInstance(newsletterPopup);
           if (modal) {
