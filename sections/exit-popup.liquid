@@ -32,7 +32,7 @@
           {%- case block.type -%}
             {%- when 'popup_text' -%}
               {%- if block.settings.popup_text != blank -%}
-                <p>{{ block.settings.popup_text }}</p>
+                <p>{{ block.settings.popup_text | replace: '[DISCOUNT]', '<span>' | replace: '[/DISCOUNT]', '</span>' }}</p>
               {%- endif -%}
             
             {%- when 'discount_code' -%}
@@ -195,7 +195,8 @@
           "type": "text",
           "id": "popup_text",
           "label": "Popup Text",
-          "default": "Take 15% OFF on first order"
+          "default": "Take [DISCOUNT]15% OFF[/DISCOUNT] on first order",
+          "info": "Use [DISCOUNT] and [/DISCOUNT] to highlight the discount text"
         }
       ]
     },
