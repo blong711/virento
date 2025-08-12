@@ -5203,6 +5203,81 @@
           "name": "Social Icons"
         }
       }
+    },
+    "exit-popup": {
+      "name": "Exit Popup",
+      "settings": {
+        "popup_display_settings": "Popup Display Settings",
+        "popup_trigger": "Show popup after",
+        "popup_trigger_options": {
+          "mouseleave": "Move the cursor out of screen",
+          "time": "After amount time",
+          "scroll": "Scroll to end of page"
+        },
+        "popup_delay": "Popup delay (seconds)",
+        "popup_delay_info": "Only applies to 'After amount time' trigger",
+        "scroll_threshold": "Scroll threshold (%)",
+        "scroll_threshold_info": "Only applies to 'Scroll to end of page' trigger",
+        "days_next_show": "Days until next show",
+        "popup_content_settings": "Popup Content Settings",
+        "popup_image": "Popup Image (Desktop)",
+        "popup_image_mobile": "Popup Image (Mobile)",
+        "popup_image_mobile_info": "Optional: Use a different image for mobile devices",
+        "popup_heading": "Popup Heading",
+        "popup_heading_default": "Before You Leave",
+        "heading_size": "Heading Size",
+        "heading_size_options": {
+          "display-sm": "Small",
+          "display-md": "Medium",
+          "display-lg": "Large"
+        },
+        "heading_font_weight": "Heading Font Weight",
+        "heading_font_weight_options": {
+          "fw-light": "Light",
+          "fw-regular": "Regular",
+          "fw-medium": "Medium",
+          "fw-semibold": "Semi Bold",
+          "fw-bold": "Bold"
+        }
+      },
+      "blocks": {
+        "popup_text": {
+          "name": "Popup Text",
+          "settings": {
+            "popup_text": "Popup Text",
+            "popup_text_default": "Take [DISCOUNT]15% OFF[/DISCOUNT] on first order",
+            "popup_text_info": "Use [DISCOUNT] and [/DISCOUNT] to highlight the discount text"
+          }
+        },
+        "discount_code": {
+          "name": "Discount Code",
+          "settings": {
+            "code_label": "Code Label",
+            "code_label_default": "Enter the code:",
+            "discount_code": "Discount Code",
+            "discount_code_default": "CODE15OFF"
+          }
+        },
+        "button": {
+          "name": "Button",
+          "settings": {
+            "button_text": "Button Text",
+            "button_text_default": "Continue Shopping",
+            "button_link": "Button Link"
+          }
+        },
+        "product_recommendations": {
+          "name": "Product Recommendations",
+          "settings": {
+            "recommendations_heading": "Recommendations Heading",
+            "recommendations_heading_default": "You may also like",
+            "recommendations_products": "Recommended Products"
+          }
+        }
+      },
+      "presets": {
+        "name": "Exit Popup"
+      }
     }
   }
 }

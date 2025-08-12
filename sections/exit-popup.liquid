@@ -110,8 +110,7 @@
                             {%- endif -%}
                           </p>
                           <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                            class="tf-btn animate-btn bg-dark-2 w-max-content">Add
-                            to cart</a>
+                            class="tf-btn animate-btn btn-small w-max-content">{{ 'products.product.add_to_cart' | t }}</a>
                         </div>
                       </div>
                     {%- endfor -%}
@@ -128,29 +127,29 @@
 
 {% schema %}
 {
-  "name": "Exit Popup",
+  "name": "t:sections.exit-popup.name",
   "max_blocks": 4,
   "settings": [
     {
       "type": "header",
-      "content": "Popup Display Settings"
+      "content": "t:sections.exit-popup.settings.popup_display_settings"
     },
     {
       "type": "select",
       "id": "popup_trigger",
-      "label": "Show popup after",
+      "label": "t:sections.exit-popup.settings.popup_trigger",
       "options": [
         {
           "value": "mouseleave",
-          "label": "Move the cursor out of screen"
+          "label": "t:sections.exit-popup.settings.popup_trigger_options.mouseleave"
         },
         {
           "value": "time",
-          "label": "After amount time"
+          "label": "t:sections.exit-popup.settings.popup_trigger_options.time"
         },
         {
           "value": "scroll",
-          "label": "Scroll to end of page"
+          "label": "t:sections.exit-popup.settings.popup_trigger_options.scroll"
         }
       ],
       "default": "mouseleave"
@@ -158,27 +157,27 @@
     {
       "type": "range",
       "id": "popup_delay",
-      "label": "Popup delay (seconds)",
+      "label": "t:sections.exit-popup.settings.popup_delay",
       "min": 0,
       "max": 30,
       "step": 1,
       "default": 0,
-      "info": "Only applies to 'After amount time' trigger"
+      "info": "t:sections.exit-popup.settings.popup_delay_info"
     },
     {
       "type": "range",
       "id": "scroll_threshold",
-      "label": "Scroll threshold (%)",
+      "label": "t:sections.exit-popup.settings.scroll_threshold",
       "min": 10,
       "max": 100,
       "step": 10,
       "default": 80,
-      "info": "Only applies to 'Scroll to end of page' trigger"
+      "info": "t:sections.exit-popup.settings.scroll_threshold_info"
     },
     {
       "type": "range",
       "id": "days_next_show",
-      "label": "Days until next show",
+      "label": "t:sections.exit-popup.settings.days_next_show",
       "min": 1,
       "max": 30,
       "step": 1,
@@ -186,41 +185,41 @@
     },
     {
       "type": "header",
-      "content": "Popup Content Settings"
+      "content": "t:sections.exit-popup.settings.popup_content_settings"
     },
     {
       "type": "image_picker",
       "id": "popup_image",
-      "label": "Popup Image (Desktop)"
+      "label": "t:sections.exit-popup.settings.popup_image"
     },
     {
       "type": "image_picker",
       "id": "popup_image_mobile",
-      "label": "Popup Image (Mobile)",
-      "info": "Optional: Use a different image for mobile devices"
+      "label": "t:sections.exit-popup.settings.popup_image_mobile",
+      "info": "t:sections.exit-popup.settings.popup_image_mobile_info"
     },
     {
       "type": "text",
       "id": "popup_heading",
-      "label": "Popup Heading",
-      "default": "Before You Leave"
+      "label": "t:sections.exit-popup.settings.popup_heading",
+      "default": "t:sections.exit-popup.settings.popup_heading_default"
     },
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Heading Size",
+      "label": "t:sections.exit-popup.settings.heading_size",
       "options": [
         {
           "value": "display-sm",
-          "label": "Small"
+          "label": "t:sections.exit-popup.settings.heading_size_options.display-sm"
         },
         {
           "value": "display-md",
-          "label": "Medium"
+          "label": "t:sections.exit-popup.settings.heading_size_options.display-md"
         },
         {
           "value": "display-lg",
-          "label": "Large"
+          "label": "t:sections.exit-popup.settings.heading_size_options.display-lg"
         }
       ],
       "default": "display-sm"
@@ -228,27 +227,27 @@
     {
       "type": "select",
       "id": "heading_font_weight",
-      "label": "Heading Font Weight",
+      "label": "t:sections.exit-popup.settings.heading_font_weight",
       "options": [
         {
           "value": "fw-light",
-          "label": "Light"
+          "label": "t:sections.exit-popup.settings.heading_font_weight_options.fw-light"
         },
         {
           "value": "fw-regular",
-          "label": "Regular"
+          "label": "t:sections.exit-popup.settings.heading_font_weight_options.fw-regular"
         },
         {
           "value": "fw-medium",
-          "label": "Medium"
+          "label": "t:sections.exit-popup.settings.heading_font_weight_options.fw-medium"
         },
         {
           "value": "fw-semibold",
-          "label": "Semi Bold"
+          "label": "t:sections.exit-popup.settings.heading_font_weight_options.fw-semibold"
         },
         {
           "value": "fw-bold",
-          "label": "Bold"
+          "label": "t:sections.exit-popup.settings.heading_font_weight_options.fw-bold"
         }
       ],
       "default": "fw-medium"
@@ -257,70 +256,70 @@
   "blocks": [
     {
       "type": "popup_text",
-      "name": "Popup Text",
+      "name": "t:sections.exit-popup.blocks.popup_text.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "popup_text",
-          "label": "Popup Text",
-          "default": "Take [DISCOUNT]15% OFF[/DISCOUNT] on first order",
-          "info": "Use [DISCOUNT] and [/DISCOUNT] to highlight the discount text"
+          "label": "t:sections.exit-popup.blocks.popup_text.settings.popup_text",
+          "default": "t:sections.exit-popup.blocks.popup_text.settings.popup_text_default",
+          "info": "t:sections.exit-popup.blocks.popup_text.settings.popup_text_info"
         }
       ]
     },
     {
       "type": "discount_code",
-      "name": "Discount Code",
+      "name": "t:sections.exit-popup.blocks.discount_code.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "code_label",
-          "label": "Code Label",
-          "default": "Enter the code:"
+          "label": "t:sections.exit-popup.blocks.discount_code.settings.code_label",
+          "default": "t:sections.exit-popup.blocks.discount_code.settings.code_label_default"
         },
         {
           "type": "text",
           "id": "discount_code",
-          "label": "Discount Code",
-          "default": "CODE15OFF"
+          "label": "t:sections.exit-popup.blocks.discount_code.settings.discount_code",
+          "default": "t:sections.exit-popup.blocks.discount_code.settings.discount_code_default"
         }
       ]
     },
     {
       "type": "button",
-      "name": "Button",
+      "name": "t:sections.exit-popup.blocks.button.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button Text",
-          "default": "Continue Shopping"
+          "label": "t:sections.exit-popup.blocks.button.settings.button_text",
+          "default": "t:sections.exit-popup.blocks.button.settings.button_text_default"
         },
         {
           "type": "url",
           "id": "button_link",
-          "label": "Button Link"
+          "label": "t:sections.exit-popup.blocks.button.settings.button_link"
         }
       ]
     },
     {
       "type": "product_recommendations",
-      "name": "Product Recommendations",
+      "name": "t:sections.exit-popup.blocks.product_recommendations.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "recommendations_heading",
-          "label": "Recommendations Heading",
-          "default": "You may also like"
+          "label": "t:sections.exit-popup.blocks.product_recommendations.settings.recommendations_heading",
+          "default": "t:sections.exit-popup.blocks.product_recommendations.settings.recommendations_heading_default"
         },
         {
           "type": "product_list",
           "id": "recommendations_products",
-          "label": "Recommended Products",
+          "label": "t:sections.exit-popup.blocks.product_recommendations.settings.recommendations_products",
           "limit": 3
         }
       ]
@@ -328,7 +327,7 @@
   ],
   "presets": [
     {
-      "name": "Exit Popup",
+      "name": "t:sections.exit-popup.presets.name",
       "blocks": [
         {
           "type": "popup_text"
