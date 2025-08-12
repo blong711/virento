@@ -120,21 +120,21 @@
         color: rgb(var(--color-foreground));
       }
 
-      /* Button styles */
-      .button,
-      button.primary-button,
-      .tf-btn {
+      /* Button styles - only applied to sections with color schemes */
+      [class*="color-scheme-"] .button,
+      [class*="color-scheme-"] button.primary-button,
+      [class*="color-scheme-"] .tf-btn {
         background-color: rgb(var(--color-button));
         color: rgb(var(--color-button-text));
         transition: all 0.2s ease-in-out;
         border: 1px solid rgb(var(--color-secondary-button-text));
       }
 
-      /* Button hover styles */
-      .button:hover,
-      button.primary-button:hover,
-      .tf-btn:hover,
-      .tf-btn.hover-dark:hover {
+      /* Button hover styles - only applied to sections with color schemes */
+      [class*="color-scheme-"] .button:hover,
+      [class*="color-scheme-"] button.primary-button:hover,
+      [class*="color-scheme-"] .tf-btn:hover,
+      [class*="color-scheme-"] .tf-btn.hover-dark:hover {
         background-color: rgb(var(--color-button-hover)) !important;
         color: rgb(var(--color-button-label-hover)) !important;
       }
