@@ -61,17 +61,17 @@
     background-color: rgb(var(--color-background));
   }
 
-  /* Heading styles */
-  h1, h2, h3, h4, h5, h6,
-  .h1, .h2, .h3, .h4, .h5, .h6,
-  .title, .display-sm, .display-md, .display-lg {
+  /* Heading styles - only applied to sections with color schemes */
+  [class*="color-scheme-"] h1, [class*="color-scheme-"] h2, [class*="color-scheme-"] h3, [class*="color-scheme-"] h4, [class*="color-scheme-"] h5, [class*="color-scheme-"] h6,
+  [class*="color-scheme-"] .h1, [class*="color-scheme-"] .h2, [class*="color-scheme-"] .h3, [class*="color-scheme-"] .h4, [class*="color-scheme-"] .h5, [class*="color-scheme-"] .h6,
+  [class*="color-scheme-"] .title, [class*="color-scheme-"] .display-sm, [class*="color-scheme-"] .display-md, [class*="color-scheme-"] .display-lg {
     color: rgb(var(--color-foreground));
   }
 
   /* Button styles - only applied to sections with color schemes */
-  .button,
-  button.primary-button,
-  .tf-btn {
+  [class*="color-scheme-"] .button,
+  [class*="color-scheme-"] button.primary-button,
+  [class*="color-scheme-"] .tf-btn {
     background-color: rgb(var(--color-button));
     color: rgb(var(--color-button-text));
     transition: all 0.2s ease-in-out;
@@ -79,23 +79,23 @@
   }
 
   /* Button hover styles - only applied to sections with color schemes */
-  .button:hover,
-  button.primary-button:hover,
-  .tf-btn:hover,
-  .tf-btn.hover-dark:hover {
+  [class*="color-scheme-"] .button:hover,
+  [class*="color-scheme-"] button.primary-button:hover,
+  [class*="color-scheme-"] .tf-btn:hover,
+  [class*="color-scheme-"] .tf-btn.hover-dark:hover {
     background-color: rgb(var(--color-button-hover)) !important;
     color: rgb(var(--color-button-label-hover)) !important;
     border: 1px solid rgb(var(--color-button-outline-hover)) !important;
   }
 
   /* Link styles - only applied to sections with color schemes */
-  .link {
+  [class*="color-scheme-"] .link {
     color: rgb(var(--color-foreground));
     transition: all 0.2s ease-in-out;
   }
 
   /* Link hover styles - only applied to sections with color schemes */
-  .link:hover {
+  [class*="color-scheme-"] .link:hover {
     color: rgb(var(--color-text-hover)) !important;
   }
 
