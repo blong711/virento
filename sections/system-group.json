@@ -138,6 +138,22 @@
         "scroll_threshold": 300,
         "days_next_show": 7
       }
+    },
+    "exit-popup": {
+      "type": "exit-popup",
+      "settings": {
+        "popup_trigger": "mouseleave",
+        "popup_delay": 0,
+        "scroll_threshold": 80,
+        "days_next_show": 1,
+        "popup_heading": "Before You Leave",
+        "popup_text": "Take 15% OFF on first order",
+        "discount_code": "CODE15OFF",
+        "button_text": "Continue Shopping",
+        "button_link": "",
+        "show_recommendations": true,
+        "recommendations_heading": "You may also like"
+      }
     }
   },
   "order": [
@@ -145,6 +161,7 @@
     "back-to-top",
     "mobile-toolbar",
     "cookies-popup",
-    "newsletter-popup"
+    "newsletter-popup",
+    "exit-popup"
   ]
 }

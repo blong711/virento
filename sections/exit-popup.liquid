@@ -1,96 +1,229 @@
-<div class="modal fullRight fade modal-before-you-leave auto-popup">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="image">
-                <img class="lazyload" data-src="images/section/before-you-leave.jpg"
-                    src="images/section/before-you-leave.jpg" alt="">
-            </div>
-            <div class="modal-inner">
-                <span class="icon-close icon-close-popup btn-hide-popup" data-bs-dismiss="modal"></span>
-                <div class="content text-center">
-                    <div class="display-sm fw-medium heading">Before You Leave</div>
-                    <p>Take <span>15% OFF</span> on first order</p>
-                    <div class="wrap-code justify-content-center">
-                        <div class="text">Enter the code:</div>
-                        <div class="coppyText" id="coppyText">CODE15OFF</div>
-                        <div class="btn-coppy-text" id="btn-coppy-text"><i class="icon-copy"></i></div>
-                    </div>
-                    <a href="index.html" class="tf-btn animate-btn w-100">Continue Shopping</a>
-                </div>
+{%- comment -%} Exit Popup Section {%- endcomment -%}
 
-                <div class="tf-mini-cart-main">
-                    <div class="tf-mini-cart-sroll">
-                        <div class="tf-minicart-recommendations">
-                            <div class="tf-minicart-recommendations-heading">
-                                <div class="tf-minicart-recommendations-title text-xl-2 fw-medium">You may also like
-                                </div>
-                            </div>
-                            <div class="tf-mini-cart-items">
-                                <div class="tf-mini-cart-item p-0 radius-16">
-                                    <div class="tf-mini-cart-image">
-                                        <a href="product-detail.html">
-                                            <img class="lazyload" data-src="images/products/fashion/product-1.jpg"
-                                                src="images/products/fashion/product-1.jpg" alt="img-product">
-                                        </a>
-                                    </div>
-                                    <div class="tf-mini-cart-info justify-content-center">
-                                        <a class="title link text-md fw-medium" href="product-detail.html">Mouse
-                                            gray t-shirt in slub cotton</a>
-                                        <p class="price-wrap text-sm fw-medium">
-                                            <span class="new-price text-primary">$130.00</span>
-                                            <span
-                                                class="old-price text-decoration-line-through text-dark-1">$150.00</span>
-                                        </p>
-                                        <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                            class="tf-btn animate-btn bg-dark-2 w-max-content">Add
-                                            to cart</a>
-                                    </div>
-                                </div>
-                                <div class="tf-mini-cart-item p-0 radius-16">
-                                    <div class="tf-mini-cart-image">
-                                        <a href="product-detail.html">
-                                            <img class="lazyload" data-src="images/products/fashion/product-2.jpg"
-                                                src="images/products/fashion/product-2.jpg" alt="img-product">
-                                        </a>
-                                    </div>
-                                    <div class="tf-mini-cart-info justify-content-center">
-                                        <a class="title link text-md fw-medium" href="product-detail.html">Military
-                                            green t-shirt</a>
-                                        <p class="price-wrap text-sm fw-medium">
-                                            <span class="new-price text-primary">$130.00</span>
-                                            <span
-                                                class="old-price text-decoration-line-through text-dark-1">$150.00</span>
-                                        </p>
-                                        <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                            class="tf-btn animate-btn bg-dark-2 w-max-content">Add
-                                            to cart</a>
-                                    </div>
-                                </div>
-                                <div class="tf-mini-cart-item p-0 radius-16">
-                                    <div class="tf-mini-cart-image">
-                                        <a href="product-detail.html">
-                                            <img class="lazyload" data-src="images/products/fashion/product-3.jpg"
-                                                src="images/products/fashion/product-3.jpg" alt="img-product">
-                                        </a>
-                                    </div>
-                                    <div class="tf-mini-cart-info justify-content-center">
-                                        <a class="title link text-md fw-medium" href="product-detail.html">T-shirt
-                                            in linen blend</a>
-                                        <p class="price-wrap text-sm fw-medium">
-                                            <span class="new-price text-primary">$130.00</span>
-                                            <span
-                                                class="old-price text-decoration-line-through text-dark-1">$150.00</span>
-                                        </p>
-                                        <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                            class="tf-btn animate-btn bg-dark-2 w-max-content">Add
-                                            to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+<div class="modal fullRight fade modal-before-you-leave exit-popup"
+     data-popup-trigger="{{ section.settings.popup_trigger }}"
+     data-popup-delay="{{ section.settings.popup_delay }}"
+     data-days-next-show="{{ section.settings.days_next_show }}"
+     {%- if section.settings.popup_trigger == 'scroll' -%}
+       data-scroll-threshold="{{ section.settings.scroll_threshold }}"
+     {%- endif -%}>
+<div class="modal-dialog">
+    <div class="modal-content">
+    {%- if section.settings.popup_image -%}
+        <div class="image">
+        <img class="lazyload" 
+                data-src="{{ section.settings.popup_image | image_url: width: 400 }}"
+                src="{{ section.settings.popup_image | image_url: width: 400 }}" 
+                alt="{{ section.settings.popup_image.alt | default: section.settings.popup_heading }}"
+                width="400"
+                height="auto">
+        </div>
+    {%- endif -%}
+    
+    <div class="modal-inner">
+        <span class="icon-close icon-close-popup btn-hide-popup" data-bs-dismiss="modal"></span>
+        
+        <div class="content text-center">
+        {%- if section.settings.popup_heading -%}
+            <div class="display-sm fw-medium heading">{{ section.settings.popup_heading }}</div>
+        {%- endif -%}
+        
+        {%- if section.settings.popup_text -%}
+            <p>{{ section.settings.popup_text | replace: '[DISCOUNT_CODE]', section.settings.discount_code }}</p>
+        {%- endif -%}
+        
+        {%- if section.settings.discount_code -%}
+            <div class="wrap-code justify-content-center">
+            <div class="text">Enter the code:</div>
+            <div class="coppyText" id="coppyText">{{ section.settings.discount_code }}</div>
+            <div class="btn-coppy-text">
+                <i class="icon-copy"></i>
+            </div>
+            </div>
+        {%- endif -%}
+        
+        {%- if section.settings.button_text and section.settings.button_link -%}
+            <a href="{{ section.settings.button_link }}" class="tf-btn animate-btn w-100">{{ section.settings.button_text }}</a>
+        {%- endif -%}
+        </div>
+
+        {%- if section.settings.show_recommendations and section.settings.recommendations_products != blank -%}
+        <div class="tf-mini-cart-main">
+            <div class="tf-mini-cart-sroll">
+            <div class="tf-minicart-recommendations">
+                {%- if section.settings.recommendations_heading -%}
+                <div class="tf-minicart-recommendations-heading">
+                    <div class="tf-minicart-recommendations-title text-xl-2 fw-medium">
+                    {{ section.settings.recommendations_heading }}
                     </div>
                 </div>
+                {%- endif -%}
+                
+                <div class="tf-mini-cart-items">
+                {%- for product in section.settings.recommendations_products limit: 3 -%}
+                    <div class="tf-mini-cart-item p-0 radius-16">
+                    <div class="tf-mini-cart-image">
+                        <a href="{{ product.url }}">
+                        <img class="lazyload" 
+                                data-src="{{ product.featured_image | image_url: width: 200 }}"
+                                src="{{ product.featured_image | image_url: width: 200 }}" 
+                                alt="{{ product.featured_image.alt | default: product.title }}"
+                                width="200"
+                                height="auto">
+                        </a>
+                    </div>
+                    <div class="tf-mini-cart-info justify-content-center">
+                        <a class="title link text-md fw-medium" href="{{ product.url }}">
+                        {{ product.title }}
+                        </a>
+                        <p class="price-wrap text-sm fw-medium">
+                        {%- if product.compare_at_price > product.price -%}
+                            <span class="new-price text-primary">{{ product.price | money }}</span>
+                            <span class="old-price text-decoration-line-through text-dark-1">
+                            {{ product.compare_at_price | money }}
+                            </span>
+                        {%- else -%}
+                            <span class="new-price text-primary">{{ product.price | money }}</span>
+                        {%- endif -%}
+                        </p>
+                        <a href="#shoppingCart" data-bs-toggle="offcanvas"
+                        class="tf-btn animate-btn bg-dark-2 w-max-content">Add
+                        to cart</a>
+                    </div>
+                    </div>
+                {%- endfor -%}
+                </div>
+            </div>
             </div>
         </div>
+        {%- endif -%}
+    </div>
     </div>
 </div>
+</div>
+
+{% schema %}
+{
+  "name": "Exit Popup",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Popup Display Settings"
+    },
+    {
+      "type": "select",
+      "id": "popup_trigger",
+      "label": "Show popup after",
+      "options": [
+        {
+          "value": "mouseleave",
+          "label": "Move the cursor out of screen"
+        },
+        {
+          "value": "time",
+          "label": "After amount time"
+        },
+        {
+          "value": "scroll",
+          "label": "Scroll to end of page"
+        }
+      ],
+      "default": "mouseleave"
+    },
+    {
+      "type": "range",
+      "id": "popup_delay",
+      "label": "Popup delay (seconds)",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 0,
+      "info": "Only applies to 'After amount time' trigger"
+    },
+    {
+      "type": "range",
+      "id": "scroll_threshold",
+      "label": "Scroll threshold (%)",
+      "min": 10,
+      "max": 100,
+      "step": 10,
+      "default": 80,
+      "info": "Only applies to 'Scroll to end of page' trigger"
+    },
+    {
+      "type": "range",
+      "id": "days_next_show",
+      "label": "Days until next show",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Popup Content Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "popup_image",
+      "label": "Popup Image"
+    },
+    {
+      "type": "text",
+      "id": "popup_heading",
+      "label": "Popup Heading",
+      "default": "Before You Leave"
+    },
+    {
+      "type": "text",
+      "id": "popup_text",
+      "label": "Popup Text",
+      "default": "Take 15% OFF on first order"
+    },
+    {
+      "type": "text",
+      "id": "discount_code",
+      "label": "Discount Code",
+      "default": "CODE15OFF"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Continue Shopping"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Product Recommendations"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_recommendations",
+      "label": "Show Product Recommendations",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "recommendations_heading",
+      "label": "Recommendations Heading",
+      "default": "You may also like"
+    },
+    {
+      "type": "product_list",
+      "id": "recommendations_products",
+      "label": "Recommended Products",
+      "limit": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Exit Popup"
+    }
+  ]
+}
+{% endschema %}

@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
   estimateShipping();
   headerSticky();
   newsletterPopup();
+  exitPopup();
   new WOW().init();
 });
 
@@ -1362,6 +1363,111 @@ const newsletterPopup = () => {
       }
     });
   }
+
+const exitPopup = () => {
+  const popup = document.querySelector('.exit-popup');
+  if (!popup) return;
+
+  // Get popup settings from data attributes
+  const popupTrigger = popup.dataset.popupTrigger || 'mouseleave';
+  const popupDelay = parseInt(popup.dataset.popupDelay) || 0;
+  const daysNextShow = parseInt(popup.dataset.daysNextShow) || 1;
+
+  const pageKey = 'showExitPopup_' + window.location.pathname;
+  const showPopup = sessionStorage.getItem(pageKey);
+  const globalPopupKey = 'exitPopupHidden';
+
+  // Check if user has globally hidden the popup
+  const globalHidden = localStorage.getItem(globalPopupKey);
+  if (globalHidden === 'true') return;
+
+  // Check if we're in theme customization mode
+  const isThemeCustomizer = window.Shopify && window.Shopify.designMode;
+  if (isThemeCustomizer) return;
+
+  // Check if enough days have passed since last close
+  const lastCloseDate = localStorage.getItem('exitPopupLastClose');
+  if (lastCloseDate) {
+    const daysSinceClose = (Date.now() - new Date(lastCloseDate).getTime()) / (1000 * 60 * 60 * 24);
+    if (daysSinceClose < daysNextShow) return;
+  }
+
+  // Only show popup on first visit to the page
+  if (!JSON.parse(showPopup)) {
+    if (popupTrigger === 'time') {
+      // Show popup after specified delay
+      setTimeout(() => {
+        const modal = new bootstrap.Modal(popup);
+        modal.show();
+      }, popupDelay * 1000);
+    } else if (popupTrigger === 'mouseleave') {
+      // Show popup when user moves mouse to close tab/window
+      let hasShown = false;
+      const handleMouseLeave = (e) => {
+        if (hasShown) return;
+        if (e.clientY <= 0) {
+          hasShown = true;
+          const modal = new bootstrap.Modal(popup);
+          modal.show();
+          document.removeEventListener('mouseleave', handleMouseLeave);
+        }
+      };
+      document.addEventListener('mouseleave', handleMouseLeave);
+    } else if (popupTrigger === 'scroll') {
+      // Show popup after user scrolls specified percentage
+      let hasShown = false;
+      const scrollThreshold = parseInt(popup.dataset.scrollThreshold) || 80;
+      const handleScroll = () => {
+        if (hasShown) return;
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        if (scrollPercent >= scrollThreshold) {
+          hasShown = true;
+          const modal = new bootstrap.Modal(popup);
+          modal.show();
+          window.removeEventListener('scroll', handleScroll);
+        }
+      };
+      window.addEventListener('scroll', handleScroll);
+    }
+  }
+
+  // Handle close button
+  document.querySelector('.btn-hide-popup')?.addEventListener('click', () => {
+    // Store the close date for "days until next show" functionality
+    localStorage.setItem('exitPopupLastClose', new Date().toISOString());
+    sessionStorage.setItem(pageKey, true);
+  });
+
+  // Handle modal hidden event (when popup is closed by any means)
+  popup.addEventListener('hidden.bs.modal', () => {
+    // Store the close date for "days until next show" functionality
+    localStorage.setItem('exitPopupLastClose', new Date().toISOString());
+  });
+};
+
+// Theme customizer functionality for exit popup
+if (window.Shopify && window.Shopify.designMode) {
+  document.addEventListener('shopify:section:select', function(event) {
+    // Check if the selected section is an exit-popup section
+    if (event.target.id && event.target.id.includes('__exit-popup')) {
+      // Get the exit popup element and show it
+      const exitPopupElement = document.querySelector('.exit-popup');
+      if (exitPopupElement) {
+        const modal = new bootstrap.Modal(exitPopupElement);
+        modal.show();
+      }
+    } else {
+      // Hide the exit popup when other sections are selected
+      const exitPopupElement = document.querySelector('.exit-popup');
+      if (exitPopupElement) {
+        const modal = bootstrap.Modal.getInstance(exitPopupElement);
+        if (modal) {
+          modal.hide();
+        }
+      }
+    }
+  });
+}
 
 /* Parallax Effects
 -------------------------------------------------------------------------*/
