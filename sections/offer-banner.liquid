@@ -408,32 +408,4 @@
         height: {{ section.settings.item_height_desktop }}px;
       }
     }
-
-    /* Apply color scheme specifically to this section */
-    .section-{{ section.id }}.color-{{ section.settings.color_scheme }} {
-      background-color: rgb(var(--color-background));
-    }
-
-    .section-{{ section.id }}.color-{{ section.settings.color_scheme }} .banner-shop {
-      background-color: rgb(var(--color-background));
-    }
-
-    .section-{{ section.id }}.color-{{ section.settings.color_scheme }} .banner-shop .content {
-      color: rgb(var(--color-foreground));
-    }
-
-    .section-{{ section.id }}.color-{{ section.settings.color_scheme }} .banner-shop .title {
-      color: rgb(var(--color-foreground));
-    }
-
-    .section-{{ section.id }}.color-{{ section.settings.color_scheme }} .banner-shop .tf-btn {
-      background-color: rgb(var(--color-button));
-      color: rgb(var(--color-button-text));
-      border: 1px solid rgb(var(--color-secondary-button-text));
-    }
-
-    .section-{{ section.id }}.color-{{ section.settings.color_scheme }} .banner-shop .tf-btn:hover {
-      background-color: rgb(var(--color-button-hover));
-      color: rgb(var(--color-button-label-hover));
-    }
 {%- endstyle -%}
