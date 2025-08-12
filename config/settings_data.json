@@ -93,7 +93,7 @@
           "text": "#ffffff",
           "button": "#ffffff",
           "button_label": "#000000",
-          "secondary_button_label": "rgba(0,0,0,0)",
+          "secondary_button_label": "#ffffff",
           "shadow": "rgba(0,0,0,0)",
           "text_hover": "#ff6f61",
           "button_hover": "#000000",
