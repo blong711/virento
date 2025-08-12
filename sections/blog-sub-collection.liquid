@@ -1,5 +1,5 @@
 <div class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
     <div
       dir="ltr"
       class="swiper tf-swiper hover-sw-nav wow fadeInUp"
@@ -115,7 +115,7 @@
 
 {% schema %}
 {
-  "name": "Blog Sub Collection",
+  "name": "t:sections.blog-sub-collection.name",
   "tag": "section",
   "class": "blog-categories-section",
   "settings": [
