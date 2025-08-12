@@ -30,25 +30,41 @@
                 <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
             </div>
             <div class="modal-bottom text-center">
-                <h5 class="title">{{ section.settings.title }}</h5>
-                <p class="text text-sm text-main">{{ section.settings.description }}</p>
-
-                {% form 'customer', class: 'form-newsletter' %}
-                    <div class="mb_20">
-                        <fieldset class="email position-relative">
-                            <i class="icon icon-mail"></i>
-                            <input type="email" 
-                                   name="contact[email]" 
-                                   class="" 
-                                   placeholder="{{ section.settings.email_placeholder }}" 
-                                   tabindex="0"
-                                   aria-required="true" 
-                                   required="">
-                        </fieldset>
-                    </div>
-                    <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
-                            type="submit">{{ section.settings.button_text }}</button>
-                {% endform %}
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'title' %}
+                            <h5 class="title" {{ block.shopify_attributes }}>{{ block.settings.title }}</h5>
+                        
+                        {% when 'description' %}
+                            <p class="text text-sm text-main" {{ block.shopify_attributes }}>{{ block.settings.description }}</p>
+                        
+                        {% when 'newsletter_form' %}
+                            {% form 'customer', class: 'form-newsletter' %}
+                                <div class="mb_20">
+                                    <fieldset class="email position-relative">
+                                        <i class="icon icon-mail"></i>
+                                        <input type="email" 
+                                               name="contact[email]" 
+                                               class="" 
+                                               placeholder="{{ block.settings.email_placeholder }}" 
+                                               tabindex="0"
+                                               aria-required="true" 
+                                               required="">
+                                    </fieldset>
+                                </div>
+                                <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                                        type="submit">{{ block.settings.button_text }}</button>
+                            {% endform %}
+                        
+                        {% when 'info_text' %}
+                            <p class="text text-sm mb-0 text-main" {{ block.shopify_attributes }}>
+                                {{ block.settings.info_text }}
+                                {% if block.settings.link_url and block.settings.link_text %}
+                                    <a href="{{ block.settings.link_url }}" class="fw-medium">{{ block.settings.link_text }}</a>
+                                {% endif %}
+                            </p>
+                    {% endcase %}
+                {% endfor %}
 
                 {% if section.settings.show_social_icons %}
                     <ul class="tf-social-icon style-default justify-content-center">
@@ -72,13 +88,6 @@
                         {% endif %}
                     </ul>
                 {% endif %}
-                
-                {% if section.settings.show_privacy_policy %}
-                    <p class="text text-sm mb-0 text-main">
-                        {{ section.settings.privacy_text }} 
-                        <a href="{{ section.settings.privacy_policy_url }}" class="fw-medium">{{ section.settings.privacy_policy_link_text }}</a>
-                    </p>
-                {% endif %}
             </div>
         </div>
     </div>
@@ -87,6 +96,7 @@
 {% schema %}
 {
   "name": "Newsletter Popup",
+  "max_blocks": 4,
   "settings": [
     {
       "type": "color_scheme",
@@ -151,30 +161,6 @@
       "info": "If customer closes popup, next show will be after this many days"
     },
     {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Sign up to our Newsletter"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Description",
-      "default": "Be the first to get the latest news about trends, promotions, and much more!"
-    },
-    {
-      "type": "text",
-      "id": "email_placeholder",
-      "label": "Email Placeholder",
-      "default": "Your email address"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Send"
-    },
-    {
       "type": "header",
       "content": "Social Media"
     },
@@ -183,39 +169,96 @@
       "id": "show_social_icons",
       "label": "Show Social Icons",
       "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "Title",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Sign up to our Newsletter"
+        }
+      ]
     },
     {
-      "type": "header",
-      "content": "Privacy Policy"
+      "type": "description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Be the first to get the latest news about trends, promotions, and much more!"
+        }
+      ]
     },
     {
-      "type": "checkbox",
-      "id": "show_privacy_policy",
-      "label": "Show Privacy Policy Link",
-      "default": true
+      "type": "newsletter_form",
+      "name": "Newsletter Form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email Placeholder",
+          "default": "Your email address"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Send"
+        }
+      ]
     },
     {
-      "type": "text",
-      "id": "privacy_text",
-      "label": "Privacy Text",
-      "default": "Will be used in accordance with our"
-    },
-    {
-      "type": "url",
-      "id": "privacy_policy_url",
-      "label": "Privacy Policy URL"
-    },
-    {
-      "type": "text",
-      "id": "privacy_policy_link_text",
-      "label": "Privacy Policy Link Text",
-      "default": "Privacy Policy"
-    },
-
+      "type": "info_text",
+      "name": "Info Text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "info_text",
+          "label": "Info Text",
+          "default": "Will be used in accordance with our"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "Privacy Policy"
+        }
+      ]
+    }
   ],
   "presets": [
     {
-      "name": "Newsletter Popup"
+      "name": "Newsletter Popup",
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "newsletter_form"
+        },
+        {
+          "type": "info_text"
+        }
+      ]
     }
   ]
 }
