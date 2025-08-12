@@ -91,12 +91,12 @@
           "background_gradient": "",
           "background2": "#ffffff",
           "text": "#ffffff",
-          "button": "#121212",
+          "button": "#ffffff",
           "button_label": "#000000",
           "secondary_button_label": "rgba(0,0,0,0)",
           "shadow": "rgba(0,0,0,0)",
           "text_hover": "#ff6f61",
-          "button_hover": "#2c2c2c",
+          "button_hover": "#000000",
           "button_label_hover": "#ffffff"
         }
       },
