@@ -135,7 +135,7 @@
             "title": "Best-Selling Accessories",
             "title_tag": "h4",
             "title_weight": "fw-medium",
-            "color_scheme": "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11",
+            "color_scheme": "scheme-2",
             "link": "/collections/watches",
             "button_label": "Shop Now"
           }
@@ -147,7 +147,7 @@
             "title": "New Arrivals, Hot Tech",
             "title_tag": "h4",
             "title_weight": "fw-medium",
-            "color_scheme": "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11",
+            "color_scheme": "scheme-2",
             "link": "/collections/audio",
             "button_label": "Shop Now"
           }
