@@ -3,7 +3,7 @@
         <div class="modal-content">
             <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
             <div class="modal-compare-wrap list-file-delete">
-                <h6 class="title text-center">Compare Products</h6>
+                <h6 class="title text-center">{{ 'compare_modal.title' | t }}</h6>
                 <div class="tf-compare-inner">
                     <div class="tf-compare-list" id="compare-list">
                         <div class="tf-compare-item file-delete" data-product-id="{{ product.id }}">
@@ -32,9 +32,9 @@
                     </div>
                 </div>
                 <div class="tf-compare-buttons justify-content-center">
-                    <a href="{{ routes.root_url }}compare" class="tf-btn animate-btn justify-content-center">Compare</a>
+                    <a href="{{ routes.root_url }}compare" class="tf-btn animate-btn justify-content-center">{{ 'compare_modal.compare_button' | t }}</a>
                     <div class="tf-btn btn-out-line-dark justify-content-center clear-file-delete">
-                        <span>Clear All</span>
+                        <span>{{ 'compare_modal.clear_all' | t }}</span>
                     </div>
                 </div>
             </div>

@@ -93,6 +93,11 @@
     "success": "Thanks for subscribing",
     "button_label": "Subscribe"
   },
+  "compare_modal": {
+    "title": "Compare Products",
+    "compare_button": "Compare",
+    "clear_all": "Clear All"
+  },
   "accessibility": {
     "skip_to_text": "Skip to content",
     "skip_to_product_info": "Skip to product information",
