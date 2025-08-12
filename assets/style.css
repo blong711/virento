@@ -13150,34 +13150,12 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 }
 
 /* Checkbox styles */
-.popup-shopping-cart .tf-cart-checkbox .tf-checkbox-wrapp input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-.popup-shopping-cart .tf-cart-checkbox .tf-checkbox-wrapp .icon-check {
-  display: none;
-}
-
-.popup-shopping-cart .tf-cart-checkbox .tf-checkbox-wrapp input[type="checkbox"]:checked + div .icon-check {
-  display: block;
-}
 .popup-shopping-cart .tf-mini-cart-bottom-wrap .tf-mini-cart-view-checkout {
   display: flex;
   gap: 10px;
 }
 
 /* Disabled checkout button styles */
-.popup-shopping-cart .tf-mini-cart-view-checkout [data-checkout-button].disabled {
-  opacity: 0.5;
-  pointer-events: none;
-  cursor: not-allowed;
-}
-
-.popup-shopping-cart .tf-mini-cart-view-checkout [data-checkout-button].disabled:hover {
-  transform: none;
-}
 .popup-shopping-cart.style-2 {
   max-width: 100% !important;
 }
