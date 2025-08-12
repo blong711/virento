@@ -66,28 +66,31 @@
                     {% endcase %}
                 {% endfor %}
 
-                {% if section.settings.show_social_icons %}
-                    <ul class="tf-social-icon style-default justify-content-center">
-                        {% if settings.social_facebook_link != blank %}
-                            <li><a href="{{ settings.social_facebook_link }}" class="social-facebook"><i class="icon icon-fb2"></i></a></li>
-                        {% endif %}
-                        {% if settings.social_instagram_link != blank %}
-                            <li><a href="{{ settings.social_instagram_link }}" class="social-instagram"><i class="icon icon-instagram"></i></a></li>
-                        {% endif %}
-                        {% if settings.social_youtube_link != blank %}
-                            <li><a href="{{ settings.social_youtube_link }}" class="social-youtube"><i class="icon icon-youtube"></i></a></li>
-                        {% endif %}
-                        {% if settings.social_twitter_link != blank %}
-                            <li><a href="{{ settings.social_twitter_link }}" class="social-x"><i class="icon icon-x"></i></a></li>
-                        {% endif %}
-                        {% if settings.social_tiktok_link != blank %}
-                            <li><a href="{{ settings.social_tiktok_link }}" class="social-tiktok"><i class="icon icon-tiktok"></i></a></li>
-                        {% endif %}
-                        {% if settings.social_pinterest_link != blank %}
-                            <li><a href="{{ settings.social_pinterest_link }}" class="social-pinterest"><i class="icon icon-pinterest"></i></a></li>
-                        {% endif %}
-                    </ul>
-                {% endif %}
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'social_icons' %}
+                            <ul class="tf-social-icon style-default justify-content-center" {{ block.shopify_attributes }}>
+                                {% if settings.social_facebook_link != blank %}
+                                    <li><a href="{{ settings.social_facebook_link }}" class="social-facebook"><i class="icon icon-fb2"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_instagram_link != blank %}
+                                    <li><a href="{{ settings.social_instagram_link }}" class="social-instagram"><i class="icon icon-instagram"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_youtube_link != blank %}
+                                    <li><a href="{{ settings.social_youtube_link }}" class="social-youtube"><i class="icon icon-youtube"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_twitter_link != blank %}
+                                    <li><a href="{{ settings.social_twitter_link }}" class="social-x"><i class="icon icon-x"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_tiktok_link != blank %}
+                                    <li><a href="{{ settings.social_tiktok_link }}" class="social-tiktok"><i class="icon icon-tiktok"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_pinterest_link != blank %}
+                                    <li><a href="{{ settings.social_pinterest_link }}" class="social-pinterest"><i class="icon icon-pinterest"></i></a></li>
+                                {% endif %}
+                            </ul>
+                    {% endcase %}
+                {% endfor %}
             </div>
         </div>
     </div>
@@ -96,7 +99,7 @@
 {% schema %}
 {
   "name": "Newsletter Popup",
-  "max_blocks": 4,
+  "max_blocks": 5,
   "settings": [
     {
       "type": "color_scheme",
@@ -159,16 +162,6 @@
       "step": 1,
       "default": 7,
       "info": "If customer closes popup, next show will be after this many days"
-    },
-    {
-      "type": "header",
-      "content": "Social Media"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_social_icons",
-      "label": "Show Social Icons",
-      "default": true
     }
   ],
   "blocks": [
@@ -240,6 +233,11 @@
           "default": "Privacy Policy"
         }
       ]
+    },
+    {
+      "type": "social_icons",
+      "name": "Social Icons",
+      "limit": 1
     }
   ],
   "presets": [
@@ -257,6 +255,9 @@
         },
         {
           "type": "info_text"
+        },
+        {
+          "type": "social_icons"
         }
       ]
     }
