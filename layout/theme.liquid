@@ -108,50 +108,6 @@
       }
       {% endfor %}
 
-      body{{ scheme_classes }} {
-        color: rgba(var(--color-foreground), 0.75);
-        background-color: rgb(var(--color-background));
-      }
-
-      /* Heading styles */
-      h1, h2, h3, h4, h5, h6,
-      .h1, .h2, .h3, .h4, .h5, .h6,
-      .title, .display-sm, .display-md, .display-lg {
-        color: rgb(var(--color-foreground));
-      }
-
-      /* Button styles - only applied to sections with color schemes */
-      [class*="color-scheme-"] .button,
-      [class*="color-scheme-"] button.primary-button,
-      [class*="color-scheme-"] .tf-btn {
-        background-color: rgb(var(--color-button));
-        color: rgb(var(--color-button-text));
-        transition: all 0.2s ease-in-out;
-        border: 1px solid rgb(var(--color-secondary-button-text));
-      }
-
-      /* Button hover styles - only applied to sections with color schemes */
-      [class*="color-scheme-"] .button:hover,
-      [class*="color-scheme-"] button.primary-button:hover,
-      [class*="color-scheme-"] .tf-btn:hover,
-      [class*="color-scheme-"] .tf-btn.hover-dark:hover {
-        background-color: rgb(var(--color-button-hover)) !important;
-        color: rgb(var(--color-button-label-hover)) !important;
-      }
-
-      /* Link styles - only applied to sections with color schemes */
-      [class*="color-scheme-"] .link,
-      [class*="color-scheme-"] a {
-        color: rgb(var(--color-button-text));
-        transition: all 0.2s ease-in-out;
-      }
-
-      /* Link hover styles - only applied to sections with color schemes */
-      [class*="color-scheme-"] .link:hover,
-      [class*="color-scheme-"] a:hover {
-        color: rgb(var(--color-button-label-hover)) !important;
-      }
-
       :root {
         {% if settings.font_library == 'shopify' %}
           --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
