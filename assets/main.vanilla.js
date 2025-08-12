@@ -1317,23 +1317,29 @@ const autoPopup = () => {
   });
 };
 
-// Function to manually show newsletter popup
-const showNewsletterPopup = () => {
-  const popup = document.querySelector('.auto-popup');
-  if (!popup) return;
-
-  const globalPopupKey = 'newsletterPopupHidden';
-  const globalHidden = localStorage.getItem(globalPopupKey);
-  
-  // Check if user has globally hidden the popup
-  if (globalHidden === 'true') return;
-
-  const modal = new bootstrap.Modal(popup);
-  modal.show();
-};
-
-// Make function available globally
-window.showNewsletterPopup = showNewsletterPopup;
+  // Theme customizer functionality
+  if (window.Shopify && window.Shopify.designMode) {
+    document.addEventListener('shopify:section:select', function(event) {
+      // Check if the selected section is a newsletter-popup section
+      if (event.target.id && event.target.id.includes('__newsletter-popup')) {
+        // Get the newsletter popup element and show it
+        const newsletterPopup = document.querySelector('.auto-popup');
+        if (newsletterPopup) {
+          const modal = new bootstrap.Modal(newsletterPopup);
+          modal.show();
+        }
+      } else {
+        // Hide the newsletter popup when other sections are selected
+        const newsletterPopup = document.querySelector('.auto-popup');
+        if (newsletterPopup) {
+          const modal = bootstrap.Modal.getInstance(newsletterPopup);
+          if (modal) {
+            modal.hide();
+          }
+        }
+      }
+    });
+  }
 
 /* Parallax Effects
 -------------------------------------------------------------------------*/
