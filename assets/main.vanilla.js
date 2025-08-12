@@ -1284,6 +1284,10 @@ const autoPopup = () => {
 
   // Handle close button
   document.querySelector('.btn-hide-popup')?.addEventListener('click', () => {
+    const dontShowCheckbox = popup.querySelector('#dont-show-again');
+    if (dontShowCheckbox && dontShowCheckbox.checked) {
+      localStorage.setItem(globalPopupKey, 'true');
+    }
     sessionStorage.setItem(pageKey, true);
   });
 
@@ -1298,6 +1302,14 @@ const autoPopup = () => {
       }
     });
   }
+
+  // Handle modal hidden event (when popup is closed by any means)
+  popup.addEventListener('hidden.bs.modal', () => {
+    const dontShowCheckbox = popup.querySelector('#dont-show-again');
+    if (dontShowCheckbox && dontShowCheckbox.checked) {
+      localStorage.setItem(globalPopupKey, 'true');
+    }
+  });
 };
 
 /* Parallax Effects
