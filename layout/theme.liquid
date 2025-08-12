@@ -139,15 +139,15 @@
         color: rgb(var(--color-button-label-hover)) !important;
       }
 
-      /* Link styles */
-      .link {
-        color: rgb(var(--color-foreground)) !important;
-        transition: color 0.2s ease-in-out;
+      /* Link styles - only applied to sections with color schemes */
+      [class*="color-scheme-"] .link {
+        color: rgb(var(--color-button-text));
+        transition: all 0.2s ease-in-out;
       }
 
-      /* Link hover styles */
-      .link:hover {
-        color: rgb(var(--color-text-hover)) !important;
+      /* Link hover styles - only applied to sections with color schemes */
+      [class*="color-scheme-"] .link:hover {
+        color: rgb(var(--color-button-label-hover)) !important;
       }
 
       :root {
