@@ -55,19 +55,7 @@
                                 <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
                                         type="submit">{{ block.settings.button_text }}</button>
                             {% endform %}
-                        
-                        {% when 'info_text' %}
-                            <p class="text text-sm mb-0 text-main" {{ block.shopify_attributes }}>
-                                {{ block.settings.info_text }}
-                                {% if block.settings.link_url and block.settings.link_text %}
-                                    <a href="{{ block.settings.link_url }}" class="fw-medium">{{ block.settings.link_text }}</a>
-                                {% endif %}
-                            </p>
-                    {% endcase %}
-                {% endfor %}
 
-                {% for block in section.blocks %}
-                    {% case block.type %}
                         {% when 'social_icons' %}
                             <ul class="tf-social-icon style-default justify-content-center" {{ block.shopify_attributes }}>
                                 {% if settings.social_facebook_link != blank %}
@@ -89,6 +77,14 @@
                                     <li><a href="{{ settings.social_pinterest_link }}" class="social-pinterest"><i class="icon icon-pinterest"></i></a></li>
                                 {% endif %}
                             </ul>
+                        
+                        {% when 'info_text' %}
+                            <p class="text text-sm mb-0 text-main" {{ block.shopify_attributes }}>
+                                {{ block.settings.info_text }}
+                                {% if block.settings.link_url and block.settings.link_text %}
+                                    <a href="{{ block.settings.link_url }}" class="fw-medium">{{ block.settings.link_text }}</a>
+                                {% endif %}
+                            </p>
                     {% endcase %}
                 {% endfor %}
             </div>
