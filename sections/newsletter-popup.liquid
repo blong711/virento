@@ -1,10 +1,10 @@
-<div class="modal modalCentered fade auto-popup modal-newsletter color-{{ section.settings.color_scheme }}"
+<div class="modal modalCentered fade auto-popup modal-newsletter"
      data-popup-trigger="{{ section.settings.popup_trigger }}"
      data-popup-delay="{{ section.settings.popup_delay }}"
      data-scroll-threshold="{{ section.settings.scroll_threshold }}"
      data-days-next-show="{{ section.settings.days_next_show }}">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content color-{{ section.settings.color_scheme }}">
             <div class="modal-top">
                 {% if section.settings.newsletter_image or section.settings.newsletter_image_mobile %}
                     {% if section.settings.newsletter_image_mobile %}
