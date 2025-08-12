@@ -94,7 +94,7 @@
 
 {% schema %}
 {
-  "name": "Newsletter Popup",
+  "name": "t:sections.newsletter-popup.name",
   "max_blocks": 5,
   "settings": [
     {
@@ -106,25 +106,25 @@
     {
       "type": "image_picker",
       "id": "newsletter_image",
-      "label": "Newsletter Image"
+      "label": "t:sections.newsletter-popup.settings.newsletter_image"
     },
     {
       "type": "image_picker",
       "id": "newsletter_image_mobile",
-      "label": "Newsletter Image (Mobile)"
+      "label": "t:sections.newsletter-popup.settings.newsletter_image_mobile"
     },
     {
       "type": "select",
       "id": "popup_trigger",
-      "label": "Show popup after",
+      "label": "t:sections.newsletter-popup.settings.popup_trigger",
       "options": [
         {
           "value": "time",
-          "label": "Some time"
+          "label": "t:sections.newsletter-popup.settings.popup_trigger_options.time"
         },
         {
           "value": "scroll",
-          "label": "User scroll"
+          "label": "t:sections.newsletter-popup.settings.popup_trigger_options.scroll"
         }
       ],
       "default": "time"
@@ -132,113 +132,113 @@
     {
       "type": "range",
       "id": "popup_delay",
-      "label": "Popup delay (seconds)",
+      "label": "t:sections.newsletter-popup.settings.popup_delay",
       "min": 1,
       "max": 30,
       "step": 1,
       "default": 3,
-      "info": "Show popup after this many seconds"
+      "info": "t:sections.newsletter-popup.settings.popup_delay_info"
     },
     {
       "type": "range",
       "id": "scroll_threshold",
-      "label": "Scroll threshold (pixels)",
+      "label": "t:sections.newsletter-popup.settings.scroll_threshold",
       "min": 100,
       "max": 1000,
       "step": 50,
       "default": 300,
-      "info": "Show popup after user scrolls this many pixels"
+      "info": "t:sections.newsletter-popup.settings.scroll_threshold_info"
     },
     {
       "type": "range",
       "id": "days_next_show",
-      "label": "Days until next show",
+      "label": "t:sections.newsletter-popup.settings.days_next_show",
       "min": 1,
       "max": 30,
       "step": 1,
       "default": 7,
-      "info": "If customer closes popup, next show will be after this many days"
+      "info": "t:sections.newsletter-popup.settings.days_next_show_info"
     }
   ],
   "blocks": [
     {
       "type": "title",
-      "name": "Title",
+      "name": "t:sections.newsletter-popup.blocks.title.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
+          "label": "t:sections.newsletter-popup.blocks.title.settings.title",
           "default": "Sign up to our Newsletter"
         }
       ]
     },
     {
       "type": "description",
-      "name": "Description",
+      "name": "t:sections.newsletter-popup.blocks.description.name",
       "limit": 1,
       "settings": [
         {
           "type": "textarea",
           "id": "description",
-          "label": "Description",
+          "label": "t:sections.newsletter-popup.blocks.description.settings.description",
           "default": "Be the first to get the latest news about trends, promotions, and much more!"
         }
       ]
     },
     {
       "type": "newsletter_form",
-      "name": "Newsletter Form",
+      "name": "t:sections.newsletter-popup.blocks.newsletter_form.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "email_placeholder",
-          "label": "Email Placeholder",
+          "label": "t:sections.newsletter-popup.blocks.newsletter_form.settings.email_placeholder",
           "default": "Your email address"
         },
         {
           "type": "text",
+          "label": "t:sections.newsletter-popup.blocks.newsletter_form.settings.button_text",
           "id": "button_text",
-          "label": "Button Text",
           "default": "Send"
         }
       ]
     },
     {
       "type": "info_text",
-      "name": "Info Text",
+      "name": "t:sections.newsletter-popup.blocks.info_text.name",
       "limit": 1,
       "settings": [
         {
           "type": "textarea",
           "id": "info_text",
-          "label": "Info Text",
+          "label": "t:sections.newsletter-popup.blocks.info_text.settings.info_text",
           "default": "Will be used in accordance with our"
         },
         {
           "type": "url",
           "id": "link_url",
-          "label": "Link URL"
+          "label": "t:sections.newsletter-popup.blocks.info_text.settings.link_url"
         },
         {
           "type": "text",
           "id": "link_text",
-          "label": "Link Text",
+          "label": "t:sections.newsletter-popup.blocks.info_text.settings.link_text",
           "default": "Privacy Policy"
         }
       ]
     },
     {
       "type": "social_icons",
-      "name": "Social Icons",
+      "name": "t:sections.newsletter-popup.blocks.social_icons.name",
       "limit": 1
     }
   ],
   "presets": [
     {
-      "name": "Newsletter Popup",
+      "name": "t:sections.newsletter-popup.name",
       "blocks": [
         {
           "type": "title"

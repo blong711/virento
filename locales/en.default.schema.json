@@ -5153,6 +5153,56 @@
           "default": "Accept Cookies"
         }
       }
+    },
+    "newsletter-popup": {
+      "name": "Newsletter Popup",
+      "settings": {
+        "newsletter_image": "Newsletter Image",
+        "newsletter_image_mobile": "Newsletter Image (Mobile)",
+        "popup_trigger": "Show popup after",
+        "popup_delay": "Popup delay (seconds)",
+        "scroll_threshold": "Scroll threshold (pixels)",
+        "days_next_show": "Days until next show",
+        "popup_trigger_options": {
+          "time": "Some time",
+          "scroll": "User scroll"
+        },
+        "popup_delay_info": "Show popup after this many seconds",
+        "scroll_threshold_info": "Show popup after user scrolls this many pixels",
+        "days_next_show_info": "If customer closes popup, next show will be after this many days"
+      },
+      "blocks": {
+        "title": {
+          "name": "Title",
+          "settings": {
+            "title": "Title"
+          }
+        },
+        "description": {
+          "name": "Description",
+          "settings": {
+            "description": "Description"
+          }
+        },
+        "newsletter_form": {
+          "name": "Newsletter Form",
+          "settings": {
+            "email_placeholder": "Email Placeholder",
+            "button_text": "Button Text"
+          }
+        },
+        "info_text": {
+          "name": "Info Text",
+          "settings": {
+            "info_text": "Info Text",
+            "link_url": "Link URL",
+            "link_text": "Link Text"
+          }
+        },
+        "social_icons": {
+          "name": "Social Icons"
+        }
+      }
     }
   }
 }
