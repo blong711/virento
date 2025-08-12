@@ -8,7 +8,7 @@
        data-scroll-threshold="{{ section.settings.scroll_threshold }}"
      {%- endif -%}>
 <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content color-{{ section.settings.color_scheme }}">
     {%- if section.settings.popup_image or section.settings.popup_image_mobile -%}
         <div class="image">
           {%- if section.settings.popup_image_mobile -%}
@@ -130,6 +130,12 @@
   "name": "t:sections.exit-popup.name",
   "max_blocks": 4,
   "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
     {
       "type": "header",
       "content": "t:sections.exit-popup.settings.popup_display_settings"

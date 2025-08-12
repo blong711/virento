@@ -602,6 +602,7 @@
       }
     },
     "all": {
+      "content": "Content",
       "animation": {
         "content": "Animations",
         "image_behavior": {
@@ -5277,6 +5278,63 @@
       },
       "presets": {
         "name": "Exit Popup"
+      }
+    },
+    "collection-banner": {
+      "name": "Collection Banner",
+      "settings": {
+        "banner_image": "Banner Image",
+        "banner_image_mobile": "Mobile Banner Image",
+        "title": "Title",
+        "title_default": "Limited Time Deals",
+        "title_font_size": "Title Font Size",
+        "title_font_size_options": {
+          "display-sm": "Small",
+          "display-md": "Medium",
+          "display-lg": "Large"
+        },
+        "title_font_weight": "Title Font Weight",
+        "title_font_weight_options": {
+          "fw-light": "Light",
+          "fw-regular": "Regular",
+          "fw-medium": "Medium",
+          "fw-semibold": "Semi Bold",
+          "fw-bold": "Bold"
+        },
+        "subtitle": "Subtitle",
+        "subtitle_default": "Shop the latest activewear designed for maximum comfort and style.",
+        "subtitle_font_size": "Subtitle Font Size",
+        "subtitle_font_size_options": {
+          "text-sm": "Small",
+          "text-md": "Medium",
+          "text-lg": "Large"
+        },
+        "button_label": "Button Label",
+        "button_label_default": "Shop Now",
+        "button_link": "Button Link",
+        "content_position": "Content Position",
+        "content_position_options": {
+          "top-left": "Top Left",
+          "top-center": "Top Center",
+          "top-right": "Top Right",
+          "center-left": "Center Left",
+          "center": "Center",
+          "center-right": "Center Right",
+          "bottom-left": "Bottom Left",
+          "bottom-center": "Bottom Center",
+          "bottom-right": "Bottom Right"
+        },
+        "content_alignment": "Content Alignment",
+        "content_alignment_options": {
+          "start": "Left",
+          "center": "Center",
+          "end": "Right"
+        },
+        "content_width": "Content Width"
+      },
+      "presets": {
+        "name": "Collection Banner",
+        "category": "Collection"
       }
     }
   }
