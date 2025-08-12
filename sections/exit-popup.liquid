@@ -109,8 +109,13 @@
                               <span class="new-price text-primary">{{ product.price | money }}</span>
                             {%- endif -%}
                           </p>
-                          <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                            class="tf-btn animate-btn btn-small w-max-content">{{ 'products.product.add_to_cart' | t }}</a>
+                          <a data-bs-toggle="offcanvas"
+                            class="tf-btn animate-btn btn-small w-max-content product-cart-button hover-tooltip"
+                            data-product-id="{{ product.id }}"
+                            data-product-handle="{{ product.handle }}"
+                            data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                            {{ 'products.product.add_to_cart' | t }}
+                          </a>
                         </div>
                       </div>
                     {%- endfor -%}

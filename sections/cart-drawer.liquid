@@ -225,8 +225,9 @@
                                             <a class="title link text-md fw-medium" href="{{ item.url }}">{{ item.product.title }}</a>
                                             <i class="icon icon-close remove fs-12"></i>
                                         </div>
+                                        {%- if item.product.variants.size > 1 -%}
                                         <div class="info-variant">
-                                            <select class="text-xs" data-current-variant="{{ item.variant.id }}">
+                                            <select class="text-xs" id="variant-{{ item.variant.id }}" name="variant-{{ item.variant.id }}" data-current-variant="{{ item.variant.id }}">
                                                 {%- for variant in item.product.variants -%}
                                                     <option value="{{ variant.title }}" 
                                                             data-variant-id="{{ variant.id }}"
@@ -237,6 +238,7 @@
                                             </select>
                                             <i class="icon-pen edit"></i>
                                         </div>
+                                        {%- endif -%}
                                         <p class="price-wrap text-sm fw-medium">
                                             <span class="new-price text-primary">{% if settings.currency_code_enabled %}{{ item.final_price | money }}{% else %}{{ item.final_price | money_without_currency }}{% endif %}</span>
                                             {%- if item.original_price > item.final_price -%}
