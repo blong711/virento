@@ -1269,6 +1269,11 @@ const autoPopup = () => {
 
   const pageKey = 'showPopup_' + window.location.pathname;
   const showPopup = sessionStorage.getItem(pageKey);
+  const globalPopupKey = 'newsletterPopupHidden';
+
+  // Check if user has globally hidden the popup
+  const globalHidden = localStorage.getItem(globalPopupKey);
+  if (globalHidden === 'true') return;
 
   if (!JSON.parse(showPopup)) {
     setTimeout(() => {
@@ -1277,9 +1282,22 @@ const autoPopup = () => {
     }, 3000);
   }
 
+  // Handle close button
   document.querySelector('.btn-hide-popup')?.addEventListener('click', () => {
     sessionStorage.setItem(pageKey, true);
   });
+
+  // Handle form submission and checkbox
+  const form = popup.querySelector('.form-newsletter');
+  const dontShowCheckbox = popup.querySelector('#dont-show-again');
+  
+  if (form && dontShowCheckbox) {
+    form.addEventListener('submit', (e) => {
+      if (dontShowCheckbox.checked) {
+        localStorage.setItem(globalPopupKey, 'true');
+      }
+    });
+  }
 };
 
 /* Parallax Effects
