@@ -97,6 +97,7 @@
     "newsletter-popup": {
       "type": "newsletter-popup",
       "settings": {
+        "newsletter_image": "shopify://shop_images/newsletter-1_1.jpg",
         "title": "Sign up to our Newsletter",
         "description": "Be the first to get the latest news about trends, promotions, and much more!",
         "email_placeholder": "Your email address",
