@@ -93,7 +93,7 @@
       "settings": {
         "color_scheme": "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11",
         "newsletter_image": "shopify://shop_images/newsletter-1_1.jpg",
-        "popup_trigger": "time",
+        "popup_trigger": "scroll",
         "popup_delay": 3,
         "scroll_threshold": 300,
         "days_next_show": 7,
