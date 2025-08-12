@@ -149,10 +149,10 @@
         "settings": {
           "background": "rgba(0,0,0,0)",
           "background_gradient": "",
-          "background2": "#f2f2f2",
-          "text": "#ffffff",
+          "background2": "rgba(0,0,0,0)",
+          "text": "#000000",
           "button": "#ffffff",
-          "button_label": "#000000",
+          "button_label": "#ffffff",
           "secondary_button_label": "#ffffff",
           "shadow": "rgba(0,0,0,0)",
           "text_hover": "#ff6f61",

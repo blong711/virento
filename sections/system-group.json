@@ -65,12 +65,6 @@
         ]
       }
     },
-    "compare-modal": {
-      "type": "compare-modal",
-      "settings": {
-        "title": "Compare Products"
-      }
-    },
     "back-to-top": {
       "type": "back-to-top",
       "settings": {
@@ -97,7 +91,12 @@
     "newsletter-popup": {
       "type": "newsletter-popup",
       "settings": {
+        "color_scheme": "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11",
         "newsletter_image": "shopify://shop_images/newsletter-1_1.jpg",
+        "popup_trigger": "time",
+        "popup_delay": 3,
+        "scroll_threshold": 300,
+        "days_next_show": 7,
         "title": "Sign up to our Newsletter",
         "description": "Be the first to get the latest news about trends, promotions, and much more!",
         "email_placeholder": "Your email address",
@@ -106,15 +105,12 @@
         "show_privacy_policy": true,
         "privacy_text": "Will be used in accordance with our",
         "privacy_policy_url": "/pages/privacy-policy",
-        "privacy_policy_link_text": "Privacy Policy",
-        "show_dont_show_again": true,
-        "dont_show_again_text": "Don't show this popup again"
+        "privacy_policy_link_text": "Privacy Policy"
       }
     }
   },
   "order": [
     "cart-drawer",
-    "compare-modal",
     "back-to-top",
     "mobile-toolbar",
     "cookies-popup",
