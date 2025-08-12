@@ -119,14 +119,14 @@
         "settings": {
           "background": "#121212",
           "background_gradient": "",
-          "background2": "#393838",
+          "background2": "rgba(0,0,0,0)",
           "text": "#ffffff",
           "button": "#ffffff",
           "button_label": "#121212",
           "secondary_button_label": "#ffffff",
           "shadow": "#121212",
           "text_hover": "#666666",
-          "button_hover": "#2c2c2c",
+          "button_hover": "#ff6f61",
           "button_label_hover": "#ffffff"
         }
       },
