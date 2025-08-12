@@ -13150,13 +13150,6 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 }
 
 /* Checkbox styles */
-.popup-shopping-cart .tf-cart-checkbox .tf-checkbox-wrapp {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
 .popup-shopping-cart .tf-cart-checkbox .tf-checkbox-wrapp input[type="checkbox"] {
   width: 18px;
   height: 18px;
