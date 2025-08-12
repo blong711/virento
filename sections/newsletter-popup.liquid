@@ -1,12 +1,31 @@
-<div class="modal modalCentered fade auto-popup modal-newsletter">
+<div class="modal modalCentered fade auto-popup modal-newsletter color-{{ section.settings.color_scheme }}"
+     data-popup-trigger="{{ section.settings.popup_trigger }}"
+     data-popup-delay="{{ section.settings.popup_delay }}"
+     data-scroll-threshold="{{ section.settings.scroll_threshold }}"
+     data-days-next-show="{{ section.settings.days_next_show }}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-top">
-                {% if section.settings.newsletter_image %}
-                    {{ section.settings.newsletter_image | image_url: width: 400 | image_tag: 
-                       class: 'lazyload', 
-                       loading: 'lazy',
-                       alt: section.settings.newsletter_image.alt }}
+                {% if section.settings.newsletter_image or section.settings.newsletter_image_mobile %}
+                    {% if section.settings.newsletter_image_mobile %}
+                        <picture>
+                            <source media="(max-width: 767px)" srcset="{{ section.settings.newsletter_image_mobile | image_url: width: 300 }}">
+                            {% if section.settings.newsletter_image %}
+                                <source media="(min-width: 768px)" srcset="{{ section.settings.newsletter_image | image_url: width: 400 }}">
+                            {% endif %}
+                            <img src="{{ section.settings.newsletter_image_mobile | image_url: width: 300 }}" 
+                                 class="lazyload" 
+                                 loading="lazy"
+                                 width="300"
+                                 height="auto"
+                                 alt="{% if section.settings.newsletter_image_mobile.alt %}{{ section.settings.newsletter_image_mobile.alt }}{% elsif section.settings.newsletter_image.alt %}{{ section.settings.newsletter_image.alt }}{% endif %}">
+                        </picture>
+                    {% elsif section.settings.newsletter_image %}
+                        {{ section.settings.newsletter_image | image_url: width: 400 | image_tag: 
+                           class: 'lazyload', 
+                           loading: 'lazy',
+                           alt: section.settings.newsletter_image.alt }}
+                    {% endif %}
                 {% endif %}
                 <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
             </div>
@@ -29,17 +48,6 @@
                     </div>
                     <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
                             type="submit">{{ section.settings.button_text }}</button>
-                    {% if section.settings.show_dont_show_again %}
-                        <div class="mt-3">
-                            <label class="d-flex align-items-center justify-content-center">
-                                <input type="checkbox" 
-                                        id="dont-show-again"
-                                        class="me-2"
-                                        name="dont_show_again">
-                                <span class="text-sm">{{ section.settings.dont_show_again_text }}</span>
-                            </label>
-                        </div>
-                    {% endif %}
                 {% endform %}
 
                 {% if section.settings.show_social_icons %}
@@ -81,9 +89,66 @@
   "name": "Newsletter Popup",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
       "type": "image_picker",
       "id": "newsletter_image",
       "label": "Newsletter Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "newsletter_image_mobile",
+      "label": "Newsletter Image (Mobile)"
+    },
+    {
+      "type": "select",
+      "id": "popup_trigger",
+      "label": "Show popup after",
+      "options": [
+        {
+          "value": "time",
+          "label": "Some time"
+        },
+        {
+          "value": "scroll",
+          "label": "User scroll"
+        }
+      ],
+      "default": "time"
+    },
+    {
+      "type": "range",
+      "id": "popup_delay",
+      "label": "Popup delay (seconds)",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 3,
+      "info": "Show popup after this many seconds"
+    },
+    {
+      "type": "range",
+      "id": "scroll_threshold",
+      "label": "Scroll threshold (pixels)",
+      "min": 100,
+      "max": 1000,
+      "step": 50,
+      "default": 300,
+      "info": "Show popup after user scrolls this many pixels"
+    },
+    {
+      "type": "range",
+      "id": "days_next_show",
+      "label": "Days until next show",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 7,
+      "info": "If customer closes popup, next show will be after this many days"
     },
     {
       "type": "text",
@@ -146,22 +211,7 @@
       "label": "Privacy Policy Link Text",
       "default": "Privacy Policy"
     },
-    {
-      "type": "header",
-      "content": "Don't Show Again"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_dont_show_again",
-      "label": "Show 'Don't Show Again' Checkbox",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "dont_show_again_text",
-      "label": "Don't Show Again Text",
-      "default": "Don't show this popup again"
-    }
+
   ],
   "presets": [
     {

@@ -1267,6 +1267,12 @@ const autoPopup = () => {
   const popup = document.querySelector('.auto-popup');
   if (!popup) return;
 
+  // Get popup settings from data attributes
+  const popupTrigger = popup.dataset.popupTrigger || 'time';
+  const popupDelay = parseInt(popup.dataset.popupDelay) || 3;
+  const scrollThreshold = parseInt(popup.dataset.scrollThreshold) || 300;
+  const daysNextShow = parseInt(popup.dataset.daysNextShow) || 7;
+
   const pageKey = 'showPopup_' + window.location.pathname;
   const showPopup = sessionStorage.getItem(pageKey);
   const globalPopupKey = 'newsletterPopupHidden';
@@ -1279,41 +1285,57 @@ const autoPopup = () => {
   const isThemeCustomizer = window.Shopify && window.Shopify.designMode;
   if (isThemeCustomizer) return;
 
+  // Check if enough days have passed since last close
+  const lastCloseDate = localStorage.getItem('newsletterPopupLastClose');
+  if (lastCloseDate) {
+    const daysSinceClose = (Date.now() - new Date(lastCloseDate).getTime()) / (1000 * 60 * 60 * 24);
+    if (daysSinceClose < daysNextShow) return;
+  }
+
   // Only show popup on first visit to the page
   if (!JSON.parse(showPopup)) {
-    setTimeout(() => {
-      const modal = new bootstrap.Modal(popup);
-      modal.show();
-    }, 3000);
+    if (popupTrigger === 'time') {
+      // Show popup after specified delay
+      setTimeout(() => {
+        const modal = new bootstrap.Modal(popup);
+        modal.show();
+      }, popupDelay * 1000);
+    } else if (popupTrigger === 'scroll') {
+      // Show popup after user scrolls specified pixels
+      let hasShown = false;
+      const handleScroll = () => {
+        if (hasShown) return;
+        if (window.scrollY >= scrollThreshold) {
+          hasShown = true;
+          const modal = new bootstrap.Modal(popup);
+          modal.show();
+          window.removeEventListener('scroll', handleScroll);
+        }
+      };
+      window.addEventListener('scroll', handleScroll);
+    }
   }
 
   // Handle close button
   document.querySelector('.btn-hide-popup')?.addEventListener('click', () => {
-    const dontShowCheckbox = popup.querySelector('#dont-show-again');
-    if (dontShowCheckbox && dontShowCheckbox.checked) {
-      localStorage.setItem(globalPopupKey, 'true');
-    }
+    // Store the close date for "days until next show" functionality
+    localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
     sessionStorage.setItem(pageKey, true);
   });
 
-  // Handle form submission and checkbox
+  // Handle form submission
   const form = popup.querySelector('.form-newsletter');
-  const dontShowCheckbox = popup.querySelector('#dont-show-again');
-  
-  if (form && dontShowCheckbox) {
+  if (form) {
     form.addEventListener('submit', (e) => {
-      if (dontShowCheckbox.checked) {
-        localStorage.setItem(globalPopupKey, 'true');
-      }
+      // Store the close date for "days until next show" functionality
+      localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
     });
   }
 
   // Handle modal hidden event (when popup is closed by any means)
   popup.addEventListener('hidden.bs.modal', () => {
-    const dontShowCheckbox = popup.querySelector('#dont-show-again');
-    if (dontShowCheckbox && dontShowCheckbox.checked) {
-      localStorage.setItem(globalPopupKey, 'true');
-    }
+    // Store the close date for "days until next show" functionality
+    localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
   });
 };
 
