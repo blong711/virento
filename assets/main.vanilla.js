@@ -467,6 +467,19 @@ const cookieSetting = () => {
     document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
   };
 
+  const detectUserCountry = () => {
+    // Try to detect user country from IP or browser locale
+    const userCountry = getCookie('user_country');
+    if (!userCountry) {
+      // Use browser locale as fallback
+      const locale = navigator.language || navigator.userLanguage;
+      const country = locale.split('-')[1] || locale.split('_')[1];
+      if (country) {
+        setCookie('user_country', country.toUpperCase(), 365);
+      }
+    }
+  };
+
   const getCookie = (name) => {
     const cookies = document.cookie.split(';');
     for (const cookie of cookies) {
@@ -480,18 +493,51 @@ const cookieSetting = () => {
 
   const checkCookie = () => {
     const cookieConsent = getCookie('cookie_consent');
-    const cookiePopup = document.querySelector('.cookie-popup');
+    const cookieBanner = document.querySelector('.cookie-banner');
     
-    if (!cookieConsent && cookiePopup) {
-      cookiePopup.classList.add('show');
+    if (!cookieConsent && cookieBanner) {
+      // Check the banner setting from the section data
+      const sectionId = cookieBanner.getAttribute('data-section-id');
+      const bannerSetting = cookieBanner.getAttribute('data-show-banner');
       
-      cookiePopup.querySelector('.accept-btn')?.addEventListener('click', () => {
-        setCookie('cookie_consent', 'accepted', 30);
-        cookiePopup.classList.remove('show');
-      });
+      // Show banner based on setting
+      let shouldShow = true;
+      
+      if (bannerSetting === 'targeted_regions') {
+        // For targeted regions, check if user is in EU/EEA/UK/Switzerland
+        // You can enhance this with more sophisticated geolocation
+        const userCountry = getCookie('user_country');
+        if (userCountry) {
+          const euCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'];
+          const eeaCountries = ['IS', 'LI', 'NO'];
+          const otherCountries = ['GB', 'CH'];
+          const allTargetedCountries = [...euCountries, ...eeaCountries, ...otherCountries];
+          shouldShow = allTargetedCountries.includes(userCountry);
+        } else {
+          // If no country detected, show banner to be safe
+          shouldShow = true;
+        }
+      } else if (bannerSetting === 'all_regions') {
+        shouldShow = true;
+      }
+      
+      if (shouldShow) {
+        cookieBanner.classList.add('show');
+        
+        // Add event listener to the accept button
+        const acceptButton = cookieBanner.querySelector('#accept-cookie');
+        if (acceptButton) {
+          acceptButton.addEventListener('click', () => {
+            setCookie('cookie_consent', 'accepted', 30);
+            cookieBanner.classList.remove('show');
+            cookieBanner.classList.add('hidden');
+          });
+        }
+      }
     }
   };
 
+  detectUserCountry();
   checkCookie();
 };
 

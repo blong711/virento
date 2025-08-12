@@ -82,12 +82,22 @@
     "mobile-toolbar": {
       "type": "mobile-toolbar",
       "settings": {}
+    },
+    "cookies-popup": {
+      "type": "cookies-popup",
+      "settings": {
+        "show_cookie_banner": "all_regions",
+        "cookie_message": "The cookie settings on this website are set to \"allow all cookies\" to give you the very best experience. Please click Accept Cookies to continue to use the site.",
+        "privacy_button_text": "Privacy Policy",
+        "accept_button_text": "Accept Cookies"
+      }
     }
   },
   "order": [
     "cart-drawer",
     "compare-modal",
     "back-to-top",
-    "mobile-toolbar"
+    "mobile-toolbar",
+    "cookies-popup"
   ]
 }
