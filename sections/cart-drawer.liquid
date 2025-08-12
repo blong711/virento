@@ -274,13 +274,13 @@
                                     </div>
                                     <h4 class="empty-cart-title text-md fw-medium mb-2">{{ 'sections.cart.empty' | t }}</h4>
                                     <p class="empty-cart-subtitle text-sm opacity-8 mb-4">{{ 'sections.cart.empty_subtitle' | t }}</p>
-                                    <a href="{{ settings.empty_cart_link }}" class="tf-btn animate-btn d-inline-flex bg-dark-2">
+                                    <a href="{{ settings.empty_cart_link | default: routes.all_products_collection_url }}" class="tf-btn animate-btn d-inline-flex bg-dark-2">
                                         {{ 'sections.cart.start_shopping' | t }}
                                     </a>
                                 </div>
                             </div>
                         {%- endif -%}
-                        {%- if cart.item_count > 0 and section.settings.complementary_products_collection != blank -%}
+                        {%- if cart.item_count > 0 -%}
                             <div class="tf-minicart-recommendations">
                                 <div class="tf-minicart-recommendations-heading d-flex justify-content-between align-items-end">
                                     <div class="tf-minicart-recommendations-title text-md fw-medium">{{ section.settings.complementary_products_heading }}</div>
@@ -303,11 +303,15 @@
                                     }
                                 }'>
                                     <div class="swiper-wrapper">
-                                        {%- assign complementary_collection = collections[section.settings.complementary_products_collection] -%}
-                                        {%- if section.settings.complementary_products_list != blank -%}
-                                            {%- assign complementary_products = section.settings.complementary_products_list -%}
+                                        {%- if section.settings.complementary_products_collection != blank -%}
+                                            {%- assign complementary_collection = collections[section.settings.complementary_products_collection] -%}
+                                            {%- if section.settings.complementary_products_list != blank -%}
+                                                {%- assign complementary_products = section.settings.complementary_products_list -%}
+                                            {%- else -%}
+                                                {%- assign complementary_products = complementary_collection.products -%}
+                                            {%- endif -%}
                                         {%- else -%}
-                                            {%- assign complementary_products = complementary_collection.products -%}
+                                            {%- assign complementary_products = recommendations.products -%}
                                         {%- endif -%}
                                         {%- for product in complementary_products limit: 4 -%}
                                             <div class="swiper-slide">
@@ -383,64 +387,100 @@
                         {%- endif -%}
                     </div>
                     <div class="tf-mini-cart-bottom-wrap">
-                        {%- for block in section.blocks -%}
-                            {%- case block.type -%}
-                                {%- when 'total_price' -%}
-                                    <div class="tf-cart-totals-discounts" {{ block.shopify_attributes }}>
-                                        {%- if cart.total_discounts > 0 -%}
-                                            <div class="tf-cart-discount text-sm">
-                                                <span>{{ 'sections.cart.drawer.discount_label' | t }}</span>
-                                                <span>-{% if settings.currency_code_enabled %}{{ cart.total_discounts | money }}{% else %}{{ cart.
-                                                total_discounts | money_without_currency }}{% endif %}</span>
-                                            </div>
-                                        {%- endif -%}
-                                        <div class="tf-cart-total text-xl fw-medium">{{ 'sections.cart.total' | t }}:</div>
-                                        <div class="tf-totals-total-value text-xl fw-medium">{% if settings.currency_code_enabled %}{{ cart.total_price | 
-                                        money }}{% else %}{{ cart.total_price | money_without_currency }}{% endif %}</div>
-                                    </div>
-                                {%- when 'taxes_shipping' -%}
-                                    <div class="tf-cart-tax text-sm opacity-8" {{ block.shopify_attributes }}>
-                                        {%- if cart.taxes_included -%}
-                                            {{ 'sections.cart.drawer.including_taxes' | t }}
-                                        {%- endif -%}
-                                        {%- if block.settings.custom_message != blank -%}
-                                            {{ block.settings.custom_message }}
-                                        {%- else -%}
-                                            {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
-                                        {%- endif -%}
-                                    </div>
-                                {%- when 'terms_checkbox' -%}
-                                    <div class="tf-cart-checkbox" {{ block.shopify_attributes }}>
-                                        <div class="tf-checkbox-wrapp">
-                                            <input class="" 
-                                                   type="checkbox" 
-                                                   id="CartDrawer-Form_agree" 
-                                                   name="agree_checkbox" 
-                                                   >
-                                            <div>
-                                                <i class="icon-check"></i>
-                                            </div>
+                        {%- if section.blocks.size > 0 -%}
+                            {%- for block in section.blocks -%}
+                                {%- case block.type -%}
+                                    {%- when 'total_price' -%}
+                                        <div class="tf-cart-totals-discounts" {{ block.shopify_attributes }}>
+                                            {%- if cart.total_discounts > 0 -%}
+                                                <div class="tf-cart-discount text-sm">
+                                                    <span>{{ 'sections.cart.drawer.discount_label' | t }}</span>
+                                                    <span>-{% if settings.currency_code_enabled %}{{ cart.total_discounts | money }}{% else %}{{ cart.total_discounts | money_without_currency }}{% endif %}</span>
+                                                </div>
+                                            {%- endif -%}
+                                            <div class="tf-cart-total text-xl fw-medium">{{ 'sections.cart.total' | t }}:</div>
+                                            <div class="tf-totals-total-value text-xl fw-medium">{% if settings.currency_code_enabled %}{{ cart.total_price | money }}{% else %}{{ cart.total_price | money_without_currency }}{% endif %}</div>
                                         </div>
-                                        <label for="CartDrawer-Form_agree" class="text-sm">
-                                            {{ block.settings.checkbox_text }}
-                                            <a href="{{ block.settings.terms_url }}" 
-                                               title="Terms of Service" 
-                                               class="fw-medium">{{ block.settings.terms_link_text }}</a>
-                                        </label>
+                                    {%- when 'taxes_shipping' -%}
+                                        <div class="tf-cart-tax text-sm opacity-8" {{ block.shopify_attributes }}>
+                                            {%- if cart.taxes_included -%}
+                                                {{ 'sections.cart.drawer.including_taxes' | t }}
+                                            {%- endif -%}
+                                            {%- if block.settings.custom_message != blank -%}
+                                                {{ block.settings.custom_message }}
+                                            {%- else -%}
+                                                {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
+                                            {%- endif -%}
+                                        </div>
+                                    {%- when 'terms_checkbox' -%}
+                                        <div class="tf-cart-checkbox" {{ block.shopify_attributes }}>
+                                            <div class="tf-checkbox-wrapp">
+                                                <input class="" 
+                                                       type="checkbox" 
+                                                       id="CartDrawer-Form_agree" 
+                                                       name="agree_checkbox" 
+                                                       >
+                                                <div>
+                                                    <i class="icon-check"></i>
+                                                </div>
+                                            </div>
+                                            <label for="CartDrawer-Form_agree" class="text-sm">
+                                                {{ block.settings.checkbox_text }}
+                                                <a href="{{ block.settings.terms_url }}" 
+                                                   title="Terms of Service" 
+                                                   class="fw-medium">{{ block.settings.terms_link_text }}</a>
+                                            </label>
+                                        </div>
+                                    {%- when 'checkout_buttons' -%}
+                                        <div class="tf-mini-cart-view-checkout" {{ block.shopify_attributes }}>
+                                            {%- if block.settings.show_view_cart -%}
+                                                <a href="{{ routes.cart_url }}"
+                                                    class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">{{ block.settings.view_cart_text }}</a>
+                                            {%- endif -%}
+                                            {%- if block.settings.show_checkout -%}
+                                                <a href="{{ routes.checkout_url }}"
+                                                    class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>{{ block.settings.checkout_text }}</span></a>
+                                            {%- endif -%}
+                                        </div>
+                                {%- endcase -%}
+                            {%- endfor -%}
+                        {%- else -%}
+                            <!-- Default cart elements when no blocks are added -->
+                            <div class="tf-cart-totals-discounts">
+                                {%- if cart.total_discounts > 0 -%}
+                                    <div class="tf-cart-discount text-sm">
+                                        <span>Discount</span>
+                                        <span>-{% if settings.currency_code_enabled %}{{ cart.total_discounts | money }}{% else %}{{ cart.total_discounts | money_without_currency }}{% endif %}</span>
                                     </div>
-                                {%- when 'checkout_buttons' -%}
-                                    <div class="tf-mini-cart-view-checkout" {{ block.shopify_attributes }}>
-                                        {%- if block.settings.show_view_cart -%}
-                                            <a href="{{ routes.cart_url }}"
-                                                class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">{{ block.settings.view_cart_text }}</a>
-                                        {%- endif -%}
-                                        {%- if block.settings.show_checkout -%}
-                                            <a href="/checkout"
-                                                class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>{{ block.settings.checkout_text }}</span></a>
-                                        {%- endif -%}
+                                {%- endif -%}
+                                <div class="tf-cart-total text-xl fw-medium">Total:</div>
+                                <div class="tf-totals-total-value text-xl fw-medium">{% if settings.currency_code_enabled %}{{ cart.total_price | money }}{% else %}{{ cart.total_price | money_without_currency }}{% endif %}</div>
+                            </div>
+                            <div class="tf-cart-tax text-sm opacity-8">
+                                {%- if cart.taxes_included -%}
+                                    Including taxes
+                                {%- endif -%}
+                                Taxes and shipping calculated at checkout
+                            </div>
+                            <div class="tf-cart-checkbox">
+                                <div class="tf-checkbox-wrapp">
+                                    <input class="" type="checkbox" id="CartDrawer-Form_agree" name="agree_checkbox" required>
+                                    <div>
+                                        <i class="icon-check"></i>
                                     </div>
-                            {%- endcase -%}
-                        {%- endfor -%}
+                                </div>
+                                <label for="CartDrawer-Form_agree" class="text-sm">
+                                    I agree with the
+                                    <a href="{{ routes.legal_notice_url }}" title="Terms of Service" class="fw-medium">terms and conditions</a>
+                                </label>
+                            </div>
+                            <div class="tf-mini-cart-view-checkout">
+                                <a href="{{ routes.cart_url }}"
+                                    class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">View cart</a>
+                                <a href="{{ routes.checkout_url }}"
+                                    class="tf-btn btn-out-line-dark2 w-100 justify-content-center"><span>Check out</span></a>
+                            </div>
+                        {%- endif -%}
                     </div>
                 </div>
                 {%- if section.settings.show_gift_wrap -%}
@@ -458,14 +498,18 @@
                                 </div>
                                 <input type="hidden" name="gift_wrap_product_id" value="{{ gift_wrap_product.selected_or_first_available_variant.id }}">
                             {%- else -%}
-                                <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_1' | t }}
-                                    <span class="text fw-medium text-dark">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }}{% else %}{{ gift_wrap_product.price | money_without_currency }}{% endif %}</span>
-                                    {{ 'sections.cart.gift_wrap.description_2' | t }}</div>
+                                <div class="tf-mini-cart-tool-text1 text-dark-1">
+                                    {{ 'sections.cart.gift_wrap.description_1' | t }}
+                                    <span class="text fw-medium text-dark">$10.00</span>
+                                    {{ 'sections.cart.gift_wrap.description_2' | t }}
+                                </div>
                             {%- endif -%}
                         {%- else -%}
-                            <div class="tf-mini-cart-tool-text1 text-dark-1">{{ 'sections.cart.gift_wrap.description_1' | t }}
-                                <span class="text fw-medium text-dark">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }}{% else %}{{ gift_wrap_product.price | money_without_currency }}{% endif %}</span>
-                                {{ 'sections.cart.gift_wrap.description_2' | t }}</div>
+                            <div class="tf-mini-cart-tool-text1 text-dark-1">
+                                {{ 'sections.cart.gift_wrap.description_1' | t }}
+                                <span class="text fw-medium text-dark">$10.00</span>
+                                {{ 'sections.cart.gift_wrap.description_2' | t }}
+                            </div>
                         {%- endif -%}
                         <div class="tf-cart-tool-btns">
                             <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
