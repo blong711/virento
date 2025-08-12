@@ -32,7 +32,7 @@
           {%- case block.type -%}
             {%- when 'popup_text' -%}
               {%- if block.settings.popup_text != blank -%}
-                <p>{{ block.settings.popup_text | replace: '[DISCOUNT_CODE]', block.settings.discount_code }}</p>
+                <p>{{ block.settings.popup_text }}</p>
               {%- endif -%}
             
             {%- when 'discount_code' -%}
@@ -195,14 +195,7 @@
           "type": "text",
           "id": "popup_text",
           "label": "Popup Text",
-          "default": "Take 15% OFF on first order",
-          "info": "Use [DISCOUNT_CODE] to automatically insert the discount code"
-        },
-        {
-          "type": "text",
-          "id": "discount_code",
-          "label": "Discount Code",
-          "default": "CODE15OFF"
+          "default": "Take 15% OFF on first order"
         }
       ]
     },
