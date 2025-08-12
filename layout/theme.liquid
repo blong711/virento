@@ -140,13 +140,15 @@
       }
 
       /* Link styles - only applied to sections with color schemes */
-      [class*="color-scheme-"] .link {
+      [class*="color-scheme-"] .link,
+      [class*="color-scheme-"] a {
         color: rgb(var(--color-button-text));
         transition: all 0.2s ease-in-out;
       }
 
       /* Link hover styles - only applied to sections with color schemes */
-      [class*="color-scheme-"] .link:hover {
+      [class*="color-scheme-"] .link:hover,
+      [class*="color-scheme-"] a:hover {
         color: rgb(var(--color-button-label-hover)) !important;
       }
 
