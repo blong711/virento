@@ -147,7 +147,7 @@
       },
       "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11": {
         "settings": {
-          "background": "rgba(0,0,0,0)",
+          "background": "#ffffff",
           "background_gradient": "",
           "background2": "rgba(0,0,0,0)",
           "text": "#000000",
