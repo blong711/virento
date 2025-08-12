@@ -3924,7 +3924,7 @@
       }
     },
     "contact-form-with-text": {
-      "name": "Contact Form with Text",
+      "name": "Contact Form",
       "settings": {
         "width": {
           "label": "Width"
@@ -4008,6 +4008,26 @@
               }
             }
           }
+        },
+        "contact_info": {
+          "name": "Contact Information",
+          "settings": {
+            "address": {
+              "label": "Address"
+            },
+            "address_url": {
+              "label": "Address URL (Google Maps link)"
+            },
+            "phone": {
+              "label": "Phone Number"
+            },
+            "email": {
+              "label": "Email Address"
+            },
+            "hours": {
+              "label": "Business Hours"
+            }
+          }
         }
       },
       "presets": {
@@ -4015,7 +4035,7 @@
       }
     },
     "map-with-text": {
-      "name": "Map with Text",
+      "name": "Map With Text",
       "settings": {
         "width": {
           "label": "Width"

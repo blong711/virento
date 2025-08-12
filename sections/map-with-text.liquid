@@ -2,7 +2,7 @@
   class="s-contact flat-spacing-13"
   style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
 >
-  <div class="{% if section.settings.width == 'boxed' %} container{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %} container{% else %} container-full{% endif %}">
     <div class="wg-map" style="--mobile-ratio: {{ section.settings.padding_mobile_ratio }}%;">
       {% if section.settings.map != blank %}
         {{ section.settings.map }}
@@ -37,7 +37,7 @@
 
 {% schema %}
 {
-  "name": "map-with-text",
+  "name": "t:sections.map-with-text.name",
   "class": "section",
   "disabled_on": {
     "groups": ["header", "footer"]
