@@ -621,24 +621,38 @@ class CartDrawer extends HTMLElement {
       termsCheckbox.addEventListener('change', () => {
         this.updateCheckoutButtonState(termsCheckbox, checkoutButton);
       });
+    } else if (termsCheckbox && !checkoutButton) {
+      // Checkbox exists but no checkout button (empty cart)
+      // Add event listener to checkbox for when checkout button appears
+      termsCheckbox.addEventListener('change', () => {
+        // Check if checkout button now exists
+        const newCheckoutButton = this.querySelector('[data-checkout-button]');
+        if (newCheckoutButton) {
+          this.updateCheckoutButtonState(termsCheckbox, newCheckoutButton);
+        }
+      });
     }
   }
 
   updateCheckoutButtonState(checkbox, checkoutButton) {
+    // Re-find the checkout button in case it was recreated
+    const currentCheckoutButton = this.querySelector('[data-checkout-button]');
+    if (!currentCheckoutButton) return;
+    
     if (checkbox.checked) {
       // Enable checkout button
-      checkoutButton.classList.remove('disabled');
-      checkoutButton.style.pointerEvents = 'auto';
-      checkoutButton.style.opacity = '1';
-      checkoutButton.removeAttribute('disabled');
-      checkoutButton.style.cursor = 'pointer';
+      currentCheckoutButton.classList.remove('disabled');
+      currentCheckoutButton.style.pointerEvents = 'auto';
+      currentCheckoutButton.style.opacity = '1';
+      currentCheckoutButton.removeAttribute('disabled');
+      currentCheckoutButton.style.cursor = 'pointer';
     } else {
       // Disable checkout button
-      checkoutButton.classList.add('disabled');
-      checkoutButton.style.pointerEvents = 'none';
-      checkoutButton.style.opacity = '0.5';
-      checkoutButton.setAttribute('disabled', 'disabled');
-      checkoutButton.style.cursor = 'not-allowed';
+      currentCheckoutButton.classList.add('disabled');
+      currentCheckoutButton.style.pointerEvents = 'none';
+      currentCheckoutButton.style.opacity = '0.5';
+      currentCheckoutButton.setAttribute('disabled', 'disabled');
+      currentCheckoutButton.style.cursor = 'not-allowed';
     }
   }
 
@@ -724,6 +738,9 @@ class CartDrawer extends HTMLElement {
             
             // Re-setup terms checkbox functionality after cart update
             this.setupTermsCheckbox();
+            
+            // Ensure checkout button state is maintained after cart update
+            this.maintainCheckoutButtonState();
           }
         }
       })
