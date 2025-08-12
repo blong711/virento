@@ -110,6 +110,10 @@
             "button_text": "Send"
           }
         },
+        "social_icons_NfJGBk": {
+          "type": "social_icons",
+          "settings": {}
+        },
         "info_text_NH34gX": {
           "type": "info_text",
           "settings": {
@@ -123,6 +127,7 @@
         "title_cm4BhJ",
         "description_CaEQjj",
         "newsletter_form_iHPxET",
+        "social_icons_NfJGBk",
         "info_text_NH34gX"
       ],
       "settings": {
@@ -131,8 +136,7 @@
         "popup_trigger": "scroll",
         "popup_delay": 3,
         "scroll_threshold": 300,
-        "days_next_show": 7,
-        "show_social_icons": true
+        "days_next_show": 7
       }
     }
   },
