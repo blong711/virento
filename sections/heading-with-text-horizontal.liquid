@@ -46,7 +46,7 @@
 {%- endstyle -%}
 
 <section class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
     <div class="flat-title-2 section-{{ section.id }} d-xl-flex justify-content-xl-between">
       <div class="box-title">
         {%- for block in section.blocks -%}
