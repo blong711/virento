@@ -464,7 +464,6 @@ class CartDrawer extends HTMLElement {
       } else {
         // Successfully added product
         this.updateCart(result);
-        alert('Product added to cart successfully!');
       }
     })
     .catch(error => {
