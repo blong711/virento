@@ -876,13 +876,13 @@ const clickModalSecond = () => {
                data-variant-id="${product.variants[0]?.id || ''}"
                data-product-id="${product.id}"
                data-selected-variant="${product.variants[0]?.id || ''}">
-              Add to cart
+              ${window.ShopifyTranslations?.quickview?.add_to_cart}
             </a>
           </div>
-          <a href="${product.url}" class="tf-btn w-100 animate-btn paypal btn-primary">Buy It Now</a>
-          <a href="/cart" class="more-choose-payment link">More payment options</a>
+          <a href="${product.url}" class="tf-btn w-100 animate-btn paypal btn-primary">${window.ShopifyTranslations?.quickview?.buy_it_now}</a>
+          <a href="/cart" class="more-choose-payment link">${window.ShopifyTranslations?.quickview?.more_payment_options}</a>
         </div>
-        <a href="${product.url}" class="view-details link">View full details <i class="icon icon-arrow-right"></i></a>
+        <a href="${product.url}" class="view-details link">${window.ShopifyTranslations?.quickview?.view_full_details} <i class="icon icon-arrow-right"></i></a>
       </div>
     `;
     

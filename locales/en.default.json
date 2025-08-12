@@ -98,6 +98,12 @@
     "compare_button": "Compare",
     "clear_all": "Clear All"
   },
+  "quickview": {
+    "add_to_cart": "Add to cart",
+    "buy_it_now": "Buy It Now",
+    "more_payment_options": "More payment options",
+    "view_full_details": "View full details"
+  },
   "accessibility": {
     "skip_to_text": "Skip to content",
     "skip_to_product_info": "Skip to product information",
