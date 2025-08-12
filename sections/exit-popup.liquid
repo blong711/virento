@@ -9,14 +9,29 @@
      {%- endif -%}>
 <div class="modal-dialog">
     <div class="modal-content">
-    {%- if section.settings.popup_image -%}
+    {%- if section.settings.popup_image or section.settings.popup_image_mobile -%}
         <div class="image">
-        <img class="lazyload" 
-                data-src="{{ section.settings.popup_image | image_url: width: 500 }}"
-                src="{{ section.settings.popup_image | image_url: width: 500 }}" 
-                alt="{{ section.settings.popup_image.alt | default: section.settings.popup_heading }}"
-                width="500"
-                height="auto">
+          {%- if section.settings.popup_image_mobile -%}
+            <img class="lazyload d-none d-md-block" 
+                 data-src="{{ section.settings.popup_image | image_url: width: 500 }}"
+                 src="{{ section.settings.popup_image | image_url: width: 500 }}" 
+                 alt="{{ section.settings.popup_image.alt | default: section.settings.popup_heading }}"
+                 width="500"
+                 height="auto">
+            <img class="lazyload d-block d-md-none" 
+                 data-src="{{ section.settings.popup_image_mobile | image_url: width: 400 }}"
+                 src="{{ section.settings.popup_image_mobile | image_url: width: 400 }}" 
+                 alt="{{ section.settings.popup_image_mobile.alt | default: section.settings.popup_heading }}"
+                 width="400"
+                 height="auto">
+          {%- else -%}
+            <img class="lazyload" 
+                 data-src="{{ section.settings.popup_image | image_url: width: 500 }}"
+                 src="{{ section.settings.popup_image | image_url: width: 500 }}" 
+                 alt="{{ section.settings.popup_image.alt | default: section.settings.popup_heading }}"
+                 width="500"
+                 height="auto">
+          {%- endif -%}
         </div>
     {%- endif -%}
     
@@ -25,7 +40,7 @@
         
         <div class="content text-center">
         {%- if section.settings.popup_heading -%}
-            <div class="display-sm fw-medium heading">{{ section.settings.popup_heading }}</div>
+            <div class="{{ section.settings.heading_size }} {{ section.settings.heading_font_weight }} heading">{{ section.settings.popup_heading }}</div>
         {%- endif -%}
         
         {%- for block in section.blocks -%}
@@ -176,13 +191,67 @@
     {
       "type": "image_picker",
       "id": "popup_image",
-      "label": "Popup Image"
+      "label": "Popup Image (Desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "popup_image_mobile",
+      "label": "Popup Image (Mobile)",
+      "info": "Optional: Use a different image for mobile devices"
     },
     {
       "type": "text",
       "id": "popup_heading",
       "label": "Popup Heading",
       "default": "Before You Leave"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "options": [
+        {
+          "value": "display-sm",
+          "label": "Small"
+        },
+        {
+          "value": "display-md",
+          "label": "Medium"
+        },
+        {
+          "value": "display-lg",
+          "label": "Large"
+        }
+      ],
+      "default": "display-sm"
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "options": [
+        {
+          "value": "fw-light",
+          "label": "Light"
+        },
+        {
+          "value": "fw-regular",
+          "label": "Regular"
+        },
+        {
+          "value": "fw-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "fw-semibold",
+          "label": "Semi Bold"
+        },
+        {
+          "value": "fw-bold",
+          "label": "Bold"
+        }
+      ],
+      "default": "fw-medium"
     }
   ],
   "blocks": [
