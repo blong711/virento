@@ -86,12 +86,37 @@
       "next_slide": "Slide right",
       "previous_slide": "Slide left",
       "name": "Slider"
+    },
+    "ask_question": {
+      "title": "Ask a Question",
+      "name": "Your name",
+      "name_placeholder": "Enter your name",
+      "phone": "Your phone number",
+      "phone_placeholder": "Enter your phone number",
+      "email": "Your email",
+      "email_placeholder": "Enter your email",
+      "message": "Message",
+      "message_placeholder": "Enter your message",
+      "submit": "Send Message",
+      "success_message": "Thank you! Your message has been sent successfully.",
+      "error_message": "Please correct the following errors:"
     }
   },
   "newsletter": {
     "label": "Email",
     "success": "Thanks for subscribing",
     "button_label": "Subscribe"
+  },
+  "compare_modal": {
+    "title": "Compare Products",
+    "compare_button": "Compare",
+    "clear_all": "Clear All"
+  },
+  "quickview": {
+    "add_to_cart": "Add to cart",
+    "buy_it_now": "Buy It Now",
+    "more_payment_options": "More payment options",
+    "view_full_details": "View full details"
   },
   "accessibility": {
     "skip_to_text": "Skip to content",
@@ -129,8 +154,19 @@
       "post": "Post comment",
       "back_to_blog": "Back to blog",
       "share": "Share this article",
+      "by_author": "By {{ author }}",
+      "tags_label": "Tags",
+      "previous_post": "Previous Post",
+      "next_post": "Next Post",
+      "email_notice": "Your email address will not be published.",
       "success": "Your comment was posted successfully! Thank you!",
       "success_moderated": "Your comment was posted successfully. We will publish it in a little while, as our blog is moderated."
+    }
+  },
+  "blog_sub_collection": {
+    "post_count": {
+      "one": "{{ count }} post",
+      "other": "{{ count }} posts"
     }
   },
   "onboarding": {
@@ -149,6 +185,10 @@
       "inventory_low_stock_show_count": "Low stock: {{ quantity }} left",
       "inventory_out_of_stock": "Out of stock",
       "inventory_out_of_stock_continue_selling": "In stock",
+      "stock": {
+        "only": "Only",
+        "items_left": "items left!"
+      },
       "sku": "SKU",
       "on_sale": "Sale",
       "product_variants": "Product variants",
@@ -378,6 +418,8 @@
       "new_estimated_total": "New estimated total",
       "checkout": "Check out",
       "empty": "Your cart is empty",
+      "empty_subtitle": "Looks like you haven't added any items to your cart yet.",
+      "start_shopping": "Start shopping",
       "cart_error": "There was an error while updating your cart. Please try again.",
       "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
       "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "Duties and taxes included. Discounts and <a href=\"{{ link }}\">shipping</a> calculated at checkout.",
@@ -400,7 +442,8 @@
       "gift_wrap": {
         "title": "Add gift wrap",
         "button_label": "Add gift wrap option",
-        "description_html": "The product will be wrapped carefully. Free is only {{ price }}. Do you want a gift wrap?",
+        "description_1": "The product will be wrapped carefully. Free is only",
+        "description_2": "Do you want a gift wrap?",
         "add": "Add gift wrap",
         "cancel": "Cancel"
       },
@@ -428,8 +471,8 @@
         "zip_placeholder": "Enter your zipcode",
         "success_text": "We found one shipping rate available for your address:",
         "error_text": "We found one shipping rate available for undefined.",
-        "calculate": "Calculate",
-        "cancel": "Cancel"
+        "calculate": "Estimate",
+        "cancel": "Close"
       },
       "terms": {
         "agreement_required": "Please agree to the terms and conditions",
@@ -450,6 +493,19 @@
       "login": {
         "title": "Have an account?",
         "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
+      },
+      "drawer": {
+        "title": "Shopping cart",
+        "discount_label": "Discount",
+        "including_taxes": "Including taxes",
+        "add_to_cart": "Add to cart",
+        "sold_out": "Sold out",
+        "save": "Save",
+        "close": "Close",
+        "apply_discount": "Apply discount",
+        "spend": "Spend",
+        "more_to_get": "more to get",
+        "free_shipping": "Free Shipping"
       }
     },
     "product": {

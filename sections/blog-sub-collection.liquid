@@ -1,5 +1,5 @@
 <div class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
     <div
       dir="ltr"
       class="swiper tf-swiper hover-sw-nav wow fadeInUp"
@@ -21,12 +21,12 @@
             "768": {
               "slidesPerView": {{ section.settings.slides_per_view_tablet }},
               "spaceBetween": {{ section.settings.space_between }},
-              "slidesPerGroup": {{ section.settings.slides_per_group_tablet }}
+              "slidesPerGroup": 3
             },
             "1200": {
               "slidesPerView": {{ section.settings.slides_per_view_desktop }},
               "spaceBetween": {{ section.settings.space_between }},
-              "slidesPerGroup": {{ section.settings.slides_per_group_desktop }}
+              "slidesPerGroup": 3
             }
           }
         }
@@ -80,7 +80,7 @@
 
                     {% if section.settings.show_post_count %}
                       <span class="count-item body-text-2 text-main">
-                        {{ post_count }} post{% unless post_count == 1 %}s{% endunless %}
+                        {{ post_count }} {{ 'blog_sub_collection.post_count' | t: count: post_count }}
                       </span>
                     {% endif %}
                   </div>
@@ -115,7 +115,7 @@
 
 {% schema %}
 {
-  "name": "Blog Sub Collection",
+  "name": "t:sections.blog-sub-collection.name",
   "tag": "section",
   "class": "blog-categories-section",
   "settings": [
@@ -173,26 +173,6 @@
     },
     {
       "type": "select",
-      "id": "slides_per_group_mobile",
-      "label": "t:sections.blog-sub-collection.settings.slides_per_group_mobile.label",
-      "options": [
-        {
-          "value": "1",
-          "label": "1"
-        },
-        {
-          "value": "2",
-          "label": "2"
-        },
-        {
-          "value": "3",
-          "label": "3"
-        }
-      ],
-      "default": "2"
-    },
-    {
-      "type": "select",
       "id": "slides_per_view_tablet",
       "label": "t:sections.blog-sub-collection.settings.slides_per_view_tablet.label",
       "options": [
@@ -217,60 +197,8 @@
     },
     {
       "type": "select",
-      "id": "slides_per_group_tablet",
-      "label": "t:sections.blog-sub-collection.settings.slides_per_group_tablet.label",
-      "options": [
-        {
-          "value": "1",
-          "label": "1"
-        },
-        {
-          "value": "2",
-          "label": "2"
-        },
-        {
-          "value": "3",
-          "label": "3"
-        },
-        {
-          "value": "4",
-          "label": "4"
-        }
-      ],
-      "default": "2"
-    },
-    {
-      "type": "select",
       "id": "slides_per_view_desktop",
       "label": "t:sections.blog-sub-collection.settings.slides_per_view_desktop.label",
-      "options": [
-        {
-          "value": "2",
-          "label": "2"
-        },
-        {
-          "value": "3",
-          "label": "3"
-        },
-        {
-          "value": "4",
-          "label": "4"
-        },
-        {
-          "value": "5",
-          "label": "5"
-        },
-        {
-          "value": "6",
-          "label": "6"
-        }
-      ],
-      "default": "5"
-    },
-    {
-      "type": "select",
-      "id": "slides_per_group_desktop",
-      "label": "t:sections.blog-sub-collection.settings.slides_per_group_desktop.label",
       "options": [
         {
           "value": "2",

@@ -25,7 +25,7 @@
   id="section-{{ section.id }}"
   class="section s-faq flat-spacing-25 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
 >
-  <div class="{% if section.settings.width == 'full' %}container-fluid{% else %}container{% endif %}">
+  <div class="{% if section.settings.width == 'full' %}container-full{% else %}container{% endif %}">
     <div class="row">
       {% comment %} Layout based on faq_content_position setting {% endcomment %}
       {% if section.settings.faq_content_position == 'left' %}
@@ -245,7 +245,7 @@
 
 {% schema %}
 {
-  "name": "FAQ",
+  "name": "t:sections.faq.name",
   "tag": "section",
   "class": "section",
   "settings": [

@@ -1,0 +1,262 @@
+<div class="modal modalCentered fade newsletter-popup modal-newsletter"
+     data-popup-trigger="{{ section.settings.popup_trigger }}"
+     data-popup-delay="{{ section.settings.popup_delay }}"
+     data-scroll-threshold="{{ section.settings.scroll_threshold }}"
+     data-days-next-show="{{ section.settings.days_next_show }}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content color-{{ section.settings.color_scheme }}">
+            <div class="modal-top">
+                {% if section.settings.newsletter_image or section.settings.newsletter_image_mobile %}
+                    {% if section.settings.newsletter_image_mobile %}
+                        <picture>
+                            <source media="(max-width: 767px)" srcset="{{ section.settings.newsletter_image_mobile | image_url: width: 300 }}">
+                            {% if section.settings.newsletter_image %}
+                                <source media="(min-width: 768px)" srcset="{{ section.settings.newsletter_image | image_url: width: 400 }}">
+                            {% endif %}
+                            <img src="{{ section.settings.newsletter_image_mobile | image_url: width: 300 }}" 
+                                 class="lazyload" 
+                                 loading="lazy"
+                                 width="300"
+                                 height="auto"
+                                 alt="{% if section.settings.newsletter_image_mobile.alt %}{{ section.settings.newsletter_image_mobile.alt }}{% elsif section.settings.newsletter_image.alt %}{{ section.settings.newsletter_image.alt }}{% endif %}">
+                        </picture>
+                    {% elsif section.settings.newsletter_image %}
+                        {{ section.settings.newsletter_image | image_url: width: 400 | image_tag: 
+                           class: 'lazyload', 
+                           loading: 'lazy',
+                           alt: section.settings.newsletter_image.alt }}
+                    {% endif %}
+                {% endif %}
+                <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
+            </div>
+            <div class="modal-bottom text-center">
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'title' %}
+                            <h5 class="title" {{ block.shopify_attributes }}>{{ block.settings.title }}</h5>
+                        
+                        {% when 'description' %}
+                            <p class="text text-sm text-main" {{ block.shopify_attributes }}>{{ block.settings.description }}</p>
+                        
+                        {% when 'newsletter_form' %}
+                            {% form 'customer', class: 'form-newsletter' %}
+                                <div class="mb_20">
+                                    <fieldset class="email position-relative">
+                                        <i class="icon icon-mail"></i>
+                                        <input type="email" 
+                                               name="contact[email]" 
+                                               class="" 
+                                               placeholder="{{ block.settings.email_placeholder }}" 
+                                               tabindex="0"
+                                               aria-required="true" 
+                                               required="">
+                                    </fieldset>
+                                </div>
+                                <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                                        type="submit">{{ block.settings.button_text }}</button>
+                            {% endform %}
+
+                        {% when 'social_icons' %}
+                            <ul class="tf-social-icon style-default justify-content-center" {{ block.shopify_attributes }}>
+                                {% if settings.social_facebook_link != blank %}
+                                    <li><a href="{{ settings.social_facebook_link }}" class="social-facebook"><i class="icon icon-fb2"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_instagram_link != blank %}
+                                    <li><a href="{{ settings.social_instagram_link }}" class="social-instagram"><i class="icon icon-instagram"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_youtube_link != blank %}
+                                    <li><a href="{{ settings.social_youtube_link }}" class="social-youtube"><i class="icon icon-youtube"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_twitter_link != blank %}
+                                    <li><a href="{{ settings.social_twitter_link }}" class="social-x"><i class="icon icon-x"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_tiktok_link != blank %}
+                                    <li><a href="{{ settings.social_tiktok_link }}" class="social-tiktok"><i class="icon icon-tiktok"></i></a></li>
+                                {% endif %}
+                                {% if settings.social_pinterest_link != blank %}
+                                    <li><a href="{{ settings.social_pinterest_link }}" class="social-pinterest"><i class="icon icon-pinterest"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        
+                        {% when 'info_text' %}
+                            <p class="text text-sm mb-0 text-main" {{ block.shopify_attributes }}>
+                                {{ block.settings.info_text }}
+                                {% if block.settings.link_url and block.settings.link_text %}
+                                    <a href="{{ block.settings.link_url }}" class="fw-medium">{{ block.settings.link_text }}</a>
+                                {% endif %}
+                            </p>
+                    {% endcase %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.newsletter-popup.name",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "newsletter_image",
+      "label": "t:sections.newsletter-popup.settings.newsletter_image"
+    },
+    {
+      "type": "image_picker",
+      "id": "newsletter_image_mobile",
+      "label": "t:sections.newsletter-popup.settings.newsletter_image_mobile"
+    },
+    {
+      "type": "select",
+      "id": "popup_trigger",
+      "label": "t:sections.newsletter-popup.settings.popup_trigger",
+      "options": [
+        {
+          "value": "time",
+          "label": "t:sections.newsletter-popup.settings.popup_trigger_options.time"
+        },
+        {
+          "value": "scroll",
+          "label": "t:sections.newsletter-popup.settings.popup_trigger_options.scroll"
+        }
+      ],
+      "default": "time"
+    },
+    {
+      "type": "range",
+      "id": "popup_delay",
+      "label": "t:sections.newsletter-popup.settings.popup_delay",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 3,
+      "info": "t:sections.newsletter-popup.settings.popup_delay_info"
+    },
+    {
+      "type": "range",
+      "id": "scroll_threshold",
+      "label": "t:sections.newsletter-popup.settings.scroll_threshold",
+      "min": 100,
+      "max": 1000,
+      "step": 50,
+      "default": 300,
+      "info": "t:sections.newsletter-popup.settings.scroll_threshold_info"
+    },
+    {
+      "type": "range",
+      "id": "days_next_show",
+      "label": "t:sections.newsletter-popup.settings.days_next_show",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 7,
+      "info": "t:sections.newsletter-popup.settings.days_next_show_info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "title",
+      "name": "t:sections.newsletter-popup.blocks.title.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.newsletter-popup.blocks.title.settings.title",
+          "default": "Sign up to our Newsletter"
+        }
+      ]
+    },
+    {
+      "type": "description",
+      "name": "t:sections.newsletter-popup.blocks.description.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "t:sections.newsletter-popup.blocks.description.settings.description",
+          "default": "Be the first to get the latest news about trends, promotions, and much more!"
+        }
+      ]
+    },
+    {
+      "type": "newsletter_form",
+      "name": "t:sections.newsletter-popup.blocks.newsletter_form.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "t:sections.newsletter-popup.blocks.newsletter_form.settings.email_placeholder",
+          "default": "Your email address"
+        },
+        {
+          "type": "text",
+          "label": "t:sections.newsletter-popup.blocks.newsletter_form.settings.button_text",
+          "id": "button_text",
+          "default": "Send"
+        }
+      ]
+    },
+    {
+      "type": "info_text",
+      "name": "t:sections.newsletter-popup.blocks.info_text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "info_text",
+          "label": "t:sections.newsletter-popup.blocks.info_text.settings.info_text",
+          "default": "Will be used in accordance with our"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "t:sections.newsletter-popup.blocks.info_text.settings.link_url"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "t:sections.newsletter-popup.blocks.info_text.settings.link_text",
+          "default": "Privacy Policy"
+        }
+      ]
+    },
+    {
+      "type": "social_icons",
+      "name": "t:sections.newsletter-popup.blocks.social_icons.name",
+      "limit": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.newsletter-popup.name",
+      "blocks": [
+        {
+          "type": "title"
+        },
+        {
+          "type": "description"
+        },
+        {
+          "type": "newsletter_form"
+        },
+        {
+          "type": "info_text"
+        },
+        {
+          "type": "social_icons"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

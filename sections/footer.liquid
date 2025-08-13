@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer id="footer" class="footer-default xl-pb-70 footer-pb-2">
+<footer id="footer" class="footer-default {% if template == 'product' %}footer-pb-2{% else %}xl-pb-70{% endif %}">
     <div class="footer-top">
         <div class="container">
             <div class="footer-top-wrap">
@@ -283,6 +283,10 @@
         "default": "medium"
       },
       {
+      "type": "header",
+      "content": "t:sections.footer.settings.footer_bottom"
+      },
+      {
         "type": "text",
         "id": "payment_svg_list",
         "label": "t:sections.footer.settings.payment_svg_list",
@@ -301,11 +305,7 @@
         "unit": "px",
         "label": "t:sections.footer.settings.svg_height",
         "default": 40
-      },
-    {
-      "type": "header",
-      "content": "t:sections.footer.settings.footer_bottom"
-    }
+      }
   ],
   "blocks": [
     {

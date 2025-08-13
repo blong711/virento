@@ -3,8 +3,9 @@
     - product: The product object
 {% endcomment %}
 <li>
+{% assign card_style = settings.card_style | default: 'style-2' %}
     <a href="#" 
-       class="hover-tooltip box-icon quickview btn-quickview" 
+       class="hover-tooltip box-icon quickview btn-quickview{% if card_style == 'style-1' %} tooltip-left{% endif %}" 
        data-product-id="{{ product.id }}"
        data-product-handle="{{ product.handle }}"
        data-product-title="{{ product.title | escape }}"

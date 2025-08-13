@@ -367,6 +367,38 @@ document.addEventListener('DOMContentLoaded', function() {
       return matchingVariant ? matchingVariant.id : null;
     }
   
+    // Function to handle hiding sold out variants
+    function handleSoldOutVariants() {
+      if (!window.variantPickerSettings || !window.variantPickerSettings.hideSoldOut) {
+        return;
+      }
+      
+      // Hide sold out variant options
+      const variantOptions = document.querySelectorAll('.color-btn, .size-btn, .select-item');
+      variantOptions.forEach(option => {
+        const optionValue = option.getAttribute('data-value') || option.getAttribute('data-scroll');
+        const optionType = option.getAttribute('data-option');
+        
+        if (optionValue && optionType) {
+          // Find if this option has any available variants
+          const hasAvailableVariant = window.productVariants.some(variant => {
+            if (optionType === 'color' && variant.option1 && variant.option1.toLowerCase() === optionValue.toLowerCase()) {
+              return variant.available;
+            } else if (optionType === 'size' && variant.option2 && variant.option2.toLowerCase() === optionValue.toLowerCase()) {
+              return variant.available;
+            }
+            return false;
+          });
+          
+          if (!hasAvailableVariant) {
+            option.style.display = 'none';
+          } else {
+            option.style.display = '';
+          }
+        }
+      });
+    }
+
     // Function to update variant selection
     function updateVariantSelection(variant) {
       try {
@@ -375,18 +407,21 @@ document.addEventListener('DOMContentLoaded', function() {
           return;
         }
   
-        // Update add to cart button
-        const addToCartBtn = document.querySelector('.add-to-cart');
-        if (addToCartBtn) {
+        // Update main add to cart buttons (excludes sticky section)
+        const mainAddToCartBtns = document.querySelectorAll('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)');
+        mainAddToCartBtns.forEach(addToCartBtn => {
           addToCartBtn.dataset.variantId = variant.id;
+          addToCartBtn.dataset.selectedVariant = variant.id;
           
           // Update quantity in add to cart button
-          const quantityInput = document.querySelector('.quantity-product');
+          const quantityInput = addToCartBtn.closest('form, .tf-product-info')?.querySelector('.quantity-product');
           if (quantityInput) {
             const quantity = parseInt(quantityInput.value) || 1;
             addToCartBtn.dataset.quantity = quantity;
           }
-        }
+        });
+        
+
   
         // Update price
         const priceElement = document.querySelector('.price-new');
@@ -590,7 +625,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           });
         }
-  
+        
+        // Handle hiding sold out variants after updating selection
+        handleSoldOutVariants();
 
       } catch (error) {
         console.error('Error in updateVariantSelection:', error);
@@ -704,64 +741,178 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   
-    // // --- Quantity Controls (Cleaned Up) ---
-    // document.querySelectorAll('.tf-product-info-list .minus-btn').forEach(button => {
-    //   button.addEventListener('click', function(e) {
-    //     e.preventDefault();
-    //     const input = this.nextElementSibling;
-    //     let value = parseInt(input.value) || 1;
-    //     if (value > 1) value--;
-    //     input.value = value + 1;
-    //     input.dispatchEvent(new Event('change'));
-    //   });
-    // });
-    // document.querySelectorAll('.tf-product-info-list .plus-btn').forEach(button => {
-    //   button.addEventListener('click', function(e) {
-    //     e.preventDefault();
-    //     const input = this.previousElementSibling;
-    //     let value = parseInt(input.value) || 1;
-    //     value++;
-    //     input.value = value - 1;
-    //     input.dispatchEvent(new Event('change'));
-    //   });
-    // });
-    // document.querySelectorAll('.tf-product-info-list .quantity-product').forEach(input => {
-    //   input.addEventListener('change', function() {
-    //     let value = parseInt(this.value) || 1;
-    //     this.value = Math.max(1, value);
-    //     // Update add-to-cart button's data-quantity
-    //     const mainAddToCartBtn = document.querySelector('.tf-product-info-list .add-to-cart');
-    //     if (mainAddToCartBtn) {
-    //       mainAddToCartBtn.dataset.quantity = this.value;
-    //     }
-    //   });
-    // });
-    // ... existing code ...
-    // Remove any other direct or delegated event listeners for quantity controls that call window.cart.updateQuantity except in the Add to Cart click handler.
-  
-    // Only set the active class for initial page load
-    const initialVariant = window.initialVariant || null;
-  
-    if (initialVariant) {
-      updateVariantSelection(initialVariant);
-      // Set initial color button active state
-      const initialColor = initialVariant.option1;
-      if (initialColor) {
-        const colorBtn = Array.from(document.querySelectorAll('.color-btn, .btn-scroll-target, .select-item[data-option="color"]')).find(btn => {
-          if (btn.classList.contains('color-btn') || btn.classList.contains('btn-scroll-target')) {
-            // For color swatches, check data-scroll
-            return btn.getAttribute('data-scroll') && btn.getAttribute('data-scroll').toLowerCase() === initialColor.toLowerCase();
-          } else {
-            // For color dropdown, check the text content
-            const textElement = btn.querySelector('.text-value-item');
-            return textElement && textElement.textContent.toLowerCase() === initialColor.toLowerCase();
-          }
-        });
-        if (colorBtn) {
-          colorBtn.classList.add('active');
+    // Main Quantity Controls (excludes sticky section)
+    document.addEventListener('click', function(e) {
+      // Handle decrease button clicks - only for main product section
+      if (e.target.classList.contains('btn-decrease') && !e.target.closest('.tf-sticky-btn-atc')) {
+        e.preventDefault();
+        const quantityInput = e.target.nextElementSibling;
+        let value = parseInt(quantityInput.value) || 1;
+        if (value > 1) {
+          value--;
+          quantityInput.value = value;
+          // Update main button data immediately
+          updateQuantityOnButton(value);
         }
       }
+      
+      // Handle increase button clicks - only for main product section
+      if (e.target.classList.contains('btn-increase') && !e.target.closest('.tf-sticky-btn-atc')) {
+        e.preventDefault();
+        const quantityInput = e.target.previousElementSibling;
+        let value = parseInt(quantityInput.value) || 1;
+        value++;
+        quantityInput.value = value;
+        // Update main button data immediately
+        updateQuantityOnButton(value);
+      }
+    });
+    
+    // Function to update quantity on main add-to-cart buttons (excludes sticky section)
+    function updateQuantityOnButton(value) {
+      // Update only main add-to-cart buttons, not sticky ones
+      const mainAddToCartBtns = document.querySelectorAll('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)');
+      mainAddToCartBtns.forEach(addToCartBtn => {
+        // Always update quantity immediately
+        addToCartBtn.dataset.quantity = value;
+        
+        // If no variant is selected, use the initial variant
+        if (!addToCartBtn.dataset.variantId) {
+          const initialVariant = window.initialVariant;
+          if (initialVariant) {
+            addToCartBtn.dataset.variantId = initialVariant.id;
+            addToCartBtn.dataset.selectedVariant = initialVariant.id;
+          }
+        }
+      });
+      
+      // Also update any hidden quantity inputs that the cart might be reading from (exclude sticky)
+      const hiddenQuantityInputs = document.querySelectorAll('input[name="quantity"]:not(.tf-sticky-btn-atc input[name="quantity"])');
+      hiddenQuantityInputs.forEach(input => {
+        input.value = value;
+      });
     }
+    
+    // Separate function for sticky add-to-cart functionality
+    function updateStickyQuantity(value) {
+      // Update sticky add-to-cart button
+      const stickyAddToCartBtn = document.querySelector('.tf-sticky-btn-atc .product-cart-button');
+      if (stickyAddToCartBtn) {
+        stickyAddToCartBtn.dataset.quantity = value;
+        
+        // If no variant is selected, use the initial variant
+        if (!stickyAddToCartBtn.dataset.variantId) {
+          const initialVariant = window.initialVariant;
+          if (initialVariant) {
+            stickyAddToCartBtn.dataset.variantId = initialVariant.id;
+            stickyAddToCartBtn.dataset.selectedVariant = initialVariant.id;
+          }
+        }
+      }
+      
+      // Update sticky quantity input
+      const stickyQuantityInput = document.querySelector('.tf-sticky-btn-atc .quantity-product');
+      if (stickyQuantityInput) {
+        stickyQuantityInput.value = value;
+      }
+    }
+    
+    // Function to update sticky variant selection
+    function updateStickyVariant(variant) {
+      if (!variant || typeof variant !== 'object') return;
+      
+      // Update sticky add-to-cart button
+      const stickyAddToCartBtn = document.querySelector('.tf-sticky-btn-atc .product-cart-button');
+      if (stickyAddToCartBtn) {
+        stickyAddToCartBtn.dataset.variantId = variant.id;
+        stickyAddToCartBtn.dataset.selectedVariant = variant.id;
+        
+        // Update quantity in sticky button
+        const stickyQuantityInput = document.querySelector('.tf-sticky-btn-atc .quantity-product');
+        if (stickyQuantityInput) {
+          const quantity = parseInt(stickyQuantityInput.value) || 1;
+          stickyAddToCartBtn.dataset.quantity = quantity;
+        }
+      }
+      
+      // Update sticky variant selector dropdown
+      const stickyVariantSelect = document.querySelector('.tf-sticky-btn-atc .sticky-variant-select');
+      if (stickyVariantSelect) {
+        stickyVariantSelect.value = variant.id;
+      }
+    }
+    
+    // Handle main quantity input changes (excludes sticky section)
+    document.addEventListener('change', function(e) {
+      if (e.target.classList.contains('quantity-product') && !e.target.closest('.tf-sticky-btn-atc')) {
+        let value = parseInt(e.target.value) || 1;
+        // Ensure minimum value is 1
+        value = Math.max(1, value);
+        e.target.value = value;
+        
+        // Update main button data using the same function
+        updateQuantityOnButton(value);
+      }
+    });
+    // Handle main quantity input validation (excludes sticky section)
+    document.addEventListener('input', function(e) {
+      if (e.target.classList.contains('quantity-product') && !e.target.closest('.tf-sticky-btn-atc')) {
+        // Remove non-numeric characters
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      }
+    });
+    
+    // Sticky quantity controls - separate from main quantity controls
+    document.addEventListener('click', function(e) {
+      // Handle sticky decrease button clicks
+      if (e.target.closest('.tf-sticky-btn-atc') && e.target.classList.contains('btn-decrease')) {
+        e.preventDefault();
+        const quantityInput = e.target.nextElementSibling;
+        let value = parseInt(quantityInput.value) || 1;
+        if (value > 1) {
+          value--;
+          quantityInput.value = value;
+          // Update sticky button data immediately
+          updateStickyQuantity(value);
+        }
+      }
+      
+      // Handle sticky increase button clicks
+      if (e.target.closest('.tf-sticky-btn-atc') && e.target.classList.contains('btn-increase')) {
+        e.preventDefault();
+        const quantityInput = e.target.previousElementSibling;
+        let value = parseInt(quantityInput.value) || 1;
+        value++;
+        quantityInput.value = value;
+        // Update sticky button data immediately
+        updateStickyQuantity(value);
+      }
+    });
+    
+    // Handle sticky quantity input changes
+    document.addEventListener('change', function(e) {
+      if (e.target.closest('.tf-sticky-btn-atc') && e.target.classList.contains('quantity-product')) {
+        let value = parseInt(e.target.value) || 1;
+        // Ensure minimum value is 1
+        value = Math.max(1, value);
+        e.target.value = value;
+        
+        // Update sticky button data
+        updateStickyQuantity(value);
+      }
+    });
+    
+    // Handle sticky variant selector changes
+    document.addEventListener('change', function(e) {
+      if (e.target.classList.contains('sticky-variant-select')) {
+        const variantId = parseInt(e.target.value);
+        const variants = window.productVariants || [];
+        const variant = variants.find(v => v.id === variantId);
+        if (variant) {
+          updateStickyVariant(variant);
+        }
+      }
+    });
   
     // Initialize image zoom
     const zoomMain = document.querySelector('.tf-zoom-main');
@@ -1211,9 +1362,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   
   });
-  
-
-  
+    
   // Helper function to format money
   function formatMoney(cents) {
     return new Intl.NumberFormat('en-US', {

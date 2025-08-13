@@ -17,7 +17,7 @@
 {%- endstyle -%}
 
 <section class="section-{{ section.id }}-padding">
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
     <div class="box-testimonial-quote text-center color-{{ section.settings.color_scheme }}">
       {%- if section.settings.rating > 0 -%}
         <div class="list-star-default justify-content-center star-rating-{{ section.id }}">
@@ -55,7 +55,7 @@
 
 {% schema %}
 {
-  "name": "Single testimonial",
+  "name": "t:sections.single-testimonial.name",
   "tag": "section",
   "settings": [
     {

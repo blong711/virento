@@ -16,7 +16,7 @@
   class="s-contact flat-spacing-13 color-{{ section.settings.color_scheme }} background-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
 >
   <div class="">
-    <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
+    <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
       <div class="row">
         <div class="col-lg-6">
           <div class="content-left">
@@ -189,7 +189,7 @@
 
 {% schema %}
 {
-  "name": "contact-form-with-text",
+  "name": "t:sections.contact-form-with-text.name",
   "class": "section",
   "disabled_on": {
     "groups": ["header", "footer"]
@@ -292,35 +292,35 @@
     },
     {
       "type": "contact_info",
-      "name": "Contact Information",
+      "name": "t:sections.contact-form-with-text.blocks.contact_info.name",
       "settings": [
         {
           "type": "text",
           "id": "address",
-          "label": "Address",
+          "label": "t:sections.contact-form-with-text.blocks.contact_info.settings.address.label",
           "default": "15 Yarran st, Punchbowl, NSW, Australia"
         },
         {
           "type": "url",
           "id": "address_url",
-          "label": "Address URL (Google Maps link)"
+          "label": "t:sections.contact-form-with-text.blocks.contact_info.settings.address_url.label"
         },
         {
           "type": "text",
           "id": "phone",
-          "label": "Phone Number",
+          "label": "t:sections.contact-form-with-text.blocks.contact_info.settings.phone.label",
           "default": "+1 234 567"
         },
         {
           "type": "text",
           "id": "email",
-          "label": "Email Address",
+          "label": "t:sections.contact-form-with-text.blocks.contact_info.settings.email.label",
           "default": "contact@vince.com"
         },
         {
           "type": "text",
           "id": "hours",
-          "label": "Business Hours",
+          "label": "t:sections.contact-form-with-text.blocks.contact_info.settings.hours.label",
           "default": "8am - 7pm, Mon - Sat"
         }
       ]

@@ -2,17 +2,15 @@
   assign section_id = 'back-to-top-' | append: section.id
   assign hidden_mobile = section.settings.hidden_mobile
   assign enable_progress = section.settings.enable_progress
-  assign icon_color = section.settings.icon_color
-  assign progress_active_color = section.settings.progress_active_color
 -%}
 
 {%- if enable_progress -%}
   <style>
     #goTop .border-progress {
-      border-color: {{ progress_active_color }};
+      border-color: rgb(var(--color-button));
     }
     #goTop .icon {
-      color: {{ icon_color }};
+      color: rgb(var(--color-foreground));
     }
     {%- if hidden_mobile -%}
     @media (max-width: 768px) {
@@ -24,12 +22,14 @@
   </style>
 {%- endif -%}
 
-<button id="goTop" class="go-top{% if hidden_mobile %} hidden-mobile{% endif %}">
-  {%- if enable_progress -%}
-    <span class="border-progress"></span>
-  {%- endif -%}
-  <span class="icon icon-arrow-right"></span>
-</button>
+<div class="color-{{ section.settings.color_scheme }}">
+  <button id="goTop" class="go-top{% if hidden_mobile %} hidden-mobile{% endif %}">
+    {%- if enable_progress -%}
+      <span class="border-progress"></span>
+    {%- endif -%}
+    <span class="icon icon-arrow-right"></span>
+  </button>
+</div>
 
 {% schema %}
 {
@@ -48,16 +48,10 @@
       "default": true
     },
     {
-      "type": "color",
-      "id": "icon_color",
-      "label": "t:sections.back-to-top.settings.icon_color.label",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "progress_active_color",
-      "label": "t:sections.back-to-top.settings.progress_active_color.label",
-      "default": "#000000"
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
     }
   ],
   "presets": [

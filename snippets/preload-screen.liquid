@@ -1,0 +1,34 @@
+<!-- Preload - Optimized for performance -->
+{%- if settings.enable_loading_screen -%}
+<div class="preload preload-container" id="preloadContainer">
+  <div class="preload-logo">
+    <div class="spinner"></div>
+  </div>
+</div>
+<script>
+  // Optimized preload screen handling
+  document.addEventListener('DOMContentLoaded', function() {
+    const preloadContainer = document.getElementById('preloadContainer');
+    if (preloadContainer) {
+      // Hide preload screen after critical content is loaded
+      setTimeout(function() {
+        preloadContainer.classList.add('active');
+        setTimeout(function() {
+          preloadContainer.style.display = 'none';
+        }, 300);
+      }, 100);
+    }
+  });
+  
+  // Hide preload screen if page takes too long to load
+  window.addEventListener('load', function() {
+    const preloadContainer = document.getElementById('preloadContainer');
+    if (preloadContainer && preloadContainer.style.display !== 'none') {
+      preloadContainer.classList.add('active');
+      setTimeout(function() {
+        preloadContainer.style.display = 'none';
+      }, 300);
+    }
+  });
+</script>
+{%- endif -%}

@@ -17,7 +17,19 @@ if ($compare_list){
   var arr_compare_list = $compare_list.textContent ? $compare_list.textContent.split(' ') : [];
 }
 else {
-  var arr_compare_list = (!localStorage.getItem(nameCachedCompare)) ? [] : localStorage.getItem(nameCachedCompare).split(',');  // remove id: and conver array
+  // Try to get compare list from localStorage, handle both old and new formats
+  const storedCompare = localStorage.getItem(nameCachedCompare);
+  if (storedCompare) {
+    try {
+      // Try to parse as JSON (new format)
+      arr_compare_list = JSON.parse(storedCompare);
+    } catch (e) {
+      // Fall back to old format (comma-separated string)
+      arr_compare_list = storedCompare.split(',');
+    }
+  } else {
+    arr_compare_list = [];
+  }
 }
 // arr_wishlist_list = [1234, 5678, 9011]
 // arr_compare_list = [1234, 5678, 9011]
@@ -32,15 +44,19 @@ var linkWishlistApp = '/apps/ecomrise/wishlist',
     const searchUrl = (window.themeHDN && themeHDN.routes && themeHDN.routes.search_url) ? themeHDN.routes.search_url : '/search';
     const x = searchUrl + `/?view=${prefix}`,
       y = x + '&type=product&options[unavailable_products]=last&q=';
-    return (array.length) ? y + encodeURI(`id:${array.join(' OR id:')}`) : x;
+    
+    if (array.length) {
+      // Handle both old format (array of strings) and new format (array of objects)
+      const ids = array.map(item => typeof item === 'object' ? item.id : item);
+      return y + encodeURI(`id:${ids.join(' OR id:')}`);
+    }
+    return x;
   };
 
 // Initialize wishlist functionality for existing buttons
 function initializeWishlistButtons() {
-  // Find all wishlist buttons
-  const wishlistButtons = document.querySelectorAll('.wishlist a[data-product-id]');
-  
-
+  // Find all wishlist buttons (including main product page button)
+  const wishlistButtons = document.querySelectorAll('.wishlist a[data-product-id], .btn-add-wishlist[data-product-id]');
   
   wishlistButtons.forEach(button => {
     const productId = button.getAttribute('data-product-id');
@@ -48,19 +64,47 @@ function initializeWishlistButtons() {
     const icon = button.querySelector('.icon');
     const tooltip = button.querySelector('.tooltip');
     
+
+    
     // Check if product is already in wishlist
     const isInWishlist = arr_wishlist_list.includes(productId);
     
     // Update button state
     if (isInWishlist) {
-      icon.classList.remove('icon-heart2');
-      icon.classList.add('icon-trash');
-      tooltip.textContent = 'Remove from Wishlist';
+      // Handle different icon classes for main product button vs regular wishlist buttons
+      if (button.classList.contains('btn-add-wishlist')) {
+        icon.classList.remove('icon-heart');
+        icon.classList.add('icon-trash');
+        const addSpan = button.querySelector('span.add');
+        const addedSpan = button.querySelector('span.added');
+        if (addSpan) addSpan.style.display = 'none';
+        if (addedSpan) addedSpan.style.display = 'inline';
+      } else {
+        icon.classList.remove('icon-heart2');
+        icon.classList.add('icon-trash');
+      }
+      // Only update tooltip if it exists
+      if (tooltip) {
+        tooltip.textContent = 'Remove from Wishlist';
+      }
       button.setAttribute('data-action', 'remove');
     } else {
-      icon.classList.remove('icon-trash');
-      icon.classList.add('icon-heart2');
-      tooltip.textContent = 'Add to Wishlist';
+      // Handle different icon classes for main product button vs regular wishlist buttons
+      if (button.classList.contains('btn-add-wishlist')) {
+        icon.classList.remove('icon-trash');
+        icon.classList.add('icon-heart');
+        const addSpan = button.querySelector('span.add');
+        const addedSpan = button.querySelector('span.added');
+        if (addSpan) addSpan.style.display = 'inline';
+        if (addedSpan) addedSpan.style.display = 'none';
+      } else {
+        icon.classList.remove('icon-trash');
+        icon.classList.add('icon-heart2');
+      }
+      // Only update tooltip if it exists
+      if (tooltip) {
+        tooltip.textContent = 'Add to Wishlist';
+      }
       button.setAttribute('data-action', 'add');
     }
     
@@ -92,9 +136,21 @@ function handleWishlistClick(button, productId, productHandle) {
     localStorage.setItem(nameCachedWishlist, arr_wishlist_list.toString());
     
     // Update button state
-    icon.classList.remove('icon-heart2');
-    icon.classList.add('icon-trash');
-    tooltip.textContent = 'Remove from Wishlist';
+    if (button.classList.contains('btn-add-wishlist')) {
+      icon.classList.remove('icon-heart');
+      icon.classList.add('icon-trash');
+      const addSpan = button.querySelector('span.add');
+      const addedSpan = button.querySelector('span.added');
+      if (addSpan) addSpan.style.display = 'none';
+      if (addedSpan) addedSpan.style.display = 'inline';
+    } else {
+      icon.classList.remove('icon-heart2');
+      icon.classList.add('icon-trash');
+    }
+    // Only update tooltip if it exists
+    if (tooltip) {
+      tooltip.textContent = 'Remove from Wishlist';
+    }
     button.setAttribute('data-action', 'remove');
     
     // Update all buttons for this product
@@ -111,9 +167,21 @@ function handleWishlistClick(button, productId, productHandle) {
     }
     
     // Update button state
-    icon.classList.remove('icon-trash');
-    icon.classList.add('icon-heart2');
-    tooltip.textContent = 'Add to Wishlist';
+    if (button.classList.contains('btn-add-wishlist')) {
+      icon.classList.remove('icon-trash');
+      icon.classList.add('icon-heart');
+      const addSpan = button.querySelector('span.add');
+      const addedSpan = button.querySelector('span.added');
+      if (addSpan) addSpan.style.display = 'inline';
+      if (addedSpan) addedSpan.style.display = 'none';
+    } else {
+      icon.classList.remove('icon-trash');
+      icon.classList.add('icon-heart2');
+    }
+    // Only update tooltip if it exists
+    if (tooltip) {
+      tooltip.textContent = 'Add to Wishlist';
+    }
     button.setAttribute('data-action', 'add');
     
     // Update all buttons for this product
@@ -134,21 +202,45 @@ function handleWishlistClick(button, productId, productHandle) {
 
 // Update all wishlist buttons for a specific product
 function updateAllWishlistButtons(productId, action) {
-  const buttons = document.querySelectorAll(`.wishlist a[data-product-id="${productId}"]`);
+  const buttons = document.querySelectorAll(`.wishlist a[data-product-id="${productId}"], .btn-add-wishlist[data-product-id="${productId}"]`);
   
   buttons.forEach(button => {
     const icon = button.querySelector('.icon');
     const tooltip = button.querySelector('.tooltip');
     
     if (action === 'remove') {
-      icon.classList.remove('icon-heart2');
-      icon.classList.add('icon-trash');
-      tooltip.textContent = 'Remove from Wishlist';
+      if (button.classList.contains('btn-add-wishlist')) {
+        icon.classList.remove('icon-heart');
+        icon.classList.add('icon-trash');
+        const addSpan = button.querySelector('span.add');
+        const addedSpan = button.querySelector('span.added');
+        if (addSpan) addSpan.style.display = 'none';
+        if (addedSpan) addedSpan.style.display = 'inline';
+      } else {
+        icon.classList.remove('icon-heart2');
+        icon.classList.add('icon-trash');
+      }
+      // Only update tooltip if it exists
+      if (tooltip) {
+        tooltip.textContent = 'Remove from Wishlist';
+      }
       button.setAttribute('data-action', 'remove');
     } else {
-      icon.classList.remove('icon-trash');
-      icon.classList.add('icon-heart2');
-      tooltip.textContent = 'Add to Wishlist';
+      if (button.classList.contains('btn-add-wishlist')) {
+        icon.classList.remove('icon-trash');
+        icon.classList.add('icon-heart');
+        const addSpan = button.querySelector('span.add');
+        const addedSpan = button.querySelector('span.added');
+        if (addSpan) addSpan.style.display = 'inline';
+        if (addedSpan) addedSpan.style.display = 'none';
+      } else {
+        icon.classList.remove('icon-trash');
+        icon.classList.add('icon-heart2');
+      }
+      // Only update tooltip if it exists
+      if (tooltip) {
+        tooltip.textContent = 'Add to Wishlist';
+      }
       button.setAttribute('data-action', 'add');
     }
   });
@@ -187,7 +279,7 @@ if (window.isPageWishlist) {
 // Reset if limit change
 if (arr_compare_list.length > limitCompare) {
   arr_compare_list.splice(limitCompare - 1, arr_compare_list.length - 1);
-  localStorage.setItem(nameCachedCompare, arr_compare_list.toString());
+  localStorage.setItem(nameCachedCompare, JSON.stringify(arr_compare_list));
 }
 // Check is page has item but not show reload page
 if (window.isPageCompare) {
@@ -244,6 +336,9 @@ customElements.define("hdt-wishlist-a", WishlistLink);
 
 // COMPARE
 // Note: Compare functionality is handled separately from wishlist
+// Store both product ID and handle for compare items
+var arr_compare_list = (!localStorage.getItem(nameCachedCompare)) ? [] : JSON.parse(localStorage.getItem(nameCachedCompare)) || [];
+
 // Update count
 class CompareCount extends HTMLElement {
   constructor() {
@@ -275,8 +370,8 @@ customElements.define("hdt-compare-a", CompareLink);
 
 // Initialize compare functionality for existing buttons
 function initializeCompareButtons() {
-  // Find all compare buttons
-  const compareButtons = document.querySelectorAll('.compare a[data-product-id]');
+  // Find all compare buttons (including main product page button)
+  const compareButtons = document.querySelectorAll('.compare a[data-product-id], .btn-add-compare[data-product-id]');
   
   compareButtons.forEach(button => {
     const productId = button.getAttribute('data-product-id');
@@ -285,19 +380,41 @@ function initializeCompareButtons() {
     const tooltip = button.querySelector('.tooltip');
     
     // Check if product is already in compare
-    const isInCompare = arr_compare_list.includes(productId);
+    const isInCompare = arr_compare_list.some(item => (typeof item === 'object' ? item.id : item) === productId);
     
     // Update button state
     if (isInCompare) {
-      icon.classList.remove('icon-compare');
-      icon.classList.add('icon-check');
-      tooltip.textContent = 'Browse Compare';
-      button.setAttribute('data-action', 'browse');
+      if (button.classList.contains('btn-add-compare')) {
+        icon.classList.remove('icon-compare2');
+        icon.classList.add('icon-check');
+        button.setAttribute('data-action', 'browse');
+        // Handle text switching with JavaScript
+        const compareText = button.querySelector('span.compare-text');
+        const browseText = button.querySelector('span.browse-text');
+        if (compareText) compareText.style.display = 'none';
+        if (browseText) browseText.style.display = 'inline';
+      } else {
+        icon.classList.remove('icon-compare');
+        icon.classList.add('icon-check');
+        if (tooltip) tooltip.textContent = 'Browse Compare';
+        button.setAttribute('data-action', 'browse');
+      }
     } else {
-      icon.classList.remove('icon-check', 'icon-trash');
-      icon.classList.add('icon-compare');
-      tooltip.textContent = 'Add to Compare';
-      button.setAttribute('data-action', 'add');
+      if (button.classList.contains('btn-add-compare')) {
+        icon.classList.remove('icon-check');
+        icon.classList.add('icon-compare2');
+        button.setAttribute('data-action', 'add');
+        // Handle text switching with JavaScript
+        const compareText = button.querySelector('span.compare-text');
+        const browseText = button.querySelector('span.browse-text');
+        if (compareText) compareText.style.display = 'inline';
+        if (browseText) browseText.style.display = 'none';
+      } else {
+        icon.classList.remove('icon-check', 'icon-trash');
+        icon.classList.add('icon-compare');
+        if (tooltip) tooltip.textContent = 'Add to Compare';
+        button.setAttribute('data-action', 'add');
+      }
     }
     
     // Add click event listener
@@ -358,14 +475,24 @@ function handleCompareClick(button, productId, productHandle) {
       arr_compare_list.splice(limitCompare - 1, 1);
     }
     
-    // Add to beginning of array
-    arr_compare_list.unshift(productId);
-    localStorage.setItem(nameCachedCompare, arr_compare_list.toString());
+    // Add to beginning of array with both ID and handle
+    arr_compare_list.unshift({ id: productId, handle: productHandle });
+    localStorage.setItem(nameCachedCompare, JSON.stringify(arr_compare_list));
     
     // Update button state
-    icon.classList.remove('icon-compare');
-    icon.classList.add('icon-check');
-    tooltip.textContent = 'Browse Compare';
+    if (button.classList.contains('btn-add-compare')) {
+      icon.classList.remove('icon-compare2');
+      icon.classList.add('icon-check');
+      // Handle text switching with JavaScript
+      const compareText = button.querySelector('span.compare-text');
+      const browseText = button.querySelector('span.browse-text');
+      if (compareText) compareText.style.display = 'none';
+      if (browseText) browseText.style.display = 'inline';
+    } else {
+      icon.classList.remove('icon-compare');
+      icon.classList.add('icon-check');
+    }
+    if (tooltip) tooltip.textContent = 'Browse Compare';
     button.setAttribute('data-action', 'browse');
     
     // Update all buttons for this product
@@ -380,16 +507,26 @@ function handleCompareClick(button, productId, productHandle) {
     
   } else {
     // Remove from compare
-    const index = arr_compare_list.indexOf(productId);
+    const index = arr_compare_list.findIndex(item => item.id === productId || item === productId);
     if (index > -1) {
       arr_compare_list.splice(index, 1);
-      localStorage.setItem(nameCachedCompare, arr_compare_list.toString());
+      localStorage.setItem(nameCachedCompare, JSON.stringify(arr_compare_list));
     }
     
     // Update button state
-    icon.classList.remove('icon-check');
-    icon.classList.add('icon-compare');
-    tooltip.textContent = 'Add to Compare';
+    if (button.classList.contains('btn-add-compare')) {
+      icon.classList.remove('icon-check');
+      icon.classList.add('icon-compare2');
+      // Handle text switching with JavaScript
+      const compareText = button.querySelector('span.compare-text');
+      const browseText = button.querySelector('span.browse-text');
+      if (compareText) compareText.style.display = 'inline';
+      if (browseText) browseText.style.display = 'none';
+    } else {
+      icon.classList.remove('icon-check');
+      icon.classList.add('icon-compare');
+    }
+    if (tooltip) tooltip.textContent = 'Add to Compare';
     button.setAttribute('data-action', 'add');
     
     // Update all buttons for this product
@@ -405,26 +542,56 @@ function handleCompareClick(button, productId, productHandle) {
 
 // Update all compare buttons for a specific product
 function updateAllCompareButtons(productId, action) {
-  const buttons = document.querySelectorAll(`.compare a[data-product-id="${productId}"]`);
+  const buttons = document.querySelectorAll(`.compare a[data-product-id="${productId}"], .btn-add-compare[data-product-id="${productId}"]`);
   
   buttons.forEach(button => {
     const icon = button.querySelector('.icon');
     const tooltip = button.querySelector('.tooltip');
     
     if (action === 'browse') {
-      icon.classList.remove('icon-compare', 'icon-trash');
-      icon.classList.add('icon-check');
-      tooltip.textContent = 'Browse Compare';
+      if (button.classList.contains('btn-add-compare')) {
+        icon.classList.remove('icon-compare2');
+        icon.classList.add('icon-check');
+        // Handle text switching with JavaScript
+        const compareText = button.querySelector('span.compare-text');
+        const browseText = button.querySelector('span.browse-text');
+        if (compareText) compareText.style.display = 'none';
+        if (browseText) browseText.style.display = 'inline';
+      } else {
+        icon.classList.remove('icon-compare', 'icon-trash');
+        icon.classList.add('icon-check');
+      }
+      if (tooltip) tooltip.textContent = 'Browse Compare';
       button.setAttribute('data-action', 'browse');
     } else if (action === 'remove') {
-      icon.classList.remove('icon-compare', 'icon-check');
-      icon.classList.add('icon-trash');
-      tooltip.textContent = 'Remove from Compare';
+      if (button.classList.contains('btn-add-compare')) {
+        icon.classList.remove('icon-check');
+        icon.classList.add('icon-compare2');
+        // Handle text switching with JavaScript
+        const compareText = button.querySelector('span.compare-text');
+        const browseText = button.querySelector('span.browse-text');
+        if (compareText) compareText.style.display = 'inline';
+        if (browseText) browseText.style.display = 'none';
+      } else {
+        icon.classList.remove('icon-compare', 'icon-check');
+        icon.classList.add('icon-trash');
+      }
+      if (tooltip) tooltip.textContent = 'Remove from Compare';
       button.setAttribute('data-action', 'remove');
     } else {
-      icon.classList.remove('icon-check', 'icon-trash');
-      icon.classList.add('icon-compare');
-      tooltip.textContent = 'Add to Compare';
+      if (button.classList.contains('btn-add-compare')) {
+        icon.classList.remove('icon-check');
+        icon.classList.add('icon-compare2');
+        // Handle text switching with JavaScript
+        const compareText = button.querySelector('span.compare-text');
+        const browseText = button.querySelector('span.browse-text');
+        if (compareText) compareText.style.display = 'inline';
+        if (browseText) browseText.style.display = 'none';
+      } else {
+        icon.classList.remove('icon-check', 'icon-trash');
+        icon.classList.add('icon-compare');
+      }
+      if (tooltip) tooltip.textContent = 'Add to Compare';
       button.setAttribute('data-action', 'add');
     }
   });
@@ -465,7 +632,10 @@ function updateCompareModalContent() {
   compareList.innerHTML = '';
   
   // Add current compare items
-  arr_compare_list.forEach(productId => {
+  arr_compare_list.forEach(item => {
+    const productId = typeof item === 'object' ? item.id : item;
+    const productHandle = typeof item === 'object' ? item.handle : null;
+        
     // Create compare item element
     const compareItem = document.createElement('div');
     compareItem.className = 'tf-compare-item file-delete';
@@ -493,15 +663,17 @@ function updateCompareModalContent() {
     compareList.appendChild(compareItem);
     
     // Fetch product data
-    fetchProductData(productId, compareItem);
+    fetchProductData(productId, compareItem, productHandle);
   });
 }
 
 // Fetch product data for compare modal
-function fetchProductData(productId, compareItem) {
-  // Get the product handle from the compare button
-  const compareButton = document.querySelector(`.compare a[data-product-id="${productId}"]`);
-  const productHandle = compareButton ? compareButton.getAttribute('data-product-handle') : null;
+function fetchProductData(productId, compareItem, productHandle = null) {
+  // If productHandle is not provided, try to get it from the compare button
+  if (!productHandle) {
+    const compareButton = document.querySelector(`.compare a[data-product-id="${productId}"], .btn-add-compare[data-product-id="${productId}"]`);
+    productHandle = compareButton ? compareButton.getAttribute('data-product-handle') : null;
+  }
   
   if (!productHandle) {
     console.error('No product handle found for product ID:', productId);
@@ -565,10 +737,10 @@ function fetchProductData(productId, compareItem) {
 
 // Remove from compare function (called from modal)
 function removeFromCompare(productId) {
-  const index = arr_compare_list.indexOf(productId.toString());
+  const index = arr_compare_list.findIndex(item => (typeof item === 'object' ? item.id : item) === productId.toString());
   if (index > -1) {
     arr_compare_list.splice(index, 1);
-    localStorage.setItem(nameCachedCompare, arr_compare_list.toString());
+    localStorage.setItem(nameCachedCompare, JSON.stringify(arr_compare_list));
     
     // Update all buttons for this product
     updateAllCompareButtons(productId.toString(), 'add');
@@ -630,17 +802,27 @@ function cleanupModal() {
 // Clear all compare items
 function clearCompare() {
   arr_compare_list = [];
-  localStorage.setItem(nameCachedCompare, arr_compare_list.toString());
+  localStorage.setItem(nameCachedCompare, JSON.stringify(arr_compare_list));
   
   // Update all compare buttons
-  const compareButtons = document.querySelectorAll('.compare a[data-product-id]');
+  const compareButtons = document.querySelectorAll('.compare a[data-product-id], .btn-add-compare[data-product-id]');
   compareButtons.forEach(button => {
     const icon = button.querySelector('.icon');
     const tooltip = button.querySelector('.tooltip');
     
-    icon.classList.remove('icon-trash');
-    icon.classList.add('icon-compare');
-    tooltip.textContent = 'Add to Compare';
+    if (button.classList.contains('btn-add-compare')) {
+      icon.classList.remove('icon-check');
+      icon.classList.add('icon-compare2');
+      // Handle text switching with JavaScript
+      const compareText = button.querySelector('span.compare-text');
+      const browseText = button.querySelector('span.browse-text');
+      if (compareText) compareText.style.display = 'inline';
+      if (browseText) browseText.style.display = 'none';
+    } else {
+      icon.classList.remove('icon-trash');
+      icon.classList.add('icon-compare');
+    }
+    if (tooltip) tooltip.textContent = 'Add to Compare';
     button.setAttribute('data-action', 'add');
   });
   

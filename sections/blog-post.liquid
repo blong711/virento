@@ -4,7 +4,7 @@
   data-section-id="{{ section.id }}"
   data-section-type="blog-post"
 >
-  <div class="{% if section.settings.width == 'full' %}container-fluid{% else %}container{% endif %}">
+  <div class="{% if section.settings.width == 'full' %}container-full{% else %}container{% endif %}">
     <!-- Article Header -->
     <div class="heading blog-post-item">
       <!-- Tags -->
@@ -53,7 +53,7 @@
                   >
                 {% endif %}
               </div>
-              <p class="entry_name">By {{ article.author }}</p>
+              <p class="entry_name">{{ 'blogs.article.by_author' | t: author: article.author }}</p>
             </li>
           {% endif %}
 
@@ -93,7 +93,7 @@
         <!-- Tags -->
         {% if section.settings.show_tags and article.tags.size > 0 %}
           <div class="entry-tag">
-            <p>Tags:</p>
+            <p>{{ 'blogs.article.tags_label' | t }}:</p>
             <ul class="style-list">
               {% for tag in article.tags %}
                 <li>
@@ -177,7 +177,7 @@
                 <i class="icon-arr-left"></i>
               </div>
               <div class="text-wrap-left">
-                <p>Previous Post</p>
+                <p>{{ 'blogs.article.previous_post' | t }}</p>
                 <p class="name-post">{{ blog.previous_article.title }}</p>
               </div>
             </a>
@@ -186,7 +186,7 @@
           {% if blog.next_article %}
             <a href="{{ blog.next_article.url }}" class="post next">
               <div class="text-wrap-right">
-                <p>Next Post</p>
+                <p>{{ 'blogs.article.next_post' | t }}</p>
                 <p class="name-post">{{ blog.next_article.title }}</p>
               </div>
               <div class="icon">
@@ -275,7 +275,7 @@
                   >{{ form.body }}</textarea>
                 </fieldset>
               </div>
-              <p class="notice">Your email address will not be published.</p>
+              <p class="notice">{{ 'blogs.article.email_notice' | t }}</p>
               <div class="button-submit">
                 <button class="tf-btn text-sm animate-btn" type="submit">
                   {{ 'blogs.article.post' | t }}

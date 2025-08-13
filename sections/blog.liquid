@@ -1,5 +1,5 @@
 <div class="gradient color-{{ section.settings.color_scheme }}">
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}full-width{% endif %}{% if section.settings.padding_top > 0 %} pt-{{ section.settings.padding_top }}{% endif %}{% if section.settings.padding_bottom > 0 %} pb-{{ section.settings.padding_bottom }}{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}{% if section.settings.padding_top > 0 %} pt-{{ section.settings.padding_top }}{% endif %}{% if section.settings.padding_bottom > 0 %} pb-{{ section.settings.padding_bottom }}{% endif %}">
     {% for block in section.blocks %}
       {% case block.type %}
         {% when 'blog_content' %}

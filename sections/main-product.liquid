@@ -41,8 +41,6 @@
     </div>
   </div>
 
-
-
   <div class="tf-main-product section-image-zoom">
     <div class="{{ section.settings.width }}">
       <div class="row">
@@ -303,11 +301,15 @@
                           <div class="product-info-progress-sale" {{ block.shopify_attributes }}>
                             <div class="title-hurry-up">
                               <span class="text-primary fw-medium">{{ block.settings.stock_count_text }}</span>
-                              {{ block.settings.stock_prefix }} <span class="count">{{ inventory_quantity }}</span> {{ block.settings.stock_suffix }}
+                              {% if block.settings.show_inventory_count %}
+                                {{ 'products.product.stock.only' | t }} <span class="count">{{ inventory_quantity }}</span> {{ 'products.product.stock.items_left' | t }}
+                              {% endif %}
                             </div>
-                            <div class="progress-sold">
-                              <div class="value" style="width: {{ inventory_percentage }}%;" data-progress="{{ inventory_percentage }}"></div>
-                            </div>
+                            {% if block.settings.show_progress_bar %}
+                              <div class="progress-sold">
+                                <div class="value" style="width: {{ inventory_percentage }}%;" data-progress="{{ inventory_percentage }}"></div>
+                              </div>
+                            {% endif %}
                           </div>
                         {% endif %}          
                     {% endcase %}
@@ -393,36 +395,78 @@
                                       <span class="text-sort-value value-current{{ option.name }}">{{ option.selected_value }}</span>
                                       <span class="icon icon-arrow-down"></span>
                                     </div>
-                                    <div class="dropdown-menu">
-                                      {% for value in option.values %}
+                                                                      <div class="dropdown-menu">
+                                    {% for value in option.values %}
+                                      {% assign show_value = true %}
+                                      {% if block.settings.hide_sold_out %}
+                                        {% assign variant_for_value = null %}
+                                        {% for variant in product.variants %}
+                                          {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                            {% if variant.available == false %}
+                                              {% assign show_value = false %}
+                                              {% break %}
+                                            {% endif %}
+                                          {% endif %}
+                                        {% endfor %}
+                                      {% endif %}
+                                      {% if show_value %}
                                         <div class="select-item{% if value == option.selected_value %} active{% endif %}"
                                             data-value="{{ value | handle }}" data-option="{{ option.name | handle }}"
                                             {% if option.name == 'Color' %} data-color="{{ value | handle }}"{% endif %} {% if option.name == 'Size' %} data-size="{{ value | handle }}"{% endif %}>
                                           <span class="text-value-item">{{ value }}</span>
                                         </div>
-                                      {% endfor %}
-                                    </div>
+                                      {% endif %}
+                                    {% endfor %}
+                                  </div>
                                   </div>
                                 {% else %}
                                   <div class="variant-picker-values">
                                     {% if option.name == 'Color' %}
                                       <span class="value-currentColor" style="display: none;">{{ option.selected_value }}</span>
                                       {% for value in option.values %}
-                                        <div class="hover-tooltip tooltip-bot color-btn btn-scroll-target color-size-{{ block.settings.color_selector_size }}{% if value == option.selected_value %} active{% endif %}"
-                                            data-scroll="{{ value | handle }}"
-                                            data-option="{{ option.name | handle }}"
-                                            data-value="{{ value | handle }}">
-                                          <span class="check-color bg-{{ value | handle }}"></span>
-                                          <span class="tooltip">{{ value }}</span>
-                                        </div>
+                                        {% assign show_value = true %}
+                                        {% if block.settings.hide_sold_out %}
+                                          {% assign variant_for_value = null %}
+                                          {% for variant in product.variants %}
+                                            {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                              {% if variant.available == false %}
+                                                {% assign show_value = false %}
+                                                {% break %}
+                                              {% endif %}
+                                            {% endif %}
+                                          {% endfor %}
+                                        {% endif %}
+                                        {% if show_value %}
+                                          <div class="hover-tooltip tooltip-bot color-btn btn-scroll-target color-size-{{ block.settings.color_selector_size }}{% if value == option.selected_value %} active{% endif %}"
+                                              data-scroll="{{ value | handle }}"
+                                              data-option="{{ option.name | handle }}"
+                                              data-value="{{ value | handle }}">
+                                            <span class="check-color bg-{{ value | handle }}"></span>
+                                            <span class="tooltip">{{ value }}</span>
+                                          </div>
+                                        {% endif %}
                                       {% endfor %}
                                     {% elsif option.name == 'Size' %}
                                       <span class="value-currentSize" style="display: none;">{{ option.selected_value }}</span>
                                       {% for value in option.values %}
-                                        <span class="size-btn{% if value == option.selected_value %} active{% endif %}"
-                                              data-size="{{ value | handle }}"
-                                              data-option="{{ option.name | handle }}"
-                                              data-value="{{ value | handle }}">{{ value }}</span>
+                                        {% assign show_value = true %}
+                                        {% if block.settings.hide_sold_out %}
+                                          {% assign variant_for_value = null %}
+                                          {% for variant in product.variants %}
+                                            {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                              {% if variant.available == false %}
+                                                {% assign show_value = false %}
+                                                {% break %}
+                                              {% endif %}
+                                            {% endif %}
+                                          {% endfor %}
+                                        {% endif %}
+                                        {% if show_value %}
+                                          <span class="size-btn{% if value == option.selected_value %} active{% endif %}"
+                                                data-size="{{ value | handle }}"
+                                                data-option="{{ option.name | handle }}"
+                                                data-value="{{ value | handle }}">{{ value }}</span>
+                                        {% endif %}
                                       {% endfor %}
                                     {% else %}
                                       <div class="tf-variant-dropdown full" data-bs-toggle="dropdown">
@@ -432,9 +476,23 @@
                                         </div>
                                         <div class="dropdown-menu">
                                           {% for value in option.values %}
-                                            <div class="select-item{% if value == option.selected_value %} active{% endif %}" data-value="{{ value | handle }}">
-                                              <span class="text-value-item">{{ value }}</span>
-                                            </div>
+                                            {% assign show_value = true %}
+                                            {% if block.settings.hide_sold_out %}
+                                              {% assign variant_for_value = null %}
+                                              {% for variant in product.variants %}
+                                                {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                                  {% if variant.available == false %}
+                                                    {% assign show_value = false %}
+                                                    {% break %}
+                                                  {% endif %}
+                                                {% endif %}
+                                              {% endfor %}
+                                            {% endif %}
+                                            {% if show_value %}
+                                              <div class="select-item{% if value == option.selected_value %} active{% endif %}" data-value="{{ value | handle }}">
+                                                <span class="text-value-item">{{ value }}</span>
+                                              </div>
+                                            {% endif %}
                                           {% endfor %}
                                         </div>
                                       </div>
@@ -451,31 +509,50 @@
                 {% endif %}
                 {% endif %}
               {% unless product.metafields.affiliate.url %}
-                <div class="tf-product-total-quantity">
-                  {% if product.available %}
-                    <div class="group-btn">
-                      <div class="wg-quantity">
-                          <button class="btn-quantity btn-decrease">-</button>
-                          <input class="quantity-product" type="text" name="number" value="1">
-                          <button class="btn-quantity btn-increase">+</button>
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                    {% when 'quantity_and_buy' %}
+                      <div class="tf-product-total-quantity" {{ block.shopify_attributes }}>
+                        {% if product.available %}
+                          <div class="group-btn">
+                            <div class="wg-quantity">
+                                <button class="btn-quantity btn-decrease">-</button>
+                                <input class="quantity-product" type="text" name="number" value="1">
+                                <button class="btn-quantity btn-increase">+</button>
+                            </div>
+                            <a href="#" 
+                               class="tf-btn animate-btn product-cart-button" 
+                               data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                               data-product-id="{{ product.id }}"
+                               data-selected-variant="{{ product.selected_or_first_available_variant.id }}"
+                               data-quantity="1">
+                              Add to cart
+                            </a>
+                          </div>
+                          
+                          {% if block.settings.show_dynamic_checkout %}
+                            {% form 'product', product %}
+                              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                              <input type="hidden" name="quantity" value="1">
+                              {{ form | payment_button }}
+                            {% endform %}
+                          {% endif %}
+                          
+                          {% if block.settings.show_more_payment %}
+                            <a href="#"  
+                               class="more-choose-payment link buy-it-now" 
+                               data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                               data-quantity="1"
+                               aria-label="{{ block.settings.more_payment_text }}">
+                              {{ block.settings.more_payment_text }}
+                            </a>
+                          {% endif %}
+                        {% else %}
+                          <button class="tf-btn btn-out-stock w-100">{{ 'sections.product.unavailable' | t }}</button>
+                        {% endif %}
                       </div>
-                      <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                          class="tf-btn animate-btn btn-add-to-cart">Add to cart</a>
-                    </div>
-                      {% form 'product', product %}
-                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                        <input type="hidden" name="quantity" value="1">
-                        {{ form | payment_button }}
-                      {% endform %}
-                      <a href="#"  
-                         class="more-choose-payment link buy-it-now" 
-                         data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                         data-quantity="1"
-                         aria-label="{{ 'sections.product.more_payment_options' | t }}">{{ 'sections.product.more_payment_options' | t }}</a>
-                  {% else %}
-                    <button class="tf-btn btn-out-stock w-100">{{ 'sections.product.unavailable' | t }}</button>
-                  {% endif %}
-                </div>
+                  {% endcase %}
+                {% endfor %}
               {% endunless %}
                 {% unless product.available %}
                   <form class="form-out-stock" id="notify-stock-form" action="#">
@@ -537,15 +614,16 @@
                         {% if block.settings.show_wishlist or block.settings.show_compare or block.settings.show_ask_question or block.settings.show_share %}
                           <div class="tf-product-info-extra-link" {{ block.shopify_attributes }}>
                             {% if block.settings.show_wishlist %}
-                              <a href="javascript:void(0);" class="product-extra-icon link btn-add-wishlist">
+                              <a href="#" class="product-extra-icon link btn-add-wishlist" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
                                 <i class="icon add icon-heart"></i><span class="add">Add to wishlist</span>
-                                <i class="icon added icon-trash"></i><span class="added">Remove from
+                                <i class="icon added icon-trash" style="display: none;"></i><span class="added" style="display: none;">Remove from
                                     wishlist</span>
                             </a>
                             {% endif %}
                             {% if block.settings.show_compare %}
-                              <a href="#compare" data-bs-toggle="modal" class="product-extra-icon link">
-                                <i class="icon icon-compare2"></i>Compare
+                              <a href="javascript:void(0);" class="product-extra-icon link btn-add-compare" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
+                                <i class="icon icon-compare2"></i><span class="compare-text">Compare</span>
+                                <span class="browse-text" style="display: none;">Browse Compare</span>
                             </a>
                             {% endif %}
                             {% if block.settings.show_ask_question %}
@@ -658,7 +736,7 @@
                         <div class="tf-product-info-delivery-return" {{ block.shopify_attributes }}>
                           {% if block.settings.show_delivery_info %}
                             <div class="product-delivery">
-                              <div class="icon {{ block.settings.delivery_icon }}"></div>
+                              <div class="icon {{ block.settings.delivery_icon }}" style="font-size: {{ block.settings.icon_size }}px;"></div>
                               <p class="text-md">
                                 {{ block.settings.delivery_label }} 
                                 <span class="fw-medium">{{ block.settings.delivery_time }}</span>
@@ -667,7 +745,7 @@
                           {% endif %}
                           {% if block.settings.show_free_shipping %}
                             <div class="product-delivery">
-                              <div class="icon {{ block.settings.shipping_icon }}"></div>
+                              <div class="icon {{ block.settings.shipping_icon }}" style="font-size: {{ block.settings.icon_size }}px;"></div>
                               <p class="text-md">
                                 {{ block.settings.shipping_label }} 
                                 <span class="fw-medium">{{ block.settings.free_shipping_text }}</span>
@@ -690,7 +768,7 @@
                         {% if fbt_products != blank %}
                           <div class="tf-product-fbt" {{ block.shopify_attributes }} style="margin-top: {{ block.settings.fbt_margin_top }}px; margin-bottom: {{ block.settings.fbt_margin_bottom }}px;">
                             <div class="title text-xl fw-medium">{{ block.settings.fbt_title }}</div>
-                            <form class="tf-product-form-bundle">
+                            <div class="tf-product-form-bundle">
                               <div class="tf-bundle-products">
                                 {% assign max_products = block.settings.max_products | default: 3 %}
                                 {% for fbt_product in fbt_products limit: max_products %}
@@ -703,7 +781,7 @@
                                   {% if related_product.available %}
                                     <div class="tf-bundle-product-item item-has-checkbox{% if forloop.first %} check{% endif %}">
                                       <div class="bundle-check">
-                                        <input type="checkbox"{% if forloop.first %} checked="checked"{% endif %} class="tf-check" data-product-id="{{ related_product.id }}">
+                                        <input type="checkbox"{% if forloop.first %} checked="checked"{% endif %} class="tf-check" data-product-id="{{ related_product.id }}" data-variant-id="{{ related_product.selected_or_first_available_variant.id }}">
                                       </div>
                                       <a href="{{ related_product.url }}" class="bundle-image">
                                         <img src="{{ related_product.featured_image | image_url: width: 200 }}" alt="{{ related_product.title }}" width="200" height="200">
@@ -724,7 +802,7 @@
                                         </div>
                                         {% if related_product.has_only_default_variant == false %}
                                           <div class="bundle-variant tf-select">
-                                            <select data-product-id="{{ related_product.id }}">
+                                            <select data-product-id="{{ related_product.id }}" data-variant-selector>
                                               {% for variant in related_product.variants %}
                                                 <option value="{{ variant.id }}"{% if variant == related_product.selected_or_first_available_variant %} selected="selected"{% endif %}
                                                   data-compare-price="{{ variant.compare_at_price | money }}">
@@ -734,6 +812,7 @@
                                             </select>
                                           </div>
                                         {% endif %}
+                                        <input type="hidden" class="quantity-input" name="quantity" value="1" data-variant-id="{{ related_product.selected_or_first_available_variant.id }}">
                                       </div>
                                     </div>
                                   {% endif %}
@@ -744,8 +823,10 @@
                                 <span class="total-price">{{ product.price | money }}</span>
                                 <span class="total-price-old" style="display: none;"></span>
                               </div>
-                              <button type="button" class="btn-submit-total tf-btn btn-out-line-primary">{{ 'sections.product.add_selected_to_cart' | t }}</button>
-                            </form>
+                              <a href="#" class="btn-submit-total tf-btn btn-out-line-primary product-cart-button" 
+                                 data-bulk-add="true"
+                                 data-product-id="{{ product.id }}">{{ 'sections.product.add_selected_to_cart' | t }}</a>
+                            </div>
                           </div>
                         {% endif %}
                       {% when '@app' %}
@@ -787,13 +868,17 @@
               <div class="tf-sticky-atc-btns">
                 <div class="tf-product-info-quantity">
                     <div class="wg-quantity">
-                        <button class="btn-quantity minus-btn">-</button>
+                        <button class="btn-quantity btn-decrease">-</button>
                         <input class="quantity-product font-4" type="text" name="number" value="1">
-                        <button class="btn-quantity plus-btn">+</button>
+                        <button class="btn-quantity btn-increase">+</button>
                     </div>
                 </div>
-                <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                    class="tf-btn animate-btn d-inline-flex justify-content-center">Add to cart</a>
+                <a data-bs-toggle="offcanvas"
+                    class="tf-btn animate-btn d-inline-flex justify-content-center product-cart-button"
+                    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                    data-product-id="{{ product.id }}"
+                    data-selected-variant="{{ product.selected_or_first_available_variant.id }}"
+                    data-quantity="1">Add to cart</a>
               </div>
             </form>
           </div>
@@ -888,7 +973,30 @@
   window.productMedia = {{ product.media | json }};
   window.productOptions = {{ product.options | json }};
   window.productOptionsWithValues = {{ product.options_with_values | json }};
-  window.initialVariant = {{ product.selected_or_first_available_variant | json }};
+  
+  // Get variant picker settings
+  {% assign variant_picker_block = null %}
+  {% for block in section.blocks %}
+    {% if block.type == 'variant_picker' %}
+      {% assign variant_picker_block = block %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  
+  window.variantPickerSettings = {
+    pickMode: {{ variant_picker_block.settings.pick_mode | default: 'first_available' | json }},
+    hideSoldOut: {{ variant_picker_block.settings.hide_sold_out | default: false | json }},
+    colorSelectorType: {{ variant_picker_block.settings.color_selector_type | default: 'swatch_rounded' | json }},
+    colorSelectorSize: {{ variant_picker_block.settings.color_selector_size | default: 'medium' | json }}
+  };
+  
+  // Set initial variant based on pick mode
+  {% if variant_picker_block and variant_picker_block.settings.pick_mode == 'first_available' %}
+    window.initialVariant = {{ product.selected_or_first_available_variant | json }};
+  {% else %}
+    window.initialVariant = {{ product.selected_variant | default: product.selected_or_first_available_variant | json }};
+  {% endif %}
+  
   window.enableVideoAutoplay = {{ section.settings.enable_video_autoplay | json }};
   window.enableImageZoom = {{ section.settings.enable_image_zoom | json }};
   window.showSliderNav = {{ section.settings.show_slider_nav | json }};
@@ -1151,16 +1259,16 @@
           "default": "HURRY UP!"
         },
         {
-          "type": "text",
-          "id": "stock_prefix",
-          "label": "Text before count",
-          "default": "Only"
+          "type": "checkbox",
+          "id": "show_inventory_count",
+          "label": "Show inventory count",
+          "default": true
         },
         {
-          "type": "text",
-          "id": "stock_suffix",
-          "label": "Text after count",
-          "default": "items left!"
+          "type": "checkbox",
+          "id": "show_progress_bar",
+          "label": "Show progress bar",
+          "default": true
         },
         {
           "type": "range",
@@ -1286,10 +1394,10 @@
           "id": "icon_size",
           "min": 16,
           "max": 48,
-          "step": 2,
+          "step": 1,
           "unit": "px",
           "label": "Icon Size",
-          "default": 24
+          "default": 23
         }
       ]
     },
@@ -1307,7 +1415,7 @@
         {
           "type": "select",
           "id": "fbt_source",
-          "label": "FBT Products Source",
+          "label": "Products Source",
           "options": [
             {
               "value": "manual",
@@ -1323,7 +1431,7 @@
         {
           "type": "product_list",
           "id": "fbt_products",
-          "label": "Select FBT Products",
+          "label": "Select Products",
           "limit": 5,
           "info": "Select products to show in Frequently Bought Together section"
         },
@@ -1339,7 +1447,7 @@
         {
           "type": "range",
           "id": "fbt_margin_top",
-          "label": "FBT Margin Top",
+          "label": "Margin Top",
           "min": 0,
           "max": 100,
           "step": 2,
@@ -1349,7 +1457,7 @@
         {
           "type": "range",
           "id": "fbt_margin_bottom",
-          "label": "FBT Margin Bottom",
+          "label": "Margin Bottom",
           "min": 0,
           "max": 100,
           "step": 2,
@@ -1406,12 +1514,6 @@
         },
         {
           "type": "checkbox",
-          "id": "enable_history_state",
-          "label": "Enable historyState",
-          "default": false
-        },
-        {
-          "type": "checkbox",
           "id": "hide_sold_out",
           "label": "Hide sold out variants",
           "default": false
@@ -1419,7 +1521,7 @@
         {
           "type": "select",
           "id": "color_selector_type",
-          "label": "Color selector type",
+          "label": "Selector type",
           "options": [
             { "value": "swatch_rounded", "label": "Color swatch rounded" },
             { "value": "dropdown", "label": "Dropdown" }
@@ -1429,13 +1531,14 @@
         {
           "type": "select",
           "id": "color_selector_size",
-          "label": "Color selector size",
+          "label": "Selector size",
           "options": [
             { "value": "small", "label": "Small" },
             { "value": "medium", "label": "Medium" },
             { "value": "large", "label": "Large" }
           ],
-          "default": "medium"
+          "default": "medium",
+          "visible_if": "{{  block.settings.color_selector_type == 'swatch_rounded' }}"
         }
       ]
     },
@@ -1510,6 +1613,42 @@
       "settings": []
     },
     {
+      "type": "quantity_and_buy",
+      "name": "Quantity & Buy Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Dynamic Checkout Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Show dynamic checkout buttons",
+          "default": true,
+          "info": "Display Shopify's dynamic checkout buttons (Apple Pay, Google Pay, etc.)"
+        },
+        {
+          "type": "header",
+          "content": "More Payment Options"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_more_payment",
+          "label": "Show more payment options link",
+          "default": true,
+          "info": "Display a link to additional payment methods"
+        },
+        {
+          "type": "text",
+          "id": "more_payment_text",
+          "label": "More payment options text",
+          "default": "More payment options",
+          "info": "Customize the text for the more payment options link"
+        }
+      ]
+    },
+    {
       "type": "@app"
     }
   ],
@@ -1559,9 +1698,107 @@
         },
         {
           "type": "sku"
+        },
+        {
+          "type": "quantity_and_buy"
         }
       ]
     }
   ]
 }
 {% endschema %}
+<link rel="stylesheet" href="{{ 'product.css' | asset_url }}">
+{%render 'question' %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle variant selector changes to update checkbox variant ID
+  document.querySelectorAll('[data-variant-selector]').forEach(select => {
+    select.addEventListener('change', function() {
+      const bundleItem = this.closest('.tf-bundle-product-item');
+      const checkbox = bundleItem.querySelector('.tf-check');
+      const quantityInput = bundleItem.querySelector('.quantity-input');
+      const selectedVariantId = this.value;
+      
+      // Update checkbox variant ID
+      checkbox.setAttribute('data-variant-id', selectedVariantId);
+      
+      // Update quantity input variant ID
+      if (quantityInput) {
+        quantityInput.setAttribute('data-variant-id', selectedVariantId);
+      }
+    });
+  });
+
+  // Handle checkbox changes to update total price
+  document.querySelectorAll('.tf-check').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const bundleItem = this.closest('.tf-bundle-product-item');
+      
+      // Add/remove 'check' class based on checkbox state
+      if (this.checked) {
+        bundleItem.classList.add('check');
+      } else {
+        bundleItem.classList.remove('check');
+      }
+      
+      updateBundleTotal();
+    });
+  });
+
+  // Function to update bundle total price
+  function updateBundleTotal() {
+    let total = 0;
+    let oldTotal = 0;
+    let hasOldPrice = false;
+    
+    // Only process checked products
+    document.querySelectorAll('.tf-check:checked').forEach(checkbox => {
+      // Verify the checkbox is actually checked
+      if (!checkbox.checked) return;
+      
+      const bundleItem = checkbox.closest('.tf-bundle-product-item');
+      const priceElement = bundleItem.querySelector('.new-price');
+      const oldPriceElement = bundleItem.querySelector('.old-price');
+      
+      if (priceElement) {
+        const price = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
+        const quantity = 1; // Fixed quantity of 1
+        
+        // Check if product has old price
+        if (oldPriceElement && oldPriceElement.style.display !== 'none') {
+          // Product has old price - add old price to oldTotal
+          const oldPrice = parseFloat(oldPriceElement.textContent.replace(/[^0-9.]/g, ''));
+          oldTotal += oldPrice * quantity;
+          hasOldPrice = true;
+        } else {
+          // Product doesn't have old price - add regular price to oldTotal
+          oldTotal += price * quantity;
+        }
+        
+        // Always add regular price to total
+        total += price * quantity;
+      }
+    });
+    
+    // Update total display
+    const totalPriceElement = document.querySelector('.bundle-total-submit .total-price');
+    const oldTotalPriceElement = document.querySelector('.bundle-total-submit .total-price-old');
+    
+    if (totalPriceElement) {
+      totalPriceElement.textContent = '$' + total.toFixed(2);
+    }
+    
+    // Only show old price if at least one product has an old price
+    if (oldTotalPriceElement && hasOldPrice) {
+      oldTotalPriceElement.textContent = '$' + oldTotal.toFixed(2);
+      oldTotalPriceElement.style.display = 'inline';
+    } else if (oldTotalPriceElement) {
+      oldTotalPriceElement.style.display = 'none';
+    }
+  }
+
+  // Initialize total on page load
+  updateBundleTotal();
+});
+</script>

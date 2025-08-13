@@ -95,7 +95,7 @@
   }
 {%- endstyle -%}
 
-<div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %} section-{{ section.id }}-padding">
+<div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %} section-{{ section.id }}-padding">
   <div class="hero-image-{{ section.id }}">
     {%- if section.settings.image != blank or section.settings.mobile_image != blank -%}
       {%- if section.settings.mobile_image != blank -%}
@@ -153,7 +153,7 @@
 
 {% schema %}
 {
-  "name": "Hero Image",
+  "name": "t:sections.hero-image.name",
   "tag": "section",
   "settings": [
     {

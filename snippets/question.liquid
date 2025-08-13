@@ -1,0 +1,78 @@
+<div class="modal modalCentered fade modal-ask-question popup-style-2" id="askQuestion">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="title text-xl-2 fw-medium">{{ 'general.ask_question.title' | t }}</span>
+                <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+            </div>
+            
+            {% form 'contact', class: 'form-ask-question' %}
+                <div class="cols mb_15 flex-md-nowrap flex-wrap">
+                    <fieldset class="">
+                        <div class="text">{{ 'general.ask_question.name' | t }}*</div>
+                        <input type="text" 
+                               class="form-control" 
+                               name="contact[name]" 
+                               tabindex="2" 
+                               value="{{ form.name }}"
+                               aria-required="true" 
+                               required>
+                    </fieldset>
+                    <fieldset class="">
+                        <div class="text">{{ 'general.ask_question.phone' | t }}</div>
+                        <input type="tel" 
+                               class="form-control" 
+                               name="contact[phone]" 
+                               tabindex="2" 
+                               value="{{ form.phone }}"
+                               aria-required="false">
+                    </fieldset>
+                </div>
+                
+                <fieldset class="mb_15">
+                    <div class="text">{{ 'general.ask_question.email' | t }}*</div>
+                    <input type="email" 
+                           class="form-control" 
+                           name="contact[email]" 
+                           tabindex="2" 
+                           value="{{ form.email }}"
+                           aria-required="true" 
+                           required>
+                </fieldset>
+                
+                <fieldset class="">
+                    <div class="text">{{ 'general.ask_question.message' | t }}*</div>
+                    <textarea name="contact[body]" 
+                              rows="4" 
+                              class="form-control" 
+                              tabindex="2" 
+                              aria-required="true"
+                              required>{{ form.body }}</textarea>
+                </fieldset>
+                
+                {% if form.posted_successfully? %}
+                    <div class="alert alert-success mb_15">
+                        {{ 'general.ask_question.success_message' | t }}
+                    </div>
+                {% endif %}
+                
+                {% if form.errors %}
+                    <div class="alert alert-danger mb_15">
+                        {{ 'general.ask_question.error_message' | t }}
+                        <ul>
+                            {% for field in form.errors %}
+                                <li>{{ field | capitalize }} {{ field.errors.first }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                
+                <div class="text-center">
+                    <button type="submit" class="tf-btn animate-btn d-inline-flex justify-content-center">
+                        <span>{{ 'general.ask_question.submit' | t }}</span>
+                    </button>
+                </div>
+            {% endform %}
+        </div>
+    </div>
+</div>

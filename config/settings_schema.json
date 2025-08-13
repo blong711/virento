@@ -52,11 +52,11 @@
             "label": "t:settings_schema.colors.settings.background_gradient.label",
             "info": "t:settings_schema.colors.settings.background_gradient.info"
           },
-         {
+          {
             "type": "color",
             "id": "background2",
-            "label": "Secondary background",
-            "info": "Choose a color close to the primary background.",
+            "label": "t:settings_schema.colors.settings.background2.label",
+            "info": "t:settings_schema.colors.settings.background2.info",
             "default": "#fff"
           },
           {
@@ -74,6 +74,12 @@
           },
           {
             "type": "color",
+            "id": "text_hover",
+            "label": "Text Hover Color",
+            "default": "#666666"
+          },
+          {
+            "type": "color",
             "id": "button",
             "label": "t:settings_schema.colors.settings.button_background.label",
             "default": "#121212"
@@ -86,21 +92,9 @@
           },
           {
             "type": "color",
-            "id": "secondary_button_label",
-            "label": "t:settings_schema.colors.settings.secondary_button_label.label",
+            "id": "button_outline",
+            "label": "t:settings_schema.colors.settings.button_outline.label",
             "default": "#121212"
-          },
-          {
-            "type": "color",
-            "id": "shadow",
-            "label": "t:settings_schema.colors.settings.shadow.label",
-            "default": "#121212"
-          },
-          {
-            "type": "color",
-            "id": "text_hover",
-            "label": "Text Hover Color",
-            "default": "#666666"
           },
           {
             "type": "color",
@@ -113,6 +107,18 @@
             "id": "button_label_hover",
             "label": "Button Hover Text",
             "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "button_outline_hover",
+            "label": "Button Hover Outline",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "shadow",
+            "label": "t:settings_schema.colors.settings.shadow.label",
+            "default": "#121212"
           }
         ],
         "role": {
@@ -121,14 +127,14 @@
             "solid": "background",
             "gradient": "background_gradient"
           },
-          "links": "secondary_button_label",
+          "links": "button_outline",
           "icons": "text",
           "primary_button": "button",
           "on_primary_button": "button_label",
           "primary_button_border": "button",
           "secondary_button": "background",
-          "on_secondary_button": "secondary_button_label",
-          "secondary_button_border": "secondary_button_label"
+          "on_secondary_button": "button_outline",
+          "secondary_button_border": "button_outline"
         }
       }
     ]
@@ -339,25 +345,11 @@
         "default": true
       },
       {
-        "type": "select",
-        "id": "animations_hover_elements",
-        "options": [
-          {
-            "value": "default",
-            "label": "t:settings_schema.animations.settings.animations_hover_elements.options__1.label"
-          },
-          {
-            "value": "vertical-lift",
-            "label": "t:settings_schema.animations.settings.animations_hover_elements.options__2.label"
-          },
-          {
-            "value": "3d-lift",
-            "label": "t:settings_schema.animations.settings.animations_hover_elements.options__3.label"
-          }
-        ],
-        "default": "default",
-        "label": "t:settings_schema.animations.settings.animations_hover_elements.label",
-        "info": "t:settings_schema.animations.settings.animations_hover_elements.info"
+        "type": "checkbox",
+        "id": "enable_loading_screen",
+        "label": "t:settings_schema.animations.settings.enable_loading_screen.label",
+        "info": "t:settings_schema.animations.settings.enable_loading_screen.info",
+        "default": true
       }
     ]
   },
@@ -388,6 +380,7 @@
         "step": 2,
         "unit": "px",
         "label": "t:settings_schema.global.settings.image_padding.label",
+        "info": "t:settings_schema.global.settings.image_padding.info",
         "default": 0
       },
       {
@@ -395,7 +388,7 @@
         "id": "card_text_alignment",
         "options": [
           {
-            "value": "left",
+            "value": "start",
             "label": "t:settings_schema.global.settings.text_alignment.options__1.label"
           },
           {
@@ -403,11 +396,11 @@
             "label": "t:settings_schema.global.settings.text_alignment.options__2.label"
           },
           {
-            "value": "right",
+            "value": "end",
             "label": "t:settings_schema.global.settings.text_alignment.options__3.label"
           }
         ],
-        "default": "left",
+        "default": "start",
         "label": "t:settings_schema.global.settings.text_alignment.label"
       },
       {
@@ -450,50 +443,6 @@
         "label": "t:settings_schema.global.settings.corner_radius.label",
         "default": 0
       },
-      {
-        "type": "header",
-        "content": "t:settings_schema.global.settings.header__shadow.content"
-      },
-      {
-        "type": "range",
-        "id": "card_shadow_opacity",
-        "min": 0,
-        "max": 100,
-        "step": 5,
-        "unit": "%",
-        "label": "t:settings_schema.global.settings.opacity.label",
-        "default": 10
-      },
-      {
-        "type": "range",
-        "id": "card_shadow_horizontal_offset",
-        "min": -40,
-        "max": 40,
-        "step": 2,
-        "unit": "px",
-        "label": "t:settings_schema.global.settings.horizontal_offset.label",
-        "default": 0
-      },
-      {
-        "type": "range",
-        "id": "card_shadow_vertical_offset",
-        "min": -40,
-        "max": 40,
-        "step": 2,
-        "unit": "px",
-        "label": "t:settings_schema.global.settings.vertical_offset.label",
-        "default": 0
-      },
-      {
-        "type": "range",
-        "id": "card_shadow_blur",
-        "min": 0,
-        "max": 40,
-        "step": 5,
-        "unit": "px",
-        "label": "t:settings_schema.global.settings.blur.label",
-        "default": 0
-      }
     ]
   },
   {
@@ -577,7 +526,7 @@
         "default": false,
         "label": "t:settings_schema.search_input.settings.predictive_search_show_price.label",
         "info": "t:settings_schema.search_input.settings.predictive_search_show_price.info"
-      },  
+      },
       {
         "type": "link_list",
         "id": "search_quick_links_menu",
@@ -636,7 +585,7 @@
         "label": "t:settings_schema.cart.settings.cart_type.label"
       },
       {
-        "type": "url",  
+        "type": "url",
         "id": "empty_cart_link",
         "label": "t:settings_schema.cart.settings.empty_cart_link.label",
         "info": "t:settings_schema.cart.settings.empty_cart_link.info",
@@ -647,10 +596,10 @@
         "content": "t:settings_schema.cart.settings.free_shipping.content"
       },
       {
-        "type": "product",
-        "id": "free_shipping_product",
-        "label": "t:settings_schema.cart.settings.free_shipping.product.label",
-        "info": "t:settings_schema.cart.settings.free_shipping.product.info"
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "t:settings_schema.cart.settings.free_shipping.threshold.label",
+        "info": "t:settings_schema.cart.settings.free_shipping.threshold.info"
       },
       {
         "type": "header",

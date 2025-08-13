@@ -1,7 +1,7 @@
 <section
   class="s-term-user flat-spacing-2 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
 >
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-fluid{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
     <div class="row">
       <div class="col-lg-12">
         <div class="content">
@@ -54,7 +54,7 @@
 
 {% schema %}
 {
-  "name": "Vertical Text Heading",
+  "name": "t:sections.heading-with-text-vertical.name",
   "tag": "section",
   "class": "section",
   "settings": [

@@ -2,9 +2,10 @@
     Accepts:
     - product: The product object
 {% endcomment %}
+{% assign card_style = settings.card_style | default: 'style-2' %}
 <li>
     <a data-bs-toggle="offcanvas"
-        class="hover-tooltip box-icon product-cart-button"
+        class="hover-tooltip box-icon product-cart-button{% if card_style == 'style-1' %} tooltip-left{% endif %}"
         data-product-id="{{ product.id }}"
         data-product-handle="{{ product.handle }}"
         data-variant-id="{{ product.selected_or_first_available_variant.id }}">

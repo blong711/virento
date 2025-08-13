@@ -10,7 +10,8 @@
 {
   "current": {
     "logo": "shopify://shop_images/logo_1.svg",
-    "logo_width": 90,
+    "logo_width": 130,
+    "favicon": "shopify://shop_images/favicon.png",
     "font_library": "google",
     "type_header_font": "assistant_n4",
     "type_body_font": "assistant_n4",
@@ -24,17 +25,13 @@
     "body_size_desktop": 14,
     "page_width": 1488,
     "spacing_sections": 0,
-    "card_style": "standard",
+    "card_style": "style-2",
     "card_image_padding": 0,
-    "card_text_alignment": "left",
-    "card_color_scheme": "scheme-2",
-    "card_border_thickness": 0,
+    "card_text_alignment": "center",
+    "card_color_scheme": "scheme-1",
+    "card_border_thickness": 1,
     "card_border_opacity": 10,
-    "card_corner_radius": 0,
-    "card_shadow_opacity": 0,
-    "card_shadow_horizontal_offset": 0,
-    "card_shadow_vertical_offset": 4,
-    "card_shadow_blur": 5,
+    "card_corner_radius": 16,
     "social_facebook_link": "https://facebook.com/mystore",
     "social_instagram_link": "https://instagram.com/mystore",
     "social_youtube_link": "",
@@ -49,8 +46,13 @@
     "predictive_search_show_price": false,
     "currency_code_enabled": true,
     "cart_type": "drawer",
+    "free_shipping_threshold": 100,
+    "gift_wrap_product": "gift-wrap",
+    "card_shadow_opacity": 0,
+    "card_shadow_horizontal_offset": 0,
+    "card_shadow_vertical_offset": 4,
+    "card_shadow_blur": 5,
     "show_vendor": false,
-    "show_cart_note": false,
     "cart_drawer_collection": "",
     "sections": {
       "main-password-header": {
@@ -74,28 +76,30 @@
           "background_gradient": "",
           "background2": "#f5f5f5",
           "text": "#000000",
-          "button": "#121212",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212",
           "text_hover": "#666666",
-          "button_hover": "#2c2c2c",
-          "button_label_hover": "#ffffff"
+          "button": "#101828",
+          "button_label": "#ffffff",
+          "button_outline": "#121212",
+          "button_hover": "#101828",
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#121212"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#f3f3f3",
+          "background": "#ffffff",
           "background_gradient": "",
-          "background2": "#d9d6d6",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#f3f3f3",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212",
-          "text_hover": "#666666",
-          "button_hover": "#2c2c2c",
-          "button_label_hover": "#ffffff"
+          "background2": "#ffffff",
+          "text": "#ffffff",
+          "text_hover": "#ff6f61",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "button_outline": "#ffffff",
+          "button_hover": "#000000",
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#000000",
+          "shadow": "rgba(0,0,0,0)"
         }
       },
       "scheme-3": {
@@ -104,28 +108,30 @@
           "background_gradient": "",
           "background2": "#242833",
           "text": "#ffffff",
+          "text_hover": "#666666",
           "button": "#ffffff",
           "button_label": "#000000",
-          "secondary_button_label": "#ffffff",
-          "shadow": "#121212",
-          "text_hover": "#666666",
+          "button_outline": "#ffffff",
           "button_hover": "#2c2c2c",
-          "button_label_hover": "#ffffff"
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#121212"
         }
       },
       "scheme-4": {
         "settings": {
           "background": "#121212",
           "background_gradient": "",
-          "background2": "#393838",
+          "background2": "rgba(0,0,0,0)",
           "text": "#ffffff",
-          "button": "#ffffff",
-          "button_label": "#121212",
-          "secondary_button_label": "#ffffff",
-          "shadow": "#121212",
           "text_hover": "#666666",
-          "button_hover": "#2c2c2c",
-          "button_label_hover": "#ffffff"
+          "button": "#000000",
+          "button_label": "#ffffff",
+          "button_outline": "#ffffff",
+          "button_hover": "#ff6f61",
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#121212"
         }
       },
       "scheme-5": {
@@ -134,28 +140,30 @@
           "background_gradient": "",
           "background2": "#1539bc",
           "text": "#ffffff",
+          "text_hover": "#666666",
           "button": "#ffffff",
           "button_label": "#334fb4",
-          "secondary_button_label": "#ffffff",
-          "shadow": "#121212",
-          "text_hover": "#666666",
+          "button_outline": "#ffffff",
           "button_hover": "#2c2c2c",
-          "button_label_hover": "#ffffff"
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#121212"
         }
       },
       "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11": {
         "settings": {
-          "background": "rgba(0,0,0,0)",
+          "background": "#ffffff",
           "background_gradient": "",
-          "background2": "#f2f2f2",
-          "text": "#ffffff",
-          "button": "#ffffff",
-          "button_label": "#000000",
-          "secondary_button_label": "#ffffff",
-          "shadow": "rgba(0,0,0,0)",
+          "background2": "rgba(0,0,0,0)",
+          "text": "#000000",
           "text_hover": "#ff6f61",
+          "button": "#ffffff",
+          "button_label": "#ffffff",
+          "button_outline": "#ffffff",
           "button_hover": "#000000",
-          "button_label_hover": "#ffffff"
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "rgba(0,0,0,0)"
         }
       },
       "scheme-e379edfd-3a7b-4c25-9cc1-a180d15178ce": {
@@ -164,13 +172,14 @@
           "background_gradient": "",
           "background2": "#cdedae",
           "text": "#121212",
+          "text_hover": "#666666",
           "button": "#121212",
           "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212",
-          "text_hover": "#666666",
+          "button_outline": "#121212",
           "button_hover": "#2c2c2c",
-          "button_label_hover": "#ffffff"
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#121212"
         }
       },
       "scheme-99d3498c-ecaf-4951-a085-cd6bfffed0cc": {
@@ -179,13 +188,14 @@
           "background_gradient": "",
           "background2": "#cdedae",
           "text": "#000000",
+          "text_hover": "#666666",
           "button": "#121212",
           "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212",
-          "text_hover": "#666666",
+          "button_outline": "#121212",
           "button_hover": "#2c2c2c",
-          "button_label_hover": "#ffffff"
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#121212"
         }
       }
     }
@@ -202,7 +212,7 @@
             "text": "#121212",
             "button": "#121212",
             "button_label": "#FFFFFF",
-            "secondary_button_label": "#121212",
+            "button_outline": "#121212",
             "shadow": "#121212"
           }
         },
@@ -214,7 +224,7 @@
             "text": "#121212",
             "button": "#121212",
             "button_label": "#F3F3F3",
-            "secondary_button_label": "#121212",
+            "button_outline": "#121212",
             "shadow": "#121212"
           }
         },
@@ -226,7 +236,7 @@
             "text": "#FFFFFF",
             "button": "#FFFFFF",
             "button_label": "#000000",
-            "secondary_button_label": "#FFFFFF",
+            "button_outline": "#FFFFFF",
             "shadow": "#121212"
           }
         },
@@ -238,7 +248,7 @@
             "text": "#FFFFFF",
             "button": "#FFFFFF",
             "button_label": "#121212",
-            "secondary_button_label": "#FFFFFF",
+            "button_outline": "#FFFFFF",
             "shadow": "#121212"
           }
         },
@@ -250,7 +260,7 @@
             "text": "#FFFFFF",
             "button": "#FFFFFF",
             "button_label": "#334FB4",
-            "secondary_button_label": "#FFFFFF",
+            "button_outline": "#FFFFFF",
             "shadow": "#121212"
           }
         }

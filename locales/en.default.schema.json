@@ -36,7 +36,8 @@
           "label": "Opacity"
         },
         "image_padding": {
-          "label": "Image padding"
+          "label": "Image padding",
+          "info": "Set when >0, otherwise use default padding"
         },
         "text_alignment": {
           "options__1": {
@@ -76,16 +77,20 @@
           "label": "Background gradient",
           "info": "Background gradient replaces background where possible."
         },
+        "background2": {
+          "label": "Secondary background",
+          "info": "Choose a color close to the secondary background."
+        },
         "text": {
           "label": "Text"
         },
         "button_background": {
-          "label": "Solid button background"
+          "label": "Button background"
         },
         "button_label": {
-          "label": "Solid button label"
+          "label": "Button text"
         },
-        "secondary_button_label": {
+        "button_outline": {
           "label": "Outline button"
         },
         "shadow": {
@@ -153,18 +158,9 @@
         "animations_reveal_on_scroll": {
           "label": "Reveal sections on scroll"
         },
-        "animations_hover_elements": {
-          "options__1": {
-            "label": "None"
-          },
-          "options__2": {
-            "label": "Vertical lift"
-          },
-          "options__3": {
-            "label": "3D lift"
-          },
-          "label": "Hover effect",
-          "info": "Affects cards and buttons"
+        "enable_loading_screen": {
+          "label": "Enable loading screen",
+          "info": "Enable a loading screen when the page is loading"
         }
       }
     },
@@ -269,9 +265,9 @@
         },
         "free_shipping": {
           "content": "Free shipping",
-          "product": {
-            "label": "Free shipping product",
-            "info": "Choose product to taken free shipping minimum amount"
+          "threshold": {
+            "label": "Free shipping threshold",
+            "info": "Set the minimum amount for free shipping"
           }
         },
         "gift_wrap": {
@@ -610,6 +606,7 @@
       }
     },
     "all": {
+      "content": "Content",
       "animation": {
         "content": "Animations",
         "image_behavior": {
@@ -1194,7 +1191,7 @@
               "default": "Share"
             },
             "featured_image_info": {
-              "content": "If you include a link in social media posts, the page’s featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)"
+              "content": "If you include a link in social media posts, the page's featured image will be shown as the preview image. [Learn more](https://help.shopify.com/manual/online-store/images/showing-social-media-thumbnail-images)"
             },
             "title_info": {
               "content": "A store title and description are included with the preview image. [Learn more](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords#set-a-title-and-description-for-your-online-store)"
@@ -1231,7 +1228,7 @@
           }
         },
         "hide_variants": {
-          "label": "Hide unselected variants’ media on desktop"
+          "label": "Hide unselected variants' media on desktop"
         },
         "enable_video_looping": {
           "label": "Loop video"
@@ -3761,7 +3758,7 @@
       }
     },
     "heading-with-text-horizontal": {
-      "name": "About Us Welcome",
+      "name": "Heading With Text",
       "settings": {
         "width": {
           "label": "Section width",
@@ -3821,7 +3818,7 @@
       },
       "presets": {
         "default": {
-          "name": "heading with text horizontal",
+          "name": "Heading With Text Horizontal",
           "category": "Text"
         }
       }
@@ -3889,7 +3886,7 @@
       }
     },
     "single-testimonial": {
-      "name": "Single testimonial",
+      "name": "Single Testimonial",
       "settings": {
         "width": {
           "label": "Section width"
@@ -3927,7 +3924,7 @@
       }
     },
     "contact-form-with-text": {
-      "name": "Contact Form with Text",
+      "name": "Contact Form",
       "settings": {
         "width": {
           "label": "Width"
@@ -4011,6 +4008,26 @@
               }
             }
           }
+        },
+        "contact_info": {
+          "name": "Contact Information",
+          "settings": {
+            "address": {
+              "label": "Address"
+            },
+            "address_url": {
+              "label": "Address URL (Google Maps link)"
+            },
+            "phone": {
+              "label": "Phone Number"
+            },
+            "email": {
+              "label": "Email Address"
+            },
+            "hours": {
+              "label": "Business Hours"
+            }
+          }
         }
       },
       "presets": {
@@ -4018,7 +4035,7 @@
       }
     },
     "map-with-text": {
-      "name": "Map with Text",
+      "name": "Map With Text",
       "settings": {
         "width": {
           "label": "Width"
@@ -5015,6 +5032,333 @@
         "progress_active_color": {
           "label": "Progress bar active color"
         }
+      }
+    },
+    "cart-drawer": {
+      "name": "Cart Drawer",
+      "settings": {
+        "color_scheme": {
+          "label": "Color Scheme"
+        },
+        "show_free_shipping_bar": {
+          "label": "Show free shipping bar"
+        },
+        "show_cart_note": {
+          "label": "Show cart note"
+        },
+        "show_gift_wrap": {
+          "label": "Show gift wrap"
+        },
+        "show_coupon": {
+          "label": "Show coupon"
+        },
+        "show_shipping_estimator": {
+          "label": "Show shipping estimator"
+        },
+        "complementary_products_heading": {
+          "label": "Heading"
+        },
+        "complementary_products_collection": {
+          "label": "Collection select",
+          "info": "Select a collection to show complementary products"
+        },
+        "complementary_products_list": {
+          "label": "Products select",
+          "info": "Select multiple products to display (will replace collection if selected)"
+        }
+      },
+      "blocks": {
+        "total_price": {
+          "name": "Total Price",
+          "settings": {
+            "paragraph": {
+              "content": "Cart and checkout prices always show currency codes. Example: $1.00"
+            }
+          }
+        },
+        "taxes_shipping": {
+          "name": "Taxes and Shipping",
+          "settings": {
+            "custom_message": {
+              "label": "Custom message",
+              "default": "Taxes and shipping calculated at checkout",
+              "info": "Leave empty to use default message"
+            }
+          }
+        },
+        "terms_checkbox": {
+          "name": "Terms and Conditions",
+          "settings": {
+            "paragraph": {
+              "content": "If Terms and Conditions are enabled, a checkbox will be displayed to the user to agree to the terms and conditions before checking out."
+            },
+            "checkbox_text": {
+              "label": "Checkbox text",
+              "default": "I agree with the",
+              "info": "Text before the terms link"
+            },
+            "terms_link_text": {
+              "label": "Terms link text",
+              "default": "terms and conditions",
+              "info": "Text for the terms link"
+            },
+            "terms_url": {
+              "label": "Terms and conditions URL",
+              "info": "URL for the terms and conditions page"
+            }
+          }
+        },
+        "checkout_buttons": {
+          "name": "Checkout Buttons",
+          "settings": {
+            "show_view_cart": {
+              "label": "Enable view cart button"
+            },
+            "show_checkout": {
+              "label": "Enable checkout button"
+            },
+            "view_cart_text": {
+              "label": "View cart button text"
+            },
+            "checkout_text": {
+              "label": "Checkout button text"
+            }
+          }
+        }
+      }
+    },
+    "cookies_popup": {
+      "name": "Cookies Popup",
+      "default_message": "The cookie settings on this website are set to \"allow all cookies\" to give you the very best experience. Please click Accept Cookies to continue to use the site.",
+      "privacy_policy": "Privacy Policy",
+      "accept_cookies": "Accept Cookies",
+      "settings": {
+        "paragraph_1": {
+          "content": "Under EU privacy regulations, websites must make it clear to visitors what information about them is being stored. This specifically includes cookies."
+        },
+        "paragraph_2": {
+          "content": "Turn on this option and user will see info box at the bottom of the page that your web-site is using cookies."
+        },
+        "paragraph_3": {
+          "content": "You can add a cookie compliance banner to your theme to allow customers to consent to tracking of non-essential cookies."
+        },
+        "paragraph_4": {
+          "content": "This allows customers to consent to relevant, region-specific, tracking laws such as GDPR and CCPA."
+        },
+        "paragraph_5": {
+          "content": "If you're a merchant operating in or with customers from the EU, EEA, UK, or Switzerland, you need to collect customer consent before installing cookies or gathering data."
+        },
+        "paragraph_6": {
+          "content": "Cookies are stored on the customer's computer or mobile device, which means your online store is required to ask customers for their consent before loading analytics cookies."
+        },
+        "show_cookie_banner": {
+          "label": "Show cookie banner",
+          "options": {
+            "all_regions": {
+              "label": "All regions"
+            },
+            "targeted_regions": {
+              "label": "Targeted regions for limited data collection"
+            }
+          }
+        },
+        "cookie_message": {
+          "label": "Cookie message",
+          "default": "The cookie settings on this website are set to \"allow all cookies\" to give you the very best experience. Please click Accept Cookies to continue to use the site."
+        },
+        "privacy_button_text": {
+          "label": "Privacy Policy button text",
+          "default": "Privacy Policy"
+        },
+        "privacy_policy_url": {
+          "label": "Privacy Policy URL"
+        },
+        "accept_button_text": {
+          "label": "Accept button text",
+          "default": "Accept Cookies"
+        }
+      }
+    },
+    "newsletter-popup": {
+      "name": "Newsletter Popup",
+      "settings": {
+        "newsletter_image": "Newsletter Image",
+        "newsletter_image_mobile": "Newsletter Image (Mobile)",
+        "popup_trigger": "Show popup after",
+        "popup_delay": "Popup delay (seconds)",
+        "scroll_threshold": "Scroll threshold (pixels)",
+        "days_next_show": "Days until next show",
+        "popup_trigger_options": {
+          "time": "Some time",
+          "scroll": "User scroll"
+        },
+        "popup_delay_info": "Show popup after this many seconds",
+        "scroll_threshold_info": "Show popup after user scrolls this many pixels",
+        "days_next_show_info": "If customer closes popup, next show will be after this many days"
+      },
+      "blocks": {
+        "title": {
+          "name": "Title",
+          "settings": {
+            "title": "Title"
+          }
+        },
+        "description": {
+          "name": "Description",
+          "settings": {
+            "description": "Description"
+          }
+        },
+        "newsletter_form": {
+          "name": "Newsletter Form",
+          "settings": {
+            "email_placeholder": "Email Placeholder",
+            "button_text": "Button Text"
+          }
+        },
+        "info_text": {
+          "name": "Info Text",
+          "settings": {
+            "info_text": "Info Text",
+            "link_url": "Link URL",
+            "link_text": "Link Text"
+          }
+        },
+        "social_icons": {
+          "name": "Social Icons"
+        }
+      }
+    },
+    "exit-popup": {
+      "name": "Exit Popup",
+      "settings": {
+        "popup_display_settings": "Popup Display Settings",
+        "popup_trigger": "Show popup after",
+        "popup_trigger_options": {
+          "mouseleave": "Move the cursor out of screen",
+          "time": "After amount time",
+          "scroll": "Scroll to end of page"
+        },
+        "popup_delay": "Popup delay (seconds)",
+        "popup_delay_info": "Only applies to 'After amount time' trigger",
+        "scroll_threshold": "Scroll threshold (%)",
+        "scroll_threshold_info": "Only applies to 'Scroll to end of page' trigger",
+        "days_next_show": "Days until next show",
+        "popup_content_settings": "Popup Content Settings",
+        "popup_image": "Popup Image (Desktop)",
+        "popup_image_mobile": "Popup Image (Mobile)",
+        "popup_image_mobile_info": "Optional: Use a different image for mobile devices",
+        "popup_heading": "Popup Heading",
+        "popup_heading_default": "Before You Leave",
+        "heading_size": "Heading Size",
+        "heading_size_options": {
+          "display-sm": "Small",
+          "display-md": "Medium",
+          "display-lg": "Large"
+        },
+        "heading_font_weight": "Heading Font Weight",
+        "heading_font_weight_options": {
+          "fw-light": "Light",
+          "fw-regular": "Regular",
+          "fw-medium": "Medium",
+          "fw-semibold": "Semi Bold",
+          "fw-bold": "Bold"
+        }
+      },
+      "blocks": {
+        "popup_text": {
+          "name": "Popup Text",
+          "settings": {
+            "popup_text": "Popup Text",
+            "popup_text_default": "Take [DISCOUNT]15% OFF[/DISCOUNT] on first order",
+            "popup_text_info": "Use [DISCOUNT] and [/DISCOUNT] to highlight the discount text"
+          }
+        },
+        "discount_code": {
+          "name": "Discount Code",
+          "settings": {
+            "code_label": "Code Label",
+            "code_label_default": "Enter the code:",
+            "discount_code": "Discount Code",
+            "discount_code_default": "CODE15OFF"
+          }
+        },
+        "button": {
+          "name": "Button",
+          "settings": {
+            "button_text": "Button Text",
+            "button_text_default": "Continue Shopping",
+            "button_link": "Button Link"
+          }
+        },
+        "product_recommendations": {
+          "name": "Product Recommendations",
+          "settings": {
+            "recommendations_heading": "Recommendations Heading",
+            "recommendations_heading_default": "You may also like",
+            "recommendations_products": "Recommended Products"
+          }
+        }
+      },
+      "presets": {
+        "name": "Exit Popup"
+      }
+    },
+    "collection-banner": {
+      "name": "Collection Banner",
+      "settings": {
+        "banner_image": "Banner Image",
+        "banner_image_mobile": "Mobile Banner Image",
+        "title": "Title",
+        "title_default": "Limited Time Deals",
+        "title_font_size": "Title Font Size",
+        "title_font_size_options": {
+          "display-sm": "Small",
+          "display-md": "Medium",
+          "display-lg": "Large"
+        },
+        "title_font_weight": "Title Font Weight",
+        "title_font_weight_options": {
+          "fw-light": "Light",
+          "fw-regular": "Regular",
+          "fw-medium": "Medium",
+          "fw-semibold": "Semi Bold",
+          "fw-bold": "Bold"
+        },
+        "subtitle": "Subtitle",
+        "subtitle_default": "Shop the latest activewear designed for maximum comfort and style.",
+        "subtitle_font_size": "Subtitle Font Size",
+        "subtitle_font_size_options": {
+          "text-sm": "Small",
+          "text-md": "Medium",
+          "text-lg": "Large"
+        },
+        "button_label": "Button Label",
+        "button_label_default": "Shop Now",
+        "button_link": "Button Link",
+        "content_position": "Content Position",
+        "content_position_options": {
+          "top-left": "Top Left",
+          "top-center": "Top Center",
+          "top-right": "Top Right",
+          "center-left": "Center Left",
+          "center": "Center",
+          "center-right": "Center Right",
+          "bottom-left": "Bottom Left",
+          "bottom-center": "Bottom Center",
+          "bottom-right": "Bottom Right"
+        },
+        "content_alignment": "Content Alignment",
+        "content_alignment_options": {
+          "start": "Left",
+          "center": "Center",
+          "end": "Right"
+        },
+        "content_width": "Content Width"
+      },
+      "presets": {
+        "name": "Collection Banner",
+        "category": "Collection"
       }
     }
   }

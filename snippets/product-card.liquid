@@ -1,4 +1,20 @@
-<div class="card-product style-2 style-border-2">
+{% assign card_style = settings.card_style | default: 'style-2' %}
+{% assign card_image_padding = settings.card_image_padding | default: 0 %}
+{% assign card_text_alignment = settings.card_text_alignment | default: 'start' %}
+{% assign card_color_scheme = settings.card_color_scheme | default: 'scheme-2' %}
+{% assign card_border_thickness = settings.card_border_thickness | default: 0 %}
+{% assign card_border_opacity = settings.card_border_opacity | default: 0 %}
+{% assign card_corner_radius = settings.card_corner_radius | default: 0 %}
+
+
+{% if card_style == 'style-1' %}
+<div class="card-product style-space color-{{ card_color_scheme }}"
+     style="
+        {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
+        {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
+        {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
+        {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+     ">
     <div class="card-product-wrapper asp-ratio-0">
         <a href="{{ product.url }}" class="product-img">
             {% if product.featured_image %}
@@ -27,7 +43,75 @@
             {% render 'product-compare-button', product: product %}
         </ul>
     </div>
-    <div class="card-product-info text-center">
+    <div class="card-product-info text-{{ card_text_alignment }}">
+        <a href="{{ product.url }}"
+            class="name-product link fw-medium text-md">{{ product.title }}</a>
+        <p class="price-wrap fw-medium">
+            <span class="price-new text-primary text-xl-2">{{ product.price | money }}</span>
+            {% if product.compare_at_price > product.price %}
+                <span class="price-old text-sm old-line">{{ product.compare_at_price | money }}</span>
+            {% endif %}
+        </p>
+        {% if product.available and product.variants.first.inventory_management == "shopify" %}
+            {% assign inventory_quantity = product.variants.first.inventory_quantity %}
+            {% assign max_inventory = 100 %}
+            {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
+            <div class="product-progress-sale">
+                <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
+                    aria-valuemax="100">
+                    <div class="progress-bar bg-primary" style="width: {{ inventory_percentage }}%"></div>
+                </div>
+                <div class="box-quantity d-flex justify-content-between">
+                    <p class="text-sold text-sm">
+                        Sold:
+                        <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity }}</span>
+                    </p>
+                    <p class="text-avaiable text-sm">
+                        Available:
+                        <span class="fw-medium">{{ inventory_quantity }}</span>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<div class="card-product style-2 style-border-2 color-{{ card_color_scheme }}"
+     style="
+        {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
+        {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
+        {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
+        {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+     ">
+    <div class="card-product-wrapper asp-ratio-0">
+        <a href="{{ product.url }}" class="product-img">
+            {% if product.featured_image %}
+                <img class="img-product lazyload"
+                    width="460" height="460"
+                    data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
+                    alt="{{ product.featured_image.alt | escape }}">
+                <img class="img-hover lazyload"
+                    width="460" height="460"
+                    data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}">
+            {% endif %}
+        </a>
+        {% if product.compare_at_price > product.price %}
+            {% assign save_percentage = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+            <div class="on-sale-wrap">
+                <span class="on-sale-item">{{ save_percentage }}% Off</span>
+            </div>
+        {% endif %}
+        <ul class="list-product-btn">
+            {% render 'product-cart-button', product: product %}
+            {% render 'product-wishlist-button', product: product %}
+            {% render 'product-quickview-button', product: product %}
+            {% render 'product-compare-button', product: product %}
+        </ul>
+    </div>
+    <div class="card-product-info text-{{ card_text_alignment }}">
         <a href="{{ product.url }}"
             class="name-product link fw-medium text-md">{{ product.title }}</a>
         <p class="price-wrap fw-medium">
@@ -59,3 +143,4 @@
         {% endif %}
     </div>
 </div>
+{% endif %}

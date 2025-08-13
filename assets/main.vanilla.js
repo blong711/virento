@@ -36,7 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
   clickModalSecond();
   estimateShipping();
   headerSticky();
-  autoPopup();
+  newsletterPopup();
+  exitPopup();
+  new WOW().init();
 });
 
 /* Custom Select with Images
@@ -466,6 +468,19 @@ const cookieSetting = () => {
     document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
   };
 
+  const detectUserCountry = () => {
+    // Try to detect user country from IP or browser locale
+    const userCountry = getCookie('user_country');
+    if (!userCountry) {
+      // Use browser locale as fallback
+      const locale = navigator.language || navigator.userLanguage;
+      const country = locale.split('-')[1] || locale.split('_')[1];
+      if (country) {
+        setCookie('user_country', country.toUpperCase(), 365);
+      }
+    }
+  };
+
   const getCookie = (name) => {
     const cookies = document.cookie.split(';');
     for (const cookie of cookies) {
@@ -478,19 +493,80 @@ const cookieSetting = () => {
   };
 
   const checkCookie = () => {
+    // Check if we're in the Shopify theme customizer
+    const isThemeCustomizer = window.Shopify && window.Shopify.designMode;
+    if (isThemeCustomizer) {
+      return; // Don't show cookie banner in theme customizer
+    }
+
     const cookieConsent = getCookie('cookie_consent');
-    const cookiePopup = document.querySelector('.cookie-popup');
+    const cookieBanner = document.querySelector('.cookie-banner');
     
-    if (!cookieConsent && cookiePopup) {
-      cookiePopup.classList.add('show');
+    if (!cookieConsent && cookieBanner) {
+      // Check the banner setting from the section data
+      const sectionId = cookieBanner.getAttribute('data-section-id');
+      const bannerSetting = cookieBanner.getAttribute('data-show-banner');
       
-      cookiePopup.querySelector('.accept-btn')?.addEventListener('click', () => {
-        setCookie('cookie_consent', 'accepted', 30);
-        cookiePopup.classList.remove('show');
-      });
+      // Show banner based on setting
+      let shouldShow = true;
+      
+      if (bannerSetting === 'targeted_regions') {
+        // For targeted regions, check if user is in EU/EEA/UK/Switzerland
+        // You can enhance this with more sophisticated geolocation
+        const userCountry = getCookie('user_country');
+        if (userCountry) {
+          const euCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'];
+          const eeaCountries = ['IS', 'LI', 'NO'];
+          const otherCountries = ['GB', 'CH'];
+          const allTargetedCountries = [...euCountries, ...eeaCountries, ...otherCountries];
+          shouldShow = allTargetedCountries.includes(userCountry);
+        } else {
+          // If no country detected, show banner to be safe
+          shouldShow = true;
+        }
+      } else if (bannerSetting === 'all_regions') {
+        shouldShow = true;
+      }
+      
+      if (shouldShow) {
+        cookieBanner.classList.add('show');
+        
+        // Add event listener to the accept button
+        const acceptButton = cookieBanner.querySelector('#accept-cookie');
+        if (acceptButton) {
+          acceptButton.addEventListener('click', () => {
+            setCookie('cookie_consent', 'accepted', 30);
+            cookieBanner.classList.remove('show');
+            cookieBanner.classList.add('hidden');
+          });
+        }
+      }
     }
   };
 
+  // Theme customizer functionality
+  if (window.Shopify && window.Shopify.designMode) {
+    document.addEventListener('shopify:section:select', function(event) {
+      // Check if the selected section is a cookies-popup section
+      if (event.target.id && event.target.id.includes('__cookies-popup')) {
+        // Get the cookie banner element and show it
+        const cookieBanner = document.querySelector('.cookie-banner');
+        if (cookieBanner) {
+          cookieBanner.classList.add('show');
+          cookieBanner.classList.remove('hidden');
+        }
+      } else {
+        // Hide the cookie banner when other sections are selected
+        const cookieBanner = document.querySelector('.cookie-banner');
+        if (cookieBanner) {
+          cookieBanner.classList.remove('show');
+          cookieBanner.classList.add('hidden');
+        }
+      }
+    });
+  }
+
+  detectUserCountry();
   checkCookie();
 };
 
@@ -801,13 +877,13 @@ const clickModalSecond = () => {
                data-variant-id="${product.variants[0]?.id || ''}"
                data-product-id="${product.id}"
                data-selected-variant="${product.variants[0]?.id || ''}">
-              Add to cart
+              ${window.ShopifyTranslations?.quickview?.add_to_cart}
             </a>
           </div>
-          <a href="${product.url}" class="tf-btn w-100 animate-btn paypal btn-primary">Buy It Now</a>
-          <a href="/cart" class="more-choose-payment link">More payment options</a>
+          <a href="${product.url}" class="tf-btn w-100 animate-btn paypal btn-primary">${window.ShopifyTranslations?.quickview?.buy_it_now}</a>
+          <a href="/cart" class="more-choose-payment link">${window.ShopifyTranslations?.quickview?.more_payment_options}</a>
         </div>
-        <a href="${product.url}" class="view-details link">View full details <i class="icon icon-arrow-right"></i></a>
+        <a href="${product.url}" class="view-details link">${window.ShopifyTranslations?.quickview?.view_full_details} <i class="icon icon-arrow-right"></i></a>
       </div>
     `;
     
@@ -1003,8 +1079,18 @@ const clickModalSecond = () => {
 
   document.querySelectorAll('.btn-addtocart').forEach(btn => {
     btn.addEventListener('click', () => {
-      const cartModal = new bootstrap.Modal(document.getElementById('shoppingCart'));
-      cartModal.show();
+      // Check cart type setting
+      const cartType = window.themeSettings?.cartType || 'drawer';
+      
+      if (cartType === 'drawer') {
+        const cartModal = new bootstrap.Modal(document.getElementById('shoppingCart'));
+        cartModal.show();
+      } else if (cartType === 'cart-page') {
+        window.location = window.routes?.cart_url || '/cart';
+      } else if (cartType === 'checkout-page') {
+        window.location = `${window.routes?.checkout_url || '/checkout'}`;
+      }
+      // For 'none' type, do nothing
     });
   });
 
@@ -1176,26 +1262,212 @@ const headerSticky = () => {
   }, 250);
 };
 
-/* Auto Popup
+/* Newsletter Popup
 -------------------------------------------------------------------------*/
-const autoPopup = () => {
-  const popup = document.querySelector('.auto-popup');
+const newsletterPopup = () => {
+  const popup = document.querySelector('.newsletter-popup');
   if (!popup) return;
+
+  // Get popup settings from data attributes
+  const popupTrigger = popup.dataset.popupTrigger || 'time';
+  const popupDelay = parseInt(popup.dataset.popupDelay) || 3;
+  const scrollThreshold = parseInt(popup.dataset.scrollThreshold) || 300;
+  const daysNextShow = parseInt(popup.dataset.daysNextShow) || 7;
 
   const pageKey = 'showPopup_' + window.location.pathname;
   const showPopup = sessionStorage.getItem(pageKey);
+  const globalPopupKey = 'newsletterPopupHidden';
 
-  if (!JSON.parse(showPopup)) {
-    setTimeout(() => {
-      const modal = new bootstrap.Modal(popup);
-      modal.show();
-    }, 3000);
+  // Check if user has globally hidden the popup
+  const globalHidden = localStorage.getItem(globalPopupKey);
+  if (globalHidden === 'true') return;
+
+  // Check if we're in theme customization mode
+  const isThemeCustomizer = window.Shopify && window.Shopify.designMode;
+  if (isThemeCustomizer) return;
+
+  // Check if enough days have passed since last close
+  const lastCloseDate = localStorage.getItem('newsletterPopupLastClose');
+  if (lastCloseDate) {
+    const daysSinceClose = (Date.now() - new Date(lastCloseDate).getTime()) / (1000 * 60 * 60 * 24);
+    if (daysSinceClose < daysNextShow) return;
   }
 
+  // Only show popup on first visit to the page
+  if (!JSON.parse(showPopup)) {
+    if (popupTrigger === 'time') {
+      // Show popup after specified delay
+      setTimeout(() => {
+        const modal = new bootstrap.Modal(popup);
+        modal.show();
+      }, popupDelay * 1000);
+    } else if (popupTrigger === 'scroll') {
+      // Show popup after user scrolls specified pixels
+      let hasShown = false;
+      const handleScroll = () => {
+        if (hasShown) return;
+        if (window.scrollY >= scrollThreshold) {
+          hasShown = true;
+          const modal = new bootstrap.Modal(popup);
+          modal.show();
+          window.removeEventListener('scroll', handleScroll);
+        }
+      };
+      window.addEventListener('scroll', handleScroll);
+    }
+  }
+
+  // Handle close button
   document.querySelector('.btn-hide-popup')?.addEventListener('click', () => {
+    // Store the close date for "days until next show" functionality
+    localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
     sessionStorage.setItem(pageKey, true);
   });
+
+  // Handle form submission
+  const form = popup.querySelector('.form-newsletter');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      // Store the close date for "days until next show" functionality
+      localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
+    });
+  }
+
+  // Handle modal hidden event (when popup is closed by any means)
+  popup.addEventListener('hidden.bs.modal', () => {
+    // Store the close date for "days until next show" functionality
+    localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
+  });
 };
+
+  // Theme customizer functionality
+  if (window.Shopify && window.Shopify.designMode) {
+    document.addEventListener('shopify:section:select', function(event) {
+      // Check if the selected section is a newsletter-popup section
+      if (event.target.id && event.target.id.includes('__newsletter-popup')) {
+        // Get the newsletter popup element and show it
+        const newsletterPopup = document.querySelector('.newsletter-popup');
+        if (newsletterPopup) {
+          const modal = new bootstrap.Modal(newsletterPopup);
+          modal.show();
+        }
+      } else {
+        // Hide the newsletter popup when other sections are selected
+        const newsletterPopup = document.querySelector('.newsletter-popup');
+        if (newsletterPopup) {
+          const modal = bootstrap.Modal.getInstance(newsletterPopup);
+          if (modal) {
+            modal.hide();
+          }
+        }
+      }
+    });
+  }
+
+const exitPopup = () => {
+  const popup = document.querySelector('.exit-popup');
+  if (!popup) return;
+
+  // Get popup settings from data attributes
+  const popupTrigger = popup.dataset.popupTrigger || 'mouseleave';
+  const popupDelay = parseInt(popup.dataset.popupDelay) || 0;
+  const daysNextShow = parseInt(popup.dataset.daysNextShow) || 1;
+
+  const pageKey = 'showExitPopup_' + window.location.pathname;
+  const showPopup = sessionStorage.getItem(pageKey);
+  const globalPopupKey = 'exitPopupHidden';
+
+  // Check if user has globally hidden the popup
+  const globalHidden = localStorage.getItem(globalPopupKey);
+  if (globalHidden === 'true') return;
+
+  // Check if we're in theme customization mode
+  const isThemeCustomizer = window.Shopify && window.Shopify.designMode;
+  if (isThemeCustomizer) return;
+
+  // Check if enough days have passed since last close
+  const lastCloseDate = localStorage.getItem('exitPopupLastClose');
+  if (lastCloseDate) {
+    const daysSinceClose = (Date.now() - new Date(lastCloseDate).getTime()) / (1000 * 60 * 60 * 24);
+    if (daysSinceClose < daysNextShow) return;
+  }
+
+  // Only show popup on first visit to the page
+  if (!JSON.parse(showPopup)) {
+    if (popupTrigger === 'time') {
+      // Show popup after specified delay
+      setTimeout(() => {
+        const modal = new bootstrap.Modal(popup);
+        modal.show();
+      }, popupDelay * 1000);
+    } else if (popupTrigger === 'mouseleave') {
+      // Show popup when user moves mouse to close tab/window
+      let hasShown = false;
+      const handleMouseLeave = (e) => {
+        if (hasShown) return;
+        if (e.clientY <= 0) {
+          hasShown = true;
+          const modal = new bootstrap.Modal(popup);
+          modal.show();
+          document.removeEventListener('mouseleave', handleMouseLeave);
+        }
+      };
+      document.addEventListener('mouseleave', handleMouseLeave);
+    } else if (popupTrigger === 'scroll') {
+      // Show popup after user scrolls specified percentage
+      let hasShown = false;
+      const scrollThreshold = parseInt(popup.dataset.scrollThreshold) || 80;
+      const handleScroll = () => {
+        if (hasShown) return;
+        const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        if (scrollPercent >= scrollThreshold) {
+          hasShown = true;
+          const modal = new bootstrap.Modal(popup);
+          modal.show();
+          window.removeEventListener('scroll', handleScroll);
+        }
+      };
+      window.addEventListener('scroll', handleScroll);
+    }
+  }
+
+  // Handle close button
+  document.querySelector('.btn-hide-popup')?.addEventListener('click', () => {
+    // Store the close date for "days until next show" functionality
+    localStorage.setItem('exitPopupLastClose', new Date().toISOString());
+    sessionStorage.setItem(pageKey, true);
+  });
+
+  // Handle modal hidden event (when popup is closed by any means)
+  popup.addEventListener('hidden.bs.modal', () => {
+    // Store the close date for "days until next show" functionality
+    localStorage.setItem('exitPopupLastClose', new Date().toISOString());
+  });
+};
+
+// Theme customizer functionality for exit popup
+if (window.Shopify && window.Shopify.designMode) {
+  document.addEventListener('shopify:section:select', function(event) {
+    // Check if the selected section is an exit-popup section
+    if (event.target.id && event.target.id.includes('__exit-popup')) {
+      // Get the exit popup element and show it
+      const exitPopupElement = document.querySelector('.exit-popup');
+      if (exitPopupElement) {
+        const modal = new bootstrap.Modal(exitPopupElement);
+        modal.show();
+      }
+    } else {
+      // Hide the exit popup when other sections are selected
+      const exitPopupElement = document.querySelector('.exit-popup');
+      if (exitPopupElement) {
+        const modal = bootstrap.Modal.getInstance(exitPopupElement);
+        if (modal) {
+          modal.hide();
+        }
+      }
+    }
+  });
+}
 
 /* Parallax Effects
 -------------------------------------------------------------------------*/
