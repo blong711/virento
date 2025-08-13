@@ -88,6 +88,7 @@
           endif
         %}
 
+        --color-foreground2: {{ scheme.settings.text2.rgb }};
         --color-background2: {{ scheme.settings.background2.rgb }};
         --color-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }} !important;
         --color-background-contrast: {{ background_color_contrast.red }},{{ background_color_contrast.green }},{{ background_color_contrast.blue }} !important;
@@ -297,7 +298,6 @@
     <script src="{{ 'shop.vanilla.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'product-cart-button.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
-
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -313,7 +313,7 @@
 
     {% sections 'footer-group' %}
     {% sections 'system-group' %}
-    
+
     <!-- Quickview Modal -->
     {% render 'quickview-modal' %}
     {% render 'login-drawer' %}

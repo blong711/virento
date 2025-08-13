@@ -1,0 +1,40 @@
+{% comment %}
+  Header Categories Snippet
+  Renders category dropdown based on collections and layout type
+  Parameters: collections (collection_list), layout (string)
+{% endcomment %}
+
+<ul class="mega-categories">
+  {% if collections and collections.size > 0 %}
+    {% for collection in collections limit: 8 %}
+      <li>
+        <a href="{{ collection.url }}" class="cate-item">
+          {% if collection.image %}
+            <div class="img">
+              {{ collection.image | image_url: width: 50 | image_tag: loading: 'lazy', alt: collection.title }}
+            </div>
+          {% endif %}
+          <span class="name-cate">{{ collection.title }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  {% else %}
+    {% comment %} Fallback categories if no collection specified {% endcomment %}
+    {% assign fallback_categories = 'Electronics,Fashion,Home & Garden,Sports,Books,Toys,Health,Beauty' | split: ',' %}
+    {% for category in fallback_categories limit: 8 %}
+      <li>
+        <a href="{{ routes.collections_url }}/{{ category | handle }}" class="cate-item">
+          <div class="img">
+            <div
+              class="placeholder-icon"
+              style="width: 40px; height: 40px; background: #f5f5f5; display: flex; align-items: center; justify-content: center;"
+            >
+              <i class="icon icon-categories"></i>
+            </div>
+          </div>
+          <span class="name-cate">{{ category }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  {% endif %}
+</ul>

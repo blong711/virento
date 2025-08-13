@@ -1,274 +1,626 @@
+{% liquid
+  assign layout_type = section.settings.layout_type
+  assign show_categories = section.settings.show_categories
+  assign categories_style = ''
+  assign header_classes = 'header-default header-search header-uppercase'
+  assign bottom_classes = 'header-bottom d-none d-xl-block line-bt'
+
+  case layout_type
+    when 'electric'
+      assign header_classes = header_classes | append: ' header-style-2'
+      assign categories_style = ''
+    when 'mega'
+      assign bottom_classes = bottom_classes | append: ' bg-light-purple-11'
+      assign show_categories = false
+    when 'market'
+      assign header_classes = header_classes | append: ' header-style-2'
+      assign categories_style = ' style-market'
+  endcase
+%}
+
+<header
+  id="header"
+  class="{{ header_classes }} color-{{ section.settings.color_scheme }}"
+  data-sticky-type="{{ section.settings.sticky_header }}"
+>
+  <!-- Header Top -->
+  <div class="header-top">
+    <div class="container">
+      <div class="row wrapper-header align-items-center">
+        <!-- Mobile Menu Button -->
+        <div class="col-md-4 col-3 d-xl-none">
+          <a href="#mobileMenu" class="mobile-menu" data-bs-toggle="offcanvas" aria-controls="mobileMenu">
+            <i class="icon icon-categories1"></i>
+          </a>
+        </div>
+
+        <!-- Logo -->
+        <div class="col-xl-3 col-md-4 col-6">
+          <a href="{{ routes.root_url }}" class="logo-header">
+            {% if settings.logo != blank %}
+              {% assign logo_width = settings.logo_width %}
+              {{
+                settings.logo
+                | image_url: width: logo_width
+                | image_tag: class: 'logo', width: logo_width, height: 'auto', alt: shop.name
+              }}
+            {% else %}
+              <span class="h2">{{ shop.name }}</span>
+            {% endif %}
+          </a>
+        </div>
+
+        <!-- Search Form -->
+        {% if section.settings.show_search %}
+          <div class="col-xl-5 d-none d-xl-block text-center">
+            <div class="tf-form-search">
+              <form class="form-search" action="{{ routes.search_url }}" method="get">
+                <input
+                  type="text"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                  placeholder="{{ section.settings.search_placeholder | default: 'Search product' }}"
+                  tabindex="0"
+                  aria-required="true"
+                  required
+                >
+                <button type="submit" class="btn-search">
+                  <i class="icon icon-search"></i>
+                </button>
+              </form>
+
+              {% comment %} Predictive search results {% endcomment %}
+              <div class="search-suggests-results" id="search-results" style="display: none;">
+                <div class="search-suggests-results-inner">
+                  <ul id="search-suggestions">
+                    {% comment %} Dynamic search suggestions {% endcomment %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Header Icons -->
+        <div class="col-xl-4 col-md-4 col-3">
+          <ul class="nav-icon d-flex justify-content-end align-items-center">
+            {% if section.settings.show_account %}
+              <li class="nav-account">
+                {% if customer %}
+                  <a href="{{ routes.account_url }}" class="nav-icon-item">
+                    <i class="icon icon-user"></i>
+                    <span class="text d-none d-xl-block">{{ 'customer.account.title' | t }}</span>
+                  </a>
+                {% else %}
+                  <a href="#login" class="nav-icon-item" data-bs-toggle="offcanvas">
+                    <i class="icon icon-user"></i>
+                    <span class="text d-none d-xl-block">{{ 'customer.login.title' | t }}</span>
+                  </a>
+                {% endif %}
+              </li>
+            {% endif %}
+
+            {% if section.settings.show_wishlist %}
+              <li class="nav-wishlist">
+                <a href="/pages/wishlist" class="nav-icon-item">
+                  <i class="icon icon-heart"></i>
+                  <span class="text d-none d-xl-block">{{ 'general.wishlist.title' | t }}</span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% if section.settings.show_cart %}
+              <li class="nav-cart">
+                {% if layout_type == 'mega' or layout_type == 'market' %}
+                  <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas">
+                    <i class="icon icon-cart"></i>
+                    <span class="text d-none d-xl-block">{{ cart.total_price | money }}</span>
+                  </a>
+                {% else %}
+                  <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas">
+                    <i class="icon icon-cart"></i>
+                    <span class="text d-none d-xl-block">{{ 'general.cart.title' | t }}</span>
+                  </a>
+                {% endif %}
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Bottom Navigation -->
+  <div class="{{ bottom_classes }}">
+    <div class="container">
+      <div class="wrapper-header-bottom">
+        {% if layout_type == 'mega' %}
+          <!-- Mega Layout: Full-width navigation only -->
+          <nav class="box-navigation text-center">
+            {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
+          </nav>
+
+          <div class="inner-right">
+            {% if section.settings.help_text %}
+              <a href="{{ section.settings.help_url | default: '/pages/contact' }}" class="link fw-medium text-md">
+                {{ section.settings.help_text }}
+              </a>
+            {% endif %}
+            {% if section.settings.phone_number %}
+              <div class="box-phone">
+                <i class="icon icon-head-phone"></i>
+                <a href="tel:{{ section.settings.phone_number }}" class="phone">
+                  {{ section.settings.phone_display | default: section.settings.phone_number }}
+                </a>
+              </div>
+            {% endif %}
+          </div>
+
+        {% elsif layout_type == 'market' %}
+          <!-- Market Layout: Categories + Navigation on left, Big phone on right -->
+          <div class="inner-left">
+            {% if show_categories %}
+              <div class="tf-mega-categories{{ categories_style }}">
+                <a href="{{ routes.collections_url }}" class="categories-title">
+                  <i class="icon icon-categories"></i>
+                  {{ section.settings.categories_title | default: 'browse categories' }}
+                </a>
+                <ul class="mega-categories">
+                  {% for collection in section.settings.selected_collections %}
+                    <li>
+                      <a href="{{ collection.url }}" class="cate-item">
+                        {% if collection.image %}
+                          <div class="img">
+                            {{
+                              collection.image
+                              | image_url: width: 50
+                              | image_tag: loading: 'lazy', alt: collection.title
+                            }}
+                          </div>
+                        {% endif %}
+                        <span class="name-cate">{{ collection.title }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+
+            <nav class="box-navigation text-center">
+              {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
+            </nav>
+          </div>
+
+          {% if section.settings.phone_number %}
+            <div class="box-phone">
+              <div class="box-icon">
+                <i class="icon icon-head-phone"></i>
+              </div>
+              <a href="tel:{{ section.settings.phone_number }}" class="text-xl fw-medium">
+                {{ section.settings.phone_display | default: section.settings.phone_number }}
+              </a>
+            </div>
+          {% endif %}
+
+        {% else %}
+          <!-- Electric Layout: Categories + Navigation on left, Help + Call on right -->
+          <div class="inner-left">
+            {% if show_categories %}
+              <div class="tf-mega-categories{{ categories_style }}">
+                <a href="{{ routes.collections_url }}" class="categories-title">
+                  <i class="icon icon-categories"></i>
+                  {{ section.settings.categories_title | default: 'browse categories' }}
+                </a>
+                <ul class="mega-categories">
+                  {% for collection in section.settings.selected_collections %}
+                    <li>
+                      <a href="{{ collection.url }}" class="cate-item">
+                        {% if collection.image %}
+                          <div class="img">
+                            {{
+                              collection.image
+                              | image_url: width: 50
+                              | image_tag: loading: 'lazy', alt: collection.title
+                            }}
+                          </div>
+                        {% endif %}
+                        <span class="name-cate">{{ collection.title }}</span>
+                      </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+
+            <nav class="box-navigation text-center">
+              {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
+            </nav>
+          </div>
+
+          <div class="inner-right">
+            {% if section.settings.help_text %}
+              <a href="{{ section.settings.help_url | default: '/pages/contact' }}" class="link fw-medium text-md">
+                {{ section.settings.help_text }}
+              </a>
+            {% endif %}
+            {% if section.settings.phone_number %}
+              <a href="tel:{{ section.settings.phone_number }}" class="call-us text-md fw-medium">
+                {{ section.settings.call_text | default: 'Call Us Now' }}
+                <i class="icon icon-arrow1-top-left"></i>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+
+{%- style %}
+  .wrapper-header-bottom .call-us,
+  .bg-light-purple-11 .box-phone a {
+    color: rgb(var(--color-foreground2)) !important;
+  }
+
+  .wrapper-header-bottom .call-us {
+    border-bottom: 1px solid rgb(var(--color-foreground2)) !important;
+  }
+
+  .form-search .btn-search {
+    background-color: rgba(var(--color-button)) !important;
+    color: rgba(var(--color-button-text)) !important;
+  }
+
+  .header-default .box-nav-menu .item-link,
+  .header-default .box-phone .icon,
+  .header-style-2 .box-phone a, 
+  .nav-account a,
+  .nav-wishlist a,
+  .nav-cart a {
+    color: rgb(var(--color-foreground)) !important;
+  }
+
+  .wrapper-header-bottom .tf-mega-categories .categories-title,
+  .header-default .box-phone .box-icon,
+  .bg-light-purple-11 {
+    background-color: rgba(var(--color-background2)) !important;
+  }
+{%- endstyle %}
+
 {% schema %}
+{
+  "name": "Header",
+  "tag": "header",
+  "class": "section-header",
+  "settings": [
     {
-      "name": "t:sections.header.name",
+      "type": "header",
+      "content": "Layout Configuration"
+    },
+    {
+      "type": "select",
+      "id": "layout_type",
+      "label": "Layout",
+      "options": [
+        { "value": "electric", "label": "Layout-1" },
+        { "value": "mega", "label": "Layout-2" },
+        { "value": "market", "label": "Layout-3" }
+      ],
+      "default": "electric"
+    },
+    {
+      "type": "select",
+      "id": "sticky_header",
+      "label": "t:sections.header.settings.sticky_header.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.header.settings.sticky_header.options.none"
+        },
+        {
+          "value": "on_scroll_up",
+          "label": "t:sections.header.settings.sticky_header.options.on_scroll_up"
+        }
+      ],
+      "default": "on_scroll_up"
+    },
+    {
+      "type": "range",
+      "id": "menu_item_spacing",
+      "label": "Menu items spacing",
+      "unit": "px",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "default": 16
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main menu"
+    },
+    {
+      "type": "header",
+      "content": "Categories"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_categories",
+      "label": "Show categories dropdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "categories_title",
+      "label": "Categories title",
+      "default": "browse categories"
+    },
+    {
+      "type": "collection_list",
+      "id": "selected_collections",
+      "label": "t:sections.header.settings.selected_collections.label",
+      "limit": 20
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search bar",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Search product"
+    },
+    {
+      "type": "header",
+      "content": "Header Icons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show wishlist icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "Show cart icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "help_text",
+      "label": "Help link text",
+      "default": "Need Help?"
+    },
+    {
+      "type": "url",
+      "id": "help_url",
+      "label": "Help link URL"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone number",
+      "placeholder": "+1 123 456 789"
+    },
+    {
+      "type": "text",
+      "id": "call_text",
+      "label": "Call us text",
+      "default": "Call Us Now"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mega_html",
+      "name": "Mega Menu - HTML",
       "settings": [
         {
-          "type": "select",
-          "id": "sticky_header",
-          "label": "t:sections.header.settings.sticky_header.label",
-          "options": [
-            {
-              "value": "none",
-              "label": "t:sections.header.settings.sticky_header.options.none"
-            },
-            {
-              "value": "on_scroll_up",
-              "label": "t:sections.header.settings.sticky_header.options.on_scroll_up"
-            }
-          ],
-          "default": "on_scroll_up"
+          "type": "text",
+          "id": "menu_item_match",
+          "label": "Match Menu Item",
+          "info": "Enter the exact menu item title to connect this mega menu"
         },
         {
-          "type": "color_scheme",
-          "id": "color_scheme",
-          "label": "t:sections.all.colors.label",
-          "default": "scheme-1"
-        },
+          "type": "page",
+          "id": "content_page",
+          "label": "Content Page",
+          "info": "Select a page to display its content in the mega menu"
+        }
+      ]
+    },
+    {
+      "type": "mega_shop",
+      "name": "Mega Menu - Shop",
+      "settings": [
         {
-          "type": "link_list",
-          "id": "menu",
-          "label": "t:sections.header.settings.menu.label",
-          "default": "t:sections.header.settings.menu.default"
-        },
-        {
-          "type": "header",
-          "content": "t:sections.header.settings.utility_settings.content"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_search",
-          "label": "t:sections.header.settings.show_search.label",
-          "default": true
-        },
-        {
-          "type": "checkbox",
-          "id": "show_login",
-          "label": "t:sections.header.settings.show_login.label",
-          "default": true
-        },
-        {
-          "type": "checkbox",
-          "id": "show_wishlist",
-          "label": "t:sections.header.settings.show_wishlist.label",
-          "default": true
-        },
-        {
-          "type": "checkbox",
-          "id": "show_cart",
-          "label": "t:sections.header.settings.show_cart.label",
-          "default": true
-        },
-        {
-          "type": "header",
-          "content": "t:sections.header.settings.categories_menu.content"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_categories_menu",
-          "label": "t:sections.header.settings.show_categories_menu.label",
-          "default": true
+          "type": "text",
+          "id": "menu_item_match",
+          "label": "Match Menu Item",
+          "info": "Enter the exact menu item title to connect this mega menu"
         },
         {
           "type": "collection_list",
-          "id": "selected_collections",
-          "label": "t:sections.header.settings.selected_collections.label",
-          "limit": 20
+          "id": "collections",
+          "label": "Collections to Show",
+          "limit": 8,
+          "info": "Select collections to feature in the mega menu"
         },
         {
           "type": "range",
-          "id": "menu_spacing",
-          "min": 20,
-          "max": 60,
-          "step": 5,
-          "unit": "px",
-          "label": "t:sections.header.settings.menu_spacing.label",
-          "default": 40
-        }
-      ],
-      "presets": [
+          "id": "collections_to_show",
+          "label": "Collections per row",
+          "min": 2,
+          "max": 8,
+          "step": 1,
+          "default": 4
+        },
         {
-          "name": "t:sections.header.presets.name",
-          "category": "t:sections.header.presets.category"
+          "type": "checkbox",
+          "id": "show_collection_image",
+          "label": "Show collection images",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "view_all_text",
+          "label": "View all text",
+          "default": "View All Collections"
+        },
+        {
+          "type": "url",
+          "id": "view_all_url",
+          "label": "View all URL"
+        }
+      ]
+    },
+    {
+      "type": "mega_product",
+      "name": "Mega Menu - Products",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item_match",
+          "label": "Match Menu Item",
+          "info": "Enter the exact menu item title to connect this mega menu"
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Featured Products",
+          "limit": 4,
+          "info": "Select products to feature in the mega menu"
+        },
+        {
+          "type": "range",
+          "id": "products_to_show",
+          "label": "Products per row",
+          "min": 2,
+          "max": 4,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "checkbox",
+          "id": "show_vendor",
+          "label": "Show product vendor",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_product_rating",
+          "label": "Show product rating",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "mega_pages",
+      "name": "Mega Menu - Pages",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item_match",
+          "label": "Match Menu Item",
+          "info": "Enter the exact menu item title to connect this mega menu"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Banner Image"
+        },
+        {
+          "type": "text",
+          "id": "banner_title",
+          "label": "Banner Title",
+          "default": "Unveiling the latest gear"
+        },
+        {
+          "type": "url",
+          "id": "banner_url",
+          "label": "Banner Link URL"
+        }
+      ]
+    },
+    {
+      "type": "mega_blog",
+      "name": "Mega Menu - Blog",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_item_match",
+          "label": "Match Menu Item",
+          "info": "Enter the exact menu item title to connect this mega menu"
+        },
+        {
+          "type": "header",
+          "content": "Recent Posts"
+        },
+        {
+          "type": "text",
+          "id": "recent_posts_title",
+          "label": "Recent Posts Title",
+          "default": "Recent Posts"
+        },
+        {
+          "type": "blog",
+          "id": "blog",
+          "label": "Blog",
+          "info": "Select blog for recent posts"
+        },
+        {
+          "type": "range",
+          "id": "posts_to_show",
+          "label": "Posts to show",
+          "min": 3,
+          "max": 6,
+          "step": 1,
+          "default": 3
         }
       ]
     }
+  ],
+  "presets": [
+    {
+      "name": "Header Multi Layout",
+      "settings": {
+        "layout_type": "electric",
+        "show_categories": true,
+        "show_search": true,
+        "show_account": true,
+        "show_wishlist": true,
+        "show_cart": true,
+        "help_text": "Need Help?",
+        "call_text": "Call Us Now"
+      }
+    }
+  ]
+}
 {% endschema %}
-    
-<header id="header" class="header-default header-search header-uppercase header-style-2 color-{{ section.settings.color_scheme }} gradient" data-sticky-type="{{ section.settings.sticky_header }}">
-    <div class="header-top">
-        <div class="container">
-            <div class="row wrapper-header align-items-center">
-                <div class="col-md-4 col-3 d-xl-none">
-                    <a href="#mobileMenu" class="mobile-menu" data-bs-toggle="offcanvas"
-                        aria-controls="mobileMenu">
-                        <i class="icon icon-categories1"></i>
-                    </a>
-                </div>
-                <div class="col-xl-3 col-md-4 col-6">
-                    <a href="{{ routes.root_url }}" class="logo-header">
-                        {% if settings.logo != blank %}
-                            {% assign logo_width = settings.logo_width %}
-                            {{ settings.logo | image_url: width: logo_width | image_tag: class: 'logo', width: logo_width, height: 'auto', alt: shop.name }}
-                        {% else %}
-                            <span class="h2">{{ shop.name }}</span>
-                        {% endif %}
-                    </a>
-                </div>
-                {% if section.settings.show_search %}
-                <div class="col-xl-5 d-none d-xl-block text-center">
-                    <div class="tf-form-search">
-                        <form action="{{ routes.search_url }}" method="get" class="form-search">
-                            <input type="text" 
-                                    name="q" 
-                                    value="{{ search.terms | escape }}"
-                                    placeholder="{{ 'general.search.placeholder' | t }}" 
-                                    tabindex="0" 
-                                    aria-required="true"
-                                    required>
-                            <button type="submit" class="btn-search"><i class="icon icon-search"></i></button>
-                        </form>
-                        {% if search.performed %}
-                        <div class="search-suggests-results">
-                            <div class="search-suggests-results-inner"></div>
-                                <ul>
-                                    {% for product in search.results limit: 3 %}
-                                    <li>
-                                        <a class="search-result-item" href="{{ product.url }}">
-                                            <div class="img-box">
-                                                {{ product.featured_image | image_url: width: 100 | image_tag: class: 'lazyload', loading: 'lazy' }}
-                                            </div>
-                                            <div class="box-content">
-                                                <p class="title link">{{ product.title }}</p>
-                                                <div class="price">
-                                                    {% if product.compare_at_price > product.price %}
-                                                        <span class="new-price">{{ product.price | money }}</span>
-                                                        <span class="old-price">{{ product.compare_at_price | money }}</span>
-                                                    {% else %}
-                                                        <span class="price">{{ product.price | money }}</span>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endif %}
-
-                <div class="col-xl-4 col-md-4 col-3">
-                    <ul class="nav-icon d-flex justify-content-end align-items-center">
-                        {% if section.settings.show_login %}
-                        <li class="nav-account">
-                            {% if shop.customer_accounts_enabled %}
-                                {% if customer %}
-                                    <a href="{{ routes.account_url }}" class="nav-icon-item">
-                                        <i class="icon icon-user"></i>
-                                        <span class="text d-none d-xl-block">{{ 'customer.account.title' | t }}</span>
-                                    </a>
-                                {% else %}
-                                    <a href="#login" class="nav-icon-item" data-bs-toggle="offcanvas">
-                                        <i class="icon icon-user"></i>
-                                        <span class="text d-none d-xl-block">{{ 'customer.login.title' | t }}</span>
-                                    </a>
-                                {% endif %}
-                            {% endif %}
-                        </li>
-                        {% endif %}
-                        {% if section.settings.show_wishlist %}
-                        <li class="nav-wishlist">
-                            <a href="{{ routes.wishlist_url }}" class="nav-icon-item">
-                                <i class="icon icon-heart"></i>
-                                <span class="text d-none d-xl-block">{{ 'general.wishlist.title' | t }}</span>
-                            </a>
-                        </li>
-                        {% endif %}
-                        {% if section.settings.show_cart %}
-                        <li class="nav-cart">
-                            <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas">
-                                <i class="icon icon-cart"></i>
-                                <span class="text d-none d-xl-block">{{ 'general.cart.title' | t }}</span>
-                            </a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="header-bottom line-bt d-none d-xl-block">
-        <div class="container">
-            <div class="wrapper-header-bottom">
-                <div class="inner-left">
-                    {% if section.settings.show_categories_menu %}
-                    <div class="tf-mega-categories">
-                        <a href="{{ routes.collections_url }}" class="categories-title">
-                            <i class="icon icon-categories"></i>
-                            {{ 'layout.navigation.browse_categories' | t }}
-                        </a>
-                        <ul class="mega-categories">
-                            {% for collection in section.settings.selected_collections %}
-                                <li>
-                                    <a href="{{ collection.url }}" class="cate-item">
-                                        {% if collection.image %}
-                                            <div class="img">
-                                                {{ collection.image | image_url: width: 50 | image_tag: loading: 'lazy', alt: collection.title }}
-                                            </div>
-                                        {% endif %}
-                                        <span class="name-cate">{{ collection.title }}</span>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    {% endif %}
-                    <nav class="box-navigation text-center">
-                        <ul class="box-nav-menu" style="gap: {{ section.settings.menu_spacing }}px;">
-                            {% for link in linklists[section.settings.menu].links %}
-                                <li class="menu-item{% if link.links.size > 0 %} has-submenu{% endif %}">
-                                    <a href="{{ link.url }}" class="item-link">
-                                        {{ link.title }}
-                                        {% if link.links.size > 0 %}
-                                            <i class="icon icon-arr-down"></i>
-                                        {% endif %}
-                                    </a>
-                                    {% if link.links.size > 0 %}
-                                    <div class="sub-menu mega-menu">
-                                        <div class="wrapper-sub-menu">
-                                            {% for child_link in link.links %}
-                                            <div class="mega-menu-item">
-                                                <div class="menu-heading">{{ child_link.title }}</div>
-                                                {% if child_link.links.size > 0 %}
-                                                <ul class="menu-list">
-                                                    {% for grandchild_link in child_link.links %}
-                                                    <li>
-                                                        <a href="{{ grandchild_link.url }}" class="menu-link-text link">
-                                                            {{ grandchild_link.title }}
-                                                        </a>
-                                                    </li>
-                                                    {% endfor %}
-                                                </ul>
-                                                {% endif %}
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                            <li class="menu-item">
-                                <a href="{{ shop.url }}" class="item-link">{{ 'sections.header.shop_all' | t }}</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="inner-right">
-                        {% comment %}Add any additional right-side content here{% endcomment %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>

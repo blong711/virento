@@ -67,6 +67,13 @@
           },
           {
             "type": "color",
+            "id": "text2",
+            "label": "Secondary text",
+            "info": "Choose a color close to the primary text.",
+            "default": "#686868"
+          },
+          {
+            "type": "color",
             "id": "button",
             "label": "t:settings_schema.colors.settings.button_background.label",
             "default": "#121212"
