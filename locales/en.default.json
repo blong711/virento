@@ -693,7 +693,7 @@
   },
   "customer": {
     "login": {
-      "title": "Log in",
+      "title": "Login",
       "email": "Email",
       "password": "Password",
       "forgot_password": "Forgot your password?",
