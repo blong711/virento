@@ -299,7 +299,7 @@
                                     {% if block.settings.custom_svg != blank %}
                                         {{ block.settings.custom_svg }}
                                     {% else %}
-                                        <i class="icon {{ block.settings.icon_class }} text-primary"></i>
+                                        <i class="icon {{ block.settings.icon_class }}"></i>
                                     {% endif %}
                                 </div>
                         <div class="content">
@@ -333,17 +333,21 @@
     padding-bottom: {{ section.settings.padding_bottom }}px;
     }
 }
-.tf-icon-box.style-2 .box-icon {
+#shopify-section-{{ section.id }} .tf-icon-box.style-2 .box-icon {
     width: var(--icon-width);
     height: var(--icon-width);
     border: 1px solid var(--line);
     border-radius: 50%;
 }
-.tf-icon-box.style-3 .box-icon {
+#shopify-section-{{ section.id }} .tf-icon-box.style-3 .box-icon {
     width: var(--icon-width);
     height: var(--icon-width);
     flex-shrink: 0;
     border: 1px solid var(--line);
     border-radius: 50%;
+}
+
+#shopify-section-{{ section.id }} .tf-icon-box .box-icon .icon {
+    color: var(--color-button-text);
 }
 </style>
