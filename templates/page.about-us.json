@@ -152,8 +152,8 @@
           "settings": {
             "icon_class": "icon-precision",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_width": 72,
+            "icon_width_mobile": 72,
             "title": "Precision in Every Stitch",
             "description": "At Vineta, we use only premium materials, ensuring our collections offer superior comfort and lasting durability. Every piece is crafted with care and attention to detail."
           }
@@ -163,8 +163,8 @@
           "settings": {
             "icon_class": "icon-elegance",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_width": 72,
+            "icon_width_mobile": 72,
             "title": "Effortless Elegance",
             "description": "Our designs embrace simplicity at its finest. Vineta’s understated yet refined style captures the essence of modern fashion, making a statement."
           }
@@ -174,8 +174,8 @@
           "settings": {
             "icon_class": "icon-fashion-body",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_width": 72,
+            "icon_width_mobile": 72,
             "title": "Fashion for Every Body",
             "description": "We celebrate individuality with a diverse range of sizes, offering clothing that fits and flatters every body type. At Vineta, fashion is for everyone."
           }
@@ -195,7 +195,6 @@
         "products_per_row_desktop": 3,
         "products_per_row_tablet": 2,
         "products_per_row_mobile": 2,
-        "use_container": true,
         "icon_style": "style-border",
         "padding_top": 0,
         "padding_bottom": 100,
