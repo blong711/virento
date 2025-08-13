@@ -781,7 +781,7 @@
                                   {% if related_product.available %}
                                     <div class="tf-bundle-product-item item-has-checkbox{% if forloop.first %} check{% endif %}">
                                       <div class="bundle-check">
-                                        <input type="checkbox"{% if forloop.first %} checked="checked"{% endif %} class="tf-check" data-product-id="{{ related_product.id }}">
+                                        <input type="checkbox"{% if forloop.first %} checked="checked"{% endif %} class="tf-check" data-product-id="{{ related_product.id }}" data-variant-id="{{ related_product.selected_or_first_available_variant.id }}">
                                       </div>
                                       <a href="{{ related_product.url }}" class="bundle-image">
                                         <img src="{{ related_product.featured_image | image_url: width: 200 }}" alt="{{ related_product.title }}" width="200" height="200">
@@ -802,7 +802,7 @@
                                         </div>
                                         {% if related_product.has_only_default_variant == false %}
                                           <div class="bundle-variant tf-select">
-                                            <select data-product-id="{{ related_product.id }}">
+                                            <select data-product-id="{{ related_product.id }}" data-variant-selector>
                                               {% for variant in related_product.variants %}
                                                 <option value="{{ variant.id }}"{% if variant == related_product.selected_or_first_available_variant %} selected="selected"{% endif %}
                                                   data-compare-price="{{ variant.compare_at_price | money }}">
@@ -812,6 +812,7 @@
                                             </select>
                                           </div>
                                         {% endif %}
+                                        <input type="hidden" class="quantity-input" name="quantity" value="1" data-variant-id="{{ related_product.selected_or_first_available_variant.id }}">
                                       </div>
                                     </div>
                                   {% endif %}
@@ -823,10 +824,8 @@
                                 <span class="old-price" style="display: none;"></span>
                               </div>
                               <a href="#" class="btn-submit-total tf-btn btn-out-line-primary product-cart-button" 
-                                 data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                                 data-product-id="{{ product.id }}"
-                                 data-selected-variant="{{ product.selected_or_first_available_variant.id }}"
-                                 data-quantity="1">{{ 'sections.product.add_selected_to_cart' | t }}</a>
+                                 data-bulk-add="true"
+                                 data-product-id="{{ product.id }}">{{ 'sections.product.add_selected_to_cart' | t }}</a>
                             </div>
                           </div>
                         {% endif %}
@@ -1710,3 +1709,73 @@
 {% endschema %}
 <link rel="stylesheet" href="{{ 'product.css' | asset_url }}">
 {%render 'question' %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle variant selector changes to update checkbox variant ID
+  document.querySelectorAll('[data-variant-selector]').forEach(select => {
+    select.addEventListener('change', function() {
+      const bundleItem = this.closest('.tf-bundle-product-item');
+      const checkbox = bundleItem.querySelector('.tf-check');
+      const quantityInput = bundleItem.querySelector('.quantity-input');
+      const selectedVariantId = this.value;
+      
+      // Update checkbox variant ID
+      checkbox.setAttribute('data-variant-id', selectedVariantId);
+      
+      // Update quantity input variant ID
+      if (quantityInput) {
+        quantityInput.setAttribute('data-variant-id', selectedVariantId);
+      }
+    });
+  });
+
+  // Handle checkbox changes to update total price
+  document.querySelectorAll('.tf-check').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      updateBundleTotal();
+    });
+  });
+
+  // Function to update bundle total price
+  function updateBundleTotal() {
+    let total = 0;
+    let oldTotal = 0;
+    
+    document.querySelectorAll('.tf-check:checked').forEach(checkbox => {
+      const bundleItem = checkbox.closest('.tf-bundle-product-item');
+      const priceElement = bundleItem.querySelector('.new-price');
+      const oldPriceElement = bundleItem.querySelector('.old-price');
+      
+      if (priceElement) {
+        const price = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
+        const quantity = 1; // Fixed quantity of 1
+        total += price * quantity;
+        
+        if (oldPriceElement && oldPriceElement.style.display !== 'none') {
+          const oldPrice = parseFloat(oldPriceElement.textContent.replace(/[^0-9.]/g, ''));
+          oldTotal += oldPrice * quantity;
+        }
+      }
+    });
+    
+    // Update total display
+    const totalPriceElement = document.querySelector('.bundle-total-submit .total-price');
+    const oldTotalPriceElement = document.querySelector('.bundle-total-submit .old-price');
+    
+    if (totalPriceElement) {
+      totalPriceElement.textContent = '$' + total.toFixed(2);
+    }
+    
+    if (oldTotalPriceElement && oldTotal > 0) {
+      oldTotalPriceElement.textContent = '$' + oldTotal.toFixed(2);
+      oldTotalPriceElement.style.display = 'inline';
+    } else if (oldTotalPriceElement) {
+      oldTotalPriceElement.style.display = 'none';
+    }
+  }
+
+  // Initialize total on page load
+  updateBundleTotal();
+});
+</script>

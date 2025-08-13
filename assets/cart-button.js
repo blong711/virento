@@ -21,6 +21,13 @@ if (!customElements.get('product-cart-button')) {
         
         const button = evt.currentTarget;
         let variantId, productId, quantity = 1;
+        let multipleProducts = [];
+
+        // Check if this is a bulk add operation
+        if (button.hasAttribute('data-bulk-add') || button.classList.contains('bulk-add')) {
+          this.handleBulkAdd(button);
+          return;
+        }
 
         // Try to get variant ID from different possible sources
         if (button.hasAttribute('data-variant-id')) {
@@ -42,6 +49,31 @@ if (!customElements.get('product-cart-button')) {
           return;
         }
 
+        // Enhanced quantity detection for multiple products
+        quantity = this.getQuantityForButton(button);
+
+        // Check if we have multiple variants to add
+        if (button.hasAttribute('data-multiple-variants')) {
+          const variantsData = button.getAttribute('data-multiple-variants');
+          try {
+            multipleProducts = JSON.parse(variantsData);
+          } catch (e) {
+            console.error('Error parsing multiple variants data:', e);
+          }
+        }
+
+        // If we have multiple products, handle them differently
+        if (multipleProducts.length > 0) {
+          this.addMultipleProducts(multipleProducts, button);
+        } else {
+          // Single product add
+          this.addSingleProduct(variantId, quantity, button, evt);
+        }
+      }
+
+      getQuantityForButton(button) {
+        let quantity = 1;
+        
         // Get quantity if available
         let quantityInput = button.closest('form')?.querySelector('input[name="quantity"]');
         
@@ -60,6 +92,19 @@ if (!customElements.get('product-cart-button')) {
           quantity = parseInt(quantityInput.value) || 1;
         }
 
+        // Check for quantity selector (common in product forms)
+        const quantitySelector = button.closest('form')?.querySelector('.quantity-selector, .quantity-input, [data-quantity-selector]');
+        if (quantitySelector) {
+          const selectorValue = parseInt(quantitySelector.value) || parseInt(quantitySelector.textContent);
+          if (selectorValue && selectorValue > 0) {
+            quantity = selectorValue;
+          }
+        }
+
+        return Math.max(1, quantity); // Ensure minimum quantity of 1
+      }
+
+      async addSingleProduct(variantId, quantity, button, evt) {
         // Disable button during request
         button.style.pointerEvents = 'none';
         const originalText = this.getButtonText(button);
@@ -68,6 +113,124 @@ if (!customElements.get('product-cart-button')) {
         // Add spinner to button
         this.addSpinner(button);
 
+        try {
+          const result = await this.addToCart(variantId, quantity);
+          
+          if (result.success) {
+            this.handleAddSuccess(button, originalText, result.cartData, variantId);
+          } else {
+            this.handleAddError(button, originalText, result.error);
+          }
+        } catch (error) {
+          console.error('Error adding product to cart:', error);
+          this.handleAddError(button, originalText, 'Network error');
+        } finally {
+          button.style.pointerEvents = 'auto';
+          this.removeSpinner(button, originalHTML);
+          // Measure performance from the original event
+          if (window.CartPerformance && window.CartPerformance.measureFromEvent) {
+            window.CartPerformance.measureFromEvent("add:user-action", evt);
+          }
+        }
+      }
+
+      async addMultipleProducts(products, button) {
+        // Disable button during request
+        button.style.pointerEvents = 'none';
+        const originalText = this.getButtonText(button);
+        const originalHTML = button.innerHTML;
+        
+        // Add spinner to button
+        this.addSpinner(button);
+
+        try {
+          // Validate products before processing
+          const { validProducts, errors: validationErrors } = this.validateProducts(products);
+          
+          if (validationErrors.length > 0) {
+            console.error('Product validation errors:', validationErrors);
+            this.handleAddError(button, originalText, validationErrors.join(', '));
+            return;
+          }
+
+          if (validProducts.length === 0) {
+            this.handleAddError(button, originalText, 'No valid products to add');
+            return;
+          }
+
+          let successCount = 0;
+          let errorCount = 0;
+          const errors = [];
+          let lastSuccessfulVariantId = null;
+          let lastCartData = null;
+
+          // Show progress for multiple products
+          if (validProducts.length > 1) {
+            this.setButtonText(button, `Adding ${validProducts.length} products...`);
+          }
+
+          // Add products sequentially to avoid conflicts
+          for (let i = 0; i < validProducts.length; i++) {
+            const product = validProducts[i];
+            
+            // Update progress for multiple products
+            if (validProducts.length > 1) {
+              this.setButtonText(button, `Adding ${i + 1} of ${validProducts.length}...`);
+            }
+
+            try {
+              const result = await this.addToCart(product.variantId, product.quantity || 1);
+              if (result.success) {
+                successCount++;
+                lastSuccessfulVariantId = product.variantId;
+                lastCartData = result.cartData; // Store cart data from response
+              } else {
+                errorCount++;
+                errors.push(`${product.variantId}: ${result.error}`);
+              }
+            } catch (error) {
+              errorCount++;
+              errors.push(`${product.variantId}: Network error`);
+            }
+
+            // Small delay between requests to avoid overwhelming the server
+            if (i < validProducts.length - 1) {
+              await new Promise(resolve => setTimeout(resolve, 100));
+            }
+          }
+
+          // Handle results
+          if (errorCount === 0) {
+            // All products added successfully - use cart data from last response
+            this.handleMultipleProductsSuccess(button, originalText, successCount, lastSuccessfulVariantId, lastCartData);
+          } else if (successCount > 0) {
+            // Some products added successfully - use cart data from last successful response
+            const message = `${successCount} added, ${errorCount} failed`;
+            this.setButtonText(button, message);
+            setTimeout(() => {
+              this.setButtonText(button, originalText);
+            }, 3000);
+            
+            // Use cart data from last successful response to update drawer
+            this.handleMultipleProductsSuccess(button, originalText, successCount, lastSuccessfulVariantId, lastCartData);
+            
+            // Log detailed errors for debugging
+            console.warn('Some products failed to add:', errors);
+          } else {
+            // All products failed
+            this.handleAddError(button, originalText, errors.join(', '));
+          }
+
+        } catch (error) {
+          console.error('Error adding multiple products:', error);
+          this.handleAddError(button, originalText, 'Bulk add failed');
+        } finally {
+          button.style.pointerEvents = 'auto';
+          this.removeSpinner(button, originalHTML);
+        }
+      }
+
+      async addToCart(variantId, quantity) {
         // Get cart type setting
         const cartType = (window.themeSettings?.cartType || 'drawer').trim();
 
@@ -96,94 +259,330 @@ if (!customElements.get('product-cart-button')) {
         }
         config.body = formData;
 
-        fetch(`${routes.cart_add_url}`, config)
-          .then((response) => response.json())
-          .then((response) => {
-            if (response.status) {
-              // Handle error
-              publish(PUB_SUB_EVENTS.cartError, {
-                source: 'product-cart-button',
-                productVariantId: variantId,
-                errors: response.errors || response.description,
-                message: response.message,
-              });
-              
-              this.setButtonText(button, 'Error');
-              setTimeout(() => {
-                this.setButtonText(button, originalText);
-              }, 2000);
-              return;
-            }
+        const response = await fetch(`${routes.cart_add_url}`, config);
+        const data = await response.json();
 
-            // Success - handle based on cart type
-            if (cartType === 'none') {
-              // No action - just show success message
-              this.setButtonText(button, 'Added!');
-              setTimeout(() => {
-                this.setButtonText(button, originalText);
-              }, 1500);
-              
-              // Still trigger cart update event for other components
-              const startMarker = CartPerformance.createStartingMarker('add:wait-for-subscribers');
-              publish(PUB_SUB_EVENTS.cartUpdate, {
-                source: 'product-cart-button',
-                productVariantId: variantId,
-                cartData: response,
-              }).then(() => {
-                CartPerformance.measureFromMarker('add:wait-for-subscribers', startMarker);
-              });
-              
-              // Trigger cart count update event
-              document.dispatchEvent(new CustomEvent('cart:updated'));
-              
-            } else if (cartType === 'cart-page') {
-              // Redirect to cart page
-              window.location = window.routes.cart_url;
-              
-            } else if (cartType === 'checkout-page') {
-              // Redirect to checkout page
-              const checkoutUrl = window.routes.checkout_url || '/checkout';
-              window.location.href = checkoutUrl;
-              return; // Stop execution here
-              
-            } else if (cartType === 'drawer' && cartElement) {
-              // Update cart drawer
-              const startMarker = CartPerformance.createStartingMarker('add:wait-for-subscribers');
-              publish(PUB_SUB_EVENTS.cartUpdate, {
-                source: 'product-cart-button',
-                productVariantId: variantId,
-                cartData: response,
-              }).then(() => {
-                CartPerformance.measureFromMarker('add:wait-for-subscribers', startMarker);
-              });
+        if (data.status) {
+          return {
+            success: false,
+            error: data.errors || data.description || data.message || 'Unknown error'
+          };
+        }
 
-              // Update cart display
-              CartPerformance.measure("add:paint-updated-sections", () => {
-                cartElement.renderContents(response);
-              });
+        return {
+          success: true,
+          cartData: data
+        };
+      }
 
-              // Trigger cart count update event
-              document.dispatchEvent(new CustomEvent('cart:updated'));
 
-              // Show success feedback
-              this.setButtonText(button, 'Added!');
-              setTimeout(() => {
-                this.setButtonText(button, originalText);
-              }, 1500);
-            }
-          })
-          .catch((e) => {
-            console.error(e);
-            this.setButtonText(button, 'Error');
-            setTimeout(() => {
-              this.setButtonText(button, originalText);
-            }, 2000);
-          })
-          .finally(() => {
-            button.style.pointerEvents = 'auto';
-            this.removeSpinner(button, originalHTML);
-            CartPerformance.measureFromEvent("add:user-action", evt);
+
+      handleAddSuccess(button, originalText, cartData, variantId, count = 1) {
+        const cartType = (window.themeSettings?.cartType || 'drawer').trim();
+        const successText = count > 1 ? `${count} products added!` : 'Added!';
+        
+        // Show success feedback
+        this.setButtonText(button, successText);
+        setTimeout(() => {
+          this.setButtonText(button, originalText);
+        }, 1500);
+
+        // Handle based on cart type
+        if (cartType === 'none') {
+          // No action - just show success message
+          this.triggerCartUpdate();
+          
+        } else if (cartType === 'cart-page') {
+          // Redirect to cart page
+          window.location = window.routes.cart_url;
+          
+        } else if (cartType === 'checkout-page') {
+          // Redirect to checkout page
+          const checkoutUrl = window.routes.checkout_url || '/checkout';
+          window.location.href = checkoutUrl;
+          return; // Stop execution here
+          
+        } else if (cartType === 'drawer' && cartData) {
+          // Update cart drawer
+          this.updateCartDrawer(cartData, variantId);
+        }
+      }
+
+      handleMultipleProductsSuccess(button, originalText, count, lastSuccessfulVariantId, cartData) {
+        const cartType = (window.themeSettings?.cartType || 'drawer').trim();
+        const successText = `${count} products added!`;
+        
+        // Show success feedback
+        this.setButtonText(button, successText);
+        setTimeout(() => {
+          this.setButtonText(button, originalText);
+        }, 1500);
+
+        // Handle based on cart type
+        if (cartType === 'none') {
+          // No action - just show success message
+          this.triggerCartUpdate();
+          
+        } else if (cartType === 'cart-page') {
+          // Redirect to cart page
+          window.location = window.routes.cart_url;
+          
+        } else if (cartType === 'checkout-page') {
+          // Redirect to checkout page
+          const checkoutUrl = window.routes.checkout_url || '/checkout';
+          window.location.href = checkoutUrl;
+          return; // Stop execution here
+          
+        } else if (cartType === 'drawer' && cartData) {
+          // Update cart drawer with cart data from response (same as single product add)
+          this.updateCartDrawer(cartData, lastSuccessfulVariantId);
+        } else if (cartType === 'drawer' && !cartData) {
+          // Fallback to just triggering cart update if no cart data
+          this.triggerCartUpdate();
+        }
+      }
+
+      handleAddError(button, originalText, error) {
+        console.error('Cart add error:', error);
+        
+        // Handle error
+        publish(PUB_SUB_EVENTS.cartError, {
+          source: 'product-cart-button',
+          productVariantId: null,
+          errors: error,
+          message: error,
+        });
+        
+        this.setButtonText(button, 'Error');
+        setTimeout(() => {
+          this.setButtonText(button, originalText);
+        }, 2000);
+      }
+
+      updateCartDrawer(cartData, variantId) {
+        const cartElement = document.querySelector('cart-notification') || 
+                           document.querySelector('cart-drawer') || 
+                           document.querySelector('[data-cart-drawer]');
+        
+        if (cartElement) {
+          const startMarker = CartPerformance.createStartingMarker('add:wait-for-subscribers');
+          publish(PUB_SUB_EVENTS.cartUpdate, {
+            source: 'product-cart-button',
+            productVariantId: variantId,
+            cartData: cartData,
+          }).then(() => {
+            CartPerformance.measureFromMarker('add:wait-for-subscribers', startMarker);
           });
+
+          // Update cart display
+          CartPerformance.measure("add:paint-updated-sections", () => {
+            cartElement.renderContents(cartData);
+          });
+        }
+
+        // Trigger cart count update event
+        this.triggerCartUpdate();
+      }
+
+      triggerCartUpdate() {
+        document.dispatchEvent(new CustomEvent('cart:updated'));
+      }
+
+      handleBulkAdd(button) {
+        // Get all selected products from the page
+        const selectedProducts = this.getSelectedProducts();
+        
+        if (selectedProducts.length === 0) {
+          this.setButtonText(button, 'No products selected');
+          setTimeout(() => {
+            this.setButtonText(button, this.getButtonText(button));
+          }, 2000);
+          return;
+        }
+
+        // Show confirmation for bulk add
+        if (selectedProducts.length > 5) {
+          const confirmed = confirm(`Add ${selectedProducts.length} products to cart?`);
+          if (!confirmed) {
+            return;
+          }
+        }
+
+        // Add all selected products
+        this.addMultipleProducts(selectedProducts, button);
+      }
+
+      // Method to handle adding products from a product list
+      handleProductListAdd(button, productListSelector = '.product-list, .products-grid') {
+        const productList = document.querySelector(productListSelector);
+        if (!productList) {
+          this.setButtonText(button, 'No product list found');
+          return;
+        }
+
+        const products = this.getProductsFromList(productList);
+        if (products.length === 0) {
+          this.setButtonText(button, 'No products found');
+          return;
+        }
+
+        this.addMultipleProducts(products, button);
+      }
+
+      // Method to get products from a specific product list
+      getProductsFromList(productList) {
+        const products = [];
+        const productItems = productList.querySelectorAll('.product-item, .product-card, [data-product-id]');
+        
+        productItems.forEach(item => {
+          const variantId = item.getAttribute('data-variant-id');
+          const quantityInput = item.querySelector('input[name="quantity"], .quantity-input, [data-quantity]');
+          const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+          
+          if (variantId && quantity > 0) {
+            products.push({ variantId, quantity });
+          }
+        });
+
+        return products;
+      }
+
+      // Method to handle adding products with specific quantities
+      handleQuantityBasedAdd(button, quantityMap) {
+        const products = [];
+        
+        Object.entries(quantityMap).forEach(([variantId, quantity]) => {
+          if (variantId && quantity > 0) {
+            products.push({ variantId, quantity });
+          }
+        });
+
+        if (products.length === 0) {
+          this.setButtonText(button, 'No valid products');
+          return;
+        }
+
+        this.addMultipleProducts(products, button);
+      }
+
+      // Method to handle adding products from form data
+      handleFormBasedAdd(button, formSelector) {
+        const form = document.querySelector(formSelector);
+        if (!form) {
+          this.setButtonText(button, 'Form not found');
+          return;
+        }
+
+        const formData = new FormData(form);
+        const products = [];
+        
+        // Handle multiple variant inputs
+        const variantInputs = form.querySelectorAll('input[name="id"], input[name="variant_id"]');
+        variantInputs.forEach(input => {
+          const variantId = input.value;
+          const quantityInput = input.closest('.product-row, .variant-row')?.querySelector('input[name="quantity"]');
+          const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+          
+          if (variantId && quantity > 0) {
+            products.push({ variantId, quantity });
+          }
+        });
+
+        if (products.length === 0) {
+          this.setButtonText(button, 'No products in form');
+          return;
+        }
+
+        this.addMultipleProducts(products, button);
+      }
+
+      getSelectedProducts() {
+        const products = [];
+        
+        // Look for checkboxes or other selection indicators
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][data-variant-id]:checked');
+        checkboxes.forEach(checkbox => {
+          const variantId = checkbox.getAttribute('data-variant-id');
+          const quantity = parseInt(checkbox.getAttribute('data-quantity')) || 1;
+          products.push({ variantId, quantity });
+        });
+
+        // Look for selected product cards
+        const selectedCards = document.querySelectorAll('.product-card.selected, .product-item.selected');
+        selectedCards.forEach(card => {
+          const variantId = card.getAttribute('data-variant-id');
+          const quantityInput = card.querySelector('input[name="quantity"]');
+          const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+          
+          if (variantId) {
+            products.push({ variantId, quantity });
+          }
+        });
+
+        // Look for products with selection class
+        const selectedItems = document.querySelectorAll('[data-selected="true"]');
+        selectedItems.forEach(item => {
+          const variantId = item.getAttribute('data-variant-id');
+          const quantity = parseInt(item.getAttribute('data-quantity')) || 1;
+          
+          if (variantId) {
+            products.push({ variantId, quantity });
+          }
+        });
+
+        // Look for products in a product list with quantity inputs
+        const productList = document.querySelector('.product-list, .products-grid, .collection-products');
+        if (productList) {
+          const productItems = productList.querySelectorAll('.product-item, .product-card, [data-product-id]');
+          productItems.forEach(item => {
+            const variantId = item.getAttribute('data-variant-id');
+            const quantityInput = item.querySelector('input[name="quantity"], .quantity-input, [data-quantity]');
+            const quantity = quantityInput ? parseInt(quantityInput.value) || 1 : 1;
+            
+            if (variantId && quantity > 0) {
+              products.push({ variantId, quantity });
+            }
+          });
+        }
+
+        return products;
+      }
+
+      // Method to update quantities for multiple products
+      updateProductQuantities(products) {
+        products.forEach(product => {
+          const productElement = document.querySelector(`[data-variant-id="${product.variantId}"]`);
+          if (productElement) {
+            const quantityInput = productElement.querySelector('input[name="quantity"], .quantity-input, [data-quantity]');
+            if (quantityInput) {
+              quantityInput.value = product.quantity;
+              // Trigger change event for any listeners
+              quantityInput.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+          }
+        });
+      }
+
+      // Method to validate products before adding to cart
+      validateProducts(products) {
+        const validProducts = [];
+        const errors = [];
+
+        products.forEach(product => {
+          if (!product.variantId) {
+            errors.push('Missing variant ID for product');
+            return;
+          }
+          
+          if (!product.quantity || product.quantity < 1) {
+            errors.push(`Invalid quantity for variant ${product.variantId}`);
+            return;
+          }
+
+          validProducts.push(product);
+        });
+
+        return { validProducts, errors };
       }
 
       getButtonText(button) {
@@ -449,4 +848,56 @@ document.addEventListener('hidden.bs.offcanvas', (event) => {
       backdrops.forEach(backdrop => backdrop.remove());
     }
   }
-}); 
+});
+
+/*
+ * Enhanced Cart Button Usage Examples:
+ * 
+ * 1. Single Product Add (existing functionality):
+ *    <button class="product-cart-button" data-variant-id="123">Add to Cart</button>
+ * 
+ * 2. Multiple Products with JSON data:
+ *    <button class="product-cart-button" data-multiple-variants='[{"variantId":"123","quantity":2},{"variantId":"456","quantity":1}]'>
+ *      Add Multiple
+ *    </button>
+ * 
+ * 3. Bulk Add from selected products:
+ *    <button class="product-cart-button bulk-add">Add Selected to Cart</button>
+ * 
+ * 4. Product List Add:
+ *    <button class="product-cart-button" onclick="this.closest('product-cart-button').handleProductListAdd(this)">
+ *      Add All Products
+ *    </button>
+ * 
+ * 5. Form-based Add:
+ *    <button class="product-cart-button" onclick="this.closest('product-cart-button').handleFormBasedAdd(this, '#product-form')">
+ *      Add from Form
+ *    </button>
+ * 
+ * 6. Quantity-based Add:
+ *    <button class="product-cart-button" onclick="this.closest('product-cart-button').handleQuantityBasedAdd(this, {'123':2,'456':1})">
+ *      Add with Quantities
+ *    </button>
+ * 
+ * Supported data attributes:
+ * - data-variant-id: Single variant ID
+ * - data-product-id: Product ID (will use first variant)
+ * - data-quantity: Quantity for single product
+ * - data-multiple-variants: JSON array of {variantId, quantity} objects
+ * - data-bulk-add: Enable bulk add functionality
+ * - class="bulk-add": Alternative way to enable bulk add
+ * 
+ * The component automatically detects:
+ * - Quantity inputs in forms
+ * - Selected checkboxes with data-variant-id
+ * - Product cards with .selected class
+ * - Elements with data-selected="true"
+ * - Quantity selectors and inputs
+ * 
+ * Cart Drawer Updates:
+ * - ALL product addition methods now update the cart drawer consistently
+ * - Single product add: Updates drawer with cart data from add response
+ * - Multiple/Bulk/List: Updates drawer with cart data from last successful add response
+ * - All methods use the same updateCartDrawer() function for consistency
+ * - No additional cart data fetching required - uses response data directly
+ */
