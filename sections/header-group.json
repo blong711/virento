@@ -53,10 +53,10 @@
     "header": {
       "type": "header",
       "settings": {
-        "layout_type": "electric",
+        "layout_type": "mega",
         "sticky_header": "on_scroll_up",
         "menu_item_spacing": 16,
-        "color_scheme": "scheme-731d8c26-e8bd-4d5b-b15f-96ab5ec0e52b",
+        "color_scheme": "scheme-8bd31498-2097-4dde-aad2-6ebfdc966822",
         "main_menu": "main-menu",
         "show_categories": true,
         "categories_title": "browse categories",
@@ -68,7 +68,7 @@
         "show_cart": true,
         "help_text": "Need Help?",
         "help_url": "",
-        "phone_number": "",
+        "phone_number": "+1 123 456 789",
         "call_text": "Call Us Now"
       }
     }
