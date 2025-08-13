@@ -70,12 +70,6 @@
       "label": "t:sections.icon-box.settings.products_per_row_mobile.label"
     },
     {
-        "type": "checkbox",
-        "id": "use_container",
-        "label": "Use container wrapper",
-        "default": true
-    },
-    {
         "type": "select",
         "id": "icon_style",
         "label": "Icon box style",
@@ -295,10 +289,8 @@
 }
 {% endschema %}
 
-{% if section.settings.use_container %}
-<div class="line-top flat-spacing-5 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+<div class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
     <div class="{{ section.settings.width }}">
-{% endif %}
         <div dir="ltr" class="swiper tf-swiper" data-swiper='{
                 "slidesPerView": 1,
                 "spaceBetween": 12,
@@ -328,10 +320,14 @@
                                 </div>
                         <div class="content">
                                     {% if block.settings.title != blank %}
+                                      {% if section.settings.icon_style == 'default' %}
                                         <div class="title">{{ block.settings.title }}</div>
+                                      {% else %}
+                                        <h6>{{ block.settings.title }}</h6>
+                                      {% endif %}
                                     {% endif %}
                                     {% if block.settings.description != blank %}
-                                        <p class="desc">{{ block.settings.description }}</p>
+                                        <p class="{% if section.settings.icon_style == 'default' %}desc{% else %}text-sm text-main text-line-clamp-4{% endif %}">{{ block.settings.description }}</p>
                                     {% endif %}
                     </div>
                 </div>
@@ -343,10 +339,8 @@
             <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
             {% endif %}
         </div>
-{% if section.settings.use_container %}
     </div>
 </div>
-{% endif %}
 <style>
 .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
@@ -385,15 +379,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-#shopify-section-{{ section.id }} .tf-icon-box.style-border .content h6 {
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-#shopify-section-{{ section.id }} .tf-icon-box.style-border .content p {
-    margin: 0;
-    line-height: 1.5;
 }
 </style>
