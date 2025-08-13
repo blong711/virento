@@ -913,6 +913,117 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     });
+    
+    // Frequently Bought Together (FBT) functionality - completely separate from existing functions
+    function initializeFBT() {
+      const fbtContainer = document.querySelector('.tf-product-form-bundle');
+      if (!fbtContainer) return;
+      
+      // Handle checkbox changes
+      const checkboxes = fbtContainer.querySelectorAll('.tf-check');
+      checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          updateFBTTotal();
+        });
+      });
+      
+      // Handle variant selector changes
+      const variantSelects = fbtContainer.querySelectorAll('select[data-product-id]');
+      variantSelects.forEach(select => {
+        select.addEventListener('change', function() {
+          updateFBTTotal();
+        });
+      });
+      
+      // The submit button already has product-cart-button class and data attributes from HTML
+      // No need to add them dynamically since they're already in the HTML
+      
+      // Initialize total
+      updateFBTTotal();
+    }
+    
+    // Update FBT total price
+    function updateFBTTotal() {
+      const fbtContainer = document.querySelector('.tf-product-form-bundle');
+      if (!fbtContainer) return;
+      
+      let totalPrice = 0;
+      let totalComparePrice = 0;
+      let hasComparePrice = false;
+      
+      // Calculate total from checked products
+      const checkedCheckboxes = fbtContainer.querySelectorAll('.tf-check:checked');
+      checkedCheckboxes.forEach(checkbox => {
+        const productItem = checkbox.closest('.tf-bundle-product-item');
+        const variantSelect = productItem.querySelector('select[data-product-id]');
+        
+        if (variantSelect) {
+          const selectedOption = variantSelect.options[variantSelect.selectedIndex];
+          const price = parseFloat(selectedOption.textContent.match(/[\d,]+\.?\d*/)[0].replace(',', ''));
+          totalPrice += price;
+          
+          // Check for compare price
+          const comparePrice = selectedOption.dataset.comparePrice;
+          if (comparePrice && comparePrice !== '0') {
+            const comparePriceValue = parseFloat(comparePrice.match(/[\d,]+\.?\d*/)[0].replace(',', ''));
+            if (comparePriceValue > price) {
+              totalComparePrice += comparePriceValue;
+              hasComparePrice = true;
+            }
+          }
+        } else {
+          // No variant selector, use product price
+          const priceElement = productItem.querySelector('.new-price');
+          if (priceElement) {
+            const price = parseFloat(priceElement.textContent.match(/[\d,]+\.?\d*/)[0].replace(',', ''));
+            totalPrice += price;
+          }
+        }
+      });
+      
+      // Update total display
+      const totalPriceElement = fbtContainer.querySelector('.total-price');
+      const totalPriceOldElement = fbtContainer.querySelector('.old-price');
+      
+      if (totalPriceElement) {
+        totalPriceElement.textContent = formatMoney(totalPrice * 100); // Convert to cents for formatMoney
+      }
+      
+      if (totalPriceOldElement && hasComparePrice) {
+        totalPriceOldElement.textContent = formatMoney(totalComparePrice * 100);
+        totalPriceOldElement.style.display = 'inline';
+      } else if (totalPriceOldElement) {
+        totalPriceOldElement.style.display = 'none';
+      }
+      
+      // Update submit button data attributes for cart functionality
+      const submitBtn = fbtContainer.querySelector('.btn-submit-total.product-cart-button');
+      if (submitBtn) {
+        // Get the first checked product's variant for the button
+        const firstCheckedCheckbox = fbtContainer.querySelector('.tf-check:checked');
+        if (firstCheckedCheckbox) {
+          const productItem = firstCheckedCheckbox.closest('.tf-bundle-product-item');
+          const productId = firstCheckedCheckbox.dataset.productId;
+          const variantSelect = productItem.querySelector('select[data-product-id]');
+          
+          if (variantSelect) {
+            // Has variant selector - use selected variant
+            const variantId = variantSelect.value;
+            submitBtn.setAttribute('data-variant-id', variantId);
+            submitBtn.setAttribute('data-selected-variant', variantId);
+          } else {
+            // No variant selector - use product ID
+            submitBtn.setAttribute('data-variant-id', productId);
+            submitBtn.setAttribute('data-selected-variant', productId);
+          }
+          
+          submitBtn.setAttribute('data-product-id', productId);
+          submitBtn.setAttribute('data-quantity', '1');
+        }
+      }
+    }
+    
+
 
   
     // Only set the active class for initial page load
@@ -964,6 +1075,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize sold out variant handling
     handleSoldOutVariants();
+    
+    // Initialize Frequently Bought Together functionality
+    initializeFBT();
   
     // Initialize image zoom
     const zoomMain = document.querySelector('.tf-zoom-main');

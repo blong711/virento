@@ -768,7 +768,7 @@
                         {% if fbt_products != blank %}
                           <div class="tf-product-fbt" {{ block.shopify_attributes }} style="margin-top: {{ block.settings.fbt_margin_top }}px; margin-bottom: {{ block.settings.fbt_margin_bottom }}px;">
                             <div class="title text-xl fw-medium">{{ block.settings.fbt_title }}</div>
-                            <form class="tf-product-form-bundle">
+                            <div class="tf-product-form-bundle">
                               <div class="tf-bundle-products">
                                 {% assign max_products = block.settings.max_products | default: 3 %}
                                 {% for fbt_product in fbt_products limit: max_products %}
@@ -820,10 +820,14 @@
                               <div class="bundle-total-submit">
                                 <div class="text">{{ 'sections.product.total_price' | t }}</div>
                                 <span class="total-price">{{ product.price | money }}</span>
-                                <span class="total-price-old" style="display: none;"></span>
+                                <span class="old-price" style="display: none;"></span>
                               </div>
-                              <button type="button" class="btn-submit-total tf-btn btn-out-line-primary">{{ 'sections.product.add_selected_to_cart' | t }}</button>
-                            </form>
+                              <a href="#" class="btn-submit-total tf-btn btn-out-line-primary product-cart-button" 
+                                 data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                                 data-product-id="{{ product.id }}"
+                                 data-selected-variant="{{ product.selected_or_first_available_variant.id }}"
+                                 data-quantity="1">{{ 'sections.product.add_selected_to_cart' | t }}</a>
+                            </div>
                           </div>
                         {% endif %}
                       {% when '@app' %}
