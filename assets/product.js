@@ -407,19 +407,21 @@ document.addEventListener('DOMContentLoaded', function() {
           return;
         }
   
-        // Update add to cart button
-        const addToCartBtn = document.querySelector('.product-cart-button');
-        if (addToCartBtn) {
+        // Update main add to cart buttons (excludes sticky section)
+        const mainAddToCartBtns = document.querySelectorAll('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)');
+        mainAddToCartBtns.forEach(addToCartBtn => {
           addToCartBtn.dataset.variantId = variant.id;
           addToCartBtn.dataset.selectedVariant = variant.id;
           
           // Update quantity in add to cart button
-          const quantityInput = document.querySelector('.quantity-product');
+          const quantityInput = addToCartBtn.closest('form, .tf-product-info')?.querySelector('.quantity-product');
           if (quantityInput) {
             const quantity = parseInt(quantityInput.value) || 1;
             addToCartBtn.dataset.quantity = quantity;
           }
-        }
+        });
+        
+
   
         // Update price
         const priceElement = document.querySelector('.price-new');
@@ -739,37 +741,38 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   
-    // Quantity Controls
+    // Main Quantity Controls (excludes sticky section)
     document.addEventListener('click', function(e) {
-      // Handle decrease button clicks
-      if (e.target.classList.contains('btn-decrease')) {
+      // Handle decrease button clicks - only for main product section
+      if (e.target.classList.contains('btn-decrease') && !e.target.closest('.tf-sticky-btn-atc')) {
         e.preventDefault();
         const quantityInput = e.target.nextElementSibling;
         let value = parseInt(quantityInput.value) || 1;
         if (value > 1) {
           value--;
           quantityInput.value = value;
-          // Update button data immediately
+          // Update main button data immediately
           updateQuantityOnButton(value);
         }
       }
       
-      // Handle increase button clicks
-      if (e.target.classList.contains('btn-increase')) {
+      // Handle increase button clicks - only for main product section
+      if (e.target.classList.contains('btn-increase') && !e.target.closest('.tf-sticky-btn-atc')) {
         e.preventDefault();
         const quantityInput = e.target.previousElementSibling;
         let value = parseInt(quantityInput.value) || 1;
         value++;
         quantityInput.value = value;
-        // Update button data immediately
+        // Update main button data immediately
         updateQuantityOnButton(value);
       }
     });
     
-    // Function to update quantity on add-to-cart button
+    // Function to update quantity on main add-to-cart buttons (excludes sticky section)
     function updateQuantityOnButton(value) {
-      const addToCartBtn = document.querySelector('.product-cart-button');
-      if (addToCartBtn) {
+      // Update only main add-to-cart buttons, not sticky ones
+      const mainAddToCartBtns = document.querySelectorAll('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)');
+      mainAddToCartBtns.forEach(addToCartBtn => {
         // Always update quantity immediately
         addToCartBtn.dataset.quantity = value;
         
@@ -781,31 +784,133 @@ document.addEventListener('DOMContentLoaded', function() {
             addToCartBtn.dataset.selectedVariant = initialVariant.id;
           }
         }
+      });
+      
+      // Also update any hidden quantity inputs that the cart might be reading from (exclude sticky)
+      const hiddenQuantityInputs = document.querySelectorAll('input[name="quantity"]:not(.tf-sticky-btn-atc input[name="quantity"])');
+      hiddenQuantityInputs.forEach(input => {
+        input.value = value;
+      });
+    }
+    
+    // Separate function for sticky add-to-cart functionality
+    function updateStickyQuantity(value) {
+      // Update sticky add-to-cart button
+      const stickyAddToCartBtn = document.querySelector('.tf-sticky-btn-atc .product-cart-button');
+      if (stickyAddToCartBtn) {
+        stickyAddToCartBtn.dataset.quantity = value;
         
-        // Also update any hidden quantity inputs that the cart might be reading from
-        const hiddenQuantityInputs = document.querySelectorAll('input[name="quantity"]');
-        hiddenQuantityInputs.forEach(input => {
-          input.value = value;
-        });
+        // If no variant is selected, use the initial variant
+        if (!stickyAddToCartBtn.dataset.variantId) {
+          const initialVariant = window.initialVariant;
+          if (initialVariant) {
+            stickyAddToCartBtn.dataset.variantId = initialVariant.id;
+            stickyAddToCartBtn.dataset.selectedVariant = initialVariant.id;
+          }
+        }
+      }
+      
+      // Update sticky quantity input
+      const stickyQuantityInput = document.querySelector('.tf-sticky-btn-atc .quantity-product');
+      if (stickyQuantityInput) {
+        stickyQuantityInput.value = value;
       }
     }
-    // Handle quantity input changes
+    
+    // Function to update sticky variant selection
+    function updateStickyVariant(variant) {
+      if (!variant || typeof variant !== 'object') return;
+      
+      // Update sticky add-to-cart button
+      const stickyAddToCartBtn = document.querySelector('.tf-sticky-btn-atc .product-cart-button');
+      if (stickyAddToCartBtn) {
+        stickyAddToCartBtn.dataset.variantId = variant.id;
+        stickyAddToCartBtn.dataset.selectedVariant = variant.id;
+        
+        // Update quantity in sticky button
+        const stickyQuantityInput = document.querySelector('.tf-sticky-btn-atc .quantity-product');
+        if (stickyQuantityInput) {
+          const quantity = parseInt(stickyQuantityInput.value) || 1;
+          stickyAddToCartBtn.dataset.quantity = quantity;
+        }
+      }
+      
+      // Update sticky variant selector dropdown
+      const stickyVariantSelect = document.querySelector('.tf-sticky-btn-atc .sticky-variant-select');
+      if (stickyVariantSelect) {
+        stickyVariantSelect.value = variant.id;
+      }
+    }
+    
+    // Handle main quantity input changes (excludes sticky section)
     document.addEventListener('change', function(e) {
-      if (e.target.classList.contains('quantity-product')) {
+      if (e.target.classList.contains('quantity-product') && !e.target.closest('.tf-sticky-btn-atc')) {
         let value = parseInt(e.target.value) || 1;
         // Ensure minimum value is 1
         value = Math.max(1, value);
         e.target.value = value;
         
-        // Update button data using the same function
+        // Update main button data using the same function
         updateQuantityOnButton(value);
       }
     });
-    // Handle quantity input validation
+    // Handle main quantity input validation (excludes sticky section)
     document.addEventListener('input', function(e) {
-      if (e.target.classList.contains('quantity-product')) {
+      if (e.target.classList.contains('quantity-product') && !e.target.closest('.tf-sticky-btn-atc')) {
         // Remove non-numeric characters
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      }
+    });
+    
+    // Sticky quantity controls - separate from main quantity controls
+    document.addEventListener('click', function(e) {
+      // Handle sticky decrease button clicks
+      if (e.target.closest('.tf-sticky-btn-atc') && e.target.classList.contains('btn-decrease')) {
+        e.preventDefault();
+        const quantityInput = e.target.nextElementSibling;
+        let value = parseInt(quantityInput.value) || 1;
+        if (value > 1) {
+          value--;
+          quantityInput.value = value;
+          // Update sticky button data immediately
+          updateStickyQuantity(value);
+        }
+      }
+      
+      // Handle sticky increase button clicks
+      if (e.target.closest('.tf-sticky-btn-atc') && e.target.classList.contains('btn-increase')) {
+        e.preventDefault();
+        const quantityInput = e.target.previousElementSibling;
+        let value = parseInt(quantityInput.value) || 1;
+        value++;
+        quantityInput.value = value;
+        // Update sticky button data immediately
+        updateStickyQuantity(value);
+      }
+    });
+    
+    // Handle sticky quantity input changes
+    document.addEventListener('change', function(e) {
+      if (e.target.closest('.tf-sticky-btn-atc') && e.target.classList.contains('quantity-product')) {
+        let value = parseInt(e.target.value) || 1;
+        // Ensure minimum value is 1
+        value = Math.max(1, value);
+        e.target.value = value;
+        
+        // Update sticky button data
+        updateStickyQuantity(value);
+      }
+    });
+    
+    // Handle sticky variant selector changes
+    document.addEventListener('change', function(e) {
+      if (e.target.classList.contains('sticky-variant-select')) {
+        const variantId = parseInt(e.target.value);
+        const variants = window.productVariants || [];
+        const variant = variants.find(v => v.id === variantId);
+        if (variant) {
+          updateStickyVariant(variant);
+        }
       }
     });
 
