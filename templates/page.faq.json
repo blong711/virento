@@ -18,10 +18,155 @@
         "description_truncate_length": 120
       }
     },
-   
+    "faq_Y99bC3": {
+      "type": "faq",
+      "blocks": {
+        "item_heading_xbtmVj": {
+          "type": "item_heading",
+          "settings": {
+            "heading": "Shopping Information"
+          }
+        },
+        "faq_item_QJtay9": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "How long will it take for my order to ship?",
+            "content": "<p>Orders are typically processed and shipped within 1–3 business days. You'll receive a confirmation email once your order is on the way</p>"
+          }
+        },
+        "faq_item_dTUrDQ": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "Do you offer free shipping?",
+            "content": "<p>Yes, we offer free standard shipping on orders over $50. Shipping rates will be calculated at checkout for smaller orders.</p>"
+          }
+        },
+        "faq_item_fK7Qpc": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "Can I change my shipping address after placing an order?",
+            "content": "<p>If your order hasn’t been shipped yet, we may be able to update your shipping address. Please contact our support team as soon as possible for assistance.</p>"
+          }
+        },
+        "faq_item_x3DKV7": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "What if my package is delayed or lost?",
+            "content": "<p>If your package is delayed or lost, please reach out to our customer support. We’ll work with the carrier to locate your order or arrange a replacement if necessary.</p>"
+          }
+        },
+        "item_heading_VRR43a": {
+          "type": "item_heading",
+          "settings": {
+            "heading": "Payment Information"
+          }
+        },
+        "faq_item_HnPU7r": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "What payment methods do you accept?",
+            "content": "<p>We accept all major credit cards, PayPal, Apple Pay, and Google Pay. All transactions are secure and encrypted for your protection</p>"
+          }
+        },
+        "faq_item_DDGQne": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "Is my payment information secure?",
+            "content": "<p>Yes, your payment information is 100% secure. We use industry-standard encryption and trusted payment gateways to ensure your data is protected at all times.</p>"
+          }
+        },
+        "faq_item_Bp7E6k": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "Can I use multiple payment methods for my order?",
+            "content": "<p>At this time, we only accept one payment method per order. We recommend choosing the option that works best for you at checkout.</p>"
+          }
+        },
+        "faq_item_rHLRc6": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "When will I be charged for my order?",
+            "content": "<p>Your payment is processed immediately after you complete your purchase. If there are any issues with the transaction, you’ll be notified right away.</p>"
+          }
+        },
+        "item_heading_qCkrPW": {
+          "type": "item_heading",
+          "settings": {
+            "heading": "Return & Exchange"
+          }
+        },
+        "faq_item_MYeJXw": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "What is your return policy?",
+            "content": "<p>We accept returns within 14 days of delivery. Items must be unworn, unwashed, and in their original condition.</p>"
+          }
+        },
+        "faq_item_DVHYmF": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "How do I return an item?",
+            "content": "<p>Simply contact our customer service team for a return authorization, and we’ll provide instructions for shipping the item back.</p>"
+          }
+        },
+        "faq_item_fNeQyF": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "Are there any items that cannot be returned?",
+            "content": "<p>Yes, sale items, personalized products, and undergarments are non-returnable.</p>"
+          }
+        },
+        "faq_item_hR3NHh": {
+          "type": "faq_item",
+          "settings": {
+            "heading": "When will I receive my refund?",
+            "content": "<p>Once your return is received and inspected, we will process the refund within 5-7 business days.</p>"
+          }
+        },
+        "other_content_97wQbT": {
+          "type": "other_content",
+          "settings": {
+            "heading": "Contact Us",
+            "content": "<p>If you have an issue or question that requires immediate assistance, you can click the button below to chat live with a Customer Service representative.</p><p>Please allow 06 - 12 business days from the time your package arrives back to us for a refund to be issued.</p>",
+            "solid_button_text": "Contact us",
+            "solid_button_link": "/pages/contact",
+            "white_button_text": "Chat with us",
+            "white_button_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "item_heading_xbtmVj",
+        "faq_item_QJtay9",
+        "faq_item_dTUrDQ",
+        "faq_item_fK7Qpc",
+        "faq_item_x3DKV7",
+        "item_heading_VRR43a",
+        "faq_item_HnPU7r",
+        "faq_item_DDGQne",
+        "faq_item_Bp7E6k",
+        "faq_item_rHLRc6",
+        "item_heading_qCkrPW",
+        "faq_item_MYeJXw",
+        "faq_item_DVHYmF",
+        "faq_item_fNeQyF",
+        "faq_item_hR3NHh",
+        "other_content_97wQbT"
+      ],
+      "name": "t:sections.faq.presets.default",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "",
+        "faq_content_position": "left",
+        "enable_auto_open_first": false,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_mobile_rate": 75
+      }
+    }
   },
   "order": [
     "page_breadcrumb",
-   
+    "faq_Y99bC3"
   ]
 }
