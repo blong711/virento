@@ -154,8 +154,8 @@
             "custom_svg": "",
             "icon_width": 64,
             "icon_width_mobile": 64,
-            "title": "FREE DELIVERY",
-            "description": "Enjoy free delivery on all orders"
+            "title": "Precision in Every Stitch",
+            "description": "At Vineta, we use only premium materials, ensuring our collections offer superior comfort and lasting durability. Every piece is crafted with care and attention to detail."
           }
         },
         "icon_box_wwRFgw": {
@@ -207,8 +207,8 @@
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
-        "use_container": true,
-        "icon_style": "default",
+        "use_container": false,
+        "icon_style": "style-border",
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
