@@ -23,7 +23,7 @@
           "type": "subheading",
           "settings": {
             "text": "The Ultimate Fashion Destination",
-            "size": "small"
+            "size": "large"
           }
         },
         "content": {
@@ -120,7 +120,7 @@
           "type": "subheading",
           "settings": {
             "text": "Curated Fashion to Match Your Vibe",
-            "size": "small"
+            "size": "large"
           }
         },
         "content_qmmnRy": {
