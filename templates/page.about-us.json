@@ -50,6 +50,7 @@
     "hero_image": {
       "type": "hero-image",
       "settings": {
+        "width": "boxed",
         "image_height": "auto",
         "fixed_height": 600,
         "mobile_image_height": "adapt_image",
@@ -105,6 +106,114 @@
         "padding_mobile_rate": 75
       }
     },
+    "heading_with_text_horizontal_wHExHM": {
+      "type": "heading-with-text-horizontal",
+      "blocks": {
+        "heading_KFkWXC": {
+          "type": "heading",
+          "settings": {
+            "text": "Style Curated Just for You",
+            "size": "small"
+          }
+        },
+        "subheading_zyJ3hL": {
+          "type": "subheading",
+          "settings": {
+            "text": "Curated Fashion to Match Your Vibe",
+            "size": "small"
+          }
+        },
+        "content_qmmnRy": {
+          "type": "content",
+          "settings": {
+            "text": "Our skilled stylists have thoughtfully assembled seasonal outfits that are both\ntrendy and timeless. With a variety of looks, they’re here to inspire your next\nfashion-forward ensemble.",
+            "size": "medium"
+          }
+        }
+      },
+      "block_order": [
+        "heading_KFkWXC",
+        "subheading_zyJ3hL",
+        "content_qmmnRy"
+      ],
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "background-1",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_mobile_rate": 75
+      }
+    },
+    "icon_box_z7xpQ3": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_W7afFK": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "FREE DELIVERY",
+            "description": "Enjoy free delivery on all orders"
+          }
+        },
+        "icon_box_wwRFgw": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-payment",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "SECURED PAYMENT",
+            "description": "Secured payment"
+          }
+        },
+        "icon_box_JTwRXY": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "EASY RETURNS",
+            "description": "Within 14 days for a return"
+          }
+        },
+        "icon_box_YQ4fHX": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "24/7 SUPPORT",
+            "description": "Outstanding premium support"
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_W7afFK",
+        "icon_box_wwRFgw",
+        "icon_box_JTwRXY",
+        "icon_box_YQ4fHX"
+      ],
+      "name": "t:sections.icon-box.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "icon_position_center": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "use_container": true,
+        "icon_style": "default",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
     "single_testimonial": {
       "type": "single-testimonial",
       "settings": {
@@ -124,6 +233,8 @@
     "about_us_welcome",
     "hero_image",
     "image_with_text_about",
+    "heading_with_text_horizontal_wHExHM",
+    "icon_box_z7xpQ3",
     "single_testimonial"
   ]
 }
