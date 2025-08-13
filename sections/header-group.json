@@ -52,15 +52,87 @@
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "mega_html_QzfqLM": {
+          "type": "mega_html",
+          "settings": {
+            "menu_item_match": "Home",
+            "content_page": "demos-short"
+          }
+        },
+        "mega_shop_xYCnFY": {
+          "type": "mega_shop",
+          "settings": {
+            "menu_item_match": "Shop",
+            "collections": [
+              "cables",
+              "chargers",
+              "earphones",
+              "headphones",
+              "frontpage"
+            ],
+            "collections_to_show": 4,
+            "show_collection_image": true,
+            "view_all_text": "View All Collections",
+            "view_all_url": ""
+          }
+        },
+        "mega_product_zffamK": {
+          "type": "mega_product",
+          "settings": {
+            "menu_item_match": "Products",
+            "products": [
+              "10000mah-power-go-power-bank",
+              "apple-iphone-16-promax",
+              "apple-magsafe-charger",
+              "apple-smart-keyboard"
+            ],
+            "products_to_show": 2,
+            "show_vendor": false,
+            "show_product_rating": false
+          }
+        },
+        "mega_pages_3bFYDC": {
+          "type": "mega_pages",
+          "settings": {
+            "menu_item_match": "Pages",
+            "banner_image": "shopify://shop_images/banner-header.jpg",
+            "banner_title": "Unveiling the latest gear",
+            "banner_url": ""
+          }
+        },
+        "mega_blog_MJU78y": {
+          "type": "mega_blog",
+          "settings": {
+            "menu_item_match": "Blog",
+            "recent_posts_title": "Recent Posts",
+            "blog": "design",
+            "posts_to_show": 3
+          }
+        }
+      },
+      "block_order": [
+        "mega_html_QzfqLM",
+        "mega_shop_xYCnFY",
+        "mega_product_zffamK",
+        "mega_pages_3bFYDC",
+        "mega_blog_MJU78y"
+      ],
       "settings": {
-        "layout_type": "mega",
+        "layout_type": "electric",
         "sticky_header": "on_scroll_up",
         "menu_item_spacing": 16,
-        "color_scheme": "scheme-8bd31498-2097-4dde-aad2-6ebfdc966822",
+        "color_scheme": "scheme-731d8c26-e8bd-4d5b-b15f-96ab5ec0e52b",
         "main_menu": "main-menu",
         "show_categories": true,
         "categories_title": "browse categories",
-        "selected_collections": [],
+        "selected_collections": [
+          "cables",
+          "chargers",
+          "earphones",
+          "headphones",
+          "frontpage"
+        ],
         "show_search": true,
         "search_placeholder": "Search product",
         "show_account": true,
