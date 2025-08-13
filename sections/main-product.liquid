@@ -821,7 +821,7 @@
                               <div class="bundle-total-submit">
                                 <div class="text">{{ 'sections.product.total_price' | t }}</div>
                                 <span class="total-price">{{ product.price | money }}</span>
-                                <span class="old-price" style="display: none;"></span>
+                                <span class="total-price-old" style="display: none;"></span>
                               </div>
                               <a href="#" class="btn-submit-total tf-btn btn-out-line-primary product-cart-button" 
                                  data-bulk-add="true"
@@ -1733,6 +1733,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // Handle checkbox changes to update total price
   document.querySelectorAll('.tf-check').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
+      const bundleItem = this.closest('.tf-bundle-product-item');
+      
+      // Add/remove 'check' class based on checkbox state
+      if (this.checked) {
+        bundleItem.classList.add('check');
+      } else {
+        bundleItem.classList.remove('check');
+      }
+      
       updateBundleTotal();
     });
   });
@@ -1741,8 +1750,13 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateBundleTotal() {
     let total = 0;
     let oldTotal = 0;
+    let hasOldPrice = false;
     
+    // Only process checked products
     document.querySelectorAll('.tf-check:checked').forEach(checkbox => {
+      // Verify the checkbox is actually checked
+      if (!checkbox.checked) return;
+      
       const bundleItem = checkbox.closest('.tf-bundle-product-item');
       const priceElement = bundleItem.querySelector('.new-price');
       const oldPriceElement = bundleItem.querySelector('.old-price');
@@ -1750,24 +1764,33 @@ document.addEventListener('DOMContentLoaded', function() {
       if (priceElement) {
         const price = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
         const quantity = 1; // Fixed quantity of 1
-        total += price * quantity;
         
+        // Check if product has old price
         if (oldPriceElement && oldPriceElement.style.display !== 'none') {
+          // Product has old price - add old price to oldTotal
           const oldPrice = parseFloat(oldPriceElement.textContent.replace(/[^0-9.]/g, ''));
           oldTotal += oldPrice * quantity;
+          hasOldPrice = true;
+        } else {
+          // Product doesn't have old price - add regular price to oldTotal
+          oldTotal += price * quantity;
         }
+        
+        // Always add regular price to total
+        total += price * quantity;
       }
     });
     
     // Update total display
     const totalPriceElement = document.querySelector('.bundle-total-submit .total-price');
-    const oldTotalPriceElement = document.querySelector('.bundle-total-submit .old-price');
+    const oldTotalPriceElement = document.querySelector('.bundle-total-submit .total-price-old');
     
     if (totalPriceElement) {
       totalPriceElement.textContent = '$' + total.toFixed(2);
     }
     
-    if (oldTotalPriceElement && oldTotal > 0) {
+    // Only show old price if at least one product has an old price
+    if (oldTotalPriceElement && hasOldPrice) {
       oldTotalPriceElement.textContent = '$' + oldTotal.toFixed(2);
       oldTotalPriceElement.style.display = 'inline';
     } else if (oldTotalPriceElement) {
