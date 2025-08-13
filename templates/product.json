@@ -104,7 +104,11 @@
           "settings": {
             "fbt_title": "Frequently Bought Together",
             "fbt_source": "manual",
-            "fbt_products": [],
+            "fbt_products": [
+              "10000mah-power-go-power-bank",
+              "apple-iphone-16-promax",
+              "apple-magsafe-charger"
+            ],
             "max_products": 3,
             "fbt_margin_top": 42,
             "fbt_margin_bottom": 0
