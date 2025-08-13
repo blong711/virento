@@ -273,7 +273,7 @@
 
   .header-default .box-nav-menu .item-link,
   .header-default .box-phone .icon,
-  .header-style-2 .box-phone a, 
+  .header-style-2 .box-phone a,
   .nav-account a,
   .nav-wishlist a,
   .nav-cart a {
@@ -289,7 +289,7 @@
 
 {% schema %}
 {
-  "name": "Header",
+  "name": "t:sections.header.name",
   "tag": "header",
   "class": "section-header",
   "settings": [
@@ -327,7 +327,8 @@
     {
       "type": "range",
       "id": "menu_item_spacing",
-      "label": "Menu items spacing",
+      "label": "t:sections.header.settings.menu_spacing.label",
+      "info": "t:sections.header.settings.menu_spacing.info",
       "unit": "px",
       "min": 0,
       "max": 48,
@@ -337,8 +338,8 @@
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-9"
     },
     {
       "type": "header",
@@ -347,16 +348,16 @@
     {
       "type": "link_list",
       "id": "main_menu",
-      "label": "Main menu"
+      "label": "t:sections.header.settings.menu.label"
     },
     {
       "type": "header",
-      "content": "Categories"
+      "content": "t:sections.header.settings.categories_menu.content"
     },
     {
       "type": "checkbox",
       "id": "show_categories",
-      "label": "Show categories dropdown",
+      "label": "t:sections.header.settings.show_categories_menu.label",
       "default": true
     },
     {
@@ -378,7 +379,7 @@
     {
       "type": "checkbox",
       "id": "show_search",
-      "label": "Show search bar",
+      "label": "t:sections.header.settings.show_search.label",
       "default": true
     },
     {
@@ -389,7 +390,7 @@
     },
     {
       "type": "header",
-      "content": "Header Icons"
+      "content": "t:sections.header.settings.utility_settings.content"
     },
     {
       "type": "checkbox",
@@ -400,13 +401,13 @@
     {
       "type": "checkbox",
       "id": "show_wishlist",
-      "label": "Show wishlist icon",
+      "label": "t:sections.header.settings.show_wishlist.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_cart",
-      "label": "Show cart icon",
+      "label": "t:sections.header.settings.show_cart.label",
       "default": true
     },
     {
@@ -474,21 +475,6 @@
           "info": "Select collections to feature in the mega menu"
         },
         {
-          "type": "range",
-          "id": "collections_to_show",
-          "label": "Collections per row",
-          "min": 2,
-          "max": 8,
-          "step": 1,
-          "default": 4
-        },
-        {
-          "type": "checkbox",
-          "id": "show_collection_image",
-          "label": "Show collection images",
-          "default": true
-        },
-        {
           "type": "text",
           "id": "view_all_text",
           "label": "View all text",
@@ -517,27 +503,6 @@
           "label": "Featured Products",
           "limit": 4,
           "info": "Select products to feature in the mega menu"
-        },
-        {
-          "type": "range",
-          "id": "products_to_show",
-          "label": "Products per row",
-          "min": 2,
-          "max": 4,
-          "step": 1,
-          "default": 2
-        },
-        {
-          "type": "checkbox",
-          "id": "show_vendor",
-          "label": "Show product vendor",
-          "default": false
-        },
-        {
-          "type": "checkbox",
-          "id": "show_product_rating",
-          "label": "Show product rating",
-          "default": false
         }
       ]
     },
@@ -609,7 +574,7 @@
   ],
   "presets": [
     {
-      "name": "Header Multi Layout",
+      "name": "t:sections.header.presets.name",
       "settings": {
         "layout_type": "electric",
         "show_categories": true,
