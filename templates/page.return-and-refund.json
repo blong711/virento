@@ -18,10 +18,87 @@
         "description_truncate_length": 120
       }
     },
-   
+    "heading_with_text_vertical_RnkH49": {
+      "type": "heading-with-text-vertical",
+      "blocks": {
+        "text_item_KhQX6R": {
+          "type": "text_item",
+          "settings": {
+            "title": "1. Returns",
+            "content": "<p>We want you to be completely satisfied with your purchase. If for any reason you are not satisfied, you may return the item(s) within [...] days of receiving your order for a refund or exchange. To be eligible for a return, the item must be unused, in its original packaging, and in the same condition as you received it.</p>"
+          }
+        },
+        "text_item_YeRCiE": {
+          "type": "text_item",
+          "settings": {
+            "title": "2. Return Process",
+            "content": "<p>To initiate a return, please contact our customer support team at [contact@email.com] to request a Return Merchandise Authorization (RMA) number. Please include your order number and the reason for the return in your email. Once you receive your RMA number, carefully package the item(s) and ship them back to us. The customer is responsible for return shipping costs unless the return is due to an error on our part.</p>"
+          }
+        },
+        "text_item_U7KLMj": {
+          "type": "text_item",
+          "settings": {
+            "title": "3. Refunds",
+            "content": "<p>Refunds will be issued to the original payment method used for the purchase within [..] business days after we receive the returned item(s) and verify their condition. Shipping costs are non-refundable, and a restocking fee may apply in certain circumstances.</p>"
+          }
+        },
+        "text_item_MhUq9i": {
+          "type": "text_item",
+          "settings": {
+            "title": "4. Exchanges",
+            "content": "<p>If you would like to exchange an item for a different size, color, or style, please indicate your preference when requesting a return. We will process the exchange once we receive the returned item(s) and verify their condition. Additional shipping charges may apply for exchanges.</p>"
+          }
+        },
+        "text_item_Mf8cDC": {
+          "type": "text_item",
+          "settings": {
+            "title": "5. Damaged or Defective Items",
+            "content": "<p>If you receive a damaged or defective item, please contact us immediately with photos of the damaged or defective product. We will assess the issue and provide instructions for returning the item for a replacement or refund at no additional cost to you.<br/>We only handle cases of damage or incorrect items within [..]  days from the delivery date. Requests made after this period will not be entertained.</p>"
+          }
+        },
+        "text_item_gRQVQg": {
+          "type": "text_item",
+          "settings": {
+            "title": "6. Return Exceptions",
+            "content": "<p>Certain items may not be eligible for return or exchange due to hygiene reasons or specific product restrictions. These items will be marked as non-returnable on the product page.</p>"
+          }
+        },
+        "text_item_3Ttwq7": {
+          "type": "text_item",
+          "settings": {
+            "title": "7. Return Address",
+            "content": "<p>[Your Company Name]<br/>[Return Address]<br/>[City, State, ZIP Code]<br/>[Country]</p>"
+          }
+        },
+        "text_item_g3AkXz": {
+          "type": "text_item",
+          "settings": {
+            "title": "8. Policy Updates",
+            "content": "<p>We reserve the right to update our Return & Refund Policy at any time. Any changes to our policy will be communicated on our website.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_item_KhQX6R",
+        "text_item_YeRCiE",
+        "text_item_U7KLMj",
+        "text_item_MhUq9i",
+        "text_item_Mf8cDC",
+        "text_item_gRQVQg",
+        "text_item_3Ttwq7",
+        "text_item_g3AkXz"
+      ],
+      "name": "t:sections.heading-with-text-vertical.presets.default",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "",
+        "padding_top": 80,
+        "padding_bottom": 100
+      }
+    }
   },
   "order": [
     "page_breadcrumb",
-   
+    "heading_with_text_vertical_RnkH49"
   ]
 }
