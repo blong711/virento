@@ -18,10 +18,71 @@
         "description_truncate_length": 120
       }
     },
-   
+    "heading_with_text_vertical_XTFzLp": {
+      "type": "heading-with-text-vertical",
+      "blocks": {
+        "text_item_EJR8qx": {
+          "type": "text_item",
+          "settings": {
+            "title": "Copyright and Trademark",
+            "content": "<p>Unless otherwise indicated, material on this website, including but not limited to texts, images, illustrations, software, audio clips, video clips, animation files, is subject to the copyright and trademark rights of The Company Private Limited. Consequently, the material on this website may not be copied, reproduced, modified, posted, transmitted, distributed, in whole or in part in any form whatsoever, without the prior written consent of The Company Private Limited. All rights reserved.</p>"
+          }
+        },
+        "text_item_AVxTdW": {
+          "type": "text_item",
+          "settings": {
+            "title": "Products, Content and Specifications",
+            "content": "<p>All features, content, specifications, products and prices of products and services described or depicted on this website are subject to change at any time without notice. Certain weights, measures and similar descriptions are approximate and are provided for convenience purposes only. We make all reasonable efforts to accurately display the attributes of our products, including the applicable colors; however, the actual color you see will depend on your computer system and we cannot guarantee that your computer will accurately display such colors. The inclusion of any products or services in this website at a particular time does not imply or warrant that these products or services will be available at any time. It is your responsibility to ascertain and obey all applicable local, state and international laws in regard to the possession, use and sale of any item purchased from this website. By placing an order, you represent that the products ordered will be used only in a lawful manner.<br/><br/></p>"
+          }
+        },
+        "text_item_jH6eXM": {
+          "type": "text_item",
+          "settings": {
+            "title": "Shipping Limitations",
+            "content": "<p>When an order is placed, it will be shipped to an address designated by the purchaser as long as that shipping address is compliant with the shipping restrictions contained on this website. All purchases from this website are made pursuant to a shipment contract. As a result, risk of loss and title for items purchased from this website pass to you upon delivery of the items to the carrier. You are responsible for filing any claims with carriers for damaged and/or lost shipments.</p>"
+          }
+        },
+        "text_item_LJTC4f": {
+          "type": "text_item",
+          "settings": {
+            "title": "Duties and Taxes",
+            "content": "<p>You are responsible for duties and taxes outside Singapore. All items entering a foreign country are subject to customs inspection and assessment of the duties and taxes in accordance with that country’s national laws.</p>"
+          }
+        },
+        "text_item_cAWpnT": {
+          "type": "text_item",
+          "settings": {
+            "title": "Your Account",
+            "content": "<p>You are responsible for maintaining the confidentiality of your account and password information, and you agree to accept responsibility for all activities that occur under your account and password. This website and The Company Pte Ltd reserves the right to refuse service, terminate accounts remove or edit content or cancel orders.By placing an order, you warrant that you are over 18 years of age, and that you are providing shop.company.com or shop.beetle.com.sg with accurate, truthful information and that you have the authority to place the order.</p>"
+          }
+        },
+        "text_item_W7fmNx": {
+          "type": "text_item",
+          "settings": {
+            "title": "Exchange and Refund Policy (Online Shop)",
+            "content": "<p>Electronic Communications</p><p>When you visit this website and/or send email to us, you consent to receive electronic communications from us. You agree that all agreements, notices, disclosures and other communications that we sent you electronically satisfy any legal requirement that such communications be in writing Exclusions of Warranties</p><p>The Company Private Limited makes no representative or warranty regarding the good working order or condition of this website, its suitability for use, or that its use will be uninterrupted or error-free. All information or material provided in this website to you â€œas isâ€ and without warranties of any kind, expressed or implied, including without limitation, warranties or conditions of merchantability, fitness, quality, durability or suitability for any particular purpose, or non-infringement.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_item_EJR8qx",
+        "text_item_AVxTdW",
+        "text_item_jH6eXM",
+        "text_item_LJTC4f",
+        "text_item_cAWpnT",
+        "text_item_W7fmNx"
+      ],
+      "name": "t:sections.heading-with-text-vertical.presets.default",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
   },
   "order": [
     "page_breadcrumb",
-   
+    "heading_with_text_vertical_XTFzLp"
   ]
 }
