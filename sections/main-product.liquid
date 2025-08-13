@@ -520,8 +520,14 @@
                                 <input class="quantity-product" type="text" name="number" value="1">
                                 <button class="btn-quantity btn-increase">+</button>
                             </div>
-                            <a href="#shoppingCart" data-bs-toggle="offcanvas"
-                                class="tf-btn animate-btn btn-add-to-cart">Add to cart</a>
+                            <a href="#" 
+                               class="tf-btn animate-btn product-cart-button" 
+                               data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                               data-product-id="{{ product.id }}"
+                               data-selected-variant="{{ product.selected_or_first_available_variant.id }}"
+                               data-quantity="1">
+                              Add to cart
+                            </a>
                           </div>
                           
                           {% if block.settings.show_dynamic_checkout %}

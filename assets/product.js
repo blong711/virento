@@ -408,9 +408,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
   
         // Update add to cart button
-        const addToCartBtn = document.querySelector('.add-to-cart');
+        const addToCartBtn = document.querySelector('.product-cart-button');
         if (addToCartBtn) {
           addToCartBtn.dataset.variantId = variant.id;
+          addToCartBtn.dataset.selectedVariant = variant.id;
           
           // Update quantity in add to cart button
           const quantityInput = document.querySelector('.quantity-product');
@@ -738,40 +739,76 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   
-    // // --- Quantity Controls (Cleaned Up) ---
-    // document.querySelectorAll('.tf-product-info-list .minus-btn').forEach(button => {
-    //   button.addEventListener('click', function(e) {
-    //     e.preventDefault();
-    //     const input = this.nextElementSibling;
-    //     let value = parseInt(input.value) || 1;
-    //     if (value > 1) value--;
-    //     input.value = value + 1;
-    //     input.dispatchEvent(new Event('change'));
-    //   });
-    // });
-    // document.querySelectorAll('.tf-product-info-list .plus-btn').forEach(button => {
-    //   button.addEventListener('click', function(e) {
-    //     e.preventDefault();
-    //     const input = this.previousElementSibling;
-    //     let value = parseInt(input.value) || 1;
-    //     value++;
-    //     input.value = value - 1;
-    //     input.dispatchEvent(new Event('change'));
-    //   });
-    // });
-    // document.querySelectorAll('.tf-product-info-list .quantity-product').forEach(input => {
-    //   input.addEventListener('change', function() {
-    //     let value = parseInt(this.value) || 1;
-    //     this.value = Math.max(1, value);
-    //     // Update add-to-cart button's data-quantity
-    //     const mainAddToCartBtn = document.querySelector('.tf-product-info-list .add-to-cart');
-    //     if (mainAddToCartBtn) {
-    //       mainAddToCartBtn.dataset.quantity = this.value;
-    //     }
-    //   });
-    // });
-    // ... existing code ...
-    // Remove any other direct or delegated event listeners for quantity controls that call window.cart.updateQuantity except in the Add to Cart click handler.
+    // Quantity Controls
+    document.addEventListener('click', function(e) {
+      // Handle decrease button clicks
+      if (e.target.classList.contains('btn-decrease')) {
+        e.preventDefault();
+        const quantityInput = e.target.nextElementSibling;
+        let value = parseInt(quantityInput.value) || 1;
+        if (value > 1) {
+          value--;
+          quantityInput.value = value;
+          // Update button data immediately
+          updateQuantityOnButton(value);
+        }
+      }
+      
+      // Handle increase button clicks
+      if (e.target.classList.contains('btn-increase')) {
+        e.preventDefault();
+        const quantityInput = e.target.previousElementSibling;
+        let value = parseInt(quantityInput.value) || 1;
+        value++;
+        quantityInput.value = value;
+        // Update button data immediately
+        updateQuantityOnButton(value);
+      }
+    });
+    
+    // Function to update quantity on add-to-cart button
+    function updateQuantityOnButton(value) {
+      const addToCartBtn = document.querySelector('.product-cart-button');
+      if (addToCartBtn) {
+        // Always update quantity immediately
+        addToCartBtn.dataset.quantity = value;
+        
+        // If no variant is selected, use the initial variant
+        if (!addToCartBtn.dataset.variantId) {
+          const initialVariant = window.initialVariant;
+          if (initialVariant) {
+            addToCartBtn.dataset.variantId = initialVariant.id;
+            addToCartBtn.dataset.selectedVariant = initialVariant.id;
+          }
+        }
+        
+        // Also update any hidden quantity inputs that the cart might be reading from
+        const hiddenQuantityInputs = document.querySelectorAll('input[name="quantity"]');
+        hiddenQuantityInputs.forEach(input => {
+          input.value = value;
+        });
+      }
+    }
+    // Handle quantity input changes
+    document.addEventListener('change', function(e) {
+      if (e.target.classList.contains('quantity-product')) {
+        let value = parseInt(e.target.value) || 1;
+        // Ensure minimum value is 1
+        value = Math.max(1, value);
+        e.target.value = value;
+        
+        // Update button data using the same function
+        updateQuantityOnButton(value);
+      }
+    });
+    // Handle quantity input validation
+    document.addEventListener('input', function(e) {
+      if (e.target.classList.contains('quantity-product')) {
+        // Remove non-numeric characters
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+      }
+    });
+
   
     // Only set the active class for initial page load
     const initialVariant = window.initialVariant || null;
@@ -1271,9 +1308,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   
   });
-  
-
-  
+    
   // Helper function to format money
   function formatMoney(cents) {
     return new Intl.NumberFormat('en-US', {

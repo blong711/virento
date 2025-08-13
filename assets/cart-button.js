@@ -53,7 +53,10 @@ if (!customElements.get('product-cart-button')) {
           }
         }
         
-        if (quantityInput) {
+        // Check if quantity is set as data attribute on the button
+        if (!quantityInput && button.hasAttribute('data-quantity')) {
+          quantity = parseInt(button.getAttribute('data-quantity')) || 1;
+        } else if (quantityInput) {
           quantity = parseInt(quantityInput.value) || 1;
         }
 
