@@ -22,6 +22,22 @@
 </script>
 
 <section class="flat-single-product" style="max-width: {{ section.settings.width }}px;">
+  <style>
+    .btn-add-wishlist .icon.added,
+    .btn-add-wishlist .added {
+      display: none !important;
+    }
+    
+    .btn-add-wishlist[data-action="remove"] .icon.added,
+    .btn-add-wishlist[data-action="remove"] .added {
+      display: inline !important;
+    }
+    
+    .btn-add-wishlist[data-action="remove"] .icon.add,
+    .btn-add-wishlist[data-action="remove"] .add {
+      display: none !important;
+    }
+  </style>
   <!-- Video Autoplay Consent Modal -->
   <div class="modal fade" id="videoAutoplayConsent" tabindex="-1" aria-labelledby="videoAutoplayConsentLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -610,15 +626,16 @@
                         {% if block.settings.show_wishlist or block.settings.show_compare or block.settings.show_ask_question or block.settings.show_share %}
                           <div class="tf-product-info-extra-link" {{ block.shopify_attributes }}>
                             {% if block.settings.show_wishlist %}
-                              <a href="javascript:void(0);" class="product-extra-icon link btn-add-wishlist">
+                              <a href="#" class="product-extra-icon link btn-add-wishlist" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
                                 <i class="icon add icon-heart"></i><span class="add">Add to wishlist</span>
-                                <i class="icon added icon-trash"></i><span class="added">Remove from
+                                <i class="icon added icon-trash" style="display: none;"></i><span class="added" style="display: none;">Remove from
                                     wishlist</span>
                             </a>
                             {% endif %}
                             {% if block.settings.show_compare %}
-                              <a href="#compare" data-bs-toggle="modal" class="product-extra-icon link">
-                                <i class="icon icon-compare2"></i>Compare
+                              <a href="javascript:void(0);" class="product-extra-icon link btn-add-compare" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}">
+                                <i class="icon icon-compare2"></i><span class="compare-text">Compare</span>
+                                <span class="browse-text" style="display: none;">Browse Compare</span>
                             </a>
                             {% endif %}
                             {% if block.settings.show_ask_question %}
