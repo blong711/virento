@@ -1020,24 +1020,24 @@
 
 {% schema %}
 {
-  "name": "Main Product",
+  "name": "t:sections.main-product.name",
   "settings": [
     {
       "type": "select",
       "id": "layout",
-      "label": "Product Layout",
+      "label": "t:sections.main-product.settings.layout.label",
       "options": [
         {
           "value": "default",
-          "label": "Default"
+          "label": "t:sections.main-product.settings.layout.options.default.label"
         },
         {
           "value": "grid",
-          "label": "Grid"
+          "label": "t:sections.main-product.settings.layout.options.grid.label"
         },
         {
           "value": "stacked",
-          "label": "Stacked"
+          "label": "t:sections.main-product.settings.layout.options.stacked.label"
         }
       ],
       "default": "default"
@@ -1045,19 +1045,19 @@
     {
       "type": "select",
       "id": "thumbnail_position",
-      "label": "Thumbnail Position",
+      "label": "t:sections.main-product.settings.thumbnail_position.label",
       "options": [
         {
           "value": "left",
-          "label": "Left"
+          "label": "t:sections.main-product.settings.thumbnail_position.options.left.label"
         },
         {
           "value": "right",
-          "label": "Right"
+          "label": "t:sections.main-product.settings.thumbnail_position.options.right.label"
         }
       ],
       "default": "left",
-      "info": "Choose the position of thumbnails in default layout"
+      "info": "t:sections.main-product.settings.thumbnail_position.info"
     },
     {
       "type": "select",
@@ -1078,154 +1078,154 @@
     {
       "type": "checkbox",
       "id": "show_sticky_cart",
-      "label": "Show Sticky Add to Cart",
+      "label": "t:sections.main-product.settings.show_sticky_cart.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "enable_video_loop",
-      "label": "Enable Video Looping",
+      "label": "t:sections.main-product.settings.enable_video_loop.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "enable_video_autoplay",
-      "label": "Enable Video Autoplay",
+      "label": "t:sections.main-product.settings.enable_video_autoplay.label",
       "default": true,
-      "info": "Automatically play videos when they enter the viewport"
+      "info": "t:sections.main-product.settings.enable_video_autoplay.info"
     },
     {
       "type": "checkbox",
       "id": "enable_variant_by_image",
-      "label": "Enable Variant Selection by Image",
-      "info": "Allow customers to select variants by clicking on product images",
+      "label": "t:sections.main-product.settings.enable_variant_by_image.label",
+      "info": "t:sections.main-product.settings.enable_variant_by_image.info",
       "default": true
     },
     {
       "type": "header",
-      "content": "Slider settings"
+      "content": "t:sections.main-product.settings.slider_settings.header"
     },
     {
       "type": "checkbox",
       "id": "show_slider_nav",
-      "label": "Use prev/next button",
+      "label": "t:sections.main-product.settings.show_slider_nav.label",
       "default": true
     },
     {
       "type": "header",
-      "content": "Product Gallery"
+      "content": "t:sections.main-product.settings.product_gallery.header"
     },
     {
       "type": "checkbox",
       "id": "enable_image_zoom",
-      "label": "Enable Image Zoom",
+      "label": "t:sections.main-product.settings.enable_image_zoom.label",
       "default": true,
-      "info": "Enable zoom effect when hovering over product images"
+      "info": "t:sections.main-product.settings.enable_image_zoom.info"
     }
   ],
   "blocks": [
     {
       "type": "vendor",
-      "name": "Vendor",
+      "name": "t:sections.main-product.blocks.vendor.name",
       "limit": 1
     },
     {
       "type": "title",
-      "name": "Product Title"
+      "name": "t:sections.main-product.blocks.title.name"
     },
     {
       "type": "price",
-      "name": "Price",
+      "name": "t:sections.main-product.blocks.price.name",
       "limit": 1
     },
     {
       "type": "trust_and_payment",
-      "name": "Trust & Payment",
+      "name": "t:sections.main-product.blocks.trust_and_payment.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "trust_seal_text",
-          "label": "Trust Seal Text",
-          "default": "Guarantee Safe Checkout:"
+          "label": "t:sections.main-product.blocks.trust_and_payment.settings.trust_seal_text.label",
+          "default": "t:sections.main-product.blocks.trust_and_payment.settings.trust_seal_text.default"
         },
         {
           "type": "textarea",
           "id": "svg_list",
-          "label": "SVG list",
+          "label": "t:sections.main-product.blocks.trust_and_payment.settings.svg_list.label",
           "default": "visa,paypal,master,american_express,diners"
         }
       ]
     },
     {
       "type": "special_deal",
-      "name": "Special Deal",
+      "name": "t:sections.main-product.blocks.special_deal.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
-          "default": "Special Deal"
+          "label": "t:sections.main-product.blocks.special_deal.settings.title.label",
+          "default": "t:sections.main-product.blocks.special_deal.settings.title.default"
         },
         {
           "type": "product",
           "id": "buy_product",
-          "label": "Buy Product"
+          "label": "t:sections.main-product.blocks.special_deal.settings.buy_product.label"
         },
         {
           "type": "text",
           "id": "buy_quantity",
-          "label": "Buy Quantity",
+          "label": "t:sections.main-product.blocks.special_deal.settings.buy_quantity.label",
           "default": "1"
         },
         {
           "type": "product",
           "id": "get_product",
-          "label": "Get Product"
+          "label": "t:sections.main-product.blocks.special_deal.settings.get_product.label"
         },
         {
           "type": "text",
           "id": "get_quantity",
-          "label": "Get Quantity",
+          "label": "t:sections.main-product.blocks.special_deal.settings.get_quantity.label",
           "default": "1"
         },
         {
           "type": "text",
           "id": "discount_percent",
-          "label": "Discount Percent",
+          "label": "t:sections.main-product.blocks.special_deal.settings.discount_percent.label",
           "default": "20"
         },
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button Text",
-          "default": "Grab this deal"
+          "label": "t:sections.main-product.blocks.special_deal.settings.button_text.label",
+          "default": "t:sections.main-product.blocks.special_deal.settings.button_text.default"
         }
       ]
     },
     {
       "type": "sold_count",
-      "name": "Sold Count",
+      "name": "t:sections.main-product.blocks.sold_count.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "in_stock_text",
-          "label": "In Stock Text",
-          "default": "In Stock"
+          "label": "t:sections.main-product.blocks.sold_count.settings.in_stock_text.label",
+          "default": "t:sections.main-product.blocks.sold_count.settings.in_stock_text.default"
         },
         {
           "type": "text",
           "id": "out_of_stock_text",
-          "label": "Out of Stock Text",
-          "default": "Out of Stock"
+          "label": "t:sections.main-product.blocks.sold_count.settings.out_of_stock_text.label",
+          "default": "t:sections.main-product.blocks.sold_count.settings.out_of_stock_text.default"
         },
         {
           "type": "text",
           "id": "sold_count_text",
-          "label": "Sold Count Text",
-          "default": "{count} sold in last 24 hours"
+          "label": "t:sections.main-product.blocks.sold_count.settings.sold_count_text.label",
+          "default": "t:sections.main-product.blocks.sold_count.settings.sold_count_text.default"
         },
         {
           "type": "range",
@@ -1233,7 +1233,7 @@
           "min": 1,
           "max": 100,
           "step": 1,
-          "label": "Minimum Sold Count",
+          "label": "t:sections.main-product.blocks.sold_count.settings.min_sold_count.label",
           "default": 20
         },
         {
@@ -1242,32 +1242,32 @@
           "min": 1,
           "max": 100,
           "step": 1,
-          "label": "Maximum Sold Count",
+          "label": "t:sections.main-product.blocks.sold_count.settings.max_sold_count.label",
           "default": 50
         }
       ]
     },
     {
       "type": "stock_count",
-      "name": "Stock Count",
+      "name": "t:sections.main-product.blocks.stock_count.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "stock_count_text",
-          "label": "Stock Count Text",
-          "default": "HURRY UP!"
+          "label": "t:sections.main-product.blocks.stock_count.settings.stock_count_text.label",
+          "default": "t:sections.main-product.blocks.stock_count.settings.stock_count_text.default"
         },
         {
           "type": "checkbox",
           "id": "show_inventory_count",
-          "label": "Show inventory count",
+          "label": "t:sections.main-product.blocks.stock_count.settings.show_inventory_count.label",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_progress_bar",
-          "label": "Show progress bar",
+          "label": "t:sections.main-product.blocks.stock_count.settings.show_progress_bar.label",
           "default": true
         },
         {
@@ -1277,117 +1277,117 @@
           "max": 100,
           "step": 5,
           "unit": "%",
-          "label": "Show when stock is below",
+          "label": "t:sections.main-product.blocks.stock_count.settings.stock_threshold.label",
           "default": 50,
-          "info": "The stock count will only show when inventory is below this percentage"
+          "info": "t:sections.main-product.blocks.stock_count.settings.stock_threshold.info"
         }
       ]
     },
     {
       "type": "size_guide",
-      "name": "Size Guide",
+      "name": "t:sections.main-product.blocks.size_guide.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "size_guide_text",
-          "label": "Size Guide Title",
-          "default": "Size Guide",
-          "info": "This text appears on the size guide link next to the size selector"
+          "label": "t:sections.main-product.blocks.size_guide.settings.size_guide_text.label",
+          "default": "t:sections.main-product.blocks.size_guide.settings.size_guide_text.default",
+          "info": "t:sections.main-product.blocks.size_guide.settings.size_guide_text.info"
         },
         {
           "type": "page",
           "id": "size_guide_page",
-          "label": "Size Guide Page",
-          "info": "Select a Shopify page containing your size guide content. This is used when 'Shopify Page' is selected as the source."
+          "label": "t:sections.main-product.blocks.size_guide.settings.size_guide_page.label",
+          "info": "t:sections.main-product.blocks.size_guide.settings.size_guide_page.info"
         }
       ]
     },
     {
       "type": "delivery_info",
-      "name": "Delivery Info",
+      "name": "t:sections.main-product.blocks.delivery_info.name",
       "limit": 1,
       "settings": [
         {
           "type": "header",
-          "content": "Delivery Time Settings"
+          "content": "t:sections.main-product.blocks.delivery_info.settings.delivery_time_settings.header"
         },
         {
           "type": "select",
           "id": "delivery_icon",
-          "label": "Delivery Icon",
+          "label": "t:sections.main-product.blocks.delivery_info.settings.delivery_icon.label",
           "options": [
-            { "value": "icon-car2", "label": "Car" },
-            { "value": "icon-shipping3", "label": "Shipping" },
-            { "value": "icon-truck", "label": "Truck" },
-            { "value": "icon-delivery", "label": "Delivery" },
-            { "value": "icon-clock", "label": "Clock" }
+            { "value": "icon-car2", "label": "t:sections.main-product.blocks.delivery_info.settings.delivery_icon.options.car.label" },
+            { "value": "icon-shipping3", "label": "t:sections.main-product.blocks.delivery_info.settings.delivery_icon.options.shipping.label" },
+            { "value": "icon-truck", "label": "t:sections.main-product.blocks.delivery_info.settings.delivery_icon.options.truck.label" },
+            { "value": "icon-delivery", "label": "t:sections.main-product.blocks.delivery_info.settings.delivery_icon.options.delivery.label" },
+            { "value": "icon-clock", "label": "t:sections.main-product.blocks.delivery_info.settings.delivery_icon.options.clock.label" }
           ],
           "default": "icon-car2"
         },
         {
           "type": "text",
           "id": "delivery_label",
-          "label": "Delivery Label",
-          "default": "Estimated delivery time:"
+          "label": "t:sections.main-product.blocks.delivery_info.settings.delivery_label.label",
+          "default": "t:sections.main-product.blocks.delivery_info.settings.delivery_label.default"
         },
         {
           "type": "text",
           "id": "delivery_time",
-          "label": "Delivery Time",
-          "default": "3-5 days international"
+          "label": "t:sections.main-product.blocks.delivery_info.settings.delivery_time.label",
+          "default": "t:sections.main-product.blocks.delivery_info.settings.delivery_time.default"
         },
         {
           "type": "checkbox",
           "id": "show_delivery_info",
-          "label": "Show Delivery Info",
+          "label": "t:sections.main-product.blocks.delivery_info.settings.show_delivery_info.label",
           "default": true
         },
         {
           "type": "header",
-          "content": "Free Shipping Settings"
+          "content": "t:sections.main-product.blocks.delivery_info.settings.free_shipping_settings.header"
         },
         {
           "type": "select",
           "id": "shipping_icon",
-          "label": "Shipping Icon",
+          "label": "t:sections.main-product.blocks.delivery_info.settings.shipping_icon.label",
           "options": [
-            { "value": "icon-shipping3", "label": "Shipping" },
-            { "value": "icon-car2", "label": "Car" },
-            { "value": "icon-truck", "label": "Truck" },
-            { "value": "icon-delivery", "label": "Delivery" },
-            { "value": "icon-gift", "label": "Gift" }
+            { "value": "icon-shipping3", "label": "t:sections.main-product.blocks.delivery_info.settings.shipping_icon.options.shipping.label" },
+            { "value": "icon-car2", "label": "t:sections.main-product.blocks.delivery_info.settings.shipping_icon.options.car.label" },
+            { "value": "icon-truck", "label": "t:sections.main-product.blocks.delivery_info.settings.shipping_icon.options.truck.label" },
+            { "value": "icon-delivery", "label": "t:sections.main-product.blocks.delivery_info.settings.shipping_icon.options.delivery.label" },
+            { "value": "icon-gift", "label": "t:sections.main-product.blocks.delivery_info.settings.shipping_icon.options.gift.label" }
           ],
           "default": "icon-shipping3"
         },
         {
           "type": "text",
           "id": "shipping_label",
-          "label": "Shipping Label",
-          "default": "Free shipping on"
+          "label": "t:sections.main-product.blocks.delivery_info.settings.shipping_label.label",
+          "default": "t:sections.main-product.blocks.delivery_info.settings.shipping_label.default"
         },
         {
           "type": "text",
           "id": "free_shipping_text",
-          "label": "Free Shipping Text",
-          "default": "all orders over $150"
+          "label": "t:sections.main-product.blocks.delivery_info.settings.free_shipping_text.label",
+          "default": "t:sections.main-product.blocks.delivery_info.settings.free_shipping_text.default"
         },
         {
           "type": "checkbox",
           "id": "show_free_shipping",
-          "label": "Show Free Shipping Info",
+          "label": "t:sections.main-product.blocks.delivery_info.settings.show_free_shipping.label",
           "default": true
         },
         {
           "type": "number",
           "id": "free_shipping_threshold",
-          "label": "Free Shipping Threshold",
+          "label": "t:sections.main-product.blocks.delivery_info.settings.free_shipping_threshold.label",
           "default": 150,
-          "info": "Amount in dollars for free shipping qualification"
+          "info": "t:sections.main-product.blocks.delivery_info.settings.free_shipping_threshold.info"
         },
         {
           "type": "header",
-          "content": "Style Settings"
+          "content": "t:sections.main-product.blocks.delivery_info.settings.style_settings.header"
         },
         {
           "type": "range",
@@ -1396,34 +1396,34 @@
           "max": 48,
           "step": 1,
           "unit": "px",
-          "label": "Icon Size",
+          "label": "t:sections.main-product.blocks.delivery_info.settings.icon_size.label",
           "default": 23
         }
       ]
     },
     {
       "type": "fbt",
-      "name": "Frequently Bought",
+      "name": "t:sections.main-product.blocks.fbt.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "fbt_title",
-          "label": "Section Title",
-          "default": "Frequently Bought Together"
+          "label": "t:sections.main-product.blocks.fbt.settings.fbt_title.label",
+          "default": "t:sections.main-product.blocks.fbt.settings.fbt_title.default"
         },
         {
           "type": "select",
           "id": "fbt_source",
-          "label": "Products Source",
+          "label": "t:sections.main-product.blocks.fbt.settings.fbt_source.label",
           "options": [
             {
               "value": "manual",
-              "label": "Manual Selection"
+              "label": "t:sections.main-product.blocks.fbt.settings.fbt_source.options.manual.label"
             },
             {
               "value": "metafield",
-              "label": "Product Metafield"
+              "label": "t:sections.main-product.blocks.fbt.settings.fbt_source.options.metafield.label"
             }
           ],
           "default": "manual"
@@ -1431,9 +1431,9 @@
         {
           "type": "product_list",
           "id": "fbt_products",
-          "label": "Select Products",
+          "label": "t:sections.main-product.blocks.fbt.settings.fbt_products.label",
           "limit": 5,
-          "info": "Select products to show in Frequently Bought Together section"
+          "info": "t:sections.main-product.blocks.fbt.settings.fbt_products.info"
         },
         {
           "type": "range",
@@ -1441,13 +1441,13 @@
           "min": 1,
           "max": 5,
           "step": 1,
-          "label": "Maximum Products",
+          "label": "t:sections.main-product.blocks.fbt.settings.max_products.label",
           "default": 3
         },
         {
           "type": "range",
           "id": "fbt_margin_top",
-          "label": "Margin Top",
+          "label": "t:sections.main-product.blocks.fbt.settings.fbt_margin_top.label",
           "min": 0,
           "max": 100,
           "step": 2,
@@ -1457,7 +1457,7 @@
         {
           "type": "range",
           "id": "fbt_margin_bottom",
-          "label": "Margin Bottom",
+          "label": "t:sections.main-product.blocks.fbt.settings.fbt_margin_bottom.label",
           "min": 0,
           "max": 100,
           "step": 2,
@@ -1468,74 +1468,74 @@
     },
     {
       "type": "extra_links",
-      "name": "Extra Links",
+      "name": "t:sections.main-product.blocks.extra_links.name",
       "limit": 1,
       "settings": [
         {
           "type": "checkbox",
           "id": "show_wishlist",
-          "label": "Show Wishlist",
+          "label": "t:sections.main-product.blocks.extra_links.settings.show_wishlist.label",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_compare",
-          "label": "Show Compare",
+          "label": "t:sections.main-product.blocks.extra_links.settings.show_compare.label",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_ask_question",
-          "label": "Show Ask Question",
+          "label": "t:sections.main-product.blocks.extra_links.settings.show_ask_question.label",
           "default": true
         },
         {
           "type": "checkbox",
           "id": "show_share",
-          "label": "Show Share",
+          "label": "t:sections.main-product.blocks.extra_links.settings.show_share.label",
           "default": true
         }
       ]
     },
     {
       "type": "variant_picker",
-      "name": "Variant picker",
+      "name": "t:sections.main-product.blocks.variant_picker.name",
       "limit": 1,
       "settings": [
         {
           "type": "select",
           "id": "pick_mode",
-          "label": "Pick mode",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.pick_mode.label",
           "options": [
-            { "value": "first_available", "label": "Pick first available variant" },
-            { "value": "user_select", "label": "Let user select" }
+            { "value": "first_available", "label": "t:sections.main-product.blocks.variant_picker.settings.pick_mode.options.first_available.label" },
+            { "value": "user_select", "label": "t:sections.main-product.blocks.variant_picker.settings.pick_mode.options.user_select.label" }
           ],
           "default": "first_available"
         },
         {
           "type": "checkbox",
           "id": "hide_sold_out",
-          "label": "Hide sold out variants",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.hide_sold_out.label",
           "default": false
         },
         {
           "type": "select",
           "id": "color_selector_type",
-          "label": "Selector type",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_type.label",
           "options": [
-            { "value": "swatch_rounded", "label": "Color swatch rounded" },
-            { "value": "dropdown", "label": "Dropdown" }
+            { "value": "swatch_rounded", "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_type.options.swatch_rounded.label" },
+            { "value": "dropdown", "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_type.options.dropdown.label" }
           ],
           "default": "swatch_rounded"
         },
         {
           "type": "select",
           "id": "color_selector_size",
-          "label": "Selector size",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_size.label",
           "options": [
-            { "value": "small", "label": "Small" },
-            { "value": "medium", "label": "Medium" },
-            { "value": "large", "label": "Large" }
+            { "value": "small", "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_size.options.small.label" },
+            { "value": "medium", "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_size.options.medium.label" },
+            { "value": "large", "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_size.options.large.label" }
           ],
           "default": "medium",
           "visible_if": "{{  block.settings.color_selector_type == 'swatch_rounded' }}"
@@ -1544,107 +1544,103 @@
     },
     {
       "type": "pickup_available",
-      "name": "Pickup Availability",
+      "name": "t:sections.main-product.blocks.pickup_available.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "store_name",
-          "label": "Store Name",
-          "default": "Sydney Store"
+          "label": "t:sections.main-product.blocks.pickup_available.settings.store_name.label",
+          "default": "t:sections.main-product.blocks.pickup_available.settings.store_name.default"
         },
         {
           "type": "text",
           "id": "ready_time",
-          "label": "Ready Time",
-          "default": "24 hours"
+          "label": "t:sections.main-product.blocks.pickup_available.settings.ready_time.label",
+          "default": "t:sections.main-product.blocks.pickup_available.settings.ready_time.default"
         },
         {
           "type": "text",
           "id": "check_availability_text",
-          "label": "Check Availability Text",
-          "default": "Check availability other stores"
+          "label": "t:sections.main-product.blocks.pickup_available.settings.check_availability_text.label",
+          "default": "t:sections.main-product.blocks.pickup_available.settings.check_availability_text.default"
         }
       ]
     },
     {
       "type": "countdown_timer",
-      "name": "Countdown Timer",
+      "name": "t:sections.main-product.blocks.countdown_timer.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "hurry_text",
-          "label": "Hurry Up Text",
-          "default": "HURRY UP!"
+          "label": "t:sections.main-product.blocks.countdown_timer.settings.hurry_text.label",
+          "default": "t:sections.main-product.blocks.countdown_timer.settings.hurry_text.default"
         },
         {
           "type": "text",
           "id": "label",
-          "label": "Countdown Label",
-          "default": "Sale ends in:"
+          "label": "t:sections.main-product.blocks.countdown_timer.settings.label.label",
+          "default": "t:sections.main-product.blocks.countdown_timer.settings.label.default"
         },
         {
           "type": "paragraph",
-          "content": "To set up the countdown timer, you need to add a metafield to your product with the following details:"
+          "content": "t:sections.main-product.blocks.countdown_timer.settings.setup_info.paragraph1"
         },
         {
           "type": "paragraph",
-          "content": "Namespace: countdown"
+          "content": "t:sections.main-product.blocks.countdown_timer.settings.setup_info.paragraph2"
         },
         {
           "type": "paragraph",
-          "content": "Key: end_date"
+          "content": "t:sections.main-product.blocks.countdown_timer.settings.setup_info.paragraph3"
         },
         {
           "type": "paragraph",
-          "content": "Type: Date and time"
-        },
-        {
-          "type": "paragraph",
-          "content": "Format: YYYY-MM-DD HH:MM:SS (e.g. 2024-12-31 23:59:59)"
+          "content": "t:sections.main-product.blocks.countdown_timer.settings.setup_info.paragraph4"
         }
       ]
     },
     {
       "type": "sku",
-      "name": "SKU & Categories",
+      "name": "t:sections.main-product.blocks.sku.name",
       "limit": 1,
       "settings": []
     },
     {
       "type": "quantity_and_buy",
-      "name": "Quantity & Buy Button",
+      "name": "t:sections.main-product.blocks.quantity_and_buy.name",
       "limit": 1,
       "settings": [
         {
           "type": "header",
-          "content": "Dynamic Checkout Settings"
+          "content": "t:sections.main-product.blocks.quantity_and_buy.settings.dynamic_checkout_settings.header"
         },
         {
           "type": "checkbox",
           "id": "show_dynamic_checkout",
-          "label": "Show dynamic checkout buttons",
+          "label": "t:sections.main-product.blocks.quantity_and_buy.settings.show_dynamic_checkout.label",
           "default": true,
-          "info": "Display Shopify's dynamic checkout buttons (Apple Pay, Google Pay, etc.)"
+          "info": "t:sections.main-product.blocks.quantity_and_buy.settings.show_dynamic_checkout.info"
         },
         {
           "type": "header",
-          "content": "More Payment Options"
+          "content": "t:sections.main-product.blocks.quantity_and_buy.settings.more_payment_options.header"
         },
         {
           "type": "checkbox",
           "id": "show_more_payment",
-          "label": "Show more payment options link",
+          "label": "t:sections.main-product.blocks.quantity_and_buy.settings.show_more_payment.label",
           "default": true,
-          "info": "Display a link to additional payment methods"
+          "info": "t:sections.main-product.blocks.quantity_and_buy.settings.show_more_payment.info"
         },
         {
           "type": "text",
           "id": "more_payment_text",
-          "label": "More payment options text",
-          "default": "More payment options",
-          "info": "Customize the text for the more payment options link"
+          "label": "t:sections.main-product.blocks.quantity_and_buy.settings.more_payment_text.label",
+          "default": "t:sections.main-product.blocks.quantity_and_buy.settings.more_payment_text.default",
+          "info": "t:sections.main-product.blocks.quantity_and_buy.settings.more_payment_text.info"
         }
       ]
     },
@@ -1654,8 +1650,8 @@
   ],
   "presets": [
     {
-      "name": "Product",
-      "category": "Product Page",
+      "name": "t:sections.main-product.presets.product.name",
+      "category": "t:sections.main-product.presets.product.category",
       "blocks": [
         {
           "type": "vendor"

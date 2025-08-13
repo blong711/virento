@@ -19476,4 +19476,30 @@ shopify-accelerated-checkout {
 .tf-product-info-wrap .product-stock .icon {
   animation: tf-ani-flash 2s infinite;
 }
+@media (min-width: 768px) {
+  .tf-page-title {
+      padding: 64px 0px !important;
+  }
+}
+.tf-page-title {
+  padding: 52px 0px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(/assets/page-title.jpg);
+}
+@media (min-width: 768px) {
+  .tf-page-title .box-title {
+      gap: 24px;
+  }
+}
+.tf-page-title .box-title {
+  display: grid;
+  max-width: 560px;
+  margin: auto;
+  gap: 12px;
+}
+.tf-page-title .breadcrumb-list {
+  justify-content: center;
+}
 /*# sourceMappingURL=styles.css.map */

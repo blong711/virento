@@ -666,6 +666,20 @@
       "email_label": "Email",
       "hours_label": "Hours",
       "get_direction": "Get Directions"
+    },
+    "page_title": {
+      "collections": "Collections",
+      "compare_products": "Compare Products",
+      "my_account": "My Account",
+      "login": "Login",
+      "frequently_asked_questions": "Frequently Asked Questions",
+      "home": "Home",
+      "blog": "Blog",
+      "search_results": "Search Results",
+      "shopping_cart": "Shopping Cart",
+      "checkout": "Checkout",
+      "read_more": "Read More",
+      "show_less": "Show Less"
     }
   },
   "localization": {
