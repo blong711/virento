@@ -36,14 +36,14 @@
           "type": "link_list",
           "settings": {
             "heading": "About Us",
-            "menu": "footer"
+            "menu": "about-us"
           }
         },
         "footer-1": {
           "type": "link_list",
           "settings": {
             "heading": "Resource",
-            "menu": "footer"
+            "menu": "resource"
           }
         }
       },
@@ -58,8 +58,7 @@
         "heading_weight": "medium",
         "text_size": "medium",
         "payment_svg_list": "visa,paypal,master,american_express,diners_club",
-        "svg_height": 40,
-        "copyright_text": "<p>Copyright © 2025 by <strong>Vineta.</strong> All Rights Reserved.</p>"
+        "svg_height": 40
       }
     }
   },
