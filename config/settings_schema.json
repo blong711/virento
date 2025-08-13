@@ -52,7 +52,7 @@
             "label": "t:settings_schema.colors.settings.background_gradient.label",
             "info": "t:settings_schema.colors.settings.background_gradient.info"
           },
-         {
+          {
             "type": "color",
             "id": "background2",
             "label": "t:settings_schema.colors.settings.background2.label",
@@ -64,6 +64,13 @@
             "id": "text",
             "label": "t:settings_schema.colors.settings.text.label",
             "default": "#121212"
+          },
+          {
+            "type": "color",
+            "id": "text2",
+            "label": "Secondary text",
+            "info": "Choose a color close to the primary text.",
+            "default": "#686868"
           },
           {
             "type": "color",
@@ -436,7 +443,6 @@
         "label": "t:settings_schema.global.settings.corner_radius.label",
         "default": 0
       },
-
     ]
   },
   {
@@ -520,7 +526,7 @@
         "default": false,
         "label": "t:settings_schema.search_input.settings.predictive_search_show_price.label",
         "info": "t:settings_schema.search_input.settings.predictive_search_show_price.info"
-      },  
+      },
       {
         "type": "link_list",
         "id": "search_quick_links_menu",
@@ -579,7 +585,7 @@
         "label": "t:settings_schema.cart.settings.cart_type.label"
       },
       {
-        "type": "url",  
+        "type": "url",
         "id": "empty_cart_link",
         "label": "t:settings_schema.cart.settings.empty_cart_link.label",
         "info": "t:settings_schema.cart.settings.empty_cart_link.info",

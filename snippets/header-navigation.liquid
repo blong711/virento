@@ -1,0 +1,317 @@
+{% comment %}
+  Header Navigation Snippet
+  Renders main navigation menu with mega menu support
+  Parameters: menu (link_list), section (section object)
+{% endcomment %}
+
+<ul class="box-nav-menu" style="gap: {{ section.settings.menu_item_spacing }}px;">
+  {% for link in linklists[menu].links %}
+    {%- assign menu_title = link.title | downcase -%}
+    <li class="menu-item {% if menu_title == 'pages' or menu_title == 'blog' %} position-relative {% endif %}">
+      <a href="{{ link.url }}" class="item-link">
+        {{ link.title }}
+        {% if link.links.size > 0 or menu_title == 'home' %}<i class="icon icon-arr-down"></i>{% endif %}
+      </a>
+
+      {% assign has_mega_menu = false %}
+      {% for block in section.blocks %}
+        {% assign menu_match_normalized = block.settings.menu_item_match | strip | downcase %}
+        {% assign link_title_normalized = link.title | strip | downcase %}
+
+        {% if menu_match_normalized == link_title_normalized and menu_match_normalized != blank %}
+          {% assign has_mega_menu = true %}
+          {% case block.type %}
+            {% when 'mega_html' %}
+              <!-- HTML Content Mega Menu -->
+              {% if block.settings.content_page and pages[block.settings.content_page] %}
+                {% assign selected_page = pages[block.settings.content_page] %}
+
+                {% if selected_page.content != blank %}
+                  {{ selected_page.content }}
+                {% endif %}
+
+                {% if selected_page.metafields.home.menu.value %}
+                  <div class="sub-menu mega-menu mega-home start-0">
+                    <div class="row-demo">
+                      {%- for item in selected_page.metafields.home.menu.value limit: 12 -%}
+                        {%- assign image = item.image -%}
+                        <div class="demo-item">
+                          <a href="{{ item.url }}" title="{{ item.name }}">
+                            {%- if image != blank -%}
+                              <div class="demo-image">
+                                <img
+                                  src="{{ image | image_url: width: 300 }}"
+                                  width="300"
+                                  height="300"
+                                  srcset="{{ image | image_url: width: 300 }} 1x, {{ image | image_url: width: 600 }} 2x"
+                                  sizes="300px"
+                                  loading="lazy"
+                                  alt="{{ item.name }}"
+                                >
+                                {%- if item.label.value.size > 0 -%}
+                                  <div class="demo-label">
+                                    {%- for label in item.label.value -%}
+                                      <span class="demo-tag demo-{{ label | handle }}">
+                                        {{- label | escape -}}
+                                      </span>
+                                    {%- endfor -%}
+                                  </div>
+                                {%- endif -%}
+                              </div>
+                            {%- endif -%}
+                            <span class="demo-name link">{{ item.name }}</span>
+                          </a>
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                    {% if selected_page.metafields.home.menu.value.size > 12 %}
+                      <div class="view-all-demo text-center">
+                        <a href="#modalDemo" data-bs-toggle="modal" class="tf-btn btn-primary animate-btn">
+                          Explore all demos ({{ selected_page.metafields.home.menu.value.size }}+)
+                          <i class="icon icon-arr-right"></i>
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endif %}
+
+            {% when 'mega_shop' %}
+              <div class="sub-menu mega-menu mega-shop">
+                <div class="wrapper-sub-menu">
+                  {% for child in link.links %}
+                    <div class="mega-menu-item">
+                      <div class="menu-heading">{{ child.title }}</div>
+                      {% if child.links != blank %}
+                        <ul class="menu-list">
+                          {% for grandchild in child.links %}
+                            <li>
+                              <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="wrapper-sub-collection">
+                  {% if block.settings.collections != blank %}
+                    <div
+                      dir="ltr"
+                      class="swiper tf-swiper hover-sw-nav wow fadeInUp"
+                      data-swiper='
+                        {
+                          "slidesPerView": 2,
+                          "spaceBetween": 24,
+                          "speed": 800,
+                          "observer": true,
+                          "observeParents": true,
+                          "slidesPerGroup": 2,
+                          "navigation": {
+                            "clickable": true,
+                            "nextEl": ".nav-next-cls-header",
+                            "prevEl": ".nav-prev-cls-header"
+                          },
+                          "pagination": { "el": ".sw-pagination-cls-header", "clickable": true }
+                        }
+                      '
+                    >
+                      <div class="swiper-wrapper">
+                        {% for collection in block.settings.collections %}
+                          <div class="swiper-slide">
+                            <div class="wg-cls style-abs bg-surface asp-1 hover-img">
+                              <a href="{{ collection.url }}" class="image img-style d-block">
+                                <img
+                                  src="{{ collection.featured_image | image_url: width: 200 }}"
+                                  data-src="{{ collection.featured_image | image_url: width: 200 }}"
+                                  alt="{{ collection.title }}"
+                                  class="lazyload"
+                                  width="200"
+                                  height="200"
+                                >
+                              </a>
+                              <div class="cls-btn text-center">
+                                <a href="{{ collection.url }}" class="tf-btn btn-cls btn-white hover-dark hover-icon-2">
+                                  {{ collection.title }}
+                                  <i class="icon icon-arrow-top-left"></i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                      {% assign collections_count = 0 %}
+                      {% for collection in block.settings.collections %}
+                        {% assign collections_count = collections_count | plus: 1 %}
+                      {% endfor %}
+
+                      {% if collections_count > 2 %}
+                        <div
+                          class="d-flex d-xl-none sw-dot-default sw-pagination-cls-header justify-content-center"
+                        ></div>
+                        <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls-header"></div>
+                        <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls-header"></div>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% when 'mega_product' %}
+              <div class="sub-menu mega-menu mega-product">
+                <div class="wrapper-sub-menu">
+                  {% for child in link.links %}
+                    <div class="mega-menu-item">
+                      <div class="menu-heading">{{ child.title }}</div>
+                      {% if child.links != blank %}
+                        <ul class="menu-list">
+                          {% for grandchild in child.links %}
+                            <li>
+                              <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="wrapper-sub-product">
+                  {% assign block = section.blocks | where: 'type', 'mega_product' | first %}
+                  {% if block and block.settings.products != blank %}
+                    <div
+                      dir="ltr"
+                      class="swiper tf-swiper wrap-sw-over wow fadeInUp"
+                      data-swiper='
+                        {
+                          "slidesPerView": 2,
+                          "spaceBetween": 24,
+                          "speed": 800,
+                          "observer": true,
+                          "observeParents": true,
+                          "slidesPerGroup": 2,
+                          "navigation": {
+                            "clickable": true,
+                            "nextEl": ".nav-next-product-header",
+                            "prevEl": ".nav-prev-product-header"
+                          },
+                          "pagination": { "el": ".sw-pagination-product-header", "clickable": true }
+                        }
+                      '
+                    >
+                      <div class="swiper-wrapper">
+                        {% for product in block.settings.products %}
+                          <div class="swiper-slide">
+                            {% render 'product-card', product: product %}
+                          </div>
+                        {% endfor %}
+                      </div>
+                      <div class="sw-dot-default sw-pagination-product-header justify-content-center"></div>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% when 'mega_pages' %}
+              <div class="sub-menu sub-menu-style-2">
+                {% assign total_items = link.links.size %}
+                {% assign items_per_list = 4 %}
+                {% assign number_of_lists = total_items | divided_by: items_per_list | ceil %}
+
+                {% for list_index in (1..number_of_lists) %}
+                  {% assign start_index = list_index | minus: 1 | times: items_per_list %}
+                  <ul class="menu-list">
+                    {% for child in link.links offset: start_index limit: items_per_list %}
+                      <li>
+                        <a href="{{ child.url }}" class="menu-link-text link">{{ child.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endfor %}
+                <div class="banner hover-img">
+                  {% assign block = section.blocks | where: 'type', 'mega_pages' | first %}
+                  {% if block and block.settings.banner_image != blank %}
+                    <a href="{{ block.settings.banner_url }}" class="img-style">
+                      <img
+                        src="{{ block.settings.banner_image | image_url: width: 600 }}"
+                        alt="{{ block.settings.banner_title }}"
+                        loading="lazy"
+                        width="500"
+                        height="262"
+                      >
+                    </a>
+                  {% endif %}
+                  <div class="content">
+                    <div class="title">
+                      {{ block.settings.banner_title }}
+                    </div>
+                    {% if block and block.settings.banner_url != blank %}
+                      <a href="{{ block.settings.banner_url }}" class="box-icon animate-btn"
+                        ><i class="icon icon-arrow-top-left"></i
+                      ></a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% when 'mega_blog' %}
+              <!-- Blog Posts Mega Menu -->
+              {% assign block = section.blocks | where: 'type', 'mega_blog' | first %}
+              <div class="sub-menu sub-menu-style-3">
+                <ul class="menu-list mt-0">
+                  {% for child in link.links %}
+                    <div class="menu-heading">{{ child.title }}</div>
+                    {% if child.links != blank %}
+                      {% for grandchild in child.links %}
+                        <li>
+                          <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
+                        </li>
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+                {% if block %}
+                  <div class="wrapper-sub-blog">
+                    {% if block.settings.recent_posts_title != blank and block.settings.blog != blank %}
+                      <div class="menu-heading">{{ block.settings.recent_posts_title }}</div>
+                      <ul class="list-recent-blog">
+                        {% for post in blogs[block.settings.blog].articles limit: block.settings.posts_to_show %}
+                          <li class="item">
+                            <a href="{{ post.url }}" class="img-box">
+                              <img
+                                data-src="{{ post.image | image_url: width: 80, height: 80, crop: 'center' }}"
+                                src="{{ post.image | image_url }}"
+                                data-src="{{ post.image | image_url }}"
+                                alt="{{ post.title }}"
+                                width="80"
+                                height="80"
+                                class="lazyload"
+                                loading="lazy"
+                              >
+                            </a>
+                            <div class="content">
+                              <a href="{{ post.url }}" class="fw-medium text-sm link title">{{ post.title }}</a>
+                              <span class="text-xxs text-grey date-post">
+                                {{- post.published_at | date: '%b %d %Y' -}}
+                              </span>
+                            </div>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+          {% endcase %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% if has_mega_menu == false and link.links.size > 0 %}
+        <ul class="sub-menu">
+          {% for child_link in link.links %}
+            <li>
+              <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

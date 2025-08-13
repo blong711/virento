@@ -2414,6 +2414,26 @@ a:hover {
   color: var(--primary);
 }
 
+.header-default .box-phone .box-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary-green);
+    border-radius: 50%;
+}
+
+.header-default .box-phone .box-icon .icon {
+    color: var(--white);
+    font-size: 24px;
+}
+
+.box-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
 .header-search .tf-form-search {
   max-width: 413px;
   margin: auto;
@@ -2488,10 +2508,28 @@ a:hover {
   justify-content: space-between;
   gap: 30px;
 }
+.wrapper-header-bottom .call-us {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #9148ff;
+  border-bottom: 1px solid #9148ff;
+}
+
+.wrapper-header-bottom .call-us .icon {
+  font-size: 10px;
+}
+
 .wrapper-header-bottom .inner-left {
   display: flex;
   align-items: center;
 }
+.wrapper-header-bottom .inner-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .wrapper-header-bottom .tf-mega-categories {
   position: relative;
 }
@@ -2579,7 +2617,7 @@ a:hover {
   z-index: 999;
   visibility: hidden;
   text-align: left;
-  padding: 32px;
+  padding: 32px 60px;
   top: 100%;
   left: 0;
   opacity: 0;
@@ -2766,10 +2804,11 @@ a:hover {
 .box-nav-menu .sub-menu-style-2 {
   display: flex;
   gap: 25px;
-  min-width: 620px;
+  min-width: 750px;
+  left: -30px;
 }
 .box-nav-menu .sub-menu-style-2 .menu-list {
-  width: 48%;
+  width: 23%;
 }
 .box-nav-menu .sub-menu-style-2 .banner {
   width: 52%;
@@ -2780,6 +2819,13 @@ a:hover {
 .box-nav-menu .sub-menu-style-2 .banner .img-style {
   display: block;
   border-radius: 16px;
+  height: 262px;
+  overflow: hidden;
+}
+.box-nav-menu .sub-menu-style-2 .banner .img-style img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .box-nav-menu .sub-menu-style-2 .banner .content {
   position: absolute;
@@ -3269,8 +3315,8 @@ header.header-bg {
 }
 @media (max-width: 767px) {
   .footer-default {
-      font-size: 14px;
-      line-height: 22px;
+    font-size: 14px;
+    line-height: 22px;
   }
 }
 .footer-default a {
@@ -9104,8 +9150,8 @@ button.animate-btn::after,
 }
 @media (min-width: 1200px) {
   .tf-product-info-wrap:not(.style-2) .tf-product-info-heading {
-      padding-bottom: 32px;
-      margin-bottom: 8px;
+    padding-bottom: 32px;
+    margin-bottom: 8px;
   }
 }
 .tf-product-info-wrap .tf-product-info-heading .product-info-name {
@@ -19414,7 +19460,7 @@ shopify-accelerated-checkout {
 }
 @media (min-width: 1200px) {
   .tf-product-info-wrap .product-stock .stock {
-      margin-right: 14px;
+    margin-right: 14px;
   }
 }
 .tf-product-info-wrap .product-stock .in-stock {

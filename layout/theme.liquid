@@ -125,12 +125,11 @@
     <script src="{{ 'shop.vanilla.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart-button.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
-
   </head>
 
   <body class="gradient">
     {% render 'preload-screen' %}
-    
+
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -143,7 +142,7 @@
 
     {% sections 'footer-group' %}
     {% sections 'system-group' %}
-    
+
     <!-- Quickview Modal -->
     {% render 'quickview-modal' %}
     {% render 'compare-modal' %}
@@ -204,12 +203,12 @@
           add_to_cart: `{{ 'quickview.add_to_cart' | t }}`,
           buy_it_now: `{{ 'quickview.buy_it_now' | t }}`,
           more_payment_options: `{{ 'quickview.more_payment_options' | t }}`,
-          view_full_details: `{{ 'quickview.view_full_details' | t }}`
+          view_full_details: `{{ 'quickview.view_full_details' | t }}`,
         },
       };
 
       window.themeSettings = {
-        cartType: '{{ settings.cart_type }}'
+        cartType: '{{ settings.cart_type }}',
       };
     </script>
 
