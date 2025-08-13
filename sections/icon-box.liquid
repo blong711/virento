@@ -70,6 +70,28 @@
       "label": "t:sections.icon-box.settings.products_per_row_mobile.label"
     },
     {
+        "type": "checkbox",
+        "id": "use_container",
+        "label": "Use container wrapper",
+        "default": true
+    },
+    {
+        "type": "select",
+        "id": "icon_style",
+        "label": "Icon box style",
+        "options": [
+            {
+                "value": "default",
+                "label": "Default"
+            },
+            {
+                "value": "style-border",
+                "label": "Border style"
+            }
+        ],
+        "default": "default"
+    },
+    {
         "type": "header",
         "content": "t:sections.all.padding.section_padding_heading"
     },
@@ -273,8 +295,10 @@
 }
 {% endschema %}
 
+{% if section.settings.use_container %}
 <div class="line-top flat-spacing-5 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
     <div class="{{ section.settings.width }}">
+{% endif %}
         <div dir="ltr" class="swiper tf-swiper" data-swiper='{
                 "slidesPerView": 1,
                 "spaceBetween": 12,
@@ -292,7 +316,7 @@
                 {% for block in section.blocks %}
                     {% if block.type == 'icon_box' %}
                         <div class="swiper-slide" {{ block.shopify_attributes }}>
-                            <div class="tf-icon-box {% if section.settings.icon_position_center %} style-2 {% else %} style-3 {% endif %}">
+                            <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-border{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %}">
                                                         {% assign icon_width = block.settings.icon_width | default: 48 %}
                                 {% assign icon_width_mobile = block.settings.icon_width_mobile | default: 32 %}
                                 <div class="box-icon" style="--icon-width: {{ icon_width }}px; --icon-width-mobile: {{ icon_width_mobile }}px;">
@@ -319,8 +343,10 @@
             <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
             {% endif %}
         </div>
+{% if section.settings.use_container %}
     </div>
 </div>
+{% endif %}
 <style>
 .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
@@ -349,5 +375,25 @@
 
 #shopify-section-{{ section.id }} .tf-icon-box .box-icon .icon {
     color: rgb(var(--color-foreground2));
+}
+
+#shopify-section-{{ section.id }} .tf-icon-box.style-border .box-icon {
+    width: var(--icon-width);
+    height: var(--icon-width);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#shopify-section-{{ section.id }} .tf-icon-box.style-border .content h6 {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+#shopify-section-{{ section.id }} .tf-icon-box.style-border .content p {
+    margin: 0;
+    line-height: 1.5;
 }
 </style>
