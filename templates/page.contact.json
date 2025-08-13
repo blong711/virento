@@ -11,6 +11,22 @@
   "sections": {
     "page_breadcrumb": {
       "type": "page-breadcrumb",
+      "settings": {
+        "background_image": "shopify://shop_images/page-title_1.jpg",
+        "show_description": true,
+        "custom_description": "",
+        "description_truncate_length": 120
+      }
+    },
+    "map_with_text": {
+      "type": "map-with-text",
+      "settings": {
+        "width": "full",
+        "map": "",
+        "padding_top": 0,
+        "padding_bottom": 40,
+        "padding_mobile_ratio": 75
+      }
     },
     "contact_form_with_text": {
       "type": "contact-form-with-text",
@@ -39,7 +55,10 @@
         },
         "socials": {
           "type": "socials",
-          "settings": {}
+          "settings": {
+            "socials_style": "simple",
+            "socials_size": "large"
+          }
         }
       },
       "block_order": [
@@ -54,16 +73,8 @@
         "form_heading": "Get In Touch",
         "form_subheading": "Please submit all general enquiries in the contact form below and we look forward to hearing from you soon.",
         "padding_top": 40,
-        "padding_bottom": 40
-      }
-    },
-    "map_with_text": {
-      "type": "map-with-text",
-      "settings": {
-        "width": "full",
-        "padding_top": 0,
         "padding_bottom": 40,
-        "padding_mobile_ratio": 75
+        "padding_mobile_rate": 75
       }
     }
   },
