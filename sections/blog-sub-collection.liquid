@@ -21,12 +21,12 @@
             "768": {
               "slidesPerView": {{ section.settings.slides_per_view_tablet }},
               "spaceBetween": {{ section.settings.space_between }},
-              "slidesPerGroup": {{ section.settings.slides_per_group_tablet }}
+              "slidesPerGroup": 3
             },
             "1200": {
               "slidesPerView": {{ section.settings.slides_per_view_desktop }},
               "spaceBetween": {{ section.settings.space_between }},
-              "slidesPerGroup": {{ section.settings.slides_per_group_desktop }}
+              "slidesPerGroup": 3
             }
           }
         }
@@ -173,26 +173,6 @@
     },
     {
       "type": "select",
-      "id": "slides_per_group_mobile",
-      "label": "t:sections.blog-sub-collection.settings.slides_per_group_mobile.label",
-      "options": [
-        {
-          "value": "1",
-          "label": "1"
-        },
-        {
-          "value": "2",
-          "label": "2"
-        },
-        {
-          "value": "3",
-          "label": "3"
-        }
-      ],
-      "default": "2"
-    },
-    {
-      "type": "select",
       "id": "slides_per_view_tablet",
       "label": "t:sections.blog-sub-collection.settings.slides_per_view_tablet.label",
       "options": [
@@ -217,60 +197,8 @@
     },
     {
       "type": "select",
-      "id": "slides_per_group_tablet",
-      "label": "t:sections.blog-sub-collection.settings.slides_per_group_tablet.label",
-      "options": [
-        {
-          "value": "1",
-          "label": "1"
-        },
-        {
-          "value": "2",
-          "label": "2"
-        },
-        {
-          "value": "3",
-          "label": "3"
-        },
-        {
-          "value": "4",
-          "label": "4"
-        }
-      ],
-      "default": "2"
-    },
-    {
-      "type": "select",
       "id": "slides_per_view_desktop",
       "label": "t:sections.blog-sub-collection.settings.slides_per_view_desktop.label",
-      "options": [
-        {
-          "value": "2",
-          "label": "2"
-        },
-        {
-          "value": "3",
-          "label": "3"
-        },
-        {
-          "value": "4",
-          "label": "4"
-        },
-        {
-          "value": "5",
-          "label": "5"
-        },
-        {
-          "value": "6",
-          "label": "6"
-        }
-      ],
-      "default": "5"
-    },
-    {
-      "type": "select",
-      "id": "slides_per_group_desktop",
-      "label": "t:sections.blog-sub-collection.settings.slides_per_group_desktop.label",
       "options": [
         {
           "value": "2",
