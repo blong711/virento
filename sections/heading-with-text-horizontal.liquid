@@ -54,7 +54,7 @@
             {%- when 'heading' -%}
               {%- if block.settings.text != blank -%}
                 {%- if block.settings.size == 'small' -%}
-                  <p class="display-xs fw-medium" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+                  <p class="display-md-2 fw-medium" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
                 {%- elsif block.settings.size == 'medium' -%}
                   <p class="display-lg-2 fw-medium" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
                 {%- elsif block.settings.size == 'large' -%}
