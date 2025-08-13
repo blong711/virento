@@ -14,7 +14,7 @@
                   {% endif %}
                   {% if block.settings.content != blank %}
                     <div class="text-wrap">
-                      <div class="term-text">{{ block.settings.content }}</div>
+                      <div class="term-text">{{ block.settings.content | replace: '<p>', '<p class="term-text body-text text-main">' }}</div>
                     </div>
                   {% endif %}
                 </div>
