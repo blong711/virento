@@ -19502,4 +19502,29 @@ shopify-accelerated-checkout {
 .tf-page-title .breadcrumb-list {
   justify-content: center;
 }
+.breadcrumb-list {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.breadcrumb-list .breadcrumb-item {
+  color: #757575;
+}
+.breadcrumb-list .dot {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.breadcrumb-list .dot span {
+  width: 4px;
+  height: 4px;
+  display: inline-block;
+  background-color: #757575;
+  border-radius: 50%;
+}
+.breadcrumb-list .current {
+  color: var(--dark);
+}
 /*# sourceMappingURL=styles.css.map */
