@@ -150,7 +150,7 @@
         "icon_box_W7afFK": {
           "type": "icon_box",
           "settings": {
-            "icon_class": "icon-shipping",
+            "icon_class": "icon-precision",
             "custom_svg": "",
             "icon_width": 64,
             "icon_width_mobile": 64,
@@ -161,42 +161,30 @@
         "icon_box_wwRFgw": {
           "type": "icon_box",
           "settings": {
-            "icon_class": "icon-payment",
+            "icon_class": "icon-elegance",
             "custom_svg": "",
             "icon_width": 64,
             "icon_width_mobile": 64,
-            "title": "SECURED PAYMENT",
-            "description": "Secured payment"
+            "title": "Effortless Elegance",
+            "description": "Our designs embrace simplicity at its finest. Vineta’s understated yet refined style captures the essence of modern fashion, making a statement."
           }
         },
         "icon_box_JTwRXY": {
           "type": "icon_box",
           "settings": {
-            "icon_class": "icon-return",
+            "icon_class": "icon-fashion-body",
             "custom_svg": "",
             "icon_width": 64,
             "icon_width_mobile": 64,
-            "title": "EASY RETURNS",
-            "description": "Within 14 days for a return"
-          }
-        },
-        "icon_box_YQ4fHX": {
-          "type": "icon_box",
-          "settings": {
-            "icon_class": "icon-support",
-            "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
-            "title": "24/7 SUPPORT",
-            "description": "Outstanding premium support"
+            "title": "Fashion for Every Body",
+            "description": "We celebrate individuality with a diverse range of sizes, offering clothing that fits and flatters every body type. At Vineta, fashion is for everyone."
           }
         }
       },
       "block_order": [
         "icon_box_W7afFK",
         "icon_box_wwRFgw",
-        "icon_box_JTwRXY",
-        "icon_box_YQ4fHX"
+        "icon_box_JTwRXY"
       ],
       "name": "t:sections.icon-box.name",
       "settings": {
@@ -204,8 +192,8 @@
         "width": "container",
         "icon_position_center": true,
         "show_dots_mobile": true,
-        "products_per_row_desktop": 4,
-        "products_per_row_tablet": 3,
+        "products_per_row_desktop": 3,
+        "products_per_row_tablet": 2,
         "products_per_row_mobile": 2,
         "use_container": false,
         "icon_style": "style-border",
