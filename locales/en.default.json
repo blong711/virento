@@ -86,6 +86,20 @@
       "next_slide": "Slide right",
       "previous_slide": "Slide left",
       "name": "Slider"
+    },
+    "ask_question": {
+      "title": "Ask a Question",
+      "name": "Your name",
+      "name_placeholder": "Enter your name",
+      "phone": "Your phone number",
+      "phone_placeholder": "Enter your phone number",
+      "email": "Your email",
+      "email_placeholder": "Enter your email",
+      "message": "Message",
+      "message_placeholder": "Enter your message",
+      "submit": "Send Message",
+      "success_message": "Thank you! Your message has been sent successfully.",
+      "error_message": "Please correct the following errors:"
     }
   },
   "newsletter": {
