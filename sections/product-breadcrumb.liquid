@@ -5,10 +5,6 @@
   - Configure go back URL
 {% endcomment %}
 
-{% assign show_collection = section.settings.show_collection | default: true %}
-{% assign show_navigation = section.settings.show_navigation | default: true %}
-{% assign go_back_url = section.settings.go_back_url | default: '/collections' %}
-
 <div class="breadcrumb-sec section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
     <div class="{{ section.settings.width }}">
         <div class="breadcrumb-wrap">
@@ -18,7 +14,7 @@
                     <meta itemprop="position" content="1" />
                 </a>
                 
-                {% if show_collection and product.collections.size > 0 %}
+                {% if section.settings.show_collection and product.collections.size > 0 %}
                     {% assign primary_collection = product.collections.first %}
                     <div class="breadcrumb-item dot"><span></span></div>
                     <a class="breadcrumb-item" href="{{ primary_collection.url }}" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
@@ -30,11 +26,11 @@
                 <div class="breadcrumb-item dot"><span></span></div>
                 <div class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
                     <span itemprop="name">{{ product.title }}</span>
-                    <meta itemprop="position" content="{% if show_collection and product.collections.size > 0 %}4{% else %}3{% endif %}" />
+                    <meta itemprop="position" content="{% if section.settings.show_collection and product.collections.size > 0 %}4{% else %}3{% endif %}" />
                 </div>
             </div>
             
-            {% if show_navigation %}
+            {% if section.settings.show_navigation %}
                 {% assign current_collection = product.collections.first %}
                 
                 <div class="breadcrumb-prev-next">
@@ -63,7 +59,7 @@
                             </a>
                         {% endif %}
                         
-                        <a href="{{ go_back_url }}" class="breadcrumb-back" title="{{ 'general.navigation.shop' | t | default: 'Shop' }}">
+                        <a href="{{ section.settings.go_back_url }}" class="breadcrumb-back" title="{{ 'general.navigation.shop' | t | default: 'Shop' }}">
                             <i class="icon icon-shop"></i>
                         </a>
                         
@@ -74,7 +70,7 @@
                         {% endif %}
                     {% else %}
                         <span class="breadcrumb-prev disabled"><i class="icon icon-arr-left"></i></span>
-                        <a href="{{ go_back_url }}" class="breadcrumb-back" title="{{ 'general.navigation.shop' | t | default: 'Shop' }}">
+                        <a href="{{ section.settings.go_back_url }}" class="breadcrumb-back" title="{{ 'general.navigation.shop' | t | default: 'Shop' }}">
                             <i class="icon icon-shop"></i>
                         </a>
                         <span class="breadcrumb-next disabled"><i class="icon icon-arr-right2"></i></span>
