@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   handleFooter();
   efectParalax();
   infiniteSlide();
+  predictiveSearch();
   // buttonQuantity();
   // deleteItem();
   clickControl();
@@ -1806,5 +1807,156 @@ const infiniteSlide = () => {
     // Start animation
     slide.style.display = 'flex';
     animate();
+  });
+};
+
+/* Predictive Search
+----------------------------------------------------------------------------*/
+const predictiveSearch = () => {
+  // Check if predictive search is enabled
+  const predictiveSearchEnabled = document.querySelector('meta[name="predictive-search-enabled"]')?.content !== 'false';
+  if (!predictiveSearchEnabled) return;
+  
+  const searchInput = document.querySelector('.form-search input[name="q"]');
+  const searchForm = document.querySelector('.form-search');
+  
+  if (!searchInput || !searchForm) return;
+  
+  // Create search results container (but don't insert yet)
+  const searchResults = document.createElement('div');
+  searchResults.className = 'search-suggests-results';
+  searchResults.id = 'search-results';
+  searchResults.style.display = 'none';
+  
+  // Create inner container
+  const searchResultsInner = document.createElement('div');
+  searchResultsInner.className = 'search-suggests-results-inner';
+  
+  // Create suggestions list
+  const searchSuggestions = document.createElement('ul');
+  searchSuggestions.id = 'search-suggestions';
+  
+  // Assemble the structure
+  searchResultsInner.appendChild(searchSuggestions);
+  searchResults.appendChild(searchResultsInner);
+  
+
+  
+  // Debounce function
+  const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  };
+  
+  // Search state
+  let isSearching = false;
+  
+  // Format price function
+  const formatPrice = (price, comparePrice) => {
+    const priceNum = parseFloat(price);
+    const comparePriceNum = comparePrice ? parseFloat(comparePrice) : 0;
+    
+    if (comparePriceNum && comparePriceNum > priceNum) {
+      return `
+        <span class="new-price">$${priceNum.toFixed(2)}</span>
+        <span class="old-price">$${comparePriceNum.toFixed(2)}</span>
+      `;
+    }
+    return `<span class="price">$${priceNum.toFixed(2)}</span>`;
+  };
+  
+  // Create search result item
+  const createSearchResultItem = (product) => {
+    const imageUrl = product.featured_image?.url || product.image || '';
+    const imageAlt = product.featured_image?.alt || product.title || 'Product image';
+    
+    if (!imageUrl) return '';
+    
+    // Check if prices should be shown
+    const showPrices = document.querySelector('meta[name="predictive-search-show-price"]')?.content !== 'false';
+    
+    return `
+      <li>
+        <a class="search-result-item" href="${product.url}">
+          <div class="img-box">
+            <img src="${imageUrl}" alt="${imageAlt}">
+          </div>
+          <div class="box-content">
+            <p class="title link">${product.title}</p>
+            ${showPrices ? `<div class="price">
+              ${formatPrice(product.price, product.compare_at_price_max || product.compare_at_price_min)}
+            </div>` : ''}
+          </div>
+        </a>
+      </li>
+    `;
+  };
+  
+  // Perform search
+  const performSearch = async (query) => {
+    if (!query || query.length < 2) {
+      if (searchResults.parentNode) {
+        searchResults.style.display = 'none';
+      }
+      return;
+    }
+    if (isSearching) return;
+    isSearching = true;
+    
+    // Insert container into DOM if not already there
+    if (!searchResults.parentNode) {
+      searchForm.parentNode.insertBefore(searchResults, searchForm.nextSibling);
+    }
+    
+    try {
+      searchSuggestions.innerHTML = '<li class="search-loading">Searching...</li>';
+      searchResults.style.display = 'block';
+      const response = await fetch(`/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`);
+      if (!response.ok) {
+        throw new Error('Search request failed');
+      }
+      const data = await response.json();
+      const products = data.resources?.results?.products || [];
+      if (products.length === 0) {
+        searchSuggestions.innerHTML = '<li class="no-results">No products found</li>';
+      } else {
+        const resultsHTML = products
+          .map(product => createSearchResultItem(product))
+          .filter(html => html)
+          .join('');
+        searchSuggestions.innerHTML = resultsHTML || '<li class="no-results">No products found</li>';
+      }
+    } catch (error) {
+      console.error('Search error:', error);
+      searchSuggestions.innerHTML = '<li class="search-error">Search failed. Please try again.</li>';
+    } finally {
+      isSearching = false;
+    }
+  };
+  
+  // Debounced search
+  const debouncedSearch = debounce(performSearch, 300);
+  
+  // Event listeners
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.trim();
+    if (query.length >= 2) {
+      debouncedSearch(query);
+    }
+  });
+  
+  // Handle form submission
+  searchForm.addEventListener('submit', (e) => {
+    const query = searchInput.value.trim();
+    if (!query) {
+      e.preventDefault();
+    }
   });
 };

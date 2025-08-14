@@ -138,11 +138,11 @@
      --spacing-sections-mobile: {% if settings.spacing_sections < 24 %}{{ settings.spacing_sections }}{% else %}{{ settings.spacing_sections | times: 0.7 | round | at_least: 20 }}{% endif %}px;
    }
 
-   *,
+   /* *,
    *::before,
    *::after {
      box-sizing: inherit;
-   }
+   } */
 
    html {
      box-sizing: border-box;

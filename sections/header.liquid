@@ -23,6 +23,9 @@
   class="{{ header_classes }} color-{{ section.settings.color_scheme }}"
   data-sticky-type="{{ section.settings.sticky_header }}"
 >
+  <!-- Predictive Search Settings -->
+  <meta name="predictive-search-enabled" content="{{ settings.predictive_search_enabled }}">
+  <meta name="predictive-search-show-price" content="{{ settings.predictive_search_show_price }}">
   <!-- Header Top -->
   <div class="header-top">
     <div class="container">
@@ -69,14 +72,7 @@
                 </button>
               </form>
 
-              {% comment %} Predictive search results {% endcomment %}
-              <div class="search-suggests-results" id="search-results" style="display: none;">
-                <div class="search-suggests-results-inner">
-                  <ul id="search-suggestions">
-                    {% comment %} Dynamic search suggestions {% endcomment %}
-                  </ul>
-                </div>
-              </div>
+                             
             </div>
           </div>
         {% endif %}
