@@ -38,7 +38,7 @@
                   <p class="title">{{ block.settings.heading }}</p>
                 {% endif %}
                 {% if block.settings.content != blank %}
-                  <div class="sub">{{ block.settings.content }}</div>
+                  {{ block.settings.content | replace: '<p>', '<p class="sub">' }}
                 {% endif %}
                 <div class="btn-group">
                   {% if block.settings.solid_button_text != blank %}
