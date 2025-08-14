@@ -11,7 +11,16 @@
   "sections": {
     "product_breadcrumb": {
       "type": "product-breadcrumb",
-      "settings": {}
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "show_collection": true,
+        "show_navigation": true,
+        "go_back_url": "shopify://collections",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     },
     "main_product": {
       "type": "main-product",
