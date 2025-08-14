@@ -5593,6 +5593,23 @@
       "presets": {
         "name": "Product Description"
       }
+    },
+    "product-breadcrumb": {
+      "name": "Product Breadcrumb",
+      "settings": {
+        "breadcrumb_settings": {
+          "content": "Breadcrumb Settings"
+        },
+        "show_collection": {
+          "label": "Show collection in breadcrumb"
+        },
+        "show_navigation": {
+          "label": "Show navigation links"
+        },
+        "go_back_url": {
+          "label": "Go back URL"
+        }
+      }
     }
   }
 }
