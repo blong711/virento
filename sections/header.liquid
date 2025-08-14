@@ -62,7 +62,7 @@
                   type="text"
                   name="q"
                   value="{{ search.terms | escape }}"
-                  placeholder="{{ section.settings.search_placeholder | default: 'Search product' }}"
+                  placeholder="{{ section.settings.search_placeholder | default: 't:sections.header.settings.search_placeholder.default' | t }}"
                   tabindex="0"
                   aria-required="true"
                   required
@@ -159,7 +159,7 @@
               <div class="tf-mega-categories{{ categories_style }}">
                 <a href="{{ routes.collections_url }}" class="categories-title">
                   <i class="icon icon-categories"></i>
-                  {{ section.settings.categories_title | default: 'browse categories' }}
+                  {{ section.settings.categories_title }}
                 </a>
                 <ul class="mega-categories">
                   {% for collection in section.settings.selected_collections %}
@@ -205,7 +205,7 @@
               <div class="tf-mega-categories{{ categories_style }}">
                 <a href="{{ routes.collections_url }}" class="categories-title">
                   <i class="icon icon-categories"></i>
-                  {{ section.settings.categories_title | default: 'browse categories' }}
+                  {{ section.settings.categories_title }}
                 </a>
                 <ul class="mega-categories">
                   {% for collection in section.settings.selected_collections %}
@@ -241,7 +241,7 @@
             {% endif %}
             {% if section.settings.phone_number %}
               <a href="tel:{{ section.settings.phone_number }}" class="call-us text-md fw-medium">
-                {{ section.settings.call_text | default: 'Call Us Now' }}
+                {{ section.settings.call_text }}
                 <i class="icon icon-arrow1-top-left"></i>
               </a>
             {% endif %}
@@ -286,16 +286,16 @@
   "settings": [
     {
       "type": "header",
-      "content": "Layout Configuration"
+      "content": "t:sections.header.settings.layout_configuration.content"
     },
     {
       "type": "select",
       "id": "layout_type",
-      "label": "Layout",
+      "label": "t:sections.header.settings.layout.label",
       "options": [
-        { "value": "electric", "label": "Layout-1" },
-        { "value": "mega", "label": "Layout-2" },
-        { "value": "market", "label": "Layout-3" }
+        { "value": "electric", "label": "t:sections.header.settings.layout_1" },
+        { "value": "mega", "label": "t:sections.header.settings.layout_2" },
+        { "value": "market", "label": "t:sections.header.settings.layout_3" }
       ],
       "default": "electric"
     },
@@ -334,7 +334,7 @@
     },
     {
       "type": "header",
-      "content": "Navigation"
+      "content": "t:sections.header.settings.navigation.content"
     },
     {
       "type": "link_list",
@@ -354,8 +354,8 @@
     {
       "type": "text",
       "id": "categories_title",
-      "label": "Categories title",
-      "default": "browse categories"
+      "label": "t:sections.header.settings.categories_title.label",
+      "default": "t:sections.header.settings.categories_title.default"
     },
     {
       "type": "collection_list",
@@ -365,7 +365,7 @@
     },
     {
       "type": "header",
-      "content": "Search"
+      "content": "t:sections.header.settings.search.content"
     },
     {
       "type": "checkbox",
@@ -376,8 +376,8 @@
     {
       "type": "text",
       "id": "search_placeholder",
-      "label": "Search placeholder",
-      "default": "Search product"
+      "label": "t:sections.header.settings.search_placeholder.label",
+      "default": "t:sections.header.settings.search_placeholder.default"
     },
     {
       "type": "header",
@@ -386,7 +386,7 @@
     {
       "type": "checkbox",
       "id": "show_account",
-      "label": "Show account icon",
+      "label": "t:sections.header.settings.show_account.label",
       "default": true
     },
     {
@@ -403,158 +403,158 @@
     },
     {
       "type": "header",
-      "content": "Contact Information"
+      "content": "t:sections.header.settings.contact_information.content"
     },
     {
       "type": "text",
       "id": "help_text",
-      "label": "Help link text",
-      "default": "Need Help?"
+      "label": "t:sections.header.settings.help_link_text.label",
+      "default": "t:sections.header.settings.help_link_text.default"
     },
     {
       "type": "url",
       "id": "help_url",
-      "label": "Help link URL"
+      "label": "t:sections.header.settings.help_link_url.label"
     },
     {
       "type": "text",
       "id": "phone_number",
-      "label": "Phone number",
-      "placeholder": "+1 123 456 789"
+      "label": "t:sections.header.settings.phone_number.label",
+      "placeholder": "t:sections.header.settings.phone_number.placeholder"
     },
     {
       "type": "text",
       "id": "call_text",
-      "label": "Call us text",
-      "default": "Call Us Now"
+      "label": "t:sections.header.settings.call_us_text.label",
+      "default": "t:sections.header.settings.call_us_text.default"
     }
   ],
   "blocks": [
     {
       "type": "mega_html",
-      "name": "Mega Menu - HTML",
+      "name": "t:sections.header.blocks.mega_html.name",
       "settings": [
         {
           "type": "text",
           "id": "menu_item_match",
-          "label": "Match Menu Item",
-          "info": "Enter the exact menu item title to connect this mega menu"
+          "label": "t:sections.header.blocks.mega_html.settings.menu_item_match.label",
+          "info": "t:sections.header.blocks.mega_html.settings.menu_item_match.info"
         },
         {
           "type": "page",
           "id": "content_page",
-          "label": "Content Page",
-          "info": "Select a page to display its content in the mega menu"
+          "label": "t:sections.header.blocks.mega_html.settings.content_page.label",
+          "info": "t:sections.header.blocks.mega_html.settings.content_page.info"
         }
       ]
     },
     {
       "type": "mega_shop",
-      "name": "Mega Menu - Shop",
+      "name": "t:sections.header.blocks.mega_shop.name",
       "settings": [
         {
           "type": "text",
           "id": "menu_item_match",
-          "label": "Match Menu Item",
-          "info": "Enter the exact menu item title to connect this mega menu"
+          "label": "t:sections.header.blocks.mega_shop.settings.menu_item_match.label",
+          "info": "t:sections.header.blocks.mega_shop.settings.menu_item_match.info"
         },
         {
           "type": "collection_list",
           "id": "collections",
-          "label": "Collections to Show",
+          "label": "t:sections.header.blocks.mega_shop.settings.collections.label",
           "limit": 8,
-          "info": "Select collections to feature in the mega menu"
+          "info": "t:sections.header.blocks.mega_shop.settings.collections.info"
         },
         {
           "type": "text",
           "id": "view_all_text",
-          "label": "View all text",
-          "default": "View All Collections"
+          "label": "t:sections.header.blocks.mega_shop.settings.view_all_text.label",
+          "default": "t:sections.header.blocks.mega_shop.settings.view_all_text.default"
         },
         {
           "type": "url",
           "id": "view_all_url",
-          "label": "View all URL"
+          "label": "t:sections.header.blocks.mega_shop.settings.view_all_url.label"
         }
       ]
     },
     {
       "type": "mega_product",
-      "name": "Mega Menu - Products",
+      "name": "t:sections.header.blocks.mega_product.name",
       "settings": [
         {
           "type": "text",
           "id": "menu_item_match",
-          "label": "Match Menu Item",
-          "info": "Enter the exact menu item title to connect this mega menu"
+          "label": "t:sections.header.blocks.mega_product.settings.menu_item_match.label",
+          "info": "t:sections.header.blocks.mega_product.settings.menu_item_match.info"
         },
         {
           "type": "product_list",
           "id": "products",
-          "label": "Featured Products",
+          "label": "t:sections.header.blocks.mega_product.settings.products.label",
           "limit": 4,
-          "info": "Select products to feature in the mega menu"
+          "info": "t:sections.header.blocks.mega_product.settings.products.info"
         }
       ]
     },
     {
       "type": "mega_pages",
-      "name": "Mega Menu - Pages",
+      "name": "t:sections.header.blocks.mega_pages.name",
       "settings": [
         {
           "type": "text",
           "id": "menu_item_match",
-          "label": "Match Menu Item",
-          "info": "Enter the exact menu item title to connect this mega menu"
+          "label": "t:sections.header.blocks.mega_pages.settings.menu_item_match.label",
+          "info": "t:sections.header.blocks.mega_pages.settings.menu_item_match.info"
         },
         {
           "type": "image_picker",
           "id": "banner_image",
-          "label": "Banner Image"
+          "label": "t:sections.header.blocks.mega_pages.settings.banner_image.label"
         },
         {
           "type": "text",
           "id": "banner_title",
-          "label": "Banner Title",
-          "default": "Unveiling the latest gear"
+          "label": "t:sections.header.blocks.mega_pages.settings.banner_title.label",
+          "default": "t:sections.header.blocks.mega_pages.settings.banner_title.default"
         },
         {
           "type": "url",
           "id": "banner_url",
-          "label": "Banner Link URL"
+          "label": "t:sections.header.blocks.mega_pages.settings.banner_url.label"
         }
       ]
     },
     {
       "type": "mega_blog",
-      "name": "Mega Menu - Blog",
+      "name": "t:sections.header.blocks.mega_blog.name",
       "settings": [
         {
           "type": "text",
           "id": "menu_item_match",
-          "label": "Match Menu Item",
-          "info": "Enter the exact menu item title to connect this mega menu"
+          "label": "t:sections.header.blocks.mega_blog.settings.menu_item_match.label",
+          "info": "t:sections.header.blocks.mega_blog.settings.menu_item_match.info"
         },
         {
           "type": "header",
-          "content": "Recent Posts"
+          "content": "t:sections.header.blocks.mega_blog.settings.recent_posts.content"
         },
         {
           "type": "text",
           "id": "recent_posts_title",
-          "label": "Recent Posts Title",
-          "default": "Recent Posts"
+          "label": "t:sections.header.blocks.mega_blog.settings.recent_posts_title.label",
+          "default": "t:sections.header.blocks.mega_blog.settings.recent_posts_title.default"
         },
         {
           "type": "blog",
           "id": "blog",
-          "label": "Blog",
-          "info": "Select blog for recent posts"
+          "label": "t:sections.header.blocks.mega_blog.settings.blog.label",
+          "info": "t:sections.header.blocks.mega_blog.settings.blog.info"
         },
         {
           "type": "range",
           "id": "posts_to_show",
-          "label": "Posts to show",
+          "label": "t:sections.header.blocks.mega_blog.settings.posts_to_show.label",
           "min": 3,
           "max": 6,
           "step": 1,
@@ -573,8 +573,8 @@
         "show_account": true,
         "show_wishlist": true,
         "show_cart": true,
-        "help_text": "Need Help?",
-        "call_text": "Call Us Now"
+        "help_text": "t:sections.header.settings.help_link_text.default",
+        "call_text": "t:sections.header.settings.call_us_text.default"
       }
     }
   ]

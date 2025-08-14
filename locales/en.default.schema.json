@@ -1322,6 +1322,134 @@
         },
         "selected_collections": {
           "label": "Select Collections to Show"
+        },
+        "layout_configuration": {
+          "content": "Layout Configuration"
+        },
+        "layout": {
+          "label": "Layout"
+        },
+        "layout_1": "Layout-1",
+        "layout_2": "Layout-2",
+        "layout_3": "Layout-3",
+        "navigation": {
+          "content": "Navigation"
+        },
+        "search": {
+          "content": "Search"
+        },
+        "search_placeholder": {
+          "label": "Search placeholder",
+          "default": "Search product"
+        },
+        "show_account": {
+          "label": "Show account icon"
+        },
+        "contact_information": {
+          "content": "Contact Information"
+        },
+        "help_link_text": {
+          "label": "Help link text",
+          "default": "Need Help?"
+        },
+        "help_link_url": {
+          "label": "Help link URL"
+        },
+        "phone_number": {
+          "label": "Phone number",
+          "placeholder": "+1 123 456 789"
+        },
+        "call_us_text": {
+          "label": "Call us text",
+          "default": "Call Us Now"
+        },
+        "categories_title": {
+          "label": "Categories title",
+          "default": "browse categories"
+        },
+        "browse_categories": "browse categories"
+      },
+      "blocks": {
+        "mega_shop": {
+          "name": "Mega Menu - Shop",
+          "settings": {
+            "menu_item_match": {
+              "label": "Match Menu Item",
+              "info": "Enter the exact menu item title to connect this mega menu"
+            },
+            "collections": {
+              "label": "Collections to Show",
+              "limit": "8",
+              "info": "Select collections to feature in the mega menu"
+            },
+            "view_all_text": {
+              "label": "View all text",
+              "default": "View All Collections"
+            },
+            "view_all_url": {
+              "label": "View all URL"
+            }
+          }
+        },
+        "mega_product": {
+          "name": "Mega Menu - Products",
+          "settings": {
+            "menu_item_match": {
+              "label": "Match Menu Item",
+              "info": "Enter the exact menu item title to connect this mega menu"
+            },
+            "products": {
+              "label": "Featured Products",
+              "limit": "4",
+              "info": "Select products to feature in the mega menu"
+            }
+          }
+        },
+        "mega_pages": {
+          "name": "Mega Menu - Pages",
+          "settings": {
+            "menu_item_match": {
+              "label": "Match Menu Item",
+              "info": "Enter the exact menu item title to connect this mega menu"
+            },
+            "banner_image": {
+              "label": "Banner Image"
+            },
+            "banner_title": {
+              "label": "Banner Title",
+              "default": "Unveiling the latest gear"
+            },
+            "banner_url": {
+              "label": "Banner Link URL"
+            }
+          }
+        },
+        "mega_blog": {
+          "name": "Mega Menu - Blog",
+          "settings": {
+            "menu_item_match": {
+              "label": "Match Menu Item",
+              "info": "Enter the exact menu item title to connect this mega menu"
+            },
+            "recent_posts": {
+              "content": "Recent Posts"
+            },
+            "recent_posts_title": {
+              "label": "Recent Posts Title",
+              "default": "Recent Posts"
+            },
+            "blog": {
+              "label": "Blog",
+              "info": "Select blog for recent posts"
+            },
+            "posts_to_show": {
+              "label": "Posts to show",
+              "min": "3",
+              "max": "6",
+              "step": "1",
+              "default": "3"
+            }
+          }
         }
       },
       "presets": {
