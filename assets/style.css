@@ -19554,4 +19554,24 @@ shopify-accelerated-checkout {
       padding: 10px 0px 42px;
   }
 }
+.breadcrumb-wrap {
+  padding: 32px 0px 27px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.breadcrumb-list {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.breadcrumb-prev-next {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--dark);
+}
+.breadcrumb-prev-next .breadcrumb-back {
+  font-size: 20px;
+}
 /*# sourceMappingURL=styles.css.map */

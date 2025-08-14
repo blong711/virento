@@ -429,3 +429,6 @@
   .icon-whatsapp:before {
     content: "\ea93";
   }
+  .icon-shop:before {
+    content: "\e900";
+  }
