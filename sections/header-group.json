@@ -53,13 +53,6 @@
     "header": {
       "type": "header",
       "blocks": {
-        "mega_html_QzfqLM": {
-          "type": "mega_html",
-          "settings": {
-            "menu_item_match": "Home",
-            "content_page": "demos-short"
-          }
-        },
         "mega_shop_xYCnFY": {
           "type": "mega_shop",
           "settings": {
@@ -107,7 +100,6 @@
         }
       },
       "block_order": [
-        "mega_html_QzfqLM",
         "mega_shop_xYCnFY",
         "mega_product_zffamK",
         "mega_pages_3bFYDC",
@@ -122,11 +114,14 @@
         "show_categories": true,
         "categories_title": "browse categories",
         "selected_collections": [
-          "cables",
-          "chargers",
+          "phones",
           "earphones",
+          "cables",
+          "smart-watches",
+          "chargers",
+          "screen-protectors",
           "headphones",
-          "frontpage"
+          "keyboards"
         ],
         "show_search": true,
         "search_placeholder": "Search product",
