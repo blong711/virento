@@ -681,78 +681,101 @@ const staggerWrap = () => {
 /* Click Modal Second
 -------------------------------------------------------------------------*/
 const clickModalSecond = () => {
-  // Using Bootstrap 5 Modal API
-  document.querySelectorAll('.btn-quickview').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
+  // Using event delegation to handle dynamically added buttons
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-quickview, .quickview');
+    if (!btn) return;
+    
+    e.preventDefault();
+    
+    // Safely parse JSON data with error handling
+    let variants = [];
+    let options = [];
+    
+    try {
+      const variantsAttr = btn.getAttribute('data-product-variants');
+      if (variantsAttr) {
+        variants = JSON.parse(variantsAttr);
+      }
+    } catch (e) {
+      console.warn('Failed to parse variants data:', e);
+    }
+    
+    try {
+      const optionsAttr = btn.getAttribute('data-product-options');
+      if (optionsAttr) {
+        options = JSON.parse(optionsAttr);
+      }
+    } catch (e) {
+      console.warn('Failed to parse options data:', e);
+    }
+    
+    const productData = {
+      id: btn.getAttribute('data-product-id'),
+      handle: btn.getAttribute('data-product-handle'),
+      title: btn.getAttribute('data-product-title'),
+      price: btn.getAttribute('data-product-price'),
+      comparePrice: btn.getAttribute('data-product-compare-price'),
+      description: btn.getAttribute('data-product-description'),
+      url: btn.getAttribute('data-product-url'),
+      images: btn.getAttribute('data-product-images') ? btn.getAttribute('data-product-images').split(',') : [],
+      variants: variants,
+      options: options
+    };
+    
+    const quickViewModal = new bootstrap.Modal(document.getElementById('quickView'));
+    const modalElement = document.getElementById('quickView');
+    const mediaWrap = document.querySelector('#quickView .tf-product-media-wrap');
+    const infoWrap = document.querySelector('#quickView .tf-product-info-wrap');
+    
+    // Store product variants data in modal for variant selection
+    modalElement.setAttribute('data-product-variants', JSON.stringify(productData.variants));
+    
+    // Generate HTML content from product data
+    const { mediaHTML, infoHTML } = generateQuickviewContent(productData);
+    mediaWrap.innerHTML = mediaHTML;
+    infoWrap.innerHTML = infoHTML;
+    
+    quickViewModal.show();
+    
+    // Initialize swiper after content is loaded
+    setTimeout(() => {
+      const swiperContainer = document.querySelector('#quickView .tf-single-slide');
+      let quickviewSwiper = null;
       
-      const productData = {
-        id: btn.getAttribute('data-product-id'),
-        handle: btn.getAttribute('data-product-handle'),
-        title: btn.getAttribute('data-product-title'),
-        price: btn.getAttribute('data-product-price'),
-        comparePrice: btn.getAttribute('data-product-compare-price'),
-        description: btn.getAttribute('data-product-description'),
-        url: btn.getAttribute('data-product-url'),
-        images: btn.getAttribute('data-product-images') ? btn.getAttribute('data-product-images').split(',') : [],
-        variants: btn.getAttribute('data-product-variants') ? JSON.parse(btn.getAttribute('data-product-variants')) : [],
-        options: btn.getAttribute('data-product-options') ? JSON.parse(btn.getAttribute('data-product-options')) : []
-      };
-      
-      const quickViewModal = new bootstrap.Modal(document.getElementById('quickView'));
-      const modalElement = document.getElementById('quickView');
-      const mediaWrap = document.querySelector('#quickView .tf-product-media-wrap');
-      const infoWrap = document.querySelector('#quickView .tf-product-info-wrap');
-      
-      // Store product variants data in modal for variant selection
-      modalElement.setAttribute('data-product-variants', JSON.stringify(productData.variants));
-      
-      // Generate HTML content from product data
-      const { mediaHTML, infoHTML } = generateQuickviewContent(productData);
-      mediaWrap.innerHTML = mediaHTML;
-      infoWrap.innerHTML = infoHTML;
-      
-      quickViewModal.show();
-      
-      // Initialize swiper after content is loaded
-      setTimeout(() => {
-        const swiperContainer = document.querySelector('#quickView .tf-single-slide');
-        let quickviewSwiper = null;
-        
-        if (swiperContainer && typeof Swiper !== 'undefined') {
-          quickviewSwiper = new Swiper(swiperContainer, {
-            slidesPerView: 1,
-            spaceBetween: 0,
-            navigation: {
-              nextEl: '.single-slide-next',
-              prevEl: '.single-slide-prev',
-            },
-            on: {
-              slideChange: function () {
-                // Update variant selection when swiper changes
-                updateVariantFromSwiper(this.activeIndex);
-              }
+      if (swiperContainer && typeof Swiper !== 'undefined') {
+        quickviewSwiper = new Swiper(swiperContainer, {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          navigation: {
+            nextEl: '.single-slide-next',
+            prevEl: '.single-slide-prev',
+          },
+          on: {
+            slideChange: function () {
+              // Update variant selection when swiper changes
+              updateVariantFromSwiper(this.activeIndex);
             }
-          });
-          
-          // Store swiper instance in modal for access
-          modalElement.setAttribute('data-swiper-instance', 'initialized');
+          }
+        });
+        
+        // Store swiper instance in modal for access
+        modalElement.setAttribute('data-swiper-instance', 'initialized');
+      }
+      
+      // Reinitialize quantity buttons and variant picker
+      buttonQuantity();
+      variantPicker();
+      
+      // Reset quantity to 1 when modal opens
+      const quantityInput = modalElement.querySelector('input[name="quantity"]');
+      if (quantityInput) {
+        quantityInput.value = 1;
         }
-        
-        // Reinitialize quantity buttons and variant picker
-        buttonQuantity();
-        variantPicker();
-        
-        // Reset quantity to 1 when modal opens
-        const quantityInput = modalElement.querySelector('input[name="quantity"]');
-        if (quantityInput) {
-          quantityInput.value = 1;
-        }
-        
-        // Initialize variant selection for quickview
-        initializeQuickviewVariants();
-      }, 100);
-    });
+      
+      // Initialize variant selection for quickview
+      initializeQuickviewVariants();
+    }, 100);
   });
   
   // Function to generate quickview content HTML

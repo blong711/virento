@@ -215,12 +215,16 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "recently_viewed": {
+      "type": "recently-viewed"
     }
   },
   "order": [
     "product_breadcrumb",
     "main_product",
     "product_description",
-    "related_products"
+    "related_products",
+    "recently_viewed"
   ]
 }
