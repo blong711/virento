@@ -1370,6 +1370,19 @@
         "browse_categories": "browse categories"
       },
       "blocks": {
+        "mega_home": {
+          "name": "Mega Menu - HTML",
+          "settings": {
+            "menu_item_match": {
+              "label": "Match Menu Item",
+              "info": "Enter the exact menu item title to connect this mega menu"
+            },
+            "content_page": {
+              "label": "Content Page",
+              "info": "Select a page to display its content in the mega menu"
+            }
+          }
+        },
         "mega_shop": {
           "name": "Mega Menu - Shop",
           "settings": {
