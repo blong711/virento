@@ -180,7 +180,8 @@
         "description_block",
         "materials_block",
         "additional_info_block"
-      ]
+      ],
+      "settings": {}
     }
   },
   "order": [
