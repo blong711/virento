@@ -1,86 +1,74 @@
 {% comment %}
   Related Products Section
-  - Uses Shopify's product recommendations or selected collection
+  - Uses Shopify's product recommendations API
   - Responsive carousel with Swiper
   - Configurable product display options
+  - Lazy loads recommendations when section comes into view
 {% endcomment %}
 
-{%- liquid
-  assign has_recommendations = recommendations.performed
-  assign recommendations_count = recommendations.products_count
-  assign related_products = false
-  if has_recommendations and recommendations_count > 0
-    assign related_products = true
-  endif
-  
-  if related_products
-    assign products = recommendations.products
-  elsif section.settings.collection != blank
-    assign products = collections[section.settings.collection].products
-  else
-    assign products = collections.all.products
-  endif
-  
-  assign products = products | slice: 0, section.settings.products_to_show
--%}
-
-{%- if products.size > 0 -%}
-<section class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
-  <div class="{{ section.settings.width }}">
-    {%- if section.settings.heading != blank -%}
-      <div class="flat-title wow fadeInUp">
-        <h4 class="title">{{ section.settings.heading }}</h4>
-      </div>
-    {%- endif -%}
-    
-    <div class="hover-sw-nav hover-sw-2 wow fadeInUp">
-      <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-swiper='{
-        "slidesPerView": {{ section.settings.items_per_row_mobile }},
-        "spaceBetween": 12,
-        "speed": 800,
-        "observer": true,
-        "observeParents": true,
-        "slidesPerGroup": {{ section.settings.items_per_row_mobile }},
-        "navigation": {
-          "clickable": true,
-          "nextEl": ".nav-next-bought",
-          "prevEl": ".nav-prev-bought"
-        },
-        "pagination": { "el": ".sw-pagination-bought", "clickable": true },
-        "breakpoints": {
-          "768": { 
-            "slidesPerView": {{ section.settings.items_per_row_tablet }}, 
-            "spaceBetween": 12, 
-            "slidesPerGroup": {{ section.settings.items_per_row_tablet }} 
-          },
-          "1200": { 
-            "slidesPerView": {{ section.settings.items_per_row_desktop }}, 
-            "spaceBetween": 24, 
-            "slidesPerGroup": {{ section.settings.items_per_row_desktop }}
-          }
-        }
-      }'>
-        <div class="swiper-wrapper">
-          {%- for product in products -%}
-            <div class="swiper-slide">
-              {% render 'product-card', product: product %}
-            </div>
-          {%- endfor -%}
-        </div>
-        
-        {%- if section.settings.show_mobile_dots -%}
-          <div class="d-flex d-xl-none sw-dot-default sw-pagination-bought justify-content-center"></div>
+<div 
+  class="product-recommendations" 
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.products_to_show }}&intent=related"
+>
+  {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+    <section class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+      <div class="{{ section.settings.width }}">
+        {%- if section.settings.heading != blank -%}
+          <div class="flat-title wow fadeInUp">
+            <h4 class="title">{{ section.settings.heading }}</h4>
+          </div>
         {%- endif -%}
+        
+        <div class="hover-sw-nav hover-sw-2 wow fadeInUp">
+          <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-swiper='{
+            "slidesPerView": {{ section.settings.items_per_row_mobile }},
+            "spaceBetween": 12,
+            "speed": 800,
+            "observer": true,
+            "observeParents": true,
+            "slidesPerGroup": {{ section.settings.items_per_row_mobile }},
+            "navigation": {
+              "clickable": true,
+              "nextEl": ".nav-next-bought",
+              "prevEl": ".nav-prev-bought"
+            },
+            "pagination": { "el": ".sw-pagination-bought", "clickable": true },
+            "breakpoints": {
+              "768": { 
+                "slidesPerView": {{ section.settings.items_per_row_tablet }}, 
+                "spaceBetween": 12, 
+                "slidesPerGroup": {{ section.settings.items_per_row_tablet }} 
+              },
+              "1200": { 
+                "slidesPerView": {{ section.settings.items_per_row_desktop }}, 
+                "spaceBetween": 24, 
+                "slidesPerGroup": {{ section.settings.items_per_row_desktop }}
+              }
+            }
+          }'>
+            <div class="swiper-wrapper">
+              {%- for product in recommendations.products -%}
+                <div class="swiper-slide">
+                  {% render 'product-card', product: product %}
+                </div>
+              {%- endfor -%}
+            </div>
+            
+            {%- if section.settings.show_mobile_dots -%}
+              <div class="d-flex d-xl-none sw-dot-default sw-pagination-bought justify-content-center"></div>
+            {%- endif -%}
+          </div>
+          
+          {%- if section.settings.show_navigation -%}
+            <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-bought"></div>
+            <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-bought"></div>
+          {%- endif -%}
+        </div>
       </div>
-      
-      {%- if section.settings.show_navigation -%}
-        <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-bought"></div>
-        <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-bought"></div>
-      {%- endif -%}
-    </div>
-  </div>
-</section>
-{%- endif -%}
+    </section>
+  {%- endif -%}
+</div>
+
 <style>
 .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
@@ -94,6 +82,45 @@
     }
 }
 </style>
+
+{% javascript %}
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+          
+          // Reinitialize Swiper after content is loaded
+          const swiperContainer = productRecommendationsSection.querySelector('.swiper');
+          if (swiperContainer) {
+            const swiperData = JSON.parse(swiperContainer.dataset.swiper);
+            new Swiper(swiperContainer, swiperData);
+          }
+        }
+      })
+      .catch(e => {
+        console.error('Error loading product recommendations:', e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  if (productRecommendationsSection) {
+    const observer = new IntersectionObserver(handleIntersection, {rootMargin: '0px 0px 200px 0px'});
+    observer.observe(productRecommendationsSection);
+  }
+{% endjavascript %}
+
 {% schema %}
 {
   "name": "Related products",
@@ -177,12 +204,6 @@
         "step": 1,
         "label": "t:sections.brands.settings.items_per_row_mobile.label",
         "default": 3
-    },
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection",
-      "info": "Products from this collection will be shown if no recommendations are available"
     },
     {
         "type": "header",
