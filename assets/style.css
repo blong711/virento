@@ -4521,9 +4521,9 @@ header.header-bg {
   border-color: #b99f4a;
 }
 .tf-btn.btn-white {
-  color: var(--dark);
-  background-color: var(--white);
-  border-color: var(--white);
+  color: var(--dark) !important;
+  background-color: var(--white) !important;
+  border-color: var(--white) !important;
 }
 .tf-btn.btn-yellow {
   color: var(--white);
@@ -4566,9 +4566,9 @@ header.header-bg {
   border-color: var(--primary);
 }
 .tf-btn.hover-dark:hover {
-  background-color: var(--dark);
-  color: var(--white);
-  border-color: var(--dark);
+  background-color: var(--dark) !important;
+  color: var(--white) !important;
+  border-color: var(--dark) !important;
 }
 .tf-btn.hover-green:hover {
   background-color: #b99f4a;
