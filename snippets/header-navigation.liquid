@@ -21,7 +21,7 @@
         {% if menu_match_normalized == link_title_normalized and menu_match_normalized != blank %}
           {% assign has_mega_menu = true %}
           {% case block.type %}
-            {% when 'mega_html' %}
+            {% when 'mega_home' %}
               <!-- HTML Content Mega Menu -->
               {% if block.settings.content_page and pages[block.settings.content_page] %}
                 {% assign selected_page = pages[block.settings.content_page] %}
