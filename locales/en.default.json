@@ -355,7 +355,35 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
-
+    "main_register": {
+      "register": "Register",
+      "register_description": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "already_have_account": "Already have an account? Log in here"
+    },
+    "account": {
+      "sidebar_title": "SIDEBAR ACCOUNT",
+      "dashboard": "Dashboard",
+      "my_orders": "My Orders",
+      "my_wishlist": "My Wishlist",
+      "addresses": "Addresses",
+      "log_out": "Log Out",
+      "order_history": "Order History",
+      "order_id": "Order ID",
+      "date": "Date",
+      "status": "Status",
+      "total": "Total",
+      "action": "Action",
+      "detail": "Detail",
+      "check": "check",
+      "or_have_a_look_to": "or have a look to",
+      "or_maybe_you_can_start_to_shop": "Or maybe you can start to shop",
+      "free_shipping_banner": "Free Shipping Banner",
+      "close": "Close"
+    },
     "blog_post": {
       "name": "Blog post",
       "settings": {
@@ -688,6 +716,87 @@
       "checkout": "Checkout",
       "read_more": "Read More",
       "show_less": "Show Less"
+    },
+     "main_reset_password": {
+      "reset_password": "Reset your password",
+      "enter_new_password": "Enter a new password for your account",
+      "password": "Password",
+      "confirm_password": "Confirm password",
+      "reset_password_button": "Reset password"
+    },
+    "main_login": {
+      "log_in": "Log in",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "reset_password": "Reset your password",
+      "reset_description": "We will send you an email to reset your password.",
+      "reset_success_message": "We've sent you an email with a link to update your password.",
+      "submit": "Submit",
+      "back_to_login": "Back to login",
+      "register": "Register",
+      "sending": "Sending...",
+      "reset_success": "We've sent you an email with a link to update your password.",
+      "error_message": "An error occurred. Please try again."
+    },
+    "main_addresses": {
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "company": "Company",
+      "address1": "Address 1",
+      "city": "City",
+      "country_region": "Country/region",
+      "province": "Province",
+      "postal_zip_code": "Postal/ZIP code",
+      "phone": "Phone",
+      "set_as_default": "Set as default address",
+      "add": "Add",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "showing_addresses": "Showing",
+      "to": "to",
+      "of": "of",
+      "addresses": "addresses",
+      "previous": "Previous",
+      "next": "Next",
+      "nav_dashboard": "Dashboard",
+      "nav_my_orders": "My Orders",
+      "nav_my_wishlist": "My Wishlist",
+      "nav_addresses": "Addresses",
+      "nav_log_out": "Log Out",
+      "your_addresses": "Your addresses",
+      "add_new_address": "Add new address",
+      "update": "Update",
+      "sidebar_account": "SIDEBAR ACCOUNT",
+      "close": "Close",
+      "please_correct_errors": "Please correct the following errors:",
+      "error": "Error:",
+      "select_province_state": "Select Province/State"
+    },
+  },
+   "orders": {
+    "modal": {
+      "title": "Order Detail",
+      "items": "items",
+      "status": {
+        "delivered": "Delivered",
+        "partially_delivered": "Partially Delivered",
+        "processing": "Processing"
+      },
+      "product": "Product",
+      "quantity": "Quantity",
+      "price": "Price",
+      "total": "Total",
+      "subtotal": "Subtotal",
+      "tax": "Tax",
+      "shipping": "Shipping",
+      "return_policy": {
+        "text": "Not happy with the order? You can",
+        "link_text": "Request a free return",
+        "in": "in",
+        "days": "14 days"
+      }
     }
   },
   "localization": {
@@ -710,10 +819,51 @@
       "or_sign_in_with": "Or sign in with:"
     },
     "account": {
-      "title": "Account",
-      "details": "Account details",
-      "view_addresses": "View addresses",
-      "return": "Return to Account details"
+      "title": "My Account",
+      "dashboard": "Dashboard",
+      "my_orders": "My Orders",
+      "my_wishlist": "My Wishlist",
+      "addresses": "Addresses",
+      "log_out": "Log Out",
+      "welcome": "Hello {{ name }}!",
+      "not_you": "not {{ name }}",
+      "log_in": "Log in",
+      "my_account": "My Account",
+      "wishlist_count": "items in wishlist",
+      "dashboard_notice": "Today is a great day to check your account page. You can check your last orders or have a look to your wishlist. Or maybe you can start to shop our latest offers?",
+      "orders_box": {
+        "title": "Orders",
+        "description": "Check the history of all your orders"
+      },
+      "wishlist_box": {
+        "title": "Wishlist",
+        "description": "Check your wishlist"
+      },
+      "free_shipping": {
+        "title": "Free Shipping",
+        "description": "Start shopping to enjoy this offer."
+      },
+      "promo_banner": {
+        "discount_html": "<strong>{{ discount }}</strong> on your next purchase",
+        "code": "Promo Code"
+      },
+      "hello": "Hello {{ name }}",
+      "not": "not",
+      "dashboard_welcome": "Today is a great day to check your account page. You can check",
+      "your_last_orders": "your last orders",
+      "your_wishlist": "your wishlist",
+      "latest_offers": "our latest offers",
+      "for_orders_over": "for all orders over ${{ amount }}",
+      "shop_now": "Shop Now",
+      "with_promo_code": "WITH PROMO CODE: {{ code }}",
+      "recent_orders": "Recent Orders",
+      "no_orders_yet": "You haven't placed any orders yet.",
+      "loading_wishlist": "Loading your wishlist...",
+      "wishlist_empty": "Your wishlist is empty.",
+      "orders": "Orders",
+      "check_order_history": "Check the history of all your orders",
+      "wishlist": "Wishlist",
+      "check_wishlist": "Check your wishlist"
     },
     "account_fallback": "Account",
     "activate_account": {

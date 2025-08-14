@@ -1,10 +1,35 @@
-{
-  "sections": {
-    "main": {
-      "type": "main-order"
-    }
-  },
-  "order": [
-    "main"
-  ]
-}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+  {
+    "sections": {
+      "page_breadcrumb": {
+        "type": "page-breadcrumb",
+        "settings": {
+          "background_image": "shopify://shop_images/page-title_1.jpg",
+          "show_description": true,
+          "custom_description": "",
+          "description_truncate_length": 120
+        }
+      },
+      "main_order": {
+        "type": "main-order",
+        "settings": {
+          "container_width": "container",
+          "empty_state_title": "You haven't placed any order yet",
+          "empty_state_text": "It's time to make your first order",
+          "shop_now_text": "Shop Now"
+        }
+      }
+    },
+    "order": [
+      "page_breadcrumb",
+      "main_order"
+    ]
+  }

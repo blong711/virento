@@ -1,162 +1,58 @@
-{{ 'customer.css' | asset_url | stylesheet_tag }}
-
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
-
-<div class="customer account section-{{ section.id }}-padding">
-  <div>
-    <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
-    <a href="{{ routes.account_logout_url }}">
-      <span class="svg-wrapper">
-        {{- 'icon-account.svg' | inline_asset_content -}}
-      </span>
-      {{ 'customer.log_out' | t }}
-    </a>
-  </div>
-
-  <div>
-    <div>
-      <h2>{{ 'customer.orders.title' | t }}</h2>
-
-      {% paginate customer.orders by 20 %}
-        {%- if customer.orders.size > 0 -%}
-          <table role="table" class="order-history">
-            <caption class="visually-hidden">
-              {{ 'customer.orders.title' | t }}
-            </caption>
-            <thead role="rowgroup">
-              <tr role="row">
-                <th id="ColumnOrder" scope="col" role="columnheader">{{ 'customer.orders.order_number' | t }}</th>
-                <th id="ColumnDate" scope="col" role="columnheader">{{ 'customer.orders.date' | t }}</th>
-                <th id="ColumnPayment" scope="col" role="columnheader">{{ 'customer.orders.payment_status' | t }}</th>
-                <th id="ColumnFulfillment" scope="col" role="columnheader">
-                  {{ 'customer.orders.fulfillment_status' | t }}
-                </th>
-                <th id="ColumnTotal" scope="col" role="columnheader">{{ 'customer.orders.total' | t }}</th>
-              </tr>
-            </thead>
-            <tbody role="rowgroup">
-              {%- for order in customer.orders -%}
-                <tr role="row">
-                  <td
-                    id="RowOrder"
-                    role="cell"
-                    headers="ColumnOrder"
-                    data-label="{{ 'customer.orders.order_number' | t }}"
-                  >
-                    <a
-                      href="{{ order.customer_url }}"
-                      aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}"
-                    >
-                      {{ order.name }}
-                    </a>
-                  </td>
-                  <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
-                    {{ order.created_at | time_tag: format: 'date' }}
-                  </td>
-                  <td
-                    headers="RowOrder ColumnPayment"
-                    role="cell"
-                    data-label="{{ 'customer.orders.payment_status' | t }}"
-                  >
-                    {{ order.financial_status_label }}
-                  </td>
-                  <td
-                    headers="RowOrder ColumnFulfillment"
-                    role="cell"
-                    data-label="{{ 'customer.orders.fulfillment_status' | t }}"
-                  >
-                    {{ order.fulfillment_status_label }}
-                  </td>
-                  <td headers="RowOrder ColumnTotal" role="cell" data-label="{{ 'customer.orders.total' | t }}">
-                    {{ order.total_net_amount | money_with_currency }}
-                  </td>
-                </tr>
-              {%- endfor -%}
-            </tbody>
-          </table>
-        {%- else -%}
-          <p>{{ 'customer.orders.none' | t }}</p>
-        {%- endif -%}
-
-        {%- if paginate.pages > 1 -%}
-          {%- if paginate.parts.size > 0 -%}
-            <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-              <ul role="list">
-                {%- if paginate.previous -%}
-                  <li>
-                    <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
-                      <span class="svg-wrapper">
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                      </span>
-                    </a>
-                  </li>
-                {%- endif -%}
-
-                {%- for part in paginate.parts -%}
-                  <li>
-                    {%- if part.is_link -%}
-                      <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                        {{- part.title -}}
-                      </a>
-                    {%- else -%}
-                      {%- if part.title == paginate.current_page -%}
-                        <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                          {{- part.title -}}
-                        </span>
-                      {%- else -%}
-                        <span>{{ part.title }}</span>
-                      {%- endif -%}
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-
-                {%- if paginate.next -%}
-                  <li>
-                    <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
-                      <span class="svg-wrapper">
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                      </span>
-                    </a>
-                  </li>
-                {%- endif -%}
-              </ul>
-            </nav>
-          {%- endif -%}
-        {%- endif -%}
-      {% endpaginate %}
-    </div>
-
-    <div>
-      <h2>{{ 'customer.account.details' | t }}</h2>
-
-      {{ customer.default_address | format_address }}
-
-      <a href="{{ routes.account_addresses_url }}">
-        {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
-      </a>
-    </div>
-  </div>
-</div>
-
 {% schema %}
 {
-  "name": "t:sections.main-account.name",
+  "name": "Account",
   "settings": [
     {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Full Width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Account Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_orders",
+      "label": "Show Orders Link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show Wishlist Link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_addresses",
+      "label": "Show Addresses Link",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "padding"
     },
     {
       "type": "range",
@@ -165,7 +61,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
+      "label": "Padding Top",
       "default": 36
     },
     {
@@ -175,9 +71,385 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
+      "label": "Padding Bottom",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Padding Rate",
+      "default": 75
+    }
+  ],
+  "blocks": [
+    {
+      "type": "free_shipping",
+      "name": "Free Shipping Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Banner Image"
+        },
+        {
+          "type": "text",
+          "id": "free_shipping_threshold",
+          "label": "Free Shipping Threshold",
+          "default": "300.00"
+        }
+      ]
+    },
+    {
+      "type": "promo_banner",
+      "name": "Promo Banner",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "promo_title",
+          "label": "Promo Title",
+          "default": "SUMMER SALE"
+        },
+        {
+          "type": "text",
+          "id": "promo_discount",
+          "label": "Promo Discount",
+          "default": "50% OFF"
+        },
+        {
+          "type": "text",
+          "id": "promo_code",
+          "label": "Promo Code",
+          "default": "12D34E"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Account Page",
+      "category": "Account",
+      "blocks": [
+        {
+          "type": "free_shipping"
+        },
+        {
+          "type": "promo_banner"
+        }
+      ]
     }
   ]
 }
 {% endschema %}
+
+<div class="main-content-account">
+  <!-- sidebar-account -->
+  <div class="btn-sidebar-mb d-lg-none">
+    <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
+      <i class="icon icon-sidebar"></i>
+    </button>
+  </div>
+  <!-- /sidebar-account -->
+
+  <!-- Section-account -->
+  <section class="flat-spacing-2 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    <div class="{{ section.settings.container_width }}">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="my-account-container">
+            <div class="sidebar-account-wrap sidebar-content-wrap sticky-top d-lg-block d-none">
+              <ul class="my-account-nav">
+                <li>
+                  <a
+                    href="{{ routes.account_url }}"
+                    class="text-sm link fw-medium my-account-nav-item active"
+                  >
+                    {{- 'customer.account.dashboard' | t -}}
+                  </a>
+                </li>
+                {% if section.settings.show_orders %}
+                  <li>
+                    <a
+                      href="{{ routes.account_orders_url }}"
+                      class="text-sm link fw-medium my-account-nav-item"
+                    >
+                      {{- 'customer.account.my_orders' | t -}}
+                    </a>
+                  </li>
+                {% endif %}
+                {% if section.settings.show_wishlist %}
+                  <li>
+                    <a
+                      href="{{ routes.account_wishlist_url }}"
+                      class="text-sm link fw-medium my-account-nav-item"
+                    >
+                      {{- 'customer.account.my_wishlist' | t -}}
+                    </a>
+                  </li>
+                {% endif %}
+                {% if section.settings.show_addresses %}
+                  <li>
+                    <a
+                      href="{{ routes.account_addresses_url }}"
+                      class="text-sm link fw-medium my-account-nav-item"
+                    >
+                      {{- 'customer.account.addresses' | t -}}
+                    </a>
+                  </li>
+                {% endif %}
+                <li>
+                  <a href="{{ routes.account_logout_url }}" class="text-sm link fw-medium my-account-nav-item">
+                    {{- 'customer.account.log_out' | t -}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="my-acount-content account-dashboard">
+              <div class="box-account-title">
+                <p class="hello-name display-sm fw-medium">
+                  {{ 'customer.account.hello' | t: name: customer.name }}!
+                  <span
+                    >({{ 'customer.account.not' | t }}
+                    <span class="name">{{ customer.name }}</span>?</span
+                  >
+                  <a href="{{ routes.account_logout_url }}" class="text-decoration-underline link">
+                    {{- 'customer.account.log_out' | t -}}
+                  </a>
+                  <span>)</span>
+                </p>
+                <p class="notice text-sm">
+                  {{ 'customer.account.dashboard_welcome' | t }}
+                  {% if customer.orders.size > 0 %}
+                    {{ 'sections.account.check' | t }}
+                    <a href="{{ routes.account_orders_url }}" class="text-primary text-decoration-underline">
+                      {{- 'customer.account.your_last_orders' | t -}}
+                    </a>
+                    {{ 'sections.account.or_have_a_look_to' | t }}
+                  {% endif %}
+                  {% if section.settings.show_wishlist %}
+                    <a href="{{ routes.account_wishlist_url }}" class="text-primary text-decoration-underline">
+                      {{- 'customer.account.your_wishlist' | t -}}</a
+                    >.
+                  {% endif -%}
+                  {{- 'sections.account.or_maybe_you_can_start_to_shop' | t }}
+                  <a href="{{ routes.collections_url }}" class="text-primary text-decoration-underline">
+                    {{- 'customer.account.latest_offers' | t -}}</a
+                  >?
+                </p>
+              </div>
+              <div class="content-account">
+                <ul class="box-check-list flex-sm-nowrap">
+                  {% if section.settings.show_orders %}
+                    <li>
+                      <a href="{{ routes.account_orders_url }}" class="box-check text-center">
+                        <div class="icon">
+                          <i class="icon-order"></i>
+                          <span class="count-number text-sm text-white fw-medium">{{ customer.orders.size }}</span>
+                        </div>
+                        <div class="text">
+                          <div class="link name-type text-xl fw-medium">{{ 'customer.account.orders' | t }}</div>
+                          <p class="sub-type text-sm">{{ 'customer.account.check_order_history' | t }}</p>
+                        </div>
+                      </a>
+                    </li>
+                  {% endif %}
+                  {% if section.settings.show_wishlist %}
+                    <li>
+                      <a href="{{ routes.account_wishlist_url }}" class="box-check text-center">
+                        <div class="icon">
+                          <i class="icon-heart"></i>
+                          <span class="count-number text-sm text-white fw-medium wishlist-count" id="wishlist-count"
+                            >0</span
+                          >
+                        </div>
+                        <div class="text">
+                          <div class="link name-type text-xl fw-medium">{{ 'customer.account.wishlist' | t }}</div>
+                          <p class="sub-type text-sm">{{ 'customer.account.check_wishlist' | t }}</p>
+                        </div>
+                      </a>
+                    </li>
+                  {% endif %}
+                </ul>
+
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                    {% when 'free_shipping' %}
+                      <div class="banner-account" {{ block.shopify_attributes }}>
+                        {% if block.settings.banner_image %}
+                          <div class="image">
+                            <img
+                              src="{{ block.settings.banner_image | image_url }}"
+                              data-src="{{ block.settings.banner_image | image_url }}"
+                              alt="{{ block.settings.banner_image.alt | default: 'sections.account.free_shipping_banner' | t }}"
+                              class="lazyload"
+                              loading="lazy"
+                              style="width: 100%; height: auto;"
+                              width="600"
+                              height="300"
+                            >
+                          </div>
+                        {% endif %}
+                        <div class="banner-content-right">
+                          <div class="banner-title">
+                            <p class="display-md fw-medium">
+                              {{ 'customer.account.free_shipping.title' | t }}
+                            </p>
+                            <p class="text-md">
+                              {{
+                                'customer.account.for_orders_over'
+                                | t: amount: block.settings.free_shipping_threshold
+                              }}
+                            </p>
+                          </div>
+                          <div class="banner-btn">
+                            <a href="{{ routes.collections_url }}" class="tf-btn animate-btn">
+                              {{ 'customer.account.shop_now' | t }}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                    {% when 'promo_banner' %}
+                      <div
+                        class="banner-account banner-acc-countdown bg-linear d-flex align-items-center"
+                        {{ block.shopify_attributes }}
+                      >
+                        <div class="banner-content-left">
+                          <div class="banner-title">
+                            <p class="sub text-md fw-medium">
+                              {{ block.settings.promo_title }}
+                            </p>
+                            <p class="display-xl fw-medium">
+                              {{ block.settings.promo_discount }}
+                            </p>
+                            <p class="sub text-md fw-medium">
+                              {{ 'customer.account.with_promo_code' | t: code: block.settings.promo_code }}
+                            </p>
+                          </div>
+                          <div class="banner-btn">
+                            {% if block.settings.product %}
+                              <a
+                                href="{{ block.settings.product.url }}"
+                                class="tf-btn btn-white animate-btn animate-dark"
+                              >
+                                {{ 'customer.account.shop_now' | t }}
+                              </a>
+                            {% else %}
+                              <a
+                                href="{{ routes.collections_url }}"
+                                class="tf-btn btn-white animate-btn animate-dark"
+                              >
+                                {{ 'customer.account.shop_now' | t }}
+                              </a>
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="banner-countdown">
+                          <div class="wg-countdown-2">
+                            <span
+                              class="js-countdown"
+                              data-timer="46556"
+                              data-labels="Days,Hours,Mins,Secs"
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
+                  {% endcase %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="offcanvas offcanvas-start canvas-sidebar" id="mbAccount">
+  <div class="canvas-wrapper">
+    <div class="canvas-header">
+      <span class="title">{{ 'sections.account.sidebar_title' | t }}</span>
+      <button
+        class="icon-close icon-close-popup"
+        data-bs-dismiss="offcanvas"
+        aria-label="{{ 'sections.account.close' | t }}"
+      ></button>
+    </div>
+    <div class="canvas-body">
+      <div class="sidebar-account-wrap sidebar-mobile-append"></div>
+    </div>
+  </div>
+</div>
+
+{%- style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate }} / 100);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate }} / 100);
+    }
+  }
+
+  .account-dashboard .box-check {
+    color: rgb(var(--color-foreground));
+  }
+
+  .banner-title p {
+    color: rgb(var(--color-foreground2)) !important;
+  }
+
+  .wg-countdown-2 .countdown__item .countdown__label {
+    color: var(--dark) !important;
+  }
+{%- endstyle %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Load wishlist count and items
+    loadWishlistData();
+
+    // Update countdown timer
+    updateCountdown();
+  });
+
+  function loadWishlistData() {
+    // This would typically make an AJAX call to your wishlist endpoint
+    // For now, we'll simulate with localStorage or make a call to your wishlist API
+    const wishlistCount = localStorage.getItem('wishlist_count') || 0;
+    document.getElementById('wishlist-count').textContent = wishlistCount;
+
+    // Load wishlist items
+    const wishlistContainer = document.getElementById('wishlist-items');
+    if (wishlistContainer) {
+      // Make AJAX call to load wishlist items
+      // fetch('/apps/wishlist/items')
+      //     .then(response => response.json())
+      //     .then(data => {
+      //         displayWishlistItems(data.items);
+      //     });
+
+      // For demo purposes, show a message
+      wishlistContainer.innerHTML = '<p class="text-muted">{{ "customer.account.wishlist_empty" | t }}</p>';
+    }
+  }
+
+  function updateCountdown() {
+    const countdownElement = document.querySelector('.js-countdown');
+    if (countdownElement) {
+      // Initialize countdown functionality
+      // This would typically use a countdown library
+      console.log('Countdown initialized');
+    }
+  }
+</script>

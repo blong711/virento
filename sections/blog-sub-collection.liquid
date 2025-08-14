@@ -10,7 +10,7 @@
           "speed": 800,
           "observer": true,
           "observeParents": true,
-          "slidesPerGroup": {{ section.settings.slides_per_group_mobile }},
+          "slidesPerGroup": 3,
           "navigation": {
             "clickable": true,
             "nextEl": ".nav-next-cls",
@@ -80,7 +80,7 @@
 
                     {% if section.settings.show_post_count %}
                       <span class="count-item body-text-2 text-main">
-                        {{ post_count }} {{ 'blog_sub_collection.post_count' | t: count: post_count }}
+                        {{ 'blog_sub_collection.post_count' | t: count: post_count }}
                       </span>
                     {% endif %}
                   </div>

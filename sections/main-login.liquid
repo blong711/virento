@@ -1,187 +1,496 @@
-{{ 'customer.css' | asset_url | stylesheet_tag }}
+<!-- sections/main-login.liquid -->
+
+<div
+  class="
+    login-section section-spacing flat-spacing-13  color-{{ section.settings.color_scheme }}
+    section-{{ section.id }}-padding
+  "
+>
+  <div class="container">
+    <div class="login-grid grid-2-cols">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'form' -%}
+            <div class="login-form">
+              <div id="login-form-block">
+                <h2 class="display-sm fw-medium mb-5">{{ 'sections.main_login.log_in' | t }}</h2>
+                <div id="login">
+                  {%- form 'customer_login', novalidate: 'novalidate' -%}
+                    {%- if form.errors -%}
+                      <div class="form-message error">
+                        <ul class="error-list">
+                          {%- for field in form.errors -%}
+                            <li>
+                              {%- if field == 'form' -%}
+                                {{ form.errors.messages[field] }}
+                              {%- else -%}
+                                <a href="#{{ field }}">
+                                  {{ form.errors.translated_fields[field] | capitalize }}
+                                  {{ form.errors.messages[field] }}
+                                </a>
+                              {%- endif -%}
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    {%- endif -%}
+                    <div class="form-field">
+                      <input
+                        class="form-input"
+                        type="email"
+                        name="customer[email]"
+                        id="CustomerEmail-{{ section.id }}"
+                        autocomplete="email"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        {% if form.errors contains 'form' %}
+                          aria-invalid="true"
+                        {% endif %}
+                        placeholder="{{ 'sections.main_login.email' | t }} *"
+                      >
+                    </div>
+                    <div class="form-field">
+                      <input
+                        class="form-input"
+                        type="password"
+                        value=""
+                        name="customer[password]"
+                        id="CustomerPassword-{{ section.id }}"
+                        autocomplete="current-password"
+                        placeholder="{{ 'sections.main_login.password' | t }} *"
+                      >
+                    </div>
+                    <a href="#" class="forgot-link link mt-4 mb-4" id="show-reset-form">
+                      {{- 'sections.main_login.forgot_password' | t -}}
+                    </a>
+                    <button class="btn btn-primary tf-btn" type="submit">{{ 'sections.main_login.log_in' | t }}</button>
+                  {%- endform -%}
+                </div>
+              </div>
+              <div id="reset-form-block" style="display:none;">
+                <h2 class="display-sm fw-medium mb-4">{{ 'sections.main_login.reset_password' | t }}</h2>
+                <p class="body-text mb-5">{{ 'sections.main_login.reset_description' | t }}</p>
+                {%- form 'recover_customer_password' -%}
+                  {%- if form.errors -%}
+                    <div class="form-message error">
+                      <ul class="error-list">
+                        {%- for field in form.errors -%}
+                          <li>
+                            {%- if field == 'form' -%}
+                              {{ form.errors.messages[field] }}
+                            {%- else -%}
+                              <a href="#{{ field }}">
+                                {{ form.errors.translated_fields[field] | capitalize }}
+                                {{ form.errors.messages[field] }}
+                              </a>
+                            {%- endif -%}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  {%- endif -%}
+                  {%- if form.posted_successfully? -%}
+                    <div class="form-message success">
+                      <svg
+                        class="success-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      <span>{{ 'sections.main_login.reset_success_message' | t }}</span>
+                    </div>
+                  {%- endif -%}
+                  <div class="form-field">
+                    <input
+                      class="form-input"
+                      type="email"
+                      name="email"
+                      id="RecoverEmail-{{ section.id }}"
+                      autocomplete="email"
+                      autocorrect="off"
+                      autocapitalize="off"
+                      placeholder="{{ 'sections.main_login.email' | t }} *"
+                      required
+                    >
+                  </div>
+                  <div class="form-field">
+                    <a href="#" class="forgot-link link mt-4 mb-4" id="back-to-login">
+                      {{- 'sections.main_login.back_to_login' | t -}}
+                    </a>
+                  </div>
+                  <div class="form-field">
+                    <button class="btn btn-primary tf-btn" type="submit">{{ 'sections.main_login.submit' | t }}</button>
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+          {%- else -%}
+            <div class="login-content">
+              {%- if block.settings.title != blank -%}
+                <h2 class="display-sm fw-medium mb-4">{{ block.settings.title }}</h2>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="body-text mb-5">{{ block.settings.description }}</p>
+              {%- endif -%}
+              <a href="{{ routes.account_register_url }}" class="register-link link mt-4 mb-4">
+                {{ 'sections.main_login.register' | t }}
+                <svg
+                  class="hdt-icon hdt-icon-2 hdt-inline-block"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8"
+                  height="8"
+                  viewBox="0 0 8 8"
+                  fill="currentColor"
+                >
+                  <path d="M0.861539 8L0 7.13846L5.90769 1.23077H0.615385V0H8V7.38462H6.76923V2.09231L0.861539 8Z"></path>
+                </svg>
+              </a>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var showReset = document.getElementById('show-reset-form');
+    var backToLogin = document.getElementById('back-to-login');
+    var loginBlock = document.getElementById('login-form-block');
+    var resetBlock = document.getElementById('reset-form-block');
+
+    if (showReset && backToLogin && loginBlock && resetBlock) {
+      showReset.addEventListener('click', function (e) {
+        e.preventDefault();
+        loginBlock.style.display = 'none';
+        resetBlock.style.display = 'block';
+      });
+
+      backToLogin.addEventListener('click', function (e) {
+        e.preventDefault();
+        resetBlock.style.display = 'none';
+        loginBlock.style.display = 'block';
+      });
+    }
+
+    // Handle reset password form submission via AJAX
+    var resetForm = document.querySelector('#reset-form-block form');
+    if (resetForm) {
+      resetForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+        var submitButton = this.querySelector('button[type="submit"]');
+        var originalButtonText = submitButton.textContent;
+
+        // Disable submit button and show loading state
+        submitButton.disabled = true;
+        submitButton.textContent = '{{ "sections.main_login.sending" | t }}';
+
+        // Remove any existing messages
+        var existingMessages = resetBlock.querySelectorAll('.form-message');
+        existingMessages.forEach(function (msg) {
+          msg.remove();
+        });
+
+        fetch(window.location.href, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+        })
+          .then(function (response) {
+            return response.text();
+          })
+          .then(function (html) {
+            // Create a temporary div to parse the response
+            var tempDiv = document.createElement('div');
+            // Use HTMLSanitizer to safely set HTML content
+            HTMLSanitizer.setInnerHTML(tempDiv, html);
+
+            // Check if there are any error messages in the response
+            var errorMessages = tempDiv.querySelectorAll('.form-message.error');
+            var successMessages = tempDiv.querySelectorAll('.form-message.success');
+
+            if (errorMessages.length > 0) {
+              // Show error message
+              var errorContainer = document.createElement('div');
+              errorContainer.className = 'form-message error';
+              // Sanitize error message content
+              HTMLSanitizer.setInnerHTML(errorContainer, errorMessages[0].innerHTML);
+              resetForm.insertBefore(errorContainer, resetForm.firstChild);
+            } else if (successMessages.length > 0) {
+              // Show success message
+              var successContainer = document.createElement('div');
+              successContainer.className = 'form-message success';
+              // Sanitize success message content
+              HTMLSanitizer.setInnerHTML(successContainer, successMessages[0].innerHTML);
+              resetForm.insertBefore(successContainer, resetForm.firstChild);
+
+              // Clear the form
+              resetForm.reset();
+            } else {
+              // Generic success message if no specific message found
+              var genericSuccess = document.createElement('div');
+              genericSuccess.className = 'form-message success';
+              // Use HTMLSanitizer.createElement for safe HTML creation
+              const successIcon = HTMLSanitizer.createElement('svg', {
+                class: 'success-icon',
+                xmlns: 'http://www.w3.org/2000/svg',
+                width: '20',
+                height: '20',
+                viewBox: '0 0 20 20',
+                fill: 'currentColor',
+              });
+              const path = HTMLSanitizer.createElement('path', {
+                'fill-rule': 'evenodd',
+                d: 'M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z',
+                'clip-rule': 'evenodd',
+              });
+              successIcon.appendChild(path);
+              genericSuccess.appendChild(successIcon);
+
+              const messageSpan = HTMLSanitizer.createElement(
+                'span',
+                {},
+                "{{ 'sections.main_login.reset_success' | t }}"
+              );
+              genericSuccess.appendChild(messageSpan);
+
+              resetForm.insertBefore(genericSuccess, resetForm.firstChild);
+
+              // Clear the form
+              resetForm.reset();
+            }
+          })
+          .catch(function (error) {
+            // Show error message for network issues
+            var errorContainer = document.createElement('div');
+            errorContainer.className = 'form-message error';
+            errorContainer.innerHTML =
+              '<ul class="error-list"><li>{{ "sections.main_login.error_message" | t }}</li></ul>';
+            resetForm.insertBefore(errorContainer, resetForm.firstChild);
+          })
+          .finally(function () {
+            // Re-enable submit button
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+          });
+      });
+    }
+  });
+</script>
 
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (max-width: 767px) {
     .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate }} / 100);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate }} / 100);
+    }
+  }
+  #shopify-section-{{section.id}} {
+    --section-pt: {{section.settings.padding_top}}px;
+    --section-pb: {{section.settings.padding_bottom}}px;
+    --section-prate: {{section.settings.padding_rate}};
+  }
+
+  .login-header {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .main-login-heading {
+    font-size: 2.5rem;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .login-section {
+    background: var(--gradient-background);
+  }
+
+  .login-grid {
+    display: grid;
+    gap: 12rem;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 770px) {
+    .grid-2-cols {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .login-form {
+    max-width: 100%;
+  }
+
+  .form-heading {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 1024px) and (min-width: 750px) {
+    .form-heading {
+      font-size: 1.5rem !important;
+    }
+    .login-grid {
+    gap: 5rem;
+  }
+  }
+  @media screen and (max-width: 750px) {
+    .form-heading {
+      font-size: 24px !important;
+    }
+  }
+
+  .form-description {
+    margin-bottom: 2rem;
+    color: rgba(var(--color-foreground), 0.75);
+    font-size: 1rem;
+  }
+
+  .form-field {
+    margin-bottom: 1rem;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #000;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.5rem;
+  }
+
+  .forgot-link {
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  .form-message {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-message.error {
+    background: #ffeaea;
+    color: #d32f2f;
+  }
+
+  .form-message.success {
+    background: #eaffea;
+    color: #388e3c;
+  }
+
+  .error-icon,
+  .success-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.5rem;
+  }
+
+  .error-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+  }
+
+  .error-list li {
+    margin-bottom: 0.25rem;
+  }
+
+  .error-list a {
+    color: #222;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  .login-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .register-link {
+      text-decoration: underline;
+      text-underline-offset: 0.3em;
+  }
+
+
+  @media screen and (max-width: 749px) {
+    .login-header {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    .container {
+      max-width: 100%;
+    }
+    .login-grid {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+    }
+    .login-content {
+      align-items: center;
+      text-align: center;
+      padding-top: 0;
+    }
+    .form-heading {
+      text-align: center;
     }
   }
 {%- endstyle -%}
 
-{%- if section.settings.enable_shop_login_button == false -%}
-  {%- assign hide_shop_login_button = true -%}
-{%- endif -%}
-
-<div class="customer login section-{{ section.id }}-padding">
-  <h1 id="recover" tabindex="-1">
-    {{ 'customer.recover_password.title' | t }}
-  </h1>
-  <div>
-    <p>
-      {{ 'customer.recover_password.subtext' | t }}
-    </p>
-
-    {%- form 'recover_customer_password' -%}
-      {% assign recover_success = form.posted_successfully? %}
-      <div class="field">
-        <input
-          type="email"
-          value=""
-          name="email"
-          id="RecoverEmail"
-          autocorrect="off"
-          autocapitalize="off"
-          autocomplete="email"
-          {% if form.errors %}
-            aria-invalid="true"
-            aria-describedby="RecoverEmail-email-error"
-            autofocus
-          {% endif %}
-          placeholder="{{ 'customer.login_page.email' | t }}"
-        >
-        <label for="RecoverEmail">
-          {{ 'customer.login_page.email' | t }}
-        </label>
-      </div>
-      {%- if form.errors -%}
-        <small id="RecoverEmail-email-error" class="form__message">
-          <span class="svg-wrapper">
-            {{- 'icon-error.svg' | inline_asset_content -}}
-          </span>
-          {{ form.errors.messages.form }}
-        </small>
-      {%- endif -%}
-
-      <button>
-        {{ 'customer.login_page.submit' | t }}
-      </button>
-
-      <a href="#login">
-        {{ 'customer.login_page.cancel' | t }}
-      </a>
-    {%- endform -%}
-  </div>
-
-  <h1 id="login" tabindex="-1">
-    {{ 'customer.login_page.title' | t }}
-  </h1>
-  <div>
-    {%- if recover_success == true -%}
-      <h3 class="form__message" tabindex="-1" autofocus>
-        <span class="svg-wrapper">
-          {{- 'icon-success.svg' | inline_asset_content -}}
-        </span>
-        {{ 'customer.recover_password.success' | t }}
-      </h3>
-    {%- endif -%}
-    {%- form 'customer_login', novalidate: 'novalidate' -%}
-      {%- if form.errors -%}
-        <h2 class="form__message" tabindex="-1" autofocus>
-          <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
-          <span class="svg-wrapper">
-            {{- 'icon-error.svg' | inline_asset_content -}}
-          </span>
-          {{ 'templates.contact.form.error_heading' | t }}
-        </h2>
-        {{ form.errors | default_errors }}
-      {%- endif -%}
-
-      {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
-        <section name="sign-in-with-shop-provider">
-          {{ shop | login_button: hide_button: hide_shop_login_button }}
-
-          {%- unless hide_shop_login_button -%}
-            <p>
-              {{ 'customer.login_page.alternate_provider_separator' | t }}
-            </p>
-          {%- endunless -%}
-        </section>
-      {%- endif -%}
-
-      <div class="field">
-        <input
-          type="email"
-          name="customer[email]"
-          id="CustomerEmail"
-          autocomplete="email"
-          autocorrect="off"
-          autocapitalize="off"
-          {% if form.errors contains 'form' %}
-            aria-invalid="true"
-          {% endif %}
-          placeholder="{{ 'customer.login_page.email' | t }}"
-        >
-        <label for="CustomerEmail">
-          {{ 'customer.login_page.email' | t }}
-        </label>
-      </div>
-
-      {%- if form.password_needed -%}
-        <div class="field">
-          <input
-            type="password"
-            value=""
-            name="customer[password]"
-            id="CustomerPassword"
-            autocomplete="current-password"
-            {% if form.errors contains 'form' %}
-              aria-invalid="true"
-            {% endif %}
-            placeholder="{{ 'customer.login_page.password' | t }}"
-          >
-          <label for="CustomerPassword">
-            {{ 'customer.login_page.password' | t }}
-          </label>
-        </div>
-
-        <a href="#recover">
-          {{ 'customer.login_page.forgot_password' | t }}
-        </a>
-      {%- endif -%}
-
-      <button>
-        {{ 'customer.login_page.sign_in' | t }}
-      </button>
-
-      <a href="{{ routes.account_register_url }}">
-        {{ 'customer.login_page.create_account' | t }}
-      </a>
-    {%- endform -%}
-  </div>
-
-  {%- if shop.checkout.guest_login -%}
-    <div>
-      <hr>
-      <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
-
-      {%- form 'guest_login' -%}
-        <button>
-          {{ 'customer.login_page.guest_continue' | t }}
-        </button>
-      {%- endform -%}
-    </div>
-  {%- endif -%}
-</div>
-
 {% schema %}
 {
-  "name": "t:sections.main-login.name",
+  "name": "Login",
+  "class": "section",
   "settings": [
     {
-      "type": "checkbox",
-      "id": "enable_shop_login_button",
-      "label": "t:sections.main-login.shop_login_button.enable",
-      "default": true
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
     },
     {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "padding"
     },
     {
       "type": "range",
@@ -190,7 +499,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
+      "label": "Padding Top",
       "default": 36
     },
     {
@@ -200,8 +509,104 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
+      "label": "Padding Bottom",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Padding Rate",
+      "default": 75
+    }
+  ],
+  "blocks": [
+    {
+      "type": "form",
+      "name": "Form",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "btn_full",
+          "label": "Full width button"
+        },
+        {
+          "type": "select",
+          "id": "btn_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "text",
+              "label": "Text"
+            }
+          ],
+          "default": "primary"
+        }
+      ]
+    },
+    {
+      "type": "infos",
+      "name": "Infos",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "I'm new here"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
+        },
+        {
+          "type": "checkbox",
+          "id": "btn_full",
+          "label": "Full width button"
+        },
+        {
+          "type": "select",
+          "id": "btn_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "outline",
+              "label": "Outline"
+            },
+            {
+              "value": "text",
+              "label": "Text"
+            }
+          ],
+          "default": "primary"
+        }
+      ]
     }
   ]
 }
