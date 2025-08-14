@@ -53,6 +53,13 @@
     "header": {
       "type": "header",
       "blocks": {
+        "mega_home_RN7kxF": {
+          "type": "mega_home",
+          "settings": {
+            "menu_item_match": "Home",
+            "content_page": "demos-short"
+          }
+        },
         "mega_shop_xYCnFY": {
           "type": "mega_shop",
           "settings": {
@@ -100,6 +107,7 @@
         }
       },
       "block_order": [
+        "mega_home_RN7kxF",
         "mega_shop_xYCnFY",
         "mega_product_zffamK",
         "mega_pages_3bFYDC",
