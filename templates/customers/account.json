@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "page_breadcrumb": {
@@ -15,7 +24,7 @@
         "free_shipping_x7dNx8": {
           "type": "free_shipping",
           "settings": {
-            "banner_image": "shopify://shop_images/account-1_1.jpg",
+            "banner_image": "shopify://shop_images/account-1.jpg",
             "free_shipping_threshold": "300.00"
           }
         },
@@ -30,16 +39,18 @@
         }
       },
       "block_order": [
-        "orders_box_jtBNwQ",
-        "wishlist_box_hCeCeh",
         "free_shipping_x7dNx8",
         "promo_banner_wkPXNa"
       ],
       "settings": {
         "container_width": "container",
+        "color_scheme": "",
         "show_orders": true,
         "show_wishlist": true,
-        "show_addresses": true
+        "show_addresses": true,
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_mobile_rate": 75
       }
     }
   },

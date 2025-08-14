@@ -1,5 +1,14 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "sections": {    
+  "sections": {
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
@@ -9,7 +18,7 @@
         "description_truncate_length": 120
       }
     },
-     "main": {
+    "main": {
       "type": "main-login",
       "blocks": {
         "cb5ba057-8abd-42c7-a522-28fe9cb57386": {
@@ -36,8 +45,7 @@
       "settings": {
         "color_scheme": "",
         "padding_top": 60,
-        "padding_bottom": 100,
-        "padding_rate": 75
+        "padding_bottom": 100
       }
     }
   },
