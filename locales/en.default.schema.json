@@ -5436,7 +5436,8 @@
           "label": "Layout Style",
           "options": {
             "accordion": "Accordion",
-            "vertical_tab": "Vertical Tabs"
+            "vertical_tab": "Vertical Tabs",
+            "horizontal_centered_tab": "Horizontal Tabs"
           }
         }
       },
