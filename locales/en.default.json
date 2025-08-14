@@ -67,13 +67,21 @@
     "search": {
       "search": "Search",
       "reset": "Clear search term",
-      "placeholder": "Search product"
+      "placeholder": "Search product",
+      "searching": "Searching...",
+      "no_products_found": "No products found",
+      "search_failed": "Search failed. Please try again.",
+      "product_image": "Product image"
     },
     "cart": {
       "title": "Cart",
       "view": "View cart ({{ count }})",
       "view_empty_cart": "View cart",
-      "item_added": "Item added to your cart"
+      "item_added": "Item added to your cart",
+      "no_products_found": "No products found",
+      "no_valid_products": "No valid products",
+      "form_not_found": "Form not found",
+      "no_products_in_form": "No products in form"
     },
     "share": {
       "close": "Close share",

@@ -1875,7 +1875,7 @@ const predictiveSearch = () => {
   // Create search result item
   const createSearchResultItem = (product) => {
     const imageUrl = product.featured_image?.url || product.image || '';
-    const imageAlt = product.featured_image?.alt || product.title || 'Product image';
+    const imageAlt = product.featured_image?.alt || product.title || window.ShopifyTranslations?.search?.product_image || 'Product image';
     
     if (!imageUrl) return '';
     
@@ -1916,7 +1916,7 @@ const predictiveSearch = () => {
     }
     
     try {
-      searchSuggestions.innerHTML = '<li class="search-loading">Searching...</li>';
+      searchSuggestions.innerHTML = `<li class="search-loading">${window.ShopifyTranslations?.search?.searching || 'Searching...'}</li>`;
       searchResults.style.display = 'block';
       const response = await fetch(`/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`);
       if (!response.ok) {
@@ -1925,17 +1925,17 @@ const predictiveSearch = () => {
       const data = await response.json();
       const products = data.resources?.results?.products || [];
       if (products.length === 0) {
-        searchSuggestions.innerHTML = '<li class="no-results">No products found</li>';
+        searchSuggestions.innerHTML = `<li class="no-results">${window.ShopifyTranslations?.search?.no_products_found || 'No products found'}</li>`;
       } else {
         const resultsHTML = products
           .map(product => createSearchResultItem(product))
           .filter(html => html)
           .join('');
-        searchSuggestions.innerHTML = resultsHTML || '<li class="no-results">No products found</li>';
+        searchSuggestions.innerHTML = resultsHTML || `<li class="no-results">${window.ShopifyTranslations?.search?.no_products_found || 'No products found'}</li>`;
       }
     } catch (error) {
       console.error('Search error:', error);
-      searchSuggestions.innerHTML = '<li class="search-error">Search failed. Please try again.</li>';
+      searchSuggestions.innerHTML = `<li class="search-error">${window.ShopifyTranslations?.search?.search_failed || 'Search failed. Please try again.'}</li>`;
     } finally {
       isSearching = false;
     }

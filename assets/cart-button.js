@@ -422,7 +422,7 @@ if (!customElements.get('product-cart-button')) {
 
         const products = this.getProductsFromList(productList);
         if (products.length === 0) {
-          this.setButtonText(button, 'No products found');
+          this.setButtonText(button, window.ShopifyTranslations?.cart?.no_products_found || 'No products found');
           return;
         }
 
@@ -458,7 +458,7 @@ if (!customElements.get('product-cart-button')) {
         });
 
         if (products.length === 0) {
-          this.setButtonText(button, 'No valid products');
+          this.setButtonText(button, window.ShopifyTranslations?.cart?.no_valid_products || 'No valid products');
           return;
         }
 
@@ -469,7 +469,7 @@ if (!customElements.get('product-cart-button')) {
       handleFormBasedAdd(button, formSelector) {
         const form = document.querySelector(formSelector);
         if (!form) {
-          this.setButtonText(button, 'Form not found');
+          this.setButtonText(button, window.ShopifyTranslations?.cart?.form_not_found || 'Form not found');
           return;
         }
 
@@ -489,7 +489,7 @@ if (!customElements.get('product-cart-button')) {
         });
 
         if (products.length === 0) {
-          this.setButtonText(button, 'No products in form');
+          this.setButtonText(button, window.ShopifyTranslations?.cart?.no_products_in_form || 'No products in form');
           return;
         }
 
