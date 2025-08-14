@@ -3122,58 +3122,6 @@
         "name": "Quick order list"
       }
     },
-    "related-products": {
-      "name": "Related products",
-      "settings": {
-        "heading": {
-          "label": "Heading"
-        },
-        "products_to_show": {
-          "label": "Product count"
-        },
-        "columns_desktop": {
-          "label": "Columns"
-        },
-        "paragraph__1": {
-          "content": "Related products can be managed in the [Search & Discovery app](https://help.shopify.com/manual/online-store/search-and-discovery/product-recommendations)",
-          "default": "You may also like"
-        },
-        "header__2": {
-          "content": "Product card"
-        },
-        "image_ratio": {
-          "label": "Image ratio",
-          "options__1": {
-            "label": "Adapt to image"
-          },
-          "options__2": {
-            "label": "Portrait"
-          },
-          "options__3": {
-            "label": "Square"
-          }
-        },
-        "show_secondary_image": {
-          "label": "Show second image on hover"
-        },
-        "show_vendor": {
-          "label": "Vendor"
-        },
-        "show_rating": {
-          "label": "Product rating",
-          "info": "An app is required for product ratings. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-product-recommendations)"
-        },
-        "columns_mobile": {
-          "label": "Mobile columns",
-          "options__1": {
-            "label": "1"
-          },
-          "options__2": {
-            "label": "2"
-          }
-        }
-      }
-    },
     "rich-text": {
       "name": "Rich text",
       "settings": {
@@ -5618,6 +5566,18 @@
         },
         "go_back_url": {
           "label": "Go back URL"
+        }
+      }
+    },
+    "related-products": {
+      "name": "Related Products",
+      "settings": {
+        "heading": {
+          "label": "Heading",
+          "default": "People Also Bought"
+        },
+        "products_to_show": {
+          "label": "Products to show"
         }
       }
     }

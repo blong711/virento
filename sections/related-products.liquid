@@ -110,7 +110,7 @@
         }
       })
       .catch(e => {
-        console.error('Error loading product recommendations:', e);
+        console.error(e);
       });
   };
 
@@ -123,7 +123,7 @@
 
 {% schema %}
 {
-  "name": "Related products",
+  "name": "t:sections.related-products.name",
   "settings": [
     {
         "type": "color_scheme",
@@ -150,8 +150,8 @@
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
-      "default": "People Also Bought"
+      "label": "t:sections.related-products.settings.heading.label",
+      "default": "t:sections.related-products.settings.heading.default"
     },
     {
       "type": "range",
@@ -160,7 +160,7 @@
       "max": 12,
       "step": 1,
       "default": 5,
-      "label": "Product count"
+      "label": "t:sections.related-products.settings.products_to_show.label"
     },
     {
         "type": "header",
@@ -236,14 +236,14 @@
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+      "label": "t:sections.all.padding.padding_mobile_rate.label",
       "default": 75,
-      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+      "info": "t:sections.all.padding.padding_mobile_rate.info"
     }
   ],
   "presets": [
     {
-      "name": "Related products"
+      "name": "t:sections.related-products.name"
     }
   ]
 }
