@@ -42,12 +42,12 @@
     "social_tumblr_link": "",
     "social_vimeo_link": "",
     "predictive_search_enabled": true,
-    "predictive_search_show_vendor": false,
     "predictive_search_show_price": false,
     "currency_code_enabled": true,
     "cart_type": "drawer",
     "free_shipping_threshold": 100,
     "gift_wrap_product": "gift-wrap",
+    "predictive_search_show_vendor": false,
     "card_shadow_opacity": 0,
     "card_shadow_horizontal_offset": 0,
     "card_shadow_vertical_offset": 4,
@@ -253,6 +253,23 @@
           "button_outline": "#121212",
           "button_hover": "#101828",
           "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#121212"
+        }
+      },
+      "scheme-a392b522-8a27-45d7-9bfc-b379b2ac12bc": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "background2": "#f5f5f5",
+          "text": "#000000",
+          "text2": "#686868",
+          "text_hover": "#666666",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "button_outline": "#ffffff",
+          "button_hover": "#ffffff",
+          "button_label_hover": "#ff6f61",
           "button_outline_hover": "#ffffff",
           "shadow": "#121212"
         }
