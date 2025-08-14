@@ -1,0 +1,511 @@
+<section class="flat-spacing pt-0">
+    <div class="container">
+        {% for block in section.blocks %}
+            {% case block.type %}
+                {% when 'description' %}
+                    {% if product.description != blank %}
+                    <div class="widget-accordion wd-product-descriptions" {{ block.shopify_attributes }}>
+                        <div class="accordion-title collapsed" data-bs-target="#description-{{ block.id }}" data-bs-toggle="collapse" aria-expanded="true" aria-controls="description-{{ block.id }}" role="button">
+                            <span>{{ block.settings.title | default: 'Description' }}</span>
+                            <span class="icon icon-arrow-down"></span>
+                        </div>
+                        <div id="description-{{ block.id }}" class="collapse">
+                            <div class="accordion-body widget-desc">
+                                <span>{{ product.description }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                {% when 'materials' %}
+                    {% if product.metafields.custom.materials_care != blank %}
+                    <div class="widget-accordion wd-product-descriptions" {{ block.shopify_attributes }}>
+                        <div class="accordion-title collapsed" data-bs-target="#materials-{{ block.id }}" data-bs-toggle="collapse" aria-expanded="true" aria-controls="materials-{{ block.id }}" role="button">
+                            <span>{{ block.settings.title | default: 'Materials' }}</span>
+                            <span class="icon icon-arrow-down"></span>
+                        </div>
+                        <div id="materials-{{ block.id }}" class="collapse">
+                            <div class="accordion-body widget-material">
+                                <div class="item">
+                                    <p class="fw-medium title">{{ block.settings.subtitle | default: 'Materials Care' }}</p>
+                                    <ul>
+                                        {% for care_instruction in product.metafields.custom.materials_care.value %}
+                                            <li>{{ care_instruction }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                {% when 'return_policies' %}
+                    <div class="widget-accordion wd-product-descriptions" {{ block.shopify_attributes }}>
+                        <div class="accordion-title collapsed" data-bs-target="#returnPolicies-{{ block.id }}" data-bs-toggle="collapse" aria-expanded="true" aria-controls="returnPolicies-{{ block.id }}" role="button">
+                            <span>{{ block.settings.title | default: 'Return Policies' }}</span>
+                            <span class="icon icon-arrow-down"></span>
+                        </div>
+                        <div id="returnPolicies-{{ block.id }}" class="collapse">
+                            <div class="accordion-body">
+                                {% if block.settings.policies != blank %}
+                                <ul class="list-policies">
+                                    {% assign policies = block.settings.policies | split: '
+' %}
+                                    {% for policy in policies %}
+                                        {% if policy != blank %}
+                                        <li>
+                                            {{ policy | default: block.settings.default_icon }}
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                                {% if block.settings.note != blank %}
+                                <p class="text-center text-paragraph">{{ block.settings.note }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                {% when 'additional_info' %}
+                    {% if product.metafields.custom.additional_information != blank or block.settings.show_default_info %}
+                    <div class="widget-accordion wd-product-descriptions" {{ block.shopify_attributes }}>
+                        <div class="accordion-title collapsed" data-bs-target="#addInformation-{{ block.id }}" data-bs-toggle="collapse" aria-expanded="true" aria-controls="addInformation-{{ block.id }}" role="button">
+                            <span>{{ block.settings.title | default: 'Additional Information' }}</span>
+                            <span class="icon icon-arrow-down"></span>
+                        </div>
+                        <div id="addInformation-{{ block.id }}" class="collapse">
+                            <div class="accordion-body">
+                                <table class="tb-info-product text-md">
+                                    <tbody>
+                                        {% if product.metafields.custom.additional_information != blank %}
+                                            {% for info in product.metafields.custom.additional_information.value %}
+                                                <tr class="tb-attr-item">
+                                                    <th class="tb-attr-label">{{ info.label }}</th>
+                                                    <td class="tb-attr-value">
+                                                        <p>{{ info.value }}</p>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% if product.vendor != blank %}
+                                            <tr class="tb-attr-item">
+                                                <th class="tb-attr-label">{{ block.settings.brand_label | default: 'Brand' }}</th>
+                                                <td class="tb-attr-value">
+                                                    <p>{{ product.vendor }}</p>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            
+                                            {% if product.type != blank %}
+                                            <tr class="tb-attr-item">
+                                                <th class="tb-attr-label">{{ block.settings.type_label | default: 'Type' }}</th>
+                                                <td class="tb-attr-value">
+                                                    <p>{{ product.type }}</p>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            
+                                            {% if product.tags.size > 0 %}
+                                            <tr class="tb-attr-item">
+                                                <th class="tb-attr-label">{{ block.settings.tags_label | default: 'Tags' }}</th>
+                                                <td class="tb-attr-value">
+                                                    <p>{{ product.tags | join: ', ' }}</p>
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                {% when 'reviews' %}
+                    <div class="widget-accordion wd-product-descriptions" {{ block.shopify_attributes }}>
+                        <div class="accordion-title collapsed" data-bs-target="#reviews-{{ block.id }}" data-bs-toggle="collapse" aria-expanded="true" aria-controls="reviews-{{ block.id }}" role="button">
+                            <span>{{ block.settings.title | default: 'Reviews' }}</span>
+                            <span class="icon icon-arrow-down"></span>
+                        </div>
+                        <div id="reviews-{{ block.id }}" class="collapse">
+                            <div class="accordion-body wd-customer-review">
+                                <div class="review-heading">
+                                    <h6 class="title">{{ block.settings.customer_review_title | default: 'Customer review' }}</h6>
+                                    <div class="box-rate-review">
+                                        <div class="rating-summary">
+                                            <ul class="list-star">
+                                                {% for i in (1..5) %}
+                                                    <li><i class="icon icon-star"></i></li>
+                                                {% endfor %}
+                                                <li><span class="count-star text-md">({{ product.reviews_count | default: 0 }})</span></li>
+                                            </ul>
+                                            <span class="text-md rating-average">{{ product.reviews_average | default: '0.0' }}/5.0</span>
+                                        </div>
+                                        {% if product.metafields.custom.rating_breakdown != blank %}
+                                        <div class="rating-breakdown">
+                                            {% for rating in product.metafields.custom.rating_breakdown.value %}
+                                            <div class="rating-breakdown-item">
+                                                <div class="rating-score">
+                                                    {{ rating.stars }} <i class="icon icon-star"></i>
+                                                </div>
+                                                <div class="rating-bar">
+                                                    <div class="value" style="width: {{ rating.percentage }}%;"></div>
+                                                </div>
+                                                <span class="rating-count">{{ rating.count }}</span>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <a href="#form-review-{{ block.id }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.write_review_text | default: 'Write a review' }}</a>
+                                </div>
+                                
+                                {% if product.reviews != blank %}
+                                <div class="review-section">
+                                    <ul class="review-list">
+                                        {% for review in product.reviews limit: block.settings.max_reviews_display %}
+                                        <li class="review-item">
+                                            <div class="review-avt">
+                                                {% if review.author_image != blank %}
+                                                    <img src="{{ review.author_image }}" alt="{{ review.author }}" width="40" height="40">
+                                                {% else %}
+                                                    <div class="review-avatar-placeholder">{{ review.author | first | upcase }}</div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="review-content">
+                                                <div class="review-info">
+                                                    <div class="review-meta">
+                                                        <span class="review-author fw-medium text-md">{{ review.author }}</span>
+                                                        <span class="review-date text-sm">{{ review.created_at | date: '%b %d, %Y' }}</span>
+                                                    </div>
+                                                    <div class="list-star star-{{ review.rating }}">
+                                                        {% for i in (1..5) %}
+                                                            <i class="icon icon-star"></i>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                                <p class="text text-sm text-main-4">{{ review.body }}</p>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+                                
+                                {% if block.settings.show_review_form %}
+                                <form id="form-review-{{ block.id }}" action="{{ routes.root_url }}apps/reviews" method="post" class="form-review">
+                                    <h6 class="title">{{ block.settings.write_review_title | default: 'Write a review' }}</h6>
+                                    <p class="note text-md text-main-4">{{ block.settings.review_form_note | default: 'Your email address will not be published. Required fields are marked *' }}</p>
+                                    
+                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                    
+                                    <div class="box-rating">
+                                        <span class="text-md">{{ block.settings.your_rating_text | default: 'Your rating *' }}</span>
+                                        <div class="list-rating-check">
+                                            {% for i in (1..5) %}
+                                            <input type="radio" id="star{{ i }}-{{ block.id }}" name="rating" value="{{ i }}" required>
+                                            <label for="star{{ i }}-{{ block.id }}" title="{{ i }} star"></label>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="group-2-ip">
+                                        <input type="text" name="author" placeholder="{{ block.settings.name_placeholder | default: 'Name *' }}" required>
+                                        <input type="email" name="email" placeholder="{{ block.settings.email_placeholder | default: 'Email *' }}" required>
+                                    </div>
+                                    
+                                    <textarea name="body" id="note-{{ block.id }}" placeholder="{{ block.settings.review_placeholder | default: 'Your review *' }}" required></textarea>
+                                    
+                                    {% if block.settings.show_save_checkbox %}
+                                    <div class="check-save">
+                                        <input type="checkbox" class="tf-check" id="checksave-{{ block.id }}" name="save_info">
+                                        <label for="checksave-{{ block.id }}" class="label text-md">{{ block.settings.save_checkbox_text | default: 'Save my name, email, and website in this browser for the next time I comment.' }}</label>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    <button type="submit" class="tf-btn animate-btn">{{ block.settings.submit_button_text | default: 'Submit' }}</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                {% when 'custom_content' %}
+                    <div class="widget-accordion wd-product-descriptions" {{ block.shopify_attributes }}>
+                        <div class="accordion-title collapsed" data-bs-target="#custom-{{ block.id }}" data-bs-toggle="collapse" aria-expanded="true" aria-controls="custom-{{ block.id }}" role="button">
+                            <span>{{ block.settings.title }}</span>
+                            <span class="icon icon-arrow-down"></span>
+                        </div>
+                        <div id="custom-{{ block.id }}" class="collapse">
+                            <div class="accordion-body">
+                                {{ block.settings.content }}
+                            </div>
+                        </div>
+                    </div>
+            {% endcase %}
+        {% endfor %}
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Description",
+  "max_blocks": 10,
+  "blocks": [
+    {
+      "type": "description",
+      "name": "Product Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block displays the product description from your product settings. It will only show if the product has a description."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Description"
+        }
+      ]
+    },
+    {
+      "type": "materials",
+      "name": "Materials & Care",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block shows materials and care information from your product metafields. It will only display if you have 'materials_care' metafield data set up for your products. To set this up: Go to Settings > Custom data > Products > Add definition > Namespace: 'custom', Key: 'materials_care', Type: 'List of single line text'"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Materials"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Materials Care"
+        }
+      ]
+    },
+    {
+      "type": "return_policies",
+      "name": "Return Policies",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block displays your return policies. You can add multiple policies (one per line) and include a general note about your return process."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Return Policies"
+        },
+        {
+          "type": "textarea",
+          "id": "note",
+          "label": "Note",
+          "default": "LT01: 70% wool, 15% polyester, 10% polyamide, 5% acrylic 900 Grms/mt"
+        },
+        {
+          "type": "textarea",
+          "id": "policies",
+          "label": "Policies",
+          "info": "Add your return policies here (one per line)"
+        },
+        {
+          "type": "text",
+          "id": "default_icon",
+          "label": "Default Icon",
+          "default": "📋"
+        }
+      ]
+    },
+    {
+      "type": "additional_info",
+      "name": "Additional Information",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block shows additional product information. It will display custom metafields if available, or fall back to basic product details like brand, type, and tags. To set up custom metafields: Go to Settings > Custom data > Products > Add definition > Namespace: 'custom', Key: 'additional_information', Type: 'List of metafield references' with 'Label' and 'Value' fields"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Additional Information"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_default_info",
+          "label": "Show Default Product Info",
+          "default": true,
+          "info": "Show brand, type, and tags when no custom metafields exist"
+        },
+        {
+          "type": "text",
+          "id": "brand_label",
+          "label": "Brand Label",
+          "default": "Brand"
+        },
+        {
+          "type": "text",
+          "id": "type_label",
+          "label": "Type Label",
+          "default": "Type"
+        },
+        {
+          "type": "text",
+          "id": "tags_label",
+          "label": "Tags Label",
+          "default": "Tags"
+        }
+      ]
+    },
+    {
+      "type": "reviews",
+      "name": "Reviews",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block displays customer reviews and includes a review form. You can customize the form text, show/hide the form, and control how many reviews are displayed. Optional: To show rating breakdown, set up metafield: Settings > Custom data > Products > Add definition > Namespace: 'custom', Key: 'rating_breakdown', Type: 'List of metafield references' with 'stars', 'percentage', and 'count' fields"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Reviews"
+        },
+        {
+          "type": "text",
+          "id": "customer_review_title",
+          "label": "Customer Review Title",
+          "default": "Customer review"
+        },
+        {
+          "type": "text",
+          "id": "write_review_text",
+          "label": "Write Review Button Text",
+          "default": "Write a review"
+        },
+        {
+          "type": "text",
+          "id": "write_review_title",
+          "label": "Write Review Form Title",
+          "default": "Write a review"
+        },
+        {
+          "type": "textarea",
+          "id": "review_form_note",
+          "label": "Review Form Note",
+          "default": "Your email address will not be published. Required fields are marked *"
+        },
+        {
+          "type": "text",
+          "id": "your_rating_text",
+          "label": "Your Rating Text",
+          "default": "Your rating *"
+        },
+        {
+          "type": "text",
+          "id": "name_placeholder",
+          "label": "Name Input Placeholder",
+          "default": "Name *"
+        },
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email Input Placeholder",
+          "default": "Email *"
+        },
+        {
+          "type": "text",
+          "id": "review_placeholder",
+          "label": "Review Textarea Placeholder",
+          "default": "Your review *"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_save_checkbox",
+          "label": "Show Save Info Checkbox",
+          "default": true
+        },
+        {
+          "type": "textarea",
+          "id": "save_checkbox_text",
+          "label": "Save Checkbox Text",
+          "default": "Save my name, email, and website in this browser for the next time I comment."
+        },
+        {
+          "type": "text",
+          "id": "submit_button_text",
+          "label": "Submit Button Text",
+          "default": "Submit"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_review_form",
+          "label": "Show Review Form",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "max_reviews_display",
+          "min": 3,
+          "max": 10,
+          "step": 1,
+          "label": "Maximum Reviews to Display",
+          "default": 5
+        }
+      ]
+    },
+    {
+      "type": "custom_content",
+      "name": "Custom Content",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This block allows you to create a completely custom tab with your own content. Use the rich text editor to add any information you want to display to your customers."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Custom Tab"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add your custom content here</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Description",
+      "blocks": [
+        {
+          "type": "description"
+        },
+        {
+          "type": "materials"
+        },
+        {
+          "type": "additional_info"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

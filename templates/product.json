@@ -148,10 +148,44 @@
         "show_slider_nav": true,
         "enable_image_zoom": true
       }
+    },
+    "product_description": {
+      "type": "product-description",
+      "blocks": {
+        "description_block": {
+          "type": "description",
+          "settings": {
+            "title": "Description"
+          }
+        },
+        "materials_block": {
+          "type": "materials",
+          "settings": {
+            "title": "Materials & Care",
+            "subtitle": "Materials Care"
+          }
+        },
+        "additional_info_block": {
+          "type": "additional_info",
+          "settings": {
+            "title": "Additional Information",
+            "show_default_info": true,
+            "brand_label": "Brand",
+            "type_label": "Type",
+            "tags_label": "Tags"
+          }
+        }
+      },
+      "block_order": [
+        "description_block",
+        "materials_block",
+        "additional_info_block"
+      ]
     }
   },
   "order": [
     "product_breadcrumb",
-    "main_product"
+    "main_product",
+    "product_description"
   ]
 }
