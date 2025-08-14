@@ -5283,6 +5283,171 @@
         "name": "Collection Banner",
         "category": "Collection"
       }
+    },
+    "product-description": {
+      "name": "Product Description",
+      "blocks": {
+        "description": {
+          "name": "Product Description",
+          "settings": {
+            "paragraph": {
+              "content": "This block displays the product description from your product settings. It will only show if the product has a description."
+            },
+            "title": {
+              "label": "Tab Title",
+              "default": "Description"
+            }
+          }
+        },
+        "materials": {
+          "name": "Materials & Care",
+          "settings": {
+            "paragraph": {
+              "content": "This block shows materials and care information from your product metafields. It will only display if you have 'materials_care' metafield data set up for your products. To set this up: Go to Settings > Metafields and metaobjects > Products > Add definition > Namespace: 'custom', Key: 'materials_care', Type: 'List of single line text'"
+            },
+            "title": {
+              "label": "Tab Title",
+              "default": "Materials"
+            },
+            "subtitle": {
+              "label": "Subtitle",
+              "default": "Materials Care"
+            }
+          }
+        },
+        "return_policies": {
+          "name": "Return Policies",
+          "settings": {
+            "paragraph": {
+              "content": "This block displays your return policies. You can add multiple policies (one per line) and include a general note about your return process."
+            },
+            "title": {
+              "label": "Tab Title",
+              "default": "Return Policies"
+            },
+            "note": {
+              "label": "Note",
+              "default": "LT01: 70% wool, 15% polyester, 10% polyamide, 5% acrylic 900 Grms/mt"
+            },
+            "policies": {
+              "label": "Policies",
+              "info": "Add your return policies here (one per line)"
+            },
+            "default_icon": {
+              "label": "Default Icon",
+              "default": "📋"
+            }
+          }
+        },
+        "additional_info": {
+          "name": "Additional Information",
+          "settings": {
+            "paragraph": {
+              "content": "This block shows additional product information. It will display custom metafields if available, or fall back to basic product details like brand, type, and tags. To set up custom metafields: Go to Settings > Metafields and metaobjects > Products > Add definition > Namespace: 'custom', Key: 'additional_information', Type: 'List of metafield references' with 'Label' and 'Value' fields"
+            },
+            "title": {
+              "label": "Tab Title",
+              "default": "Additional Information"
+            },
+            "show_default_info": {
+              "label": "Show Default Product Info",
+              "info": "Show brand, type, and tags when no custom metafields exist"
+            },
+            "brand_label": {
+              "label": "Brand Label",
+              "default": "Brand"
+            },
+            "type_label": {
+              "label": "Type Label",
+              "default": "Type"
+            },
+            "tags_label": {
+              "label": "Tags Label",
+              "default": "Tags"
+            }
+          }
+        },
+        "reviews": {
+          "name": "Reviews",
+          "settings": {
+            "paragraph": {
+              "content": "This block displays customer reviews and includes a review form. You can customize the form text, show/hide the form, and control how many reviews are displayed. Optional: To show rating breakdown, set up metafield: Settings > Metafields and metaobjects > Products > Add definition > Namespace: 'custom', Key: 'rating_breakdown', Type: 'List of metafield references' with 'stars', 'percentage', and 'count' fields"
+            },
+            "title": {
+              "label": "Tab Title",
+              "default": "Reviews"
+            },
+            "customer_review_title": {
+              "label": "Customer Review Title",
+              "default": "Customer review"
+            },
+            "write_review_text": {
+              "label": "Write Review Button Text",
+              "default": "Write a review"
+            },
+            "write_review_title": {
+              "label": "Write Review Form Title",
+              "default": "Write a review"
+            },
+            "review_form_note": {
+              "label": "Review Form Note",
+              "default": "Your email address will not be published. Required fields are marked *"
+            },
+            "your_rating_text": {
+              "label": "Your Rating Text",
+              "default": "Your rating *"
+            },
+            "name_placeholder": {
+              "label": "Name Input Placeholder",
+              "default": "Name *"
+            },
+            "email_placeholder": {
+              "label": "Email Input Placeholder",
+              "default": "Email *"
+            },
+            "review_placeholder": {
+              "label": "Review Textarea Placeholder",
+              "default": "Your review *"
+            },
+            "show_save_checkbox": {
+              "label": "Show Save Info Checkbox"
+            },
+            "save_checkbox_text": {
+              "label": "Save Checkbox Text",
+              "default": "Save my name, email, and website in this browser for the next time I comment."
+            },
+            "submit_button_text": {
+              "label": "Submit Button Text",
+              "default": "Submit"
+            },
+            "show_review_form": {
+              "label": "Show Review Form"
+            },
+            "max_reviews_display": {
+              "label": "Maximum Reviews to Display"
+            }
+          }
+        },
+        "custom_content": {
+          "name": "Custom Content",
+          "settings": {
+            "paragraph": {
+              "content": "This block allows you to create a completely custom tab with your own content. Use the rich text editor to add any information you want to display to your customers."
+            },
+            "title": {
+              "label": "Tab Title",
+              "default": "Custom Tab"
+            },
+            "content": {
+              "label": "Content",
+              "default": "<p>Add your custom content here</p>"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Product Description"
+      }
     }
   }
 }
