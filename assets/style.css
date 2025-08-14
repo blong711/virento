@@ -2282,7 +2282,7 @@ a:hover {
   color: var(--dark);
 }
 .header-default .box-nav-menu .item-link .icon {
-  font-size: 12px;
+  font-size: 10px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
