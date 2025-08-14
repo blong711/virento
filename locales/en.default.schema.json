@@ -5431,6 +5431,15 @@
     },
     "product-description": {
       "name": "Product Description",
+      "settings": {
+        "layout": {
+          "label": "Layout Style",
+          "options": {
+            "accordion": "Accordion",
+            "vertical_tab": "Vertical Tabs"
+          }
+        }
+      },
       "blocks": {
         "description": {
           "name": "Product Description",
