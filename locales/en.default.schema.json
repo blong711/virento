@@ -629,7 +629,10 @@
         "section_padding_heading": "Padding",
         "padding_top": "Top",
         "padding_bottom": "Bottom",
-        "padding_mobile_rate": "Mobile padding rate"
+        "padding_mobile_rate": {
+          "label": "Mobile padding rate",
+          "info": "Percentage of desktop padding to use on mobile devices"
+        }
       },
       "spacing": "Spacing",
       "colors": {
