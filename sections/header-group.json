@@ -73,10 +73,10 @@
           "settings": {
             "menu_item_match": "Products",
             "products": [
-              "10000mah-power-go-power-bank",
               "apple-iphone-16-promax",
               "apple-magsafe-charger",
-              "apple-smart-keyboard"
+              "apple-smart-keyboard",
+              "logitech-k380"
             ]
           }
         },
