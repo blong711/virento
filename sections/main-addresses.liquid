@@ -1,400 +1,16 @@
-{{ 'customer.css' | asset_url | stylesheet_tag }}
-
-<script src="{{ 'customer.js' | asset_url }}" defer></script>
-
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
-
-{%- paginate customer.addresses by 5 -%}
-  <div class="customer addresses section-{{ section.id }}-padding" data-customer-addresses>
-    <h1>{{ 'customer.addresses.title' | t }}</h1>
-    <a href="{{ routes.account_url }}">
-      {{ 'customer.account.return' | t }}
-    </a>
-
-    <div data-address>
-      <button
-        type="button"
-        aria-expanded="false"
-        aria-controls="AddAddress"
-      >
-        {{ 'customer.addresses.add_new' | t }}
-      </button>
-      <div id="AddAddress">
-        <h2 id="AddressNewHeading">{{ 'customer.addresses.add_new' | t }}</h2>
-        {%- form 'customer_address', customer.new_address, aria-labelledBy: 'AddressNewHeading' -%}
-          <div class="field">
-            <input
-              type="text"
-              id="AddressFirstNameNew"
-              name="address[first_name]"
-              value="{{ form.first_name }}"
-              autocomplete="given-name"
-              placeholder="{{ 'customer.addresses.first_name' | t }}"
-            >
-            <label for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
-          </div>
-          <div class="field">
-            <input
-              type="text"
-              id="AddressLastNameNew"
-              name="address[last_name]"
-              value="{{ form.last_name }}"
-              autocomplete="family-name"
-              placeholder="{{ 'customer.addresses.last_name' | t }}"
-            >
-            <label for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
-          </div>
-          <div class="field">
-            <input
-              type="text"
-              id="AddressCompanyNew"
-              name="address[company]"
-              value="{{ form.company }}"
-              autocomplete="organization"
-              placeholder="{{ 'customer.addresses.company' | t }}"
-            >
-            <label for="AddressCompanyNew">{{ 'customer.addresses.company' | t }}</label>
-          </div>
-          <div class="field">
-            <input
-              type="text"
-              id="AddressAddress1New"
-              name="address[address1]"
-              value="{{ form.address1 }}"
-              autocomplete="address-line1"
-              placeholder="{{ 'customer.addresses.address1' | t }}"
-            >
-            <label for="AddressAddress1New">{{ 'customer.addresses.address1' | t }}</label>
-          </div>
-          <div class="field">
-            <input
-              type="text"
-              id="AddressAddress2New"
-              name="address[address2]"
-              value="{{ form.address2 }}"
-              autocomplete="address-line2"
-              placeholder="{{ 'customer.addresses.address2' | t }}"
-            >
-            <label for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
-          </div>
-          <div class="field">
-            <input
-              type="text"
-              id="AddressCityNew"
-              name="address[city]"
-              value="{{ form.city }}"
-              autocomplete="address-level2"
-              placeholder="{{ 'customer.addresses.city' | t }}"
-            >
-            <label for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
-          </div>
-          <div>
-            <label for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
-            <div class="select">
-              <select
-                id="AddressCountryNew"
-                name="address[country]"
-                data-default="{{ form.country }}"
-                autocomplete="country"
-              >
-                {{ all_country_option_tags }}
-              </select>
-              <span class="svg-wrapper">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
-            </div>
-          </div>
-          <div id="AddressProvinceContainerNew" style="display: none">
-            <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
-            <div class="select">
-              <select
-                id="AddressProvinceNew"
-                name="address[province]"
-                data-default="{{ form.province }}"
-                autocomplete="address-level1"
-              ></select>
-              <span class="svg-wrapper">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
-            </div>
-          </div>
-          <div class="field">
-            <input
-              type="text"
-              id="AddressZipNew"
-              name="address[zip]"
-              value="{{ form.zip }}"
-              autocapitalize="characters"
-              autocomplete="postal-code"
-              placeholder="{{ 'customer.addresses.zip' | t }}"
-            >
-            <label for="AddressZipNew">{{ 'customer.addresses.zip' | t }}</label>
-          </div>
-          <div class="field">
-            <input
-              type="tel"
-              id="AddressPhoneNew"
-              name="address[phone]"
-              value="{{ form.phone }}"
-              autocomplete="tel"
-              placeholder="{{ 'customer.addresses.phone' | t }}"
-            >
-            <label for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
-          </div>
-          <div>
-            {{ form.set_as_default_checkbox }}
-            <label for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</label>
-          </div>
-          <div>
-            <button>{{ 'customer.addresses.add' | t }}</button>
-            <button type="reset">{{ 'customer.addresses.cancel' | t }}</button>
-          </div>
-        {%- endform -%}
-      </div>
-    </div>
-
-    <ul role="list">
-      {%- for address in customer.addresses -%}
-        <li data-address>
-          {%- if address == customer.default_address -%}
-            <h2>{{ 'customer.addresses.default' | t }}</h2>
-          {%- endif -%}
-          {{ address | format_address }}
-          <button
-            type="button"
-            id="EditFormButton_{{ address.id }}"
-            aria-label="{{ 'customer.addresses.edit_address' | t }} {{ forloop.index }}"
-            aria-controls="EditAddress_{{ address.id }}"
-            aria-expanded="false"
-            data-address-id="{{ address.id }}"
-          >
-            {{ 'customer.addresses.edit' | t }}
-          </button>
-          <button
-            type="button"
-            aria-label="{{ 'customer.addresses.delete' | t }} {{ forloop.index }}"
-            data-target="{{ address.url }}"
-            data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}"
-          >
-            {{ 'customer.addresses.delete' | t }}
-          </button>
-          <div id="EditAddress_{{ address.id }}">
-            <h2>{{ 'customer.addresses.edit_address' | t }}</h2>
-            {%- form 'customer_address', address -%}
-              <div class="field">
-                <input
-                  type="text"
-                  id="AddressFirstName_{{ form.id }}"
-                  name="address[first_name]"
-                  value="{{ form.first_name }}"
-                  autocomplete="given-name"
-                  placeholder="{{ 'customer.addresses.first_name' | t }}"
-                >
-                <label for="AddressFirstName_{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  id="AddressLastName_{{ form.id }}"
-                  name="address[last_name]"
-                  value="{{ form.last_name }}"
-                  autocomplete="family-name"
-                  placeholder="{{ 'customer.addresses.last_name' | t }}"
-                >
-                <label for="AddressLastName_{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  id="AddressCompany_{{ form.id }}"
-                  name="address[company]"
-                  value="{{ form.company }}"
-                  autocomplete="organization"
-                  placeholder="{{ 'customer.addresses.company' | t }}"
-                >
-                <label for="AddressCompany_{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  id="AddressAddress1_{{ form.id }}"
-                  name="address[address1]"
-                  value="{{ form.address1 }}"
-                  autocomplete="address-line1"
-                  placeholder="{{ 'customer.addresses.address1' | t }}"
-                >
-                <label for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  id="AddressAddress2_{{ form.id }}"
-                  name="address[address2]"
-                  value="{{ form.address2 }}"
-                  autocomplete="address-line2"
-                  placeholder="{{ 'customer.addresses.address2' | t }}"
-                >
-                <label for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  id="AddressCity_{{ form.id }}"
-                  name="address[city]"
-                  value="{{ form.city }}"
-                  autocomplete="address-level2"
-                  placeholder="{{ 'customer.addresses.city' | t }}"
-                >
-                <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
-              </div>
-              <div>
-                <label for="AddressCountry_{{ form.id }}">
-                  {{ 'customer.addresses.country' | t }}
-                </label>
-                <div class="select">
-                  <select
-                    id="AddressCountry_{{ form.id }}"
-                    name="address[country]"
-                    data-address-country-select
-                    data-default="{{ form.country }}"
-                    data-form-id="{{ form.id }}"
-                    autocomplete="country"
-                  >
-                    {{ all_country_option_tags }}
-                  </select>
-                  <span class="svg-wrapper">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
-                  </span>
-                </div>
-              </div>
-              <div id="AddressProvinceContainer_{{ form.id }}" style="display:none;">
-                <label for="AddressProvince_{{ form.id }}">
-                  {{ 'customer.addresses.province' | t }}
-                </label>
-                <div class="select">
-                  <select
-                    id="AddressProvince_{{ form.id }}"
-                    name="address[province]"
-                    data-default="{{ form.province }}"
-                    autocomplete="address-level1"
-                  ></select>
-                  <span class="svg-wrapper">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
-                  </span>
-                </div>
-              </div>
-              <div class="field">
-                <input
-                  type="text"
-                  id="AddressZip_{{ form.id }}"
-                  name="address[zip]"
-                  value="{{ form.zip }}"
-                  autocapitalize="characters"
-                  autocomplete="postal-code"
-                  placeholder="{{ 'customer.addresses.zip' | t }}"
-                >
-                <label for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
-              </div>
-              <div class="field">
-                <input
-                  type="tel"
-                  id="AddressPhone_{{ form.id }}"
-                  name="address[phone]"
-                  value="{{ form.phone }}"
-                  autocomplete="tel"
-                  placeholder="{{ 'customer.addresses.phone' | t }}"
-                >
-                <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
-              </div>
-              <div>
-                {{ form.set_as_default_checkbox }}
-                <label for="address_default_address_{{ form.id }}">
-                  {{ 'customer.addresses.set_default' | t }}
-                </label>
-              </div>
-              <div>
-                <button>{{ 'customer.addresses.update' | t }}</button>
-                <button type="reset">{{ 'customer.addresses.cancel' | t }}</button>
-              </div>
-            {%- endform -%}
-          </div>
-        </li>
-      {%- endfor -%}
-    </ul>
-
-    {%- if paginate.pages > 1 -%}
-      {%- if paginate.parts.size > 0 -%}
-        <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-          <ul role="list">
-            {%- if paginate.previous -%}
-              <li>
-                <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
-                  <span class="svg-wrapper">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
-                  </span>
-                </a>
-              </li>
-            {%- endif -%}
-
-            {%- for part in paginate.parts -%}
-              <li>
-                {%- if part.is_link -%}
-                  <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                    {{- part.title -}}
-                  </a>
-                {%- else -%}
-                  {%- if part.title == paginate.current_page -%}
-                    <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                      {{- part.title -}}
-                    </span>
-                  {%- else -%}
-                    <span>{{ part.title }}</span>
-                  {%- endif -%}
-                {%- endif -%}
-              </li>
-            {%- endfor -%}
-
-            {%- if paginate.next -%}
-              <li>
-                <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
-                  <span class="svg-wrapper">
-                    {{- 'icon-caret.svg' | inline_asset_content -}}
-                  </span>
-                </a>
-              </li>
-            {%- endif -%}
-          </ul>
-        </nav>
-      {%- endif -%}
-    {%- endif -%}
-  </div>
-{%- endpaginate -%}
-
-<script>
-  window.addEventListener('load', () => {
-    typeof CustomerAddresses !== 'undefined' && new CustomerAddresses();
-  });
-</script>
-
 {% schema %}
 {
-  "name": "t:sections.main-addresses.name",
+  "name": "Main Addresses",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "padding"
     },
     {
       "type": "range",
@@ -403,7 +19,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
+      "label": "Padding Top",
       "default": 36
     },
     {
@@ -413,9 +29,1059 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
+      "label": "Padding Bottom",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Padding Rate",
+      "default": 75
     }
   ]
 }
 {% endschema %}
+
+{% comment %} Pagination variables {% endcomment %}
+{% assign addresses_per_page = 2 %}
+{% assign total_addresses = customer.addresses_count %}
+{% assign total_pages = total_addresses | divided_by: addresses_per_page | ceil %}
+{% assign current_page = request.query_string | split: 'page=' | last | default: 1 %}
+{% assign current_page = current_page | plus: 0 %}
+{% assign start_index = current_page | minus: 1 | times: addresses_per_page %}
+{% assign end_index = start_index | plus: addresses_per_page | minus: 1 %}
+{% if end_index >= total_addresses %}
+  {% assign end_index = total_addresses | minus: 1 %}
+{% endif %}
+
+<!-- Main Content -->
+<div class="main-content-account">
+  <!-- sidebar-account -->
+  <div class="btn-sidebar-mb d-lg-none">
+    <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
+      <i class="icon icon-sidebar"></i>
+    </button>
+  </div>
+  <!-- /sidebar-account -->
+
+  <!-- Account -->
+  <section class="s-account flat-spacing-25 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="my-account-container">
+            <div class="sidebar-account-wrap sidebar-content-wrap sticky-top d-lg-block d-none">
+              <ul class="my-account-nav">
+                <li>
+                  <a
+                    href="{{ routes.account_url }}"
+                    class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/account' %}active{% endif %}"
+                  >
+                    {{ 'sections.main_addresses.nav_dashboard' | t }}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/pages/orders"
+                    class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/orders' %}active{% endif %}"
+                  >
+                    {{ 'sections.main_addresses.nav_my_orders' | t }}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/pages/wishlist"
+                    class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/wishlist' %}active{% endif %}"
+                  >
+                    {{ 'sections.main_addresses.nav_my_wishlist' | t }}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="{{ routes.account_addresses_url }}"
+                    class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/addresses' %}active{% endif %}"
+                  >
+                    {{ 'sections.main_addresses.nav_addresses' | t }}
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ routes.account_logout_url }}" class="text-sm link fw-medium my-account-nav-item">
+                    {{ 'sections.main_addresses.nav_log_out' | t }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="my-acount-content account-address">
+              <h6 class="title-account">
+                {{ 'sections.main_addresses.your_addresses' | t }} ({{ customer.addresses_count }})
+              </h6>
+              <div class="widget-inner-address">
+                <button class="tf-btn btn-add-address animate-btn" data-form="form-add-address">
+                  {{ 'sections.main_addresses.add_new_address' | t }}
+                </button>
+
+                {% form 'customer_address', customer.new_address %}
+                  <div
+                    class="wd-form-address form-default show-form-address"
+                    id="form-add-address"
+                    style="display: none;"
+                  >
+                    <input type="hidden" name="return_to" value="/account/addresses">
+
+                    {% comment %} Display server-side errors {% endcomment %}
+                    {% if form.errors %}
+                      <div
+                        class="form-errors"
+                        style="background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius: 4px;"
+                      >
+                        <strong>{{ 'sections.main_addresses.please_correct_errors' | t }}</strong>
+                        <ul style="margin: 5px 0 0 20px;">
+                          {% for field in form.errors %}
+                            {% for error in field %}
+                              <li>{{ error }}</li>
+                            {% endfor %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {% endif %}
+
+                    {% comment %} General error message area {% endcomment %}
+                    <div
+                      class="general-error"
+                      id="general-error"
+                      style="display: none; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius: 4px;"
+                    >
+                      <strong>{{ 'sections.main_addresses.error' | t }}</strong> <span id="general-error-text"></span>
+                    </div>
+                    <div class="cols">
+                      <fieldset>
+                        <label for="AddressFirstNameNew">{{ 'sections.main_addresses.first_name' | t }}</label>
+                        <input
+                          type="text"
+                          id="AddressFirstNameNew"
+                          name="address[first_name]"
+                          value="{{ form.first_name }}"
+                          required
+                        >
+                        <div
+                          class="error-message"
+                          id="error-firstname"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                      <fieldset>
+                        <label for="AddressLastNameNew">{{ 'sections.main_addresses.last_name' | t }}</label>
+                        <input
+                          type="text"
+                          id="AddressLastNameNew"
+                          name="address[last_name]"
+                          value="{{ form.last_name }}"
+                          required
+                        >
+                        <div
+                          class="error-message"
+                          id="error-lastname"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                    </div>
+                    <div class="cols">
+                      <fieldset>
+                        <label for="AddressCompanyNew">{{ 'sections.main_addresses.company' | t }}</label>
+                        <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+                        <div
+                          class="error-message"
+                          id="error-company"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                    </div>
+                    <div class="cols">
+                      <fieldset>
+                        <label for="Address1New">{{ 'sections.main_addresses.address1' | t }}</label>
+                        <input
+                          type="text"
+                          id="Address1New"
+                          name="address[address1]"
+                          value="{{ form.address1 }}"
+                          required
+                        >
+                        <div
+                          class="error-message"
+                          id="error-address1"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                    </div>
+                    <div class="cols">
+                      <fieldset>
+                        <label for="AddressCityNew">{{ 'sections.main_addresses.city' | t }}</label>
+                        <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" required>
+                        <div
+                          class="error-message"
+                          id="error-city"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                    </div>
+                    <div class="cols">
+                      <fieldset>
+                        <label for="AddressCountryNew">{{ 'sections.main_addresses.country_region' | t }}</label>
+                        <div class="select">
+                          <select
+                            id="AddressCountryNew"
+                            name="address[country]"
+                            data-default="{{ form.country }}"
+                            autocomplete="country"
+                            required
+                          >
+                            {{ all_country_option_tags }}
+                          </select>
+                          <span class="svg-wrapper">
+                            {{- 'icon-caret.svg' | inline_asset_content -}}
+                          </span>
+                        </div>
+                        <div
+                          class="error-message"
+                          id="error-country"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                    </div>
+                    <div class="cols" id="AddressProvinceContainerNew" style="display: none">
+                      <fieldset>
+                        <label for="AddressProvinceNew">{{ 'sections.main_addresses.province' | t }}</label>
+                        <div class="select">
+                          <select
+                            id="AddressProvinceNew"
+                            name="address[province]"
+                            data-default="{{ form.province }}"
+                            autocomplete="address-level1"
+                          >
+                            <option value="">{{ 'sections.main_addresses.select_province_state' | t }}</option>
+                          </select>
+                          <span class="svg-wrapper">
+                            {{- 'icon-caret.svg' | inline_asset_content -}}
+                          </span>
+                        </div>
+                        <div
+                          class="error-message"
+                          id="error-province"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                    </div>
+                    <div class="cols">
+                      <fieldset>
+                        <label for="AddressZipNew">{{ 'sections.main_addresses.postal_zip_code' | t }}</label>
+                        <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" required>
+                        <div
+                          class="error-message"
+                          id="error-zip"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                    </div>
+                    <div class="cols">
+                      <fieldset>
+                        <label for="AddressPhoneNew">{{ 'sections.main_addresses.phone' | t }}</label>
+                        <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+                        <div
+                          class="error-message"
+                          id="error-phone"
+                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                        ></div>
+                      </fieldset>
+                    </div>
+                    <div class="tf-cart-checkbox">
+                      <input type="checkbox" name="address[default]" class="tf-check" id="default-address-add">
+                      <label for="default-address-add" class="label">
+                        <span>{{ 'sections.main_addresses.set_as_default' | t }}</span>
+                      </label>
+                    </div>
+                    <div class="box-btn">
+                      <button class="tf-btn animate-btn" type="submit" id="submit-add-address">
+                        {{ 'sections.main_addresses.add' | t }}
+                      </button>
+                      <a href="#" class="tf-btn btn-out-line-dark btn-hide-address">
+                        {{ 'sections.main_addresses.cancel' | t }}
+                      </a>
+                    </div>
+                  </div>
+                {% endform %}
+
+                <ul class="list-account-address tf-grid-layout md-col-2" id="addressesList">
+                  {% for address in customer.addresses %}
+                    <li class="account-address-item" data-address-index="{{ forloop.index0 }}">
+                      <p class="title text-md fw-medium">
+                        {{ address.address1 }}
+                      </p>
+                      <div class="info-detail">
+                        <div class="box-infor">
+                          {% if address.first_name or address.last_name %}
+                            <p class="text-md">
+                              {{ address.first_name }}
+                              {{ address.last_name }}
+                            </p>
+                          {% endif %}
+                          {% if customer.email %}
+                            <p class="text-md">{{ customer.email }}</p>
+                          {% endif %}
+                          {% if address.company %}
+                            <p class="text-md">{{ address.company }}</p>
+                          {% endif %}
+                          {% if address.address1 %}
+                            <p class="text-md">{{ address.address1 }}</p>
+                          {% endif %}
+                          {% if address.city %}
+                            <p class="text-md">{{ address.city }}</p>
+                          {% endif %}
+                          {% if address.country %}
+                            <p class="text-md">{{ address.country }}</p>
+                          {% endif %}
+                          {% if address.zip %}
+                            <p class="text-md">{{ address.zip }}</p>
+                          {% endif %}
+                          {% if address.phone %}
+                            <p class="text-md">{{ address.phone }}</p>
+                          {% endif %}
+                        </div>
+                        <div class="box-btn">
+                          <button
+                            class="tf-btn btn-out-line-dark btn-edit-address"
+                            data-form="form-edit-{{ address.id }}"
+                          >
+                            {{ 'sections.main_addresses.edit' | t }}
+                          </button>
+                          <button
+                            class="tf-btn btn-out-line-dark btn-delete-address"
+                            data-form="form-edit-{{ address.id }}"
+                          >
+                            {{ 'sections.main_addresses.delete' | t }}
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  {% endfor %}
+                </ul>
+
+                {% comment %} Pagination Controls {% endcomment %}
+                <div
+                  class="pagination-container"
+                  id="addressPaginationContainer"
+                  style="display: none; margin-top: 30px; text-align: center;"
+                >
+                  <ul class="wg-pagination" id="addressPagination"></ul>
+                </div>
+
+                {% for address in customer.addresses %}
+                  {% form 'customer_address', address %}
+                    <div
+                      class="wd-form-address form-default edit-form-address"
+                      id="form-edit-{{ address.id }}"
+                      style="display: none;"
+                    >
+                      <input type="hidden" name="return_to" value="/account/addresses">
+                      <div class="cols">
+                        <fieldset>
+                          <label for="AddressFirstName_{{ address.id }}">
+                            {{- 'sections.main_addresses.first_name' | t -}}
+                          </label>
+                          <input
+                            type="text"
+                            id="AddressFirstName_{{ address.id }}"
+                            name="address[first_name]"
+                            value="{{ form.first_name }}"
+                            required
+                          >
+                        </fieldset>
+                        <fieldset>
+                          <label for="AddressLastName_{{ address.id }}">
+                            {{- 'sections.main_addresses.last_name' | t -}}
+                          </label>
+                          <input
+                            type="text"
+                            id="AddressLastName_{{ address.id }}"
+                            name="address[last_name]"
+                            value="{{ form.last_name }}"
+                            required
+                          >
+                        </fieldset>
+                      </div>
+                      <div class="cols">
+                        <fieldset>
+                          <label for="AddressCompany_{{ address.id }}">
+                            {{- 'sections.main_addresses.company' | t -}}
+                          </label>
+                          <input
+                            type="text"
+                            id="AddressCompany_{{ address.id }}"
+                            name="address[company]"
+                            value="{{ form.company }}"
+                          >
+                        </fieldset>
+                      </div>
+                      <div class="cols">
+                        <fieldset>
+                          <label for="Address1_{{ address.id }}">{{ 'sections.main_addresses.address1' | t }}</label>
+                          <input
+                            type="text"
+                            id="Address1_{{ address.id }}"
+                            name="address[address1]"
+                            value="{{ form.address1 }}"
+                            required
+                          >
+                        </fieldset>
+                      </div>
+                      <div class="cols">
+                        <fieldset>
+                          <label for="AddressCity_{{ address.id }}">{{ 'sections.main_addresses.city' | t }}</label>
+                          <input
+                            type="text"
+                            id="AddressCity_{{ address.id }}"
+                            name="address[city]"
+                            value="{{ form.city }}"
+                            required
+                          >
+                        </fieldset>
+                      </div>
+                      <div class="cols">
+                        <fieldset>
+                          <label for="AddressCountry_{{ address.id }}">
+                            {{- 'sections.main_addresses.country_region' | t -}}
+                          </label>
+                          <input
+                            type="text"
+                            id="AddressCountry_{{ address.id }}"
+                            name="address[country]"
+                            value="{{ form.country }}"
+                            required
+                          >
+                        </fieldset>
+                      </div>
+                      <div class="cols">
+                        <fieldset>
+                          <label for="AddressProvince_{{ address.id }}">
+                            {{- 'sections.main_addresses.province' | t -}}
+                          </label>
+                          <input
+                            type="text"
+                            id="AddressProvince_{{ address.id }}"
+                            name="address[province]"
+                            value="{{ form.province }}"
+                            required
+                          >
+                        </fieldset>
+                      </div>
+                      <div class="cols">
+                        <fieldset>
+                          <label for="AddressZip_{{ address.id }}">
+                            {{- 'sections.main_addresses.postal_zip_code' | t -}}
+                          </label>
+                          <input
+                            type="text"
+                            id="AddressZip_{{ address.id }}"
+                            name="address[zip]"
+                            value="{{ form.zip }}"
+                            required
+                          >
+                        </fieldset>
+                      </div>
+                      <div class="cols">
+                        <fieldset>
+                          <label for="AddressPhone_{{ address.id }}">{{ 'sections.main_addresses.phone' | t }}</label>
+                          <input
+                            type="tel"
+                            id="AddressPhone_{{ address.id }}"
+                            name="address[phone]"
+                            value="{{ form.phone }}"
+                          >
+                        </fieldset>
+                      </div>
+                      <div class="tf-cart-checkbox">
+                        <input
+                          type="checkbox"
+                          name="address[default]"
+                          class="tf-check"
+                          id="default-address-edit-{{ address.id }}"
+                          {% if address.default %}
+                            checked
+                          {% endif %}
+                        >
+                        <label for="default-address-edit-{{ address.id }}" class="label">
+                          <span>{{ 'sections.main_addresses.set_as_default' | t }}</span>
+                        </label>
+                      </div>
+                      <div class="box-btn">
+                        <button class="tf-btn animate-btn" type="submit">
+                          {{ 'sections.main_addresses.update' | t }}
+                        </button>
+                        <a href="#" class="tf-btn btn-out-line-dark btn-hide-edit-address">
+                          {{ 'sections.main_addresses.cancel' | t }}
+                        </a>
+                      </div>
+                    </div>
+                  {% endform %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Account -->
+</div>
+<!-- sidebar account -->
+<div class="offcanvas offcanvas-start canvas-filter canvas-sidebar canvas-sidebar-account" id="mbAccount">
+  <div class="canvas-wrapper">
+    <div class="canvas-header">
+      <span class="title">{{ 'sections.main_addresses.sidebar_account' | t }}</span>
+      <button
+        class="icon-close icon-close-popup"
+        data-bs-dismiss="offcanvas"
+        aria-label="{{ 'sections.main_addresses.close' | t }}"
+      ></button>
+    </div>
+    <div class="canvas-body">
+      <div class="sidebar-account-wrap sidebar-mobile-append"></div>
+    </div>
+  </div>
+</div>
+<!-- End sidebar account -->
+<!-- /Main Content -->
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate }} / 100);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate }} / 100);
+    }
+  }
+  /* Enhanced Select Styling */
+  .wd-form-address .select {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .wd-form-address .select select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .wd-form-address .select select:hover {
+    border-color: #c1c7cd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .wd-form-address .select select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  }
+
+  .wd-form-address .select select:disabled {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .wd-form-address .select .svg-wrapper {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+
+  .wd-form-address .select .svg-wrapper svg {
+    width: 12px;
+    height: 12px;
+    fill: #6c757d;
+    transition: fill 0.3s ease;
+  }
+
+  .wd-form-address .select:hover .svg-wrapper svg {
+    fill: #495057;
+  }
+
+  .wd-form-address .select select:focus + .svg-wrapper svg {
+    fill: #007bff;
+  }
+
+  /* Error state styling */
+  .wd-form-address .select.has-error select {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  }
+
+  .wd-form-address .select.has-error .svg-wrapper svg {
+    fill: #dc3545;
+  }
+
+  /* Success state styling */
+  .wd-form-address .select.has-success select {
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+  }
+
+  .wd-form-address .select.has-success .svg-wrapper svg {
+    fill: #28a745;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .wd-form-address .select select {
+      padding: 14px 40px 14px 15px;
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .wd-form-address .select select {
+      background-color: #2d3748;
+      border-color: #4a5568;
+      color: #e2e8f0;
+    }
+
+    .wd-form-address .select select:hover {
+      border-color: #718096;
+    }
+
+    .wd-form-address .select select:focus {
+      border-color: #3182ce;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+    }
+
+    .wd-form-address .select .svg-wrapper svg {
+      fill: #a0aec0;
+    }
+
+    .wd-form-address .select:hover .svg-wrapper svg {
+      fill: #e2e8f0;
+    }
+  }
+</style>
+
+{% javascript %}
+  // Initialize province/state selectors
+  document.addEventListener('DOMContentLoaded', function () {
+    // Handle add new address form
+    const addAddressBtn = document.querySelector('.btn-add-address');
+    const addAddressForm = document.getElementById('form-add-address');
+    const hideAddressBtn = document.querySelector('.btn-hide-address');
+    const submitAddAddressBtn = document.getElementById('submit-add-address');
+
+    // Show form if there are server-side errors
+    if (addAddressForm && addAddressForm.querySelector('.form-errors')) {
+      addAddressForm.style.display = 'block';
+    }
+
+    if (addAddressBtn && addAddressForm) {
+      addAddressBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        addAddressForm.style.display = 'block';
+        // Clear any previous error messages
+        clearAllErrors();
+      });
+    }
+
+    if (hideAddressBtn && addAddressForm) {
+      hideAddressBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        addAddressForm.style.display = 'none';
+        clearAllErrors();
+      });
+    }
+
+    // Handle form submission with validation
+    if (addAddressForm) {
+      const actualForm = addAddressForm.querySelector('form');
+      const submitBtn = document.getElementById('submit-add-address');
+
+      if (actualForm) {
+        actualForm.addEventListener('submit', function (e) {
+          console.log('Form submit event triggered');
+          // Clear previous errors
+          clearAllErrors();
+
+          // Validate form
+          const isValid = validateAddAddressForm();
+          console.log('Form validation result:', isValid);
+
+          if (!isValid) {
+            console.log('Preventing form submission due to validation errors');
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        });
+      }
+
+      // Also handle button click as backup
+      if (submitBtn) {
+        submitBtn.addEventListener('click', function (e) {
+          console.log('Submit button clicked');
+          // Clear previous errors
+          clearAllErrors();
+
+          // Validate form
+          const isValid = validateAddAddressForm();
+          console.log('Button validation result:', isValid);
+
+          if (!isValid) {
+            console.log('Preventing button submission due to validation errors');
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        });
+      }
+    }
+
+    // Handle edit address forms
+    const editAddressBtns = document.querySelectorAll('.btn-edit-address');
+    const hideEditAddressBtns = document.querySelectorAll('.btn-hide-edit-address');
+
+    editAddressBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const formId = this.getAttribute('data-form');
+        const form = document.getElementById(formId);
+        if (form) {
+          form.style.display = 'block';
+        }
+      });
+    });
+
+    hideEditAddressBtns.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const form = this.closest('.edit-form-address');
+        if (form) {
+          form.style.display = 'none';
+        }
+      });
+    });
+
+    // Validation functions
+    function validateAddAddressForm() {
+      let isValid = true;
+      let errorCount = 0;
+
+      // Required fields validation
+      const requiredFields = [
+        { id: 'AddressFirstNameNew', errorId: 'error-firstname', name: 'First Name' },
+        { id: 'AddressLastNameNew', errorId: 'error-lastname', name: 'Last Name' },
+        { id: 'Address1New', errorId: 'error-address1', name: 'Address' },
+        { id: 'AddressCityNew', errorId: 'error-city', name: 'City' },
+        { id: 'AddressCountryNew', errorId: 'error-country', name: 'Country' },
+      ];
+
+      requiredFields.forEach(function (field) {
+        const input = document.getElementById(field.id);
+        const errorDiv = document.getElementById(field.errorId);
+
+        if (!input.value.trim()) {
+          showError(field.errorId, field.name + ' is required');
+          isValid = false;
+          errorCount++;
+        } else {
+          hideError(field.errorId);
+        }
+      });
+
+      // Phone number validation (optional but if provided, validate format)
+      const phoneInput = document.getElementById('AddressPhoneNew');
+      const phoneErrorDiv = document.getElementById('error-phone');
+
+      if (phoneInput.value.trim()) {
+        const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+        if (!phoneRegex.test(phoneInput.value.trim().replace(/[\s\-\(\)]/g, ''))) {
+          showError('error-phone', 'Please enter a valid phone number');
+          isValid = false;
+          errorCount++;
+        } else {
+          hideError('error-phone');
+        }
+      }
+
+      // Postal code validation (numbers only and required)
+      const zipInput = document.getElementById('AddressZipNew');
+      console.log('Postal code value:', zipInput.value);
+      console.log('Postal code trimmed:', zipInput.value.trim());
+
+      if (!zipInput.value.trim()) {
+        console.log('Postal code is empty');
+        showError('error-zip', 'Postal code is required');
+        isValid = false;
+        errorCount++;
+      } else {
+        const zipRegex = /^\d+$/;
+        const zipValue = zipInput.value.trim();
+        const isZipValid = zipRegex.test(zipValue);
+        console.log('Postal code regex test result:', isZipValid);
+
+        if (!isZipValid) {
+          console.log('Postal code contains non-numbers');
+          showError('error-zip', 'Postal code must contain only numbers');
+          isValid = false;
+          errorCount++;
+        } else {
+          console.log('Postal code is valid');
+          hideError('error-zip');
+        }
+      }
+
+      // Show general error message if there are multiple errors
+      if (!isValid && errorCount > 1) {
+        showGeneralError('Please correct the errors highlighted below before submitting.');
+      }
+
+      return isValid;
+    }
+
+    function showError(errorId, message) {
+      const errorDiv = document.getElementById(errorId);
+      if (errorDiv) {
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+
+        // Add error styling to input
+        const inputId = errorId.replace('error-', 'Address');
+        const input = document.getElementById(inputId);
+        if (input) {
+          input.style.borderColor = '#dc3545';
+
+          // Add error class to select container if it's a select
+          const selectContainer = input.closest('.select');
+          if (selectContainer) {
+            selectContainer.classList.add('has-error');
+            selectContainer.classList.remove('has-success');
+          }
+        }
+      }
+    }
+
+    function hideError(errorId) {
+      const errorDiv = document.getElementById(errorId);
+      if (errorDiv) {
+        errorDiv.style.display = 'none';
+
+        // Remove error styling from input
+        const inputId = errorId.replace('error-', 'Address');
+        const input = document.getElementById(inputId);
+        if (input) {
+          input.style.borderColor = '';
+
+          // Remove error class from select container if it's a select
+          const selectContainer = input.closest('.select');
+          if (selectContainer) {
+            selectContainer.classList.remove('has-error');
+            selectContainer.classList.remove('has-success');
+          }
+        }
+      }
+    }
+
+    function clearAllErrors() {
+      const errorDivs = document.querySelectorAll('.error-message');
+      errorDivs.forEach(function (errorDiv) {
+        errorDiv.style.display = 'none';
+      });
+
+      // Clear general error
+      const generalError = document.getElementById('general-error');
+      if (generalError) {
+        generalError.style.display = 'none';
+      }
+
+      // Clear error styling from all inputs
+      const inputs = addAddressForm.querySelectorAll('input');
+      inputs.forEach(function (input) {
+        input.style.borderColor = '';
+      });
+    }
+
+    function showGeneralError(message) {
+      const generalError = document.getElementById('general-error');
+      const generalErrorText = document.getElementById('general-error-text');
+      if (generalError && generalErrorText) {
+        generalErrorText.textContent = message;
+        generalError.style.display = 'block';
+      }
+    }
+
+    // Real-time validation on input change
+    const addAddressInputs = addAddressForm.querySelectorAll('input[required]');
+    addAddressInputs.forEach(function (input) {
+      input.addEventListener('blur', function () {
+        const fieldName = this.id.replace('Address', '').replace('New', '');
+        const errorId = 'error-' + fieldName.toLowerCase();
+
+        if (!this.value.trim()) {
+          showError(errorId, this.previousElementSibling.textContent + ' is required');
+        } else {
+          hideError(errorId);
+        }
+      });
+    });
+
+    // Setup country/province selectors using Shopify's built-in CountryProvinceSelector
+    function setupCountries() {
+      if (Shopify && Shopify.CountryProvinceSelector) {
+        // Setup for new address form
+        new Shopify.CountryProvinceSelector('AddressCountryNew', 'AddressProvinceNew', {
+          hideElement: 'AddressProvinceContainerNew',
+        });
+      }
+    }
+
+    // Initialize country/province selectors
+    setupCountries();
+
+    // Address pagination variables
+    let currentAddressPage = 1;
+    const addressesPerPage = 2;
+    const addressesList = document.getElementById('addressesList');
+    const addressPaginationContainer = document.getElementById('addressPaginationContainer');
+    const addressPagination = document.getElementById('addressPagination');
+    const addressItems = addressesList ? addressesList.querySelectorAll('.account-address-item') : [];
+    const totalAddressPages = Math.ceil(addressItems.length / addressesPerPage);
+
+    // Initialize address pagination
+    if (addressItems.length > addressesPerPage) {
+      displayAddressesWithPagination();
+      updateAddressPagination();
+    }
+
+    // Handle validation for country and province selects
+    const countrySelect = document.getElementById('AddressCountryNew');
+    const provinceSelect = document.getElementById('AddressProvinceNew');
+
+    if (countrySelect) {
+      countrySelect.addEventListener('change', function () {
+        const errorId = 'error-country';
+        if (!this.value) {
+          showError(errorId, 'Country is required');
+        } else {
+          hideError(errorId);
+        }
+      });
+    }
+
+    // Address pagination functions
+    function displayAddressesWithPagination() {
+      const startIndex = (currentAddressPage - 1) * addressesPerPage;
+      const endIndex = startIndex + addressesPerPage - 1;
+
+      addressItems.forEach((item, index) => {
+        if (index >= startIndex && index <= endIndex) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    function updateAddressPagination() {
+      if (totalAddressPages <= 1) {
+        addressPaginationContainer.style.display = 'none';
+        return;
+      }
+
+      addressPaginationContainer.style.display = 'block';
+
+      let paginationHTML = '';
+
+      // Previous button
+      if (currentAddressPage > 1) {
+        paginationHTML += `
+          <li>
+            <a href="#" class="pagination-item" data-page="${currentAddressPage - 1}">
+              <i class="icon-arr-left"></i>
+            </a>
+          </li>
+        `;
+      }
+
+      // Page numbers
+      const maxVisiblePages = 5;
+      let startPage = Math.max(1, currentAddressPage - Math.floor(maxVisiblePages / 2));
+      let endPage = Math.min(totalAddressPages, startPage + maxVisiblePages - 1);
+
+      if (endPage - startPage + 1 < maxVisiblePages) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        if (i === currentAddressPage) {
+          paginationHTML += `
+            <li class="active">
+              <div class="pagination-item">${i}</div>
+            </li>
+          `;
+        } else {
+          paginationHTML += `
+            <li>
+              <a href="#" class="pagination-item" data-page="${i}">${i}</a>
+            </li>
+          `;
+        }
+      }
+
+      // Next button
+      if (currentAddressPage < totalAddressPages) {
+        paginationHTML += `
+          <li>
+            <a href="#" class="pagination-item" data-page="${currentAddressPage + 1}">
+              <i class="icon-arr-right2"></i>
+            </a>
+          </li>
+        `;
+      }
+
+      addressPagination.innerHTML = paginationHTML;
+
+      // Add click event listeners to pagination
+      addressPagination.querySelectorAll('[data-page]').forEach((link) => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const page = parseInt(this.dataset.page);
+          if (page !== currentAddressPage) {
+            currentAddressPage = page;
+            displayAddressesWithPagination();
+            updateAddressPagination();
+            // Scroll to top of addresses list
+            addressesList.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    }
+  });
+{% endjavascript %}

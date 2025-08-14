@@ -1,145 +1,277 @@
-{{ 'customer.css' | asset_url | stylesheet_tag }}
-
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+<!-- sections/main-register.liquid -->
+<style>
+  .register-outer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 30px;
   }
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+  .register-title-main {
+    font-size: 56px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 60px;
+    letter-spacing: -1px;
+  }
+
+  .register-card {
+    border-radius: 6px;
+    max-width: 520px;
+    width: 100%;
+    padding: 40px 32px 32px 32px;
+    margin: 0 auto;
+  }
+
+  .register-title {
+    font-size: 32px;
+    font-weight: 400;
+    margin-bottom: 26px;
+    text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    .register-title {
+      font-size: 24px;
     }
   }
-{%- endstyle -%}
 
-<div class="customer register section-{{ section.id }}-padding">
-  <h1>
-    {{ 'customer.register.title' | t }}
-  </h1>
-  {%- form 'create_customer', novalidate: 'novalidate' -%}
-    {%- if form.errors -%}
-      <h2 class="form__message" tabindex="-1" autofocus>
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
-        {{ 'templates.contact.form.error_heading' | t }}
-      </h2>
-      <ul>
-        {%- for field in form.errors -%}
-          <li>
-            {%- if field == 'form' -%}
-              {{ form.errors.messages[field] }}
-            {%- else -%}
-              <a href="#RegisterForm-{{ field }}">
-                {{ form.errors.translated_fields[field] | capitalize }}
-                {{ form.errors.messages[field] }}
-              </a>
-            {%- endif -%}
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
-    <div class="field">
-      <input
-        type="text"
-        name="customer[first_name]"
-        id="RegisterForm-FirstName"
-        {% if form.first_name %}
-          value="{{ form.first_name }}"
-        {% endif %}
-        autocomplete="given-name"
-        placeholder="{{ 'customer.register.first_name' | t }}"
-      >
-      <label for="RegisterForm-FirstName">
-        {{ 'customer.register.first_name' | t }}
-      </label>
-    </div>
-    <div class="field">
-      <input
-        type="text"
-        name="customer[last_name]"
-        id="RegisterForm-LastName"
-        {% if form.last_name %}
-          value="{{ form.last_name }}"
-        {% endif %}
-        autocomplete="family-name"
-        placeholder="{{ 'customer.register.last_name' | t }}"
-      >
-      <label for="RegisterForm-LastName">
-        {{ 'customer.register.last_name' | t }}
-      </label>
-    </div>
-    <div class="field">
-      <input
-        type="email"
-        name="customer[email]"
-        id="RegisterForm-email"
-        {% if form.email %}
-          value="{{ form.email }}"
-        {% endif %}
-        spellcheck="false"
-        autocapitalize="off"
-        autocomplete="email"
-        aria-required="true"
-        {% if form.errors contains 'email' %}
-          aria-invalid="true"
-          aria-describedby="RegisterForm-email-error"
-        {% endif %}
-        placeholder="{{ 'customer.register.email' | t }}"
-      >
-      <label for="RegisterForm-email">
-        {{ 'customer.register.email' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'email' -%}
-      <span id="RegisterForm-email-error" class="form__message">
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
-        {{ form.errors.translated_fields.email | capitalize }}
-        {{ form.errors.messages.email }}.
-      </span>
-    {%- endif -%}
-    <div class="field">
-      <input
-        type="password"
-        name="customer[password]"
-        id="RegisterForm-password"
-        aria-required="true"
-        {% if form.errors contains 'password' %}
-          aria-invalid="true"
-          aria-describedby="RegisterForm-password-error"
-        {% endif %}
-        placeholder="{{ 'customer.register.password' | t }}"
-      >
-      <label for="RegisterForm-password">
-        {{ 'customer.register.password' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'password' -%}
-      <span id="RegisterForm-password-error" class="form__message">
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
-        {{ form.errors.translated_fields.password | capitalize }}
-        {{ form.errors.messages.password }}.
-      </span>
-    {%- endif -%}
-    <button>
-      {{ 'customer.register.submit' | t }}
-    </button>
-  {%- endform -%}
+  .register-desc {
+    font-size: 16px;
+    margin-bottom: 32px;
+    text-align: left;
+    line-height: 1.5;
+  }
+
+  .form-field {
+    margin-bottom: 15px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 16px 14px;
+    border-radius: 4px;
+    font-size: 17px;
+    color: #222;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus {
+    border-color: #111;
+    outline: none;
+  }
+
+  .form-label {
+    display: none;
+  }
+
+  .required-mark {
+    color: #e74c3c;
+    margin-left: 2px;
+  }
+
+  .submit-button {
+    width: 100%;
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 16px 0;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-bottom: 0;
+    transition: background 0.2s;
+  }
+  .submit-button:hover {
+    background: #222;
+  }
+
+  .login-link {
+    text-align: center;
+    margin-top: 32px;
+  }
+  .login-link a {
+    color: #222;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    font-size: 1rem;
+  }
+  .login-link a:hover {
+    color: #000;
+    text-decoration: none;
+  }
+  .login-link a svg {
+    width: 10px;
+    height: 10px;
+    margin-left: 2px;
+  }
+
+  .error-message {
+    color: #e74c3c;
+    font-size: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .error-icon {
+    width: 16px;
+    height: 16px;
+  }
+   .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate }} / 100);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate }} / 100);
+    }
+  }
+</style>
+
+<div
+  class="
+    register-outer color-{{ section.settings.color_scheme }}
+    section-{{ section.id }}-padding
+  "
+>
+  <div class="register-card">
+    <div class="register-title">{{ 'sections.main_register.register' | t }}</div>
+    <div class="register-desc">{{ 'sections.main_register.register_description' | t }}</div>
+    {%- form 'create_customer', novalidate: 'novalidate' -%}
+      <div class="form-field">
+        <input
+          class="form-input"
+          type="text"
+          name="customer[first_name]"
+          id="RegisterForm-FirstName-{{ section.id }}"
+          {% if form.first_name %}
+            value="{{ form.first_name }}"
+          {% endif %}
+          autocomplete="given-name"
+          placeholder="First name"
+        >
+        <label class="form-label" for="RegisterForm-FirstName-{{ section.id }}">
+          {{- 'sections.main_register.first_name' | t -}}
+        </label>
+      </div>
+      <div class="form-field">
+        <input
+          class="form-input"
+          type="text"
+          name="customer[last_name]"
+          id="RegisterForm-LastName-{{ section.id }}"
+          {% if form.last_name %}
+            value="{{ form.last_name }}"
+          {% endif %}
+          autocomplete="family-name"
+          placeholder="Last name"
+        >
+        <label class="form-label" for="RegisterForm-LastName-{{ section.id }}">
+          {{- 'sections.main_register.last_name' | t -}}
+        </label>
+      </div>
+      <div class="form-field">
+        <input
+          class="form-input"
+          type="email"
+          name="customer[email]"
+          id="CustomerEmail-{{ section.id }}"
+          {% if form.email %}
+            value="{{ form.email }}"
+          {% endif %}
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="email"
+          autocorrect="off"
+          {% if form.errors contains 'email' %}
+            aria-invalid="true" aria-describedby="RegisterForm-email-error"
+          {% endif %}
+          placeholder="Email *"
+        >
+        <label class="form-label" for="CustomerEmail-{{ section.id }}">
+          {{- 'sections.main_register.email' | t -}}
+          <span class="required-mark">*</span></label
+        >
+      </div>
+      {%- if form.errors contains 'email' -%}
+        <div class="error-message">
+          <svg class="error-icon" viewBox="0 0 13 13">
+            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+            <circle cx="6.5" cy="6.5" r="5.5" fill="currentColor" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+          </svg>
+          {{ form.errors.translated_fields.email | capitalize }}
+          {{ form.errors.messages.email }}
+        </div>
+      {%- endif -%}
+      <div class="form-field">
+        <input
+          class="form-input"
+          type="password"
+          value=""
+          name="customer[password]"
+          id="CustomerPassword-{{ section.id }}"
+          {% if form.errors contains 'password' %}
+            aria-invalid="true" aria-describedby="RegisterForm-password-error"
+          {% endif %}
+          autocomplete="current-password"
+          placeholder="Password *"
+        >
+        <label class="form-label" for="CustomerPassword-{{ section.id }}">
+          {{- 'sections.main_register.password' | t -}}
+          <span class="required-mark">*</span></label
+        >
+      </div>
+      {%- if form.errors contains 'password' -%}
+        <div class="error-message">
+          <svg class="error-icon" viewBox="0 0 13 13">
+            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+            <circle cx="6.5" cy="6.5" r="5.5" fill="currentColor" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white"/>
+          </svg>
+          {{ form.errors.translated_fields.password | capitalize }}
+          {{ form.errors.messages.password }}
+        </div>
+      {%- endif -%}
+      <button class="submit-button tf-btn" type="submit">{{ 'sections.main_register.register' | t }}</button>
+      <div class="login-link">
+        <a class="link" href="{{ routes.account_login_url }}">
+          {{- 'sections.main_register.already_have_account' | t }}
+          <svg
+            class="hdt-icon hdt-icon-2 hdt-inline-block"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8"
+            height="8"
+            viewBox="0 0 8 8"
+            fill="currentColor"
+          >
+            <path d="M0.861539 8L0 7.13846L5.90769 1.23077H0.615385V0H8V7.38462H6.76923V2.09231L0.861539 8Z"></path>
+          </svg>
+        </a>
+      </div>
+    {%- endform -%}
+  </div>
 </div>
 
 {% schema %}
 {
-  "name": "t:sections.main-register.name",
+  "name": "Register",
+  "class": "register-section",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme"
+    },
+    {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "padding"
     },
     {
       "type": "range",
@@ -148,7 +280,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
+      "label": "Padding Top",
       "default": 36
     },
     {
@@ -158,8 +290,18 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
+      "label": "Padding Bottom",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Padding Rate",
+      "default": 75
     }
   ]
 }

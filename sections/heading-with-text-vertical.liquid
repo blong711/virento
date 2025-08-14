@@ -32,6 +32,13 @@
     padding-bottom: {{ section.settings.padding_bottom }}px;
   }
 
+  @media screen and (max-width: 767px) {
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate }} / 100);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate }} / 100);
+    }
+  }
+
   /* Fix color scheme inheritance for text elements */
   .color-{{ section.settings.color_scheme }} .term-title {
     color: rgba(var(--color-foreground), 0.9) !important;
@@ -99,6 +106,17 @@
       "unit": "px",
       "label": "t:sections.heading-with-text-vertical.settings.padding_bottom.label",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.heading-with-text-horizontal.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.heading-with-text-horizontal.settings.padding_mobile_rate.info"
     }
   ],
   "blocks": [
