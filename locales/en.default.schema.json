@@ -5580,6 +5580,42 @@
           "label": "Products to show"
         }
       }
+    },
+    "recently-viewed": {
+      "name": "Recently Viewed",
+      "settings": {
+        "title": {
+          "label": "Section Title",
+          "default": "Recently Viewed"
+        },
+        "show_title": {
+          "label": "Show Section Title"
+        },
+        "products_to_show": {
+          "label": "Number of Products to Show"
+        },
+        "slides_per_view_mobile": {
+          "label": "Slides Per View (Mobile)"
+        },
+        "slides_per_view_tablet": {
+          "label": "Slides Per View (Tablet)"
+        },
+        "slides_per_view_desktop": {
+          "label": "Slides Per View (Desktop)"
+        },
+        "space_between": {
+          "label": "Space Between Slides (Mobile/Tablet)"
+        },
+        "space_between_desktop": {
+          "label": "Space Between Slides (Desktop)"
+        },
+        "show_navigation": {
+          "label": "Show Navigation Arrows"
+        },
+        "show_pagination": {
+          "label": "Show Pagination Dots(Mobile)"
+        }
+      }
     }
   }
 }

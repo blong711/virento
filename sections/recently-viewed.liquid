@@ -87,7 +87,7 @@
 </style>
 {% schema %}
 {
-  "name": "Recently Viewed",
+  "name": "t:sections.recently-viewed.name",
   "tag": "section",
   "class": "section",
   "settings": [
@@ -116,13 +116,13 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Section Title",
+      "label": "t:sections.recently-viewed.settings.title.label",
       "default": "Recently Viewed"
     },
     {
       "type": "checkbox",
       "id": "show_title",
-      "label": "Show Section Title",
+      "label": "t:sections.recently-viewed.settings.show_title.label",
       "default": true
     },
     {
@@ -132,7 +132,7 @@
       "max": 12,
       "step": 1,
       "default": 8,
-      "label": "Number of Products to Show"
+      "label": "t:sections.recently-viewed.settings.products_to_show.label"
     },
 
     {
@@ -142,7 +142,7 @@
       "max": 3,
       "step": 1,
       "default": 2,
-      "label": "Slides Per View (Mobile)"
+      "label": "t:sections.recently-viewed.settings.slides_per_view_mobile.label"
     },
     {
       "type": "range",
@@ -151,7 +151,7 @@
       "max": 4,
       "step": 1,
       "default": 3,
-      "label": "Slides Per View (Tablet)"
+      "label": "t:sections.recently-viewed.settings.slides_per_view_tablet.label"
     },
     {
       "type": "range",
@@ -160,7 +160,7 @@
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "Slides Per View (Desktop)"
+      "label": "t:sections.recently-viewed.settings.slides_per_view_desktop.label"
     },
     {
       "type": "range",
@@ -169,7 +169,7 @@
       "max": 32,
       "step": 4,
       "default": 12,
-      "label": "Space Between Slides (Mobile/Tablet)"
+      "label": "t:sections.recently-viewed.settings.space_between.label"
     },
     {
       "type": "range",
@@ -178,18 +178,18 @@
       "max": 48,
       "step": 4,
       "default": 24,
-      "label": "Space Between Slides (Desktop)"
+      "label": "t:sections.recently-viewed.settings.space_between_desktop.label"
     },
     {
       "type": "checkbox",
       "id": "show_navigation",
-      "label": "Show Navigation Arrows",
+      "label": "t:sections.recently-viewed.settings.show_navigation.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_pagination",
-      "label": "Show Pagination Dots(Mobile)",
+      "label": "t:sections.recently-viewed.settings.show_pagination.label",
       "default": true
     },
     {
@@ -230,7 +230,7 @@
   ],
   "presets": [
     {
-      "name": "Recently Viewed"
+      "name": "t:sections.recently-viewed.name"
     }
   ]
 }
