@@ -147,15 +147,19 @@
         "size_guide_NiAE8e"
       ],
       "settings": {
-        "layout": "default",
-        "thumbnail_position": "left",
+        "color_scheme": "",
         "width": "container",
+        "layout": "grid",
+        "thumbnail_position": "left",
         "show_sticky_cart": true,
         "enable_video_loop": true,
         "enable_video_autoplay": true,
         "enable_variant_by_image": true,
         "show_slider_nav": true,
-        "enable_image_zoom": true
+        "enable_image_zoom": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
       }
     },
     "product_description": {
