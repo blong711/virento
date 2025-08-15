@@ -219,22 +219,21 @@
     "recently_viewed": {
       "type": "recently-viewed",
       "settings": {
+        "color_scheme": "",
+        "width": "container",
         "title": "Recently Viewed",
         "show_title": true,
         "products_to_show": 8,
-        "collection": "",
-        "product_list": [],
         "slides_per_view_mobile": 2,
         "slides_per_view_tablet": 3,
         "slides_per_view_desktop": 4,
         "space_between": 12,
         "space_between_desktop": 24,
-        "show_navigation": false,
+        "show_navigation": true,
         "show_pagination": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "show_quick_add": true,
-        "show_quick_view": true
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
       }
     }
   },
