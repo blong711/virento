@@ -9124,6 +9124,7 @@ button.animate-btn::after,
 }
 .flat-wrap-media-product .tf-product-media-main {
   border-radius: 12px;
+  height: 100%;
 }
 .flat-wrap-media-product .tf-product-media-main .item {
   display: flex;
@@ -12179,6 +12180,7 @@ button.animate-btn::after,
   z-index: 5;
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
 }
 .tf-model-viewer model-viewer.disabled {
   pointer-events: none;
