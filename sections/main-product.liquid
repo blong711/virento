@@ -270,9 +270,7 @@
           <div class="tf-product-info">
             <div class="tf-product-info-wrap sticky-top  other-image-zoom">
               <!-- Remove the following line to disable the external zoom box -->
-              <!-- <div class="tf-zoom-main"></div> -->
-              <div class="tf-product-info-list">
-                <div class="tf-product-info-heading">
+                <div class="tf-product-info-heading {% if product.available == false %}pb-0 border-0{% endif %}">
                   {% for block in section.blocks %}
                     {% case block.type %}
                       {% when 'vendor' %}
@@ -371,6 +369,9 @@
                     {% endcase %}
                   {% endfor %}
                   <!-- End Countdown Timer Block -->
+                  {% if product.available == false %}
+                    <button class="tf-btn btn-out-stock w-100">{{ 'sections.product.unavailable' | t }}</button>
+                  {% endif %}
                 </div>
                 {% if product.available %}
                 {% assign show_variant_section = false %}
@@ -531,8 +532,8 @@
                 {% for block in section.blocks %}
                   {% case block.type %}
                     {% when 'quantity_and_buy' %}
+                      {% if product.available %}
                       <div class="tf-product-total-quantity" {{ block.shopify_attributes }}>
-                        {% if product.available %}
                           <div class="group-btn">
                             <div class="wg-quantity">
                                 <button class="btn-quantity btn-decrease">-</button>
@@ -566,10 +567,8 @@
                               {{ block.settings.more_payment_text }}
                             </a>
                           {% endif %}
-                        {% else %}
-                          <button class="tf-btn btn-out-stock w-100">{{ 'sections.product.unavailable' | t }}</button>
-                        {% endif %}
                       </div>
+                      {% endif %}
                   {% endcase %}
                 {% endfor %}
               {% endunless %}
@@ -855,7 +854,6 @@
                     {% endcase %}
                   {% endfor %}
                 </div>
-              </div>
             </div>
           </div>
         </div>

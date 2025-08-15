@@ -566,7 +566,7 @@
       "notify_when_available": "Notify me when it back in stock",
       "add_to_cart": "Add to cart",
       "sold_out": "Sold out",
-      "unavailable": "Unavailable",
+      "unavailable": "This product is currently unavailable",
       "quantity": "Quantity",
       "regular_price": "Regular price",
       "sale_price": "Sale price",
