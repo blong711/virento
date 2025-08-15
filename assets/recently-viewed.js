@@ -20,7 +20,6 @@ class RecentlyViewedProducts {
                     this.addToRecentlyViewed(productData);
                 }
             } catch (e) {
-                console.log(e);
             }
         }
         

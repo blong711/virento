@@ -1,11 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-  
     // Video Consent Handling
-    console.log('Video consent script loaded');
-
     // Handle video consent
     const handleVideoConsent = (consent) => {
-      console.log('Handling consent:', consent);
       localStorage.setItem('videoAutoplayConsent', consent);
 
       // Find and close the modal
@@ -23,25 +19,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (activeSlide?.getAttribute('data-media-type') === 'video') {
           const video = activeSlide.querySelector('video');
           if (video) {
-            console.log('Playing video after consent');
-            video.play().catch(e => console.log('Video autoplay failed:', e));
+            video.play().catch(e => console.log(e));
           }
         }
       }
     };
 
     // Initialize consent handlers
-    const initVideoConsent = () => {
-      console.log('Initializing video consent handlers');
-      
+    const initVideoConsent = () => {      
       // Set up button handlers
       document.getElementById('acceptAutoplay')?.addEventListener('click', () => {
-        console.log('Accept clicked');
         handleVideoConsent(true);
       });
 
       document.getElementById('declineAutoplay')?.addEventListener('click', () => {
-        console.log('Decline clicked');
         handleVideoConsent(false);
       });
     };
@@ -89,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
               if (entry.isIntersecting) {
                 // Only autoplay if both setting is enabled and user has given consent
                 if (window.enableVideoAutoplay && getVideoAutoplayConsent()) {
-                  video.play().catch(e => console.log('Video autoplay failed:', e));
+                  video.play().catch(e => console.log(e));
                 }
               } else {
                 video.pause();
@@ -111,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
               
               // Add error handling
               video.addEventListener('error', function(e) {
-                console.log('Video error:', e);
+                console.log(e);
               });
 
               // Observe the video for viewport visibility
@@ -146,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (activeVideo) {
               activeVideo.currentTime = 0;
               if (window.enableVideoAutoplay && getVideoAutoplayConsent()) {
-                activeVideo.play().catch(e => console.log('Video autoplay failed:', e));
+                activeVideo.play().catch(e => console.log(e));
               }
             }
           }
@@ -274,19 +265,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function findVariantByColor(color) {
       try {
         if (!color) {
-          console.warn('No color provided to findVariantByColor');
           return null;
         }
   
         const variants = window.productVariants || [];
                 if (!Array.isArray(variants) || variants.length === 0) {
-          console.warn('No variants available');
           return null;
         }
 
         const options = window.productOptions || [];
         if (!Array.isArray(options)) {
-          console.warn('Product options not available');
           return null;
         }
         
@@ -313,16 +301,14 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const matchesColor = variant.option1 && variant.option1.toLowerCase() === color.toLowerCase();
             if (matchesColor && variant.available) {
-              console.log('No size selected, returning first available variant for color:', variant.title);
               return variant;
             }
           }
         }
         
-        console.warn(`No variant found for color: ${color}${selectedSize ? ` and size: ${selectedSize}` : ''}`);
         return null;
       } catch (error) {
-        console.error('Error in findVariantByColor:', error);
+        console.error(error);
         return null;
       }
     }
@@ -352,7 +338,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       const selectedSize = activeSizeBtn ? activeSizeBtn.getAttribute('data-value') : null;
       
-      console.log('findVariantId - selectedColor:', selectedColor, 'selectedSize:', selectedSize, 'activeColorBtn:', activeColorBtn, 'activeSizeBtn:', activeSizeBtn);
       
       // Find variant that matches all selected options
       const matchingVariant = variants.find(variant => {
@@ -403,7 +388,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateVariantSelection(variant) {
       try {
         if (!variant || typeof variant !== 'object') {
-          console.warn('Invalid variant provided to updateVariantSelection');
           return;
         }
   
@@ -462,7 +446,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
           }
         } catch (error) {
-          console.error('Error updating option labels:', error);
+          console.error(error);
         }
   
         // Check if we're in grid or stacked layout
@@ -474,7 +458,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // For grid and stacked layouts, scroll to the matching image
             const productMedia = window.productMedia || [];
             if (!Array.isArray(productMedia)) {
-              console.warn('Product media data is not available');
               return;
             }
   
@@ -499,13 +482,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Scroll to the target image if found
             if (targetImage) {
-              console.log('Scrolling to target image:', targetImage.id);
               // Find the gallery item with the matching media ID
               const galleryItems = document.querySelectorAll('.item-scroll-target');
               for (let item of galleryItems) {
                 const mediaId = parseInt(item.getAttribute('data-media-id'));
                 if (mediaId === targetImage.id) {
-                  console.log('Found matching gallery item, scrolling...');
                   item.scrollIntoView({ 
                     behavior: 'smooth', 
                     block: 'center',
@@ -568,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
         } catch (error) {
-          console.error('Error updating product images:', error);
+          console.error(error);
         }
   
         // Set the active color swatch based on the selected color
@@ -597,7 +578,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Add a small delay to ensure the active class persists
                 setTimeout(() => {
                   if (!btn.classList.contains('active')) {
-                    console.log('Active class was removed, re-adding it');
                     btn.classList.add('active');
                   }
                 }, 50);
@@ -605,7 +585,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.remove('active');
               }
             } catch (error) {
-              console.error('Error updating color swatch:', error);
+              console.error(error);
             }
           });
         }
@@ -621,7 +601,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 btn.classList.remove('active');
               }
             } catch (error) {
-              console.error('Error updating size button:', error);
+              console.error(error);
             }
           });
         }
@@ -630,7 +610,7 @@ document.addEventListener('DOMContentLoaded', function() {
         handleSoldOutVariants();
 
       } catch (error) {
-        console.error('Error in updateVariantSelection:', error);
+        console.error(error);
       }
     }
   
@@ -650,7 +630,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const color = btn.getAttribute('data-scroll');
         if (!color) {
-          console.warn('Color swatch clicked but no data-scroll attribute found');
           return;
         }
   
@@ -658,12 +637,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (variant) {
           updateVariantSelection(variant);
         } else {
-          console.warn('No variant found for color:', color);
           const selectedSize = getSelectedSize();
           alert(selectedSize ? translations.variantNotAvailable : translations.colorNotAvailable);
         }
       } catch (error) {
-        console.error('Error handling color swatch click:', error);
         alert(translations.variantError);
       }
     });
@@ -674,7 +651,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const activeSizeBtn = document.querySelector('.size-btn.active, .select-item[data-option="size"].active');
         return activeSizeBtn ? activeSizeBtn.getAttribute('data-value') : null;
       } catch (error) {
-        console.error('Error getting selected size:', error);
         return null;
       }
     }
@@ -685,7 +661,6 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
           const size = this.getAttribute('data-value');
           if (!size) {
-            console.warn('Size button clicked but no data-value attribute found');
             return;
           }
   
@@ -711,7 +686,6 @@ document.addEventListener('DOMContentLoaded', function() {
           // Find and update variant
           const variants = window.productVariants || [];
           if (!Array.isArray(variants)) {
-            console.warn('Variants data is not available');
             alert(translations.variantError);
             return;
           }
@@ -731,11 +705,9 @@ document.addEventListener('DOMContentLoaded', function() {
           if (variant) {
             updateVariantSelection(variant);
           } else {
-            console.warn('No variant found for size:', size, 'and color:', color);
             alert(translations.sizeNotAvailable);
           }
         } catch (error) {
-          console.error('Error handling size selection:', error);
           alert(translations.variantError);
         }
       });
@@ -1077,14 +1049,6 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   
-
-  
-
-  
-
-  
-
-  
     const copyButton = document.getElementById('btn-coppy-text');
     const textToCopy = document.getElementById('coppyText');
     
@@ -1102,7 +1066,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.remove('copied');
           }, 2000);
         }).catch(err => {
-          console.error('Failed to copy text:', err);
+          console.error(err);
         });
       });
     }
@@ -1150,7 +1114,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Video autoplay consent handling
     window.setVideoAutoplayConsent = function(consent) {
-      console.log('Setting video consent to:', consent);
       localStorage.setItem('videoAutoplayConsent', consent);
       
       // Close modal using Bootstrap
@@ -1160,7 +1123,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (bsModal) {
           bsModal.hide();
         } else {
-          console.log('Modal instance not found, trying to create new instance');
           const newModal = new bootstrap.Modal(consentModal);
           newModal.hide();
         }
@@ -1174,8 +1136,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (activeSlide && activeSlide.getAttribute('data-media-type') === 'video') {
             const video = activeSlide.querySelector('video');
             if (video) {
-              console.log('Playing video after consent');
-              video.play().catch(e => console.log('Video autoplay failed:', e));
+              video.play().catch(e => console.log(e));
             }
           }
         }
@@ -1188,32 +1149,25 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Initialize gallery and consent handlers
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM loaded, initializing consent handlers');
       
       // Set up consent button handlers
       const acceptBtn = document.getElementById('acceptAutoplay');
       const declineBtn = document.getElementById('declineAutoplay');
       
       if (acceptBtn) {
-        console.log('Found accept button, attaching handler');
         acceptBtn.addEventListener('click', function(e) {
-          console.log('Accept button clicked');
           e.preventDefault();
           window.setVideoAutoplayConsent(true);
         });
       } else {
-        console.error('Accept button not found');
       }
       
       if (declineBtn) {
-        console.log('Found decline button, attaching handler');
         declineBtn.addEventListener('click', function(e) {
-          console.log('Decline button clicked');
           e.preventDefault();
           window.setVideoAutoplayConsent(false);
         });
       } else {
-        console.error('Decline button not found');
       }
   
       // Initialize gallery
@@ -1233,17 +1187,13 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         on: {
           init: function() {
-            console.log('Gallery initialized');
             // Initialize Intersection Observer for videos
             const videoObserver = new IntersectionObserver((entries) => {
               entries.forEach(entry => {
                 const video = entry.target;
                 if (entry.isIntersecting) {
-                  console.log('Video intersecting, checking consent');
-                  // Only autoplay if both setting is enabled and user has given consent
                   if (window.enableVideoAutoplay && window.getVideoAutoplayConsent()) {
-                    console.log('Attempting to play video');
-                    video.play().catch(e => console.log('Video autoplay failed:', e));
+                    video.play().catch(e => console.log(e));
                   }
                 } else {
                   video.pause();
@@ -1265,7 +1215,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Add error handling
                 video.addEventListener('error', function(e) {
-                  console.log('Video error:', e);
+                  console.log(e);
                 });
   
                 // Observe the video for viewport visibility
@@ -1277,9 +1227,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const activeSlide = this.slides[this.activeIndex];
             const mediaType = activeSlide.getAttribute('data-media-type');
             const activeVideo = activeSlide.querySelector('video');
-            
-            console.log('Slide changed to:', mediaType);
-            
+                        
             // Pause all videos first
             this.slides.forEach(slide => {
               const video = slide.querySelector('video');
@@ -1290,10 +1238,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
             // Handle video in active slide
             if (mediaType === 'video') {
-              console.log('Current slide is video');
-              // Check if consent is needed
               if (window.enableVideoAutoplay && localStorage.getItem('videoAutoplayConsent') === null) {
-                console.log('Showing consent modal');
                 const consentModal = document.getElementById('videoAutoplayConsent');
                 if (consentModal) {
                   const modal = new bootstrap.Modal(consentModal);
@@ -1304,8 +1249,7 @@ document.addEventListener('DOMContentLoaded', function() {
               if (activeVideo) {
                 activeVideo.currentTime = 0;
                 if (window.enableVideoAutoplay && window.getVideoAutoplayConsent()) {
-                  console.log('Attempting to play video after slide change');
-                  activeVideo.play().catch(e => console.log('Video autoplay failed:', e));
+                  activeVideo.play().catch(e => console.log(e));
                 }
               }
             }
@@ -1327,7 +1271,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!hasConsent) {
               video.pause();
             } else if (window.enableVideoAutoplay && slide.classList.contains('swiper-slide-active')) {
-              video.play().catch(e => console.log('Video autoplay failed:', e));
+              video.play().catch(e => console.log(e));
             }
           }
         });
@@ -1336,23 +1280,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Initialize consent check when gallery is loaded
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('DOM Content Loaded');
-      console.log('Video autoplay setting:', window.enableVideoAutoplay);
-      
       // Check for existing consent
       const existingConsent = localStorage.getItem('videoAutoplayConsent');
-      console.log('Existing consent:', existingConsent);
       
       // Initialize Bootstrap modal
       const consentModal = document.getElementById('videoAutoplayConsent');
       if (!consentModal) {
-        console.error('Consent modal element not found');
         return;
       }
       
       // Only show modal if autoplay is enabled and no consent is stored
       if (window.enableVideoAutoplay && existingConsent === null) {
-        console.log('Showing consent modal');
         const modal = new bootstrap.Modal(consentModal);
         // Small delay to ensure modal is properly initialized
         setTimeout(() => {
