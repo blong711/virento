@@ -217,7 +217,25 @@
       }
     },
     "recently_viewed": {
-      "type": "recently-viewed"
+      "type": "recently-viewed",
+      "settings": {
+        "title": "Recently Viewed",
+        "show_title": true,
+        "products_to_show": 8,
+        "collection": "",
+        "product_list": [],
+        "slides_per_view_mobile": 2,
+        "slides_per_view_tablet": 3,
+        "slides_per_view_desktop": 4,
+        "space_between": 12,
+        "space_between_desktop": 24,
+        "show_navigation": false,
+        "show_pagination": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "show_quick_add": true,
+        "show_quick_view": true
+      }
     }
   },
   "order": [
