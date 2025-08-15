@@ -107,6 +107,14 @@
             const swiperData = JSON.parse(swiperContainer.dataset.swiper);
             new Swiper(swiperContainer, swiperData);
           }
+          
+          // Reinitialize wishlist and compare buttons after content is loaded
+          if (typeof initializeWishlistButtons === 'function') {
+            initializeWishlistButtons();
+          }
+          if (typeof initializeCompareButtons === 'function') {
+            initializeCompareButtons();
+          }
         }
       })
       .catch(e => {

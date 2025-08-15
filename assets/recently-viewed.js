@@ -98,7 +98,13 @@ class RecentlyViewedProducts {
         });
         
         return `
-            <div class="card-product style-2 style-border-2">
+            <div class="card-product style-2 style-border-2" 
+                 style="
+                    --card-image-padding: 0px;
+                    --card-border-thickness: 1px;
+                    --card-border-opacity: 0.1;
+                    --card-corner-radius: 8px;
+                 ">
                 <div class="card-product-wrapper asp-ratio-0">
                     <a href="${product.url}" class="product-img">
                         <img class="img-product lazyload"
