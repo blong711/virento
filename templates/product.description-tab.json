@@ -197,7 +197,7 @@
       "settings": {
         "color_scheme": "",
         "width": "container",
-        "layout": "accordion",
+        "layout": "horizontal_centered_tab",
         "padding_top": 0,
         "padding_bottom": 100,
         "padding_mobile_rate": 75
