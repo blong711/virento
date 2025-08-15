@@ -7,47 +7,31 @@
 
 {%- liquid
   assign section_id = 'recently-viewed-' | append: section.id
-  assign products_to_show = section.settings.products_to_show | default: 8
-  assign show_title = section.settings.show_title | default: true
-  assign title = section.settings.title | default: 'Recently Viewed'
-  assign show_navigation = section.settings.show_navigation | default: true
-  assign show_pagination = section.settings.show_pagination | default: true
-  assign slides_per_view_mobile = section.settings.slides_per_view_mobile | default: 2
-  assign slides_per_view_tablet = section.settings.slides_per_view_tablet | default: 3
-  assign slides_per_view_desktop = section.settings.slides_per_view_desktop | default: 4
-  assign space_between = section.settings.space_between | default: 12
-  assign space_between_desktop = section.settings.space_between_desktop | default: 24
 -%}
 
 {%- comment -%}Get recently viewed products from localStorage or session{%- endcomment -%}
 {%- assign recently_viewed_products = blank -%}
 
-{%- comment -%}For demo purposes, we'll use a collection or featured products{%- endcomment -%}
-{%- if section.settings.collection != blank -%}
-  {%- assign recently_viewed_products = collections[section.settings.collection].products -%}
-{%- elsif section.settings.product_list != blank -%}
-  {%- assign recently_viewed_products = section.settings.product_list -%}
-{%- else -%}
-  {%- assign recently_viewed_products = collections.all.products -%}
-{%- endif -%}
+{%- comment -%}For demo purposes, we'll use all products{%- endcomment -%}
+{%- assign recently_viewed_products = collections.all.products -%}
 
 {%- if recently_viewed_products != blank -%}
-<section class="flat-spacing" id="{{ section_id }}">
-    <div class="container">
-        {%- if show_title -%}
+<section class="flat-spacing color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding" id="{{ section_id }}">
+    <div class="{{ section.settings.width }}">
+        {%- if section.settings.show_title -%}
         <div class="flat-title wow fadeInUp">
-            <h4 class="title">{{ title }}</h4>
+            <h4 class="title">{{ section.settings.title }}</h4>
         </div>
         {%- endif -%}
         
-        <div class="hover-sw-nav hover-sw-2 wow fadeInUp" data-products-to-show="{{ products_to_show }}">
+        <div class="hover-sw-nav hover-sw-2 wow fadeInUp" data-products-to-show="{{ section.settings.products_to_show }}">
             <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-swiper='{
-                "slidesPerView": {{ slides_per_view_mobile }},
-                "spaceBetween": {{ space_between }},
+                "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+                "spaceBetween": {{ section.settings.space_between }},
                 "speed": 800,
                 "observer": true,
                 "observeParents": true,
-                "slidesPerGroup": {{ slides_per_view_mobile }},
+                "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
                 "navigation": {
                     "clickable": true,
                     "nextEl": ".nav-next-{{ section_id }}",
@@ -56,30 +40,30 @@
                 "pagination": { "el": ".sw-pagination-{{ section_id }}", "clickable": true },
                 "breakpoints": {
                     "768": { 
-                        "slidesPerView": {{ slides_per_view_tablet }}, 
-                        "spaceBetween": {{ space_between }}, 
-                        "slidesPerGroup": {{ slides_per_view_tablet }}
+                        "slidesPerView": {{ section.settings.slides_per_view_tablet }}, 
+                        "spaceBetween": {{ section.settings.space_between }}, 
+                        "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
                     },
                     "1200": { 
-                        "slidesPerView": {{ slides_per_view_desktop }}, 
-                        "spaceBetween": {{ space_between_desktop }}, 
-                        "slidesPerGroup": {{ slides_per_view_desktop }}
+                        "slidesPerView": {{ section.settings.slides_per_view_desktop }}, 
+                        "spaceBetween": {{ section.settings.space_between_desktop }}, 
+                        "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
                     }
                 }
             }'>
                 <div class="swiper-wrapper">
-                    {%- for product in recently_viewed_products limit: products_to_show -%}
+                    {%- for product in recently_viewed_products limit: section.settings.products_to_show -%}
                         <div class="swiper-slide">
                         </div>
                     {%- endfor -%}
                 </div>
                 
-                {%- if show_pagination -%}
+                {%- if section.settings.show_pagination -%}
                 <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ section_id }} justify-content-center"></div>
                 {%- endif -%}
             </div>
             
-            {%- if show_navigation -%}
+            {%- if section.settings.show_navigation -%}
             <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-{{ section_id }}"></div>
             <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-{{ section_id }}"></div>
             {%- endif -%}
@@ -88,13 +72,47 @@
 </section>
 
 {%- endif -%}
-
+<style>
+.section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+}
+    
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+}
+</style>
 {% schema %}
 {
   "name": "Recently Viewed",
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+        "type": "color_scheme",
+        "id": "color_scheme",
+        "label": "t:sections.all.colors.label",
+        "default": "scheme-1"
+    },
+    {
+        "type": "select",
+        "id": "width",
+        "label": "t:sections.all.width.label",
+        "options": [
+            {
+            "value": "container",
+            "label": "t:sections.all.width.options.boxed"
+            },
+            {
+            "value": "container-full",
+            "label": "t:sections.all.width.options.full_width"
+            }
+        ],
+        "default": "container"
+    },
     {
       "type": "text",
       "id": "title",
@@ -116,16 +134,7 @@
       "default": 8,
       "label": "Number of Products to Show"
     },
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection (fallback if no recently viewed products)"
-    },
-    {
-      "type": "product_list",
-      "id": "product_list",
-      "label": "Product List (fallback if no recently viewed products)"
-    },
+
     {
       "type": "range",
       "id": "slides_per_view_mobile",
@@ -180,32 +189,43 @@
     {
       "type": "checkbox",
       "id": "show_pagination",
-      "label": "Show Pagination Dots",
+      "label": "Show Pagination Dots(Mobile)",
       "default": true
     },
     {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Show Product Vendor",
-      "default": false
+        "type": "header",
+        "content": "t:sections.all.padding.section_padding_heading"
     },
     {
-      "type": "checkbox",
-      "id": "show_rating",
-      "label": "Show Product Rating",
-      "default": false
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_top",
+        "default": 0
     },
     {
-      "type": "checkbox",
-      "id": "show_quick_add",
-      "label": "Show Quick Add Button",
-      "default": true
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "t:sections.all.padding.padding_bottom",
+        "default": 0
     },
     {
-      "type": "checkbox",
-      "id": "show_quick_view",
-      "label": "Show Quick View Button",
-      "default": true
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.all.padding.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.all.padding.padding_mobile_rate.info"
     }
   ],
   "presets": [
