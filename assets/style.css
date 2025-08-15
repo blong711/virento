@@ -4461,14 +4461,14 @@ header.header-bg {
   border-color: var(--primary);
 }
 .tf-btn.btn-out-line-primary {
-  background-color: transparent;
-  border-color: var(--primary);
-  color: var(--primary);
+  background-color: transparent !important;
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
 }
 .tf-btn.btn-out-line-primary:hover {
-  background-color: var(--primary);
-  color: var(--white);
-  border-color: var(--primary);
+  background-color: var(--primary) !important;
+  color: var(--white) !important;
+  border-color: var(--primary) !important;
 }
 .tf-btn.btn-out-line-white {
   background-color: transparent;
@@ -9408,9 +9408,9 @@ button.animate-btn::after,
   right: -8px;
   color: var(--dark);
 }
-.tf-product-info-wrap .tf-product-total-quantity {
+/* .tf-product-info-wrap .tf-product-total-quantity {
   margin-bottom: 24px;
-}
+} */
 .tf-product-info-wrap .tf-product-total-quantity .group-btn {
   margin-bottom: 12px;
   display: flex;
@@ -9507,10 +9507,10 @@ button.animate-btn::after,
   color: var(--text);
   text-decoration: underline;
 }
-.tf-product-info-wrap .tf-product-volume-discount,
+/* .tf-product-info-wrap .tf-product-volume-discount,
 .tf-product-info-wrap .tf-product-info-list {
   margin-bottom: 30px;
-}
+} */
 .tf-product-info-wrap .tf-product-volume-discount-thumbnail {
   margin-top: 30px;
   margin-bottom: 30px;
@@ -17497,10 +17497,10 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   .header-absolute-2:not(.header-bg) .header-top {
     border: 0;
   }
-  .tf-product-info-wrap .tf-product-volume-discount,
+  /* .tf-product-info-wrap .tf-product-volume-discount,
   .tf-product-info-wrap .tf-product-info-list {
     margin-bottom: 42px;
-  }
+  } */
   .tf-product-info-wrap .tf-product-info-heading {
     padding-bottom: 32px;
     margin-bottom: 32px;
@@ -19636,5 +19636,23 @@ shopify-accelerated-checkout {
 }
 .tf-product-cate-sku .label {
   color: var(--text);
+}
+.tf-product-info-wrap .tf-product-info-list {
+  display: grid;
+  gap: 24px;
+}
+.tf-product-cate-sku {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 1200px) {
+  .tf-product-info-wrap .tf-product-cate-sku {
+      margin: 8px 0px;
+  }
+}
+.tf-product-cate-sku .item-cate-sku {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 /*# sourceMappingURL=styles.css.map */

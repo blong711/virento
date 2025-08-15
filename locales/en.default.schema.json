@@ -2705,7 +2705,8 @@
               "paragraph1": "To set up the countdown timer, you need to add a metafield to your product with the following details:",
               "paragraph2": "Namespace: countdown",
               "paragraph3": "Key: end_date",
-              "paragraph4": "Type: Date and time"
+              "paragraph4": "Type: Date and time",
+              "paragraph5": "To set up the countdown timer, create a metafield with namespace 'countdown' and key 'end_date'. The value should be in ISO 8601 format (YYYY-MM-DD HH:MM:SS). You can set this in your Shopify admin under Settings > Metafields and metaobjects > Products > Add definition."
             }
           }
         },

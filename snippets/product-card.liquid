@@ -6,6 +6,13 @@
 {% assign card_border_opacity = settings.card_border_opacity | default: 0 %}
 {% assign card_corner_radius = settings.card_corner_radius | default: 0 %}
 
+{% comment %} Handle show_progress_sale parameter {% endcomment %}
+{% if show_progress_sale == false or show_progress_sale == 'false' %}
+  {% assign should_show_progress = false %}
+{% else %}
+  {% assign should_show_progress = true %}
+{% endif %}
+
 
 {% if card_style == 'style-1' %}
 <div class="card-product style-space color-{{ card_color_scheme }}"
@@ -52,7 +59,7 @@
                 <span class="price-old text-sm old-line">{{ product.compare_at_price | money }}</span>
             {% endif %}
         </p>
-        {% if product.available and product.variants.first.inventory_management == "shopify" %}
+        {% if product.available and product.variants.first.inventory_management == "shopify" and should_show_progress %}
             {% assign inventory_quantity = product.variants.first.inventory_quantity %}
             {% assign max_inventory = 100 %}
             {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
@@ -120,7 +127,7 @@
                 <span class="price-old text-sm old-line">{{ product.compare_at_price | money }}</span>
             {% endif %}
         </p>
-        {% if product.available and product.variants.first.inventory_management == "shopify" %}
+        {% if product.available and product.variants.first.inventory_management == "shopify" and should_show_progress %}
             {% assign inventory_quantity = product.variants.first.inventory_quantity %}
             {% assign max_inventory = 100 %}
             {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}

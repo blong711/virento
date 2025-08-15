@@ -269,8 +269,9 @@
         <div class="col-md-6">
           <div class="tf-product-info">
             <div class="tf-product-info-wrap sticky-top  other-image-zoom">
-              <!-- Remove the following line to disable the external zoom box -->
-                <div class="tf-product-info-heading {% if product.available == false %}pb-0 border-0{% endif %}">
+              <div class="tf-product-info-list">
+                 <!-- Remove the following line to disable the external zoom box -->
+                 <div class="tf-product-info-heading {% if product.available == false %}pb-0 border-0{% endif %}">
                   {% for block in section.blocks %}
                     {% case block.type %}
                       {% when 'vendor' %}
@@ -613,7 +614,6 @@
                     </div>
                   </div>
                 {% endunless %}
-                <div class="tf-product-payment-shipping">
                   {% for block in section.blocks %}
                     {% case block.type %}
                       {% when 'pickup_available' %}
@@ -771,89 +771,92 @@
                             </div>
                           {% endif %}
                         </div>
-  
-                      {% when 'fbt' %}
-                        {% assign fbt_products = null %}
-                        {% if block.settings.fbt_source == 'manual' %}
-                          {% assign fbt_products = block.settings.fbt_products %}
-                        {% elsif block.settings.fbt_source == 'metafield' %}
-                          {% assign metafield_parts = block.settings.fbt_metafield | split: '.' %}
-                          {% assign metafield_namespace = metafield_parts[0] %}
-                          {% assign metafield_key = metafield_parts[1] %}
-                          {% assign fbt_products = product.metafields[metafield_namespace][metafield_key] %}
-                        {% endif %}
-  
-                        {% if fbt_products != blank %}
-                          <div class="tf-product-fbt" {{ block.shopify_attributes }} style="margin-top: {{ block.settings.fbt_margin_top }}px; margin-bottom: {{ block.settings.fbt_margin_bottom }}px;">
-                            <div class="title text-xl fw-medium">{{ block.settings.fbt_title }}</div>
-                            <div class="tf-product-form-bundle">
-                              <div class="tf-bundle-products">
-                                {% assign max_products = block.settings.max_products | default: 3 %}
-                                {% for fbt_product in fbt_products limit: max_products %}
-                                  {% assign related_product = fbt_product %}
-                                  {% if fbt_product.handle %}
-                                    {% assign related_product = fbt_product %}
-                                  {% else %}
-                                    {% assign related_product = all_products[fbt_product] %}
-                                  {% endif %}
-                                  {% if related_product.available %}
-                                    <div class="tf-bundle-product-item item-has-checkbox{% if forloop.first %} check{% endif %}">
-                                      <div class="bundle-check">
-                                        <input type="checkbox"{% if forloop.first %} checked="checked"{% endif %} class="tf-check" data-product-id="{{ related_product.id }}" data-variant-id="{{ related_product.selected_or_first_available_variant.id }}">
-                                      </div>
-                                      <a href="{{ related_product.url }}" class="bundle-image">
-                                        <img src="{{ related_product.featured_image | image_url: width: 200 }}" alt="{{ related_product.title }}" width="200" height="200">
-                                      </a>
-                                      <div class="bundle-info">
-                                        <div class="bundle-title text-sm fw-medium">
-                                          {% if related_product.id == product.id %}
-                                            This item: {{ related_product.title }}
-                                          {% else %}
-                                            {{ related_product.title }}
-                                          {% endif %}
-                                        </div>
-                                        <div class="bundle-price text-md fw-medium">
-                                          <span class="new-price">{{ related_product.price | money }}</span>
-                                          {% if related_product.compare_at_price > related_product.price %}
-                                            <span class="old-price">{{ related_product.compare_at_price | money }}</span>
-                                          {% endif %}
-                                        </div>
-                                        {% if related_product.has_only_default_variant == false %}
-                                          <div class="bundle-variant tf-select">
-                                            <select data-product-id="{{ related_product.id }}" data-variant-selector>
-                                              {% for variant in related_product.variants %}
-                                                <option value="{{ variant.id }}"{% if variant == related_product.selected_or_first_available_variant %} selected="selected"{% endif %}
-                                                  data-compare-price="{{ variant.compare_at_price | money }}">
-                                                  {{ variant.title }} - {{ variant.price | money }}
-                                                </option>
-                                              {% endfor %}
-                                            </select>
-                                          </div>
-                                        {% endif %}
-                                        <input type="hidden" class="quantity-input" name="quantity" value="1" data-variant-id="{{ related_product.selected_or_first_available_variant.id }}">
-                                      </div>
-                                    </div>
-                                  {% endif %}
-                                {% endfor %}
-                              </div>
-                              <div class="bundle-total-submit">
-                                <div class="text">{{ 'sections.product.total_price' | t }}</div>
-                                <span class="total-price">{{ product.price | money }}</span>
-                                <span class="total-price-old" style="display: none;"></span>
-                              </div>
-                              <a href="#" class="btn-submit-total tf-btn btn-out-line-primary product-cart-button" 
-                                 data-bulk-add="true"
-                                 data-product-id="{{ product.id }}">{{ 'sections.product.add_selected_to_cart' | t }}</a>
-                            </div>
-                          </div>
-                        {% endif %}
                       {% when '@app' %}
                         <div class="product-app-block" {{ block.shopify_attributes }}>
                           {% render block %}
                         </div>
                     {% endcase %}
                   {% endfor %}
-                </div>
+              </div>
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                {% when 'fbt' %}
+                  {% assign fbt_products = null %}
+                  {% if block.settings.fbt_source == 'manual' %}
+                    {% assign fbt_products = block.settings.fbt_products %}
+                  {% elsif block.settings.fbt_source == 'metafield' %}
+                    {% assign metafield_parts = block.settings.fbt_metafield | split: '.' %}
+                    {% assign metafield_namespace = metafield_parts[0] %}
+                    {% assign metafield_key = metafield_parts[1] %}
+                    {% assign fbt_products = product.metafields[metafield_namespace][metafield_key] %}
+                  {% endif %}
+
+                  {% if fbt_products != blank %}
+                    <div class="tf-product-fbt" {{ block.shopify_attributes }} style="margin-top: {{ block.settings.fbt_margin_top }}px; margin-bottom: {{ block.settings.fbt_margin_bottom }}px;">
+                      <div class="title text-xl fw-medium">{{ block.settings.fbt_title }}</div>
+                      <div class="tf-product-form-bundle">
+                        <div class="tf-bundle-products">
+                          {% assign max_products = block.settings.max_products | default: 3 %}
+                          {% for fbt_product in fbt_products limit: max_products %}
+                            {% assign related_product = fbt_product %}
+                            {% if fbt_product.handle %}
+                              {% assign related_product = fbt_product %}
+                            {% else %}
+                              {% assign related_product = all_products[fbt_product] %}
+                            {% endif %}
+                            {% if related_product.available %}
+                              <div class="tf-bundle-product-item item-has-checkbox{% if forloop.first %} check{% endif %}">
+                                <div class="bundle-check">
+                                  <input type="checkbox"{% if forloop.first %} checked="checked"{% endif %} class="tf-check" data-product-id="{{ related_product.id }}" data-variant-id="{{ related_product.selected_or_first_available_variant.id }}">
+                                </div>
+                                <a href="{{ related_product.url }}" class="bundle-image">
+                                  <img src="{{ related_product.featured_image | image_url: width: 200 }}" alt="{{ related_product.title }}" width="200" height="200">
+                                </a>
+                                <div class="bundle-info">
+                                  <div class="bundle-title text-sm fw-medium">
+                                    {% if related_product.id == product.id %}
+                                      This item: {{ related_product.title }}
+                                    {% else %}
+                                      {{ related_product.title }}
+                                    {% endif %}
+                                  </div>
+                                  <div class="bundle-price text-md fw-medium">
+                                    <span class="new-price">{{ related_product.price | money }}</span>
+                                    {% if related_product.compare_at_price > related_product.price %}
+                                      <span class="old-price">{{ related_product.compare_at_price | money }}</span>
+                                    {% endif %}
+                                  </div>
+                                  {% if related_product.has_only_default_variant == false %}
+                                    <div class="bundle-variant tf-select">
+                                      <select data-product-id="{{ related_product.id }}" data-variant-selector>
+                                        {% for variant in related_product.variants %}
+                                          <option value="{{ variant.id }}"{% if variant == related_product.selected_or_first_available_variant %} selected="selected"{% endif %}
+                                            data-compare-price="{{ variant.compare_at_price | money }}">
+                                            {{ variant.title }} - {{ variant.price | money }}
+                                          </option>
+                                        {% endfor %}
+                                      </select>
+                                    </div>
+                                  {% endif %}
+                                  <input type="hidden" class="quantity-input" name="quantity" value="1" data-variant-id="{{ related_product.selected_or_first_available_variant.id }}">
+                                </div>
+                              </div>
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                        <div class="bundle-total-submit">
+                          <div class="text">{{ 'sections.product.total_price' | t }}</div>
+                          <span class="total-price">{{ product.price | money }}</span>
+                          <span class="total-price-old" style="display: none;"></span>
+                        </div>
+                        <a href="#" class="btn-submit-total tf-btn btn-out-line-primary product-cart-button" 
+                           data-bulk-add="true"
+                           data-product-id="{{ product.id }}">{{ 'sections.product.add_selected_to_cart' | t }}</a>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% endcase %}
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -1657,6 +1660,10 @@
         {
           "type": "paragraph",
           "content": "t:sections.main-product.blocks.countdown_timer.settings.setup_info.paragraph4"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.main-product.blocks.countdown_timer.settings.setup_info.paragraph5"
         }
       ]
     },
