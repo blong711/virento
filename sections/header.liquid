@@ -71,8 +71,6 @@
                   <i class="icon icon-search"></i>
                 </button>
               </form>
-
-                             
             </div>
           </div>
         {% endif %}
@@ -98,7 +96,7 @@
 
             {% if section.settings.show_wishlist %}
               <li class="nav-wishlist">
-                <a href="/pages/wishlist" class="nav-icon-item">
+                <a href="{{ routes.search_url }}/?view=wishlist" class="nav-icon-item">
                   <i class="icon icon-heart"></i>
                   <span class="text d-none d-xl-block">{{ 'general.wishlist.title' | t }}</span>
                 </a>
