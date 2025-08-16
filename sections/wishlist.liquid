@@ -1,0 +1,157 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign products = search.results
+  assign products_count = products.size
+-%}
+
+<section
+  class="section-{{ section.id }}-padding s-account flat-spacing-4 color-{{ section.settings.color_scheme }}"
+>
+  <div
+    class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}"
+  >
+    <div class="row">
+      <div class="col-lg-12">
+        <div
+          class="wrapper-wishlist tf-grid-layout tf-col-{{ section.settings.items_per_row_mobile }} lg-col-{{ section.settings.items_per_row_tablet }} xl-col-{{ section.settings.items_per_row_desktop }}"
+        >
+          {% if products_count > 0 %}
+            {% for product in products limit: section.settings.max_items %}
+              {% render 'product-card-wishlist', product: product %}
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        {% if products_count <= 0 %}
+          <div class="tf-wishlist-empty text-center">
+            <p class="text-md text-noti">No product were added to the wishlist.</p>
+            <a href="{{ routes.root_url }}" class="tf-btn animate-btn btn-back-shop">Back to Shopping</a>
+          </div>
+        {% endif %}
+
+        <!-- Pagination -->
+        <div class="pagination-container" id="paginationContainer" style="display: none;">
+          <ul class="wg-pagination" id="pagination"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  var isPageWishlist = !Shopify.designMode,     // = true (không ở design mode)
+      isWishlistPerformed = {{ search.performed }}; // = false (chưa search)
+</script>
+
+{% schema %}
+{
+  "name": "Wishlist",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.heading-with-text-horizontal.settings.width.label",
+      "options": [
+        { "value": "full", "label": "t:sections.heading-with-text-horizontal.settings.width.options.full" },
+        { "value": "boxed", "label": "t:sections.heading-with-text-horizontal.settings.width.options.boxed" }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme2"
+    },
+    { "type": "header", "content": "Section padding" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "label": "Rate padding (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 75
+    },
+    { "type": "header", "content": "Product layout" },
+    {
+      "type": "range",
+      "id": "max_items",
+      "label": "Maximum items to show",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 7
+    },
+    {
+      "type": "select",
+      "id": "items_per_row_desktop",
+      "label": "Items per row (Desktop)",
+      "default": "5",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "items_per_row_tablet",
+      "label": "Items per row (Tablet)",
+      "default": "3",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "items_per_row_mobile",
+      "label": "Items per row (Mobile)",
+      "default": "1",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    }
+  ]
+}
+{% endschema %}
