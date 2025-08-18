@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "page_breadcrumb": {
+      "type": "page-breadcrumb",
+      "settings": {
+        "background_image": "shopify://shop_images/page-title_1.jpg",
+        "show_description": true,
+        "custom_description": "",
+        "description_truncate_length": 120
+      }
+    },
+    "main": {
+      "type": "main-compare",
+      "blocks": {
+        "availability": {
+          "type": "availability",
+          "settings": {
+            "title": "Availability"
+          }
+        },
+        "vendor": {
+          "type": "vendor",
+          "settings": {
+            "title": "Vendor"
+          }
+        },
+        "variants": {
+          "type": "variants",
+          "settings": {
+            "title": "Color"
+          }
+        }
+      },
+      "block_order": [
+        "availability",
+        "vendor", 
+        "variants"
+      ],
+      "settings": {
+        "product_list": [],
+        "color_scheme": "background-1",
+        "padding_top": 50,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
+      }
+    }
+  },
+  "order": [
+    "page_breadcrumb",
+    "main"
+  ]
+}

@@ -2809,6 +2809,54 @@
         }
       }
     },
+    "main_compare": {
+      "name": "Compare page",
+      "settings": {
+        "wishlist_demo": {
+          "content": "Demo exist compare products on editor",
+        },
+        "product_list": {
+          "label": "Product test",
+          "info": "Only shown on editor admin"
+        },
+        "width": {
+          "label": "Section Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full Width"
+          }
+        }
+      },
+      "blocks": {
+        "availability": {
+          "name": "Availability",
+          "settings": {
+            "title": {
+              "label": "Title"
+            }
+          }
+        },
+        "vendor": {
+          "name": "Vendor",
+          "settings": {
+            "title": {
+              "label": "Title"
+            }
+          }
+        },
+        "variants": {
+          "name": "Product variants",
+          "settings": {
+            "paragraph": {
+              "content": "To select a variant for comparison, first specify its option name. If you want to compare products by color, the option names should be \"Color\"."
+            },
+            "title": {
+              "label": "Option name"
+            }
+          }
+        }
+      }
+    },
     "multicolumn": {
       "name": "Multicolumn",
       "settings": {
@@ -5589,6 +5637,28 @@
         }
       }
     },
+    "wishlist": {
+      "name": "Wishlist",
+      "settings": {
+        "product_layout": "Product layout",
+        "product_list": {
+          "label": "Products test",
+          "info": "Only shown on editor admin"
+        },
+        "max_items": {
+          "label": "Items per page",
+          "info": "Number of products to show per page (applies to both design mode and pagination)"
+        },
+        "items_per_row_desktop": {
+          "label": "Items per row (Desktop)"
+        },
+        "items_per_row_tablet": {
+          "label": "Items per row (Tablet)"
+        },
+        "items_per_row_mobile": {
+          "label": "Items per row (Mobile)"
+        }
+      },
     "recently-viewed": {
       "name": "Recently Viewed",
       "settings": {

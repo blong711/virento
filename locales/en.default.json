@@ -249,6 +249,7 @@
       },
       "share": "Share this product",
       "sold_out": "Sold out",
+      "in_stock": "In stock",
       "unavailable": "Unavailable",
       "vendor": "Vendor",
       "value_unavailable": "{{ option_value }} - Unavailable",
@@ -706,6 +707,7 @@
     "page_title": {
       "collections": "Collections",
       "compare_products": "Compare Products",
+      "my_wishlist": "My Wishlist",
       "my_account": "My Account",
       "login": "Login",
       "frequently_asked_questions": "Frequently Asked Questions",

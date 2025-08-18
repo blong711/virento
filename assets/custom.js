@@ -89,10 +89,18 @@ function initializeWishlistButtons() {
           productCard.style.transform = 'scale(0.8)';
           setTimeout(() => {
             productCard.remove();
-            // Kiểm tra nếu không còn sản phẩm nào
-            const remainingCards = document.querySelectorAll('.card-product');
+
+            // Kiểm tra nếu không còn sản phẩm nào trên trang hiện tại
+            const remainingCards = document.querySelectorAll('.wrapper-wishlist .card-product');
             if (remainingCards.length === 0) {
-              window.history.replaceState({}, document.title, conver_to_link_fn('wishlist', []));
+              // Nếu đây là wishlist page và không còn sản phẩm nào
+              if (window.location.pathname.includes('search') && window.location.search.includes('view=wishlist')) {
+                // Refresh trang để cập nhật pagination
+                window.location.reload();
+              } else {
+                // Fallback cho trường hợp khác
+                window.history.replaceState({}, document.title, conver_to_link_fn('wishlist', []));
+              }
             }
           }, 300);
         }
@@ -830,6 +838,79 @@ function removeFromCompare(productId) {
   }
 }
 
+// Function to remove from compare and refresh the page
+function removeFromComparePage(productId) {
+  const index = arr_compare_list.findIndex(
+    (item) => (typeof item === 'object' ? item.id : item) === productId.toString()
+  );
+
+  if (index > -1) {
+    // Remove from array
+    arr_compare_list.splice(index, 1);
+    // Update localStorage
+    localStorage.setItem(nameCachedCompare, JSON.stringify(arr_compare_list));
+
+    // Update all buttons for this product
+    updateAllCompareButtons(productId.toString(), 'add');
+
+    // Dispatch custom event
+    document.dispatchEvent(
+      new CustomEvent('theme4:compare:update', {
+        bubbles: true,
+        detail: arr_compare_list,
+      })
+    );
+
+    // If we're on the compare page, update UI without reload
+    if (window.isPageCompare) {
+      // Find the product card to remove
+      const productCard = document.querySelector(`.tf-compare-item[data-product-id="${productId}"]`);
+      if (productCard) {
+        // Add animation
+        productCard.style.opacity = '0';
+        productCard.style.transform = 'scale(0.8)';
+
+        setTimeout(() => {
+          // Get the parent column
+          const compareCol = productCard.closest('.tf-compare-col');
+          if (compareCol) {
+            // Get column index
+            const colIndex = Array.from(compareCol.parentElement.children).indexOf(compareCol);
+
+            // Remove all related columns in other rows
+            document.querySelectorAll('.tf-compare-row').forEach((row) => {
+              const cols = row.querySelectorAll('.tf-compare-col');
+              if (cols[colIndex]) {
+                cols[colIndex].remove();
+              }
+            });
+
+            // If no products left, show empty state
+            if (arr_compare_list.length === 0) {
+              const container = document.querySelector('.container');
+              if (container) {
+                container.innerHTML = `
+                  <div class="tf-wishlist-empty text-center">
+                    <p class="text-md text-noti mb-4">No product were added to the compare.</p>
+                    <a href="${
+                      window.Shopify ? window.Shopify.routes.root : '/'
+                    }" class="tf-btn animate-btn btn-back-shop">Back to Shopping</a>
+                  </div>
+                `;
+              }
+            }
+
+            // Update URL without reload
+            const newUrl =
+              arr_compare_list.length > 0 ? conver_to_link_fn('compare', arr_compare_list) : window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+          }
+        }, 300);
+      }
+    }
+  }
+}
+
 // Clean up modal state
 function cleanupModal() {
   // Remove all modal backdrops
@@ -907,4 +988,31 @@ function clearCompare() {
       detail: arr_compare_list,
     })
   );
+}
+
+// Clear search input on wishlist/compare pages
+function clearSearchInputOnSpecialPages() {
+  const currentUrl = window.location.href;
+  if (currentUrl.includes('view=wishlist') || currentUrl.includes('view=compare')) {
+    const searchInputs = document.querySelectorAll('input[name="q"], input[type="search"]');
+    searchInputs.forEach((input) => {
+      input.value = '';
+      input.setAttribute('placeholder', input.getAttribute('placeholder') || 'Search our store');
+    });
+  }
+}
+
+// Run on page load
+document.addEventListener('DOMContentLoaded', clearSearchInputOnSpecialPages);
+
+// Run on page change (for SPA-like navigation)
+window.addEventListener('popstate', clearSearchInputOnSpecialPages);
+
+// Also run after any navigation
+if (window.history && window.history.pushState) {
+  const originalPushState = window.history.pushState;
+  window.history.pushState = function () {
+    originalPushState.apply(window.history, arguments);
+    setTimeout(clearSearchInputOnSpecialPages, 100);
+  };
 }
