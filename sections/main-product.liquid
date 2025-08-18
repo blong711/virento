@@ -661,16 +661,15 @@
                         <form class="form-buyX-getY" action="#">
                           <h6 class="title-buyX-getY">{{ block.settings.title }}</h6>
                           <div class="group-item-product">
+                            {% if block.settings.buy_product != blank %}
                             <div class="item-product">
                               <div class="ribbon effect-flash text-md">{{ 'sections.product.buy' | t }} {{ block.settings.buy_quantity }}</div>
                               <div class="img-product">
-                                {% if block.settings.buy_product != blank %}
-                                  {{ block.settings.buy_product.featured_image | image_url: width: 200 | image_tag:
-                                    loading: 'lazy',
-                                    class: 'lazyload',
-                                    alt: block.settings.buy_product.title
-                                  }}
-                                {% endif %}
+                                {{ block.settings.buy_product.featured_image | image_url: width: 200 | image_tag:
+                                  loading: 'lazy',
+                                  class: 'lazyload',
+                                  alt: block.settings.buy_product.title
+                                }}
                               </div>
                               <div class="info-product">
                                 <a href="{{ block.settings.buy_product.url }}" class="name-product text-md fw-medium text-line-clamp-2">
@@ -688,17 +687,21 @@
                                 </div>
                               </div>
                             </div>
+                            {% endif %}
+                            
+                            {% if block.settings.buy_product != blank and block.settings.get_product != blank %}
                             <img class="arrow" src="{{ 'arr.png' | asset_url }}" alt="" width="24" height="24">
+                            {% endif %}
+                            
+                            {% if block.settings.get_product != blank %}
                             <div class="item-product">
                               <div class="ribbon effect-flash text-md">{{ 'sections.product.get' | t }} {{ block.settings.get_quantity }} {{ 'sections.product.off' | t }} {{ block.settings.discount_percent }}%</div>
                               <div class="img-product">
-                                {% if block.settings.get_product != blank %}
-                                  {{ block.settings.get_product.featured_image | image_url: width: 200 | image_tag:
-                                    loading: 'lazy',
-                                    class: 'lazyload',
-                                    alt: block.settings.get_product.title
-                                  }}
-                                {% endif %}
+                                {{ block.settings.get_product.featured_image | image_url: width: 200 | image_tag:
+                                  loading: 'lazy',
+                                  class: 'lazyload',
+                                  alt: block.settings.get_product.title
+                                }}
                               </div>
                               <div class="info-product">
                                 <a href="{{ block.settings.get_product.url }}" class="name-product text-md fw-medium text-line-clamp-2">
@@ -719,6 +722,7 @@
                                 </div>
                               </div>
                             </div>
+                            {% endif %}
                           </div>
                           <button type="submit" class="tf-btn btn-primary effect-flash animate-btn btn-special-deal">{{ block.settings.button_text }}</button>
                         </form>
