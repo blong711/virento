@@ -14117,7 +14117,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .tf-cart-checkbox .tf-checkbox-wrapp input {
   cursor: pointer;
   display: block;
-  width: 14px;
+  width: 20px;
   height: 14px;
   transition: 0.2s ease-in-out;
   background-color: var(--white);
