@@ -1281,8 +1281,8 @@
         },
         "newsletter": {
           "title": "Newsletter",
-          "newsletter_heading": "Subscribe Newsletter",
-          "newsletter_text": "We invite you to register to read the latest news, offers and events about our company. We promise not spam your inbox."
+          "newsletter_heading": "Heading",
+          "newsletter_text": "Text"
         },
         "menu": {
           "title": "Menu",
