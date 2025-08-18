@@ -1934,8 +1934,8 @@ a:hover {
 
 /* Shopify section spacing */
 .shopify-section {
-  padding-top: var(--spacing-sections-desktop);
-  padding-bottom: var(--spacing-sections-desktop);
+  padding-top: calc(var(--spacing-sections-desktop) / 2);
+  padding-bottom: calc(var(--spacing-sections-desktop) / 2);
 }
 
 /* Mobile responsive section spacing */
