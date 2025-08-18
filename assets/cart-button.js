@@ -141,6 +141,21 @@ if (!customElements.get('product-cart-button')) {
           return;
         }
 
+        // Check if we have multiple variants to add FIRST
+        if (button.hasAttribute('data-multiple-variants')) {
+          const variantsData = button.getAttribute('data-multiple-variants');
+          try {
+            multipleProducts = JSON.parse(variantsData);
+            if (multipleProducts.length > 0) {
+              this.addMultipleProducts(multipleProducts, button);
+              return; // Exit early for multiple products
+            }
+          } catch (e) {
+            console.error('Error parsing multiple variants data:', e);
+          } 
+        }
+
+        // Single product logic (only if no multiple products)
         // Try to get variant ID from different possible sources
         if (button.hasAttribute('data-variant-id')) {
           variantId = button.getAttribute('data-variant-id');
@@ -158,29 +173,15 @@ if (!customElements.get('product-cart-button')) {
         }
 
         if (!variantId) {
+          console.warn('No variant ID found for single product add');
           return;
         }
 
         // Enhanced quantity detection for multiple products
         quantity = this.getQuantityForButton(button);
 
-        // Check if we have multiple variants to add
-        if (button.hasAttribute('data-multiple-variants')) {
-          const variantsData = button.getAttribute('data-multiple-variants');
-          try {
-            multipleProducts = JSON.parse(variantsData);
-          } catch (e) {
-            console.error('Error parsing multiple variants data:', e);
-          }
-        }
-
-        // If we have multiple products, handle them differently
-        if (multipleProducts.length > 0) {
-          this.addMultipleProducts(multipleProducts, button);
-        } else {
-          // Single product add
-          this.addSingleProduct(variantId, quantity, button, evt);
-        }
+        // Single product add
+        this.addSingleProduct(variantId, quantity, button, evt);
       }
 
       getQuantityForButton(button) {

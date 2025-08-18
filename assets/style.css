@@ -19765,4 +19765,11 @@ shopify-accelerated-checkout {
   position: relative;
   overflow: hidden;
 }
+.form-buyX-getY .item-product .new-price {
+  color: var(--primary);
+}
+.form-buyX-getY .item-product .old-price {
+  text-decoration: line-through;
+  color: rgba(0, 0, 0, 0.6);
+}
 /*# sourceMappingURL=styles.css.map */
