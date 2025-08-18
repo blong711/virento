@@ -220,7 +220,7 @@
                     {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
                 </p>
                 {%- if section.settings.payment_svg_list != blank -%}
-                    <ul class="tf-payment" style="--payment-icon-size: {{ section.settings.svg_height }}px">
+                    <ul class="tf-payment">
                         {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
                         {%- for url in svg_urls -%}
                             <li class="item">
