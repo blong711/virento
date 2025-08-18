@@ -215,10 +215,12 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="footer-bottom-wrap">
-                {%- assign current_year = "now" | date: "%Y" -%}
-                <p class="text-dark">
-                    {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
-                </p>
+                {%- if section.settings.show_copyright -%}
+                    {%- assign current_year = "now" | date: "%Y" -%}
+                    <p class="text-dark">
+                        {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
+                    </p>
+                {%- endif -%}
                 {%- if section.settings.payment_svg_list != blank -%}
                     <ul class="tf-payment">
                         {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
@@ -308,6 +310,12 @@
       {
       "type": "header",
       "content": "t:sections.footer.settings.footer_bottom"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_copyright",
+        "label": "t:sections.footer.settings.show_copyright",
+        "default": true
       },
       {
         "type": "text",
