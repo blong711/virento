@@ -235,7 +235,7 @@
         <div class="flat-title text-{{ section.settings.title_alignment }} wow fadeInUp">
             <{{ section.settings.title_tag }} class="title">{{ section.settings.title }}</{{ section.settings.title_tag }}>
             {% if section.settings.subtitle != blank %}
-                <p class="desc text-main {{ section.settings.subtitle_size }}">
+                <p class="desc text-main {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground2));">
                     {{ section.settings.subtitle }}
                 </p>
             {% endif %}

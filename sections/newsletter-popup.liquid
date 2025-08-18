@@ -39,6 +39,12 @@
                             <p class="text text-sm text-main" {{ block.shopify_attributes }}>{{ block.settings.description }}</p>
                         
                         {% when 'newsletter_form' %}
+                            <div class="newsletter-success-message" style="display: none;">
+                                <div class="alert alert-success">
+                                    <i class="icon icon-check"></i>
+                                    <span>Thank you for subscribing!</span>
+                                </div>
+                            </div>
                             {% form 'customer', class: 'form-newsletter' %}
                                 <div class="mb_20">
                                     <fieldset class="email position-relative">
@@ -52,7 +58,7 @@
                                                required="">
                                     </fieldset>
                                 </div>
-                                <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                                <button class="subscribe-button tf-btn animate-btn d-inline-flex w-100"
                                         type="submit">{{ block.settings.button_text }}</button>
                             {% endform %}
 

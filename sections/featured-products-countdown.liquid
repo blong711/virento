@@ -240,12 +240,12 @@
 }
 {% endschema %}
 
-<section class="flat-spacing">
+<section class="flat-spacing color-{{ section.settings.color_scheme }}">
     <div class="{{ section.settings.width }}">
         <div class="flat-title style-between wow fadeInUp">
             <div class="box-title">
                 <{{ section.settings.heading_tag }} class="title">{{ section.settings.title }}</{{ section.settings.heading_tag }}>
-                <p class="desc text-main {{ section.settings.subtitle_size }}">{{ section.settings.subtitle }}</p>
+                <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground2));">{{ section.settings.subtitle }}</p>
             </div>
             {% for block in section.blocks %}
               {% if block.type == 'countdown' %}

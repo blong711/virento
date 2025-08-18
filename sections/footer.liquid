@@ -32,10 +32,17 @@
                             </a>
                         </li>
                     {%- endif -%}
-                    {%- if settings.social_snapchat_link != blank -%}
+                    {%- if settings.social_youtube_link != blank -%}
                         <li>
-                            <a href="{{ settings.social_snapchat_link }}" class="social-item social-linkedin" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.snapchat' | t }}">
-                                <i class="icon icon-linkedin"></i>
+                            <a href="{{ settings.social_youtube_link }}" class="social-item social-youtube" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.youtube' | t }}">
+                                <i class="icon icon-youtube"></i>
+                            </a>
+                        </li>
+                    {%- endif -%}
+                    {%- if settings.social_tiktok_link != blank -%}
+                        <li>
+                            <a href="{{ settings.social_tiktok_link }}" class="social-item social-tiktok" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.tiktok' | t }}">
+                                <i class="icon icon-tiktok"></i>
                             </a>
                         </li>
                     {%- endif -%}
@@ -43,6 +50,20 @@
                         <li>
                             <a href="{{ settings.social_twitter_link }}" class="social-item social-x" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.twitter' | t }}">
                                 <i class="icon icon-x"></i>
+                            </a>
+                        </li>
+                    {%- endif -%}
+                    {%- if settings.social_snapchat_link != blank -%}
+                        <li>
+                            <a href="{{ settings.social_snapchat_link }}" class="social-item social-snapchat" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.snapchat' | t }}">
+                                <i class="icon icon-snapchat"></i>
+                            </a>
+                        </li>
+                    {%- endif -%}
+                    {%- if settings.social_pinterest_link != blank -%}
+                        <li>
+                            <a href="{{ settings.social_pinterest_link }}" class="social-item social-pinterest" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.pinterest' | t }}">
+                                <i class="icon icon-pinterest"></i>
                             </a>
                         </li>
                     {%- endif -%}
@@ -97,7 +118,7 @@
                                                 </li>
                                             {%- endif -%}
                                         </ul>
-                                        {%- if block.settings.show_map_button and block.settings.address != blank -%}
+                                        {%- if block.settings.show_map_button and block.settings.map_button_text != blank and block.settings.address != blank -%}
                                             <a href="https://www.google.com/maps?q={{ block.settings.address | url_encode }}" 
                                                class="tf-btn btn-line-dark fw-normal" 
                                                target="_blank" 
@@ -194,16 +215,20 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="footer-bottom-wrap">
-                {%- assign current_year = "now" | date: "%Y" -%}
-                <p class="text-dark">
-                    {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
-                </p>
+                {%- if section.settings.show_copyright -%}
+                    {%- assign current_year = "now" | date: "%Y" -%}
+                    <p class="text-dark">
+                        {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
+                    </p>
+                {%- endif -%}
                 {%- if section.settings.payment_svg_list != blank -%}
                     <ul class="tf-payment">
                         {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
                         {%- for url in svg_urls -%}
                             <li class="item">
-                                <img src="{{ url | payment_type_img_url }}" alt="Payment Method" width="{{ section.settings.svg_height }}" height="{{ section.settings.svg_height }}" loading="lazy">
+                                <img src="{{ url | payment_type_img_url }}" alt="Payment Method"                        
+                                width="{{ section.settings.svg_height }}px"
+                                height="{{ section.settings.svg_height }}px" loading="lazy" class="icon">
                             </li>
                         {%- endfor -%}
                     </ul>
@@ -285,6 +310,12 @@
       {
       "type": "header",
       "content": "t:sections.footer.settings.footer_bottom"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_copyright",
+        "label": "t:sections.footer.settings.show_copyright",
+        "default": true
       },
       {
         "type": "text",

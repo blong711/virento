@@ -221,7 +221,7 @@
       <div class="box-title{% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
         <{{ section.settings.title_tag }} class="title">{{ section.settings.title }}</{{ section.settings.title_tag }}>
         {% if section.settings.subtitle != blank %}
-          <p class="desc text-main {{ section.settings.subtitle_size }}">
+          <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground2));">
             {{ section.settings.subtitle }}
           </p>
         {% endif %}

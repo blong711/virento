@@ -119,6 +119,18 @@
             "id": "shadow",
             "label": "t:settings_schema.colors.settings.shadow.label",
             "default": "#121212"
+          },
+          {
+            "type": "color",
+            "id": "primary_input",
+            "label": "t:settings_schema.colors.settings.primary_input.label",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "secondary_input",
+            "label": "t:settings_schema.colors.settings.secondary_input.label",
+            "default": "#F5F5F5"
           }
         ],
         "role": {
@@ -302,7 +314,7 @@
         "type": "range",
         "id": "body_letter_spacing",
         "min": -1,
-        "max": 1,
+        "max": 2,
         "step": 0.1,
         "unit": "px",
         "label": "Letter Spacing",
@@ -489,18 +501,6 @@
         "id": "social_pinterest_link",
         "label": "t:settings_schema.social-media.settings.social_pinterest_link.label",
         "placeholder": "t:settings_schema.social-media.settings.social_pinterest_link.info"
-      },
-      {
-        "type": "text",
-        "id": "social_tumblr_link",
-        "label": "t:settings_schema.social-media.settings.social_tumblr_link.label",
-        "placeholder": "t:settings_schema.social-media.settings.social_tumblr_link.info"
-      },
-      {
-        "type": "text",
-        "id": "social_vimeo_link",
-        "label": "t:settings_schema.social-media.settings.social_vimeo_link.label",
-        "placeholder": "t:settings_schema.social-media.settings.social_vimeo_link.info"
       }
     ]
   },
@@ -525,10 +525,10 @@
   {
     "name": "t:settings_schema.currency_format.name",
     "settings": [
-      {
-        "type": "paragraph",
-        "content": "t:settings_schema.currency_format.settings.paragraph"
-      },
+      // {
+      //   "type": "paragraph",
+      //   "content": "t:settings_schema.currency_format.settings.paragraph"
+      // },
       {
         "type": "checkbox",
         "id": "currency_code_enabled",

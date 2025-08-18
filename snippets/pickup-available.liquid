@@ -1,0 +1,57 @@
+<div class="offcanvas offcanvas-end popup-style-1 popup-pickup-available" id="pickUp" tabindex="-1">
+    <div class="canvas-wrapper">
+        <div class="popup-header">
+            <span class="title">Pickup Available</span>
+            <button type="button" class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="popup-inner">
+            <div class="pickup-available-list">
+                {% assign current_variant = product.selected_or_first_available_variant %}
+                {% if current_variant and current_variant.store_availabilities.size > 0 %}
+                {% for availability in current_variant.store_availabilities %}
+                <div class="pickup-available-item">
+                    <div class="title text-lg fw-medium">{{ availability.location.name }}</div>
+                    <div class="desc d-flex gap-8 align-items-center">
+                        {% if availability.available %}
+                        <i class="icon icon-fill-check-circle"></i>
+                        <div class="text-sm">Pickup available at <span class="fw-medium">{{ availability.location.name }}</span>. {{ availability.pick_up_time }}</div>
+                        {% else %}
+                        <i class="icon icon-close"></i>
+                        <div class="text-sm">Pickup currently unavailable at <span class="fw-medium">{{ availability.location.name }}</span>.</div>
+                        {% endif %}
+                    </div>
+                    <ul>
+                        {% if availability.location.address.address1 %}
+                        <li class="text-sm text-main">{{ availability.location.address.address1 }}</li>
+                        {% endif %}
+                        <li class="text-sm text-main">
+                            {% assign city = availability.location.address.city %}
+                            {% assign province_code = availability.location.address.province_code %}
+                            {% assign postal_code = availability.location.address.zip %}
+                            {% if city %}{{ city }}{% endif %}
+                            {% if city %}
+                                {% if province_code or postal_code %}, {% endif %}
+                            {% endif %}
+                            {% if province_code %}{{ province_code }} {% endif %}
+                            {% if postal_code %}{{ postal_code }}{% endif %}
+                        </li>
+                        <li class="text-sm text-main">{{ availability.location.address.country }}</li>
+                        {% if availability.location.phone %}
+                        <li class="text-sm text-main">{{ availability.location.phone }}</li>
+                        {% endif %}
+                    </ul>
+                    {% assign address_query = availability.location.address.address1 | append: ', ' | append: availability.location.address.city | append: ', ' | append: availability.location.address.province_code | append: ' ' | append: availability.location.address.zip | append: ', ' | append: availability.location.address.country %}
+                    <a href="https://maps.google.com/?q={{ address_query | url_encode }}" class="link text-sm fw-medium">Get direction <i class="icon icon-arrow-top-left"></i></a>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="pickup-available-item">
+                    <div class="desc d-flex gap-8 align-items-center">
+                        <div class="text-sm">Pickup currently unavailable.</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

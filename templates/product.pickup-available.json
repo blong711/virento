@@ -80,6 +80,14 @@
             "more_payment_text": "More payment options"
           }
         },
+        "pickup_available_3DtHX6": {
+          "type": "pickup_available",
+          "settings": {
+            "store_name": "Sydney Store",
+            "ready_time": "24 hours",
+            "check_availability_text": "Check availability other stores"
+          }
+        },
         "extra_links_WWFndr": {
           "type": "extra_links",
           "settings": {
@@ -147,6 +155,7 @@
         "countdown_timer_K4UDNT",
         "variant_picker_CFdTLh",
         "quantity_and_buy_Vc7GaM",
+        "pickup_available_3DtHX6",
         "extra_links_WWFndr",
         "sku_CwEeQx",
         "trust_and_payment_W3rWmf",

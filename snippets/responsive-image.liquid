@@ -1,0 +1,123 @@
+{%- comment -%}
+  Responsive Image Snippet with WebP Support
+  Usage: {% render 'responsive-image', image: product.featured_image, alt: product.title, class: 'product-image' %}
+  
+  Parameters:
+  - image: The image object
+  - alt: Alt text for the image
+  - class: CSS class(es) for the image
+  - sizes: Custom sizes attribute (optional)
+  - lazy: Whether to use lazy loading (default: true)
+  - preload: Whether to preload this image (default: false)
+  - aspect_ratio: Custom aspect ratio (optional)
+  - max_width: Maximum width for the image (optional)
+{%- endcomment -%}
+
+{%- assign lazy_loading = lazy | default: true -%}
+{%- assign preload_image = preload | default: false -%}
+{%- assign image_class = class | default: 'responsive-image' -%}
+{%- assign image_alt = alt | default: image.alt | escape -%}
+{%- assign max_width = max_width | default: 1200 -%}
+
+{%- if image != blank -%}
+  {%- comment -%}Generate responsive image URLs with WebP support{%- endcomment -%}
+  {%- assign image_widths = '180,360,540,720,900,1080,1296,1512,1728,1944,2160' | split: ',' -%}
+  {%- assign webp_widths = '180,360,540,720,900,1080,1296,1512,1728,1944,2160' | split: ',' -%}
+  
+  {%- comment -%}Filter widths based on max_width{%- endcomment -%}
+  {%- assign filtered_widths = '' -%}
+  {%- assign filtered_webp_widths = '' -%}
+  
+  {%- for width in image_widths -%}
+    {%- assign width_num = width | plus: 0 -%}
+    {%- if width_num <= max_width -%}
+      {%- assign filtered_widths = filtered_widths | append: width -%}
+      {%- assign filtered_webp_widths = filtered_webp_widths | append: width -%}
+      {%- unless forloop.last -%}
+        {%- assign filtered_widths = filtered_widths | append: ',' -%}
+        {%- assign filtered_webp_widths = filtered_webp_widths | append: ',' -%}
+      {%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- comment -%}Default sizes attribute for responsive images{%- endcomment -%}
+  {%- assign default_sizes = '(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw' -%}
+  {%- assign image_sizes = sizes | default: default_sizes -%}
+
+  {%- comment -%}Preload critical images{%- endcomment -%}
+  {%- if preload_image -%}
+    <link rel="preload" as="image" href="{{ image | image_url: width: 400, format: 'webp' }}" type="image/webp">
+    <link rel="preload" as="image" href="{{ image | image_url: width: 400 }}" type="image/jpeg">
+  {%- endif -%}
+
+  {%- comment -%}Special handling for hover images{%- endcomment -%}
+  {%- if image_class == 'img-hover' -%}
+    <img
+      src="{{ image | image_url: width: 400 }}"
+      {%- if lazy_loading -%}
+        loading="lazy"
+        data-src="{{ image | image_url: width: 400 }}"
+        data-srcset="{% for width in filtered_widths.split %}{{ image | image_url: width: width }} {{ width }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+        data-sizes="{{ image_sizes }}"
+        class="{{ image_class }} lazyload"
+      {%- else -%}
+        srcset="{% for width in filtered_widths.split %}{{ image | image_url: width: width }} {{ width }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+        sizes="{{ image_sizes }}"
+        class="{{ image_class }}"
+      {%- endif -%}
+      alt="{{ image_alt }}"
+      width="{{ image.width | at_most: max_width }}"
+      height="{{ image.height | at_most: max_width }}"
+      {%- if aspect_ratio -%}
+        style="aspect-ratio: {{ aspect_ratio }};"
+      {%- endif -%}
+      onload="this.classList.remove('lazyload'); this.classList.add('lazyloaded');"
+      onerror="this.onerror=null; this.src='{{ image | image_url: width: 400 }}';">
+  {%- else -%}
+    <picture class="{{ image_class }}-wrapper">
+      {%- comment -%}WebP source with multiple sizes{%- endcomment -%}
+      <source
+        type="image/webp"
+        srcset="{% for width in filtered_webp_widths.split %}{{ image | image_url: width: width, format: 'webp' }} {{ width }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+        sizes="{{ image_sizes }}">
+      
+      {%- comment -%}Fallback JPEG source with multiple sizes{%- endcomment -%}
+      <source
+        type="image/jpeg"
+        srcset="{% for width in filtered_widths.split %}{{ image | image_url: width: width }} {{ width }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+        sizes="{{ image_sizes }}">
+      
+      {%- comment -%}Fallback img element{%- endcomment -%}
+      <img
+        src="{{ image | image_url: width: 400 }}"
+        {%- if lazy_loading -%}
+          loading="lazy"
+          data-src="{{ image | image_url: width: 400 }}"
+          data-srcset="{% for width in filtered_widths.split %}{{ image | image_url: width: width }} {{ width }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+          data-sizes="{{ image_sizes }}"
+          class="{{ image_class }} lazyload"
+        {%- else -%}
+          srcset="{% for width in filtered_widths.split %}{{ image | image_url: width: width }} {{ width }}w{% unless forloop.last %}, {% endunless %}{% endfor %}"
+          sizes="{{ image_sizes }}"
+          class="{{ image_class }}"
+        {%- endif -%}
+        alt="{{ image_alt }}"
+        width="{{ image.width | at_most: max_width }}"
+        height="{{ image.height | at_most: max_width }}"
+        {%- if aspect_ratio -%}
+          style="aspect-ratio: {{ aspect_ratio }};"
+        {%- endif -%}
+        onload="this.classList.remove('lazyload'); this.classList.add('lazyloaded');"
+        onerror="this.onerror=null; this.src='{{ image | image_url: width: 400 }}';">
+    </picture>
+  {%- endif -%}
+{%- else -%}
+  {%- comment -%}Placeholder for missing images{%- endcomment -%}
+  <div class="{{ image_class }}-placeholder" style="background-color: #f8f9fa; display: flex; align-items: center; justify-content: center; min-height: 200px;">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M56 8H8C6.89543 8 6 8.89543 6 10V54C6 55.1046 6.89543 56 8 56H56C57.1046 56 58 55.1046 58 54V10C58 8.89543 57.1046 8 56 8Z" stroke="#dee2e6" stroke-width="2"/>
+      <path d="M24 28C26.2091 28 28 26.2091 28 24C28 21.7909 26.2091 20 24 20C21.7909 20 20 21.7909 20 24C20 26.2091 21.7909 28 24 28Z" fill="#dee2e6"/>
+      <path d="M58 42L44 28L8 56H56C57.1046 56 58 55.1046 58 54V42Z" fill="#dee2e6"/>
+    </svg>
+  </div>
+{%- endif -%} 

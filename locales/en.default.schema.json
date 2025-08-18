@@ -37,7 +37,7 @@
         },
         "image_padding": {
           "label": "Image padding",
-          "info": "Set when >0, otherwise use default padding"
+          "info": "Set = 0 to use default padding value"
         },
         "text_alignment": {
           "options__1": {
@@ -95,6 +95,12 @@
         },
         "shadow": {
           "label": "Shadow"
+        },
+        "primary_input": {
+          "label": "Primary input"
+        },
+        "secondary_input": {
+          "label": "Secondary input"
         }
       }
     },
@@ -286,7 +292,7 @@
           "label": "Page width"
         },
         "spacing_sections": {
-          "label": "Space between template sections"
+          "label": "Add more space between template sections"
         },
         "header__grid": {
           "content": "Grid"
@@ -1260,8 +1266,9 @@
         "text_size_large": "Large",
         "payment_svg_list": "Payment SVG List",
         "payment_svg_list_info": "Enter payment types separated by commas (e.g., visa,master,paypal). Leave blank to show all enabled payment types.",
-        "svg_height": "SVG Height",
-        "footer_bottom": "Footer Bottom"
+        "svg_height": "SVG Size",
+        "footer_bottom": "Footer Bottom",
+        "show_copyright": "Show copyright"
       },
       "blocks": {
         "contact_info": {
@@ -1275,12 +1282,12 @@
         },
         "newsletter": {
           "title": "Newsletter",
-          "newsletter_heading": "Subscribe Newsletter",
-          "newsletter_text": "We invite you to register to read the latest news, offers and events about our company. We promise not spam your inbox."
+          "newsletter_heading": "Heading",
+          "newsletter_text": "Text"
         },
         "menu": {
           "title": "Menu",
-          "heading": "Quick links"
+          "heading": "Heading"
         }
       }
     },
@@ -2705,7 +2712,8 @@
               "paragraph1": "To set up the countdown timer, you need to add a metafield to your product with the following details:",
               "paragraph2": "Namespace: countdown",
               "paragraph3": "Key: end_date",
-              "paragraph4": "Type: Date and time"
+              "paragraph4": "Type: Date and time",
+              "paragraph5": "To set up the countdown timer, create a metafield with namespace 'countdown' and key 'end_date'. The value should be in ISO 8601 format (YYYY-MM-DD HH:MM:SS). You can set this in your Shopify admin under Settings > Metafields and metaobjects > Products > Add definition."
             }
           }
         },
@@ -5136,7 +5144,7 @@
           "name": "Total Price",
           "settings": {
             "paragraph": {
-              "content": "Cart and checkout prices always show currency codes. Example: $1.00"
+              "content": "Cart and checkout prices always show currency codes. Example: $1.00 USD"
             }
           }
         },
@@ -5649,6 +5657,41 @@
         },
         "items_per_row_mobile": {
           "label": "Items per row (Mobile)"
+        }
+      },
+    "recently-viewed": {
+      "name": "Recently Viewed",
+      "settings": {
+        "title": {
+          "label": "Section Title",
+          "default": "Recently Viewed"
+        },
+        "show_title": {
+          "label": "Show Section Title"
+        },
+        "products_to_show": {
+          "label": "Number of Products to Show"
+        },
+        "slides_per_view_mobile": {
+          "label": "Slides Per View (Mobile)"
+        },
+        "slides_per_view_tablet": {
+          "label": "Slides Per View (Tablet)"
+        },
+        "slides_per_view_desktop": {
+          "label": "Slides Per View (Desktop)"
+        },
+        "space_between": {
+          "label": "Space Between Slides (Mobile/Tablet)"
+        },
+        "space_between_desktop": {
+          "label": "Space Between Slides (Desktop)"
+        },
+        "show_navigation": {
+          "label": "Show Navigation Arrows"
+        },
+        "show_pagination": {
+          "label": "Show Pagination Dots(Mobile)"
         }
       }
     }

@@ -20,7 +20,6 @@ class RecentlyViewedProducts {
                     this.addToRecentlyViewed(productData);
                 }
             } catch (e) {
-                console.log('Could not parse product data:', e);
             }
         }
         
@@ -32,13 +31,11 @@ class RecentlyViewedProducts {
     getRecentlyViewedProducts() {
         const recentlyViewed = localStorage.getItem('recentlyViewedProducts');
         const parsed = recentlyViewed ? JSON.parse(recentlyViewed) : [];
-        console.log('Retrieved recently viewed products:', parsed);
         return parsed;
     }
     
     // Function to add product to recently viewed
     addToRecentlyViewed(product) {
-        console.log('Adding product to recently viewed:', product);
         const recentlyViewed = this.getRecentlyViewedProducts();
         const productIndex = recentlyViewed.findIndex(p => p.id === product.id);
         
@@ -56,7 +53,6 @@ class RecentlyViewedProducts {
         }
         
         localStorage.setItem('recentlyViewedProducts', JSON.stringify(recentlyViewed));
-        console.log('Updated recently viewed products:', recentlyViewed);
     }
     
     // Function to update recently viewed section
@@ -89,14 +85,6 @@ class RecentlyViewedProducts {
 
     // Generate product card HTML
     generateProductCardHTML(product) {
-        // Debug: Log the data being used for quickview
-        console.log('Product data for quickview:', {
-            variants: product.variants,
-            options: this.formatOptionsForQuickview(product.variants),
-            escapedVariants: product.variants ? this.escapeHtml(JSON.stringify(product.variants)) : '',
-            escapedOptions: this.escapeHtml(this.formatOptionsForQuickview(product.variants))
-        });
-        
         return `
             <div class="card-product style-2 style-border-2" 
                  style="

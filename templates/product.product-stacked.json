@@ -56,13 +56,6 @@
             "stock_threshold": 50
           }
         },
-        "countdown_timer_K4UDNT": {
-          "type": "countdown_timer",
-          "settings": {
-            "hurry_text": "HURRY UP!",
-            "label": "Sale ends in:"
-          }
-        },
         "variant_picker_CFdTLh": {
           "type": "variant_picker",
           "settings": {
@@ -126,7 +119,7 @@
               "apple-magsafe-charger"
             ],
             "max_products": 3,
-            "fbt_margin_top": 0,
+            "fbt_margin_top": 42,
             "fbt_margin_bottom": 0
           }
         },
@@ -144,7 +137,6 @@
         "price_miqWQM",
         "sold_count_FhTTRW",
         "stock_count_HLePWd",
-        "countdown_timer_K4UDNT",
         "variant_picker_CFdTLh",
         "quantity_and_buy_Vc7GaM",
         "extra_links_WWFndr",
@@ -157,7 +149,7 @@
       "settings": {
         "color_scheme": "",
         "width": "container",
-        "layout": "default",
+        "layout": "stacked",
         "thumbnail_position": "left",
         "show_sticky_cart": true,
         "enable_video_loop": true,
