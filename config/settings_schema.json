@@ -119,6 +119,18 @@
             "id": "shadow",
             "label": "t:settings_schema.colors.settings.shadow.label",
             "default": "#121212"
+          },
+          {
+            "type": "color",
+            "id": "primary_input",
+            "label": "t:settings_schema.colors.settings.primary_input.label",
+            "default": "#FFFFFF"
+          },
+          {
+            "type": "color",
+            "id": "secondary_input",
+            "label": "t:settings_schema.colors.settings.secondary_input.label",
+            "default": "#F5F5F5"
           }
         ],
         "role": {

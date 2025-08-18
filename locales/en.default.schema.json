@@ -95,6 +95,12 @@
         },
         "shadow": {
           "label": "Shadow"
+        },
+        "primary_input": {
+          "label": "Primary input"
+        },
+        "secondary_input": {
+          "label": "Secondary input"
         }
       }
     },
