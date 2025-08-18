@@ -580,43 +580,43 @@ h2,
 h3,
 .display-lg {
   font-size: calc(48px * var(--font-heading-scale));
-  line-height: 60px;
-  letter-spacing: -0.02em;
+  line-height: var(--heading-line-height);
+  letter-spacing: var(--heading-letter-spacing);
 }
 
 .display-lg-2 {
   font-size: calc(40px * var(--font-heading-scale));
-  line-height: 48px;
+  line-height: var(--heading-line-height);
 }
 
 .display-lg-3 {
   font-size: calc(48px * var(--font-heading-scale));
-  line-height: 57.6px;
-  letter-spacing: -0.02em;
+  line-height: var(--heading-line-height);
+  letter-spacing: var(--heading-letter-spacing);
 }
 
 h4,
 .display-md {
   font-size: calc(36px * var(--font-heading-scale));
-  line-height: 44px;
-  letter-spacing: -0.02em;
+  line-height: var(--heading-line-height);
+  letter-spacing: var(--heading-letter-spacing);
 }
 
 .display-md-2 {
   font-size: calc(32px * var(--font-heading-scale));
-  line-height: 38px;
+  line-height: var(--heading-line-height);
 }
 
 h5,
 .display-sm {
   font-size: calc(30px * var(--font-heading-scale));
-  line-height: 38px;
+  line-height: var(--heading-line-height);
 }
 
 h6,
 .display-xs {
   font-size: calc(24px * var(--font-heading-scale));
-  line-height: 32px;
+  line-height: var(--heading-line-height);
 }
 
 .text-xl {
