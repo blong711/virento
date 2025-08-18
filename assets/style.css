@@ -13489,6 +13489,12 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   position: relative;
   border-radius: 16px;
 }
+
+@media screen and (max-width: 749px) {
+  .tf-progress-ship {
+    width: 96%;
+  }
+}
 .tf-progress-ship .value {
   height: 100%;
   background: var(--primary);
