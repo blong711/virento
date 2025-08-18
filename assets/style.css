@@ -9492,7 +9492,7 @@ button.animate-btn::after,
 }
 .tf-product-info-wrap .tf-product-pickup-available {
   display: flex;
-  margin: 32px 0px;
+  margin: 8px 0px;
   gap: 8px;
 }
 .tf-product-info-wrap .tf-product-pickup-available .icon {
