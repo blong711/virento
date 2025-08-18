@@ -118,7 +118,7 @@
                                                 </li>
                                             {%- endif -%}
                                         </ul>
-                                        {%- if block.settings.show_map_button and block.settings.address != blank -%}
+                                        {%- if block.settings.show_map_button and block.settings.map_button_text != blank and block.settings.address != blank -%}
                                             <a href="https://www.google.com/maps?q={{ block.settings.address | url_encode }}" 
                                                class="tf-btn btn-line-dark fw-normal" 
                                                target="_blank" 
