@@ -45,7 +45,7 @@
                     {%- if product.available -%}
                       <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                        <button type="submit" class="tf-btn animate-btn w-100">
+                        <button data-bs-toggle="offcanvas" type="submit" class="tf-btn product-cart-button animate-btn w-100">
                           {{ 'products.product.add_to_cart' | t }}
                         </button>
                       </form>
