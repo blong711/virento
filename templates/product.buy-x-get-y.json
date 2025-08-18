@@ -93,9 +93,9 @@
           "type": "special_deal",
           "settings": {
             "title": "Special Deal",
-            "buy_product": "",
+            "buy_product": "10000mah-power-go-power-bank",
             "buy_quantity": "1",
-            "get_product": "",
+            "get_product": "magnetic-wireless-power-bank",
             "get_quantity": "1",
             "discount_percent": "20",
             "button_text": "Grab this deal"
