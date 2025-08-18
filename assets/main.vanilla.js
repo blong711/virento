@@ -1352,6 +1352,31 @@ const newsletterPopup = () => {
   const form = popup.querySelector('.form-newsletter');
   if (form) {
     form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const email = formData.get('contact[email]');
+      
+      // Simple validation
+      if (!email || !email.includes('@')) {
+        return;
+      }
+      
+      // Show success message and hide form
+      const successMessage = popup.querySelector('.newsletter-success-message');
+      if (successMessage) {
+        successMessage.style.display = 'block';
+        form.style.display = 'none';
+        
+        // Hide popup after 3 seconds
+        setTimeout(() => {
+          const modal = bootstrap.Modal.getInstance(popup);
+          if (modal) {
+            modal.hide();
+          }
+        }, 3000);
+      }
+      
       // Store the close date for "days until next show" functionality
       localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
     });

@@ -39,6 +39,12 @@
                             <p class="text text-sm text-main" {{ block.shopify_attributes }}>{{ block.settings.description }}</p>
                         
                         {% when 'newsletter_form' %}
+                            <div class="newsletter-success-message" style="display: none;">
+                                <div class="alert alert-success">
+                                    <i class="icon icon-check"></i>
+                                    <span>Thank you for subscribing!</span>
+                                </div>
+                            </div>
                             {% form 'customer', class: 'form-newsletter' %}
                                 <div class="mb_20">
                                     <fieldset class="email position-relative">
