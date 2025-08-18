@@ -1,261 +1,411 @@
 {%- comment -%}Page Title Section{%- endcomment -%}
-<section class="tf-page-title" {% if section.settings.background_image != blank %}style="background-image: url('{{ section.settings.background_image | image_url }}');"{% endif %}>
-    <div class="container">
-      <div class="box-title text-center">
-        <h4 class="title">
-          {% if template == 'list-collections' %}
-            {{ 'sections.page_title.collections' | t }}
-          {% elsif template == 'page.compare' %}
-            {{ 'sections.page_title.compare_products' | t }}
-          {% elsif template contains 'account' %}
-            {{ 'sections.page_title.my_account' | t }}
-          {% elsif template contains 'login' %}
-            {{ 'sections.page_title.login' | t }}
-          {% elsif template contains 'page' and page.handle == 'faq' %}
-            {{ 'sections.page_title.frequently_asked_questions' | t }}
-          {% else %}
-            {{ page_title | default: settings.title }}
+<section
+  class="tf-page-title"
+  {% if section.settings.background_image != blank %}
+    style="background-image: url('{{ section.settings.background_image | image_url }}');"
+  {% endif %}
+>
+  <div class="container">
+    <div class="box-title text-center">
+      <h4 class="title">
+        {% if template == 'list-collections' %}
+          {{ 'sections.page_title.collections' | t }}
+        {% elsif template == 'search.compare' %}
+          {{ 'sections.page_title.compare_products' | t -}}
+        {%- elsif template == 'search.wishlist' %}
+          {{ 'sections.page_title.my_wishlist' | t }}
+        {% elsif template contains 'account' %}
+          {{ 'sections.page_title.my_account' | t }}
+        {% elsif template contains 'login' %}
+          {{ 'sections.page_title.login' | t }}
+        {% elsif template contains 'page' and page.handle == 'faq' %}
+          {{ 'sections.page_title.frequently_asked_questions' | t }}
+        {% else %}
+          {{ page_title | default: settings.title }}
+        {% endif %}
+      </h4>
+
+      {% comment %} Enhanced Breadcrumb Implementation {% endcomment %}
+      <div class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
+        <a
+          style="font-size: 14px;"
+          class="breadcrumb-item"
+          href="/"
+          itemprop="itemListElement"
+          itemscope
+          itemtype="https://schema.org/ListItem"
+        >
+          <span itemprop="name">{{ 'sections.page_title.home' | t }}</span>
+          <meta itemprop="position" content="1">
+        </a>
+
+        {% comment %} Handle different template types {% endcomment %}
+        {% if template == 'list-collections' %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <span
+            style="font-size: 14px;"
+            class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.collections' | t }}</span>
+            <meta itemprop="position" content="2">
+          </span>
+          {% if collection.title != blank %}
+            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+            <span
+              style="font-size: 14px;"
+              class="breadcrumb-item current"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <span itemprop="name">{{ collection.title }}</span>
+              <meta itemprop="position" content="3">
+            </span>
           {% endif %}
-        </h4>
-        
-        {% comment %} Enhanced Breadcrumb Implementation {% endcomment %}
-        <div class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
-          <a style="font-size: 14px;" class="breadcrumb-item" href="/" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-            <span itemprop="name">{{ 'sections.page_title.home' | t }}</span>
-            <meta itemprop="position" content="1" />
+
+        {% elsif template contains 'collection' %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <a
+            style="font-size: 14px;"
+            class="breadcrumb-item"
+            href="/collections"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.collections' | t }}</span>
+            <meta itemprop="position" content="2">
           </a>
-          
-          {% comment %} Handle different template types {% endcomment %}
-          {% if template == 'list-collections' %}
+          {% if collection.title != blank %}
             <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.collections' | t }}</span>
-              <meta itemprop="position" content="2" />
+            <span
+              style="font-size: 14px;"
+              class="breadcrumb-item current"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <span itemprop="name">{{ collection.title }}</span>
+              <meta itemprop="position" content="3">
             </span>
-            {% if collection.title != blank %}
-              <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-              <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <span itemprop="name">{{ collection.title }}</span>
-                <meta itemprop="position" content="3" />
-              </span>
-            {% endif %}
-            
-          {% elsif template contains 'collection' %}
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <a style="font-size: 14px;" class="breadcrumb-item" href="/collections" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.collections' | t }}</span>
-              <meta itemprop="position" content="2" />
-            </a>
-            {% if collection.title != blank %}
-              <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-              <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <span itemprop="name">{{ collection.title }}</span>
-                <meta itemprop="position" content="3" />
-              </span>
-            {% endif %}
-            
-          {% elsif template contains 'product' %}
-            {% comment %} Product breadcrumb: Home > Collections > Collection > Product {% endcomment %}
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <a style="font-size: 14px;" class="breadcrumb-item" href="/collections" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.collections' | t }}</span>
-              <meta itemprop="position" content="2" />
-            </a>
-            
-            {% if product.collections.size > 0 %}
-              {% assign primary_collection = product.collections.first %}
-              <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-              <a style="font-size: 14px;" class="breadcrumb-item" href="{{ primary_collection.url }}" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <span itemprop="name">{{ primary_collection.title }}</span>
-                <meta itemprop="position" content="3" />
-              </a>
-            {% endif %}
-            
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ product.title }}</span>
-              <meta itemprop="position" content="{% if product.collections.size > 0 %}4{% else %}3{% endif %}" />
-            </span>
-            
-          {% elsif template contains 'blog' %}
-            {% comment %} Blog breadcrumb: Home > Blog > Article (if single post) {% endcomment %}
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <a style="font-size: 14px;" class="breadcrumb-item" href="/blogs" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.blog' | t }}</span>
-              <meta itemprop="position" content="2" />
-            </a>
-            
-            {% if blog.title != blank %}
-              <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-              <a style="font-size: 14px;" class="breadcrumb-item" href="{{ blog.url }}" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <span itemprop="name">{{ blog.title }}</span>
-                <meta itemprop="position" content="3" />
-              </a>
-            {% endif %}
-            
-            {% if article.title != blank %}
-              <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-              <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <span itemprop="name">{{ article.title }}</span>
-                <meta itemprop="position" content="{% if blog.title != blank %}4{% else %}3{% endif %}" />
-              </span>
-            {% endif %}
-            
-          {% elsif template contains 'search' %}
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.search_results' | t }}</span>
-              <meta itemprop="position" content="2" />
-            </span>
-            
-          {% elsif template contains 'cart' %}
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.shopping_cart' | t }}</span>
-              <meta itemprop="position" content="2" />
-            </span>
-            
-          {% elsif template contains 'checkout' %}
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <a style="font-size: 14px;" class="breadcrumb-item" href="{{ routes.cart_url }}" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.shopping_cart' | t }}</span>
-              <meta itemprop="position" content="2" />
-            </a>
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.checkout' | t }}</span>
-              <meta itemprop="position" content="3" />
-            </span>
-            
-          {% elsif template contains 'account' %}
-            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-            <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-              <span itemprop="name">{{ 'sections.page_title.my_account' | t }}</span>
-              <meta itemprop="position" content="2" />
-            </span>
-            
-          {% elsif template contains 'page' %}
-            {% comment %} Custom page breadcrumb {% endcomment %}
-            {% if page.title != blank %}
-              <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-              <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <span itemprop="name">{{ page.title }}</span>
-                <meta itemprop="position" content="2" />
-              </span>
-            {% endif %}
-            
-          {% else %}
-            {% comment %} Fallback for other templates {% endcomment %}
-            {% if page_title != blank %}
-              <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
-              <span style="font-size: 14px;" class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <span itemprop="name">{{ page_title }}</span>
-                <meta itemprop="position" content="2" />
-              </span>
-            {% endif %}
           {% endif %}
-        </div>
-        
-        {% comment %} Show description based on section settings or collection description {% endcomment %}
-        {% assign show_description = false %}
-        {% assign description_text = '' %}
-        {% assign truncate_length = section.settings.description_truncate_length | default: 120 %}
-        
-        {% if section.settings.show_description %}
-          {% if section.settings.custom_description != blank %}
-            {% assign show_description = true %}
-            {% assign description_text = section.settings.custom_description %}
-          {% elsif template contains 'collection' and collection.description != blank %}
-            {% assign show_description = true %}
-            {% assign description_text = collection.description %}
+
+        {% elsif template contains 'product' %}
+          {% comment %} Product breadcrumb: Home > Collections > Collection > Product {% endcomment %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <a
+            style="font-size: 14px;"
+            class="breadcrumb-item"
+            href="/collections"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.collections' | t }}</span>
+            <meta itemprop="position" content="2">
+          </a>
+
+          {% if product.collections.size > 0 %}
+            {% assign primary_collection = product.collections.first %}
+            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+            <a
+              style="font-size: 14px;"
+              class="breadcrumb-item"
+              href="{{ primary_collection.url }}"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <span itemprop="name">{{ primary_collection.title }}</span>
+              <meta itemprop="position" content="3">
+            </a>
           {% endif %}
+
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <span
+            style="font-size: 14px;"
+            class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ product.title }}</span>
+            <meta itemprop="position" content="{% if product.collections.size > 0 %}4{% else %}3{% endif %}">
+          </span>
+
+        {% elsif template contains 'blog' %}
+          {% comment %} Blog breadcrumb: Home > Blog > Article (if single post) {% endcomment %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <a
+            style="font-size: 14px;"
+            class="breadcrumb-item"
+            href="/blogs"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.blog' | t }}</span>
+            <meta itemprop="position" content="2">
+          </a>
+
+          {% if blog.title != blank %}
+            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+            <a
+              style="font-size: 14px;"
+              class="breadcrumb-item"
+              href="{{ blog.url }}"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <span itemprop="name">{{ blog.title }}</span>
+              <meta itemprop="position" content="3">
+            </a>
+          {% endif %}
+
+          {% if article.title != blank %}
+            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+            <span
+              style="font-size: 14px;"
+              class="breadcrumb-item current"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <span itemprop="name">{{ article.title }}</span>
+              <meta itemprop="position" content="{% if blog.title != blank %}4{% else %}3{% endif %}">
+            </span>
+          {% endif %}
+
+        {% elsif template contains 'search.compare' %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <span
+            style="font-size: 14px;"
+            class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.compare_products' | t }}</span>
+            <meta itemprop="position" content="2">
+          </span>
+        {% elsif template contains 'search.wishlist' %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <span
+            style="font-size: 14px;"
+            class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.my_wishlist' | t }}</span>
+            <meta itemprop="position" content="2">
+          </span>
+
+        {% elsif template contains 'cart' %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <span
+            style="font-size: 14px;"
+            class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.shopping_cart' | t }}</span>
+            <meta itemprop="position" content="2">
+          </span>
+
+        {% elsif template contains 'checkout' %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <a
+            style="font-size: 14px;"
+            class="breadcrumb-item"
+            href="{{ routes.cart_url }}"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.shopping_cart' | t }}</span>
+            <meta itemprop="position" content="2">
+          </a>
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <span
+            style="font-size: 14px;"
+            class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.checkout' | t }}</span>
+            <meta itemprop="position" content="3">
+          </span>
+
+        {% elsif template contains 'account' %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <span
+            style="font-size: 14px;"
+            class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.my_account' | t }}</span>
+            <meta itemprop="position" content="2">
+          </span>
+
+        {% elsif template contains 'page' %}
+          {% comment %} Custom page breadcrumb {% endcomment %}
+          {% if page.title != blank %}
+            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+            <span
+              style="font-size: 14px;"
+              class="breadcrumb-item current"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <span itemprop="name">{{ page.title }}</span>
+              <meta itemprop="position" content="2">
+            </span>
+          {% endif %}
+        {% elsif template contains 'search' %}
+          <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+          <span
+            style="font-size: 14px;"
+            class="breadcrumb-item current"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"
+          >
+            <span itemprop="name">{{ 'sections.page_title.search_results' | t }}</span>
+            <meta itemprop="position" content="2">
+          </span>
+
+        {% else %}
+          {% comment %} Fallback for other templates {% endcomment %}
+          {% if page_title != blank %}
+            <div style="font-size: 14px;" class="breadcrumb-item dot"><span></span></div>
+            <span
+              style="font-size: 14px;"
+              class="breadcrumb-item current"
+              itemprop="itemListElement"
+              itemscope
+              itemtype="https://schema.org/ListItem"
+            >
+              <span itemprop="name">{{ page_title }}</span>
+              <meta itemprop="position" content="2">
+            </span>
+          {% endif %}
+        {% endif %}
+      </div>
+
+      {% comment %} Show description based on section settings or collection description {% endcomment %}
+      {% assign show_description = false %}
+      {% assign description_text = '' %}
+      {% assign truncate_length = section.settings.description_truncate_length | default: 120 %}
+
+      {% if section.settings.show_description %}
+        {% if section.settings.custom_description != blank %}
+          {% assign show_description = true %}
+          {% assign description_text = section.settings.custom_description %}
         {% elsif template contains 'collection' and collection.description != blank %}
           {% assign show_description = true %}
           {% assign description_text = collection.description %}
         {% endif %}
-        
-        {% if show_description %}
-          <p style="font-size: 16px;" class="desc text-md text-main">
-            <span class="description-short">{{ description_text | strip_html | truncate: truncate_length }}</span>
-            <span class="description-full" style="display: none;">{{ description_text | strip_html }}</span>
-            {% if description_text.size > truncate_length %}
-              <button class="read-more-btn" style="background: none; border: none; color: #666; cursor: pointer; padding: 0; margin-left: 5px; text-decoration: underline;">{{ 'sections.page_title.read_more' | t }}</button>
-            {% endif %}
-          </p>
-        {% endif %}
-      </div>
+      {% elsif template contains 'collection' and collection.description != blank %}
+        {% assign show_description = true %}
+        {% assign description_text = collection.description %}
+      {% endif %}
+
+      {% if show_description %}
+        <p style="font-size: 16px;" class="desc text-md text-main">
+          <span class="description-short">{{ description_text | strip_html | truncate: truncate_length }}</span>
+          <span class="description-full" style="display: none;">{{ description_text | strip_html }}</span>
+          {% if description_text.size > truncate_length %}
+            <button
+              class="read-more-btn"
+              style="background: none; border: none; color: #666; cursor: pointer; padding: 0; margin-left: 5px; text-decoration: underline;"
+            >
+              {{ 'sections.page_title.read_more' | t }}
+            </button>
+          {% endif %}
+        </p>
+      {% endif %}
     </div>
-  </section>
-  
-  <style>
-    @media (max-width: 768px) {
-      .read-more-btn {
-        font-size: 14px !important;
-      }
+  </div>
+</section>
+
+<style>
+  @media (max-width: 768px) {
+    .read-more-btn {
+      font-size: 14px !important;
     }
-  </style>
-  
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const readMoreBtns = document.querySelectorAll('.read-more-btn');
-      readMoreBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-          const descContainer = this.parentElement;
-          const shortDesc = descContainer.querySelector('.description-short');
-          const fullDesc = descContainer.querySelector('.description-full');
-          
-          if (shortDesc.style.display !== 'none') {
-            shortDesc.style.display = 'none';
-            fullDesc.style.display = 'inline';
-            this.textContent = '{{ 'sections.page_title.show_less' | t }}';
-          } else {
-            shortDesc.style.display = 'inline';
-            fullDesc.style.display = 'none';
-            this.textContent = '{{ 'sections.page_title.read_more' | t }}';
-          }
-        });
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const readMoreBtns = document.querySelectorAll('.read-more-btn');
+    readMoreBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const descContainer = this.parentElement;
+        const shortDesc = descContainer.querySelector('.description-short');
+        const fullDesc = descContainer.querySelector('.description-full');
+
+        if (shortDesc.style.display !== 'none') {
+          shortDesc.style.display = 'none';
+          fullDesc.style.display = 'inline';
+          this.textContent = '{{ 'sections.page_title.show_less' | t }}';
+        } else {
+          shortDesc.style.display = 'inline';
+          fullDesc.style.display = 'none';
+          this.textContent = '{{ 'sections.page_title.read_more' | t }}';
+        }
       });
     });
-  </script>
-  
-  {% schema %}
-  {
-    "name": "Page breadcrumb",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "background_image",
-        "label": "Background Image"
-      },
-      {
-        "type": "header",
-        "content": "Description Settings"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_description",
-        "label": "Show Description",
-        "default": true,
-        "info": "Enable to show description below the title"
-      },
-      {
-        "type": "textarea",
-        "id": "custom_description",
-        "label": "Custom Description",
-        "info": "Leave blank to use collection description (if available). This will override collection description when set."
-      },
-      {
-        "type": "range",
-        "id": "description_truncate_length",
-        "min": 50,
-        "max": 300,
-        "step": 10,
-        "unit": "ch",
-        "label": "Description Truncate Length",
-        "default": 120,
-        "info": "Number of characters to show before truncating with 'Read More'"
-      }
-    ]
-  }
-  {% endschema %}
-  
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Page breadcrumb",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Description Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show Description",
+      "default": true,
+      "info": "Enable to show description below the title"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_description",
+      "label": "Custom Description",
+      "info": "Leave blank to use collection description (if available). This will override collection description when set."
+    },
+    {
+      "type": "range",
+      "id": "description_truncate_length",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "ch",
+      "label": "Description Truncate Length",
+      "default": 120,
+      "info": "Number of characters to show before truncating with 'Read More'"
+    }
+  ]
+}
+{% endschema %}

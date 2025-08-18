@@ -1,0 +1,290 @@
+{%- liquid
+  if request.design_mode
+    assign arr_results = section.settings.product_list
+    assign results_count = arr_results.count
+  else
+    assign arr_results = search.results
+    assign results_count = search.results_count
+  endif
+-%}
+
+<section class="flat-spacing-15 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
+    {%- if results_count > 0 -%}
+      <div class="tf-compare-table">
+        <div class="tf-compare-row tf-compare-grid">
+          <div class="tf-compare-col d-md-block d-none"></div>
+          {%- for product in arr_results -%}
+            <div class="tf-compare-col">
+              <div class="tf-compare-item" data-product-id="{{ product.id }}">
+                <a class="tf-compare-image" href="{{ product.url }}">
+                  {%- if product.featured_media -%}
+                    {{
+                      product.featured_media
+                      | image_url: width: 300
+                      | image_tag: loading: 'lazy', class: 'lazyload', alt: product.featured_media.alt
+                      | escape
+                    }}
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </a>
+                <div class="content">
+                  <a class="tf-compare-title link text-md fw-medium" href="{{ product.url }}">
+                    {{- product.title | escape -}}
+                  </a>
+                  <p class="price-wrap fw-medium text-md">
+                    {%- if product.compare_at_price > product.price -%}
+                      <span class="price-new text-primary">{{ product.price | money }}</span>
+                      <span class="price-old text-dark">{{ product.compare_at_price | money }}</span>
+                    {%- else -%}
+                      <span class="price-new">{{ product.price | money }}</span>
+                    {%- endif -%}
+                  </p>
+                  <div class="tf-compare-btn">
+                    {%- if product.available -%}
+                      <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                        <button type="submit" class="tf-btn animate-btn w-100">
+                          {{ 'products.product.add_to_cart' | t }}
+                        </button>
+                      </form>
+                    {%- else -%}
+                      <button class="tf-btn animate-btn w-100" disabled>
+                        {{ 'products.product.sold_out' | t }}
+                      </button>
+                    {%- endif -%}
+                  </div>
+                </div>
+                <div class="tf-compare-remove">
+                  <span
+                    class="tf-btn-icon line d-inline-flex"
+                    onclick="removeFromComparePage('{{ product.id }}')"
+                  >
+                    <i class="icon-close"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'availability' -%}
+              <div class="tf-compare-row">
+                <div class="tf-compare-col tf-compare-field d-md-block d-none">
+                  <p class="text-md fw-medium">{{ block.settings.title | escape }}</p>
+                </div>
+                {%- for product in arr_results limit: 4 -%}
+                  <div class="tf-compare-col tf-compare-field tf-compare-stock{% unless product.available %} text-red{% endunless %}">
+                    <div class="icon">
+                      {%- if product.available -%}
+                        <i class="icon-fill-check-circle"></i>
+                      {%- else -%}
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_1_34903)">
+                            <path d="M7.5 14.4955C11.366 14.4955 14.5 11.3635 14.5 7.50004C14.5 3.63659 11.366 0.504639 7.5 0.504639C3.63401 0.504639 0.5 3.63659 0.5 7.50004C0.5 11.3635 3.63401 14.4955 7.5 14.4955Z" fill="#E21B1B" />
+                            <path d="M5.28008 4.19648L4.19751 5.27905L9.72085 10.8024L10.8034 9.71982L5.28008 4.19648Z" fill="white" />
+                            <path d="M9.72036 4.19602L4.19702 9.71936L5.27959 10.8019L10.8029 5.27859L9.72036 4.19602Z" fill="white" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_1_34903">
+                              <rect width="14" height="14" fill="white" transform="translate(0.5 0.5)" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      {%- endif -%}
+                    </div>
+                    <span>
+                      {%- if product.available -%}
+                        {{ 'products.product.in_stock' | t }}
+                      {%- else -%}
+                        {{ 'products.product.sold_out' | t }}
+                      {%- endif -%}
+                    </span>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- when 'vendor' -%}
+              <div class="tf-compare-row">
+                <div class="tf-compare-col tf-compare-field d-md-block d-none">
+                  <p class="text-md fw-medium">{{ block.settings.title | escape }}</p>
+                </div>
+                {%- for product in arr_results limit: 4 -%}
+                  <div class="tf-compare-col tf-compare-value text-center">
+                    <p class="text-sm">{{ product.vendor | escape }}</p>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- when 'variants' -%}
+              <div class="tf-compare-row">
+                <div class="tf-compare-col tf-compare-field d-md-block d-none">
+                  <p class="text-md fw-medium">{{ block.settings.title | escape }}</p>
+                </div>
+                {%- for product in arr_results limit: 4 -%}
+                  <div class="tf-compare-col tf-compare-value text-center">
+                    <p class="text-sm">
+                      {%- assign option_values = '' -%}
+                      {%- for variant in product.variants -%}
+                        {%- for option in variant.options -%}
+                          {%- unless option_values contains option -%}
+                            {%- if option_values != '' -%}
+                              {%- assign option_values = option_values | append: ', ' -%}
+                            {%- endif -%}
+                            {%- assign option_values = option_values | append: option -%}
+                          {%- endunless -%}
+                        {%- endfor -%}
+                      {%- endfor -%}
+                      {{ option_values | escape }}
+                    </p>
+                  </div>
+                {%- endfor -%}
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    {% if results_count <= 0 %}
+      <div class="tf-wishlist-empty text-center">
+        <p class="text-md text-noti mb-4">No product were added to the compare .</p>
+        <a href="{{ routes.root_url }}" class="tf-btn animate-btn btn-back-shop">Back to Shopping</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "t:sections.main_compare.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "t:sections.main_compare.settings.product_list.label",
+      "limit": 6,
+      "info": "t:sections.main_compare.settings.product_list.info"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "t:sections.main_compare.settings.width.options.boxed"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.main_compare.settings.width.options.full"
+        }
+      ],
+      "default": "boxed",
+      "label": "t:sections.main_compare.settings.width.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.all.padding.padding_mobile_rate.label",
+      "info": "t:sections.all.padding.padding_mobile_rate.info",
+      "default": 75
+    }
+  ],
+  "blocks": [
+    {
+      "type": "availability",
+      "name": "t:sections.main_compare.blocks.availability.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.main_compare.blocks.availability.settings.title.label",
+          "default": "Availability"
+        }
+      ]
+    },
+    {
+      "type": "vendor",
+      "name": "t:sections.main_compare.blocks.vendor.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.main_compare.blocks.vendor.settings.title.label",
+          "default": "Vendor"
+        }
+      ]
+    },
+    {
+      "type": "variants",
+      "name": "t:sections.main_compare.blocks.variants.name",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.main_compare.blocks.variants.settings.paragraph.content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.main_compare.blocks.variants.settings.title.label",
+          "default": "Color"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  var isPageCompare = !Shopify.designMode, isComparePerformed = {{ search.performed }};
+</script>

@@ -1,43 +1,50 @@
 <div class="modal modalCentered fade modal-compare" id="compare">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
-            <div class="modal-compare-wrap list-file-delete">
-                <h6 class="title text-center">{{ 'compare_modal.title' | t }}</h6>
-                <div class="tf-compare-inner">
-                    <div class="tf-compare-list" id="compare-list">
-                        <div class="tf-compare-item file-delete" data-product-id="{{ product.id }}">
-                            <span class="icon-close remove" onclick="removeFromCompare({{ product.id }})"></span>
-                            <a href="{{ product.url }}" class="image">
-                                <img class="lazyload" 
-                                        data-src="{{ product.featured_image | img_url: '300x300' }}"
-                                        src="{{ product.featured_image | img_url: '300x300' }}" 
-                                        alt="{{ product.title | escape }}"
-                                        width="300" height="300">
-                            </a>
-                            <div class="content">
-                                <div class="text-title">
-                                    <a class="link text-line-clamp-2" href="{{ product.url }}">{{ product.title }}</a>
-                                </div>
-                                <p class="price-wrap">
-                                    {% if product.compare_at_price > product.price %}
-                                        <span class="new-price text-primary">{{ product.price | money }}</span>
-                                        <span class="old-price text-decoration-line-through text-dark-1">{{ product.compare_at_price | money }}</span>
-                                    {% else %}
-                                        <span class="new-price">{{ product.price | money }}</span>
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <span class="icon icon-close btn-hide-popup" data-bs-dismiss="modal"></span>
+      <div class="modal-compare-wrap list-file-delete">
+        <h6 class="title text-center">{{ 'compare_modal.title' | t }}</h6>
+        <div class="tf-compare-inner">
+          <div class="tf-compare-list" id="compare-list">
+            <div class="tf-compare-item file-delete" data-product-id="{{ product.id }}">
+              <span class="icon-close remove" onclick="removeFromCompare({{ product.id }})"></span>
+              <a href="{{ product.url }}" class="image">
+                <img
+                  class="lazyload"
+                  data-src="{{ product.featured_image | img_url: '300x300' }}"
+                  src="{{ product.featured_image | img_url: '300x300' }}"
+                  alt="{{ product.title | escape }}"
+                  width="300"
+                  height="300"
+                >
+              </a>
+              <div class="content">
+                <div class="text-title">
+                  <a class="link text-line-clamp-2" href="{{ product.url }}">{{ product.title }}</a>
                 </div>
-                <div class="tf-compare-buttons justify-content-center">
-                    <a href="{{ routes.root_url }}compare" class="tf-btn animate-btn justify-content-center">{{ 'compare_modal.compare_button' | t }}</a>
-                    <div class="tf-btn btn-out-line-dark justify-content-center clear-file-delete">
-                        <span>{{ 'compare_modal.clear_all' | t }}</span>
-                    </div>
-                </div>
+                <p class="price-wrap">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="new-price text-primary">{{ product.price | money }}</span>
+                    <span class="old-price text-decoration-line-through text-dark-1">
+                      {{- product.compare_at_price | money -}}
+                    </span>
+                  {% else %}
+                    <span class="new-price">{{ product.price | money }}</span>
+                  {% endif %}
+                </p>
+              </div>
             </div>
+          </div>
         </div>
+        <div class="tf-compare-buttons justify-content-center">
+          <a href="{{ routes.search_url }}/?view=compare" class="tf-btn animate-btn justify-content-center">
+            {{- 'compare_modal.compare_button' | t -}}
+          </a>
+          <div class="tf-btn btn-out-line-dark justify-content-center clear-file-delete">
+            <span>{{ 'compare_modal.clear_all' | t }}</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

@@ -2809,6 +2809,54 @@
         }
       }
     },
+    "main_compare": {
+      "name": "Compare page",
+      "settings": {
+        "wishlist_demo": {
+          "content": "Demo exist compare products on editor",
+        },
+        "product_list": {
+          "label": "Product test",
+          "info": "Only shown on editor admin"
+        },
+        "width": {
+          "label": "Section Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full Width"
+          }
+        }
+      },
+      "blocks": {
+        "availability": {
+          "name": "Availability",
+          "settings": {
+            "title": {
+              "label": "Title"
+            }
+          }
+        },
+        "vendor": {
+          "name": "Vendor",
+          "settings": {
+            "title": {
+              "label": "Title"
+            }
+          }
+        },
+        "variants": {
+          "name": "Product variants",
+          "settings": {
+            "paragraph": {
+              "content": "To select a variant for comparison, first specify its option name. If you want to compare products by color, the option names should be \"Color\"."
+            },
+            "title": {
+              "label": "Option name"
+            }
+          }
+        }
+      }
+    },
     "multicolumn": {
       "name": "Multicolumn",
       "settings": {
@@ -4837,11 +4885,11 @@
                 "grid": "Grid"
               }
             },
-             "content_align": {
+            "content_align": {
               "label": "Content align",
               "option_1": "Default",
               "option_2": "Center"
-            }, 
+            },
             "blog_source": {
               "label": "Blog Source",
               "options": {
@@ -4923,7 +4971,7 @@
         "header_content": "Content Settings",
         "content_align": {
           "label": "Content align",
-          "option_1": "Default", 
+          "option_1": "Default",
           "option_2": "Center"
         }
       },
@@ -5589,39 +5637,62 @@
         }
       }
     },
-    "recently-viewed": {
-      "name": "Recently Viewed",
+    "wishlist": {
+      "name": "Wishlist",
       "settings": {
-        "title": {
-          "label": "Section Title",
-          "default": "Recently Viewed"
+        "product_layout": "Product layout",
+        "product_list": {
+          "label": "Products test",
+          "info": "Only shown on editor admin"
         },
-        "show_title": {
-          "label": "Show Section Title"
+        "max_items": {
+          "label": "Items per page",
+          "info": "Number of products to show per page (applies to both design mode and pagination)"
         },
-        "products_to_show": {
-          "label": "Number of Products to Show"
+        "items_per_row_desktop": {
+          "label": "Items per row (Desktop)"
         },
-        "slides_per_view_mobile": {
-          "label": "Slides Per View (Mobile)"
+        "items_per_row_tablet": {
+          "label": "Items per row (Tablet)"
         },
-        "slides_per_view_tablet": {
-          "label": "Slides Per View (Tablet)"
-        },
-        "slides_per_view_desktop": {
-          "label": "Slides Per View (Desktop)"
-        },
-        "space_between": {
-          "label": "Space Between Slides (Mobile/Tablet)"
-        },
-        "space_between_desktop": {
-          "label": "Space Between Slides (Desktop)"
-        },
-        "show_navigation": {
-          "label": "Show Navigation Arrows"
-        },
-        "show_pagination": {
-          "label": "Show Pagination Dots(Mobile)"
+        "items_per_row_mobile": {
+          "label": "Items per row (Mobile)"
+        }
+      },
+      "recently-viewed": {
+        "name": "Recently Viewed",
+        "settings": {
+          "title": {
+            "label": "Section Title",
+            "default": "Recently Viewed"
+          },
+          "show_title": {
+            "label": "Show Section Title"
+          },
+          "products_to_show": {
+            "label": "Number of Products to Show"
+          },
+          "slides_per_view_mobile": {
+            "label": "Slides Per View (Mobile)"
+          },
+          "slides_per_view_tablet": {
+            "label": "Slides Per View (Tablet)"
+          },
+          "slides_per_view_desktop": {
+            "label": "Slides Per View (Desktop)"
+          },
+          "space_between": {
+            "label": "Space Between Slides (Mobile/Tablet)"
+          },
+          "space_between_desktop": {
+            "label": "Space Between Slides (Desktop)"
+          },
+          "show_navigation": {
+            "label": "Show Navigation Arrows"
+          },
+          "show_pagination": {
+            "label": "Show Pagination Dots(Mobile)"
+          }
         }
       }
     }
