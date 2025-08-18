@@ -89,6 +89,18 @@
             "show_share": true
           }
         },
+        "special_deal_TrgYrw": {
+          "type": "special_deal",
+          "settings": {
+            "title": "Special Deal",
+            "buy_product": "",
+            "buy_quantity": "1",
+            "get_product": "",
+            "get_quantity": "1",
+            "discount_percent": "20",
+            "button_text": "Grab this deal"
+          }
+        },
         "sku_CwEeQx": {
           "type": "sku",
           "settings": {}
@@ -115,21 +127,6 @@
             "icon_size": 24
           }
         },
-        "fbt_BjrkCe": {
-          "type": "fbt",
-          "settings": {
-            "fbt_title": "Frequently Bought Together",
-            "fbt_source": "manual",
-            "fbt_products": [
-              "10000mah-power-go-power-bank",
-              "apple-iphone-16-promax",
-              "apple-magsafe-charger"
-            ],
-            "max_products": 3,
-            "fbt_margin_top": 0,
-            "fbt_margin_bottom": 0
-          }
-        },
         "size_guide_NiAE8e": {
           "type": "size_guide",
           "settings": {
@@ -148,10 +145,10 @@
         "variant_picker_CFdTLh",
         "quantity_and_buy_Vc7GaM",
         "extra_links_WWFndr",
+        "special_deal_TrgYrw",
         "sku_CwEeQx",
         "trust_and_payment_W3rWmf",
         "delivery_info_ifqrMR",
-        "fbt_BjrkCe",
         "size_guide_NiAE8e"
       ],
       "settings": {
