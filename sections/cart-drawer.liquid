@@ -397,7 +397,7 @@
                                                 </div>
                                             {%- endif -%}
                                             <div class="tf-cart-total text-xl fw-medium">{{ 'sections.cart.total' | t }}:</div>
-                                            <div class="tf-totals-total-value text-xl fw-medium">{% if settings.currency_code_enabled %}{{ cart.total_price | money }} {{ shop.currency }}{% else %}{{ cart.total_price | money }}{% endif %}</div>
+                                            <div class="tf-totals-total-value text-xl fw-medium">{{ cart.total_price | money }} {{ shop.currency }}</div>
                                         </div>
                                     {%- when 'taxes_shipping' -%}
                                         <div class="tf-cart-tax text-sm opacity-8" {{ block.shopify_attributes }}>

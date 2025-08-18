@@ -5096,7 +5096,7 @@
           "name": "Total Price",
           "settings": {
             "paragraph": {
-              "content": "Cart and checkout prices always show currency codes. Example: $1.00"
+              "content": "Cart and checkout prices always show currency codes. Example: $1.00 USD"
             }
           }
         },
