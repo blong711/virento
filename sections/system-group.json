@@ -131,7 +131,7 @@
         "info_text_NH34gX"
       ],
       "settings": {
-        "color_scheme": "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11",
+        "color_scheme": "scheme-1",
         "newsletter_image": "shopify://shop_images/newsletter-1_1.jpg",
         "popup_trigger": "scroll",
         "popup_delay": 3,
@@ -181,12 +181,15 @@
         "product_recommendations_JjhEw6"
       ],
       "settings": {
+        "color_scheme": "",
         "popup_trigger": "scroll",
         "popup_delay": 0,
         "scroll_threshold": 80,
         "days_next_show": 1,
         "popup_image": "shopify://shop_images/before-you-leave.jpg",
-        "popup_heading": "Before You Leave"
+        "popup_heading": "Before You Leave",
+        "heading_size": "display-sm",
+        "heading_font_weight": "fw-medium"
       }
     }
   },
