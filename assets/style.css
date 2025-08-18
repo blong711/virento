@@ -16828,7 +16828,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
     line-height: 29px;
   }
   .tf-icon-box.style-border .content p {
-    line-height: 22px;
+    line-height: calc(22px * var(--body-line-height));
   }
   .tf-icon-box.style-lg {
     gap: 25px;
