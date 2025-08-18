@@ -9247,7 +9247,7 @@ button.animate-btn::after,
 .tf-product-info-wrap .tf-product-info-variant {
   display: grid;
   gap: 24px;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 }
 .tf-product-info-wrap .tf-product-info-variant .variant-picker-label {
   margin-bottom: 8px;
