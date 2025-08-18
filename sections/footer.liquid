@@ -32,10 +32,17 @@
                             </a>
                         </li>
                     {%- endif -%}
-                    {%- if settings.social_snapchat_link != blank -%}
+                    {%- if settings.social_youtube_link != blank -%}
                         <li>
-                            <a href="{{ settings.social_snapchat_link }}" class="social-item social-linkedin" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.snapchat' | t }}">
-                                <i class="icon icon-linkedin"></i>
+                            <a href="{{ settings.social_youtube_link }}" class="social-item social-youtube" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.youtube' | t }}">
+                                <i class="icon icon-youtube"></i>
+                            </a>
+                        </li>
+                    {%- endif -%}
+                    {%- if settings.social_tiktok_link != blank -%}
+                        <li>
+                            <a href="{{ settings.social_tiktok_link }}" class="social-item social-tiktok" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.tiktok' | t }}">
+                                <i class="icon icon-tiktok"></i>
                             </a>
                         </li>
                     {%- endif -%}
@@ -43,6 +50,20 @@
                         <li>
                             <a href="{{ settings.social_twitter_link }}" class="social-item social-x" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.twitter' | t }}">
                                 <i class="icon icon-x"></i>
+                            </a>
+                        </li>
+                    {%- endif -%}
+                    {%- if settings.social_snapchat_link != blank -%}
+                        <li>
+                            <a href="{{ settings.social_snapchat_link }}" class="social-item social-snapchat" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.snapchat' | t }}">
+                                <i class="icon icon-snapchat"></i>
+                            </a>
+                        </li>
+                    {%- endif -%}
+                    {%- if settings.social_pinterest_link != blank -%}
+                        <li>
+                            <a href="{{ settings.social_pinterest_link }}" class="social-item social-pinterest" target="_blank" rel="noopener" aria-label="{{ 'general.social.links.pinterest' | t }}">
+                                <i class="icon icon-pinterest"></i>
                             </a>
                         </li>
                     {%- endif -%}
