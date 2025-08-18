@@ -1002,5 +1002,13 @@
       "send_on": "YYYY-MM-DD",
       "send_on_label": "Send on (optional)"
     }
+  },
+  "snippets": {
+    "pickup_available": {
+      "title": "Pickup Available",
+      "available_html": "Pickup available at <span class=\"fw-medium\">{{ location_name }} Store</span>. {{ pick_up_time }}",
+      "unavailable_at_html": "Pickup currently unavailable at <span class=\"fw-medium\">{{ location_name }} Store</span>.",
+      "unavailable": "Pickup currently unavailable."
+    }
   }
 }
