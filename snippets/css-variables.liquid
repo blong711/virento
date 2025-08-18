@@ -125,9 +125,9 @@
      --font-heading-scale: {{ settings.heading_scale | times: 1.0 | divided_by: settings.body_scale }};
 
      /* Typography settings */
-     --heading-line-height: {{ settings.heading_line_height }}%;
+     --heading-line-height: {{ settings.heading_line_height | divided_by: 100.0}};
      --heading-letter-spacing: {{ settings.heading_letter_spacing }}px;
-     --body-line-height: {{ settings.body_line_height }}%;
+     --body-line-height: {{ settings.body_line_height | divided_by: 100.0}};
      --body-letter-spacing: {{ settings.body_letter_spacing }}px;
 
      --page-width: {{ settings.page_width }}px;
