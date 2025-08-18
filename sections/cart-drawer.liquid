@@ -313,7 +313,7 @@
                                             {%- assign complementary_products = recommendations.products -%}
                                         {%- endif -%}
                                         {%- for product in complementary_products limit: 4 -%}
-                                            <div class="swiper-slide">
+                                            <div class="swiper-slide" data-complementary-product data-product-id="{{ product.id }}" data-variant-id="{{ product.first_available_variant.id }}">
                                                 <div class="tf-mini-cart-item line radius-16">
                                                     <div class="tf-mini-cart-image">
                                                         <a href="{{ product.url }}">

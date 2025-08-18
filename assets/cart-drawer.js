@@ -141,6 +141,8 @@ class CartDrawer extends HTMLElement {
     .then(response => response.json())
     .then(cart => {
       this.updateCart(cart);
+      // Check complementary products after quantity update
+      this.checkComplementaryProducts();
     })
     .catch(error => {
       console.error('Error updating quantity:', error);
@@ -186,6 +188,9 @@ class CartDrawer extends HTMLElement {
     
     // Set up add to cart buttons in recommendations
     this.setupRecommendationAddToCart();
+    
+    // Check and hide complementary products already in cart
+    this.checkComplementaryProducts();
   }
 
   setupToolsWithoutSwiper() {
@@ -203,6 +208,9 @@ class CartDrawer extends HTMLElement {
     
     // Set up toolbox button click handlers
     this.setupToolboxButtons();
+    
+    // Check and hide complementary products already in cart
+    this.checkComplementaryProducts();
     
     // Note: Excluding setupRecommendationAddToCart() to avoid swiper re-initialization
     // The swiper functionality should remain intact from the original initialization
@@ -566,6 +574,8 @@ class CartDrawer extends HTMLElement {
       } else {
         // Successfully added product
         this.updateCart(result);
+        // Check complementary products after adding recommendation
+        this.checkComplementaryProducts();
       }
     })
     .catch(error => {
@@ -634,6 +644,8 @@ class CartDrawer extends HTMLElement {
       } else {
         // Update cart display
         this.updateCart(result);
+        // Check complementary products after variant update
+        this.checkComplementaryProducts();
       }
     })
     .catch(error => {
@@ -653,6 +665,8 @@ class CartDrawer extends HTMLElement {
     .then(response => response.json())
     .then(cart => {
       this.updateCart(cart);
+      // Check complementary products after item removal
+      this.checkComplementaryProducts();
     })
     .catch(error => {
       console.error('Error removing item:', error);
@@ -692,6 +706,9 @@ class CartDrawer extends HTMLElement {
       } else {
         // Successfully added gift wrap
         this.updateCart(result);
+        
+        // Check complementary products after adding gift wrap
+        this.checkComplementaryProducts();
         
         // Close the gift wrap tool
         const closeButton = giftWrapForm.querySelector('.tf-mini-cart-tool-close');
@@ -803,14 +820,17 @@ class CartDrawer extends HTMLElement {
           currentFreeShipping.innerHTML = newFreeShipping.innerHTML;
         }
         
-        // Re-initialize all functionality after content update (except swiper)
-        this.reinitWithoutSwiper();
-        
-        // Ensure all tools are closed after content update
-        this.closeAllTools();
-        
-        // Re-setup terms checkbox functionality after content update
-        this.setupTermsCheckbox();
+                    // Re-initialize all functionality after content update (except swiper)
+            this.reinitWithoutSwiper();
+            
+            // Ensure all tools are closed after content update
+            this.closeAllTools();
+            
+            // Re-setup terms checkbox functionality after content update
+            this.setupTermsCheckbox();
+            
+            // Check complementary products after content update
+            this.checkComplementaryProducts();
       }
     }
 
@@ -876,6 +896,9 @@ class CartDrawer extends HTMLElement {
             
             // Re-setup terms checkbox functionality after cart update
             this.setupTermsCheckbox();
+            
+            // Check complementary products after cart update
+            this.checkComplementaryProducts();
           }
         }
       })
@@ -929,6 +952,65 @@ class CartDrawer extends HTMLElement {
         freeShippingProgress.style.display = 'block';
       }
     }
+  }
+
+  checkComplementaryProducts() {
+    // Get all complementary products
+    const complementaryProducts = this.querySelectorAll('[data-complementary-product]');
+    if (complementaryProducts.length === 0) return;
+
+    // Get all cart items
+    const cartItems = this.querySelectorAll('[data-cart-item]');
+    
+    // Create a set of product IDs and variant IDs that are already in the cart
+    const cartProductIds = new Set();
+    const cartVariantIds = new Set();
+    
+    cartItems.forEach(cartItem => {
+      // Get the product ID from the cart item
+      const productLink = cartItem.querySelector('a[href*="/products/"]');
+      if (productLink) {
+        const productUrl = productLink.getAttribute('href');
+        const productIdMatch = productUrl.match(/\/products\/([^\/\?]+)/);
+        if (productIdMatch) {
+          cartProductIds.add(productIdMatch[1]);
+        }
+      }
+      
+      // Get the variant ID from the cart item
+      const variantSelect = cartItem.querySelector('select[id^="variant-"]');
+      if (variantSelect) {
+        const currentVariantId = variantSelect.getAttribute('data-current-variant');
+        if (currentVariantId) {
+          cartVariantIds.add(currentVariantId);
+        }
+      }
+    });
+
+    // Hide complementary products that are already in the cart
+    complementaryProducts.forEach(complementaryProduct => {
+      const productId = complementaryProduct.getAttribute('data-product-id');
+      const variantId = complementaryProduct.getAttribute('data-variant-id');
+      
+      // Check if this product or variant is already in the cart
+      let shouldHide = false;
+      
+      // Check by product ID
+      if (cartProductIds.has(productId.toString())) {
+        shouldHide = true;
+      }
+      
+      // Check by variant ID for more precise matching
+      if (cartVariantIds.has(variantId)) {
+        shouldHide = true;
+      }
+      
+      if (shouldHide) {
+        complementaryProduct.style.display = 'none';
+      } else {
+        complementaryProduct.style.display = 'block';
+      }
+    });
   }
 }
 
