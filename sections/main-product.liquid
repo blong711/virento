@@ -280,9 +280,9 @@
                           <h5 class="product-info-name fw-medium">{{ product.title }}</h5>
                       {% when 'price' %}
                           <div class="product-info-price">
-                            <div class="display-sm price-new price-on-sale">{{ product.price | money }}</div>
+                            <div class="display-sm price-new price-on-sale">{% if settings.currency_code_enabled %}{{ product.price | money }} {{ shop.currency }}{% else %}{{ product.price | money }}{% endif %}</div>
                             {% if product.compare_at_price > product.price %}
-                              <div class="display-sm price-old">{{ product.compare_at_price | money }}</div>
+                              <div class="display-sm price-old">{% if settings.currency_code_enabled %}{{ product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ product.compare_at_price | money }}{% endif %}</div>
                               {% if block.settings.show_sale_badge %}
                                 <span class="badge-sale">{{ product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round }}% Off</span>
                               {% endif %}
@@ -675,7 +675,7 @@
                                 <a href="{{ block.settings.buy_product.url }}" class="name-product text-md fw-medium text-line-clamp-2">
                                   {{ block.settings.buy_product.title }}
                                 </a>
-                                <span class="price-product text-md fw-medium">{{ block.settings.buy_product.price | money }}</span>
+                                <span class="price-product text-md fw-medium">{% if settings.currency_code_enabled %}{{ block.settings.buy_product.price | money }} {{ shop.currency }}{% else %}{{ block.settings.buy_product.price | money }}{% endif %}</span>
                                 <div class="variant-product tf-select">
                                   <select name="buy_variant">
                                     {% for variant in block.settings.buy_product.variants %}
@@ -704,8 +704,8 @@
                                   {{ block.settings.get_product.title }}
                                 </a>
                                 <div class="price-product text-md fw-medium">
-                                  <span class="new-price">{{ block.settings.get_product.price | money }}</span>
-                                  <span class="old-price">{{ block.settings.get_product.compare_at_price | money }}</span>
+                                  <span class="new-price">{% if settings.currency_code_enabled %}{{ block.settings.get_product.price | money }} {{ shop.currency }}{% else %}{{ block.settings.get_product.price | money }}{% endif %}</span>
+                                  <span class="old-price">{% if settings.currency_code_enabled %}{{ block.settings.get_product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ block.settings.get_product.compare_at_price | money }}{% endif %}</span>
                                 </div>
                                 <div class="variant-product tf-select">
                                   <select name="get_variant">
@@ -821,9 +821,9 @@
                                     {% endif %}
                                   </div>
                                   <div class="bundle-price text-md fw-medium">
-                                    <span class="new-price">{{ related_product.price | money }}</span>
+                                    <span class="new-price">{% if settings.currency_code_enabled %}{{ related_product.price | money }} {{ shop.currency }}{% else %}{{ related_product.price | money }}{% endif %}</span>
                                     {% if related_product.compare_at_price > related_product.price %}
-                                      <span class="old-price">{{ related_product.compare_at_price | money }}</span>
+                                      <span class="old-price">{% if settings.currency_code_enabled %}{{ related_product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ related_product.compare_at_price | money }}{% endif %}</span>
                                     {% endif %}
                                   </div>
                                   {% if related_product.has_only_default_variant == false %}
@@ -831,8 +831,8 @@
                                       <select data-product-id="{{ related_product.id }}" data-variant-selector>
                                         {% for variant in related_product.variants %}
                                           <option value="{{ variant.id }}"{% if variant == related_product.selected_or_first_available_variant %} selected="selected"{% endif %}
-                                            data-compare-price="{{ variant.compare_at_price | money }}">
-                                            {{ variant.title }} - {{ variant.price | money }}
+                                            data-compare-price="{% if settings.currency_code_enabled %}{{ variant.compare_at_price | money }} {{ shop.currency }}{% else %}{{ variant.compare_at_price | money }}{% endif %}">
+                                            {{ variant.title }} - {% if settings.currency_code_enabled %}{{ variant.price | money }} {{ shop.currency }}{% else %}{{ variant.price | money }}{% endif %}
                                           </option>
                                         {% endfor %}
                                       </select>
@@ -846,7 +846,7 @@
                         </div>
                         <div class="bundle-total-submit">
                           <div class="text">{{ 'sections.product.total_price' | t }}</div>
-                          <span class="total-price">{{ product.price | money }}</span>
+                          <span class="total-price">{% if settings.currency_code_enabled %}{{ product.price | money }} {{ shop.currency }}{% else %}{{ product.price | money }}{% endif %}</span>
                           <span class="total-price-old" style="display: none;"></span>
                         </div>
                         <a href="#" class="btn-submit-total tf-btn btn-out-line-primary product-cart-button" 
@@ -880,7 +880,7 @@
                 <select class="sticky-variant-select">
                   {% for variant in product.variants %}
                     <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected="selected"{% endif %}>
-                      {{ variant.title }} - {{ variant.price | money }}
+                      {{ variant.title }} - {% if settings.currency_code_enabled %}{{ variant.price | money }} {{ shop.currency }}{% else %}{{ variant.price | money }}{% endif %}
                     </option>
                   {% endfor %}
                 </select>
