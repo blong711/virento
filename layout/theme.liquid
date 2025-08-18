@@ -86,6 +86,7 @@
     ></script>
 
     <!-- UI Enhancement JS -->
+    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'nouislider.min.js' | asset_url }}" defer="defer"></script>
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'wow.min.js' | asset_url }}" defer="defer"></script>
@@ -101,7 +102,7 @@
     <script src="{{'swiper-bundle.min.js' | asset_url}}" defer="defer"></script>
     <script src="{{ 'infinityslide.vanilla.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'carousel.vanilla.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'zoom.vanilla.js' | asset_url }}" defer="defer"></script>
+    {% comment %} <script src="{{ 'zoom.vanilla.js' | asset_url }}" defer="defer"></script> {% endcomment %}
 
     <!-- Custom Scripts -->
     <script src="{{ 'simpleParallaxVanilla.umd.js' | asset_url }}" defer="defer"></script>
