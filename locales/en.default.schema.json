@@ -292,7 +292,7 @@
           "label": "Page width"
         },
         "spacing_sections": {
-          "label": "Space between template sections"
+          "label": "Add more space between template sections"
         },
         "header__grid": {
           "content": "Grid"
