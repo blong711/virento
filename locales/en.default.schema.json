@@ -37,7 +37,7 @@
         },
         "image_padding": {
           "label": "Image padding",
-          "info": "Set when >0, otherwise use default padding"
+          "info": "Set = 0 to use default padding value"
         },
         "text_alignment": {
           "options__1": {
