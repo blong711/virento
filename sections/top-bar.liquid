@@ -154,6 +154,20 @@
                       ></a>
                     </li>
                   {%- endif -%}
+                  {%- if settings.social_youtube_link != blank -%}
+                    <li>
+                      <a href="{{ settings.social_youtube_link }}" class="social-item social-youtube"
+                        ><i class="icon icon-youtube"></i
+                      ></a>
+                    </li>
+                  {%- endif -%}
+                  {%- if settings.social_tiktok_link != blank -%}
+                    <li>
+                      <a href="{{ settings.social_tiktok_link }}" class="social-item social-tiktok"
+                        ><i class="icon icon-tiktok"></i
+                      ></a>
+                    </li>
+                  {%- endif -%}
                   {%- if settings.social_twitter_link != blank -%}
                     <li>
                       <a href="{{ settings.social_twitter_link }}" class="social-item social-x"
@@ -165,6 +179,13 @@
                     <li>
                       <a href="{{ settings.social_snapchat_link }}" class="social-item social-snapchat"
                         ><i class="icon icon-snapchat"></i
+                      ></a>
+                    </li>
+                  {%- endif -%}
+                  {%- if settings.social_pinterest_link != blank -%}
+                    <li>
+                      <a href="{{ settings.social_pinterest_link }}" class="social-item social-pinterest"
+                        ><i class="icon icon-pinterest"></i
                       ></a>
                     </li>
                   {%- endif -%}
