@@ -561,117 +561,117 @@ h6 {
 h1,
 .display-2xl {
   font-size: calc(72px * var(--font-heading-scale));
-  line-height: var(--heading-line-height);
+  line-height: calc(90px * var(--heading-line-height));
   letter-spacing: var(--heading-letter-spacing);
 }
 
 .display-xl-2 {
   font-size: calc(64px * var(--font-heading-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(76.8px * var(--heading-line-height));
 }
 
 h2,
 .display-xl {
   font-size: calc(60px * var(--font-heading-scale));
-  line-height: var(--heading-line-height);
+  line-height: calc(72px * var(--heading-line-height));
   letter-spacing: var(--heading-letter-spacing);
 }
 
 h3,
 .display-lg {
   font-size: calc(48px * var(--font-heading-scale));
-  line-height: var(--heading-line-height);
+  line-height: calc(60px * var(--heading-line-height));
   letter-spacing: var(--heading-letter-spacing);
 }
 
 .display-lg-2 {
   font-size: calc(40px * var(--font-heading-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(48px * var(--heading-line-height));
 }
 
 .display-lg-3 {
   font-size: calc(48px * var(--font-heading-scale));
-  line-height: var(--body-line-height);
-  letter-spacing: var(--body-letter-spacing);
+  line-height: calc(57.6px * var(--heading-line-height));
+  letter-spacing: var(--heading-letter-spacing);
 }
 
 h4,
 .display-md {
   font-size: calc(36px * var(--font-heading-scale));
-  line-height: var(--heading-line-height);
+  line-height: calc(44px * var(--heading-line-height));
   letter-spacing: var(--heading-letter-spacing);
 }
 
 .display-md-2 {
   font-size: calc(32px * var(--font-heading-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(38px * var(--heading-line-height));
 }
 
 h5,
 .display-sm {
   font-size: calc(30px * var(--font-heading-scale));
-  line-height: var(--heading-line-height);
+  line-height: calc(38px * var(--heading-line-height));
 }
 
 h6,
 .display-xs {
   font-size: calc(24px * var(--font-heading-scale));
-  line-height: 32px;
+  line-height: calc(32px * var(--heading-line-height));
 }
 
 .text-xl {
   font-size: calc(20px * var(--font-body-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(30px * var(--body-line-height));
 }
 
 .text-xl-2 {
   font-size: calc(20px * var(--font-body-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(24px * var(--body-line-height));
 }
 
 .text-xl-3 {
   font-size: calc(20px * var(--font-body-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(32px * var(--body-line-height));
 }
 
 .text-lg {
   font-size: calc(18px * var(--font-body-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(28px * var(--body-line-height));
 }
 
 .text-md {
   font-size: calc(16px * var(--font-body-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(24px * var(--body-line-height));
 }
 
 .text-sm {
   font-size: calc(14px * var(--font-body-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(20px * var(--body-line-height));
 }
 
 .text-xs {
   font-size: calc(12px * var(--font-body-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(18px * var(--body-line-height));
 }
 
 .text-xxs {
   font-size: calc(10px * var(--font-body-scale));
-  line-height: var(--body-line-height);
+  line-height: calc(14px * var(--body-line-height));
 }
 
 .text-caption {
   font-size: calc(12px * var(--font-body-scale));
-  line-height: 15.72px;
+  line-height: calc(15.72px * var(--body-line-height));
 }
 
 .body-text {
   font-size: calc(16px * var(--font-body-scale));
-  line-height: 25.6px;
+  line-height: calc(25.6px * var(--body-line-height));
 }
 
 .body-text-2 {
   font-size: calc(16px * var(--font-body-scale));
-  line-height: 19.2px;
+  line-height: calc(19.2px * var(--body-line-height));
 }
 
 .fs-7 {
