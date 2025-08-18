@@ -19657,4 +19657,9 @@ shopify-accelerated-checkout {
   align-items: center;
   gap: 10px;
 }
+.popup-shopping-cart .tf-minicart-recommendations .tf-mini-cart-item .tf-mini-cart-info .price-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 /*# sourceMappingURL=styles.css.map */
