@@ -1266,7 +1266,7 @@
         "text_size_large": "Large",
         "payment_svg_list": "Payment SVG List",
         "payment_svg_list_info": "Enter payment types separated by commas (e.g., visa,master,paypal). Leave blank to show all enabled payment types.",
-        "svg_height": "SVG Height",
+        "svg_height": "SVG Size",
         "footer_bottom": "Footer Bottom"
       },
       "blocks": {
