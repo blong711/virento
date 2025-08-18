@@ -3508,9 +3508,9 @@ header.header-bg {
   align-items: center;
   flex-wrap: wrap;
 }
-.footer-bottom-wrap .tf-payment .item {
+/* .footer-bottom-wrap .tf-payment .item {
   max-width: 40px;
-}
+} */
 .footer-bottom-wrap .box-right {
   display: flex;
   align-items: center;
