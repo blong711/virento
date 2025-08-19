@@ -6,10 +6,10 @@
                     {% case block.type %}
                         {% when 'free_shipping_progress' %}
                             <div class="tf-cart-head text-center" {{ block.shopify_attributes }}>
-                                {% assign cart_total = cart.total_price | money_without_currency | times: 1 %}
-                                {% assign free_shipping_threshold = block.settings.free_shipping_threshold | default: 100 %}
+                                {% assign cart_total = cart.total_price %}
+                                {% assign free_shipping_threshold = settings.free_shipping_threshold | times: 100 %}
                                 {% assign remaining_for_free_shipping = free_shipping_threshold | minus: cart_total %}
-                                {% assign progress_percentage = cart_total | times: 100 | divided_by: free_shipping_threshold | at_most: 100 %}
+                                {% assign progress_percentage = cart_total | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100 %}
                                 
                                 {% if cart_total >= free_shipping_threshold %}
                                     <p class="text-xl-3 title text-dark-4">{{ block.settings.qualified_message | default: "You've qualified for" }} <span class="fw-medium">{{ block.settings.free_shipping_text | default: "Free Shipping!" }}</span></p>
@@ -95,7 +95,19 @@
                                     {% if block.settings.show_gift_wrap %}
                                         <div class="check-gift" {{ block.shopify_attributes }}>
                                             <input type="checkbox" class="tf-check" id="checkGift" name="attributes[Gift Wrap]">
-                                            <label for="checkGift" class="label text-dark-4">{{ block.settings.label_text | default: 'Add gift wrap. Only' }} <span class="fw-medium">{{ block.settings.gift_wrap_price | money }}.</span> {{ block.settings.optional_text | default: '(You can choose or not)' }}</label>
+                                            <label for="checkGift" class="label text-dark-4">
+                                                {%- if settings.gift_wrap_product != blank -%}
+                                                    {%- assign gift_wrap_product = all_products[settings.gift_wrap_product] -%}
+                                                    {%- if gift_wrap_product != blank -%}
+                                                        {{ block.settings.label_text | default: 'Add gift wrap. Only' }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }} {{ shop.currency }}{% else %}{{ gift_wrap_product.price | money }}{% endif %}.</span> {{ block.settings.optional_text | default: '(You can choose or not)' }}
+                                                        <input type="hidden" name="gift_wrap_product_id" value="{{ gift_wrap_product.selected_or_first_available_variant.id }}">
+                                                    {%- else -%}
+                                                        {{ block.settings.label_text | default: 'Add gift wrap. Only' }} <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text | default: '(You can choose or not)' }}
+                                                    {%- endif -%}
+                                                {%- else -%}
+                                                    {{ block.settings.label_text | default: 'Add gift wrap. Only' }} <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text | default: '(You can choose or not)' }}
+                                                {%- endif -%}
+                                            </label>
                                         </div>
                                     {% endif %}
                                 
@@ -178,12 +190,7 @@
                                         <div class="text-lg title fw-medium">{{ block.settings.title | default: 'Shipping estimates' }}</div>
                                         <fieldset class="field">
                                             <label for="country" class="text-sm">{{ block.settings.country_label | default: 'Country' }}</label>
-                                            <select id="country" name="country">
-                                                <option value="">{{ block.settings.country_placeholder | default: 'Select Country' }}</option>
-                                                {% for country in shop.enabled_countries %}
-                                                    <option value="{{ country.iso_code }}" {% if country.iso_code == 'US' %}selected{% endif %}>{{ country.name }}</option>
-                                                {% endfor %}
-                                            </select>
+                                            <input type="text" id="country" placeholder="United State">
                                         </fieldset>
                                         <fieldset class="field">
                                             <label for="state" class="text-sm">{{ block.settings.state_label | default: 'State/Province' }}</label>
@@ -307,82 +314,7 @@
     </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Quantity increase/decrease functionality
-    document.querySelectorAll('.btn-increase').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const itemKey = this.dataset.itemKey;
-            const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
-            input.value = parseInt(input.value) + 1;
-            updateCartItem(itemKey, input.value);
-        });
-    });
-    
-    document.querySelectorAll('.btn-decrease').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const itemKey = this.dataset.itemKey;
-            const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
-            if (parseInt(input.value) > 1) {
-                input.value = parseInt(input.value) - 1;
-                updateCartItem(itemKey, input.value);
-            }
-        });
-    });
-    
-    // Remove item functionality
-    document.querySelectorAll('.remove-cart').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const itemKey = this.dataset.itemKey;
-            removeCartItem(itemKey);
-        });
-    });
-    
-    // Update cart item quantity
-    function updateCartItem(itemKey, quantity) {
-        fetch('/cart/change.js', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: itemKey,
-                quantity: quantity
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Reload page to update cart totals
-            window.location.reload();
-        })
-        .catch(error => {
-            console.error('Error updating cart:', error);
-        });
-    }
-    
-    // Remove cart item
-    function removeCartItem(itemKey) {
-        fetch('/cart/change.js', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: itemKey,
-                quantity: 0
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Reload page to update cart
-            window.location.reload();
-        })
-        .catch(error => {
-            console.error('Error removing item:', error);
-        });
-    }
-});
-</script>
+
 
 {% schema %}
 {
@@ -396,12 +328,6 @@ document.addEventListener('DOMContentLoaded', function() {
       "name": "Free Shipping Progress",
       "limit": 1,
       "settings": [
-        {
-          "type": "number",
-          "id": "free_shipping_threshold",
-          "label": "Free Shipping Threshold",
-          "default": 100
-        },
         {
           "type": "text",
           "id": "qualified_message",
@@ -513,12 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
           "label": "Show Gift Wrap Option",
           "default": true
         },
-        {
-          "type": "text",
-          "id": "gift_wrap_price",
-          "label": "Gift Wrap Price",
-          "default": "10.00"
-        },
+
         {
           "type": "text",
           "id": "label_text",
@@ -776,3 +697,4 @@ document.addEventListener('DOMContentLoaded', function() {
   ]
 }
 {% endschema %}
+<script src="{{ 'cart.js' | asset_url }}" defer></script>

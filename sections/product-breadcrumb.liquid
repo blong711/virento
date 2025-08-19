@@ -17,14 +17,14 @@
                 {% if section.settings.show_collection and product.collections.size > 0 %}
                     {% assign primary_collection = product.collections.first %}
                     <div class="breadcrumb-item dot"><span></span></div>
-                    <a class="breadcrumb-item" href="{{ primary_collection.url }}" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
+                    <a class="breadcrumb-item" style="color: rgb(var(--color-foreground2));" href="{{ primary_collection.url }}" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
                         <span itemprop="name">{{ primary_collection.title }}</span>
                         <meta itemprop="position" content="3" />
                     </a>
                 {% endif %}
                 
                 <div class="breadcrumb-item dot"><span></span></div>
-                <div class="breadcrumb-item current" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
+                <div class="breadcrumb-item current" style="color: rgb(var(--color-foreground));" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
                     <span itemprop="name">{{ product.title }}</span>
                     <meta itemprop="position" content="{% if section.settings.show_collection and product.collections.size > 0 %}4{% else %}3{% endif %}" />
                 </div>
