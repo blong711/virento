@@ -525,10 +525,10 @@
   {
     "name": "t:settings_schema.currency_format.name",
     "settings": [
-      // {
-      //   "type": "paragraph",
-      //   "content": "t:settings_schema.currency_format.settings.paragraph"
-      // },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.currency_format.settings.paragraph"
+      },
       {
         "type": "checkbox",
         "id": "currency_code_enabled",

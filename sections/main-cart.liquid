@@ -111,11 +111,7 @@
                                         <textarea id="note" name="note" placeholder="{{ block.settings.placeholder_text }}">{{ cart.note }}</textarea>
                                     </div>
                                 
-                                {% when 'update_cart_button' %}
-                                    <div class="cart-actions" {{ block.shopify_attributes }}>
-                                        <button type="submit" name="update" class="tf-btn btn-out-line-dark-2">{{ block.settings.button_text | default: 'Update Cart' }}</button>
-                                    </div>
-                                
+
                                 {% when 'features_slider' %}
                                     <div class="fl-iconbox wow fadeInUp" {{ block.shopify_attributes }}>
                                         <div dir="ltr" class="swiper tf-swiper sw-auto" data-swiper='{
@@ -229,13 +225,15 @@
                                             <div class="cart-imgtrust">
                                                 <p class="text-center text-sm text-dark-1">{{ block.settings.payment_methods_title | default: 'We accept' }}</p>
                                                 <div class="cart-list-social">
-                                                    {% for block in section.blocks %}
-                                                        {% if block.type == 'payment_method' %}
+                                                    {% if block.settings.payment_svg_list != blank %}
+                                                        {% assign payment_icons = block.settings.payment_svg_list | split: ',' %}
+                                                        {% for icon in payment_icons %}
+                                                            {% assign icon_name = icon | strip %}
                                                             <div class="payment-card">
-                                                                <img src="{{ block.settings.icon | asset_url }}" alt="{{ block.settings.name }}" width="100" height="100">
+                                                                <img src="{{ icon_name | payment_type_img_url }}" alt="{{ icon_name }}" width="100" height="100">
                                                             </div>
-                                                        {% endif %}
-                                                    {% endfor %}
+                                                        {% endfor %}
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         {% endif %}
@@ -558,19 +556,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       ]
     },
-    {
-      "type": "update_cart_button",
-      "name": "Update Cart Button",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "button_text",
-          "label": "Button Text",
-          "default": "Update Cart"
-        }
-      ]
-    },
+
     {
       "type": "features_slider",
       "name": "Features Slider",
@@ -720,6 +706,12 @@ document.addEventListener('DOMContentLoaded', function() {
           "id": "payment_methods_title",
           "label": "Payment Methods Title",
           "default": "We accept"
+        },
+        {
+          "type": "text",
+          "id": "payment_svg_list",
+          "label": "Payment Icons",
+          "info": "Enter payment icon names separated by commas (e.g., visa, mastercard, paypal). Review the [list of available values](https://github.com/activemerchant/payment_icons/tree/master/app/assets/images/payment_icons) and copy the name of each icon that you need from that list, without the .svg extension."
         }
       ]
     },
@@ -736,24 +728,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       ]
     },
-    {
-      "type": "payment_method",
-      "name": "Payment Method",
-      "limit": 8,
-      "settings": [
-        {
-          "type": "text",
-          "id": "name",
-          "label": "Payment Method Name",
-          "default": "Visa"
-        },
-        {
-          "type": "image_picker",
-          "id": "icon",
-          "label": "Payment Method Icon"
-        }
-      ]
-    },
+
     {
       "type": "testimonial_item",
       "name": "Testimonial Item",
@@ -799,9 +774,6 @@ document.addEventListener('DOMContentLoaded', function() {
           "type": "cart_note"
         },
         {
-          "type": "update_cart_button"
-        },
-        {
           "type": "features_slider"
         },
         {
@@ -821,18 +793,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
           "type": "cart_summary"
-        },
-        {
-          "type": "payment_method"
-        },
-        {
-          "type": "payment_method"
-        },
-        {
-          "type": "payment_method"
-        },
-        {
-          "type": "payment_method"
         },
         {
           "type": "testimonials"
