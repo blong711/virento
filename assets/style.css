@@ -15453,6 +15453,10 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   animation: swing2 10s infinite ease-in-out;
 }
 
+.tf-page-cart-main .fl-iconbox {
+  margin-top: 32px;
+}
+
 @keyframes swing2 {
   20% {
     transform: rotate(5deg);
@@ -16970,6 +16974,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   }
   .tf-page-cart-main .fl-iconbox {
     padding-right: 27px;
+    margin-top: 40px;
   }
   .tf-page-cart-main .fl-iconbox .tf-swiper {
     padding: 32px;
