@@ -304,6 +304,68 @@
     }
   },
   "sections": {
+    "coming_soon": {
+      "name": "Coming Soon",
+      "settings": {
+        "color": "Color scheme"
+      },
+      "blocks": {
+        "text": {
+          "name": "Title",
+          "settings": {
+            "text": {
+              "label": "Title text"
+            },
+            "size": {
+              "label": "Title size"
+            }
+          }
+        },
+        "text_2": {
+          "name": "Subtext",
+          "settings": {
+            "text": {
+              "label": "Subtext"
+            },
+            "size": {
+              "label": "Subtext size"
+            }
+          }
+        },
+        "countdown": {
+          "name": "Countdown Timer",
+          "settings": {
+            "countdown_date": {
+              "label": "End Date & Time",
+              "info": "Format: YYYY-MM-DD HH:MM:SS (24-hour format)"
+            }
+          }
+        },
+        "notify": {
+          "name": "Notify Form",
+          "settings": {
+            "placeholder": {
+              "label": "Email placeholder"
+            },
+            "button_label": {
+              "label": "Button label"
+            }
+          }
+        },
+        "button": {
+          "name": "Button",
+          "settings": {
+            "text": {
+              "label": "Button text",
+              "info": "Leave blank to hide button"
+            },
+            "url": {
+              "label": "Button link"
+            }
+          }
+        }
+      }
+    },
     "blog_post": {
       "name": "Blog post",
       "settings": {
@@ -1288,6 +1350,37 @@
         "menu": {
           "title": "Menu",
           "heading": "Heading"
+        }
+      }
+    },
+    "404": {
+      "name": "404",
+      "settings": {
+        "color": "Color"
+      },
+      "blocks": {
+        "text": {
+          "name": "Title",
+          "size": "Title size"
+        },
+        "text_2": {
+          "name": "Subtext",
+          "size": "Subtext size"
+        },
+        "image": {
+          "label": "Image"
+        },
+        "button": {
+          "name": "Button",
+          "settings": {
+            "text": {
+              "label": "Button text",
+              "info": "Leave blank to hide button"
+            },
+            "url": {
+              "label": "Button link"
+            }
+          }
         }
       }
     },
