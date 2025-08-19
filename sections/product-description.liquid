@@ -304,9 +304,9 @@
                                 {% if product.metafields.custom.materials_care != blank %}
                                 <div class="tab-pane wd-product-descriptions" id="materials-{{ block.id }}" role="tabpanel">
                                     <div class="item">
-                                        <p class="fw-medium title">{{ block.settings.subtitle }}</p>
+                                        <p class="fw-medium title">{{ product.metafields.custom.materials_care.value.first }}</p>
                                         <ul>
-                                            {% for care_instruction in product.metafields.custom.materials_care.value %}
+                                            {% for care_instruction in product.metafields.custom.materials_care.value offset:1 %}
                                                 <li>{{ care_instruction }}</li>
                                             {% endfor %}
                                         </ul>
@@ -549,9 +549,9 @@
                                 {% if product.metafields.custom.materials_care != blank %}
                                 <div class="tab-pane wd-product-descriptions" id="materials-{{ block.id }}" role="tabpanel">
                                     <div class="item">
-                                        <p class="fw-medium title">{{ block.settings.subtitle }}</p>
+                                        <p class="fw-medium title">{{ product.metafields.custom.materials_care.value.first }}</p>
                                         <ul>
-                                            {% for care_instruction in product.metafields.custom.materials_care.value %}
+                                            {% for care_instruction in product.metafields.custom.materials_care.value offset:1 %}
                                                 <li>{{ care_instruction }}</li>
                                             {% endfor %}
                                         </ul>
@@ -794,9 +794,9 @@
                                 {% if product.metafields.custom.materials_care != blank %}
                                 <div class="tab-pane wd-product-descriptions" id="materials-{{ block.id }}" role="tabpanel">
                                     <div class="item">
-                                        <p class="fw-medium title">{{ block.settings.subtitle }}</p>
+                                        <p class="fw-medium title">{{ product.metafields.custom.materials_care.value.first }}</p>
                                         <ul>
-                                            {% for care_instruction in product.metafields.custom.materials_care.value %}
+                                            {% for care_instruction in product.metafields.custom.materials_care.value offset:1 %}
                                                 <li>{{ care_instruction }}</li>
                                             {% endfor %}
                                         </ul>
