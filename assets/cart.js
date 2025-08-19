@@ -140,6 +140,7 @@
     })
     .then(response => response.json())
     .then(cart => {
+      console.log('Cart item updated successfully:', cart);
       this.updateCartDisplay(cart);
     })
     .catch(error => {
@@ -150,6 +151,8 @@
 
   removeCartItem(itemKey) {
     if (!itemKey) return;
+
+    console.log(`Removing cart item: ${itemKey}`);
 
     const formData = new FormData();
     formData.append('id', itemKey);
@@ -164,6 +167,16 @@
     })
     .then(response => response.json())
     .then(cart => {
+      console.log('Cart item removed successfully:', cart);
+      
+      // Immediately remove the item from display
+      const itemElement = document.querySelector(`[data-item-key="${itemKey}"]`);
+      if (itemElement) {
+        console.log(`Immediately removing item ${itemKey} from display`);
+        itemElement.remove();
+      }
+      
+      // Update the rest of the cart display
       this.updateCartDisplay(cart);
     })
     .catch(error => {
@@ -226,7 +239,6 @@
         if (itemKey) {
           this.removeCartItem(itemKey);
         }
-
       }
     });
   }
@@ -294,32 +306,143 @@
   }
 
   updateCartDisplay(cartData) {
-    console.log('Updating cart display with:', cartData);
+    console.log('Starting cart display update...');
+    console.log('Cart data received:', cartData);
     
-    // Update cart contents without full page reload
+    // Set a timeout to hide loading states if update takes too long
+    const loadingTimeout = setTimeout(() => {
+      console.log('Cart update timeout - hiding loading states');
+      this.hideAllLoadingStates();
+    }, 10000); // 10 second timeout
+    
+    // First, try to update cart totals directly from the cart data
+    if (cartData && cartData.token) {
+      console.log('Updating cart totals directly from cart data...');
+      this.updateCartTotals(cartData);
+      this.updateCartCount(cartData.item_count);
+      this.updateFreeShippingProgress(cartData.total_price);
+      
+      // Also update cart items display if we have items
+      if (cartData.items && cartData.items.length > 0) {
+        console.log('Updating cart items display...');
+        this.updateCartItemsDisplay(cartData.items);
+      }
+      
+      // Debug cart structure to help identify correct selectors
+      console.log('Debugging cart structure to find price elements...');
+      this.debugCartStructure();
+    }
+    
+    // Then try to update the full cart display via sections API
+    console.log('Attempting to update cart display via sections API...');
     fetch('/?sections=main-cart')
       .then(response => response.json())
       .then(sections => {
-        console.log('Fetched sections:', sections);
+        console.log('Received sections:', sections);
+        console.log('Section keys available:', Object.keys(sections));
+        
         if (sections['main-cart']) {
-          const cartContent = this.getSectionInnerHTML(sections['main-cart'], '.tf-page-cart-main');
-          console.log('Cart content:', cartContent);
-          if (cartContent) {
-            // Update the cart content
-            const cartMain = document.querySelector('.tf-page-cart-main');
-            if (cartMain) {
-              cartMain.innerHTML = cartContent;
+          try {
+            // Get the full section HTML
+            const fullSectionHTML = sections['main-cart'];
+            console.log('Full section HTML length:', fullSectionHTML.length);
+            console.log('Full section HTML preview:', fullSectionHTML.substring(0, 500) + '...');
+            
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(fullSectionHTML, 'text/html');
+            
+            // Debug: Check what elements are in the new document
+            console.log('New document body:', newDoc.body);
+            console.log('New document cart items:', newDoc.querySelectorAll('.tf-cart-item'));
+            console.log('New document cart main:', newDoc.querySelector('.tf-page-cart-main'));
+            console.log('New document cart sidebar:', newDoc.querySelector('.tf-page-cart-sidebar'));
+            
+            // Check if the sections API returned meaningful content
+            const newCartMain = newDoc.querySelector('.tf-page-cart-main');
+            const newCartSidebar = newDoc.querySelector('.tf-page-cart-sidebar');
+            const newCartItems = newDoc.querySelectorAll('.tf-cart-item');
+            const newFreeShipping = newDoc.querySelector('.tf-cart-head');
+            
+            console.log('New document elements found:');
+            console.log('- Cart main:', newCartMain);
+            console.log('- Cart sidebar:', newCartSidebar);
+            console.log('- Cart items count:', newCartItems.length);
+            console.log('- Free shipping:', newFreeShipping);
+            
+            // Check if sections API returned actual cart content
+            const hasCartContent = newCartItems.length > 0 || 
+                                 (newCartMain && newCartMain.innerHTML.trim() && newCartMain.innerHTML.trim() !== '') ||
+                                 (newCartSidebar && newCartSidebar.innerHTML.trim() && newCartSidebar.innerHTML.trim() !== '');
+            
+            if (hasCartContent) {
+              console.log('Sections API returned cart content, updating display...');
               
+              // Update cart main content if it exists and has content
+              if (newCartMain && newCartMain.innerHTML.trim()) {
+                const currentCartMain = document.querySelector('.tf-page-cart-main');
+                if (currentCartMain) {
+                  console.log('Updating cart main content...');
+                  currentCartMain.innerHTML = newCartMain.innerHTML;
+                  console.log('Cart main content updated');
+                }
+              }
+              
+              // Update cart sidebar if it exists and has content
+              if (newCartSidebar && newCartSidebar.innerHTML.trim()) {
+                const currentCartSidebar = document.querySelector('.tf-page-cart-sidebar');
+                if (currentCartSidebar) {
+                  console.log('Updating cart sidebar...');
+                  currentCartSidebar.innerHTML = newCartSidebar.innerHTML;
+                  console.log('Cart sidebar updated');
+                }
+              }
+              
+              // Update free shipping progress if it exists
+              if (newFreeShipping) {
+                const currentFreeShipping = document.querySelector('.tf-cart-head');
+                if (currentFreeShipping) {
+                  console.log('Updating free shipping...');
+                  currentFreeShipping.innerHTML = newFreeShipping.innerHTML;
+                  console.log('Free shipping updated');
+                }
+              }
+              
+              console.log('Cart content update completed via sections API');
               // Re-initialize functionality after content update
-              this.init();
+              this.reinitAfterUpdate();
+            } else {
+              console.log('Sections API returned empty cart content, using direct cart update only');
+              console.log('This is expected behavior - sections API often returns empty cart content');
             }
+            
+            // Check empty cart state after update
+            this.checkEmptyCart();
+            
+            console.log('Cart updated successfully');
+            
+            // Clear the loading timeout and hide loading states
+            clearTimeout(loadingTimeout);
+            this.hideAllLoadingStates();
+            
+          } catch (error) {
+            console.error('Error parsing or updating cart content:', error);
+            // Clear timeout and hide loading states even if update failed
+            clearTimeout(loadingTimeout);
+            this.hideAllLoadingStates();
           }
+        } else {
+          console.log('No main-cart section found in response, using direct cart update only');
+          // Clear timeout and hide loading states
+          clearTimeout(loadingTimeout);
+          this.hideAllLoadingStates();
         }
       })
       .catch(error => {
-        console.error('Error updating cart display:', error);
-        // Fallback to page reload if section update fails
-        window.location.reload();
+        console.error('Error updating cart display via sections API:', error);
+        console.log('Falling back to direct cart update only');
+        // Clear timeout and hide loading states on error
+        clearTimeout(loadingTimeout);
+        this.hideAllLoadingStates();
       });
     
     // Trigger cart count update event
@@ -353,26 +476,359 @@
     const cartItems = document.querySelectorAll('.tf-cart-item');
     const emptyCartMessage = document.querySelector('.empty-cart');
     const cartContent = document.querySelector('.tf-page-cart-main');
+    const cartSidebar = document.querySelector('.tf-page-cart-sidebar');
+    const freeShippingProgress = document.querySelector('.tf-cart-head');
+    
+    console.log(`Checking empty cart state: ${cartItems.length} items found`);
     
     if (cartItems.length === 0) {
+      console.log('Cart is empty, showing empty cart message');
       // Show empty cart message
       if (emptyCartMessage) {
         emptyCartMessage.style.display = 'block';
+        console.log('Empty cart message displayed');
       }
-      // Hide cart content
+      // Hide cart content and sidebar
       if (cartContent) {
         cartContent.style.display = 'none';
+        console.log('Cart content hidden');
+      }
+      if (cartSidebar) {
+        cartSidebar.style.display = 'none';
+        console.log('Cart sidebar hidden');
+      }
+      if (freeShippingProgress) {
+        freeShippingProgress.style.display = 'none';
+        console.log('Free shipping progress hidden');
       }
     } else {
+      console.log('Cart has items, hiding empty cart message');
       // Hide empty cart message
       if (emptyCartMessage) {
         emptyCartMessage.style.display = 'none';
+        console.log('Empty cart message hidden');
       }
-      // Show cart content
+      // Show cart content and sidebar
       if (cartContent) {
         cartContent.style.display = 'block';
+        console.log('Cart content shown');
+      }
+      if (cartSidebar) {
+        cartSidebar.style.display = 'block';
+        console.log('Cart sidebar shown');
+      }
+      if (freeShippingProgress) {
+        freeShippingProgress.style.display = 'block';
+        console.log('Free shipping progress shown');
       }
     }
+  }
+
+  reinitAfterUpdate() {
+    // Only re-initialize the essential functionality after content update
+    // Don't call the full init() method as it might interfere with existing elements
+    
+    // Re-setup quantity buttons for new cart items
+    this.setupQuantityButtons();
+    
+    // Re-setup remove buttons for new cart items
+    this.setupRemoveButtons();
+    
+    // Re-setup gift wrap functionality
+    this.setupGiftWrap();
+    
+    // Re-setup discount code functionality
+    this.setupDiscountCode();
+    
+    // Re-setup cart note functionality
+    this.setupCartNote();
+  }
+
+  updateCartCount(itemCount) {
+    // Update cart count in header if it exists
+    const cartCount = document.querySelector('.cart-count');
+    if (cartCount) {
+      cartCount.textContent = itemCount;
+    }
+  }
+
+  updateCartTotals(cart) {
+    console.log('Updating cart totals with data:', cart);
+    
+    // Update cart totals if they exist - try multiple selectors
+    const subtotalSelectors = ['.total', '.cart-subtotal', '.subtotal', '[data-cart-subtotal]'];
+    let subtotalUpdated = false;
+    
+    for (const selector of subtotalSelectors) {
+      const element = document.querySelector(selector);
+      if (element) {
+        element.textContent = this.formatMoney(cart.total_price);
+        console.log(`Updated subtotal using selector: ${selector}`);
+        subtotalUpdated = true;
+        break;
+      }
+    }
+    
+    if (!subtotalUpdated) {
+      console.log('No subtotal element found with common selectors');
+    }
+    
+    // Update discounts if they exist
+    if (cart.total_discounts > 0) {
+      const discountSelectors = ['.discounts span:last-child', '.cart-discounts', '.discount-amount'];
+      let discountUpdated = false;
+      
+      for (const selector of discountSelectors) {
+        const element = document.querySelector(selector);
+        if (element) {
+          element.textContent = '-' + this.formatMoney(cart.total_discounts);
+          console.log(`Updated discount using selector: ${selector}`);
+          discountUpdated = true;
+          break;
+        }
+      }
+      
+      if (!discountUpdated) {
+        console.log('No discount element found with common selectors');
+      }
+    }
+    
+    // Update cart item quantities if they exist
+    this.updateCartItemQuantities(cart);
+    
+    // Update free shipping progress
+    this.updateFreeShippingProgress(cart.total_price);
+    
+    console.log('Cart totals update completed');
+  }
+
+  updateCartItemQuantities(cart) {
+    // Update individual cart item quantities and prices
+    if (cart.items && cart.items.length > 0) {
+      console.log('Updating cart item quantities...');
+      
+      cart.items.forEach(cartItem => {
+        // Find the cart item element by product ID or variant ID
+        const itemElement = document.querySelector(`[data-item-key="${cartItem.key}"]`);
+        if (itemElement) {
+          // Update quantity display
+          const quantityElement = itemElement.querySelector('.quantity-product');
+          if (quantityElement) {
+            quantityElement.value = cartItem.quantity;
+            console.log(`Updated quantity for item ${cartItem.key}: ${cartItem.quantity}`);
+          }
+          
+          // Update item price - try multiple selectors
+          const priceSelectors = ['.price', '.item-price', '.cart-item-price', '.total-price', '.cart-total', '.total-price.text-md.fw-medium'];
+          let priceUpdated = false;
+          
+          for (const selector of priceSelectors) {
+            const priceElement = itemElement.querySelector(selector);
+            if (priceElement) {
+              priceElement.textContent = this.formatMoney(cartItem.final_line_price);
+              console.log(`Updated price for item ${cartItem.key} using selector "${selector}": ${this.formatMoney(cartItem.final_line_price)}`);
+              priceUpdated = true;
+              break;
+            }
+          }
+          
+          if (!priceUpdated) {
+            console.log(`No price element found for item ${cartItem.key}, tried selectors:`, priceSelectors);
+          }
+        }
+      });
+      
+      console.log('Cart item quantities updated');
+    } else {
+      console.log('No cart items found to update quantities');
+    }
+  }
+
+  updateCartItemsDisplay(cartItems) {
+    // Update the visual display of cart items
+    console.log('Updating cart items display for', cartItems.length, 'items');
+    
+    // Get all current cart item elements
+    const currentCartItems = document.querySelectorAll('.tf-cart-item');
+    const currentItemKeys = Array.from(currentCartItems).map(item => this.getItemKey(item));
+    
+    console.log('Current cart item keys:', currentItemKeys);
+    console.log('New cart item keys:', cartItems.map(item => item.key));
+    
+    // Remove cart items that are no longer in the cart
+    currentItemKeys.forEach(itemKey => {
+      if (itemKey && !cartItems.find(item => item.key === itemKey)) {
+        console.log(`Removing cart item ${itemKey} - no longer in cart`);
+        const itemElement = document.querySelector(`[data-item-key="${itemKey}"]`);
+        if (itemElement) {
+          itemElement.remove();
+          console.log(`Cart item ${itemKey} removed from display`);
+        }
+      }
+    });
+    
+    // Update existing items and add new ones
+    cartItems.forEach(cartItem => {
+      // Find the cart item element by product ID or variant ID
+      const itemElement = document.querySelector(`[data-item-key="${cartItem.key}"]`);
+      if (itemElement) {
+        // Debug: Log what elements are available in this cart item
+        console.log(`Cart item ${cartItem.key} HTML structure:`, itemElement.innerHTML.substring(0, 200) + '...');
+        
+        // Update quantity display
+        const quantityElement = itemElement.querySelector('.quantity-product');
+        if (quantityElement) {
+          quantityElement.value = cartItem.quantity;
+          console.log(`Updated quantity display for item ${cartItem.key}: ${cartItem.quantity}`);
+        }
+        
+        // Update item price - try multiple selectors
+        const priceSelectors = ['.price', '.item-price', '.cart-item-price', '.total-price', '.cart-total', '.total-price.text-md.fw-medium'];
+        let priceUpdated = false;
+        
+        for (const selector of priceSelectors) {
+          const priceElement = itemElement.querySelector(selector);
+          if (priceElement) {
+            priceElement.textContent = this.formatMoney(cartItem.final_line_price);
+            console.log(`Updated price display for item ${cartItem.key} using selector "${selector}": ${this.formatMoney(cartItem.final_line_price)}`);
+            priceUpdated = true;
+            break;
+          }
+        }
+        
+        if (!priceUpdated) {
+          console.log(`No price element found for item ${cartItem.key}, tried selectors:`, priceSelectors);
+          // Debug: Show all elements with price-related classes
+          const allElements = itemElement.querySelectorAll('*');
+          const priceElements = Array.from(allElements).filter(el => 
+            el.className && (
+              el.className.includes('price') || 
+              el.className.includes('total') || 
+              el.className.includes('amount')
+            )
+          );
+          console.log(`Price-related elements found in item ${cartItem.key}:`, priceElements);
+        }
+        
+        // Update item total
+        const totalElement = itemElement.querySelector('.item-total, .line-total');
+        if (totalElement) {
+          totalElement.textContent = this.formatMoney(cartItem.final_line_price);
+          console.log(`Updated total display for item ${cartItem.key}: ${this.formatMoney(cartItem.final_line_price)}`);
+        }
+        
+        // Update item image if it exists
+        if (cartItem.image) {
+          const imageElement = itemElement.querySelector('.cart-item-image img');
+          if (imageElement) {
+            imageElement.src = cartItem.image;
+            imageElement.alt = cartItem.product_title;
+            console.log(`Updated image for item ${cartItem.key}`);
+          }
+        }
+      } else {
+        console.log(`Cart item element not found for key: ${cartItem.key} - item may be new`);
+      }
+    });
+    
+    console.log('Cart items display update completed');
+  }
+
+  formatMoney(cents) {
+    // Simple money formatting (you can enhance this)
+    return '$' + (cents / 100).toFixed(2);
+  }
+
+  updateFreeShippingProgress(cartTotal) {
+    // Update free shipping progress bar
+    const progressBar = document.querySelector('.tf-progress-ship .value');
+    if (progressBar) {
+      const threshold = window.shopifySettings?.free_shipping_threshold || 10000; // Default $100
+      const percentage = Math.min((cartTotal / threshold) * 100, 100);
+      progressBar.style.width = percentage + '%';
+      progressBar.setAttribute('data-progress', percentage);
+    }
+  }
+
+  updateCartTotalsFromAPI() {
+    // Fetch cart data directly and update totals as a backup
+    fetch('/cart.js')
+      .then(response => response.json())
+      .then(cart => {
+        console.log('Backup cart totals update:', cart);
+        
+        // Update cart count
+        this.updateCartCount(cart.item_count);
+        
+        // Update cart totals
+        this.updateCartTotals(cart);
+        
+        // Update free shipping progress
+        this.updateFreeShippingProgress(cart.total_price);
+        
+        console.log('Backup cart totals updated successfully');
+      })
+      .catch(error => {
+        console.error('Error in backup cart totals update:', error);
+      });
+  }
+
+  hideAllLoadingStates() {
+    // Hide loading states for all cart items
+    const cartItems = document.querySelectorAll('.tf-cart-item');
+    cartItems.forEach(item => {
+      const itemKey = this.getItemKey(item);
+      if (itemKey) {
+        this.hideLoadingState(itemKey);
+      }
+    });
+    console.log('All loading states hidden');
+  }
+
+  debugCartStructure() {
+    // Debug method to help identify the correct selectors
+    console.log('=== DEBUGGING CART STRUCTURE ===');
+    
+    const cartItems = document.querySelectorAll('.tf-cart-item');
+    console.log(`Found ${cartItems.length} cart items`);
+    
+    cartItems.forEach((item, index) => {
+      console.log(`\n--- Cart Item ${index + 1} ---`);
+      console.log('Item element:', item);
+      console.log('Item classes:', item.className);
+      console.log('Item data attributes:', item.dataset);
+      
+      // Look for price-related elements
+      const priceElements = item.querySelectorAll('*');
+      const priceRelated = Array.from(priceElements).filter(el => 
+        el.className && (
+          el.className.includes('price') || 
+          el.className.includes('total') || 
+          el.className.includes('amount') ||
+          el.className.includes('cost')
+        )
+      );
+      
+      if (priceRelated.length > 0) {
+        console.log('Price-related elements found:');
+        priceRelated.forEach(el => {
+          console.log(`- Element: ${el.tagName}.${el.className}`, el.textContent.trim());
+        });
+      } else {
+        console.log('No price-related elements found');
+      }
+      
+      // Look for quantity elements
+      const quantityElements = item.querySelectorAll('input[type="number"], .quantity, .qty');
+      if (quantityElements.length > 0) {
+        console.log('Quantity elements found:');
+        quantityElements.forEach(el => {
+          console.log(`- Element: ${el.tagName}.${el.className}`, el.value || el.textContent);
+        });
+      }
+    });
+    
+    console.log('=== END DEBUGGING ===');
   }
 }
 
@@ -413,4 +869,3 @@ document.addEventListener('cart:updated', function() {
   // Make MainCart available globally
   window.MainCart = MainCart;
 })();
-
