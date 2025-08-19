@@ -129,20 +129,24 @@
                                             }
                                         }'>
                                             <div class="swiper-wrapper">
-                                                {% for block in section.blocks %}
-                                                    {% if block.type == 'feature_item' %}
+                                                {% if block.settings.features != blank %}
+                                                    {% assign features = block.settings.features | split: ',' %}
+                                                    {% for feature in features %}
+                                                        {% assign feature_parts = feature | split: '|' %}
+                                                        {% assign icon = feature_parts[0] | strip %}
+                                                        {% assign title = feature_parts[1] | strip %}
                                                         <div class="swiper-slide">
                                                             <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
                                                                 <div class="box-icon">
-                                                                    <i class="icon icon-{{ block.settings.icon_class | default: 'shipping' }}"></i>
+                                                                    <i class="icon icon-{{ icon | default: 'shipping' }}"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.title | default: 'Free Shipping' }}</div>
+                                                                    <div class="title text-uppercase">{{ title | default: 'Free Shipping' }}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    {% endif %}
-                                                {% endfor %}
+                                                    {% endfor %}
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
@@ -253,8 +257,13 @@
                                             }
                                         }'>
                                             <div class="swiper-wrapper">
-                                                {% for block in section.blocks %}
-                                                    {% if block.type == 'testimonial_item' %}
+                                                {% if block.settings.testimonials != blank %}
+                                                    {% assign testimonials = block.settings.testimonials | split: '||' %}
+                                                    {% for testimonial in testimonials %}
+                                                        {% assign testimonial_parts = testimonial | split: '|' %}
+                                                        {% assign content = testimonial_parts[0] | strip %}
+                                                        {% assign author_name = testimonial_parts[1] | strip %}
+                                                        {% assign author_image = testimonial_parts[2] | strip %}
                                                         <div class="swiper-slide">
                                                             <div class="box-testimonial-main">
                                                                 <span class="quote icon-quote5"></span>
@@ -264,18 +273,24 @@
                                                                             <i class="icon-star"></i>
                                                                         {% endfor %}
                                                                     </div>
-                                                                    <p class="text-review text-md text-main">{{ block.settings.content }}</p>
+                                                                    <p class="text-review text-md text-main">{{ content | default: 'Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.' }}</p>
                                                                     <div class="box-author">
                                                                         <div class="img">
-                                                                            <img src="{{ block.settings.author_image | img_url: '50x50', crop: 'center' }}" alt="{{ block.settings.author_name }}" width="50" height="50">
+                                                                            {% if author_image != blank %}
+                                                                                <img src="{{ author_image | img_url: '50x50', crop: 'center' }}" alt="{{ author_name }}" width="50" height="50">
+                                                                            {% else %}
+                                                                                <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                                                    <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
+                                                                                </div>
+                                                                            {% endif %}
                                                                         </div>
-                                                                        <span class="name text-sm fw-medium">{{ block.settings.author_name }}</span>
+                                                                        <span class="name text-sm fw-medium">{{ author_name | default: 'Customer' }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    {% endif %}
-                                                {% endfor %}
+                                                    {% endfor %}
+                                                {% endif %}
                                             </div>
                                             <div class="box-nav-swiper">
                                                 <div class="swiper-button-prev nav-swiper nav-prev-tes"></div>
@@ -561,24 +576,13 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "features_slider",
       "name": "Features Slider",
       "limit": 1,
-      "settings": []
-    },
-    {
-      "type": "feature_item",
-      "name": "Feature Item",
-      "limit": 6,
       "settings": [
         {
-          "type": "text",
-          "id": "icon_class",
-          "label": "Icon Class",
-          "default": "shipping"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Feature Title",
-          "default": "Free Shipping"
+          "type": "textarea",
+          "id": "features",
+          "label": "Features",
+          "info": "Enter features in format: icon|title, icon|title (e.g., shipping|Free Shipping, gift|Gift Package, return|Easy Returns, support|Warranty)",
+          "default": "shipping|Free Shipping, gift|Gift Package, return|Easy Returns, support|Warranty"
         }
       ]
     },
@@ -725,31 +729,13 @@ document.addEventListener('DOMContentLoaded', function() {
           "id": "testimonials_title",
           "label": "Testimonials Title",
           "default": "What our customers say"
-        }
-      ]
-    },
-
-    {
-      "type": "testimonial_item",
-      "name": "Testimonial Item",
-      "limit": 6,
-      "settings": [
+        },
         {
           "type": "textarea",
-          "id": "content",
-          "label": "Testimonial Content",
-          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
-        },
-        {
-          "type": "text",
-          "id": "author_name",
-          "label": "Author Name",
-          "default": "Customer"
-        },
-        {
-          "type": "image_picker",
-          "id": "author_image",
-          "label": "Author Image"
+          "id": "testimonials",
+          "label": "Testimonials",
+          "info": "Enter testimonials in format: content|author_name|image_url||content|author_name|image_url (use || to separate multiple testimonials)",
+          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Vincent P.|images/avatar/avt-1.png||Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Themesflat|images/avatar/blog-author-3.jpg||Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Henry P.|images/avatar/blog-author-2.jpg"
         }
       ]
     }
@@ -777,18 +763,6 @@ document.addEventListener('DOMContentLoaded', function() {
           "type": "features_slider"
         },
         {
-          "type": "feature_item"
-        },
-        {
-          "type": "feature_item"
-        },
-        {
-          "type": "feature_item"
-        },
-        {
-          "type": "feature_item"
-        },
-        {
           "type": "shipping_estimator"
         },
         {
@@ -796,15 +770,6 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
           "type": "testimonials"
-        },
-        {
-          "type": "testimonial_item"
-        },
-        {
-          "type": "testimonial_item"
-        },
-        {
-          "type": "testimonial_item"
         }
       ]
     }
