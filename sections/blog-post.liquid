@@ -198,29 +198,8 @@
       {% endif %}
     </div>
 
-    <!-- Comments Section -->
-    {% if section.settings.show_comments %}
-      {% if article.comments_count > 0 %}
-        <div class="comments-section">
-          <h3>{{ 'blogs.article.comments' | t: count: article.comments_count }}</h3>
-          {% paginate article.comments by 5 %}
-            <div class="comments-list">
-              {% for comment in article.comments %}
-                <div class="comment" id="comment-{{ comment.id }}">
-                  <div class="comment-author">{{ comment.author }}</div>
-                  <div class="comment-date">{{ comment.created_at | date: format: 'month_day_year' }}</div>
-                  <div class="comment-content">{{ comment.content }}</div>
-                </div>
-              {% endfor %}
-            </div>
-            {{ paginate | default_pagination }}
-          {% endpaginate %}
-        </div>
-      {% endif %}
-    {% endif %}
-
     <!-- Comment Form -->
-    {% if section.settings.show_comments and section.settings.show_comment_form %}
+    {% if section.settings.show_comment_form %}
       <div class="leave-comment-wrap">
         <h3 class="title">{{ 'blogs.article.comment_form_title' | t }}</h3>
 
