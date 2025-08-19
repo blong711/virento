@@ -60,7 +60,7 @@
                         {% endif %}
                         
                         <a href="{{ section.settings.go_back_url }}" class="breadcrumb-back" title="{{ 'general.navigation.shop' | t | default: 'Shop' }}">
-                            <i class="icon icon-shop"></i>
+                            <i class="icon icon-grid"></i>
                         </a>
                         
                         {% if next_product %}
@@ -71,7 +71,7 @@
                     {% else %}
                         <span class="breadcrumb-prev disabled"><i class="icon icon-arr-left"></i></span>
                         <a href="{{ section.settings.go_back_url }}" class="breadcrumb-back" title="{{ 'general.navigation.shop' | t | default: 'Shop' }}">
-                            <i class="icon icon-shop"></i>
+                            <i class="icon icon-grid"></i>
                         </a>
                         <span class="breadcrumb-next disabled"><i class="icon icon-arr-right2"></i></span>
                     {% endif %}
