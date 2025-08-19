@@ -737,18 +737,44 @@
   }
 
   formatMoney(cents) {
-    // Simple money formatting (you can enhance this)
-    return '$' + (cents / 100).toFixed(2);
+    // Format money with currency code if enabled
+    const amount = '$' + (cents / 100).toFixed(2);
+    
+    // Check if currency code should be displayed
+    // Look for the currency setting in the page
+    const currencyEnabled = document.querySelector('[data-currency-enabled]')?.getAttribute('data-currency-enabled') === 'true';
+    const currencyCode = document.querySelector('[data-currency-code]')?.getAttribute('data-currency-code');
+    
+    if (currencyEnabled && currencyCode) {
+      return amount + ' ' + currencyCode;
+    }
+    
+    return amount;
   }
 
   updateFreeShippingProgress(cartTotal) {
     // Update free shipping progress bar
     const progressBar = document.querySelector('.tf-progress-ship .value');
     if (progressBar) {
-      const threshold = window.shopifySettings?.free_shipping_threshold || 10000; // Default $100
+      const threshold = window.themeSettings?.free_shipping_threshold || 10000; // Default $100
       const percentage = Math.min((cartTotal / threshold) * 100, 100);
       progressBar.style.width = percentage + '%';
       progressBar.setAttribute('data-progress', percentage);
+    }
+    
+    // Update free shipping text
+    const freeShippingText = document.querySelector('.tf-cart-head .title');
+    if (freeShippingText) {
+      const threshold = window.themeSettings?.free_shipping_threshold || 10000; // Default $100
+      
+      if (cartTotal >= threshold) {
+        // Qualified for free shipping - update the entire paragraph
+        freeShippingText.innerHTML = 'You\'ve qualified for <span class="fw-medium">Free Shipping!</span>';
+      } else {
+        // Need to spend more - update the entire paragraph
+        const remaining = threshold - cartTotal;
+        freeShippingText.innerHTML = `Spend <span class="fw-medium">${this.formatMoney(remaining)}</span> more to get <span class="fw-medium">Free Shipping</span>`;
+      }
     }
   }
 
