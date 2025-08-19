@@ -9468,7 +9468,7 @@ button.animate-btn::after,
 .tf-product-info-wrap .tf-product-info-trust-seal .card-item {
   width: 45px;
   height: auto;
-  border: 1px solid #d9d9d9;
+  /* border: 1px solid #d9d9d9; */
   border-radius: 2.5px;
 }
 .tf-product-info-wrap .tf-product-info-delivery-return {
@@ -13731,7 +13731,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   margin-top: 12px;
 }
 .tf-page-cart-sidebar .checkout-cart-box .payment-card {
-  border: 1px solid #d9d9d9;
+  /* border: 1px solid #d9d9d9; */
   border-radius: 2.5px;
   width: 45px;
   height: 31.3px;
