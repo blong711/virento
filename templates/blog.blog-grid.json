@@ -94,8 +94,8 @@
         "blog_content": {
           "type": "blog_content",
           "settings": {
-            "layout": "list",
-            "blog_source": "current",
+            "layout": "grid",
+            "blog_source": "specific",
             "specific_blog": "design",
             "article_limit": 3,
             "items_per_row_dk": "2",
@@ -107,7 +107,7 @@
             "show_date": true,
             "date": "%b %d",
             "Content_align": "start",
-            "image_ratio": "-landscape"
+            "image_ratio": "4-3"
           }
         },
         "blog_sidebar": {

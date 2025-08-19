@@ -1,5 +1,5 @@
-<div class="gradient color-{{ section.settings.color_scheme }}">
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}{% if section.settings.padding_top > 0 %} pt-{{ section.settings.padding_top }}{% endif %}{% if section.settings.padding_bottom > 0 %} pb-{{ section.settings.padding_bottom }}{% endif %}">
+<div class="gradient section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
     {% for block in section.blocks %}
       {% case block.type %}
         {% when 'blog_content' %}
@@ -13,7 +13,7 @@
 
           <!-- Blog Content Section -->
           <section
-            class="{% if block.settings.layout == 'list' %}s-blog-list-v1{% else %}s-blog-grid{% endif %} sec-blog space-blog color-{{ section.settings.color_scheme }} gradient"
+            class="{% if block.settings.layout == 'list' %}s-blog-list-v1{% else %}s-blog-grid{% endif %} space-blog color-{{ section.settings.color_scheme }} gradient"
             {{ block.shopify_attributes }}
           >
             <div class="row">
@@ -472,6 +472,18 @@
     }
     .s-blog-list-grid.grid-mb-3 {
       grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
 {% endstyle %}
