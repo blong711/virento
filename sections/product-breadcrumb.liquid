@@ -9,7 +9,7 @@
     <div class="{{ section.settings.width }}">
         <div class="breadcrumb-wrap">
             <div class="breadcrumb-list" itemscope itemtype="https://schema.org/BreadcrumbList">
-                <a class="breadcrumb-item" href="/" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
+                <a class="breadcrumb-item" style="color: rgb(var(--color-foreground2));" href="/" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
                     <span itemprop="name">{{ 'general.breadcrumbs.home' | t | default: 'Home' }}</span>
                     <meta itemprop="position" content="1" />
                 </a>
@@ -24,7 +24,7 @@
                 {% endif %}
                 
                 <div class="breadcrumb-item dot"><span></span></div>
-                <div class="breadcrumb-item current" style="color: rgb(var(--color-foreground));" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
+                <div class="breadcrumb-item current" style="color: rgb(var(--color-foreground ));" itemprop="itemListElement" itemscope itemtype="https://schema.org/BreadcrumbListItem">
                     <span itemprop="name">{{ product.title }}</span>
                     <meta itemprop="position" content="{% if section.settings.show_collection and product.collections.size > 0 %}4{% else %}3{% endif %}" />
                 </div>
