@@ -141,23 +141,87 @@
                                             }
                                         }'>
                                             <div class="swiper-wrapper">
-                                                {% if block.settings.features != blank %}
-                                                    {% assign features = block.settings.features | split: ',' %}
-                                                    {% for feature in features %}
-                                                        {% assign feature_parts = feature | split: '|' %}
-                                                        {% assign icon = feature_parts[0] | strip %}
-                                                        {% assign title = feature_parts[1] | strip %}
+                                                {% if block.settings.feature_1_icon != blank or block.settings.feature_2_icon != blank or block.settings.feature_3_icon != blank or block.settings.feature_4_icon != blank %}
+                                                    {% if block.settings.feature_1_icon != blank %}
                                                         <div class="swiper-slide">
                                                             <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
                                                                 <div class="box-icon">
-                                                                    <i class="icon icon-{{ icon | default: 'shipping' }}"></i>
+                                                                    <i class="icon icon-{{ block.settings.feature_1_icon }}"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <div class="title text-uppercase">{{ title | default: 'Free Shipping' }}</div>
+                                                                    <div class="title text-uppercase">{{ block.settings.feature_1_title | default: 'Feature 1' }}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    {% endfor %}
+                                                    {% endif %}
+                                                    {% if block.settings.feature_2_icon != blank %}
+                                                        <div class="swiper-slide">
+                                                            <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                                                <div class="box-icon">
+                                                                    <i class="icon icon-{{ block.settings.feature_2_icon }}"></i>
+                                                                </div>
+                                                                <div class="content">
+                                                                    <div class="title text-uppercase">{{ block.settings.feature_2_title | default: 'Feature 2' }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if block.settings.feature_3_icon != blank %}
+                                                        <div class="swiper-slide">
+                                                            <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                                                <div class="box-icon">
+                                                                    <i class="icon icon-{{ block.settings.feature_3_icon }}"></i>
+                                                                </div>
+                                                                <div class="content">
+                                                                    <div class="title text-uppercase">{{ block.settings.feature_3_title | default: 'Feature 3' }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if block.settings.feature_4_icon != blank %}
+                                                        <div class="swiper-slide">
+                                                            <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                                                <div class="box-icon">
+                                                                    <i class="icon icon-{{ block.settings.feature_4_icon }}"></i>
+                                                                </div>
+                                                                <div class="content">
+                                                                    <div class="title text-uppercase">{{ block.settings.feature_4_title | default: 'Feature 4' }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <!-- Fallback to default features if no custom ones are set -->
+                                                    <div class="swiper-slide">
+                                                        <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                                            <div class="box-icon">
+                                                                <i class="icon icon-shipping"></i>
+                                                            </div>
+                                                            <div class="content">
+                                                                <div class="title text-uppercase">Free Shipping</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="swiper-slide">
+                                                        <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                                            <div class="box-icon">
+                                                                <i class="icon icon-gift"></i>
+                                                            </div>
+                                                            <div class="content">
+                                                                <div class="title text-uppercase">Gift Package</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="swiper-slide">
+                                                        <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                                            <div class="box-icon">
+                                                                <i class="icon icon-return"></i>
+                                                            </div>
+                                                            <div class="content">
+                                                                <div class="title text-uppercase">Easy Returns</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 {% endif %}
                                             </div>
                                         </div>
@@ -286,13 +350,8 @@
                                             }
                                         }'>
                                             <div class="swiper-wrapper">
-                                                {% if block.settings.testimonials != blank %}
-                                                    {% assign testimonials = block.settings.testimonials | split: '||' %}
-                                                    {% for testimonial in testimonials %}
-                                                        {% assign testimonial_parts = testimonial | split: '|' %}
-                                                        {% assign content = testimonial_parts[0] | strip %}
-                                                        {% assign author_name = testimonial_parts[1] | strip %}
-                                                        {% assign author_image = testimonial_parts[2] | strip %}
+                                                {% if block.settings.testimonial_1_content != blank or block.settings.testimonial_2_content != blank or block.settings.testimonial_3_content != blank %}
+                                                    {% if block.settings.testimonial_1_content != blank %}
                                                         <div class="swiper-slide">
                                                             <div class="box-testimonial-main">
                                                                 <span class="quote icon-quote5"></span>
@@ -302,23 +361,100 @@
                                                                             <i class="icon-star"></i>
                                                                         {% endfor %}
                                                                     </div>
-                                                                    <p class="text-review text-md text-main">{{ content | default: 'Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.' }}</p>
+                                                                    <p class="text-review text-md text-main">{{ block.settings.testimonial_1_content }}</p>
                                                                     <div class="box-author">
                                                                         <div class="img">
-                                                                            {% if author_image != blank %}
-                                                                                <img src="{{ author_image | img_url: '50x50', crop: 'center' }}" alt="{{ author_name }}" width="50" height="50">
+                                                                            {% if block.settings.testimonial_1_image != blank %}
+                                                                                <img src="{{ block.settings.testimonial_1_image | img_url: '50x50', crop: 'center' }}" alt="{{ block.settings.testimonial_1_author }}" width="50" height="50">
                                                                             {% else %}
                                                                                 <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                                                                                     <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
                                                                                 </div>
                                                                             {% endif %}
                                                                         </div>
-                                                                        <span class="name text-sm fw-medium">{{ author_name | default: 'Customer' }}</span>
+                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_1_author | default: 'Customer' }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    {% endfor %}
+                                                    {% endif %}
+                                                    {% if block.settings.testimonial_2_content != blank %}
+                                                        <div class="swiper-slide">
+                                                            <div class="box-testimonial-main">
+                                                                <span class="quote icon-quote5"></span>
+                                                                <div class="content">
+                                                                    <div class="list-star-default">
+                                                                        {% for i in (1..5) %}
+                                                                            <i class="icon-star"></i>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    <p class="text-review text-md text-main">{{ block.settings.testimonial_2_content }}</p>
+                                                                    <div class="box-author">
+                                                                        <div class="img">
+                                                                            {% if block.settings.testimonial_2_image != blank %}
+                                                                                <img src="{{ block.settings.testimonial_2_image | img_url: '50x50', crop: 'center' }}" alt="{{ block.settings.testimonial_2_author }}" width="50" height="50">
+                                                                            {% else %}
+                                                                                <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                                                    <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_2_author | default: 'Customer' }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                    {% if block.settings.testimonial_3_content != blank %}
+                                                        <div class="swiper-slide">
+                                                            <div class="box-testimonial-main">
+                                                                <span class="quote icon-quote5"></span>
+                                                                <div class="content">
+                                                                    <div class="list-star-default">
+                                                                        {% for i in (1..5) %}
+                                                                            <i class="icon-star"></i>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    <p class="text-review text-md text-main">{{ block.settings.testimonial_3_content }}</p>
+                                                                    <div class="box-author">
+                                                                        <div class="img">
+                                                                            {% if block.settings.testimonial_3_image != blank %}
+                                                                                <img src="{{ block.settings.testimonial_3_image | img_url: '50x50', crop: 'center' }}" alt="{{ block.settings.testimonial_3_author }}" width="50" height="50">
+                                                                            {% else %}
+                                                                                <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                                                    <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
+                                                                                </div>
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_3_author | default: 'Customer' }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% else %}
+                                                    <!-- Fallback to default testimonials if no custom ones are set -->
+                                                    <div class="swiper-slide">
+                                                        <div class="box-testimonial-main">
+                                                            <span class="quote icon-quote5"></span>
+                                                            <div class="content">
+                                                                <div class="list-star-default">
+                                                                    {% for i in (1..5) %}
+                                                                        <i class="icon-star"></i>
+                                                                    {% endfor %}
+                                                                </div>
+                                                                <p class="text-review text-md text-main">Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.</p>
+                                                                <div class="box-author">
+                                                                    <div class="img">
+                                                                        <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                                            <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                    <span class="name text-sm fw-medium">Happy Customer</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 {% endif %}
                                             </div>
                                             <div class="box-nav-swiper">
@@ -521,11 +657,52 @@
       "limit": 1,
       "settings": [
         {
-          "type": "textarea",
-          "id": "features",
-          "label": "Features",
-          "info": "Enter features in format: icon|title, icon|title (e.g., shipping|Free Shipping, gift|Gift Package, return|Easy Returns, support|Warranty)",
-          "default": "shipping|Free Shipping, gift|Gift Package, return|Easy Returns, support|Warranty"
+          "type": "text",
+          "id": "feature_1_icon",
+          "label": "Feature 1 Icon Class",
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "feature_1_title",
+          "label": "Feature 1 Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "feature_2_icon",
+          "label": "Feature 2 Icon Class",
+          "default": "gift"
+        },
+        {
+          "type": "text",
+          "id": "feature_2_title",
+          "label": "Feature 2 Title",
+          "default": "Gift Package"
+        },
+        {
+          "type": "text",
+          "id": "feature_3_icon",
+          "label": "Feature 3 Icon Class",
+          "default": "return"
+        },
+        {
+          "type": "text",
+          "id": "feature_3_title",
+          "label": "Feature 3 Title",
+          "default": "Easy Returns"
+        },
+        {
+          "type": "text",
+          "id": "feature_4_icon",
+          "label": "Feature 4 Icon Class",
+          "default": "support"
+        },
+        {
+          "type": "text",
+          "id": "feature_4_title",
+          "label": "Feature 4 Title",
+          "default": "Warranty"
         }
       ]
     },
@@ -670,16 +847,54 @@
       "settings": [
         {
           "type": "text",
-          "id": "testimonials_title",
-          "label": "Testimonials Title",
-          "default": "What our customers say"
+          "id": "testimonial_1_author",
+          "label": "Testimonial 1 Author",
+          "default": "Customer"
+        },
+        {
+          "type": "image_picker",
+          "id": "testimonial_1_image",
+          "label": "Testimonial 1 Image"
         },
         {
           "type": "textarea",
-          "id": "testimonials",
-          "label": "Testimonials",
-          "info": "Enter testimonials in format: content|author_name|image_url||content|author_name|image_url (use || to separate multiple testimonials)",
-          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Vincent P.|images/avatar/avt-1.png||Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Themesflat|images/avatar/blog-author-3.jpg||Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Henry P.|images/avatar/blog-author-2.jpg"
+          "id": "testimonial_1_content",
+          "label": "Testimonial 1 Content",
+          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+        },
+        {
+          "type": "text",
+          "id": "testimonial_2_author",
+          "label": "Testimonial 2 Author",
+          "default": "Customer"
+        },
+        {
+          "type": "image_picker",
+          "id": "testimonial_2_image",
+          "label": "Testimonial 2 Image"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial_2_content",
+          "label": "Testimonial 2 Content",
+          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+        },
+        {
+          "type": "text",
+          "id": "testimonial_3_author",
+          "label": "Testimonial 3 Author",
+          "default": "Customer"
+        },
+        {
+          "type": "image_picker",
+          "id": "testimonial_3_image",
+          "label": "Testimonial 3 Image"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial_3_content",
+          "label": "Testimonial 3 Content",
+          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
         }
       ]
     }
