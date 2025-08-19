@@ -15,7 +15,6 @@
         "free_shipping_progress_PKEUKD": {
           "type": "free_shipping_progress",
           "settings": {
-            "free_shipping_threshold": 100,
             "qualified_message": "You've qualified for",
             "free_shipping_text": "Free Shipping!",
             "spend_message": "Spend",
@@ -46,7 +45,6 @@
           "type": "gift_wrap",
           "settings": {
             "show_gift_wrap": true,
-            "gift_wrap_price": "10.00",
             "label_text": "Add gift wrap. Only",
             "optional_text": "(You can choose or not)"
           }
@@ -103,13 +101,6 @@
           "settings": {
             "testimonials_title": "What our customers say"
           }
-        },
-        "testimonial_item_nYJpiB": {
-          "type": "testimonial_item",
-          "settings": {
-            "content": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.",
-            "author_name": "Customer"
-          }
         }
       },
       "block_order": [
@@ -122,8 +113,7 @@
         "shipping_estimator_gLzya8",
         "cart_summary_JVtnA6",
         "features_slider_9jeEXt",
-        "testimonials_NwMq8J",
-        "testimonial_item_nYJpiB"
+        "testimonials_NwMq8J"
       ],
       "settings": {}
     }
