@@ -1,0 +1,50 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate": 75
+      },
+      "blocks": {
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": ""
+          }
+        },
+        "title": {
+          "type": "text",
+          "settings": {
+            "text": "Whoops!"
+          }
+        },
+        "subtitle": {
+          "type": "text_2",
+          "settings": {
+            "text": "<p>We couldn’t find the page you were looking for.</p>",
+            "size": "medium"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "btn_label": "Return to Homepage",
+            "btn_link": "/"
+          }
+        }
+      },
+      "block_order": [
+        "image",
+        "title", 
+        "subtitle",
+        "button"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
