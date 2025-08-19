@@ -85,6 +85,9 @@
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
 }
+.breadcrumb-item {
+    line-height: 1.6;
+}
     
 @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
