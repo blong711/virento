@@ -1,0 +1,853 @@
+<div class="flat-spacing-2">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-sm-8">
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                        {% when 'free_shipping_progress' %}
+                            <div class="tf-cart-head text-center" {{ block.shopify_attributes }}>
+                                {% assign cart_total = cart.total_price | money_without_currency | times: 1 %}
+                                {% assign free_shipping_threshold = block.settings.free_shipping_threshold | default: 100 %}
+                                {% assign remaining_for_free_shipping = free_shipping_threshold | minus: cart_total %}
+                                {% assign progress_percentage = cart_total | times: 100 | divided_by: free_shipping_threshold | at_most: 100 %}
+                                
+                                {% if cart_total >= free_shipping_threshold %}
+                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.qualified_message | default: "You've qualified for" }} <span class="fw-medium">{{ block.settings.free_shipping_text | default: "Free Shipping!" }}</span></p>
+                                {% else %}
+                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.spend_message | default: "Spend" }} <span class="fw-medium">${{ remaining_for_free_shipping | round: 2 }}</span> {{ block.settings.more_message | default: "more to get" }}
+                                        <span class="fw-medium">{{ block.settings.free_shipping_text | default: "Free Shipping" }}</span>
+                                    </p>
+                                {% endif %}
+                                
+                                <div class="progress-sold tf-progress-ship">
+                                    <div class="value" style="width: {{ progress_percentage }}%;" data-progress="{{ progress_percentage }}">
+                                        <i class="icon icon-{{ block.settings.progress_icon | default: 'car' }}"></i>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endcase %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Section -->
+<div class="flat-spacing-2 pt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="tf-page-cart-main">
+                    {% if cart.item_count > 0 %}
+                        {% for block in section.blocks %}
+                            {% case block.type %}
+                                {% when 'cart_items_table' %}
+                                    <form action="/cart" method="post" class="form-cart" {{ block.shopify_attributes }}>
+                                        <table class="table-page-cart">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{ block.settings.product_column_header | default: 'Product' }}</th>
+                                                    <th>{{ block.settings.price_column_header | default: 'Price' }}</th>
+                                                    <th>{{ block.settings.quantity_column_header | default: 'Quantity' }}</th>
+                                                    <th>{{ block.settings.total_column_header | default: 'Total' }}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in cart.items %}
+                                                    <tr class="tf-cart-item file-delete" data-item-key="{{ item.key }}">
+                                                        <td class="tf-cart-item_product">
+                                                            <a href="{{ item.url }}" class="img-box">
+                                                                <img src="{{ item.image | img_url: '150x150', crop: 'center' }}" alt="{{ item.title | escape }}" width="150" height="150">
+                                                            </a>
+                                                            <div class="cart-info">
+                                                                <a href="{{ item.url }}" class="name text-md link fw-medium">{{ item.product.title }}</a>
+                                                                {% if item.variant.title != 'Default Title' %}
+                                                                    <div class="variants">{{ item.variant.title }}</div>
+                                                                {% endif %}
+                                                                <span class="remove-cart link remove" data-item-key="{{ item.key }}">{{ block.settings.remove_text | default: 'Remove' }}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="tf-cart-item_price text-center" data-cart-title="Price">
+                                                            {% if item.original_price != item.final_price %}
+                                                                <span class="cart-price price-on-sale text-md fw-medium">{{ item.final_price | money }}</span>
+                                                                <span class="cart-price original-price text-sm text-muted"><s>{{ item.original_price | money }}</s></span>
+                                                            {% else %}
+                                                                <span class="cart-price text-md fw-medium">{{ item.final_price | money }}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td class="tf-cart-item_quantity" data-cart-title="Quantity">
+                                                            <div class="wg-quantity">
+                                                                <span class="btn-quantity btn-decrease" data-item-key="{{ item.key }}">-</span>
+                                                                <input class="quantity-product" type="number" name="updates[]" value="{{ item.quantity }}" min="1" data-item-key="{{ item.key }}">
+                                                                <span class="btn-quantity btn-increase" data-item-key="{{ item.key }}">+</span>
+                                                            </div>
+                                                        </td>
+                                                        <td class="tf-cart-item_total text-center" data-cart-title="Total">
+                                                            <div class="cart-total total-price text-md fw-medium">{{ item.final_line_price | money }}</div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </form>
+                                
+                                {% when 'gift_wrap' %}
+                                    {% if block.settings.show_gift_wrap %}
+                                        <div class="check-gift" {{ block.shopify_attributes }}>
+                                            <input type="checkbox" class="tf-check" id="checkGift" name="attributes[Gift Wrap]">
+                                            <label for="checkGift" class="label text-dark-4">{{ block.settings.label_text | default: 'Add gift wrap. Only' }} <span class="fw-medium">{{ block.settings.gift_wrap_price | money }}.</span> {{ block.settings.optional_text | default: '(You can choose or not)' }}</label>
+                                        </div>
+                                    {% endif %}
+                                
+                                {% when 'discount_code' %}
+                                    <div class="box-ip-discount" {{ block.shopify_attributes }}>
+                                        <input type="text" placeholder="{{ block.settings.placeholder_text | default: 'Discount code' }}" name="discount">
+                                        <button type="button" class="tf-btn radius-6 btn-out-line-dark-2">{{ block.settings.button_text | default: 'Apply' }}</button>
+                                    </div>
+                                
+                                {% when 'cart_note' %}
+                                    <div class="cart-note" {{ block.shopify_attributes }}>
+                                        <label for="note" class="text-md fw-medium">{{ block.settings.label_text | default: 'Special instructions for seller' }}</label>
+                                        <textarea id="note" name="note" placeholder="{{ block.settings.placeholder_text }}">{{ cart.note }}</textarea>
+                                    </div>
+                                
+                                {% when 'update_cart_button' %}
+                                    <div class="cart-actions" {{ block.shopify_attributes }}>
+                                        <button type="submit" name="update" class="tf-btn btn-out-line-dark-2">{{ block.settings.button_text | default: 'Update Cart' }}</button>
+                                    </div>
+                                
+                                {% when 'features_slider' %}
+                                    <div class="fl-iconbox wow fadeInUp" {{ block.shopify_attributes }}>
+                                        <div dir="ltr" class="swiper tf-swiper sw-auto" data-swiper='{
+                                            "slidesPerView": 1,
+                                            "spaceBetween": 12,
+                                            "speed": 800,
+                                            "observer": true,
+                                            "observeParents": true,
+                                            "slidesPerGroup": 1,
+                                            "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
+                                            "breakpoints": {
+                                                "575": { "slidesPerView": 2, "spaceBetween": 12, "slidesPerGroup": 2}, 
+                                                "768": { "slidesPerView": 3, "spaceBetween": 24, "slidesPerGroup": 3},
+                                                "1200": { "slidesPerView": "auto", "spaceBetween": 24}
+                                            }
+                                        }'>
+                                            <div class="swiper-wrapper">
+                                                {% for block in section.blocks %}
+                                                    {% if block.type == 'feature_item' %}
+                                                        <div class="swiper-slide">
+                                                            <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                                                <div class="box-icon">
+                                                                    <i class="icon icon-{{ block.settings.icon_class | default: 'shipping' }}"></i>
+                                                                </div>
+                                                                <div class="content">
+                                                                    <div class="title text-uppercase">{{ block.settings.title | default: 'Free Shipping' }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
+                                    </div>
+                            {% endcase %}
+                        {% endfor %}
+                    {% else %}
+                        {% for block in section.blocks %}
+                            {% case block.type %}
+                                {% when 'empty_cart' %}
+                                    <div class="empty-cart text-center" {{ block.shopify_attributes }}>
+                                        <h3>{{ block.settings.empty_cart_title | default: 'Your cart is empty' }}</h3>
+                                        <p>{{ block.settings.empty_cart_message | default: "Looks like you haven't added any items to your cart yet." }}</p>
+                                        <a href="{{ block.settings.continue_shopping_url | default: '/collections/all' }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text | default: 'Continue Shopping' }}</a>
+                                    </div>
+                            {% endcase %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="col-xl-4">
+                <div class="tf-page-cart-sidebar">
+                    {% if cart.item_count > 0 %}
+                        {% for block in section.blocks %}
+                            {% case block.type %}
+                                {% when 'shipping_estimator' %}
+                                    <form class="cart-box shipping-cart-box" {{ block.shopify_attributes }}>
+                                        <div class="text-lg title fw-medium">{{ block.settings.title | default: 'Shipping estimates' }}</div>
+                                        <fieldset class="field">
+                                            <label for="country" class="text-sm">{{ block.settings.country_label | default: 'Country' }}</label>
+                                            <select id="country" name="country">
+                                                <option value="">{{ block.settings.country_placeholder | default: 'Select Country' }}</option>
+                                                {% for country in shop.enabled_countries %}
+                                                    <option value="{{ country.iso_code }}" {% if country.iso_code == 'US' %}selected{% endif %}>{{ country.name }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </fieldset>
+                                        <fieldset class="field">
+                                            <label for="state" class="text-sm">{{ block.settings.state_label | default: 'State/Province' }}</label>
+                                            <input type="text" id="state" placeholder="{{ block.settings.state_placeholder | default: 'State/Province' }}">
+                                        </fieldset>
+                                        <fieldset class="field">
+                                            <label for="code" class="text-sm">{{ block.settings.zipcode_label | default: 'Zipcode' }}</label>
+                                            <input type="text" id="code" placeholder="{{ block.settings.zipcode_placeholder | default: '41000' }}">
+                                        </fieldset>
+                                        <button type="button" class="tf-btn btn-dark2 animate-btn w-100">{{ block.settings.button_text | default: 'Estimate' }}</button>
+                                    </form>
+                                
+                                {% when 'cart_summary' %}
+                                    <form action="/cart" method="post" class="cart-box checkout-cart-box" {{ block.shopify_attributes }}>
+                                        <div class="cart-head">
+                                            <div class="total-discount text-xl fw-medium">
+                                                <span>{{ block.settings.subtotal_label | default: 'Subtotal:' }}</span>
+                                                <span class="total">{{ cart.total_price | money }}</span>
+                                            </div>
+                                            
+                                            {% if cart.total_discounts > 0 %}
+                                                <div class="discounts text-sm text-success">
+                                                    <span>{{ block.settings.discounts_label | default: 'Discounts:' }}</span>
+                                                    <span>-{{ cart.total_discounts | money }}</span>
+                                                </div>
+                                            {% endif %}
+                                            
+                                            <p class="text-sm text-dark-4">{{ block.settings.tax_message | default: 'Taxes and shipping calculated at checkout' }}</p>
+                                        </div>
+                                        
+                                        {% if block.settings.show_terms_checkbox %}
+                                            <div class="check-agree">
+                                                <input type="checkbox" class="tf-check" id="check-agree" required>
+                                                <label for="check-agree" class="label text-dark-4">{{ block.settings.terms_text | default: 'I agree with' }} <a href="{{ block.settings.terms_url | default: '/pages/terms-and-conditions' }}" class="text-dark-4 fw-medium text-underline link">{{ block.settings.terms_link_text | default: 'terms and conditions' }}</a></label>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        <div class="checkout-btn">
+                                            <button type="submit" name="checkout" class="tf-btn btn-dark2 animate-btn w-100">{{ block.settings.checkout_button_text | default: 'Checkout' }}</button>
+                                        </div>
+                                        
+                                        {% if block.settings.show_payment_icons %}
+                                            <div class="cart-imgtrust">
+                                                <p class="text-center text-sm text-dark-1">{{ block.settings.payment_methods_title | default: 'We accept' }}</p>
+                                                <div class="cart-list-social">
+                                                    {% for block in section.blocks %}
+                                                        {% if block.type == 'payment_method' %}
+                                                            <div class="payment-card">
+                                                                <img src="{{ block.settings.icon | asset_url }}" alt="{{ block.settings.name }}" width="100" height="100">
+                                                            </div>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </form>
+                                
+                                {% when 'testimonials' %}
+                                    <div class="cart-box testimonial-cart-box" {{ block.shopify_attributes }}>
+                                        <div dir="ltr" class="swiper tf-swiper" data-swiper='{
+                                            "slidesPerView": 1,
+                                            "spaceBetween": 12,
+                                            "speed": 800,
+                                            "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
+                                            "navigation": {
+                                                "clickable": true,
+                                                "nextEl": ".nav-next-tes",
+                                                "prevEl": ".nav-prev-tes"
+                                            }
+                                        }'>
+                                            <div class="swiper-wrapper">
+                                                {% for block in section.blocks %}
+                                                    {% if block.type == 'testimonial_item' %}
+                                                        <div class="swiper-slide">
+                                                            <div class="box-testimonial-main">
+                                                                <span class="quote icon-quote5"></span>
+                                                                <div class="content">
+                                                                    <div class="list-star-default">
+                                                                        {% for i in (1..5) %}
+                                                                            <i class="icon-star"></i>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                    <p class="text-review text-md text-main">{{ block.settings.content }}</p>
+                                                                    <div class="box-author">
+                                                                        <div class="img">
+                                                                            <img src="{{ block.settings.author_image | img_url: '50x50', crop: 'center' }}" alt="{{ block.settings.author_name }}" width="50" height="50">
+                                                                        </div>
+                                                                        <span class="name text-sm fw-medium">{{ block.settings.author_name }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="box-nav-swiper">
+                                                <div class="swiper-button-prev nav-swiper nav-prev-tes"></div>
+                                                <div class="swiper-button-next nav-swiper nav-next-tes"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            {% endcase %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Quantity increase/decrease functionality
+    document.querySelectorAll('.btn-increase').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const itemKey = this.dataset.itemKey;
+            const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
+            input.value = parseInt(input.value) + 1;
+            updateCartItem(itemKey, input.value);
+        });
+    });
+    
+    document.querySelectorAll('.btn-decrease').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const itemKey = this.dataset.itemKey;
+            const input = document.querySelector(`input[data-item-key="${itemKey}"]`);
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+                updateCartItem(itemKey, input.value);
+            }
+        });
+    });
+    
+    // Remove item functionality
+    document.querySelectorAll('.remove-cart').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const itemKey = this.dataset.itemKey;
+            removeCartItem(itemKey);
+        });
+    });
+    
+    // Update cart item quantity
+    function updateCartItem(itemKey, quantity) {
+        fetch('/cart/change.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: itemKey,
+                quantity: quantity
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Reload page to update cart totals
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error updating cart:', error);
+        });
+    }
+    
+    // Remove cart item
+    function removeCartItem(itemKey) {
+        fetch('/cart/change.js', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: itemKey,
+                quantity: 0
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Reload page to update cart
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error removing item:', error);
+        });
+    }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Main Cart",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "free_shipping_progress",
+      "name": "Free Shipping Progress",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "number",
+          "id": "free_shipping_threshold",
+          "label": "Free Shipping Threshold",
+          "default": 100
+        },
+        {
+          "type": "text",
+          "id": "qualified_message",
+          "label": "Qualified Message",
+          "default": "You've qualified for"
+        },
+        {
+          "type": "text",
+          "id": "free_shipping_text",
+          "label": "Free Shipping Text",
+          "default": "Free Shipping!"
+        },
+        {
+          "type": "text",
+          "id": "spend_message",
+          "label": "Spend Message",
+          "default": "Spend"
+        },
+        {
+          "type": "text",
+          "id": "more_message",
+          "label": "More Message",
+          "default": "more to get"
+        },
+        {
+          "type": "text",
+          "id": "progress_icon",
+          "label": "Progress Icon Class",
+          "default": "car"
+        }
+      ]
+    },
+    {
+      "type": "cart_items_table",
+      "name": "Cart Items Table",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_column_header",
+          "label": "Product Column Header",
+          "default": "Product"
+        },
+        {
+          "type": "text",
+          "id": "price_column_header",
+          "label": "Price Column Header",
+          "default": "Price"
+        },
+        {
+          "type": "text",
+          "id": "quantity_column_header",
+          "label": "Quantity Column Header",
+          "default": "Quantity"
+        },
+        {
+          "type": "text",
+          "id": "total_column_header",
+          "label": "Total Column Header",
+          "default": "Total"
+        },
+        {
+          "type": "text",
+          "id": "remove_text",
+          "label": "Remove Text",
+          "default": "Remove"
+        }
+      ]
+    },
+    {
+      "type": "empty_cart",
+      "name": "Empty Cart Message",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "empty_cart_title",
+          "label": "Empty Cart Title",
+          "default": "Your cart is empty"
+        },
+        {
+          "type": "textarea",
+          "id": "empty_cart_message",
+          "label": "Empty Cart Message",
+          "default": "Looks like you haven't added any items to your cart yet."
+        },
+        {
+          "type": "text",
+          "id": "continue_shopping_text",
+          "label": "Continue Shopping Button Text",
+          "default": "Continue Shopping"
+        },
+        {
+          "type": "url",
+          "id": "continue_shopping_url",
+          "label": "Continue Shopping URL",
+          "default": "/collections/all"
+        }
+      ]
+    },
+    {
+      "type": "gift_wrap",
+      "name": "Gift Wrap Option",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_gift_wrap",
+          "label": "Show Gift Wrap Option",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "gift_wrap_price",
+          "label": "Gift Wrap Price",
+          "default": "10.00"
+        },
+        {
+          "type": "text",
+          "id": "label_text",
+          "label": "Label Text",
+          "default": "Add gift wrap. Only"
+        },
+        {
+          "type": "text",
+          "id": "optional_text",
+          "label": "Optional Text",
+          "default": "(You can choose or not)"
+        }
+      ]
+    },
+    {
+      "type": "discount_code",
+      "name": "Discount Code Input",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "placeholder_text",
+          "label": "Placeholder Text",
+          "default": "Discount code"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Apply"
+        }
+      ]
+    },
+    {
+      "type": "cart_note",
+      "name": "Cart Note",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label_text",
+          "label": "Label Text",
+          "default": "Special instructions for seller"
+        },
+        {
+          "type": "text",
+          "id": "placeholder_text",
+          "label": "Placeholder Text",
+          "default": "Add any special instructions here..."
+        }
+      ]
+    },
+    {
+      "type": "update_cart_button",
+      "name": "Update Cart Button",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Update Cart"
+        }
+      ]
+    },
+    {
+      "type": "features_slider",
+      "name": "Features Slider",
+      "limit": 1,
+      "settings": []
+    },
+    {
+      "type": "feature_item",
+      "name": "Feature Item",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_class",
+          "label": "Icon Class",
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "Free Shipping"
+        }
+      ]
+    },
+    {
+      "type": "shipping_estimator",
+      "name": "Shipping Estimator",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Shipping estimates"
+        },
+        {
+          "type": "text",
+          "id": "country_label",
+          "label": "Country Label",
+          "default": "Country"
+        },
+        {
+          "type": "text",
+          "id": "country_placeholder",
+          "label": "Country Placeholder",
+          "default": "Select Country"
+        },
+        {
+          "type": "text",
+          "id": "state_label",
+          "label": "State Label",
+          "default": "State/Province"
+        },
+        {
+          "type": "text",
+          "id": "state_placeholder",
+          "label": "State Placeholder",
+          "default": "State/Province"
+        },
+        {
+          "type": "text",
+          "id": "zipcode_label",
+          "label": "Zipcode Label",
+          "default": "Zipcode"
+        },
+        {
+          "type": "text",
+          "id": "zipcode_placeholder",
+          "label": "Zipcode Placeholder",
+          "default": "41000"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Estimate"
+        }
+      ]
+    },
+    {
+      "type": "cart_summary",
+      "name": "Cart Summary",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "subtotal_label",
+          "label": "Subtotal Label",
+          "default": "Subtotal:"
+        },
+        {
+          "type": "text",
+          "id": "discounts_label",
+          "label": "Discounts Label",
+          "default": "Discounts:"
+        },
+        {
+          "type": "text",
+          "id": "tax_message",
+          "label": "Tax Message",
+          "default": "Taxes and shipping calculated at checkout"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_terms_checkbox",
+          "label": "Show Terms Checkbox",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "terms_text",
+          "label": "Terms Text",
+          "default": "I agree with"
+        },
+        {
+          "type": "text",
+          "id": "terms_link_text",
+          "label": "Terms Link Text",
+          "default": "terms and conditions"
+        },
+        {
+          "type": "url",
+          "id": "terms_url",
+          "label": "Terms URL"
+        },
+        {
+          "type": "text",
+          "id": "checkout_button_text",
+          "label": "Checkout Button Text",
+          "default": "Checkout"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_payment_icons",
+          "label": "Show Payment Icons",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "payment_icons_title",
+          "label": "Payment Icons Title",
+          "default": "We accept"
+        },
+        {
+          "type": "text",
+          "id": "payment_methods_title",
+          "label": "Payment Methods Title",
+          "default": "We accept"
+        }
+      ]
+    },
+    {
+      "type": "testimonials",
+      "name": "Testimonials",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "testimonials_title",
+          "label": "Testimonials Title",
+          "default": "What our customers say"
+        }
+      ]
+    },
+    {
+      "type": "payment_method",
+      "name": "Payment Method",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Payment Method Name",
+          "default": "Visa"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Payment Method Icon"
+        }
+      ]
+    },
+    {
+      "type": "testimonial_item",
+      "name": "Testimonial Item",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Testimonial Content",
+          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Customer"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Cart",
+      "blocks": [
+        {
+          "type": "free_shipping_progress"
+        },
+        {
+          "type": "cart_items_table"
+        },
+        {
+          "type": "gift_wrap"
+        },
+        {
+          "type": "discount_code"
+        },
+        {
+          "type": "cart_note"
+        },
+        {
+          "type": "update_cart_button"
+        },
+        {
+          "type": "features_slider"
+        },
+        {
+          "type": "feature_item"
+        },
+        {
+          "type": "feature_item"
+        },
+        {
+          "type": "feature_item"
+        },
+        {
+          "type": "feature_item"
+        },
+        {
+          "type": "shipping_estimator"
+        },
+        {
+          "type": "cart_summary"
+        },
+        {
+          "type": "payment_method"
+        },
+        {
+          "type": "payment_method"
+        },
+        {
+          "type": "payment_method"
+        },
+        {
+          "type": "payment_method"
+        },
+        {
+          "type": "testimonials"
+        },
+        {
+          "type": "testimonial_item"
+        },
+        {
+          "type": "testimonial_item"
+        },
+        {
+          "type": "testimonial_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
