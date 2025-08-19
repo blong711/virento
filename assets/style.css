@@ -19395,6 +19395,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   text-align: center;
   max-width: 500px;
   margin: 0 auto;
+  display: block; /* Visible by default, JavaScript will control visibility */
 }
 
 .empty-cart h3 {
@@ -19420,6 +19421,13 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .empty-cart .tf-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure proper spacing when cart is empty */
+.tf-page-cart-main:empty + .empty-cart,
+.tf-page-cart-main[style*="display: none"] + .empty-cart {
+  display: block !important;
+  margin-top: 2rem;
 }
 
 @media (max-width: 767px) {

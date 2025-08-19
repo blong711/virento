@@ -169,23 +169,24 @@
                 </div>
             </div>
             
-            {% if cart.item_count == 0 %}
-                <div class="col-12">
-                    <div class="d-flex justify-content-center">
-                        {% for block in section.blocks %}
-                            {% case block.type %}
-                                {% when 'empty_cart' %}
-                                    <div class="empty-cart text-center" {{ block.shopify_attributes }}>
-                                        <h3>{{ block.settings.empty_cart_title | default: 'Your cart is empty' }}</h3>
-                                        <p>{{ block.settings.empty_cart_message | default: "Looks like you haven't added any items to your cart yet." }}</p>
-                                        <a href="{{ block.settings.continue_shopping_url | default: '/collections/all' }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text | default: 'Continue Shopping' }}</a>
-                                    </div>
-                            {% endcase %}
-                        {% endfor %}
-                    </div>
+            <!-- Empty cart message - always rendered but controlled by JavaScript -->
+            <div class="col-12" {% if cart.item_count > 0 %}style="display: none;"{% endif %}>
+                <div class="d-flex justify-content-center">
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'empty_cart' %}
+                                <div class="empty-cart text-center" {{ block.shopify_attributes }}>
+                                    <h3>{{ block.settings.empty_cart_title | default: 'Your cart is empty' }}</h3>
+                                    <p>{{ block.settings.empty_cart_message | default: "Looks like you haven't added any items to your cart yet." }}</p>
+                                    <a href="{{ block.settings.continue_shopping_url | default: '/collections/all' }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text | default: 'Continue Shopping' }}</a>
+                                </div>
+                        {% endcase %}
+                    {% endfor %}
                 </div>
-            {% else %}
-                <div class="col-xl-4">
+            </div>
+            
+            <!-- Cart sidebar - only shown when cart has items -->
+            <div class="col-xl-4">
                 <div class="tf-page-cart-sidebar">
                     {% if cart.item_count > 0 %}
                         {% for block in section.blocks %}
@@ -315,7 +316,6 @@
                     {% endif %}
                 </div>
             </div>
-            {% endif %}
         </div>
     </div>
 </div>

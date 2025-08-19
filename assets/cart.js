@@ -445,7 +445,8 @@
 
   checkEmptyCart() {
     const cartItems = document.querySelectorAll('.tf-cart-item');
-    let emptyCartMessage = document.querySelector('.empty-cart');
+    const emptyCartMessage = document.querySelector('.empty-cart');
+    const emptyCartColumn = document.querySelector('.col-12:has(.empty-cart)') || emptyCartMessage?.closest('.col-12');
     const cartContent = document.querySelector('.tf-page-cart-main');
     const cartSidebar = document.querySelector('.tf-page-cart-sidebar');
     const freeShippingProgress = document.querySelector('.tf-cart-head');
@@ -458,14 +459,14 @@
     const featuresSection = document.querySelector('.fl-iconbox');
     
     if (cartItems.length === 0) {
-      // Create empty cart message if it doesn't exist
-      if (!emptyCartMessage) {
-        emptyCartMessage = this.createEmptyCartMessage();
-      }
-      
-      // Show empty cart message
+      // Show empty cart message (it's already in the HTML structure)
       if (emptyCartMessage) {
         emptyCartMessage.style.display = 'block';
+      }
+      
+      // Show the empty cart column by removing display: none
+      if (emptyCartColumn) {
+        emptyCartColumn.style.removeProperty('display');
       }
       
       // Hide all cart-related elements when cart is empty
@@ -490,11 +491,22 @@
       if (featuresSection) {
         featuresSection.style.display = 'none';
       }
+      
+      // Hide the main cart content container to show only the empty cart message
+      if (cartContent) {
+        cartContent.style.display = 'none';
+      }
     } else {
       // Hide empty cart message
       if (emptyCartMessage) {
         emptyCartMessage.style.display = 'none';
       }
+      
+      // Hide the empty cart column by setting display: none
+      if (emptyCartColumn) {
+        emptyCartColumn.style.display = 'none';
+      }
+      
       // Show all cart-related elements when cart has items
       if (cartContent) {
         cartContent.style.display = 'block';
@@ -523,39 +535,7 @@
     }
   }
 
-  createEmptyCartMessage() {
-    // Create the empty cart message element
-    const emptyCartDiv = document.createElement('div');
-    emptyCartDiv.className = 'empty-cart text-center';
-    
-    // Create the title
-    const title = document.createElement('h3');
-    title.textContent = 'Your cart is empty';
-    
-    // Create the message
-    const message = document.createElement('p');
-    message.textContent = "Looks like you haven't added any items to your cart yet.";
-    
-    // Create the continue shopping button
-    const button = document.createElement('a');
-    button.href = '/collections/all';
-    button.className = 'tf-btn btn-dark2 animate-btn';
-    button.textContent = 'Continue Shopping';
-    
-    // Assemble the message
-    emptyCartDiv.appendChild(title);
-    emptyCartDiv.appendChild(message);
-    emptyCartDiv.appendChild(button);
-    
-    // Insert it into the cart main container
-    const cartMain = document.querySelector('.tf-page-cart-main');
-    if (cartMain) {
-      // Insert at the beginning of the cart main container
-      cartMain.insertBefore(emptyCartDiv, cartMain.firstChild);
-    }
-    
-    return emptyCartDiv;
-  }
+
 
   reinitAfterUpdate() {
     // Only re-initialize the essential functionality after content update
@@ -575,6 +555,9 @@
     
     // Re-setup cart note functionality
     this.setupCartNote();
+    
+    // Check empty cart state after re-initialization
+    this.checkEmptyCart();
   }
 
   updateCartCount(itemCount) {
@@ -619,6 +602,9 @@
     
     // Update free shipping progress
     this.updateFreeShippingProgress(cart.total_price);
+    
+    // Check empty cart state after updating totals
+    this.checkEmptyCart();
   }
 
   updateCartItemQuantities(cart) {
@@ -711,6 +697,9 @@
         this.createCartItemElement(cartItem);
       }
     });
+    
+    // Check empty cart state after updating cart items
+    this.checkEmptyCart();
   }
 
   formatMoney(cents) {
@@ -742,6 +731,9 @@
         
         // Update free shipping progress
         this.updateFreeShippingProgress(cart.total_price);
+        
+        // Check empty cart state after updating totals
+        this.checkEmptyCart();
       })
       .catch(error => {
         console.error('Error in backup cart totals update:', error);
@@ -1079,6 +1071,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Make it available globally for debugging
     window.mainCart = cart;
+    
+    // Force an immediate check of the empty cart state
+    setTimeout(() => {
+      cart.checkEmptyCart();
+    }, 100);
   }
 });
 
