@@ -1,0 +1,243 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: section.settings.padding_rate | divided_by: 100 }}px !important;
+    padding-bottom: {{ section.settings.padding_bottom | times: section.settings.padding_rate | divided_by: 100 }}px !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px !important;
+      padding-bottom: {{ section.settings.padding_bottom }}px !important;
+    }
+  }
+
+  .text-main {
+    color: rgba(var(--color-foreground), 1) !important;
+  }
+
+  .button-submit .subscribe-button {
+    background-color: rgb(var(--color-button));
+    color: rgb(var(--color-button-text));
+    transition: all 0.2s ease-in-out;
+    border: 1px solid rgb(var(--color-button-outline));
+  }
+{%- endstyle -%}
+
+<section class="s-coming-soon  color-{{ section.settings.color_scheme }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="wg-coming-soon section-{{ section.id }}-padding">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'text' -%}
+                {%- if block.settings.size == 'small' -%}
+                  <p class="display-md-2 fw-medium text-center">{{ block.settings.text }}</p>
+                {%- elsif block.settings.size == 'medium' -%}
+                  <p class="display-lg-2 fw-medium text-center">{{ block.settings.text }}</p>
+                {%- elsif block.settings.size == 'large' -%}
+                  <p class="title text-center">{{ block.settings.text }}</p>
+                {%- endif -%}
+              {%- when 'text_2' -%}
+                <div class="sub">
+                  {%- if block.settings.size == 'small' -%}
+                    {{ block.settings.text | replace: '<p>', '<p class="text-md text-main text-center">' }}
+                  {%- elsif block.settings.size == 'medium' -%}
+                    {{ block.settings.text | replace: '<p>', '<p class="text-lg text-main text-center">' }}
+                  {%- elsif block.settings.size == 'large' -%}
+                    {{ block.settings.text | replace: '<p>', '<p class="text-xl text-main text-center">' }}
+                  {%- endif -%}
+                </div>
+              {%- when 'countdown' -%}
+                <div class="wg-countdown">
+                  <span
+                    class="js-countdown"
+                    data-countdown="{{ block.settings.countdown_date }}"
+                    data-labels="Days,Hours,Mins,Secs"
+                  ></span>
+                </div>
+              {%- when 'notify' -%}
+                <div class="form-email-wrap">
+                  {%- form 'customer', class: 'form-newsletter' -%}
+                    <div class="subscribe-content">
+                      <fieldset class="email">
+                        <input
+                          type="email"
+                          name="contact[email]"
+                          class="subscribe-email"
+                          placeholder="{{ block.settings.placeholder }}"
+                          tabindex="0"
+                          aria-required="true"
+                          required
+                        >
+                      </fieldset>
+                      <div class="button-submit">
+                        <button class="subscribe-button text-sm style-small" type="submit">
+                          {{ block.settings.button_label }}
+                        </button>
+                      </div>
+                    </div>
+                  {%- endform -%}
+                </div>
+              {%- when 'button' -%}
+                <div class="bot">
+                  <a href="{{ block.settings.btn_link }}" class="tf-btn btn-fill hover-primary animate-btn">
+                    {{ block.settings.btn_label }}
+                  </a>
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "t:sections.coming_soon.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.coming_soon.settings.color"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.all.padding.padding_mobile_rate.label",
+      "info": "t:sections.all.padding.padding_mobile_rate.info",
+      "default": 75
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "t:sections.coming_soon.blocks.text.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "t:sections.coming_soon.blocks.text.settings.text.label",
+          "default": "Coming Soon!"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "t:sections.coming_soon.blocks.text.settings.size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "large"
+        }
+      ]
+    },
+    {
+      "type": "text_2",
+      "name": "t:sections.coming_soon.blocks.text_2.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "t:sections.coming_soon.blocks.text_2.name",
+          "default": "<p>We couldn't find the page you were looking for.</p> <p>We suggest you return to homepage</p>"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "t:sections.coming_soon.blocks.text_2.settings.size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "medium"
+        }
+      ]
+    },
+    {
+      "type": "countdown",
+      "name": "t:sections.coming_soon.blocks.countdown.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "countdown_date",
+          "label": "t:sections.coming_soon.blocks.countdown.settings.countdown_date.label",
+          "info": "t:sections.coming_soon.blocks.countdown.settings.countdown_date.info"
+        }
+      ]
+    },
+    {
+      "type": "notify",
+      "name": "t:sections.coming_soon.blocks.notify.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "t:sections.coming_soon.blocks.notify.settings.placeholder.label",
+          "default": "Your email address"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.coming_soon.blocks.notify.settings.button_label.label",
+          "default": "Get Notify"
+        }
+      ]
+    },
+    {
+      "type": "button",
+      "name": "t:sections.coming_soon.blocks.button.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "btn_label",
+          "label": "t:sections.coming_soon.blocks.button.settings.text.label",
+          "default": "Return to Homepage",
+          "info": "t:sections.coming_soon.blocks.button.settings.text.info"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "t:sections.coming_soon.blocks.button.settings.url.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
