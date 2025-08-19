@@ -420,12 +420,7 @@
     document.dispatchEvent(new CustomEvent('cart:updated'));
   }
 
-  getSectionInnerHTML(html, selector = '.shopify-section') {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const element = doc.querySelector(selector);
-    return element ? element.innerHTML : '';
-  }
+
 
   showLoadingState(itemKey) {
     const cartItem = document.querySelector(`[data-item-key="${itemKey}"]`);
@@ -718,27 +713,7 @@
     }
   }
 
-  updateCartTotalsFromAPI() {
-    // Fetch cart data directly and update totals as a backup
-    fetch('/cart.js')
-      .then(response => response.json())
-      .then(cart => {
-        // Update cart count
-        this.updateCartCount(cart.item_count);
-        
-        // Update cart totals
-        this.updateCartTotals(cart);
-        
-        // Update free shipping progress
-        this.updateFreeShippingProgress(cart.total_price);
-        
-        // Check empty cart state after updating totals
-        this.checkEmptyCart();
-      })
-      .catch(error => {
-        console.error('Error in backup cart totals update:', error);
-      });
-  }
+
 
   hideAllLoadingStates() {
     // Hide loading states for all cart items
@@ -867,6 +842,12 @@
       // Update the cloned item with new data
       newCartItem.setAttribute('data-item-key', cartItem.key);
       
+      // Clear any existing variant information that might have been copied
+      const variantElements = newCartItem.querySelectorAll('.variant-title, .variant, .variants');
+      variantElements.forEach(element => {
+        element.style.display = 'none';
+      });
+      
       // Update image
       const imgElement = newCartItem.querySelector('img');
       if (imgElement) {
@@ -880,10 +861,16 @@
         nameElement.textContent = cartItem.product_title;
       }
       
-      // Update variant title if it exists
+      // Update variant title if it exists - only show for actual product variants, not gift wrap
       const variantElement = newCartItem.querySelector('.variant-title, .variant');
-      if (variantElement && cartItem.variant_title) {
-        variantElement.textContent = cartItem.variant_title;
+      if (variantElement) {
+        if (cartItem.variant_title && cartItem.variant_title !== 'Default Title' && !cartItem.product_title.toLowerCase().includes('gift wrap')) {
+          variantElement.textContent = cartItem.variant_title;
+          variantElement.style.display = 'block';
+        } else {
+          // Hide variant info for gift wrap or products without variants
+          variantElement.style.display = 'none';
+        }
       }
       
       // Update price - ensure it's wrapped in span with class "cart-price text-md fw-medium"
