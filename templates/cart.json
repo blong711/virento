@@ -109,12 +109,15 @@
         "testimonials_NwMq8J": {
           "type": "testimonials",
           "settings": {
-            "testimonial_1_author": "Customer",
-            "testimonial_1_content": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.",
-            "testimonial_2_author": "Customer",
-            "testimonial_2_content": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.",
-            "testimonial_3_author": "Customer",
-            "testimonial_3_content": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+            "testimonial_1_author": "Vineta P.",
+            "testimonial_1_image": "shopify://shop_images/avt-1.png",
+            "testimonial_1_content": "\"Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.\"",
+            "testimonial_2_author": "David N.",
+            "testimonial_2_image": "shopify://shop_images/blog-author-3.jpg",
+            "testimonial_2_content": "\"Trendy, versatile, and fits perfectly! My go-to place for stylish outfits.\"",
+            "testimonial_3_author": "Henry P.",
+            "testimonial_3_image": "shopify://shop_images/blog-author-2.jpg",
+            "testimonial_3_content": "\"Chic, affordable, and always on point! I’m obsessed with their collections!\""
           }
         }
       },
