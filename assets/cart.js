@@ -218,7 +218,8 @@
         const checkbox = document.querySelector('#checkGift');
         if (checkbox) checkbox.checked = false;
       } else {
-        this.updateCartDisplay(result);
+        // Force a complete cart refresh to show the new gift wrap item
+        this.forceCartRefresh();
       }
     })
     .catch(error => {
@@ -232,15 +233,22 @@
   removeGiftWrap() {
     // Find gift wrap item in cart and remove it
     const cartItems = document.querySelectorAll('.tf-cart-item');
+    let giftWrapRemoved = false;
+    
     cartItems.forEach(item => {
       const productTitle = item.querySelector('.name');
       if (productTitle && productTitle.textContent.toLowerCase().includes('gift wrap')) {
         const itemKey = this.getItemKey(item);
         if (itemKey) {
+          // Use the existing removeCartItem method which already handles comprehensive updates
           this.removeCartItem(itemKey);
+          giftWrapRemoved = true;
         }
       }
     });
+    
+    // Force a complete cart refresh to ensure the gift wrap item is removed from display
+    this.forceCartRefresh();
   }
 
   applyDiscount(discountCode) {
@@ -646,7 +654,9 @@
 
   updateCartItemsDisplay(cartItems) {
     // Update the visual display of cart items
+    console.log('=== UPDATE CART ITEMS DISPLAY ===');
     console.log('Updating cart items display for', cartItems.length, 'items');
+    console.log('Cart items data:', cartItems);
     
     // Get all current cart item elements
     const currentCartItems = document.querySelectorAll('.tf-cart-item');
@@ -654,6 +664,7 @@
     
     console.log('Current cart item keys:', currentItemKeys);
     console.log('New cart item keys:', cartItems.map(item => item.key));
+    console.log('Current cart items in DOM:', currentCartItems.length);
     
     // Remove cart items that are no longer in the cart
     currentItemKeys.forEach(itemKey => {
@@ -727,7 +738,16 @@
           }
         }
       } else {
+        console.log(`=== NEW ITEM DETECTED ===`);
         console.log(`Cart item element not found for key: ${cartItem.key} - item may be new`);
+        console.log(`Product title: ${cartItem.product_title}`);
+        console.log(`Product ID: ${cartItem.product_id}`);
+        console.log(`Variant ID: ${cartItem.variant_id}`);
+        console.log(`Key: ${cartItem.key}`);
+        
+        // For new items (like gift wrap), create the HTML element dynamically
+        console.log(`Creating new cart item for: ${cartItem.product_title}`);
+        this.createCartItemElement(cartItem);
       }
     });
     
@@ -783,6 +803,244 @@
       }
     });
     console.log('All loading states hidden');
+  }
+
+  forceCartRefresh() {
+    console.log('Forcing complete cart refresh...');
+    
+    // Fetch the current cart data
+    fetch('/cart.js')
+      .then(response => response.json())
+      .then(cart => {
+        console.log('Current cart data:', cart);
+        
+        // Update cart totals and counts
+        this.updateCartTotals(cart);
+        this.updateCartCount(cart.item_count);
+        this.updateFreeShippingProgress(cart.total_price);
+        
+        // Update cart items display with the new cart data
+        if (cart.items && cart.items.length > 0) {
+          this.updateCartItemsDisplay(cart.items);
+        }
+        
+        // Check empty cart state
+        this.checkEmptyCart();
+        
+        // Trigger cart update event
+        document.dispatchEvent(new CustomEvent('cart:updated'));
+        
+        console.log('Cart refresh completed');
+      })
+      .catch(error => {
+        console.error('Error during cart refresh:', error);
+        console.log('Continuing without sections API update...');
+        
+        // Don't reload the page, just continue with the cart data update
+        this.checkEmptyCart();
+        document.dispatchEvent(new CustomEvent('cart:updated'));
+      });
+  }
+
+  createCartItemElement(cartItem) {
+    console.log('Creating cart item element for:', cartItem);
+    
+    // Debug: Log all possible container selectors
+    console.log('Looking for cart container...');
+    console.log('.tf-cart-items:', document.querySelector('.tf-cart-items'));
+    console.log('.cart-items:', document.querySelector('.cart-items'));
+    console.log('.tf-page-cart-main:', document.querySelector('.tf-page-cart-main'));
+    console.log('.tf-page-cart-main .cart-items:', document.querySelector('.tf-page-cart-main .cart-items'));
+    
+    // Find the cart items container - look for the actual container that holds cart items
+    let cartItemsContainer = document.querySelector('.tf-cart-items') || 
+                            document.querySelector('.cart-items') ||
+                            document.querySelector('.tf-page-cart-main .cart-items') ||
+                            document.querySelector('.tf-page-cart-main');
+    
+    // If still not found, try to find any element that contains cart items
+    if (!cartItemsContainer) {
+      const cartItems = document.querySelectorAll('.tf-cart-item');
+      if (cartItems.length > 0) {
+        cartItemsContainer = cartItems[0].parentElement;
+        console.log('Found cart container through parent of existing cart item:', cartItemsContainer);
+      }
+    }
+    
+    // Since cart items are <tr> elements, we need to find the <tbody> or <table> container
+    if (cartItemsContainer && cartItemsContainer.tagName === 'DIV') {
+      // Look for the table that contains the cart items
+      const tableContainer = cartItemsContainer.querySelector('table') || 
+                            cartItemsContainer.querySelector('tbody') ||
+                            cartItemsContainer.querySelector('thead');
+      
+      if (tableContainer) {
+        cartItemsContainer = tableContainer;
+        console.log('Found table container for cart items:', cartItemsContainer);
+      } else {
+        // If no table found, look for tbody specifically
+        const tbody = document.querySelector('tbody');
+        if (tbody) {
+          cartItemsContainer = tbody;
+          console.log('Found tbody container for cart items:', tbody);
+        }
+      }
+    }
+    
+    if (!cartItemsContainer) {
+      console.error('Cart items container not found. Available containers:', {
+        'tf-cart-items': document.querySelector('.tf-cart-items'),
+        'cart-items': document.querySelector('.cart-items'),
+        'tf-page-cart-main': document.querySelector('.tf-page-cart-main'),
+        'tf-page-cart-main .cart-items': document.querySelector('.tf-page-cart-main .cart-items'),
+        'existing cart items': document.querySelectorAll('.tf-cart-item').length
+      });
+      return;
+    }
+    
+    console.log('Using cart container:', cartItemsContainer);
+    console.log('Container tag name:', cartItemsContainer.tagName);
+    console.log('Container class name:', cartItemsContainer.className);
+    
+    // Try to clone an existing cart item to maintain the exact structure
+    const existingCartItem = document.querySelector('.tf-cart-item');
+    console.log('Existing cart item found:', existingCartItem);
+    console.log('Existing cart item tag name:', existingCartItem ? existingCartItem.tagName : 'none');
+    
+    if (existingCartItem) {
+      console.log('Cloning existing cart item structure');
+      const newCartItem = existingCartItem.cloneNode(true);
+      console.log('Cloned item:', newCartItem);
+      
+      // Update the cloned item with new data
+      newCartItem.setAttribute('data-item-key', cartItem.key);
+      console.log('Set data-item-key to:', cartItem.key);
+      
+      // Update image
+      const imgElement = newCartItem.querySelector('img');
+      if (imgElement) {
+        imgElement.src = cartItem.image || '/assets/no-image.png';
+        imgElement.alt = cartItem.product_title;
+        console.log('Updated image to:', cartItem.image || '/assets/no-image.png');
+      } else {
+        console.log('No image element found in cloned item');
+      }
+      
+      // Update product name
+      const nameElement = newCartItem.querySelector('.name');
+      if (nameElement) {
+        nameElement.textContent = cartItem.product_title;
+        console.log('Updated name to:', cartItem.product_title);
+      } else {
+        console.log('No name element found in cloned item');
+      }
+      
+      // Update variant title if it exists
+      const variantElement = newCartItem.querySelector('.variant-title, .variant');
+      if (variantElement && cartItem.variant_title) {
+        variantElement.textContent = cartItem.variant_title;
+        console.log('Updated variant to:', cartItem.variant_title);
+      } else {
+        console.log('No variant element found or no variant title');
+      }
+      
+      // Update price
+      const priceElements = newCartItem.querySelectorAll('.price, .item-price, .cart-item-price');
+      console.log('Found price elements:', priceElements.length);
+      priceElements.forEach(element => {
+        element.textContent = this.formatMoney(cartItem.final_price);
+        console.log('Updated price element:', element, 'to:', this.formatMoney(cartItem.final_price));
+      });
+      
+      // Update quantity
+      const quantityElement = newCartItem.querySelector('.quantity-product');
+      if (quantityElement) {
+        quantityElement.value = cartItem.quantity;
+        quantityElement.setAttribute('data-item-key', cartItem.key);
+        console.log('Updated quantity to:', cartItem.quantity);
+      } else {
+        console.log('No quantity element found in cloned item');
+      }
+      
+      // Update total price
+      const totalElements = newCartItem.querySelectorAll('.total-price, .cart-total, .item-total');
+      console.log('Found total elements:', totalElements.length);
+      totalElements.forEach(element => {
+        element.textContent = this.formatMoney(cartItem.final_line_price);
+        console.log('Updated total element:', element, 'to:', this.formatMoney(cartItem.final_line_price));
+      });
+      
+      // Update data attributes for buttons
+      const buttons = newCartItem.querySelectorAll('.btn-increase, .btn-decrease, .remove-cart');
+      console.log('Found buttons:', buttons.length);
+      buttons.forEach(button => {
+        button.setAttribute('data-item-key', cartItem.key);
+        console.log('Updated button data-item-key:', button);
+      });
+      
+      // Add the new item to the top of the cart table
+      console.log('Adding new item to top of container:', cartItemsContainer);
+      
+      // Insert at the beginning (top) instead of appending at the end
+      if (cartItemsContainer.firstChild) {
+        cartItemsContainer.insertBefore(newCartItem, cartItemsContainer.firstChild);
+      } else {
+        cartItemsContainer.appendChild(newCartItem);
+      }
+      
+      console.log('Item added to top successfully');
+      
+      // Re-initialize functionality for the new item
+      this.setupQuantityButtons();
+      this.setupRemoveButtons();
+      
+      console.log('New cart item created by cloning and added to display:', newCartItem);
+    } else {
+      console.log('No existing cart item found, creating basic structure');
+      
+      // Fallback: create a basic cart item HTML structure
+      const cartItemHTML = `
+        <div class="tf-cart-item" data-item-key="${cartItem.key}">
+          <div class="cart-item-image">
+            <img src="${cartItem.image || '/assets/no-image.png'}" alt="${cartItem.product_title}" />
+          </div>
+          <div class="cart-item-details">
+            <div class="name">${cartItem.product_title}</div>
+            <div class="variant-title">${cartItem.variant_title || ''}</div>
+            <div class="price">${this.formatMoney(cartItem.final_price)}</div>
+          </div>
+          <div class="cart-item-quantity">
+            <button class="btn-decrease" data-item-key="${cartItem.key}">-</button>
+            <input type="number" class="quantity-product" value="${cartItem.quantity}" min="1" data-item-key="${cartItem.key}" />
+            <button class="btn-increase" data-item-key="${cartItem.key}">+</button>
+          </div>
+          <div class="cart-item-total">
+            <span class="total-price">${this.formatMoney(cartItem.final_line_price)}</span>
+          </div>
+          <div class="cart-item-remove">
+            <button class="remove-cart" data-item-key="${cartItem.key}">×</button>
+          </div>
+        </div>
+      `;
+      
+      // Create the DOM element
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = cartItemHTML.trim();
+      const newCartItem = tempDiv.firstChild;
+      
+      // Add the new item to the top of the cart table
+      if (cartItemsContainer.firstChild) {
+        cartItemsContainer.insertBefore(newCartItem, cartItemsContainer.firstChild);
+      } else {
+        cartItemsContainer.appendChild(newCartItem);
+      }
+      
+      // Re-initialize functionality for the new item
+      this.setupQuantityButtons();
+      this.setupRemoveButtons();
+      
+      console.log('New cart item created with basic structure and added to top of display:', newCartItem);
+    }
   }
 
   debugCartStructure() {
