@@ -552,10 +552,13 @@ if (!customElements.get('product-cart-button')) {
 
       // Update the cart page display when on cart page
       updateCartPageDisplay(cartData) {
-        if (!cartData || !cartData.items) return;
-
-        // Update cart items display
-        this.updateCartItemsDisplay(cartData.items);
+        if (!cartData) return; // Only check if cartData exists
+        
+        // Always proceed with updates, even if items array is empty
+        // This allows us to handle empty cart state properly
+        
+        // Update cart items display (even if empty)
+        this.updateCartItemsDisplay(cartData.items || []);
         
         // Update cart totals
         this.updateCartTotals(cartData);
@@ -572,7 +575,17 @@ if (!customElements.get('product-cart-button')) {
 
       // Update cart items display on the cart page
       updateCartItemsDisplay(cartItems) {
-        if (!cartItems || !Array.isArray(cartItems)) return;
+        if (!Array.isArray(cartItems)) return;
+
+        // Handle empty cart case
+        if (cartItems.length === 0) {
+          // Clear existing cart items display
+          const cartItemsContainer = document.querySelector('.cart-items, .tf-cart-items, .main-cart-items');
+          if (cartItemsContainer) {
+            cartItemsContainer.innerHTML = '';
+          }
+          return;
+        }
 
         cartItems.forEach(cartItem => {
           // Find existing cart item element
@@ -688,19 +701,22 @@ if (!customElements.get('product-cart-button')) {
         // Update subtotal
         const subtotalElement = document.querySelector('.cart-subtotal, .subtotal, .cart-subtotal .price');
         if (subtotalElement) {
-          subtotalElement.textContent = this.formatMoney(cartData.items_subtotal_price);
+          const subtotal = cartData.items_subtotal_price || 0;
+          subtotalElement.textContent = this.formatMoney(subtotal);
         }
 
         // Update total
         const totalElement = document.querySelector('.cart-total, .total, .cart-total .price');
         if (totalElement) {
-          totalElement.textContent = this.formatMoney(cartData.total_price);
+          const total = cartData.total_price || 0;
+          totalElement.textContent = this.formatMoney(total);
         }
 
         // Update item count
         const itemCountElement = document.querySelector('.cart-item-count, .item-count');
         if (itemCountElement) {
-          itemCountElement.textContent = cartData.item_count;
+          const itemCount = cartData.item_count || 0;
+          itemCountElement.textContent = itemCount;
         }
       }
 
