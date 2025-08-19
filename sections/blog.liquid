@@ -54,8 +54,8 @@
                       {% for article in current_blog.articles %}
                         <div class="blog-post-item hover-img">
                           <div class="entry_image">
-                            <a href="{{ article.url }}" class="img-style">
-                              <div class="blog-image-ratio {{ ratio_class | strip }}">
+                            <a href="{{ article.url }}">
+                              <div class="blog-image-ratio img-style {{ ratio_class | strip }}">
                                 {% if article.image %}
                                   {% if block.settings.layout == 'list' %}
                                     <img
@@ -423,11 +423,6 @@
     text-align: left;
   }
 
-  /* List layout specific adjustments */
-  .s-blog-list-v1 .blog-image-ratio {
-    max-height: 400px;
-    width: 100%;
-  }
 
   /* Responsive grid system for blog */
   .s-blog-list-grid {

@@ -212,18 +212,24 @@
             {% when 'mega_pages' %}
               <div class="sub-menu sub-menu-style-2">
                 {% assign total_items = link.links.size %}
-                {% assign items_per_list = 4 %}
-                {% assign number_of_lists = total_items | divided_by: items_per_list | ceil %}
+                {% assign items_per_list = 8 %}
+                {% assign number_of_lists = total_items | divided_by: items_per_list %}
+                {% assign remainder = total_items | modulo: items_per_list %}
+                {% if remainder > 0 %}
+                  {% assign number_of_lists = number_of_lists | plus: 1 %}
+                {% endif %}
 
                 {% for list_index in (1..number_of_lists) %}
                   {% assign start_index = list_index | minus: 1 | times: items_per_list %}
-                  <ul class="menu-list">
-                    {% for child in link.links offset: start_index limit: items_per_list %}
-                      <li>
-                        <a href="{{ child.url }}" class="menu-link-text link">{{ child.title }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
+                  {% if start_index < total_items %}
+                    <ul class="menu-list">
+                      {% for child in link.links offset: start_index limit: items_per_list %}
+                        <li>
+                          <a href="{{ child.url }}" class="menu-link-text link">{{ child.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
                 {% endfor %}
                 <div class="banner hover-img">
                   {% assign block = section.blocks | where: 'type', 'mega_pages' | first %}
