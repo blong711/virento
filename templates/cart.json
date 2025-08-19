@@ -89,17 +89,21 @@
             "checkout_button_text": "Checkout",
             "show_payment_icons": true,
             "payment_icons_title": "We accept",
-            "payment_methods_title": "We accept"
+            "payment_methods_title": "We accept",
+            "payment_svg_list": "visa,diners_club,master,stripe"
           }
         },
         "features_slider_9jeEXt": {
           "type": "features_slider",
-          "settings": {}
+          "settings": {
+            "features": "shipping|Free Shipping, gift|Gift Package, return|Easy Returns, support|Warranty"
+          }
         },
         "testimonials_NwMq8J": {
           "type": "testimonials",
           "settings": {
-            "testimonials_title": "What our customers say"
+            "testimonials_title": "What our customers say",
+            "testimonials": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Vincent P.|images/avatar/avt-1.png||Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Themesflat|images/avatar/blog-author-3.jpg||Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Henry P.|images/avatar/blog-author-2.jpg"
           }
         }
       },
