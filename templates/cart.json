@@ -12,7 +12,10 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
-        "show_description": false
+        "background_image": "shopify://shop_images/page-title_1.jpg",
+        "show_description": false,
+        "custom_description": "",
+        "description_truncate_length": 120
       }
     },
     "main-cart": {
@@ -74,11 +77,8 @@
           "settings": {
             "title": "Shipping estimates",
             "country_label": "Country",
-            "country_placeholder": "Select Country",
             "state_label": "State/Province",
-            "state_placeholder": "State/Province",
             "zipcode_label": "Zipcode",
-            "zipcode_placeholder": "41000",
             "button_text": "Estimate"
           }
         },
@@ -144,11 +144,32 @@
     "featured_product_carousel": {
       "type": "featured-product-carousel",
       "settings": {
-        "title": "You might also like",
-        "subtitle": "Complete your look with these products",
+        "color_scheme": "",
+        "width": "container",
+        "title_alignment": "center",
+        "title": "You May Also Like",
+        "title_tag": "h4",
+        "subtitle": "",
+        "subtitle_size": "text-md",
+        "featured_collection": "",
+        "product_list": [
+          "10000mah-power-go-power-bank",
+          "apple-iphone-16-promax",
+          "apple-magsafe-charger",
+          "apple-smart-keyboard",
+          "glass-elite-am-screen-protector",
+          "glass-elite-privacy-screen-protector"
+        ],
         "products_to_show": 6,
         "show_navigation": true,
-        "navigation_style": "boxed"
+        "navigation_style": "individual",
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
       }
     }
   },
