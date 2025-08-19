@@ -14,6 +14,7 @@
     }
   },
   "general": {
+    "loading": "Loading...",
     "breadcrumbs": {
       "home": "Home"
     },
@@ -71,7 +72,8 @@
       "searching": "Searching...",
       "no_products_found": "No products found",
       "search_failed": "Search failed. Please try again.",
-      "product_image": "Product image"
+      "product_image": "Product image",
+      "search_our_store": "Search our store"
     },
     "cart": {
       "title": "Cart",
@@ -195,8 +197,15 @@
       "inventory_out_of_stock_continue_selling": "In stock",
       "stock": {
         "only": "Only",
-        "items_left": "items left!"
+        "items_left": "items left!",
       },
+      "add_to_compare": "Add to Compare",
+      "browse_compare": "Browse Compare",
+      "remove_from_compare": "Remove from Compare",
+      "no_products_added": "No product were added to the compare.",
+      "add_to_wishlist": "Add to Wishlist",
+      "browse_wishlist": "Browse Wishlist",
+      "remove_from_wishlist": "Remove from Wishlist",
       "sku": "SKU",
       "on_sale": "Sale",
       "product_variants": "Product variants",

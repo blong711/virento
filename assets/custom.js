@@ -141,7 +141,7 @@ function initializeWishlistButtons() {
       }
       // Only update tooltip if it exists
       if (tooltip) {
-        tooltip.textContent = 'Remove from Wishlist';
+        tooltip.textContent = window.ShopifyTranslations.wishlist.remove_from_wishlist || 'Remove from Wishlist';
       }
       button.setAttribute('data-action', 'remove');
     } else {
@@ -159,7 +159,7 @@ function initializeWishlistButtons() {
       }
       // Only update tooltip if it exists
       if (tooltip) {
-        tooltip.textContent = 'Add to Wishlist';
+        tooltip.textContent = window.ShopifyTranslations.wishlist.add_to_wishlist || 'Add to Wishlist';
       }
       button.setAttribute('data-action', 'add');
     }
@@ -203,7 +203,7 @@ function handleWishlistClick(button, productId, productHandle) {
     }
     // Only update tooltip if it exists
     if (tooltip) {
-      tooltip.textContent = 'Remove from Wishlist';
+      tooltip.textContent = window.ShopifyTranslations.wishlist.remove_from_wishlist || 'Remove from Wishlist';
     }
     button.setAttribute('data-action', 'remove');
 
@@ -231,7 +231,7 @@ function handleWishlistClick(button, productId, productHandle) {
     }
     // Only update tooltip if it exists
     if (tooltip) {
-      tooltip.textContent = 'Add to Wishlist';
+      tooltip.textContent = window.ShopifyTranslations.wishlist.add_to_wishlist || 'Add to Wishlist';
     }
     button.setAttribute('data-action', 'add');
 
@@ -275,7 +275,7 @@ function updateAllWishlistButtons(productId, action) {
       }
       // Only update tooltip if it exists
       if (tooltip) {
-        tooltip.textContent = 'Remove from Wishlist';
+        tooltip.textContent = window.ShopifyTranslations.wishlist.remove_from_wishlist || 'Remove from Wishlist';
       }
       button.setAttribute('data-action', 'remove');
     } else {
@@ -285,14 +285,14 @@ function updateAllWishlistButtons(productId, action) {
         const addSpan = button.querySelector('span.add');
         const addedSpan = button.querySelector('span.added');
         if (addSpan) addSpan.style.display = 'inline';
-        if (addedSpan) addedSpan.style.display = 'none';
+        if (addedSpan) addSpan.style.display = 'none';
       } else {
         icon.classList.remove('icon-trash');
         icon.classList.add('icon-heart2');
       }
       // Only update tooltip if it exists
       if (tooltip) {
-        tooltip.textContent = 'Add to Wishlist';
+        tooltip.textContent = window.ShopifyTranslations.wishlist.add_to_wishlist || 'Add to Wishlist';
       }
       button.setAttribute('data-action', 'add');
     }
@@ -451,7 +451,7 @@ function initializeCompareButtons() {
       } else {
         icon.classList.remove('icon-compare');
         icon.classList.add('icon-check');
-        if (tooltip) tooltip.textContent = 'Browse Compare';
+        if (tooltip) tooltip.textContent = window.ShopifyTranslations.compare.browse_compare;
         button.setAttribute('data-action', 'browse');
       }
     } else {
@@ -467,7 +467,7 @@ function initializeCompareButtons() {
       } else {
         icon.classList.remove('icon-check', 'icon-trash');
         icon.classList.add('icon-compare');
-        if (tooltip) tooltip.textContent = 'Add to Compare';
+        if (tooltip) tooltip.textContent = window.ShopifyTranslations.compare.add_to_compare;
         button.setAttribute('data-action', 'add');
       }
     }
@@ -547,7 +547,7 @@ function handleCompareClick(button, productId, productHandle) {
       icon.classList.remove('icon-compare');
       icon.classList.add('icon-check');
     }
-    if (tooltip) tooltip.textContent = 'Browse Compare';
+    if (tooltip) tooltip.textContent = window.ShopifyTranslations.compare.browse_compare;
     button.setAttribute('data-action', 'browse');
 
     // Update all buttons for this product
@@ -579,7 +579,7 @@ function handleCompareClick(button, productId, productHandle) {
       icon.classList.remove('icon-check');
       icon.classList.add('icon-compare');
     }
-    if (tooltip) tooltip.textContent = 'Add to Compare';
+    if (tooltip) tooltip.textContent = window.ShopifyTranslations.compare.add_to_compare || 'Add to Compare';
     button.setAttribute('data-action', 'add');
 
     // Update all buttons for this product
@@ -618,7 +618,7 @@ function updateAllCompareButtons(productId, action) {
         icon.classList.remove('icon-compare', 'icon-trash');
         icon.classList.add('icon-check');
       }
-      if (tooltip) tooltip.textContent = 'Browse Compare';
+      if (tooltip) tooltip.textContent = window.ShopifyTranslations.compare.browse_compare;
       button.setAttribute('data-action', 'browse');
     } else if (action === 'remove') {
       if (button.classList.contains('btn-add-compare')) {
@@ -633,7 +633,7 @@ function updateAllCompareButtons(productId, action) {
         icon.classList.remove('icon-compare', 'icon-check');
         icon.classList.add('icon-trash');
       }
-      if (tooltip) tooltip.textContent = 'Remove from Compare';
+      if (tooltip) tooltip.textContent = window.ShopifyTranslations.compare.remove_from_compare;
       button.setAttribute('data-action', 'remove');
     } else {
       if (button.classList.contains('btn-add-compare')) {
@@ -648,7 +648,7 @@ function updateAllCompareButtons(productId, action) {
         icon.classList.remove('icon-check', 'icon-trash');
         icon.classList.add('icon-compare');
       }
-      if (tooltip) tooltip.textContent = 'Add to Compare';
+      if (tooltip) tooltip.textContent = window.ShopifyTranslations.compare.add_to_compare;
       button.setAttribute('data-action', 'add');
     }
   });
@@ -705,15 +705,15 @@ function updateCompareModalContent() {
         <img class="lazyload" 
              data-src="/assets/placeholder-image.png"
              src="/assets/placeholder-image.png" 
-             alt="Loading..."
+             alt="${window.ShopifyTranslations.common.loading || 'Loading...'}"
              width="300" height="300">
       </a>
       <div class="content">
         <div class="text-title">
-          <a class="link text-line-clamp-2" href="#">Loading...</a>
+          <a class="link text-line-clamp-2" href="#">${window.ShopifyTranslations.common.loading || 'Loading...'}</a>
         </div>
         <p class="price-wrap">
-          <span class="new-price">Loading...</span>
+          <span class="new-price">${window.ShopifyTranslations.common.loading || 'Loading...'}</span>
         </p>
       </div>
     `;
@@ -891,10 +891,10 @@ function removeFromComparePage(productId) {
               if (container) {
                 container.innerHTML = `
                   <div class="tf-wishlist-empty text-center">
-                    <p class="text-md text-noti mb-4">No product were added to the compare.</p>
+                    <p class="text-md text-noti mb-4">${window.ShopifyTranslations.compare.no_products_added || 'No product were added to the compare.'}</p>
                     <a href="${
                       window.Shopify ? window.Shopify.routes.root : '/'
-                    }" class="tf-btn animate-btn btn-back-shop">Back to Shopping</a>
+                    }" class="tf-btn animate-btn btn-back-shop">${window.ShopifyTranslations.common.back_to_shopping || 'Back to Shopping'}</a>
                   </div>
                 `;
               }
@@ -962,7 +962,7 @@ function clearCompare() {
       icon.classList.remove('icon-trash');
       icon.classList.add('icon-compare');
     }
-    if (tooltip) tooltip.textContent = 'Add to Compare';
+    if (tooltip) tooltip.textContent = window.ShopifyTranslations.compare.add_to_compare || 'Add to Compare';
     button.setAttribute('data-action', 'add');
   });
 
@@ -997,7 +997,7 @@ function clearSearchInputOnSpecialPages() {
     const searchInputs = document.querySelectorAll('input[name="q"], input[type="search"]');
     searchInputs.forEach((input) => {
       input.value = '';
-      input.setAttribute('placeholder', input.getAttribute('placeholder') || 'Search our store');
+      input.setAttribute('placeholder', input.getAttribute('placeholder') || (window.ShopifyTranslations.search.search_our_store || 'Search our store'));
     });
   }
 }
