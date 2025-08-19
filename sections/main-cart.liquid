@@ -192,22 +192,38 @@
                         {% for block in section.blocks %}
                             {% case block.type %}
                                 {% when 'shipping_estimator' %}
-                                    <form class="cart-box shipping-cart-box" {{ block.shopify_attributes }}>
+                                    <div class="cart-box shipping-cart-box" {{ block.shopify_attributes }}>
                                         <div class="text-lg title fw-medium">{{ block.settings.title | default: 'Shipping estimates' }}</div>
-                                        <fieldset class="field">
-                                            <label for="country" class="text-sm">{{ block.settings.country_label | default: 'Country' }}</label>
-                                            <input type="text" id="country" placeholder="United State">
-                                        </fieldset>
-                                        <fieldset class="field">
-                                            <label for="state" class="text-sm">{{ block.settings.state_label | default: 'State/Province' }}</label>
-                                            <input type="text" id="state" placeholder="{{ block.settings.state_placeholder | default: 'State/Province' }}">
-                                        </fieldset>
-                                        <fieldset class="field">
-                                            <label for="code" class="text-sm">{{ block.settings.zipcode_label | default: 'Zipcode' }}</label>
-                                            <input type="text" id="code" placeholder="{{ block.settings.zipcode_placeholder | default: '41000' }}">
-                                        </fieldset>
-                                        <button type="button" class="tf-btn btn-dark2 animate-btn w-100">{{ block.settings.button_text | default: 'Estimate' }}</button>
-                                    </form>
+                                        <form class="shipping-calculator-form" data-shipping-calculator>
+                                            <div class="field">
+                                                <label for="shipping-country-main" class="text-sm">{{ block.settings.country_label | default: 'Country' }}</label>
+                                                <div class="tf-select">
+                                                    <select class="w-100" id="shipping-country-main" name="shipping_address[country]" data-shipping-country>
+                                                        {{ all_country_option_tags }}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="field" id="shipping-province-field-main" style="display: none;">
+                                                <label for="shipping-province-main" class="text-sm">{{ block.settings.state_label | default: 'State/Province' }}</label>
+                                                <div class="tf-select">
+                                                    <select id="shipping-province-main" name="shipping_address[province]" data-shipping-province></select>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <label for="shipping-zip-main" class="text-sm">{{ block.settings.zipcode_label | default: 'Zipcode' }}</label>
+                                                <input type="text" 
+                                                       id="shipping-zip-main" 
+                                                       name="shipping_address[zip]" 
+                                                       value="{{ cart.shipping_address.zip }}"
+                                                       data-shipping-zip>
+                                            </div>
+                                            <div id="shipping-rates-main" class="shipping-rates" style="display: none;" data-shipping-rates>
+                                                <p class="shipping-rates__heading"></p>
+                                                <ul class="shipping-rates__list"></ul>
+                                            </div>
+                                            <button type="submit" class="tf-btn btn-dark2 animate-btn w-100" data-shipping-calculator-submit>{{ block.settings.button_text | default: 'Estimate' }}</button>
+                                        </form>
+                                    </div>
                                 
                                 {% when 'cart_summary' %}
                                     <form action="/cart" method="post" class="cart-box checkout-cart-box" {{ block.shopify_attributes }}>

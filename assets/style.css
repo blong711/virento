@@ -19832,4 +19832,54 @@ shopify-accelerated-checkout {
   text-decoration: line-through;
   color: rgba(0, 0, 0, 0.6);
 }
+
+/* Shipping Rates Styles */
+.shipping-rates {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background-color: var(--surface);
+}
+
+/* Shipping Calculator Form Styles */
+.shipping-calculator-form select {
+  border-radius: 6px;
+  height: 50px;
+}
+
+.shipping-rates__heading {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--dark-2);
+}
+
+.shipping-rates__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shipping-rates__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.shipping-rates__item:last-child {
+  border-bottom: none;
+}
+
+.shipping-rates__name {
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.shipping-rates__price {
+  font-weight: 600;
+  color: var(--primary);
+}
+
 /*# sourceMappingURL=styles.css.map */

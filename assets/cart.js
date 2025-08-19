@@ -26,6 +26,9 @@
     // Set up terms checkbox functionality
     this.setupTermsCheckbox();
     
+    // Set up shipping calculator functionality
+    this.setupShippingCalculator();
+    
     // Check empty cart state on initialization
     this.checkEmptyCart();
   }
@@ -1079,6 +1082,145 @@
       // Re-initialize functionality for the new item
       this.setupQuantityButtons();
       this.setupRemoveButtons();
+    }
+  }
+
+  setupShippingCalculator() {
+    const shippingForm = document.querySelector('[data-shipping-calculator]');
+    if (shippingForm) {
+      shippingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this.calculateShipping(shippingForm);
+      });
+
+      // Set up country/province dependency
+      const countrySelect = shippingForm.querySelector('[data-shipping-country]');
+      const provinceField = shippingForm.querySelector('#shipping-province-field-main');
+      const provinceSelect = shippingForm.querySelector('[data-shipping-province]');
+      
+      if (countrySelect && provinceField && provinceSelect) {
+        // Initial check for province field visibility
+        this.toggleProvinceField(countrySelect.value, provinceField, provinceSelect);
+        
+        // Listen for country changes
+        countrySelect.addEventListener('change', () => {
+          this.toggleProvinceField(countrySelect.value, provinceField, provinceSelect);
+        });
+      }
+    }
+  }
+
+  toggleProvinceField(countryCode, provinceField, provinceSelect) {
+    if (!countryCode || countryCode === '') {
+      provinceField.style.display = 'none';
+      return;
+    }
+
+    // Get the selected country option to access its data-provinces attribute
+    const countryOption = provinceSelect.closest('form').querySelector('[data-shipping-country] option[value="' + countryCode + '"]');
+    if (!countryOption) return;
+
+    const provincesData = countryOption.getAttribute('data-provinces');
+    if (!provincesData) {
+      provinceField.style.display = 'none';
+      return;
+    }
+
+    try {
+      const provinces = JSON.parse(provincesData);
+      if (provinces && provinces.length > 0) {
+        // Clear existing options
+        provinceSelect.innerHTML = '';
+        
+        // Add new options
+        provinces.forEach(([value, text]) => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = text;
+          provinceSelect.appendChild(option);
+        });
+        
+        provinceField.style.display = 'block';
+      } else {
+        provinceField.style.display = 'none';
+      }
+    } catch (error) {
+      console.error('Error parsing provinces data:', error);
+      provinceField.style.display = 'none';
+    }
+  }
+
+  calculateShipping(shippingForm) {
+    const countrySelect = shippingForm.querySelector('[data-shipping-country]');
+    const provinceSelect = shippingForm.querySelector('[data-shipping-province]');
+    const zipInput = shippingForm.querySelector('[data-shipping-zip]');
+    const ratesContainer = shippingForm.querySelector('[data-shipping-rates]');
+    
+    const country = countrySelect ? countrySelect.value : '';
+    const province = provinceSelect ? provinceSelect.value : '';
+    const zip = zipInput ? zipInput.value : '';
+    
+    if (!country || !province || !zip) {
+      alert('Please fill in all shipping fields.');
+      return;
+    }
+
+    // Show loading state
+    const submitButton = shippingForm.querySelector('[data-shipping-calculator-submit]');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Calculating...';
+    submitButton.disabled = true;
+
+    const formData = new FormData();
+    formData.append('shipping_address[country]', country);
+    formData.append('shipping_address[province]', province);
+    formData.append('shipping_address[zip]', zip);
+
+    // Fetch shipping rates
+    fetch('/cart/shipping_rates.json', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      this.displayShippingRates(data.shipping_rates, ratesContainer);
+    })
+    .catch(error => {
+      console.error('Error calculating shipping:', error);
+      alert('Error calculating shipping rates. Please try again.');
+    })
+    .finally(() => {
+      // Reset button state
+      submitButton.textContent = originalText;
+      submitButton.disabled = false;
+    });
+  }
+
+  displayShippingRates(rates, container) {
+    if (!container) return;
+
+    const heading = container.querySelector('.shipping-rates__heading');
+    const list = container.querySelector('.shipping-rates__list');
+
+    if (rates && rates.length > 0) {
+      heading.textContent = 'Available Shipping Rates:';
+      list.innerHTML = '';
+
+      rates.forEach(rate => {
+        const li = document.createElement('li');
+        li.className = 'shipping-rates__item';
+        li.innerHTML = `
+          <span class="shipping-rates__name">${rate.name}</span>
+          <span class="shipping-rates__price">${rate.price}</span>
+        `;
+        list.appendChild(li);
+      });
+
+      container.style.display = 'block';
+    } else {
+      heading.textContent = 'No shipping rates available for this location.';
+      list.innerHTML = '';
+      container.style.display = 'block';
     }
   }
 
