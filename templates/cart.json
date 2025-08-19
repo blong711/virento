@@ -1,7 +1,131 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main-cart": {
       "type": "main-cart",
+      "blocks": {
+        "free_shipping_progress_PKEUKD": {
+          "type": "free_shipping_progress",
+          "settings": {
+            "free_shipping_threshold": 100,
+            "qualified_message": "You've qualified for",
+            "free_shipping_text": "Free Shipping!",
+            "spend_message": "Spend",
+            "more_message": "more to get",
+            "progress_icon": "car"
+          }
+        },
+        "cart_items_table_TbLcKU": {
+          "type": "cart_items_table",
+          "settings": {
+            "product_column_header": "Product",
+            "price_column_header": "Price",
+            "quantity_column_header": "Quantity",
+            "total_column_header": "Total",
+            "remove_text": "Remove"
+          }
+        },
+        "empty_cart_GHHVhW": {
+          "type": "empty_cart",
+          "settings": {
+            "empty_cart_title": "Your cart is empty",
+            "empty_cart_message": "Looks like you haven't added any items to your cart yet.",
+            "continue_shopping_text": "Continue Shopping",
+            "continue_shopping_url": "shopify://collections/all"
+          }
+        },
+        "gift_wrap_tUKKmM": {
+          "type": "gift_wrap",
+          "settings": {
+            "show_gift_wrap": true,
+            "gift_wrap_price": "10.00",
+            "label_text": "Add gift wrap. Only",
+            "optional_text": "(You can choose or not)"
+          }
+        },
+        "discount_code_wxeBnq": {
+          "type": "discount_code",
+          "settings": {
+            "placeholder_text": "Discount code",
+            "button_text": "Apply"
+          }
+        },
+        "cart_note_GpAUKD": {
+          "type": "cart_note",
+          "settings": {
+            "label_text": "Special instructions for seller",
+            "placeholder_text": "Add any special instructions here..."
+          }
+        },
+        "shipping_estimator_gLzya8": {
+          "type": "shipping_estimator",
+          "settings": {
+            "title": "Shipping estimates",
+            "country_label": "Country",
+            "country_placeholder": "Select Country",
+            "state_label": "State/Province",
+            "state_placeholder": "State/Province",
+            "zipcode_label": "Zipcode",
+            "zipcode_placeholder": "41000",
+            "button_text": "Estimate"
+          }
+        },
+        "cart_summary_JVtnA6": {
+          "type": "cart_summary",
+          "settings": {
+            "subtotal_label": "Subtotal:",
+            "discounts_label": "Discounts:",
+            "tax_message": "Taxes and shipping calculated at checkout",
+            "show_terms_checkbox": true,
+            "terms_text": "I agree with",
+            "terms_link_text": "terms and conditions",
+            "terms_url": "",
+            "checkout_button_text": "Checkout",
+            "show_payment_icons": true,
+            "payment_icons_title": "We accept",
+            "payment_methods_title": "We accept"
+          }
+        },
+        "features_slider_9jeEXt": {
+          "type": "features_slider",
+          "settings": {}
+        },
+        "testimonials_NwMq8J": {
+          "type": "testimonials",
+          "settings": {
+            "testimonials_title": "What our customers say"
+          }
+        },
+        "testimonial_item_nYJpiB": {
+          "type": "testimonial_item",
+          "settings": {
+            "content": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.",
+            "author_name": "Customer"
+          }
+        }
+      },
+      "block_order": [
+        "free_shipping_progress_PKEUKD",
+        "cart_items_table_TbLcKU",
+        "empty_cart_GHHVhW",
+        "gift_wrap_tUKKmM",
+        "discount_code_wxeBnq",
+        "cart_note_GpAUKD",
+        "shipping_estimator_gLzya8",
+        "cart_summary_JVtnA6",
+        "features_slider_9jeEXt",
+        "testimonials_NwMq8J",
+        "testimonial_item_nYJpiB"
+      ],
+      "settings": {}
     }
   },
   "order": [
