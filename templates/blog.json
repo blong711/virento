@@ -80,11 +80,8 @@
         "color_scheme": "",
         "show_post_count": true,
         "slides_per_view_mobile": "2",
-        "slides_per_group_mobile": "2",
         "slides_per_view_tablet": "3",
-        "slides_per_group_tablet": "2",
         "slides_per_view_desktop": "5",
-        "slides_per_group_desktop": "5",
         "space_between": 20,
         "padding_top": 40,
         "padding_bottom": 40,
@@ -133,7 +130,7 @@
         "width": "boxed",
         "color_scheme": "background-1",
         "padding_top": 36,
-        "padding_bottom": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     }

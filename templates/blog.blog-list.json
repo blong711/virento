@@ -106,7 +106,7 @@
             "show_comment_count": true,
             "show_date": true,
             "date": "%b %d",
-            "Content_align": "center",
+            "Content_align": "start",
             "image_ratio": "-landscape"
           }
         },
@@ -129,8 +129,8 @@
       "settings": {
         "width": "boxed",
         "color_scheme": "background-1",
-        "padding_top": 36,
-        "padding_bottom": 0,
+        "padding_top": 40,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     }
