@@ -844,6 +844,13 @@
 
   createCartItemElement(cartItem) {
     console.log('Creating cart item element for:', cartItem);
+    console.log('Gift wrap price data:', {
+      final_price: cartItem.final_price,
+      final_line_price: cartItem.final_line_price,
+      original_price: cartItem.original_price,
+      price: cartItem.price,
+      line_price: cartItem.line_price
+    });
     
     // Debug: Log all possible container selectors
     console.log('Looking for cart container...');
@@ -909,8 +916,11 @@
     
     if (existingCartItem) {
       console.log('Cloning existing cart item structure');
+      console.log('Original cart item HTML:', existingCartItem.outerHTML);
+      
       const newCartItem = existingCartItem.cloneNode(true);
       console.log('Cloned item:', newCartItem);
+      console.log('Cloned item HTML:', newCartItem.outerHTML);
       
       // Update the cloned item with new data
       newCartItem.setAttribute('data-item-key', cartItem.key);
@@ -944,13 +954,103 @@
         console.log('No variant element found or no variant title');
       }
       
-      // Update price
-      const priceElements = newCartItem.querySelectorAll('.price, .item-price, .cart-item-price');
-      console.log('Found price elements:', priceElements.length);
-      priceElements.forEach(element => {
-        element.textContent = this.formatMoney(cartItem.final_price);
-        console.log('Updated price element:', element, 'to:', this.formatMoney(cartItem.final_price));
-      });
+      // Update price - ensure it's wrapped in span with class "cart-price text-md fw-medium"
+      console.log('=== UPDATING PRICE ELEMENTS ===');
+      
+      const priceSelectors = [
+        '.tf-cart-item_price', '.price', '.item-price', '.cart-item-price', '.product-price', '.variant-price',
+        '.price-regular', '.price-sale', '.price-compare', '.price-current',
+        '[data-price]', '[data-item-price]', '.cart-item-price'
+      ];
+      
+      let priceUpdated = false;
+      for (const selector of priceSelectors) {
+        const priceElements = newCartItem.querySelectorAll(selector);
+        if (priceElements.length > 0) {
+          console.log(`Found ${priceElements.length} price elements with selector "${selector}"`);
+          priceElements.forEach((element, index) => {
+            console.log(`Processing price element ${index + 1}:`, element);
+            console.log('Element HTML before:', element.innerHTML);
+            console.log('Element classes:', element.className);
+            
+            // Always replace the content with properly wrapped price span
+            const priceSpan = document.createElement('span');
+            priceSpan.className = 'cart-price text-md fw-medium';
+            priceSpan.textContent = this.formatMoney(cartItem.final_price);
+            
+            // Clear the element and add the new span
+            element.innerHTML = '';
+            element.appendChild(priceSpan);
+            
+            console.log(`Created new cart-price span with selector "${selector}":`, priceSpan);
+            console.log('Element HTML after:', element.innerHTML);
+            console.log('Element classes after:', element.className);
+          });
+          priceUpdated = true;
+        }
+      }
+      
+      if (!priceUpdated) {
+        console.log('No price elements found with standard selectors, searching more broadly...');
+        // Search for any element that might contain price information
+        const allElements = newCartItem.querySelectorAll('*');
+        const potentialPriceElements = Array.from(allElements).filter(el => {
+          const text = el.textContent.trim();
+          return text.includes('$') || text.includes('€') || text.includes('£') || 
+                 el.className.toLowerCase().includes('price') ||
+                 el.getAttribute('data-price') !== null;
+        });
+        
+        console.log('Found potential price elements:', potentialPriceElements.length);
+        potentialPriceElements.forEach((element, index) => {
+          console.log(`Processing potential price element ${index + 1}:`, element);
+          console.log('Element text before:', element.textContent);
+          
+          if (element.textContent.trim().match(/[\$€£]\d+\.?\d*/)) {
+            // Replace with properly wrapped price span
+            const priceSpan = document.createElement('span');
+            priceSpan.className = 'cart-price text-md fw-medium';
+            priceSpan.textContent = this.formatMoney(cartItem.final_price);
+            
+            // Clear the element and add the new span
+            element.innerHTML = '';
+            element.appendChild(priceSpan);
+            
+            console.log('Created new cart-price span for potential price element:', priceSpan);
+            console.log('Element HTML after:', element.innerHTML);
+          }
+        });
+      }
+      
+      console.log('=== PRICE UPDATE COMPLETED ===');
+      
+      // Special handling for the price cell - ensure it has the proper span wrapper
+      const priceCell = newCartItem.querySelector('.tf-cart-item_price');
+      if (priceCell) {
+        console.log('Found price cell:', priceCell);
+        console.log('Price cell HTML before:', priceCell.innerHTML);
+        
+        // Check if it already has the cart-price span
+        const existingPriceSpan = priceCell.querySelector('.cart-price.text-md.fw-medium');
+        if (!existingPriceSpan) {
+          // Create the proper price span wrapper
+          const priceSpan = document.createElement('span');
+          priceSpan.className = 'cart-price text-md fw-medium';
+          priceSpan.textContent = this.formatMoney(cartItem.final_price);
+          
+          // Clear the cell and add the new span
+          priceCell.innerHTML = '';
+          priceCell.appendChild(priceSpan);
+          
+          console.log('Created cart-price span in price cell:', priceSpan);
+          console.log('Price cell HTML after:', priceCell.innerHTML);
+        } else {
+          console.log('Price cell already has cart-price span, updating text');
+          existingPriceSpan.textContent = this.formatMoney(cartItem.final_price);
+        }
+      } else {
+        console.log('No price cell found with .tf-cart-item_price class');
+      }
       
       // Update quantity
       const quantityElement = newCartItem.querySelector('.quantity-product');
@@ -962,13 +1062,43 @@
         console.log('No quantity element found in cloned item');
       }
       
-      // Update total price
-      const totalElements = newCartItem.querySelectorAll('.total-price, .cart-total, .item-total');
-      console.log('Found total elements:', totalElements.length);
-      totalElements.forEach(element => {
-        element.textContent = this.formatMoney(cartItem.final_line_price);
-        console.log('Updated total element:', element, 'to:', this.formatMoney(cartItem.final_line_price));
-      });
+      // Update total price - be more thorough in finding and updating ALL total-related elements
+      const totalSelectors = [
+        '.total-price', '.cart-total', '.item-total', '.line-total', '.subtotal',
+        '.cart-item-total', '.product-total', '.variant-total',
+        '[data-total]', '[data-line-total]', '.cart-total-price'
+      ];
+      
+      let totalUpdated = false;
+      for (const selector of totalSelectors) {
+        const totalElements = newCartItem.querySelectorAll(selector);
+        if (totalElements.length > 0) {
+          totalElements.forEach(element => {
+            element.textContent = this.formatMoney(cartItem.final_line_price);
+            console.log(`Updated total element with selector "${selector}":`, element, 'to:', this.formatMoney(cartItem.final_line_price));
+          });
+          totalUpdated = true;
+        }
+      }
+      
+      if (!totalUpdated) {
+        console.log('No total elements found with standard selectors, searching more broadly...');
+        // Search for any element that might contain total information
+        const allElements = newCartItem.querySelectorAll('*');
+        const potentialTotalElements = Array.from(allElements).filter(el => {
+          const text = el.textContent.trim();
+          return text.includes('$') || text.includes('€') || text.includes('£') ||
+                 el.className.toLowerCase().includes('total') ||
+                 el.getAttribute('data-total') !== null;
+        });
+        
+        potentialTotalElements.forEach(element => {
+          if (element.textContent.trim().match(/[\$€£]\d+\.?\d*/)) {
+            element.textContent = this.formatMoney(cartItem.final_line_price);
+            console.log('Updated potential total element:', element, 'to:', this.formatMoney(cartItem.final_line_price));
+          }
+        });
+      }
       
       // Update data attributes for buttons
       const buttons = newCartItem.querySelectorAll('.btn-increase, .btn-decrease, .remove-cart');
@@ -1007,7 +1137,9 @@
           <div class="cart-item-details">
             <div class="name">${cartItem.product_title}</div>
             <div class="variant-title">${cartItem.variant_title || ''}</div>
-            <div class="price">${this.formatMoney(cartItem.final_price)}</div>
+            <div class="price">
+              <span class="cart-price text-md fw-medium">${this.formatMoney(cartItem.final_price)}</span>
+            </div>
           </div>
           <div class="cart-item-quantity">
             <button class="btn-decrease" data-item-key="${cartItem.key}">-</button>
