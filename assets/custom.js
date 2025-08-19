@@ -4,8 +4,8 @@
 // WISHLIST
 var $wishlist_list = document.getElementById('hdt_wishlist_list'),
   $compare_list = document.getElementById('hdt_compare_list'),
-  nameCachedWishlist = 'theme4:wishlist:id',
-  nameCachedCompare = 'theme4:compare:id';
+  nameCachedWishlist = 'gravio:wishlist:id',
+  nameCachedCompare = 'gravio:compare:id';
 // if exit $wishlist_list is use app wishlist the4
 if ($wishlist_list) {
   var arr_wishlist_list = $wishlist_list.textContent ? $wishlist_list.textContent.split(' ') : [];
@@ -110,7 +110,7 @@ function initializeWishlistButtons() {
 
         // Gửi event để các component khác cập nhật
         document.dispatchEvent(
-          new CustomEvent('theme4:wishlist:update', {
+          new CustomEvent('gravio:wishlist:update', {
             bubbles: true,
             detail: arr_wishlist_list,
           })
@@ -241,7 +241,7 @@ function handleWishlistClick(button, productId, productHandle) {
 
   // Dispatch custom event for other components
   document.dispatchEvent(
-    new CustomEvent('theme4:wishlist:update', {
+    new CustomEvent('gravio:wishlist:update', {
       bubbles: true,
       detail: arr_wishlist_list,
     })
@@ -364,7 +364,7 @@ class WishlistCount extends HTMLElement {
   constructor() {
     super();
     this.textContent = arr_wishlist_list.length;
-    document.addEventListener(`theme4:wishlist:update`, (e) => {
+    document.addEventListener(`gravio:wishlist:update`, (e) => {
       this.textContent = arr_wishlist_list.length;
     });
   }
@@ -377,7 +377,7 @@ class WishlistLink extends HTMLElement {
     if (link) {
       link.href = conver_to_link_fn('wishlist', arr_wishlist_list);
     }
-    document.addEventListener(`theme4:wishlist:update`, (e) => {
+    document.addEventListener(`gravio:wishlist:update`, (e) => {
       if (link) {
         link.href = conver_to_link_fn('wishlist', arr_wishlist_list);
       }
@@ -399,7 +399,7 @@ class CompareCount extends HTMLElement {
   constructor() {
     super();
     this.textContent = arr_compare_list.length;
-    document.addEventListener(`theme4:compare:update`, (e) => {
+    document.addEventListener(`gravio:compare:update`, (e) => {
       this.textContent = arr_compare_list.length;
     });
   }
@@ -412,7 +412,7 @@ class CompareLink extends HTMLElement {
     if (link) {
       link.href = conver_to_link_fn('compare', arr_compare_list);
     }
-    document.addEventListener(`theme4:compare:update`, (e) => {
+    document.addEventListener(`gravio:compare:update`, (e) => {
       if (link) {
         link.href = conver_to_link_fn('compare', arr_compare_list);
       }
@@ -588,7 +588,7 @@ function handleCompareClick(button, productId, productHandle) {
 
   // Dispatch custom event for other components
   document.dispatchEvent(
-    new CustomEvent('theme4:compare:update', {
+    new CustomEvent('gravio:compare:update', {
       bubbles: true,
       detail: arr_compare_list,
     })
@@ -830,7 +830,7 @@ function removeFromCompare(productId) {
 
     // Dispatch custom event
     document.dispatchEvent(
-      new CustomEvent('theme4:compare:update', {
+      new CustomEvent('gravio:compare:update', {
         bubbles: true,
         detail: arr_compare_list,
       })
@@ -855,7 +855,7 @@ function removeFromComparePage(productId) {
 
     // Dispatch custom event
     document.dispatchEvent(
-      new CustomEvent('theme4:compare:update', {
+      new CustomEvent('gravio:compare:update', {
         bubbles: true,
         detail: arr_compare_list,
       })
@@ -983,7 +983,7 @@ function clearCompare() {
 
   // Dispatch custom event
   document.dispatchEvent(
-    new CustomEvent('theme4:compare:update', {
+    new CustomEvent('gravio:compare:update', {
       bubbles: true,
       detail: arr_compare_list,
     })

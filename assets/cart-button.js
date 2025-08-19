@@ -1,21 +1,3 @@
-// Missing dependencies and utility functions
-if (typeof window.routes === 'undefined') {
-  window.routes = {
-    cart_add_url: '/cart/add.js',
-    cart_change_url: '/cart/change.js',
-    cart_update_url: '/cart/update.js',
-    cart_url: '/cart',
-    checkout_url: '/checkout'
-  };
-} else {
-  // Ensure all required routes are available
-  if (!window.routes.cart_add_url) window.routes.cart_add_url = '/cart/add.js';
-  if (!window.routes.cart_change_url) window.routes.cart_change_url = '/cart/change.js';
-  if (!window.routes.cart_update_url) window.routes.cart_update_url = '/cart/update.js';
-  if (!window.routes.cart_url) window.routes.cart_url = '/cart';
-  if (!window.routes.checkout_url) window.routes.checkout_url = '/checkout';
-}
-
 // Bootstrap availability is handled by the cart-drawer.js component
 
 // fetchConfig utility function
