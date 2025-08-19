@@ -96,14 +96,25 @@
         "features_slider_9jeEXt": {
           "type": "features_slider",
           "settings": {
-            "features": "shipping|Free Shipping, gift|Gift Package, return|Easy Returns, support|Warranty"
+            "feature_1_icon": "shipping",
+            "feature_1_title": "Free Shipping",
+            "feature_2_icon": "gift",
+            "feature_2_title": "Gift Package",
+            "feature_3_icon": "return",
+            "feature_3_title": "Easy Returns",
+            "feature_4_icon": "support",
+            "feature_4_title": "ONE YEAR WARRANTY"
           }
         },
         "testimonials_NwMq8J": {
           "type": "testimonials",
           "settings": {
-            "testimonials_title": "What our customers say",
-            "testimonials": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Vincent P.|images/avatar/avt-1.png||Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Themesflat|images/avatar/blog-author-3.jpg||Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.|Henry P.|images/avatar/blog-author-2.jpg"
+            "testimonial_1_author": "Customer",
+            "testimonial_1_content": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.",
+            "testimonial_2_author": "Customer",
+            "testimonial_2_content": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.",
+            "testimonial_3_author": "Customer",
+            "testimonial_3_content": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
           }
         }
       },
