@@ -14,7 +14,7 @@
                                 {% if cart_total >= free_shipping_threshold %}
                                     <p class="text-xl-3 title text-dark-4">{{ block.settings.qualified_message | default: "You've qualified for" }} <span class="fw-medium">{{ block.settings.free_shipping_text | default: "Free Shipping!" }}</span></p>
                                 {% else %}
-                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.spend_message | default: "Spend" }} <span class="fw-medium">${{ remaining_for_free_shipping | round: 2 }}</span> {{ block.settings.more_message | default: "more to get" }}
+                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.spend_message | default: "Spend" }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_for_free_shipping | money }} {{ shop.currency }}{% else %}{{ remaining_for_free_shipping | money }}{% endif %}</span> {{ block.settings.more_message | default: "more to get" }}
                                         <span class="fw-medium">{{ block.settings.free_shipping_text | default: "Free Shipping" }}</span>
                                     </p>
                                 {% endif %}
@@ -69,10 +69,10 @@
                                                         </td>
                                                         <td class="tf-cart-item_price text-center" data-cart-title="Price">
                                                             {% if item.original_price != item.final_price %}
-                                                                <span class="cart-price price-on-sale text-md fw-medium">{{ item.final_price | money }}</span>
-                                                                <span class="cart-price original-price text-sm text-muted"><s>{{ item.original_price | money }}</s></span>
+                                                                <span class="cart-price price-on-sale text-md fw-medium">{% if settings.currency_code_enabled %}{{ item.final_price | money }} {{ shop.currency }}{% else %}{{ item.final_price | money }}{% endif %}</span>
+                                                                <span class="cart-price original-price text-sm text-muted"><s>{% if settings.currency_code_enabled %}{{ item.original_price | money }} {{ shop.currency }}{% else %}{{ item.original_price | money }}{% endif %}</s></span>
                                                             {% else %}
-                                                                <span class="cart-price text-md fw-medium">{{ item.final_price | money }}</span>
+                                                                <span class="cart-price text-md fw-medium">{% if settings.currency_code_enabled %}{{ item.final_price | money }} {{ shop.currency }}{% else %}{{ item.final_price | money }}{% endif %}</span>
                                                             {% endif %}
                                                         </td>
                                                         <td class="tf-cart-item_quantity" data-cart-title="Quantity">
@@ -83,7 +83,7 @@
                                                             </div>
                                                         </td>
                                                         <td class="tf-cart-item_total text-center" data-cart-title="Total">
-                                                            <div class="cart-total total-price text-md fw-medium">{{ item.final_line_price | money }}</div>
+                                                            <div class="cart-total total-price text-md fw-medium">{% if settings.currency_code_enabled %}{{ item.final_line_price | money }} {{ shop.currency }}{% else %}{{ item.final_line_price | money }}{% endif %}</div>
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
@@ -294,13 +294,13 @@
                                         <div class="cart-head">
                                             <div class="total-discount text-xl fw-medium">
                                                 <span>{{ block.settings.subtotal_label | default: 'Subtotal:' }}</span>
-                                                <span class="total">{{ cart.total_price | money }}</span>
+                                                <span class="total">{{ cart.total_price | money }} {{ shop.currency }}</span>
                                             </div>
                                             
                                             {% if cart.total_discounts > 0 %}
                                                 <div class="discounts text-sm text-success">
                                                     <span>{{ block.settings.discounts_label | default: 'Discounts:' }}</span>
-                                                    <span>-{{ cart.total_discounts | money }}</span>
+                                                    <span>-{{ cart.total_discounts | money }} {{ shop.currency }}</span>
                                                 </div>
                                             {% endif %}
                                             
