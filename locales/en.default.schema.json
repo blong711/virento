@@ -4735,6 +4735,13 @@
         "show_navigation": {
           "label": "Show prev/next buttons"
         },
+        "navigation_style": {
+          "label": "Navigation Style",
+          "options": {
+            "boxed": "Boxed Navigation",
+            "individual": "Individual Buttons"
+          }
+        },
         "show_dots_mobile": {
           "label": "Show dots on mobile"
         },

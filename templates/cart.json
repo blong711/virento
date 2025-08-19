@@ -9,6 +9,12 @@
  */
 {
   "sections": {
+    "page_breadcrumb": {
+      "type": "page-breadcrumb",
+      "settings": {
+        "show_description": false
+      }
+    },
     "main-cart": {
       "type": "main-cart",
       "blocks": {
@@ -134,9 +140,21 @@
         "testimonials_NwMq8J"
       ],
       "settings": {}
+    },
+    "featured_product_carousel": {
+      "type": "featured-product-carousel",
+      "settings": {
+        "title": "You might also like",
+        "subtitle": "Complete your look with these products",
+        "products_to_show": 6,
+        "show_navigation": true,
+        "navigation_style": "boxed"
+      }
     }
   },
   "order": [
-    "main-cart"
+    "page_breadcrumb",
+    "main-cart",
+    "featured_product_carousel"
   ]
 }

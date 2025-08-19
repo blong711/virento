@@ -124,6 +124,22 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "navigation_style",
+      "label": "t:sections.featured-product-carousel.settings.navigation_style.label",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "t:sections.featured-product-carousel.settings.navigation_style.options.boxed"
+        },
+        {
+          "value": "individual",
+          "label": "t:sections.featured-product-carousel.settings.navigation_style.options.individual"
+        }
+      ],
+      "default": "boxed"
+    },
+    {
       "type": "checkbox",
       "id": "show_dots_mobile",
       "label": "t:sections.featured-product-carousel.settings.show_dots_mobile.label",
@@ -226,7 +242,7 @@
           </p>
         {% endif %}
       </div>
-             {% if section.settings.show_navigation %}
+             {% if section.settings.show_navigation and section.settings.navigation_style == 'boxed' %}
          <div class="box-nav-swiper style-2 d-none d-xl-flex">
            <div class="swiper-button-prev nav-swiper nav-prev-top-pick relative"></div>
            <div class="swiper-button-next nav-swiper nav-next-top-pick relative"></div>
@@ -303,6 +319,10 @@
                  {% if section.settings.show_dots_mobile %}
            <div class="d-flex d-xl-none sw-dot-default sw-pagination-top-pick justify-content-center"></div>
          {% endif %}
+         {% if section.settings.show_navigation and section.settings.navigation_style == 'individual' %}
+          <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-prev-top-pick"></div>
+          <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-next-top-pick"></div>
+          {% endif %}
       </div>
     </div>
   </div>
