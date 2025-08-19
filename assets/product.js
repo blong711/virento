@@ -1399,3 +1399,45 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initialize bundle total on page load
   updateBundleTotal();
 
+  // Special Deal Functionality
+  // Function to update special deal button variants when selectors change
+  function updateSpecialDealVariants() {
+    const formBuyXGetY = document.querySelector('.form-buyX-getY');
+    if (!formBuyXGetY) return;
+    
+    const buyVariantSelector = formBuyXGetY.querySelector('select[name="buy_variant"]');
+    const getVariantSelector = formBuyXGetY.querySelector('select[name="get_variant"]');
+    const cartButton = formBuyXGetY.querySelector('.product-cart-button');
+    
+    if (!buyVariantSelector || !getVariantSelector || !cartButton) return;
+    
+    // Get selected variants
+    const buyVariantId = buyVariantSelector.value;
+    const getVariantId = getVariantSelector.value;
+    
+    // Get quantities from data attributes
+    const buyProduct = formBuyXGetY.querySelector('.item-product[data-variant-id]');
+    const buyQuantity = buyProduct ? parseInt(buyProduct.getAttribute('data-quantity')) : 1;
+    
+    // Create the multiple variants data
+    const multipleVariants = [
+      {"variantId": buyVariantId, "quantity": buyQuantity},
+      {"variantId": getVariantId, "quantity": 1}
+    ];
+    
+    // Update the button's data attribute
+    cartButton.setAttribute('data-multiple-variants', JSON.stringify(multipleVariants));
+  }
+  
+  // Add event listeners to variant selectors for special deals
+  const buyVariantSelectors = document.querySelectorAll('select[name="buy_variant"]');
+  const getVariantSelectors = document.querySelectorAll('select[name="get_variant"]');
+  
+  buyVariantSelectors.forEach(selector => {
+    selector.addEventListener('change', updateSpecialDealVariants);
+  });
+  
+  getVariantSelectors.forEach(selector => {
+    selector.addEventListener('change', updateSpecialDealVariants);
+  });
+

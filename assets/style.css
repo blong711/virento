@@ -4458,9 +4458,9 @@ header.header-bg {
   font-size: 12px;
 }
 .tf-btn.btn-primary {
-  background-color: var(--primary);
-  color: var(--white);
-  border-color: var(--primary);
+  background-color: var(--primary) !important;
+  color: var(--white) !important;
+  border-color: var(--primary) !important;
 }
 .tf-btn.btn-out-line-primary {
   background-color: transparent !important;
