@@ -4,6 +4,29 @@ class CartDrawer extends HTMLElement {
     this.init();
   }
 
+  // Check if the current page is the cart page
+  isOnCartPage() {
+    // Check if we're on the cart page by looking for cart-specific elements
+    const cartPageIndicator = document.querySelector('.main-cart, [data-section-type="main-cart"]');
+    if (cartPageIndicator) {
+      return true;
+    }
+    
+    // Check URL path
+    const currentPath = window.location.pathname;
+    if (currentPath === '/cart' || currentPath.includes('/cart')) {
+      return true;
+    }
+    
+    // Check if the current template is cart
+    if (document.body.classList.contains('template-cart') || 
+        document.documentElement.classList.contains('template-cart')) {
+      return true;
+    }
+    
+    return false;
+  }
+
   init() {
     // Set up close button functionality
     const closeButton = this.querySelector('.icon-close-popup');
@@ -761,6 +784,11 @@ class CartDrawer extends HTMLElement {
 
 
   open(triggeredBy) {
+    // Don't open the cart drawer if we're on the cart page
+    if (this.isOnCartPage()) {
+      return;
+    }
+    
     if (triggeredBy) this.setActiveElement(triggeredBy);
     
     // Safely open the cart drawer without creating duplicate instances
@@ -834,9 +862,11 @@ class CartDrawer extends HTMLElement {
       }
     }
 
-    // Open the cart drawer after update
+    // Open the cart drawer after update (but not on cart page)
     setTimeout(() => {
-      this.open();
+      if (!this.isOnCartPage()) {
+        this.open();
+      }
     }, 100);
   }
 
@@ -1022,9 +1052,9 @@ if (Shopify.designMode) {
     // Check if the selected section is a cart-drawer section
     // The ID pattern is: sections--{section_id}__cart-drawer
     if (event.target.id && event.target.id.includes('__cart-drawer')) {
-      // Get the cart drawer element and open it
+      // Get the cart drawer element and open it (but not on cart page)
       const cartDrawer = document.querySelector('cart-drawer');
-      if (cartDrawer) {
+      if (cartDrawer && !cartDrawer.isOnCartPage()) {
         cartDrawer.open();
       }
     } else {

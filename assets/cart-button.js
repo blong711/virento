@@ -99,6 +99,29 @@ if (!customElements.get('product-cart-button')) {
         this.init();
       }
 
+      // Check if the current page is the cart page
+      isOnCartPage() {
+        // Check if we're on the cart page by looking for cart-specific elements
+        const cartPageIndicator = document.querySelector('.main-cart, [data-section-type="main-cart"], .tf-page-cart-main');
+        if (cartPageIndicator) {
+          return true;
+        }
+        
+        // Check URL path
+        const currentPath = window.location.pathname;
+        if (currentPath === '/cart' || currentPath.includes('/cart')) {
+          return true;
+        }
+        
+        // Check if the current template is cart
+        if (document.body.classList.contains('template-cart') || 
+            document.documentElement.classList.contains('template-cart')) {
+          return true;
+        }
+        
+        return false;
+      }
+
       async init() {
         // Initialize cart button functionality
         
@@ -459,6 +482,31 @@ if (!customElements.get('product-cart-button')) {
       }
 
       updateCartDrawer(cartData, variantId) {
+        // Check if we're on the cart page - if so, update the cart page display instead
+        if (this.isOnCartPage()) {
+          // Prefer the cart page's own refresh logic for reliability
+          if (window.mainCart && typeof window.mainCart.forceCartRefresh === 'function') {
+            window.mainCart.forceCartRefresh();
+          } else if (typeof window.MainCart === 'function') {
+            try {
+              // Instantiate if not already available
+              window.mainCart = window.mainCart || new window.MainCart();
+              if (window.mainCart && typeof window.mainCart.forceCartRefresh === 'function') {
+                window.mainCart.forceCartRefresh();
+              }
+            } catch (e) {
+              // As a fallback, use our lightweight updater
+              this.updateCartPageDisplay(cartData);
+            }
+          } else {
+            // Fallback to our lightweight updater
+            this.updateCartPageDisplay(cartData);
+          }
+          // Still update cart count
+          this.triggerCartUpdate();
+          return;
+        }
+
         const cartElement = document.querySelector('cart-notification') || 
                            document.querySelector('cart-drawer') || 
                            document.querySelector('[data-cart-drawer]');
@@ -500,6 +548,316 @@ if (!customElements.get('product-cart-button')) {
 
         // Trigger cart count update event
         this.triggerCartUpdate();
+      }
+
+      // Update the cart page display when on cart page
+      updateCartPageDisplay(cartData) {
+        if (!cartData || !cartData.items) return;
+
+        // Update cart items display
+        this.updateCartItemsDisplay(cartData.items);
+        
+        // Update cart totals
+        this.updateCartTotals(cartData);
+        
+        // Update cart count in header
+        this.updateHeaderCartCount(cartData.item_count);
+        
+        // Check and update empty cart state
+        this.checkEmptyCartState(cartData);
+        
+        // Update any cart-related UI elements
+        this.updateCartUIElements(cartData);
+      }
+
+      // Update cart items display on the cart page
+      updateCartItemsDisplay(cartItems) {
+        if (!cartItems || !Array.isArray(cartItems)) return;
+
+        cartItems.forEach(cartItem => {
+          // Find existing cart item element
+          const itemElement = document.querySelector(`[data-item-key="${cartItem.key}"]`);
+          
+          if (itemElement) {
+            // Update existing item
+            this.updateCartItemElement(itemElement, cartItem);
+          } else {
+            // Create new item element
+            this.createCartItemElement(cartItem);
+          }
+        });
+
+        // Remove items that are no longer in cart
+        this.removeRemovedCartItems(cartItems);
+      }
+
+      // Update an existing cart item element
+      updateCartItemElement(itemElement, cartItem) {
+        // Update quantity
+        const quantityInput = itemElement.querySelector('input[name="quantity"], .quantity-input, [data-quantity]');
+        if (quantityInput) {
+          quantityInput.value = cartItem.quantity;
+        }
+
+        // Update price
+        const priceElement = itemElement.querySelector('.price, .item-price, .cart-item-price');
+        if (priceElement) {
+          priceElement.textContent = this.formatMoney(cartItem.final_line_price);
+        }
+
+        // Update total
+        const totalElement = itemElement.querySelector('.item-total, .line-total, .total-price');
+        if (totalElement) {
+          totalElement.textContent = this.formatMoney(cartItem.final_line_price);
+        }
+
+        // Update image if available
+        if (cartItem.image) {
+          const imageElement = itemElement.querySelector('.cart-item-image img, .product-image img');
+          if (imageElement) {
+            imageElement.src = cartItem.image;
+            imageElement.alt = cartItem.product_title;
+          }
+        }
+      }
+
+      // Create a new cart item element
+      createCartItemElement(cartItem) {
+        // This would need to be implemented based on your cart page HTML structure
+        // For now, we'll trigger a page refresh to show the new item
+        // In a production environment, you'd want to create the HTML dynamically
+        console.log('New cart item added:', cartItem);
+        
+        // Option 1: Refresh the page to show new items (simple but not ideal)
+        // window.location.reload();
+        
+        // Option 2: Fetch updated cart page content (better UX)
+        this.refreshCartPageContent();
+      }
+
+      // Refresh cart page content without full page reload
+      refreshCartPageContent() {
+        // Fetch the updated cart page content
+        fetch(window.location.href)
+          .then(response => response.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const newDoc = parser.parseFromString(html, 'text/html');
+            
+            // Update cart items section
+            const newCartItems = newDoc.querySelector('.tf-cart-items, .cart-items, .main-cart');
+            const currentCartItems = document.querySelector('.tf-cart-items, .cart-items, .main-cart');
+            
+            if (newCartItems && currentCartItems) {
+              currentCartItems.innerHTML = newCartItems.innerHTML;
+            }
+            
+            // Update cart totals section
+            const newCartTotals = newDoc.querySelector('.cart-totals, .cart-summary, .cart-box');
+            const currentCartTotals = document.querySelector('.cart-totals, .cart-summary, .cart-box');
+            
+            if (newCartTotals && currentCartTotals) {
+              currentCartTotals.innerHTML = newCartTotals.innerHTML;
+            }
+            
+            // Re-initialize any cart page functionality
+            this.reinitializeCartPageFunctionality();
+          })
+          .catch(error => {
+            console.error('Error refreshing cart page:', error);
+            // Fallback to page reload
+            window.location.reload();
+          });
+      }
+
+      // Update cart totals
+      updateCartTotals(cartData) {
+        if (!cartData) return;
+
+        // Update subtotal
+        const subtotalElement = document.querySelector('.cart-subtotal, .subtotal, .cart-subtotal .price');
+        if (subtotalElement) {
+          subtotalElement.textContent = this.formatMoney(cartData.items_subtotal_price);
+        }
+
+        // Update total
+        const totalElement = document.querySelector('.cart-total, .total, .cart-total .price');
+        if (totalElement) {
+          totalElement.textContent = this.formatMoney(cartData.total_price);
+        }
+
+        // Update item count
+        const itemCountElement = document.querySelector('.cart-item-count, .item-count');
+        if (itemCountElement) {
+          itemCountElement.textContent = cartData.item_count;
+        }
+      }
+
+      // Update header cart count
+      updateHeaderCartCount(itemCount) {
+        const cartCountElements = document.querySelectorAll('.cart-count, .toolbar-count.cart-count, [data-cart-count]');
+        cartCountElements.forEach(element => {
+          element.textContent = itemCount;
+        });
+      }
+
+      // Check and update empty cart state
+      checkEmptyCartState(cartData) {
+        const emptyCartElement = document.querySelector('.empty-cart, .cart-empty');
+        const cartItemsElement = document.querySelector('.cart-items, .tf-cart-items');
+        
+        if (cartData.item_count === 0) {
+          // Show empty cart message
+          if (emptyCartElement) {
+            emptyCartElement.style.display = 'block';
+          }
+          if (cartItemsElement) {
+            cartItemsElement.style.display = 'none';
+          }
+        } else {
+          // Hide empty cart message
+          if (emptyCartElement) {
+            emptyCartElement.style.display = 'none';
+          }
+          if (cartItemsElement) {
+            cartItemsElement.style.display = 'block';
+          }
+        }
+      }
+
+      // Update cart-related UI elements
+      updateCartUIElements(cartData) {
+        // Update free shipping progress if it exists
+        const freeShippingElement = document.querySelector('.free-shipping-progress, .shipping-progress');
+        if (freeShippingElement && cartData.total_price) {
+          // Update free shipping progress based on cart total
+          this.updateFreeShippingProgress(cartData.total_price);
+        }
+
+        // Update any other cart-related UI elements
+        // This can be extended based on your specific cart page design
+      }
+
+      // Update free shipping progress
+      updateFreeShippingProgress(cartTotal) {
+        // This would need to be implemented based on your free shipping threshold
+        // For now, it's a placeholder
+        console.log('Updating free shipping progress for total:', cartTotal);
+      }
+
+      // Remove cart items that are no longer in the cart
+      removeRemovedCartItems(currentCartItems) {
+        const existingItemKeys = currentCartItems.map(item => item.key);
+        const existingElements = document.querySelectorAll('[data-item-key]');
+        
+        existingElements.forEach(element => {
+          const itemKey = element.getAttribute('data-item-key');
+          if (!existingItemKeys.includes(itemKey)) {
+            element.remove();
+          }
+        });
+      }
+
+      // Re-initialize cart page functionality after content update
+      reinitializeCartPageFunctionality() {
+        // Re-initialize any cart page specific functionality
+        // This might include quantity inputs, remove buttons, etc.
+        
+        // Example: Re-setup quantity change handlers
+        const quantityInputs = document.querySelectorAll('input[name="quantity"], .quantity-input');
+        quantityInputs.forEach(input => {
+          input.addEventListener('change', (e) => {
+            // Handle quantity change
+            this.handleQuantityChange(e);
+          });
+        });
+
+        // Example: Re-setup remove button handlers
+        const removeButtons = document.querySelectorAll('.remove-item, .remove');
+        removeButtons.forEach(button => {
+          button.addEventListener('click', (e) => {
+            // Handle item removal
+            this.handleItemRemoval(e);
+          });
+        });
+      }
+
+      // Handle quantity change
+      handleQuantityChange(event) {
+        const input = event.target;
+        const itemKey = input.closest('[data-item-key]')?.getAttribute('data-item-key');
+        const newQuantity = parseInt(input.value);
+        
+        if (itemKey && newQuantity > 0) {
+          this.updateItemQuantity(itemKey, newQuantity);
+        }
+      }
+
+      // Handle item removal
+      handleItemRemoval(event) {
+        const button = event.target;
+        const itemKey = button.closest('[data-item-key]')?.getAttribute('data-item-key');
+        
+        if (itemKey) {
+          this.removeCartItem(itemKey);
+        }
+      }
+
+      // Update item quantity
+      updateItemQuantity(itemKey, quantity) {
+        const formData = new FormData();
+        formData.append('id', itemKey);
+        formData.append('quantity', quantity);
+
+        fetch('/cart/change.js', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(cart => {
+          // Update the cart display with new data
+          this.updateCartPageDisplay(cart);
+        })
+        .catch(error => {
+          console.error('Error updating item quantity:', error);
+        });
+      }
+
+      // Remove cart item
+      removeCartItem(itemKey) {
+        const formData = new FormData();
+        formData.append('id', itemKey);
+        formData.append('quantity', 0);
+
+        fetch('/cart/change.js', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(cart => {
+          // Update the cart display with new data
+          this.updateCartPageDisplay(cart);
+        })
+        .catch(error => {
+          console.error('Error removing item:', error);
+        });
+      }
+
+      // Format money for display
+      formatMoney(amount) {
+        if (typeof amount === 'string') {
+          amount = parseFloat(amount);
+        }
+        
+        if (isNaN(amount)) {
+          return '$0.00';
+        }
+        
+        // Basic money formatting - you might want to use Shopify's money format
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD'
+        }).format(amount / 100); // Shopify prices are in cents
       }
 
       triggerCartUpdate() {
@@ -781,6 +1139,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.body.appendChild(cartButtonElement);
   }
   
+  // Prevent cart drawer from opening on cart page
+  preventCartDrawerOnCartPage();
+  
   // Initialize cart type handling for all cart-related elements
   initializeCartTypeHandling();
 });
@@ -791,6 +1152,114 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Offcanvas cleanup is handled by Bootstrap and cart-drawer.js
 // No custom cleanup needed here
 
+// Function to check if the current page is the cart page
+function isOnCartPage() {
+  // Check if we're on the cart page by looking for cart-specific elements
+  const cartPageIndicator = document.querySelector('.main-cart, [data-section-type="main-cart"], .tf-page-cart-main');
+  if (cartPageIndicator) {
+    return true;
+  }
+  
+  // Check URL path
+  const currentPath = window.location.pathname;
+  if (currentPath === '/cart' || currentPath.includes('/cart')) {
+    return true;
+  }
+  
+  // Check if the current template is cart
+  if (document.body.classList.contains('template-cart') || 
+      document.documentElement.classList.contains('template-cart')) {
+    return true;
+  }
+  
+  return false;
+}
+
+// Prevent Bootstrap offcanvas from opening cart drawer on cart page
+function preventCartDrawerOnCartPage() {
+  // Add a more specific event listener that runs before Bootstrap's handlers
+  document.addEventListener('click', function(event) {
+    // Check if we're on the cart page
+    if (!isOnCartPage()) return;
+    
+    // Check if the clicked element is trying to open the cart drawer
+    const target = event.target.closest('[data-bs-toggle="offcanvas"]');
+    if (target && target.getAttribute('href') === '#shoppingCart') {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      return false;
+    }
+  }, true); // Use capture phase to run before other handlers
+  
+  // Also prevent any programmatic opening of the cart drawer
+  if (isOnCartPage()) {
+    // Override the cart drawer's open method temporarily
+    const cartDrawer = document.querySelector('cart-drawer');
+    if (cartDrawer && cartDrawer.open) {
+      const originalOpen = cartDrawer.open;
+      cartDrawer.open = function() {
+        // Don't open on cart page
+        return;
+      };
+    }
+    
+    // Also prevent Bootstrap offcanvas from working for cart drawer
+    if (typeof bootstrap !== 'undefined' && bootstrap.Offcanvas) {
+      const cartOffcanvas = document.querySelector('#shoppingCart');
+      if (cartOffcanvas) {
+        // Remove the offcanvas functionality temporarily
+        cartOffcanvas.removeAttribute('data-bs-toggle');
+        cartOffcanvas.removeAttribute('href');
+      }
+    }
+  }
+}
+
+// Add a global prevention mechanism that runs immediately
+(function() {
+  // Check if we're on the cart page immediately
+  if (document.readyState === 'loading') {
+    // If DOM is still loading, wait for it
+    document.addEventListener('DOMContentLoaded', function() {
+      if (isOnCartPage()) {
+        // Disable all cart drawer triggers immediately
+        disableCartDrawerTriggers();
+      }
+    });
+  } else {
+    // DOM is already loaded
+    if (isOnCartPage()) {
+      // Disable all cart drawer triggers immediately
+      disableCartDrawerTriggers();
+    }
+  }
+})();
+
+// Function to disable all cart drawer triggers
+function disableCartDrawerTriggers() {
+  // Remove all data-bs-toggle attributes from cart drawer elements
+  const cartTriggers = document.querySelectorAll('[data-bs-toggle="offcanvas"][href="#shoppingCart"]');
+  cartTriggers.forEach(trigger => {
+    trigger.removeAttribute('data-bs-toggle');
+    trigger.removeAttribute('href');
+    // Add a visual indication that it's disabled
+    trigger.style.opacity = '0.6';
+    trigger.style.pointerEvents = 'none';
+  });
+  
+  // Also prevent any existing Bootstrap offcanvas instances from working
+  if (typeof bootstrap !== 'undefined' && bootstrap.Offcanvas) {
+    const cartOffcanvas = document.querySelector('#shoppingCart');
+    if (cartOffcanvas) {
+      const existingInstance = bootstrap.Offcanvas.getInstance(cartOffcanvas);
+      if (existingInstance) {
+        existingInstance.hide();
+      }
+    }
+  }
+}
+
 // Function to handle cart type behavior for all cart-related interactions
 function initializeCartTypeHandling() {
   const cartType = window.themeSettings?.cartType || 'drawer';
@@ -799,6 +1268,13 @@ function initializeCartTypeHandling() {
   document.addEventListener('click', (event) => {
     const target = event.target.closest('[data-bs-toggle="offcanvas"]');
     if (target && target.getAttribute('href') === '#shoppingCart') {
+      // Check if we're on the cart page - if so, prevent the drawer from opening
+      if (isOnCartPage()) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      
       // Prevent default Bootstrap behavior when we want to handle it manually
       if (cartType !== 'drawer') {
         event.preventDefault();
@@ -823,6 +1299,13 @@ function initializeCartTypeHandling() {
   document.addEventListener('click', async (event) => {
     const target = event.target.closest('.nav-cart a, .cart-icon, [data-cart-toggle]');
     if (target) {
+      // Check if we're on the cart page - if so, prevent the drawer from opening
+      if (isOnCartPage()) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      
       event.preventDefault();
       event.stopPropagation();
       
