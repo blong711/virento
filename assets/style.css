@@ -19389,6 +19389,39 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   opacity: 0.8;
 }
 
+/* Main cart empty state styling */
+.empty-cart {
+  padding: 60px 20px;
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.empty-cart h3 {
+  margin-bottom: 1rem;
+  color: var(--dark);
+  font-weight: 600;
+}
+
+.empty-cart p {
+  margin-bottom: 2rem;
+  color: var(--dark-1);
+  line-height: 1.6;
+}
+
+.empty-cart .tf-btn {
+  padding: 15px 30px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.empty-cart .tf-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 @media (max-width: 767px) {
   .s-contact .wg-map {
     margin-bottom: 60px;

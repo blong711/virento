@@ -165,7 +165,13 @@
                                     </div>
                             {% endcase %}
                         {% endfor %}
-                    {% else %}
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if cart.item_count == 0 %}
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
                         {% for block in section.blocks %}
                             {% case block.type %}
                                 {% when 'empty_cart' %}
@@ -176,11 +182,10 @@
                                     </div>
                             {% endcase %}
                         {% endfor %}
-                    {% endif %}
+                    </div>
                 </div>
-            </div>
-            
-            <div class="col-xl-4">
+            {% else %}
+                <div class="col-xl-4">
                 <div class="tf-page-cart-sidebar">
                     {% if cart.item_count > 0 %}
                         {% for block in section.blocks %}
@@ -310,6 +315,7 @@
                     {% endif %}
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -640,6 +646,7 @@
         }
       ]
     },
+
     {
       "type": "testimonials",
       "name": "Testimonials",
@@ -688,6 +695,9 @@
         },
         {
           "type": "cart_summary"
+        },
+        {
+          "type": "empty_cart"
         },
         {
           "type": "testimonials"
