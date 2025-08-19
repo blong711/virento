@@ -19423,6 +19423,25 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Disabled checkout button styling */
+.tf-btn.btn-disabled {
+  background-color: #ccc !important;
+  border-color: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.tf-btn.btn-disabled:hover {
+  background-color: #ccc !important;
+  border-color: #ccc !important;
+  color: #666 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
 /* Ensure proper spacing when cart is empty */
 .tf-page-cart-main:empty + .empty-cart,
 .tf-page-cart-main[style*="display: none"] + .empty-cart {

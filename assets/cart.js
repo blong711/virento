@@ -23,6 +23,9 @@
     // Set up cart note functionality
     this.setupCartNote();
     
+    // Set up terms checkbox functionality
+    this.setupTermsCheckbox();
+    
     // Check empty cart state on initialization
     this.checkEmptyCart();
   }
@@ -113,6 +116,36 @@
       noteTextarea.addEventListener('blur', (e) => {
         this.updateCartNote(e.target.value);
       });
+    }
+  }
+
+  setupTermsCheckbox() {
+    const termsCheckbox = document.querySelector('#check-agree');
+    const checkoutButton = document.querySelector('button[name="checkout"]');
+    
+    if (termsCheckbox && checkoutButton) {
+      // Set initial state
+      this.updateCheckoutButtonState(termsCheckbox.checked);
+      
+      // Add event listener for checkbox changes
+      termsCheckbox.addEventListener('change', (e) => {
+        this.updateCheckoutButtonState(e.target.checked);
+      });
+    }
+  }
+
+  updateCheckoutButtonState(isChecked) {
+    const checkoutButton = document.querySelector('button[name="checkout"]');
+    if (checkoutButton) {
+      if (isChecked) {
+        checkoutButton.disabled = false;
+        checkoutButton.classList.remove('btn-disabled');
+        checkoutButton.classList.add('btn-dark2');
+      } else {
+        checkoutButton.disabled = true;
+        checkoutButton.classList.remove('btn-dark2');
+        checkoutButton.classList.add('btn-disabled');
+      }
     }
   }
 
@@ -519,7 +552,7 @@
         giftWrapSection.style.display = 'block';
       }
       if (discountSection) {
-        discountSection.style.display = 'block';
+        discountSection.style.display = 'flex';
       }
       if (cartNoteSection) {
         cartNoteSection.style.display = 'block';
@@ -550,6 +583,9 @@
     
     // Re-setup cart note functionality
     this.setupCartNote();
+    
+    // Re-setup terms checkbox functionality
+    this.setupTermsCheckbox();
     
     // Check empty cart state after re-initialization
     this.checkEmptyCart();
