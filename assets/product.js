@@ -1308,5 +1308,94 @@ document.addEventListener('DOMContentLoaded', function() {
       currency: window.shopCurrency
     }).format(cents / 100);
   }
-  
+
+  // Bundle functionality
+  // Handle variant selector changes to update checkbox variant ID
+  document.querySelectorAll('[data-variant-selector]').forEach(select => {
+    select.addEventListener('change', function() {
+      const bundleItem = this.closest('.tf-bundle-product-item');
+      const checkbox = bundleItem.querySelector('.tf-check');
+      const quantityInput = bundleItem.querySelector('.quantity-input');
+      const selectedVariantId = this.value;
+      
+      // Update checkbox variant ID
+      checkbox.setAttribute('data-variant-id', selectedVariantId);
+      
+      // Update quantity input variant ID
+      if (quantityInput) {
+        quantityInput.setAttribute('data-variant-id', selectedVariantId);
+      }
+    });
+  });
+
+  // Handle checkbox changes to update total price
+  document.querySelectorAll('.tf-check').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const bundleItem = this.closest('.tf-bundle-product-item');
+      
+      // Add/remove 'check' class based on checkbox state
+      if (this.checked) {
+        bundleItem.classList.add('check');
+      } else {
+        bundleItem.classList.remove('check');
+      }
+      
+      updateBundleTotal();
+    });
+  });
+
+  // Function to update bundle total price
+  function updateBundleTotal() {
+    let total = 0;
+    let oldTotal = 0;
+    let hasOldPrice = false;
+    
+    // Only process checked products
+    document.querySelectorAll('.tf-check:checked').forEach(checkbox => {
+      // Verify the checkbox is actually checked
+      if (!checkbox.checked) return;
+      
+      const bundleItem = checkbox.closest('.tf-bundle-product-item');
+      const priceElement = bundleItem.querySelector('.new-price');
+      const oldPriceElement = bundleItem.querySelector('.old-price');
+      
+      if (priceElement) {
+        const price = parseFloat(priceElement.textContent.replace(/[^0-9.]/g, ''));
+        const quantity = 1; // Fixed quantity of 1
+        
+        // Check if product has old price
+        if (oldPriceElement && oldPriceElement.style.display !== 'none') {
+          // Product has old price - add old price to oldTotal
+          const oldPrice = parseFloat(oldPriceElement.textContent.replace(/[^0-9.]/g, ''));
+          oldTotal += oldPrice * quantity;
+          hasOldPrice = true;
+        } else {
+          // Product doesn't have old price - add regular price to oldTotal
+          oldTotal += price * quantity;
+        }
+        
+        // Always add regular price to total
+        total += price * quantity;
+      }
+    });
+    
+    // Update total display
+    const totalPriceElement = document.querySelector('.bundle-total-submit .total-price');
+    const oldTotalPriceElement = document.querySelector('.bundle-total-submit .total-price-old');
+    
+    if (totalPriceElement) {
+      totalPriceElement.textContent = '$' + total.toFixed(2);
+    }
+    
+    // Only show old price if at least one product has an old price
+    if (oldTotalPriceElement && hasOldPrice) {
+      oldTotalPriceElement.textContent = '$' + oldTotal.toFixed(2);
+      oldTotalPriceElement.style.display = 'inline';
+    } else if (oldTotalPriceElement) {
+      oldTotalPriceElement.style.display = 'none';
+    }
+  }
+
+  // Initialize bundle total on page load
+  updateBundleTotal();
 

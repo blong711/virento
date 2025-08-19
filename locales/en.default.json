@@ -614,7 +614,22 @@
       "variant_not_available": "This color is not available in the selected size",
       "color_not_available": "This color is currently not available",
       "size_not_available": "This size is currently not available",
-      "variant_error": "Selected variant is not available"
+      "variant_error": "Selected variant is not available",
+      "video_thumbnail": "Video thumbnail",
+      "model_thumbnail": "3D model thumbnail",
+      "video_not_supported": "Your browser does not support the video tag.",
+      "this_item": "This item",
+      "copy": "Copy",
+      "follow_on_instagram": "Follow on Instagram",
+      "follow_on_snapchat": "Follow on Snapchat",
+      "share_on_facebook": "Share on Facebook",
+      "share_on_twitter": "Share on Twitter",
+      "share_on_pinterest": "Share on Pinterest",
+      "follow_on_youtube": "Follow on YouTube",
+      "follow_on_tiktok": "Follow on TikTok",
+      "browse_compare": "Browse Compare",
+      "buy_on_amazon": "Buy on Amazon",
+      "size_guide_no_content": "No size guide content found. Please select a page in the theme settings."
     },
     "footer": {
       "payment": "Payment methods",

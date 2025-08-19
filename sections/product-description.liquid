@@ -29,9 +29,9 @@
                             <div id="materials-{{ block.id }}" class="collapse">
                                 <div class="accordion-body widget-material">
                                     <div class="item">
-                                        <p class="fw-medium title">{{ block.settings.subtitle }}</p>
+                                        <p class="fw-medium title">{{ product.metafields.custom.materials_care.value.first }}</p>
                                         <ul>
-                                            {% for care_instruction in product.metafields.custom.materials_care.value %}
+                                            {% for care_instruction in product.metafields.custom.materials_care.value offset:1 %}
                                                 <li>{{ care_instruction }}</li>
                                             {% endfor %}
                                         </ul>
@@ -1113,12 +1113,6 @@
           "id": "title",
           "label": "t:sections.product-description.blocks.materials.settings.title.label",
           "default": "t:sections.product-description.blocks.materials.settings.title.default"
-        },
-        {
-          "type": "text",
-          "id": "subtitle",
-          "label": "t:sections.product-description.blocks.materials.settings.subtitle.label",
-          "default": "t:sections.product-description.blocks.materials.settings.subtitle.default"
         }
       ]
     },
