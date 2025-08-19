@@ -611,6 +611,17 @@ if (!customElements.get('product-cart-button')) {
           totalElement.textContent = this.formatMoney(cartItem.final_line_price);
         }
 
+        // Update variant info if present
+        const variantElement = itemElement.querySelector('.variant-title, .variant, .variants');
+        if (variantElement) {
+          if (cartItem.variant_title && cartItem.variant_title !== 'Default Title' && !(cartItem.product_title || '').toLowerCase().includes('gift wrap')) {
+            variantElement.textContent = cartItem.variant_title;
+            variantElement.style.display = 'block';
+          } else {
+            variantElement.style.display = 'none';
+          }
+        }
+
         // Update image if available
         if (cartItem.image) {
           const imageElement = itemElement.querySelector('.cart-item-image img, .product-image img');

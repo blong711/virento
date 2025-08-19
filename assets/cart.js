@@ -699,6 +699,17 @@
           quantityElement.value = cartItem.quantity;
         }
         
+        // Update variant title visibility/text
+        const variantEl = itemElement.querySelector('.variant-title, .variant, .variants');
+        if (variantEl) {
+          if (cartItem.variant_title && cartItem.variant_title !== 'Default Title' && !(cartItem.product_title || '').toLowerCase().includes('gift wrap')) {
+            variantEl.textContent = cartItem.variant_title;
+            variantEl.style.display = 'block';
+          } else {
+            variantEl.style.display = 'none';
+          }
+        }
+        
         // Update item price - try multiple selectors
         const priceSelectors = ['.price', '.item-price', '.cart-item-price', '.total-price', '.cart-total', '.total-price.text-md.fw-medium'];
         let priceUpdated = false;
@@ -927,9 +938,9 @@
       }
       
       // Update variant title if it exists - only show for actual product variants, not gift wrap
-      const variantElement = newCartItem.querySelector('.variant-title, .variant');
+      const variantElement = newCartItem.querySelector('.variant-title, .variant, .variants');
       if (variantElement) {
-        if (cartItem.variant_title && cartItem.variant_title !== 'Default Title' && !cartItem.product_title.toLowerCase().includes('gift wrap')) {
+        if (cartItem.variant_title && cartItem.variant_title !== 'Default Title' && !(cartItem.product_title || '').toLowerCase().includes('gift wrap')) {
           variantElement.textContent = cartItem.variant_title;
           variantElement.style.display = 'block';
         } else {
