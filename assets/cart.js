@@ -767,7 +767,7 @@
     // Update free shipping progress bar
     const progressBar = document.querySelector('.tf-progress-ship .value');
     if (progressBar) {
-      const threshold = window.themeSettings?.free_shipping_threshold || 10000; // Default $100
+      const threshold = window.themeSettings?.free_shipping_threshold; // Default $100
       const percentage = Math.min((cartTotal / threshold) * 100, 100);
       progressBar.style.width = percentage + '%';
       progressBar.setAttribute('data-progress', percentage);
@@ -776,15 +776,15 @@
     // Update free shipping text
     const freeShippingText = document.querySelector('.tf-cart-head .title');
     if (freeShippingText) {
-      const threshold = window.themeSettings?.free_shipping_threshold || 10000; // Default $100
+      const threshold = window.themeSettings?.free_shipping_threshold; // Default $100
       
       if (cartTotal >= threshold) {
         // Qualified for free shipping - update the entire paragraph
-        freeShippingText.innerHTML = 'You\'ve qualified for <span class="fw-medium">Free Shipping!</span>';
+        freeShippingText.innerHTML = window.ShopifyTranslations?.cart.free_shipping_qualified;
       } else {
         // Need to spend more - update the entire paragraph
         const remaining = threshold - cartTotal;
-        freeShippingText.innerHTML = `Spend <span class="fw-medium">${this.formatMoney(remaining)}</span> more to get <span class="fw-medium">Free Shipping</span>`;
+        freeShippingText.innerHTML = window.ShopifyTranslations?.cart.free_shipping_remaining.replace('{remainingFormatted}', this.formatMoney(remaining));
       }
     }
   }

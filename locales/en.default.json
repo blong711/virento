@@ -84,8 +84,8 @@
       "no_valid_products": "No valid products",
       "form_not_found": "Form not found",
       "no_products_in_form": "No products in form",
-      "free_shipping_qualified": "You've qualified for <span class=\"fw-medium\">Free Shipping!</span>",
-      "free_shipping_remaining": "Spend <span class=\"fw-medium\">${remainingFormatted}</span> more to get <span class=\"fw-medium\">Free Shipping</span>"
+      "free_shipping_qualified_html": "You've qualified for <span class=\"fw-medium\">Free Shipping!</span>",
+      "free_shipping_remaining_html": "Spend <span class=\"fw-medium\">{remainingFormatted}</span> more to get <span class=\"fw-medium\">Free Shipping</span>"
     },
     "share": {
       "close": "Close share",
