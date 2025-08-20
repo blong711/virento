@@ -61,7 +61,31 @@ function initSlideshow() {
         };
     }
 
-    new Swiper(".tf-sw-slideshow", swiperSlider);
+    const swiper = new Swiper(".tf-sw-slideshow", swiperSlider);
+    
+    // Update active dot when slide changes
+    swiper.on('slideChange', function() {
+        const activeIndex = swiper.realIndex;
+        const dots = document.querySelectorAll('.sw-pagination-slider .swiper-pagination-bullet');
+        dots.forEach((dot, index) => {
+            dot.classList.remove('swiper-pagination-bullet-active');
+            if (index === activeIndex) {
+                dot.classList.add('swiper-pagination-bullet-active');
+            }
+        });
+    });
+    
+    // Set initial active dot state
+    setTimeout(() => {
+        const activeIndex = swiper.realIndex;
+        const dots = document.querySelectorAll('.sw-pagination-slider .swiper-pagination-bullet');
+        dots.forEach((dot, index) => {
+            dot.classList.remove('swiper-pagination-bullet-active');
+            if (index === activeIndex) {
+                dot.classList.add('swiper-pagination-bullet-active');
+            }
+        });
+    }, 100);
 }
 
 // Generic Swiper initialization
