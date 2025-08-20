@@ -263,10 +263,10 @@
             {% endif %}
         </div>
         <div dir="ltr" class="wow fadeInUp swiper tf-swiper sw-brand border-0" data-swiper='{
-            "slidesPerView": 2,
+            "slidesPerView": {{ section.settings.items_per_row_mobile }},
             "spaceBetween": 6,
             "speed": 800,
-            "slidesPerGroup": 2,
+            "slidesPerGroup": {{ section.settings.items_per_row_mobile }},
             "pagination": { 
                 "el": ".sw-pagination-brand", 
                 "clickable": true,
@@ -298,7 +298,6 @@
                                     {{ block.settings.brand_image | image_url: width: 180 }} 180w,
                                     {{ block.settings.brand_image | image_url: width: 360 }} 360w
                                     "
-                                    sizes="(max-width: 768px) 180px, 360px"
                                     alt="{{ block.settings.brand_image.alt | escape }}"
                                     width="{{ block.settings.brand_image.width | default: 240 }}"
                                     height="{{ block.settings.brand_image.height | default: 114 }}"
