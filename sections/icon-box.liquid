@@ -292,7 +292,7 @@
 <div class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
     <div class="{{ section.settings.width }}">
         <div dir="ltr" class="swiper tf-swiper" data-swiper='{
-                "slidesPerView": 1,
+                "slidesPerView": {{ section.settings.products_per_row_mobile }},
                 "spaceBetween": 12,
                 "speed": 800,
                 "observer": true,
