@@ -603,6 +603,9 @@
         "show_arrows": {
           "label": "Show prev/next buttons"
         },
+        "show_arrows_mobile": {
+          "label": "Show prev/next buttons on mobile"
+        },
         "show_dots": {
           "label": "Show pagination dots on mobile"
         }

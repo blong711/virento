@@ -126,6 +126,12 @@
     },
     {
       "type": "checkbox",
+      "id": "show_arrows_mobile",
+      "label": "t:sections.main_slider.settings.show_arrows_mobile.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
       "id": "show_dots",
       "label": "t:sections.main_slider.settings.show_dots.label",
       "default": true
@@ -452,9 +458,9 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-                    {% if section.settings.show_arrows %}
-                      <div class="navigation-next-slider swiper-button-next"></div>
-                      <div class="navigation-prev-slider swiper-button-prev"></div>
+                    {% if section.settings.show_arrows or section.settings.show_arrows_mobile %}
+                      <div class="navigation-next-slider swiper-button-next {% unless section.settings.show_arrows %}d-none d-md-block{% endunless %} {% unless section.settings.show_arrows_mobile %}d-block d-md-none{% endunless %}"></div>
+                      <div class="navigation-prev-slider swiper-button-prev {% unless section.settings.show_arrows %}d-none d-md-block{% endunless %} {% unless section.settings.show_arrows_mobile %}d-block d-md-none{% endunless %}"></div>
                     {% endif %}
 
                     {% if section.settings.show_dots %}
