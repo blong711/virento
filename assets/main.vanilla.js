@@ -1649,22 +1649,43 @@ const copyText = () => {
   const copyBtn = document.getElementById('btn-coppy-text');
   if (!copyBtn) return;
 
-  copyBtn.addEventListener('click', () => {
+  copyBtn.addEventListener('click', async () => {
     const text = document.getElementById('coppyText');
     if (!text) return;
 
     try {
-      // Create a temporary textarea to handle multi-line text
-      const textarea = document.createElement('textarea');
-      textarea.value = text.innerText;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
+      // Use modern Clipboard API
+      await navigator.clipboard.writeText(text.innerText);
       
-      alert('Text copied: ' + text.innerText);
+      // Optional: Show success feedback
+      const originalIcon = copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i class="icon-check"></i>';
+      setTimeout(() => {
+        copyBtn.innerHTML = originalIcon;
+      }, 2000);
+      
     } catch (err) {
-      alert('Failed to copy text: ' + err);
+      // Fallback for older browsers
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = text.innerText;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        
+        // Show success feedback
+        const originalIcon = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="icon-check"></i>';
+        setTimeout(() => {
+          copyBtn.innerHTML = originalIcon;
+        }, 2000);
+        
+      } catch (fallbackErr) {
+        alert('Failed to copy text. Please copy manually: ' + text.innerText);
+      }
     }
   });
 };
