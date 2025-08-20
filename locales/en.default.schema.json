@@ -4846,7 +4846,7 @@
             },
             "custom_svg": {
               "label": "Custom SVG",
-              "info": "Paste your SVG code here to replace the selected icon. Make sure to include width, height, and viewBox attributes."
+              "info": "Paste your SVG code here to replace the selected icon. Make sure to include width, height, and viewBox attributes. You can find free SVG icons at [Remix Icon](https://remixicon.com/)"
             },
             "icon_width": {
               "label": "Icon Width",
