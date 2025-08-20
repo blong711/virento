@@ -182,7 +182,7 @@
       ],
       "settings": {
         "color_scheme": "",
-        "popup_trigger": "time",
+        "popup_trigger": "mouseleave",
         "popup_delay": 5,
         "scroll_threshold": 80,
         "days_next_show": 1,
