@@ -31,12 +31,6 @@
     
     // Check empty cart state on initialization
     this.checkEmptyCart();
-    
-    // Initialize free shipping progress with current cart total
-    this.initializeFreeShippingProgress();
-    
-    // Set up cart change listener for updates from other parts of the site
-    this.setupCartChangeListener();
   }
 
   setupQuantityButtons() {
@@ -186,10 +180,6 @@
     })
     .then(response => response.json())
     .then(cart => {
-      // Immediately update free shipping progress with new cart total
-      this.updateFreeShippingProgress(cart.total_price);
-      
-      // Update the rest of the cart display
       this.updateCartDisplay(cart);
     })
     .catch(error => {
@@ -219,9 +209,6 @@
       if (itemElement) {
         itemElement.remove();
       }
-      
-      // Immediately update free shipping progress with new cart total
-      this.updateFreeShippingProgress(cart.total_price);
       
       // Update the rest of the cart display
       this.updateCartDisplay(cart);
@@ -385,9 +372,6 @@
       if (cartData.items && cartData.items.length > 0) {
         this.updateCartItemsDisplay(cartData.items);
       }
-      
-      // Trigger cart update event for other parts of the site
-      document.dispatchEvent(new CustomEvent('cart:updated', { detail: cartData }));
     }
     
     // Then try to update the full cart display via sections API
@@ -445,11 +429,6 @@
             // Check empty cart state after update
             this.checkEmptyCart();
             
-            // Update free shipping progress after sections API update
-            if (cartData && cartData.total_price !== undefined) {
-              this.updateFreeShippingProgress(cartData.total_price);
-            }
-            
             // Clear the loading timeout and hide loading states
             clearTimeout(loadingTimeout);
             this.hideAllLoadingStates();
@@ -475,9 +454,6 @@
     
     // Trigger cart count update event
     document.dispatchEvent(new CustomEvent('cart:updated'));
-    
-    // Also trigger a cart changed event for other parts of the site
-    document.dispatchEvent(new CustomEvent('cart:changed'));
   }
 
 
@@ -551,9 +527,6 @@
       if (cartContent) {
         cartContent.style.display = 'none';
       }
-      
-      // Update free shipping progress to show 0% when cart is empty
-      this.updateFreeShippingProgress(0);
     } else {
       // Hide empty cart message
       if (emptyCartMessage) {
@@ -589,18 +562,6 @@
       }
       if (featuresSection) {
         featuresSection.style.display = 'block';
-      }
-      
-      // Update free shipping progress with current cart total
-      // Get current cart total from the cart summary or calculate from items
-      const cartTotalElement = document.querySelector('.total');
-      if (cartTotalElement) {
-        const cartTotalText = cartTotalElement.textContent;
-        const cartTotalMatch = cartTotalText.match(/[\$€£](\d+(?:\.\d{2})?)/);
-        if (cartTotalMatch) {
-          const cartTotal = parseFloat(cartTotalMatch[1]) * 100; // Convert to cents
-          this.updateFreeShippingProgress(cartTotal);
-        }
       }
     }
   }
@@ -803,13 +764,10 @@
   }
 
   updateFreeShippingProgress(cartTotal) {
-    // Get the free shipping threshold from the page data attributes
-    const thresholdElement = document.querySelector('[data-free-shipping-threshold]');
-    const threshold = thresholdElement ? parseInt(thresholdElement.getAttribute('data-free-shipping-threshold')) : 10000; // Default $100
-    
     // Update free shipping progress bar
     const progressBar = document.querySelector('.tf-progress-ship .value');
     if (progressBar) {
+      const threshold = window.themeSettings?.free_shipping_threshold || 10000; // Default $100
       const percentage = Math.min((cartTotal / threshold) * 100, 100);
       progressBar.style.width = percentage + '%';
       progressBar.setAttribute('data-progress', percentage);
@@ -818,76 +776,17 @@
     // Update free shipping text
     const freeShippingText = document.querySelector('.tf-cart-head .title');
     if (freeShippingText) {
+      const threshold = window.themeSettings?.free_shipping_threshold || 10000; // Default $100
+      
       if (cartTotal >= threshold) {
-        // Qualified for free shipping
+        // Qualified for free shipping - update the entire paragraph
         freeShippingText.innerHTML = 'You\'ve qualified for <span class="fw-medium">Free Shipping!</span>';
       } else {
-        // Need to spend more
+        // Need to spend more - update the entire paragraph
         const remaining = threshold - cartTotal;
-        const remainingFormatted = this.formatMoney(remaining);
-        freeShippingText.innerHTML = `Spend <span class="fw-medium">${remainingFormatted}</span> more to get <span class="fw-medium">Free Shipping</span>`;
+        freeShippingText.innerHTML = `Spend <span class="fw-medium">${this.formatMoney(remaining)}</span> more to get <span class="fw-medium">Free Shipping</span>`;
       }
     }
-  }
-
-  initializeFreeShippingProgress() {
-    // Get current cart total from the cart summary or calculate from items
-    const cartTotalElement = document.querySelector('.total');
-    if (cartTotalElement) {
-      const cartTotalText = cartTotalElement.textContent;
-      const cartTotalMatch = cartTotalText.match(/[\$€£](\d+(?:\.\d{2})?)/);
-      if (cartTotalMatch) {
-        const cartTotal = parseFloat(cartTotalMatch[1]) * 100; // Convert to cents
-        this.updateFreeShippingProgress(cartTotal);
-      }
-    } else {
-      // If no cart total element found, try to calculate from cart items
-      const cartItems = document.querySelectorAll('.tf-cart-item');
-      let totalCartValue = 0;
-      
-      cartItems.forEach(item => {
-        const totalElement = item.querySelector('.total-price, .cart-total, .total-price.text-md.fw-medium');
-        if (totalElement) {
-          const totalText = totalElement.textContent;
-          const totalMatch = totalText.match(/[\$€£](\d+(?:\.\d{2})?)/);
-          if (totalMatch) {
-            totalCartValue += parseFloat(totalMatch[1]) * 100; // Convert to cents
-          }
-        }
-      });
-      
-      if (totalCartValue > 0) {
-        this.updateFreeShippingProgress(totalCartValue);
-      }
-    }
-  }
-
-  setupCartChangeListener() {
-    // Listen for cart changes from other parts of the site
-    document.addEventListener('cart:updated', () => {
-      // Fetch current cart data and update free shipping progress
-      fetch('/cart.js')
-        .then(response => response.json())
-        .then(cart => {
-          this.updateFreeShippingProgress(cart.total_price);
-        })
-        .catch(error => {
-          console.error('Error updating free shipping progress:', error);
-        });
-    });
-    
-    // Also listen for cart changes via the cart API
-    document.addEventListener('cart:changed', () => {
-      // Fetch current cart data and update free shipping progress
-      fetch('/cart.js')
-        .then(response => response.json())
-        .then(cart => {
-          this.updateFreeShippingProgress(cart.total_price);
-        })
-        .catch(error => {
-          console.error('Error updating free shipping progress:', error);
-        });
-    });
   }
 
 
@@ -930,9 +829,6 @@
         
         // Trigger cart update event
         document.dispatchEvent(new CustomEvent('cart:updated'));
-        
-        // Also trigger a cart changed event for other parts of the site
-        document.dispatchEvent(new CustomEvent('cart:changed'));
       })
       .catch(error => {
         console.error('Error during cart refresh:', error);
@@ -940,9 +836,6 @@
         // Don't reload the page, just continue with the cart data update
         this.checkEmptyCart();
         document.dispatchEvent(new CustomEvent('cart:updated'));
-        
-        // Also trigger a cart changed event for other parts of the site
-        document.dispatchEvent(new CustomEvent('cart:changed'));
       });
   }
 
@@ -1385,11 +1278,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
       cart.checkEmptyCart();
     }, 100);
-    
-    // Also update free shipping progress after a short delay to ensure all elements are loaded
-    setTimeout(() => {
-      cart.initializeFreeShippingProgress();
-    }, 200);
   }
 });
 
@@ -1403,11 +1291,6 @@ document.addEventListener('cart:updated', function() {
       .then(response => response.json())
       .then(cart => {
         cartCount.textContent = cart.item_count;
-        
-        // Also update free shipping progress if we're on the cart page
-        if (window.mainCart && typeof window.mainCart.updateFreeShippingProgress === 'function') {
-          window.mainCart.updateFreeShippingProgress(cart.total_price);
-        }
       })
       .catch(error => {
         console.error('Error updating cart count:', error);
