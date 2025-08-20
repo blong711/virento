@@ -25,9 +25,39 @@
         "padding_bottom": 64,
         "padding_mobile_rate": 75
       }
+    },
+    "blog_carousel_8cHcEq": {
+      "type": "blog-carousel",
+      "name": "Blog Carousel",
+      "settings": {
+        "heading": "Related posts",
+        "description": "",
+        "layout_style": "layout1",
+        "width": "boxed",
+        "color_scheme": "scheme-a364224b-541c-428f-9153-148107fec948",
+        "blog": "design",
+        "posts_to_show": 6,
+        "show_tags": true,
+        "show_excerpt": false,
+        "show_author": true,
+        "show_date": true,
+        "show_comments": true,
+        "show_read_more": true,
+        "slides_mobile": 1,
+        "slides_tablet": 2,
+        "slides_desktop": 3,
+        "space_between": 24,
+        "animation_speed": 800,
+        "show_navigation": true,
+        "show_pagination": true,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "blog_carousel_8cHcEq"
   ]
 }
