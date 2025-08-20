@@ -1473,11 +1473,13 @@ const exitPopup = () => {
   const isThemeCustomizer = window.Shopify && window.Shopify.designMode;
   if (isThemeCustomizer) return;
 
-  // Check if enough days have passed since last close
-  const lastCloseDate = localStorage.getItem('exitPopupLastClose');
-  if (lastCloseDate) {
-    const daysSinceClose = (Date.now() - new Date(lastCloseDate).getTime()) / (1000 * 60 * 60 * 24);
-    if (daysSinceClose < daysNextShow) return;
+  // Check if enough days have passed since last close (only for time trigger)
+  if (popupTrigger === 'time') {
+    const lastCloseDate = localStorage.getItem('exitPopupLastClose');
+    if (lastCloseDate) {
+      const daysSinceClose = (Date.now() - new Date(lastCloseDate).getTime()) / (1000 * 60 * 60 * 24);
+      if (daysSinceClose < daysNextShow) return;
+    }
   }
 
   // Only show popup on first visit to the page
