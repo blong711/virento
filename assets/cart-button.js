@@ -1302,6 +1302,13 @@ function initializeCartTypeHandling() {
         return;
       }
       
+      // For header cart button, always open cart drawer regardless of cart_type setting
+      if (target.closest('.nav-cart')) {
+        // Let Bootstrap handle it normally - don't create another instance
+        return;
+      }
+      
+      // For other cart buttons, use cart_type logic
       // Prevent default Bootstrap behavior when we want to handle it manually
       if (cartType !== 'drawer') {
         event.preventDefault();
@@ -1322,7 +1329,7 @@ function initializeCartTypeHandling() {
     }
   });
   
-  // Handle cart icon clicks in header
+  // Handle cart icon clicks in header - ALWAYS open cart drawer regardless of cart_type setting
   document.addEventListener('click', async (event) => {
     const target = event.target.closest('.nav-cart a, .cart-icon, [data-cart-toggle]');
     if (target) {
@@ -1333,6 +1340,14 @@ function initializeCartTypeHandling() {
         return;
       }
       
+      // For header cart button, always open cart drawer regardless of cart_type setting
+      if (target.closest('.nav-cart')) {
+        // Let Bootstrap handle the cart drawer opening
+        // The cart-drawer.js component will handle the rest
+        return;
+      }
+      
+      // For other cart buttons, use cart_type logic
       event.preventDefault();
       event.stopPropagation();
       
