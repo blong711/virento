@@ -4663,8 +4663,8 @@ header.header-bg {
   color: var(--dark-2) !important;
 }
 .tf-btn.btn-out-line-dark2:hover {
-  background-color: var(--dark-2) !;
-  color: var(--white);
+  background-color: var(--dark-2) !important;
+  color: var(--white) !important;
 }
 .tf-btn.btn-dark2 {
   background-color: var(--dark-2);
