@@ -34,10 +34,10 @@
                             <div class="banner-shop style-bottom style-lg-bottom hover-img color-{{ block.settings.color_scheme }} gradient">
                                 <a href="{{ block.settings.link }}" class="img-style d-block">
                                     {% if block.settings.image %}
-                                        {% if block.settings.image_mobile != blank and request.display_type == 'mobile' %}
+                                        {% if block.settings.image_mobile != blank %}
                                             {{ block.settings.image_mobile | image_url: width: 800 | image_tag:
                                                 loading: 'lazy',
-                                                class: 'lazyload d-md-none',
+                                                class: 'lazyload d-block d-md-none',
                                                 alt: block.settings.title
                                             }}
                                             {{ block.settings.image | image_url: width: 800 | image_tag:
