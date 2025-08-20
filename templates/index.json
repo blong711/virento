@@ -548,6 +548,7 @@
         ],
         "products_to_show": 6,
         "show_navigation": true,
+        "navigation_style": "boxed",
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
@@ -618,7 +619,8 @@
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
+        "products_per_row_mobile": 1,
+        "icon_style": "default",
         "padding_top": 44,
         "padding_bottom": 44,
         "padding_mobile_rate": 75
