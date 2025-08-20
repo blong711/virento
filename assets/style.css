@@ -6185,12 +6185,12 @@ button.animate-btn::after,
 }
 .nav-swiper.arrow-1.swiper-button-prev::after {
   font-family: 'icomoon' !important;
-  content: '\e903';
+  content: '\e904';
   font-weight: 400;
 }
 .nav-swiper.arrow-1.swiper-button-next::after {
   font-family: 'icomoon' !important;
-  content: '\e903';
+  content: '\e904';
   font-weight: 400;
 }
 .nav-swiper.size-30 {
