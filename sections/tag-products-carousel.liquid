@@ -345,7 +345,7 @@
                                     }'>
                                     <div class="swiper-wrapper">
                                         {% if block.settings.product_list != blank %}
-                                            {% for product in block.settings.product_list %}
+                                            {% for product in block.settings.product_list limit: section.settings.products_to_show %}
                                                 <div class="swiper-slide">
                                                     {% render 'product-card', product: product %}
                                                 </div>
