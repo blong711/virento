@@ -5803,6 +5803,83 @@
           "label": "Show Pagination Dots(Mobile)"
         }
       }
+    },
+    "featured-products-countdown": {
+      "name": "Featured Countdown",
+      "blocks": {
+        "countdown": {
+          "name": "Countdown Timer"
+        }
+      },
+      "settings": {
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "width": {
+          "label": "Section width"
+        },
+        "heading": {
+          "content": "Heading"
+        },
+        "title": {
+          "label": "Title",
+          "default": "Hot Deals"
+        },
+        "heading_tag": {
+          "label": "Title Size"
+        },
+        "subtitle": {
+          "content": "Subtitle"
+        },
+        "subtitle_text": {
+          "label": "Subtitle",
+          "default": "Explore our most popular pieces that customers can't get enough of"
+        },
+        "subtitle_size": {
+          "label": "Subtitle Size"
+        },
+        "collection": {
+          "label": "Collection"
+        },
+        "product_list": {
+          "label": "Products",
+          "info": "Selected products will override collection selection"
+        },
+        "slider_settings": {
+          "content": "Slider Settings"
+        },
+        "products_per_row_desktop": {
+          "label": "Items per row (Desktop)"
+        },
+        "products_per_row_tablet": {
+          "label": "Items per row (Tablet)"
+        },
+        "products_per_row_mobile": {
+          "label": "Items per row (Mobile)"
+        },
+        "show_navigation": {
+          "label": "Show prev/next buttons"
+        },
+        "show_mobile_dots": {
+          "label": "Show pagination dots on mobile"
+        },
+        "products_to_show": {
+          "label": "Number of products to show"
+        },
+        "section_padding_heading": {
+          "content": "Section padding"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile padding rate",
+          "info": "Mobile padding as percentage of desktop padding"
+        }
+      }
     }
   }
 }

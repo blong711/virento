@@ -1,10 +1,10 @@
 {% schema %}
 {
-  "name": "Featured Countdown",
+  "name": "t:sections.featured-products-countdown.name",
   "blocks": [
     {
       "type": "countdown",
-      "name": "Countdown Timer",
+      "name": "t:sections.featured-products-countdown.blocks.countdown.name",
       "limit": 1,
       "settings": [
         {
@@ -77,18 +77,18 @@
     },
     {
       "type": "header",
-      "content": "Heading"
+      "content": "t:sections.featured-products-countdown.settings.heading.content"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
-      "default": "Hot Deals"
+      "label": "t:sections.featured-products-countdown.settings.title.label",
+      "default": "t:sections.featured-products-countdown.settings.title.default"
     },
     {
       "type": "select",
       "id": "heading_tag",
-      "label": "Title Size",
+      "label": "t:sections.featured-products-countdown.settings.heading_tag.label",
       "options": [
         {
           "value": "h5",
@@ -107,18 +107,18 @@
     },
     {
       "type": "header",
-      "content": "Subtitle"
+      "content": "t:sections.featured-products-countdown.settings.subtitle.content"
     },
     {
       "type": "text",
       "id": "subtitle",
-      "label": "Subtitle",
-      "default": "Explore our most popular pieces that customers can't get enough of"
+      "label": "t:sections.featured-products-countdown.settings.subtitle_text.label",
+      "default": "t:sections.featured-products-countdown.settings.subtitle_text.default"
     },
     {
       "type": "select",
       "id": "subtitle_size",
-      "label": "Subtitle Size",
+      "label": "t:sections.featured-products-countdown.settings.subtitle_size.label",
       "options": [
         {
           "value": "text-sm",
@@ -138,22 +138,22 @@
     {
       "type": "collection",
       "id": "collection",
-      "label": "Collection"
+      "label": "t:sections.featured-products-countdown.settings.collection.label"
     },
     {
       "type": "product_list",
       "id": "product_list",
-      "label": "Products",
-      "info": "Selected products will override collection selection"
+      "label": "t:sections.featured-products-countdown.settings.product_list.label",
+      "info": "t:sections.featured-products-countdown.settings.product_list.info"
     },
     {
       "type": "header",
-      "content": "Slider Settings"
+      "content": "t:sections.featured-products-countdown.settings.slider_settings.content"
     },
     {
       "type": "range",
       "id": "products_per_row_desktop",
-      "label": "Items per row (Desktop)",
+      "label": "t:sections.featured-products-countdown.settings.products_per_row_desktop.label",
       "min": 3,
       "max": 6,
       "step": 1,
@@ -162,7 +162,7 @@
     {
       "type": "range",
       "id": "products_per_row_tablet",
-      "label": "Items per row (Tablet)",
+      "label": "t:sections.featured-products-countdown.settings.products_per_row_tablet.label",
       "min": 2,
       "max": 4,
       "step": 1,
@@ -171,7 +171,7 @@
     {
       "type": "range",
       "id": "products_per_row_mobile",
-      "label": "Items per row (Mobile)",
+      "label": "t:sections.featured-products-countdown.settings.products_per_row_mobile.label",
       "min": 0,
       "max": 2,
       "step": 1,
@@ -180,19 +180,19 @@
     {
       "type": "checkbox",
       "id": "show_navigation",
-      "label": "Show prev/next buttons",
+      "label": "t:sections.featured-products-countdown.settings.show_navigation.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_mobile_dots",
-      "label": "Show pagination dots on mobile",
+      "label": "t:sections.featured-products-countdown.settings.show_mobile_dots.label",
       "default": true
     },
     {
       "type": "number",
       "id": "products_to_show",
-      "label": "Number of products to show",
+      "label": "t:sections.featured-products-countdown.settings.products_to_show.label",
       "default": 6
     },
     {
@@ -233,7 +233,7 @@
   ],
   "presets": [
     {
-      "name": "Featured Products Countdown",
+      "name": "t:sections.featured-products-countdown.name",
       "category": "Product"
     }
   ]
