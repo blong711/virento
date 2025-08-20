@@ -63,13 +63,13 @@ if (typeof window.CartPerformance === 'undefined') {
 }
 
 // Ensure themeSettings are available
-if (typeof window.themeSettings === 'undefined') {
-  window.themeSettings = {
-    cartType: 'drawer'
-  };
-} else if (!window.themeSettings.cartType) {
-  window.themeSettings.cartType = 'drawer';
-}
+// if (typeof window.themeSettings === 'undefined') {
+//   window.themeSettings = {
+//     cartType: 'drawer'
+//   };
+// } else if (!window.themeSettings.cartType) {
+//   window.themeSettings.cartType = 'drawer';
+// }
 
 // Ensure subscribe function is available for pubsub system
 if (typeof window.subscribe === 'undefined') {

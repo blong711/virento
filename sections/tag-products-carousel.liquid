@@ -50,6 +50,26 @@
     },
     {
       "type": "select",
+      "id": "title_font_size_mobile",
+      "label": "t:sections.tag-products-carousel.settings.title_font_size_mobile.label",
+      "options": [
+        {
+          "value": "24",
+          "label": "t:sections.tag-products-carousel.settings.title_font_size_mobile.options.small"
+        },
+        {
+          "value": "30",
+          "label": "t:sections.tag-products-carousel.settings.title_font_size_mobile.options.medium"
+        },
+        {
+          "value": "36",
+          "label": "t:sections.tag-products-carousel.settings.title_font_size_mobile.options.large"
+        }
+      ],
+      "default": "24"
+    },
+    {
+      "type": "select",
       "id": "title_font_weight",
       "label": "t:sections.tag-products-carousel.settings.title_font_weight.label",
       "options": [
@@ -252,6 +272,12 @@
     text-transform: uppercase;
   {% endif %}
 }
+
+@media (max-width: 749px) {
+  .section-{{ section.id }} .menu-tab-line .tab-link {
+    font-size: {{ section.settings.title_font_size_mobile }}px;
+  }
+}
 .section-{{ section.id }}-padding {
       padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
       padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
@@ -316,10 +342,10 @@
                                             "slidesPerGroup": {{ section.settings.products_per_row_desktop }}
                                         }
                                         }
-                                    }'>
+                                  }'>
                                     <div class="swiper-wrapper">
                                         {% if block.settings.product_list != blank %}
-                                            {% for product in block.settings.product_list %}
+                                            {% for product in block.settings.product_list limit: section.settings.products_to_show %}
                                                 <div class="swiper-slide">
                                                     {% render 'product-card', product: product %}
                                                 </div>

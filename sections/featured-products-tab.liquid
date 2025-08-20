@@ -287,9 +287,16 @@
                                 }
                             }'>
                             <div class="swiper-wrapper">
-                                {%- assign products_to_show = block.settings.products | default: block.settings.collection.products -%}
+                                {%- if block.settings.products != blank -%}
+                                    {%- assign products_to_show = block.settings.products -%}
+                                {%- elsif block.settings.collection != blank -%}
+                                    {%- assign products_to_show = block.settings.collection.products -%}
+                                {%- else -%}
+                                    {%- assign products_to_show = blank -%}
+                                {%- endif -%}
 
-                                {%- for product in products_to_show limit: 8 -%}
+                                {%- if products_to_show != blank -%}
+                                    {%- for product in products_to_show limit: 8 -%}
                                     <div class="swiper-slide">
                                         {% render 'product-card',
                                             product: product,
@@ -298,7 +305,8 @@
                                             show_quick_add: true
                                         %}
                                     </div>
-                                {%- endfor -%}
+                                    {%- endfor -%}
+                                {%- endif -%}
                             </div>
                             {% if section.settings.show_dots_mobile %}
                                 <div class="d-flex d-xl-none sw-dot-default sw-pagination-{{ block.id }} justify-content-center">

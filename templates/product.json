@@ -97,7 +97,7 @@
           "type": "trust_and_payment",
           "settings": {
             "trust_seal_text": "Guarantee Safe Checkout:",
-            "svg_list": "visa,paypal,master,american_express,diners"
+            "svg_list": "visa,paypal,master,american_express,diners_club"
           }
         },
         "delivery_info_ifqrMR": {
@@ -134,7 +134,7 @@
           "type": "size_guide",
           "settings": {
             "size_guide_text": "Size Guide",
-            "size_guide_page": ""
+            "size_guide_page": "demos-short"
           }
         }
       },
@@ -182,8 +182,7 @@
         "materials_block": {
           "type": "materials",
           "settings": {
-            "title": "Materials & Care",
-            "subtitle": "Materials Care"
+            "title": "Materials & Care"
           }
         },
         "additional_info_block": {

@@ -151,6 +151,11 @@
         predictive_search_url: '{{ routes.predictive_search_url }}',
       };
 
+      window.themeSettings = {
+        free_shipping_threshold: '{{ settings.free_shipping_threshold | times: 100 }}',
+        cartType: '{{ settings.cart_type }}', 
+      };
+
       window.cartStrings = {
         error: `{{ 'sections.cart.cart_error' | t }}`,
         quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
@@ -202,6 +207,8 @@
           no_valid_products: `{{ 'general.cart.no_valid_products' | t }}`,
           form_not_found: `{{ 'general.cart.form_not_found' | t }}`,
           no_products_in_form: `{{ 'general.cart.no_products_in_form' | t }}`,
+          free_shipping_qualified: `{{ 'general.cart.free_shipping_qualified_html' | t }}`,
+          free_shipping_remaining: `{{ 'general.cart.free_shipping_remaining_html' | t }}`,
         },
         compare: {
           add_to_compare: `{{ 'products.product.add_to_compare' | t }}`,
@@ -217,15 +224,8 @@
         common: {
           loading: `{{ 'general.loading' | t }}`,
           back_to_shopping: `{{ 'general.continue_shopping' | t }}`,
-        },
-        search: {
           search_our_store: `{{ 'general.search.search_our_store' | t }}`,
         }
-      };
-
-      window.themeSettings = {
-        cartType: '{{ settings.cart_type }}',
-        free_shipping_threshold: '{{ settings.free_shipping_threshold }}',
       };
     </script>
 

@@ -4493,14 +4493,14 @@ header.header-bg {
   border-color: var(--dark);
 }
 .tf-btn.btn-out-line-dark-2 {
-  background-color: transparent;
-  border-color: var(--dark-2);
-  color: var(--dark-2);
+  background-color: transparent !important;
+  border-color: var(--dark-2) !important;
+  color: var(--dark-2) !important;
 }
 .tf-btn.btn-out-line-dark-2:hover {
-  background-color: var(--dark-2);
-  color: var(--white);
-  border-color: var(--dark-2);
+  background-color: var(--dark-2) !important;
+  color: var(--white) !important;
+  border-color: var(--dark-2) !important;
 }
 .tf-btn.btn-out-line-green {
   background-color: transparent;
@@ -8160,7 +8160,7 @@ button.animate-btn::after,
 }
 .tf-icon-box.style-2 .title {
   font-size: 18px;
-  line-height: 18px;
+  line-height: 24px;
 }
 .tf-icon-box.style-3 {
   padding: 0;
@@ -16815,7 +16815,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   }
   .tf-icon-box.style-2 .title {
     font-size: 20px;
-    line-height: 20px;
+    line-height: 26px;
   }
   .tf-icon-box.style-3 .title {
     font-size: 20px;
@@ -19887,12 +19887,20 @@ shopify-accelerated-checkout {
   color: var(--primary);
 }
 
+
 .title-ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: block;
   max-width: 100%;
+}
+
+.container-full .fl-control-sw2 .swiper-button-prev {
+  left: 0px;
+}
+.container-full .fl-control-sw2 .swiper-button-next {
+  right: 0px;
 }
 
 /*# sourceMappingURL=styles.css.map */

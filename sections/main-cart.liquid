@@ -1,7 +1,8 @@
 <div class="flat-spacing-2" 
      data-currency-enabled="{% if settings.currency_code_enabled %}true{% else %}false{% endif %}"
-     data-currency-code="{{ shop.currency }}">
-    <div class="container">
+     data-currency-code="{{ shop.currency }}"
+     data-free-shipping-threshold="{{ settings.free_shipping_threshold | times: 100 }}">
+    <div class="{{ section.settings.width }}">
         <div class="row justify-content-center">
             <div class="col-xl-4 col-sm-8">
                 {% for block in section.blocks %}
@@ -23,7 +24,7 @@
                                 
                                 <div class="progress-sold tf-progress-ship">
                                     <div class="value" style="width: {{ progress_percentage }}%;" data-progress="{{ progress_percentage }}">
-                                        <i class="icon icon-{{ block.settings.progress_icon | default: 'car' }}"></i>
+                                        <i class="icon icon-car"></i>
                                     </div>
                                 </div>
                             </div>
@@ -35,8 +36,8 @@
 </div>
 
 <!-- Cart Section -->
-<div class="flat-spacing-2 pt-0">
-    <div class="container">
+<div class="flat-spacing-2 pt-0 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    <div class="{{ section.settings.width }}">
         <div class="row">
             <div class="col-xl-8">
                 <div class="tf-page-cart-main">
@@ -473,189 +474,251 @@
         </div>
     </div>
 </div>
-
-
-
+{% style %}
+  .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    }
+  
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{% endstyle %}
 {% schema %}
 {
-  "name": "Main Cart",
+  "name": "t:sections.main-cart.name",
   "tag": "section",
   "class": "section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.main_slider.settings.width.label",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.main_slider.settings.width.options.boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.main_slider.settings.width.options.full_width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main-cart.settings.section_padding_heading.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.main-cart.settings.padding_top.label",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.main-cart.settings.padding_bottom.label",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+    }
+  ],
   "blocks": [
     {
       "type": "free_shipping_progress",
-      "name": "Free Shipping Progress",
+      "name": "t:sections.main-cart.blocks.free_shipping_progress.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "qualified_message",
-          "label": "Qualified Message",
-          "default": "You've qualified for"
+          "label": "t:sections.main-cart.blocks.free_shipping_progress.settings.qualified_message.label",
+          "default": "t:sections.main-cart.blocks.free_shipping_progress.settings.qualified_message.default"
         },
         {
           "type": "text",
           "id": "free_shipping_text",
-          "label": "Free Shipping Text",
-          "default": "Free Shipping!"
+          "label": "t:sections.main-cart.blocks.free_shipping_progress.settings.free_shipping_text.label",
+          "default": "t:sections.main-cart.blocks.free_shipping_progress.settings.free_shipping_text.default"
         },
         {
           "type": "text",
           "id": "spend_message",
-          "label": "Spend Message",
-          "default": "Spend"
+          "label": "t:sections.main-cart.blocks.free_shipping_progress.settings.spend_message.label",
+          "default": "t:sections.main-cart.blocks.free_shipping_progress.settings.spend_message.default"
         },
         {
           "type": "text",
           "id": "more_message",
-          "label": "More Message",
-          "default": "more to get"
-        },
-        {
-          "type": "text",
-          "id": "progress_icon",
-          "label": "Progress Icon Class",
-          "default": "car"
+          "label": "t:sections.main-cart.blocks.free_shipping_progress.settings.more_message.label",
+          "default": "t:sections.main-cart.blocks.free_shipping_progress.settings.more_message.default"
         }
       ]
     },
     {
       "type": "cart_items_table",
-      "name": "Cart Items Table",
+      "name": "t:sections.main-cart.blocks.cart_items_table.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "product_column_header",
-          "label": "Product Column Header",
-          "default": "Product"
+          "label": "t:sections.main-cart.blocks.cart_items_table.settings.product_column_header.label",
+          "default": "t:sections.main-cart.blocks.cart_items_table.settings.product_column_header.default"
         },
         {
           "type": "text",
           "id": "price_column_header",
-          "label": "Price Column Header",
-          "default": "Price"
+          "label": "t:sections.main-cart.blocks.cart_items_table.settings.price_column_header.label",
+          "default": "t:sections.main-cart.blocks.cart_items_table.settings.price_column_header.default"
         },
         {
           "type": "text",
           "id": "quantity_column_header",
-          "label": "Quantity Column Header",
-          "default": "Quantity"
+          "label": "t:sections.main-cart.blocks.cart_items_table.settings.quantity_column_header.label",
+          "default": "t:sections.main-cart.blocks.cart_items_table.settings.quantity_column_header.default"
         },
         {
           "type": "text",
           "id": "total_column_header",
-          "label": "Total Column Header",
-          "default": "Total"
+          "label": "t:sections.main-cart.blocks.cart_items_table.settings.total_column_header.label",
+          "default": "t:sections.main-cart.blocks.cart_items_table.settings.total_column_header.default"
         },
         {
           "type": "text",
           "id": "remove_text",
-          "label": "Remove Text",
-          "default": "Remove"
+          "label": "t:sections.main-cart.blocks.cart_items_table.settings.remove_text.label",
+          "default": "t:sections.main-cart.blocks.cart_items_table.settings.remove_text.default"
         }
       ]
     },
     {
       "type": "empty_cart",
-      "name": "Empty Cart Message",
+      "name": "t:sections.main-cart.blocks.empty_cart.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "empty_cart_title",
-          "label": "Empty Cart Title",
-          "default": "Your cart is empty"
+          "label": "t:sections.main-cart.blocks.empty_cart.settings.empty_cart_title.label",
+          "default": "t:sections.main-cart.blocks.empty_cart.settings.empty_cart_title.default"
         },
         {
           "type": "textarea",
           "id": "empty_cart_message",
-          "label": "Empty Cart Message",
-          "default": "Looks like you haven't added any items to your cart yet."
+          "label": "t:sections.main-cart.blocks.empty_cart.settings.empty_cart_message.label",
+          "default": "t:sections.main-cart.blocks.empty_cart.settings.empty_cart_message.default"
         },
         {
           "type": "text",
           "id": "continue_shopping_text",
-          "label": "Continue Shopping Button Text",
-          "default": "Continue Shopping"
+          "label": "t:sections.main-cart.blocks.empty_cart.settings.continue_shopping_text.label",
+          "default": "t:sections.main-cart.blocks.empty_cart.settings.continue_shopping_text.default"
         }
       ]
     },
     {
       "type": "gift_wrap",
-      "name": "Gift Wrap Option",
+      "name": "t:sections.main-cart.blocks.gift_wrap.name",
       "limit": 1,
       "settings": [
         {
           "type": "checkbox",
           "id": "show_gift_wrap",
-          "label": "Show Gift Wrap Option",
+          "label": "t:sections.main-cart.blocks.gift_wrap.settings.show_gift_wrap.label",
           "default": true
         },
 
         {
           "type": "text",
           "id": "label_text",
-          "label": "Label Text",
-          "default": "Add gift wrap. Only"
+          "label": "t:sections.main-cart.blocks.gift_wrap.settings.label_text.label",
+          "default": "t:sections.main-cart.blocks.gift_wrap.settings.label_text.default"
         },
         {
           "type": "text",
           "id": "optional_text",
-          "label": "Optional Text",
-          "default": "(You can choose or not)"
+          "label": "t:sections.main-cart.blocks.gift_wrap.settings.optional_text.label",
+          "default": "t:sections.main-cart.blocks.gift_wrap.settings.optional_text.default"
         }
       ]
     },
     {
       "type": "discount_code",
-      "name": "Discount Code Input",
+      "name": "t:sections.main-cart.blocks.discount_code.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "placeholder_text",
-          "label": "Placeholder Text",
-          "default": "Discount code"
+          "label": "t:sections.main-cart.blocks.discount_code.settings.placeholder_text.label",
+          "default": "t:sections.main-cart.blocks.discount_code.settings.placeholder_text.default"
         },
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button Text",
-          "default": "Apply"
+          "label": "t:sections.main-cart.blocks.discount_code.settings.button_text.label",
+          "default": "t:sections.main-cart.blocks.discount_code.settings.button_text.default"
         }
       ]
     },
     {
       "type": "cart_note",
-      "name": "Cart Note",
+      "name": "t:sections.main-cart.blocks.cart_note.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "label_text",
-          "label": "Label Text",
-          "default": "Special instructions for seller"
+          "label": "t:sections.main-cart.blocks.cart_note.settings.label_text.label",
+          "default": "t:sections.main-cart.blocks.cart_note.settings.label_text.default"
         },
         {
           "type": "text",
           "id": "placeholder_text",
-          "label": "Placeholder Text",
-          "default": "Add any special instructions here..."
+          "label": "t:sections.main-cart.blocks.cart_note.settings.placeholder_text.label",
+          "default": "t:sections.main-cart.blocks.cart_note.settings.placeholder_text.default"
         }
       ]
     },
 
     {
       "type": "features_slider",
-      "name": "Features Slider",
+      "name": "t:sections.main-cart.blocks.features_slider.name",
       "limit": 1,
       "settings": [
         {
           "type": "select",
           "id": "feature_1_icon",
-          "label": "Feature 1 Icon",
+          "label": "t:sections.main-cart.blocks.features_slider.settings.feature_1_icon.label",
           "default": "shipping",
           "options": [
             {"value": "menu", "label": "Menu"},
@@ -764,13 +827,13 @@
         {
           "type": "text",
           "id": "feature_1_title",
-          "label": "Feature 1 Title",
-          "default": "Free Shipping"
+          "label": "t:sections.main-cart.blocks.features_slider.settings.feature_1_title.label",
+          "default": "t:sections.main-cart.blocks.features_slider.settings.feature_1_title.default"
         },
         {
           "type": "select",
           "id": "feature_2_icon",
-          "label": "Feature 2 Icon",
+          "label": "t:sections.main-cart.blocks.features_slider.settings.feature_2_icon.label",
           "default": "gift",
           "options": [
             {"value": "menu", "label": "Menu"},
@@ -879,13 +942,13 @@
         {
           "type": "text",
           "id": "feature_2_title",
-          "label": "Feature 2 Title",
-          "default": "Gift Package"
+          "label": "t:sections.main-cart.blocks.features_slider.settings.feature_2_title.label",
+          "default": "t:sections.main-cart.blocks.features_slider.settings.feature_2_title.default"
         },
         {
           "type": "select",
           "id": "feature_3_icon",
-          "label": "Feature 3 Icon",
+          "label": "t:sections.main-cart.blocks.features_slider.settings.feature_3_icon.label",
           "default": "return",
           "options": [
             {"value": "menu", "label": "Menu"},
@@ -994,13 +1057,13 @@
         {
           "type": "text",
           "id": "feature_3_title",
-          "label": "Feature 3 Title",
-          "default": "Easy Returns"
+          "label": "t:sections.main-cart.blocks.features_slider.settings.feature_3_title.label",
+          "default": "t:sections.main-cart.blocks.features_slider.settings.feature_3_title.default"
         },
         {
           "type": "select",
           "id": "feature_4_icon",
-          "label": "Feature 4 Icon",
+          "label": "t:sections.main-cart.blocks.features_slider.settings.feature_4_icon.label",
           "default": "support",
           "options": [
             {"value": "menu", "label": "Menu"},
@@ -1109,189 +1172,189 @@
         {
           "type": "text",
           "id": "feature_4_title",
-          "label": "Feature 4 Title",
-          "default": "Warranty"
+          "label": "t:sections.main-cart.blocks.features_slider.settings.feature_4_title.label",
+          "default": "t:sections.main-cart.blocks.features_slider.settings.feature_4_title.default"
         }
       ]
     },
     {
       "type": "shipping_estimator",
-      "name": "Shipping Estimator",
+      "name": "t:sections.main-cart.blocks.shipping_estimator.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Title",
-          "default": "Shipping estimates"
+          "label": "t:sections.main-cart.blocks.shipping_estimator.settings.title.label",
+          "default": "t:sections.main-cart.blocks.shipping_estimator.settings.title.default"
         },
         {
           "type": "text",
           "id": "country_label",
-          "label": "Country Label",
-          "default": "Country"
+          "label": "t:sections.main-cart.blocks.shipping_estimator.settings.country_label.label",
+          "default": "t:sections.main-cart.blocks.shipping_estimator.settings.country_label.default"
         },
         {
           "type": "text",
           "id": "state_label",
-          "label": "State Label",
-          "default": "State/Province"
+          "label": "t:sections.main-cart.blocks.shipping_estimator.settings.state_label.label",
+          "default": "t:sections.main-cart.blocks.shipping_estimator.settings.state_label.default"
         },
         {
           "type": "text",
           "id": "zipcode_label",
-          "label": "Zipcode Label",
-          "default": "Zipcode"
+          "label": "t:sections.main-cart.blocks.shipping_estimator.settings.zipcode_label.label",
+          "default": "t:sections.main-cart.blocks.shipping_estimator.settings.zipcode_label.default"
         },
         {
           "type": "text",
           "id": "button_text",
-          "label": "Button Text",
-          "default": "Estimate"
+          "label": "t:sections.main-cart.blocks.shipping_estimator.settings.button_text.label",
+          "default": "t:sections.main-cart.blocks.shipping_estimator.settings.button_text.default"
         }
       ]
     },
     {
       "type": "cart_summary",
-      "name": "Cart Summary",
+      "name": "t:sections.main-cart.blocks.cart_summary.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "subtotal_label",
-          "label": "Subtotal Label",
-          "default": "Subtotal:"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.subtotal_label.label",
+          "default": "t:sections.main-cart.blocks.cart_summary.settings.subtotal_label.default"
         },
         {
           "type": "text",
           "id": "discounts_label",
-          "label": "Discounts Label",
-          "default": "Discounts:"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.discounts_label.label",
+          "default": "t:sections.main-cart.blocks.cart_summary.settings.discounts_label.default"
         },
         {
           "type": "text",
           "id": "tax_message",
-          "label": "Tax Message",
-          "default": "Taxes and shipping calculated at checkout"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.tax_message.label",
+          "default": "t:sections.main-cart.blocks.cart_summary.settings.tax_message.default"
         },
         {
           "type": "checkbox",
           "id": "show_terms_checkbox",
-          "label": "Show Terms Checkbox",
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.show_terms_checkbox.label",
           "default": true
         },
         {
           "type": "text",
           "id": "terms_text",
-          "label": "Terms Text",
-          "default": "I agree with"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.terms_text.label",
+          "default": "t:sections.main-cart.blocks.cart_summary.settings.terms_text.default"
         },
         {
           "type": "text",
           "id": "terms_link_text",
-          "label": "Terms Link Text",
-          "default": "terms and conditions"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.terms_link_text.label",
+          "default": "t:sections.main-cart.blocks.cart_summary.settings.terms_link_text.default"
         },
         {
           "type": "url",
           "id": "terms_url",
-          "label": "Terms URL"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.terms_url.label"
         },
         {
           "type": "text",
           "id": "checkout_button_text",
-          "label": "Checkout Button Text",
-          "default": "Checkout"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.checkout_button_text.label",
+          "default": "t:sections.main-cart.blocks.cart_summary.settings.checkout_button_text.default"
         },
         {
           "type": "checkbox",
           "id": "show_payment_icons",
-          "label": "Show Payment Icons",
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.show_payment_icons.label",
           "default": true
         },
         {
           "type": "text",
           "id": "payment_icons_title",
-          "label": "Payment Icons Title",
-          "default": "We accept"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.payment_icons_title.label",
+          "default": "t:sections.main-cart.blocks.cart_summary.settings.payment_icons_title.default"
         },
         {
           "type": "text",
           "id": "payment_methods_title",
-          "label": "Payment Methods Title",
-          "default": "We accept"
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.payment_methods_title.label",
+          "default": "t:sections.main-cart.blocks.cart_summary.settings.payment_methods_title.default"
         },
         {
           "type": "text",
           "id": "payment_svg_list",
-          "label": "Payment Icons",
-          "info": "Enter payment icon names separated by commas (e.g., visa, mastercard, paypal). Review the [list of available values](https://github.com/activemerchant/payment_icons/tree/master/app/assets/images/payment_icons) and copy the name of each icon that you need from that list, without the .svg extension."
+          "label": "t:sections.main-cart.blocks.cart_summary.settings.payment_svg_list.label",
+          "info": "t:sections.main-cart.blocks.cart_summary.settings.payment_svg_list.info"
         }
       ]
     },
 
     {
       "type": "testimonials",
-      "name": "Testimonials",
+      "name": "t:sections.main-cart.blocks.testimonials.name",
       "limit": 1,
       "settings": [
         {
           "type": "text",
           "id": "testimonial_1_author",
-          "label": "Testimonial 1 Author",
-          "default": "Customer"
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_1_author.label",
+          "default": "t:sections.main-cart.blocks.testimonials.settings.testimonial_1_author.default"
         },
         {
           "type": "image_picker",
           "id": "testimonial_1_image",
-          "label": "Testimonial 1 Image"
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_1_image.label"
         },
         {
           "type": "textarea",
           "id": "testimonial_1_content",
-          "label": "Testimonial 1 Content",
-          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_1_content.label",
+          "default": "t:sections.main-cart.blocks.testimonials.settings.testimonial_1_content.default"
         },
         {
           "type": "text",
           "id": "testimonial_2_author",
-          "label": "Testimonial 2 Author",
-          "default": "Customer"
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_2_author.label",
+          "default": "t:sections.main-cart.blocks.testimonials.settings.testimonial_2_author.default"
         },
         {
           "type": "image_picker",
           "id": "testimonial_2_image",
-          "label": "Testimonial 2 Image"
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_2_image.label"
         },
         {
           "type": "textarea",
           "id": "testimonial_2_content",
-          "label": "Testimonial 2 Content",
-          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_2_content.label",
+          "default": "t:sections.main-cart.blocks.testimonials.settings.testimonial_2_content.default"
         },
         {
           "type": "text",
           "id": "testimonial_3_author",
-          "label": "Testimonial 3 Author",
-          "default": "Customer"
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_3_author.label",
+          "default": "t:sections.main-cart.blocks.testimonials.settings.testimonial_3_author.default"
         },
         {
           "type": "image_picker",
           "id": "testimonial_3_image",
-          "label": "Testimonial 3 Image"
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_3_image.label"
         },
         {
           "type": "textarea",
           "id": "testimonial_3_content",
-          "label": "Testimonial 3 Content",
-          "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+          "label": "t:sections.main-cart.blocks.testimonials.settings.testimonial_3_content.label",
+          "default": "t:sections.main-cart.blocks.testimonials.settings.testimonial_3_content.default"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Main Cart",
+      "name": "t:sections.main-cart.name",
       "blocks": [
         {
           "type": "free_shipping_progress"

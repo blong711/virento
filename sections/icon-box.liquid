@@ -30,7 +30,8 @@
         "type": "checkbox",
         "id": "icon_position_center",
         "label": "t:sections.icon-box.settings.icon_position_center.label",
-        "default": true
+        "default": true,
+        "visible_if": "{{ section.settings.icon_style == 'default' }}"
     },
     {
       "type": "header",
@@ -292,16 +293,16 @@
 <div class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
     <div class="{{ section.settings.width }}">
         <div dir="ltr" class="swiper tf-swiper" data-swiper='{
-                "slidesPerView": 1,
+                "slidesPerView": {{ section.settings.products_per_row_mobile }},
                 "spaceBetween": 12,
                 "speed": 800,
                 "observer": true,
                 "observeParents": true,
                 "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
                 "breakpoints": {
-                    "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": 12, "slidesPerGroup": 1}, 
-                    "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": 2},
-                    "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": 2}
+                    "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": 12, "slidesPerGroup": {{ section.settings.products_per_row_mobile }}}, 
+                    "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_tablet }}},
+                    "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
                 }
             }'>
             <div class="swiper-wrapper wow fadeInUp">
@@ -368,7 +369,7 @@
 }
 
 #shopify-section-{{ section.id }} .tf-icon-box .box-icon .icon {
-    color: rgb(var(--color-foreground2));
+    color: rgb(var(--color-button));
 }
 
 #shopify-section-{{ section.id }} .tf-icon-box.style-border .box-icon {

@@ -997,7 +997,7 @@ function clearSearchInputOnSpecialPages() {
     const searchInputs = document.querySelectorAll('input[name="q"], input[type="search"]');
     searchInputs.forEach((input) => {
       input.value = '';
-      input.setAttribute('placeholder', input.getAttribute('placeholder') || (window.ShopifyTranslations.search.search_our_store || 'Search our store'));
+      input.setAttribute('placeholder', input.getAttribute('placeholder') || (window.ShopifyTranslations.common.search_our_store || 'Search our store'));
     });
   }
 }

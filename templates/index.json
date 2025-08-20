@@ -120,8 +120,8 @@
         "show_navigation": true,
         "show_mobile_dots": true,
         "products_to_show": 6,
-        "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_top": 100,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     },
@@ -327,6 +327,7 @@
         "color_scheme": "scheme-1",
         "width": "container",
         "title_font_size": "36",
+        "title_font_size_mobile": "24",
         "title_font_weight": "500",
         "title_uppercase": false,
         "tab_spacing": 20,
@@ -335,7 +336,7 @@
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
-        "products_to_show": 8,
+        "products_to_show": 12,
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
@@ -432,7 +433,7 @@
         "show_mobile_dots": true,
         "items_per_row_desktop": 6,
         "items_per_row_tablet": 4,
-        "items_per_row_mobile": 3,
+        "items_per_row_mobile": 2,
         "padding_top": 100,
         "padding_bottom": 100,
         "padding_mobile_rate": 75
@@ -548,6 +549,7 @@
         ],
         "products_to_show": 6,
         "show_navigation": true,
+        "navigation_style": "boxed",
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
@@ -618,7 +620,8 @@
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
+        "products_per_row_mobile": 1,
+        "icon_style": "default",
         "padding_top": 44,
         "padding_bottom": 44,
         "padding_mobile_rate": 75
