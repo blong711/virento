@@ -4468,6 +4468,14 @@
             "large": "Large"
           }
         },
+        "title_font_size_mobile": {
+          "label": "Tab Title Font Size (Mobile)",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
         "title_font_weight": {
           "label": "Tab Title Font Weight",
           "options": {
