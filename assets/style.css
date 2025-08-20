@@ -8160,7 +8160,7 @@ button.animate-btn::after,
 }
 .tf-icon-box.style-2 .title {
   font-size: 18px;
-  line-height: 18px;
+  line-height: 24px;
 }
 .tf-icon-box.style-3 {
   padding: 0;
@@ -16815,7 +16815,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   }
   .tf-icon-box.style-2 .title {
     font-size: 20px;
-    line-height: 20px;
+    line-height: 26px;
   }
   .tf-icon-box.style-3 .title {
     font-size: 20px;
