@@ -30,7 +30,8 @@
         "type": "checkbox",
         "id": "icon_position_center",
         "label": "t:sections.icon-box.settings.icon_position_center.label",
-        "default": true
+        "default": true,
+        "visible_if": "{{ section.settings.icon_style == 'default' }}"
     },
     {
       "type": "header",
