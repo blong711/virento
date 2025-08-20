@@ -1292,78 +1292,63 @@ function initializeCartTypeHandling() {
   const cartType = window.themeSettings?.cartType || 'drawer';
   
   // Handle cart drawer toggle buttons
-  document.addEventListener('click', (event) => {
-    const target = event.target.closest('[data-bs-toggle="offcanvas"]');
-    if (target && target.getAttribute('href') === '#shoppingCart') {
-      // Check if we're on the cart page - if so, prevent the drawer from opening
-      if (isOnCartPage()) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
+  // document.addEventListener('click', (event) => {
+  //   const target = event.target.closest('[data-bs-toggle="offcanvas"]');
+  //   if (target && target.getAttribute('href') === '#shoppingCart') {
+  //     // Check if we're on the cart page - if so, prevent the drawer from opening
+  //     if (isOnCartPage()) {
+  //       event.preventDefault();
+  //       event.stopPropagation();
+  //       return;
+  //     }
       
-      // For header cart button, always open cart drawer regardless of cart_type setting
-      if (target.closest('.nav-cart')) {
-        // Let Bootstrap handle it normally - don't create another instance
-        return;
-      }
+  //     // Prevent default Bootstrap behavior when we want to handle it manually
+  //     if (cartType !== 'drawer') {
+  //       event.preventDefault();
+  //       event.stopPropagation();
+  //     }
       
-      // For other cart buttons, use cart_type logic
-      // Prevent default Bootstrap behavior when we want to handle it manually
-      if (cartType !== 'drawer') {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      
-      if (cartType === 'drawer') {
-        // Let Bootstrap handle it normally - don't create another instance
-        return;
-      } else if (cartType === 'cart-page') {
-        // Redirect to cart page
-        window.location = window.routes?.cart_url || '/cart';
-      } else if (cartType === 'checkout-page') {
-        // Redirect directly to Shopify checkout
-        window.location = `${window.routes?.checkout_url || '/checkout'}`;
-      }
-      // For 'none' type, do nothing
-    }
-  });
+  //     if (cartType === 'drawer') {
+  //       // Let Bootstrap handle it normally - don't create another instance
+  //       return;
+  //     } else if (cartType === 'cart-page') {
+  //       // Redirect to cart page
+  //       window.location = window.routes?.cart_url || '/cart';
+  //     } else if (cartType === 'checkout-page') {
+  //       // Redirect directly to Shopify checkout
+  //       window.location = `${window.routes?.checkout_url || '/checkout'}`;
+  //     }
+  //     // For 'none' type, do nothing
+  //   }
+  // });
   
-  // Handle cart icon clicks in header - ALWAYS open cart drawer regardless of cart_type setting
-  document.addEventListener('click', async (event) => {
-    const target = event.target.closest('.nav-cart a, .cart-icon, [data-cart-toggle]');
-    if (target) {
-      // Check if we're on the cart page - if so, prevent the drawer from opening
-      if (isOnCartPage()) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
+  // Handle cart icon clicks in header
+  // document.addEventListener('click', async (event) => {
+  //   const target = event.target.closest('.nav-cart a, .cart-icon, [data-cart-toggle]');
+  //   if (target) {
+  //     // Check if we're on the cart page - if so, prevent the drawer from opening
+  //     if (isOnCartPage()) {
+  //       event.preventDefault();
+  //       event.stopPropagation();
+  //       return;
+  //     }
       
-      // For header cart button, always open cart drawer regardless of cart_type setting
-      if (target.closest('.nav-cart')) {
-        // Let Bootstrap handle the cart drawer opening
-        // The cart-drawer.js component will handle the rest
-        return;
-      }
+  //     event.preventDefault();
+  //     event.stopPropagation();
       
-      // For other cart buttons, use cart_type logic
-      event.preventDefault();
-      event.stopPropagation();
-      
-      if (cartType === 'drawer') {
-        // Let Bootstrap handle the cart drawer opening
-        // The cart-drawer.js component will handle the rest
-      } else if (cartType === 'cart-page') {
-        // Redirect to cart page
-        window.location = window.routes?.cart_url || '/cart';
-      } else if (cartType === 'checkout-page') {
-        // Redirect directly to Shopify checkout
-        window.location = `${window.routes?.checkout_url || '/checkout'}`;
-      }
-      // For 'none' type, do nothing
-    }
-  });
+  //     if (cartType === 'drawer') {
+  //       // Let Bootstrap handle the cart drawer opening
+  //       // The cart-drawer.js component will handle the rest
+  //     } else if (cartType === 'cart-page') {
+  //       // Redirect to cart page
+  //       window.location = window.routes?.cart_url || '/cart';
+  //     } else if (cartType === 'checkout-page') {
+  //       // Redirect directly to Shopify checkout
+  //       window.location = `${window.routes?.checkout_url || '/checkout'}`;
+  //     }
+  //     // For 'none' type, do nothing
+  //   }
+  // });
   
   // Handle any other cart-related buttons that might not use the standard classes
   document.addEventListener('click', async (event) => {
