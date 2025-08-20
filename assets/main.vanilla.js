@@ -1351,15 +1351,54 @@ const newsletterPopup = () => {
   // Handle form submission
   const form = popup.querySelector('.form-newsletter');
   if (form) {
+    const emailInput = form.querySelector('input[name="contact[email]"]');
+    const submitButton = form.querySelector('.subscribe-button');
+    
+    // Email validation function
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    
+    // Real-time validation
+    if (emailInput && submitButton) {
+      emailInput.addEventListener('input', function() {
+        const email = this.value.trim();
+        if (email && !isValidEmail(email)) {
+          this.style.borderColor = '#dc3545';
+          submitButton.disabled = true;
+          submitButton.style.opacity = '0.6';
+        } else {
+          this.style.borderColor = '';
+          submitButton.disabled = false;
+          submitButton.style.opacity = '1';
+        }
+      });
+    }
+    
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       
       const formData = new FormData(form);
       const email = formData.get('contact[email]');
       
-      // Simple validation
-      if (!email || !email.includes('@')) {
+      // Enhanced validation
+      if (!email || !email.trim()) {
+        alert('Please enter your email address.');
+        emailInput?.focus();
         return;
+      }
+      
+      if (!isValidEmail(email)) {
+        alert('Please enter a valid email address.');
+        emailInput?.focus();
+        return;
+      }
+      
+      // If validation passes, show loading state
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Subscribing...';
       }
       
       // Show success message and hide form
