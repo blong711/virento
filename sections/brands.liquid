@@ -263,10 +263,10 @@
             {% endif %}
         </div>
         <div dir="ltr" class="wow fadeInUp swiper tf-swiper sw-brand border-0" data-swiper='{
-            "slidesPerView": {{ section.settings.items_per_row_mobile }},
+            "slidesPerView": 2,
             "spaceBetween": 6,
             "speed": 800,
-            "slidesPerGroup": {{ section.settings.items_per_row_mobile }},
+            "slidesPerGroup": 2,
             "pagination": { 
                 "el": ".sw-pagination-brand", 
                 "clickable": true,
@@ -279,7 +279,7 @@
             },
             "breakpoints": {
                 "575": { "slidesPerView": {{ section.settings.items_per_row_mobile }}},
-                "991": { "slidesPerView": {{ section.settings.items_per_row_tablet }}},
+                "576": { "slidesPerView": {{ section.settings.items_per_row_tablet }}},
                 "1200": { "slidesPerView": {{ section.settings.items_per_row_desktop }}}
             }
         }'>
