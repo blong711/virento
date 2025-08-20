@@ -5880,6 +5880,283 @@
           "info": "Mobile padding as percentage of desktop padding"
         }
       }
+    },
+    "main-cart": {
+      "name": "Main Cart",
+      "settings": {
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "width": {
+          "label": "Section width"
+        },
+        "section_padding_heading": {
+          "content": "Section padding"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile padding rate",
+          "info": "Mobile padding as percentage of desktop padding"
+        }
+      },
+      "blocks": {
+        "free_shipping_progress": {
+          "name": "Free Shipping Progress",
+          "settings": {
+            "qualified_message": {
+              "label": "Qualified Message",
+              "default": "You've qualified for"
+            },
+            "free_shipping_text": {
+              "label": "Free Shipping Text",
+              "default": "Free Shipping!"
+            },
+            "spend_message": {
+              "label": "Spend Message",
+              "default": "Spend"
+            },
+            "more_message": {
+              "label": "More Message",
+              "default": "more to get"
+            }
+          }
+        },
+        "cart_items_table": {
+          "name": "Cart Items Table",
+          "settings": {
+            "product_column_header": {
+              "label": "Product Column Header",
+              "default": "Product"
+            },
+            "price_column_header": {
+              "label": "Price Column Header",
+              "default": "Price"
+            },
+            "quantity_column_header": {
+              "label": "Quantity Column Header",
+              "default": "Quantity"
+            },
+            "total_column_header": {
+              "label": "Total Column Header",
+              "default": "Total"
+            },
+            "remove_text": {
+              "label": "Remove Text",
+              "default": "Remove"
+            }
+          }
+        },
+        "empty_cart": {
+          "name": "Empty Cart Message",
+          "settings": {
+            "empty_cart_title": {
+              "label": "Empty Cart Title",
+              "default": "Your cart is empty"
+            },
+            "empty_cart_message": {
+              "label": "Empty Cart Message",
+              "default": "Looks like you haven't added any items to your cart yet."
+            },
+            "continue_shopping_text": {
+              "label": "Continue Shopping Button Text",
+              "default": "Continue Shopping"
+            }
+          }
+        },
+        "gift_wrap": {
+          "name": "Gift Wrap Option",
+          "settings": {
+            "show_gift_wrap": {
+              "label": "Show Gift Wrap Option"
+            },
+            "label_text": {
+              "label": "Label Text",
+              "default": "Add gift wrap. Only"
+            },
+            "optional_text": {
+              "label": "Optional Text",
+              "default": "(You can choose or not)"
+            }
+          }
+        },
+        "discount_code": {
+          "name": "Discount Code Input",
+          "settings": {
+            "placeholder_text": {
+              "label": "Placeholder Text",
+              "default": "Discount code"
+            },
+            "button_text": {
+              "label": "Button Text",
+              "default": "Apply"
+            }
+          }
+        },
+        "cart_note": {
+          "name": "Cart Note",
+          "settings": {
+            "label_text": {
+              "label": "Label Text",
+              "default": "Special instructions for seller"
+            },
+            "placeholder_text": {
+              "label": "Placeholder Text",
+              "default": "Add any special instructions here..."
+            }
+          }
+        },
+        "features_slider": {
+          "name": "Features Slider",
+          "settings": {
+            "feature_1_icon": {
+              "label": "Feature 1 Icon"
+            },
+            "feature_1_title": {
+              "label": "Feature 1 Title",
+              "default": "Free Shipping"
+            },
+            "feature_2_icon": {
+              "label": "Feature 2 Icon"
+            },
+            "feature_2_title": {
+              "label": "Feature 2 Title",
+              "default": "Gift Package"
+            },
+            "feature_3_icon": {
+              "label": "Feature 3 Icon"
+            },
+            "feature_3_title": {
+              "label": "Feature 3 Title",
+              "default": "Easy Returns"
+            },
+            "feature_4_icon": {
+              "label": "Feature 4 Icon"
+            },
+            "feature_4_title": {
+              "label": "Feature 4 Title",
+              "default": "Warranty"
+            }
+          }
+        },
+        "shipping_estimator": {
+          "name": "Shipping Estimator",
+          "settings": {
+            "title": {
+              "label": "Title",
+              "default": "Shipping estimates"
+            },
+            "country_label": {
+              "label": "Country Label",
+              "default": "Country"
+            },
+            "state_label": {
+              "label": "State Label",
+              "default": "State/Province"
+            },
+            "zipcode_label": {
+              "label": "Zipcode Label",
+              "default": "Zipcode"
+            },
+            "button_text": {
+              "label": "Button Text",
+              "default": "Estimate"
+            }
+          }
+        },
+        "cart_summary": {
+          "name": "Cart Summary",
+          "settings": {
+            "subtotal_label": {
+              "label": "Subtotal Label",
+              "default": "Subtotal:"
+            },
+            "discounts_label": {
+              "label": "Discounts Label",
+              "default": "Discounts:"
+            },
+            "tax_message": {
+              "label": "Tax Message",
+              "default": "Taxes and shipping calculated at checkout"
+            },
+            "show_terms_checkbox": {
+              "label": "Show Terms Checkbox"
+            },
+            "terms_text": {
+              "label": "Terms Text",
+              "default": "I agree with"
+            },
+            "terms_link_text": {
+              "label": "Terms Link Text",
+              "default": "terms and conditions"
+            },
+            "terms_url": {
+              "label": "Terms URL"
+            },
+            "checkout_button_text": {
+              "label": "Checkout Button Text",
+              "default": "Checkout"
+            },
+            "show_payment_icons": {
+              "label": "Show Payment Icons"
+            },
+            "payment_icons_title": {
+              "label": "Payment Icons Title",
+              "default": "We accept"
+            },
+            "payment_methods_title": {
+              "label": "Payment Methods Title",
+              "default": "We accept"
+            },
+            "payment_svg_list": {
+              "label": "Payment Icons",
+              "info": "Enter payment icon names separated by commas (e.g., visa, mastercard, paypal). Review the [list of available values](https://github.com/activemerchant/payment_icons/tree/master/app/assets/images/payment_icons) and copy the name of each icon that you need from that list, without the .svg extension."
+            }
+          }
+        },
+        "testimonials": {
+          "name": "Testimonials",
+          "settings": {
+            "testimonial_1_author": {
+              "label": "Testimonial 1 Author",
+              "default": "Customer"
+            },
+            "testimonial_1_image": {
+              "label": "Testimonial 1 Image"
+            },
+            "testimonial_1_content": {
+              "label": "Testimonial 1 Content",
+              "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+            },
+            "testimonial_2_author": {
+              "label": "Testimonial 2 Author",
+              "default": "Customer"
+            },
+            "testimonial_2_image": {
+              "label": "Testimonial 2 Image"
+            },
+            "testimonial_2_content": {
+              "label": "Testimonial 2 Content",
+              "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+            },
+            "testimonial_3_author": {
+              "label": "Testimonial 3 Author",
+              "default": "Customer"
+            },
+            "testimonial_3_image": {
+              "label": "Testimonial 3 Image"
+            },
+            "testimonial_3_content": {
+              "label": "Testimonial 3 Content",
+              "default": "Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination."
+            }
+          }
+        }
+      }
     }
   }
 }
