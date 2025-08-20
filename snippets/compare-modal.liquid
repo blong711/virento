@@ -11,8 +11,8 @@
               <a href="{{ product.url }}" class="image">
                 <img
                   class="lazyload"
-                  data-src="{{ product.featured_image | img_url: '300x300' }}"
-                  src="{{ product.featured_image | img_url: '300x300' }}"
+                  data-src="{{ product.featured_image | image_url: width: 300, height: 300 }}"
+                  src="{{ product.featured_image | image_url: width: 300, height: 300 }}"
                   alt="{{ product.title | escape }}"
                   width="300"
                   height="300"

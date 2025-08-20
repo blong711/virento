@@ -11,17 +11,14 @@
   - zoom: Whether to enable zoom functionality (default: true)
 {%- endcomment -%}
 
-{%- assign lazy_loading = lazy | default: true -%}
 {%- assign enable_zoom = zoom | default: true -%}
-{%- assign image_class = class | default: 'gallery-image' -%}
 
 {%- comment -%}Gallery specific sizes for larger images{%- endcomment -%}
 {%- assign default_sizes = '(max-width: 768px) 100vw, 50vw' -%}
-{%- assign image_sizes = sizes | default: default_sizes -%}
 
 {%- case media.media_type -%}
   {%- when 'image' -%}
-    <a href="{{ media | image_url: width: 1200, format: 'webp' }}" 
+    <a href="{{ media | image_url: width: 1200, format: 'webp' }}" default_sizes
        target="_blank" 
        class="item item-scroll-target" 
        data-media-id="{{ media.id }}"
@@ -34,9 +31,9 @@
       {%- render 'responsive-image',
         image: media,
         alt: media.alt | default: product.title,
-        class: image_class | append: ' tf-image-zoom',
-        sizes: image_sizes,
-        lazy: lazy_loading,
+        class: class | default: 'gallery-image' | append: ' tf-image-zoom',
+        sizes: sizes | default: default_sizes,
+        lazy: lazy | default: true,
         preload: false,
         max_width: 1200 -%}
     </a>
@@ -57,9 +54,9 @@
         {%- render 'responsive-image',
           image: media.preview_image,
           alt: 'Video thumbnail',
-          class: image_class | append: ' tf-image-zoom',
-          sizes: image_sizes,
-          lazy: lazy_loading,
+          class: class | default: 'gallery-image' | append: ' tf-image-zoom',
+          sizes: sizes | default: default_sizes,
+          lazy: lazy | default: true,
           preload: false,
           max_width: 1200 -%}
       {%- endif -%}
@@ -81,9 +78,9 @@
         {%- render 'responsive-image',
           image: media.preview_image,
           alt: '3D model thumbnail',
-          class: image_class | append: ' tf-image-zoom',
-          sizes: image_sizes,
-          lazy: lazy_loading,
+          class: class | default: 'gallery-image' | append: ' tf-image-zoom',
+          sizes: sizes | default: default_sizes,
+          lazy: lazy | default: true,
           preload: false,
           max_width: 1200 -%}
       {%- endif -%}
@@ -105,9 +102,9 @@
         {%- render 'responsive-image',
           image: media.preview_image,
           alt: 'External video thumbnail',
-          class: image_class | append: ' tf-image-zoom',
-          sizes: image_sizes,
-          lazy: lazy_loading,
+          class: class | default: 'gallery-image' | append: ' tf-image-zoom',
+          sizes: sizes | default: default_sizes,
+          lazy: lazy | default: true,
           preload: false,
           max_width: 1200 -%}
       {%- endif -%}
