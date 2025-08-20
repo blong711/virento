@@ -177,7 +177,7 @@
     <div class="canvas-wrapper">
         <div class="popup-header">
             <span class="title">{{ 'sections.cart.drawer.title' | t }}</span>
-            <button type="button" class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="{{ 'general.accessibility.close' | t }}"></button>
         </div>
         <div class="wrap">
             {%- assign free_shipping_threshold = settings.free_shipping_threshold | times: 100 -%}
@@ -192,7 +192,7 @@
                     {% if cart_total < free_shipping_threshold %}
                         {{ 'sections.cart.drawer.spend' | t }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_amount | money }} {{ shop.currency }}{% else %}{{ remaining_amount | money }}{% endif %}</span> {{ 'sections.cart.drawer.more_to_get' | t }} <span class="fw-medium">{{ 'sections.cart.drawer.free_shipping' | t }}</span>
                     {% else %}
-                        <span class="fw-medium">Congratulations! You've got Free Shipping!</span>
+                        {{ 'general.cart.free_shipping_qualified_html' | t }}
                     {% endif %}
                 </div>
                 <div class="tf-progress-bar tf-progress-ship">
@@ -247,19 +247,19 @@
                                                     class="btn-quantity minus-btn" 
                                                     name="minus" 
                                                     data-cart-quantity-minus 
-                                                    aria-label="Decrease quantity">-</button>
+                                                    aria-label="{{ 'products.product.quantity.decrease' | t: product: item.product.title }}">-</button>
                                             <input class="quantity-product font-4" 
                                                    type="number" 
                                                    name="updates[]" 
                                                    value="{{ item.quantity }}" 
                                                    min="0" 
                                                    data-cart-quantity-input 
-                                                   aria-label="Item quantity">
+                                                   aria-label="{{ 'sections.cart.headings.quantity' | t }}">
                                             <button type="button" 
                                                     class="btn-quantity plus-btn" 
                                                     name="plus" 
                                                     data-cart-quantity-plus 
-                                                    aria-label="Increase quantity">+</button>
+                                                    aria-label="{{ 'products.product.quantity.increase' | t: product: item.product.title }}">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -332,7 +332,7 @@
                                                                 <span class="old-price text-decoration-line-through text-dark-1">{% if settings.currency_code_enabled %}{{ product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ product.compare_at_price | money }}{% endif %}</span>
                                                             {%- endif -%}
                                                         </p>
-                                                        <form method="post" action="/cart/add" class="w-max-content">
+                                                        <form method="post" action="{{ routes.cart_add_url }}" class="w-max-content">
                                                             <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
                                                             <button type="submit" 
                                                                     class="tf-btn animate-btn d-inline-flex bg-dark-2"
@@ -422,7 +422,7 @@
                                             <label for="CartDrawer-Form_agree" class="text-sm">
                                                 {{ block.settings.checkbox_text }}
                                                 <a href="{{ block.settings.terms_url }}" 
-                                                   title="Terms of Service" 
+                                                   title="{{ block.settings.terms_link_text }}" 
                                                    class="fw-medium">{{ block.settings.terms_link_text }}</a>
                                             </label>
                                         </div>
@@ -445,18 +445,18 @@
                             <div class="tf-cart-totals-discounts">
                                 {%- if cart.total_discounts > 0 -%}
                                     <div class="tf-cart-discount text-sm">
-                                        <span>Discount</span>
+                                        <span>{{ 'sections.cart.drawer.discount_label' | t }}</span>
                                         <span>-{% if settings.currency_code_enabled %}{{ cart.total_discounts | money }} {{ shop.currency }}{% else %}{{ cart.total_discounts | money }}{% endif %}</span>
                                     </div>
                                 {%- endif -%}
-                                <div class="tf-cart-total text-xl fw-medium">Total:</div>
+                                <div class="tf-cart-total text-xl fw-medium">{{ 'sections.cart.total' | t }}:</div>
                                 <div class="tf-totals-total-value text-xl fw-medium">{% if settings.currency_code_enabled %}{{ cart.total_price | money }} {{ shop.currency }}{% else %}{{ cart.total_price | money }}{% endif %}</div>
                             </div>
                             <div class="tf-cart-tax text-sm opacity-8">
                                 {%- if cart.taxes_included -%}
-                                    Including taxes
+                                    {{ 'sections.cart.drawer.including_taxes' | t }}
                                 {%- endif -%}
-                                Taxes and shipping calculated at checkout
+                                {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
                             </div>
                             <div class="tf-cart-checkbox">
                                 <div class="tf-checkbox-wrapp">
@@ -465,17 +465,14 @@
                                         <i class="icon-check"></i>
                                     </div>
                                 </div>
-                                <label for="CartDrawer-Form_agree" class="text-sm">
-                                    I agree with the
-                                    <a href="{{ routes.legal_notice_url }}" title="Terms of Service" class="fw-medium">terms and conditions</a>
-                                </label>
+                                <label for="CartDrawer-Form_agree" class="text-sm">{{ 'sections.cart.terms.agreement_html' | t: terms_url: routes.legal_notice_url }}</label>
                             </div>
                             <div class="tf-mini-cart-view-checkout">
                                 <a href="{{ routes.cart_url }}"
-                                    class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">View cart</a>
+                                    class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">{{ 'sections.cart.view_cart' | t }}</a>
                                 <button type="button"
                                     class="tf-btn btn-out-line-dark2 w-100 justify-content-center"
-                                    data-checkout-button><span>Check out</span></button>
+                                    data-checkout-button><span>{{ 'sections.cart.checkout' | t }}</span></button>
                             </div>
                         {%- endif -%}
                     </div>

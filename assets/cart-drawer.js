@@ -350,7 +350,7 @@ class CartDrawer extends HTMLElement {
     })
     .catch(error => {
       console.error('Error updating note:', error);
-      alert('Error updating note. Please try again.');
+      alert(window.ShopifyTranslations?.cart_drawer?.error_updating_note || 'Error updating note. Please try again.');
     });
   }
 
@@ -369,7 +369,7 @@ class CartDrawer extends HTMLElement {
     const discountCode = discountInput ? discountInput.value.trim() : '';
     
     if (!discountCode) {
-      alert('Please enter a discount code.');
+      alert(window.ShopifyTranslations?.cart_drawer?.please_enter_discount || 'Please enter a discount code.');
       return;
     }
 
@@ -379,7 +379,7 @@ class CartDrawer extends HTMLElement {
     // Show loading state
     const submitButton = discountForm.querySelector('[data-cart-discount-add]');
     const originalText = submitButton.textContent;
-    submitButton.textContent = 'Applying...';
+    submitButton.textContent = window.ShopifyTranslations?.cart_drawer?.applying || 'Applying...';
     submitButton.disabled = true;
 
     fetch('/cart/update.js', {
@@ -392,14 +392,14 @@ class CartDrawer extends HTMLElement {
         // Successfully applied discount
         this.updateCart(cart);
         this.closeAllTools();
-        alert('Discount code applied successfully!');
+        alert(window.ShopifyTranslations?.cart_drawer?.discount_applied || 'Discount code applied successfully!');
       } else {
-        alert('Invalid discount code. Please try again.');
+        alert(window.ShopifyTranslations?.cart_drawer?.invalid_discount || 'Invalid discount code. Please try again.');
       }
     })
     .catch(error => {
       console.error('Error applying discount:', error);
-      alert('Error applying discount. Please try again.');
+      alert(window.ShopifyTranslations?.cart_drawer?.error_applying_discount || 'Error applying discount. Please try again.');
     })
     .finally(() => {
       // Reset button state
@@ -435,7 +435,7 @@ class CartDrawer extends HTMLElement {
 
   updateProvinces(countryCode, provinceSelect) {
     // Clear current provinces
-    provinceSelect.innerHTML = '<option value="">Select Province/State</option>';
+    provinceSelect.innerHTML = `<option value="">${window.ShopifyTranslations?.cart_drawer?.select_province_state || 'Select Province/State'}</option>`;
     
     if (!countryCode) return;
 
@@ -517,14 +517,14 @@ class CartDrawer extends HTMLElement {
     const zip = zipInput ? zipInput.value : '';
     
     if (!country || !province || !zip) {
-      alert('Please fill in all shipping fields.');
+      alert(window.ShopifyTranslations?.cart_drawer?.please_fill_shipping || 'Please fill in all shipping fields.');
       return;
     }
 
     // Show loading state
     const submitButton = shippingForm.querySelector('[data-shipping-calculator-submit]');
     const originalText = submitButton.textContent;
-    submitButton.textContent = 'Calculating...';
+    submitButton.textContent = window.ShopifyTranslations?.cart_drawer?.calculating || 'Calculating...';
     submitButton.disabled = true;
 
     const formData = new FormData();
@@ -542,7 +542,7 @@ class CartDrawer extends HTMLElement {
     })
     .catch(error => {
       console.error('Error calculating shipping:', error);
-      alert('Error calculating shipping rates. Please try again.');
+      alert(window.ShopifyTranslations?.cart_drawer?.error_calculating_shipping || 'Error calculating shipping rates. Please try again.');
     })
     .finally(() => {
       // Reset button state
@@ -558,7 +558,7 @@ class CartDrawer extends HTMLElement {
     const list = container.querySelector('.shipping-rates__list');
     
     if (rates && rates.length > 0) {
-      heading.textContent = 'Available Shipping Rates:';
+      heading.textContent = window.ShopifyTranslations?.cart_drawer?.available_shipping_rates || 'Available Shipping Rates:';
       
       list.innerHTML = '';
       rates.forEach(rate => {
@@ -573,7 +573,7 @@ class CartDrawer extends HTMLElement {
       
       container.style.display = 'block';
     } else {
-      heading.textContent = 'No shipping rates available for this location.';
+      heading.textContent = window.ShopifyTranslations?.cart_drawer?.no_shipping_rates || 'No shipping rates available for this location.';
       list.innerHTML = '';
       container.style.display = 'block';
     }
@@ -597,7 +597,7 @@ class CartDrawer extends HTMLElement {
     
     // Show loading state
     const originalText = button.textContent;
-    button.textContent = 'Adding...';
+    button.textContent = window.ShopifyTranslations?.cart_drawer?.adding || 'Adding...';
     button.disabled = true;
 
     fetch('/cart/add.js', {
@@ -608,7 +608,7 @@ class CartDrawer extends HTMLElement {
     .then(result => {
       if (result.status) {
         console.error('Error adding product:', result.description);
-        alert('Error adding product: ' + result.description);
+        alert(window.ShopifyTranslations?.cart_drawer?.error_adding_product || 'Error adding product: ' + result.description);
       } else {
         // Successfully added product
         this.updateCart(result);
@@ -618,7 +618,7 @@ class CartDrawer extends HTMLElement {
     })
     .catch(error => {
       console.error('Error adding product:', error);
-      alert('Error adding product. Please try again.');
+      alert(window.ShopifyTranslations?.cart_drawer?.error_adding_product || 'Error adding product. Please try again.');
     })
     .finally(() => {
       // Reset button state
@@ -783,7 +783,7 @@ class CartDrawer extends HTMLElement {
     // Show loading state
     const submitButton = giftWrapForm.querySelector('[data-cart-gift-wrap-add]');
     const originalText = submitButton.textContent;
-    submitButton.textContent = 'Adding...';
+    submitButton.textContent = window.ShopifyTranslations?.cart_drawer?.adding || 'Adding...';
     submitButton.disabled = true;
 
     fetch('/cart/add.js', {
@@ -795,7 +795,7 @@ class CartDrawer extends HTMLElement {
       if (result.status) {
         console.error('Error adding gift wrap:', result.description);
         // Show error message to user
-        alert('Error adding gift wrap: ' + result.description);
+        alert(window.ShopifyTranslations?.cart_drawer?.error_adding_gift_wrap || 'Error adding gift wrap: ' + result.description);
       } else {
         // Successfully added gift wrap
         this.updateCart(result);
@@ -818,7 +818,7 @@ class CartDrawer extends HTMLElement {
     })
     .catch(error => {
       console.error('Error adding gift wrap:', error);
-      alert('Error adding gift wrap. Please try again.');
+      alert(window.ShopifyTranslations?.cart_drawer?.error_adding_gift_wrap || 'Error adding gift wrap. Please try again.');
     })
     .finally(() => {
       // Reset button state
