@@ -182,9 +182,9 @@
       ],
       "settings": {
         "color_scheme": "",
-        "popup_trigger": "mouseleave",
+        "popup_trigger": "scroll",
         "popup_delay": 5,
-        "scroll_threshold": 80,
+        "scroll_threshold": 30,
         "days_next_show": 1,
         "popup_image": "shopify://shop_images/before-you-leave.jpg",
         "popup_heading": "Before You Leave",
