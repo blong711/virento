@@ -1,0 +1,498 @@
+{%- liquid
+  assign blog_handle = section.settings.blog | default: 'news'
+  assign posts_to_show = section.settings.posts_to_show | default: 6
+  assign blog_posts = blogs[blog_handle].articles
+  assign layout_style = section.settings.layout_style | default: 'layout1'
+
+  # Carousel settings
+  assign slides_per_view_mobile = section.settings.slides_mobile | default: 1
+  assign slides_per_view_tablet = section.settings.slides_tablet | default: 2
+  assign slides_per_view_desktop = section.settings.slides_desktop | default: 3
+  assign space_between = section.settings.space_between | default: 24
+-%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .aspect-ratio-layout1 {
+    aspect-ratio: 4/3.4;
+  }
+
+  .aspect-ratio-layout2 {
+    aspect-ratio: 4 / 2.777;
+  }
+{%- endstyle -%}
+
+<!-- Blog Carousel Section -->
+<section class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
+    {%- if section.settings.heading != blank or section.settings.description != blank -%}
+      <div class="flat-title wow fadeInUp">
+        {%- if section.settings.heading != blank -%}
+          <h4 class="title">{{ section.settings.heading }}</h4>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <p class="desc  text-md">{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="{% if section.settings.show_navigation %}hover-sw-nav{% endif %} wow fadeInUp">
+      <div
+        dir="ltr"
+        class="swiper tf-swiper"
+        data-swiper='
+          {
+              "slidesPerView": {{ slides_per_view_mobile }},
+              "spaceBetween": 12,
+              "speed": {{ section.settings.animation_speed | default: 800 }},
+              "observer": true,
+              "observeParents": true,
+              "slidesPerGroup": 1,
+              {% if section.settings.show_navigation -%}
+              "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-blog-{{ section.id }}",
+                  "prevEl": ".nav-prev-blog-{{ section.id }}"
+              },
+              {% endif -%}
+              {% if section.settings.show_pagination -%}
+              "pagination": { "el": ".sw-pagination-blog-{{ section.id }}", "clickable": true },
+              {% endif -%}
+              "breakpoints": {
+              "577": { "slidesPerView": {{ slides_per_view_tablet }}, "spaceBetween": 12, "slidesPerGroup": 2 },
+              "1200": { "slidesPerView": {{ slides_per_view_desktop }}, "spaceBetween": {{ space_between }}, "slidesPerGroup": 4}
+              }
+          }
+        '
+      >
+        <div class="swiper-wrapper">
+          {%- for article in blog_posts limit: posts_to_show -%}
+            <div class="swiper-slide">
+              {%- if layout_style == 'layout1' -%}
+                <!-- Layout 1 -->
+                <div class="blog-post-item hover-img">
+                  <div class="entry_image">
+                    <a href="{{ article.url }}" class="img-style aspect-ratio-layout1">
+                      {%- if article.image -%}
+                        <img
+                          src="{{ article.image | image_url: width: 400 }}"
+                          data-src="{{ article.image | image_url: width: 400 }}"
+                          alt="{{ article.image.alt | default: article.title }}"
+                          width="400"
+                          height="300"
+                          class="lazyload"
+                        >
+                      {%- endif -%}
+                    </a>
+                  </div>
+                  <div class="blog-content">
+                    {%- if article.tags.size > 0 and section.settings.show_tags -%}
+                      <div class="entry-tag">
+                        <ul class="style-list">
+                          {% for tag in article.tags limit: 3 %}
+                            <li>
+                              <a
+                                href="{{ blog.url }}/tagged/{{ tag | handle }}"
+                                class="tf-btn"
+                              >
+                                {{ tag }}
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    {%- endif -%}
+                    <a href="{{ article.url }}" class="entry_title title-ellipsis d-block text-xl fw-medium link">
+                      {{ article.title | truncate: 60 }}
+                    </a>
+                    {%- if section.settings.show_excerpt and article.excerpt != blank -%}
+                      <p class="entry_sub title-ellipsis text-md ">
+                        {{ article.excerpt | strip_html | truncate: 120 }}
+                      </p>
+                    {%- endif -%}
+                    {%- if section.settings.show_author
+                      or section.settings.show_date
+                      or section.settings.show_comments
+                    -%}
+                      <ul class="entry-meta">
+                        {%- if section.settings.show_author -%}
+                          <li class="entry_author">
+                            <div class="avatar">
+                              {%- if article.author and article.author != blank -%}
+                                {% if article.author.image %}
+                                  {{
+                                    article.author.image
+                                    | image_url: width: 50
+                                    | image_tag: loading: 'lazy', class: 'lazyload', alt: article.author
+                                  }}
+                                {% else %}
+                                  <img
+                                    src="{{ 'blog-author-1.jpg' | asset_url }}"
+                                    data-src="{{ 'blog-author-1.jpg' | asset_url }}"
+                                    loading="lazy"
+                                    class="lazyload"
+                                    alt="{{ article.author }}"
+                                    width="50"
+                                    height="50"
+                                  >
+                                {% endif %}
+                              {%- endif -%}
+                            </div>
+                            <p class="entry_name title-ellipsis">
+                              Post by
+                              <span class="fw-medium">{{ article.author | default: 'Admin' }}</span>
+                            </p>
+                          </li>
+                        {%- endif -%}
+                        {%- if section.settings.show_author
+                          and section.settings.show_date
+                          or section.settings.show_author
+                          and section.settings.show_comments
+                        -%}
+                          <li class="br-line"></li>
+                        {%- endif -%}
+                        {%- if section.settings.show_date -%}
+                          <li class="entry_date">
+                            <p class="text-md">{{ article.published_at | date: '%b %d %Y' }}</p>
+                          </li>
+                        {%- endif -%}
+                        {%- if section.settings.show_date and section.settings.show_comments -%}
+                          <li class="br-line"></li>
+                        {%- endif -%}
+                        {%- if section.settings.show_comments -%}
+                          <li class="entry_comment">
+                            <p class="text-md">
+                              {{ article.comments_count }}
+                              {%- if article.comments_count == 1 -%}comment{%- else -%}comments{%- endif -%}
+                            </p>
+                          </li>
+                        {%- endif -%}
+                      </ul>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- else -%}
+                <!-- Layout 2 -->
+                <div class="news-item hover-img">
+                  <a href="{{ article.url }}" class="img-style aspect-ratio-layout2">
+                    {%- if article.image -%}
+                      <img
+                        src="{{ article.image | image_url: width: 400 }}"
+                        data-src="{{ article.image | image_url: width: 400 }}"
+                        alt="{{ article.image.alt | default: article.title }}"
+                        width="400"
+                        height="300"
+                        class="lazyload"
+                      >
+                    {%- endif -%}
+                  </a>
+                  <div class="content">
+                    <a
+                      href="{{ article.url }}"
+                      class="title fw-medium link text-xl title-ellipsis"
+                    >
+                      {{ article.title }}
+                    </a>
+                    {%- if section.settings.show_read_more -%}
+                      <a href="{{ article.url }}" class="btn-readmore link">
+                        Read more
+                        <i class="icon icon-arr-right"></i>
+                      </a>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        </div>
+        {%- if section.settings.show_pagination -%}
+          <div class="d-flex d-xl-none sw-dot-default sw-pagination-blog-{{ section.id }} justify-content-center"></div>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.show_navigation -%}
+        <div
+          class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-blog-{{ section.id }}"
+          style="
+            {% if section.settings.layout_style == 'layout1' %}
+              top: calc(50% - 110px);
+            {% else %}
+              top: calc(50% - 65px);
+            {% endif %}
+          "
+        ></div>
+        <div
+          class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-blog-{{ section.id }}"
+          style="
+            {% if section.settings.layout_style == 'layout1' %}
+              top: calc(50% - 110px);
+            {% else %}
+              top: calc(50% - 65px);
+            {% endif %}
+          "
+        ></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+<!-- /Blog Carousel Section -->
+
+{% schema %}
+{
+  "name": "Blog Carousel",
+  "tag": "section",
+  "class": "section-blog-carousel",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Latest Tips & Trends"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Sub Heading",
+      "default": "Discover expert advice, style inspiration, and product updates on our blog."
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "layout1",
+          "label": "Layout 1"
+        },
+        {
+          "value": "layout2",
+          "label": "Layout 2"
+        }
+      ],
+      "default": "layout1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "Boxed"
+        },
+        {
+          "value": "full",
+          "label": "Full"
+        }
+      ],
+      "default": "boxed",
+      "label": "Width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "Blog Settings"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog to Display"
+    },
+    {
+      "type": "range",
+      "id": "posts_to_show",
+      "label": "Number of Posts",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tags",
+      "label": "Show Tags",
+      "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout1' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show Excerpt",
+      "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout1' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Show Author",
+      "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout1' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show Date",
+      "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout1' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_comments",
+      "label": "Show Comments Count",
+      "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout1' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_read_more",
+      "label": "Show Read More Button",
+      "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout2' }}"
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides per View (Mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides per View (Tablet)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides per View (Desktop)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "label": "Space Between Slides",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Animation Speed",
+      "min": 300,
+      "max": 1500,
+      "step": 100,
+      "unit": "ms",
+      "default": 800
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show Navigation Arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show Pagination Dots",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.blog-sub-collection.settings.padding_top.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.blog-sub-collection.settings.padding_bottom.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.blog-sub-collection.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.blog-sub-collection.settings.padding_mobile_rate.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Carousel",
+      "settings": {
+        "heading": "Latest Tips & Trends",
+        "description": "Discover expert advice, style inspiration, and product updates on our blog.",
+        "layout_style": "detailed",
+        "posts_to_show": 6,
+        "show_tags": true,
+        "show_excerpt": true,
+        "show_author": true,
+        "show_date": true,
+        "show_comments": true,
+        "slides_mobile": 1,
+        "slides_tablet": 2,
+        "slides_desktop": 3,
+        "show_navigation": true,
+        "show_pagination": true
+      }
+    }
+  ]
+}
+{% endschema %}
