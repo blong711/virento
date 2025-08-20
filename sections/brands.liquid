@@ -234,6 +234,16 @@
     padding-bottom: {{ section.settings.padding_bottom }}px;
     }
 }
+
+{% if section.settings.show_border %}
+.sw-brand .swiper-slide:not(:last-child) .brand-item {
+    border-right: 1px solid var(--line);
+}
+{% else %}
+.sw-brand .swiper-slide:not(:last-child) .brand-item {
+    border-right: none;
+}
+{% endif %}
 {% endstyle %}
 
 <section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
