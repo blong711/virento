@@ -459,8 +459,8 @@
                         {% endfor %}
                     </div>
                     {% if section.settings.show_arrows or section.settings.show_arrows_mobile %}
-                      <div class="navigation-next-slider swiper-button-next {% unless section.settings.show_arrows %}d-none d-md-block{% endunless %} {% unless section.settings.show_arrows_mobile %}d-block d-md-none{% endunless %}"></div>
-                      <div class="navigation-prev-slider swiper-button-prev {% unless section.settings.show_arrows %}d-none d-md-block{% endunless %} {% unless section.settings.show_arrows_mobile %}d-block d-md-none{% endunless %}"></div>
+                      <div class="navigation-next-slider swiper-button-next {% unless section.settings.show_arrows_mobile %}d-none d-md-block{% endunless %} {% unless section.settings.show_arrows %}d-block d-md-none{% endunless %}"></div>
+                      <div class="navigation-prev-slider swiper-button-prev {% unless section.settings.show_arrows_mobile %}d-none d-md-block{% endunless %} {% unless section.settings.show_arrows %}d-block d-md-none{% endunless %}"></div>
                     {% endif %}
 
                     {% if section.settings.show_dots %}
