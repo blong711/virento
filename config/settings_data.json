@@ -43,7 +43,7 @@
     "predictive_search_enabled": true,
     "predictive_search_show_price": true,
     "currency_code_enabled": false,
-    "cart_type": "cart-page",
+    "cart_type": "drawer",
     "free_shipping_threshold": 100,
     "gift_wrap_product": "gift-wrap",
     "social_tumblr_link": "",
