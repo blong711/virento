@@ -299,9 +299,9 @@
                 "observeParents": true,
                 "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
                 "breakpoints": {
-                    "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": 12, "slidesPerGroup": 1}, 
-                    "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": 2},
-                    "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": 2}
+                    "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": 12, {{ section.settings.products_per_row_mobile }}}, 
+                    "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_tablet }}},
+                    "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
                 }
             }'>
             <div class="swiper-wrapper wow fadeInUp">
