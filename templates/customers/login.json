@@ -24,17 +24,14 @@
         "cb5ba057-8abd-42c7-a522-28fe9cb57386": {
           "type": "form",
           "settings": {
-            "btn_full": false,
-            "btn_style": "solid"
+            "btn_full": true
           }
         },
         "a745caeb-f6eb-46e0-bec1-c1352a680694": {
           "type": "infos",
           "settings": {
             "title": "I'm new here",
-            "description": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails.",
-            "btn_full": false,
-            "btn_style": "link"
+            "description": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
           }
         }
       },
@@ -45,7 +42,8 @@
       "settings": {
         "color_scheme": "",
         "padding_top": 60,
-        "padding_bottom": 100
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
       }
     }
   },
