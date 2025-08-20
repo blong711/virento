@@ -244,7 +244,7 @@
                                 <div class="empty-cart text-center" {{ block.shopify_attributes }}>
                                     <h3>{{ block.settings.empty_cart_title | default: 'Your cart is empty' }}</h3>
                                     <p>{{ block.settings.empty_cart_message | default: "Looks like you haven't added any items to your cart yet." }}</p>
-                                    <a href="{{ block.settings.continue_shopping_url | default: '/collections/all' }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text | default: 'Continue Shopping' }}</a>
+                                    <a href="{{ settings.empty_cart_link | default: routes.all_products_collection_url }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text | default: 'Continue Shopping' }}</a>
                                 </div>
                         {% endcase %}
                     {% endfor %}
@@ -579,12 +579,6 @@
           "id": "continue_shopping_text",
           "label": "Continue Shopping Button Text",
           "default": "Continue Shopping"
-        },
-        {
-          "type": "url",
-          "id": "continue_shopping_url",
-          "label": "Continue Shopping URL",
-          "default": "/collections/all"
         }
       ]
     },
