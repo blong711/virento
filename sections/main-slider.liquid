@@ -323,6 +323,10 @@
     height: {{ section.settings.height_fixed }}px;
   {% elsif section.settings.height == 'fill' %}
     height: 100vh;
+  {% elsif section.settings.height == 'adapt' %}
+    height: auto;
+  {% elsif section.settings.height == 'adapt-first' %}
+    height: auto;
   {% endif %}
 }
 
@@ -330,6 +334,8 @@
   .slider-height {
     {% if section.settings.mobile_height == 'fixed' %}
       height: {{ section.settings.mobile_height_fixed }}px;
+    {% elsif section.settings.mobile_height == 'adapt' %}
+      height: auto;
     {% endif %}
   }
 }
@@ -344,6 +350,16 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Additional styles for adapt heights */
+  .slider-height[data-height="adapt"] .swiper-slide,
+  .slider-height[data-height="adapt-first"] .swiper-slide {
+    height: auto;
+  }
+
+  .slider-height[data-height="adapt-first"] .swiper-slide:not(:first-child) {
+    height: 100%;
+  }
 {% endstyle %}
 
 <section class="tf-slideshow slider-electric-access slider-default color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -351,6 +367,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="swiper tf-sw-slideshow slider-effect-fade slider-height" 
+                    data-height="{{ section.settings.height }}"
                     data-preview="1" 
                     data-tablet="1"
                     data-mobile="1" 
@@ -369,10 +386,13 @@
                                 <div class="swiper-slide color-{{ block.settings.color_scheme | default: section.settings.color_scheme }} gradient" {{ block.shopify_attributes }}>
                                     <div class="slider-wrap">
                                         <div class="image">
-                                            {% if block.settings.image %}
+                                                                                            {% if block.settings.image %}
                                                 {% assign image_class = 'lazyload' %}
                                                 {% if section.settings.height == 'adapt' or section.settings.height == 'adapt-first' %}
                                                     {% assign image_class = image_class | append: ' w-100' %}
+                                                    {% if section.settings.height == 'adapt-first' and forloop.first %}
+                                                        {% assign image_class = image_class | append: ' h-auto' %}
+                                                    {% endif %}
                                                 {% elsif section.settings.height == 'fill' or section.settings.height == 'fixed' %}
                                                     {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
                                                 {% endif %}
