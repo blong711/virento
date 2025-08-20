@@ -19886,5 +19886,10 @@ shopify-accelerated-checkout {
   font-weight: 600;
   color: var(--primary);
 }
-
+.container-full .fl-control-sw2 .swiper-button-prev {
+  left: 0px;
+}
+.container-full .fl-control-sw2 .swiper-button-next {
+  right: 0px;
+}
 /*# sourceMappingURL=styles.css.map */
