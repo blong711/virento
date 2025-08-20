@@ -11116,7 +11116,7 @@ button.animate-btn::after,
   gap: 4px;
   font-size: 15px;
   line-height: 24px;
-  color: #404cb7;
+  color: rgb(var(--color-foreground2)) !important;
   font-weight: 500;
 }
 .news-item .content .btn-readmore .icon {
@@ -19885,6 +19885,14 @@ shopify-accelerated-checkout {
 .shipping-rates__price {
   font-weight: 600;
   color: var(--primary);
+}
+
+.title-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
 }
 
 /*# sourceMappingURL=styles.css.map */
