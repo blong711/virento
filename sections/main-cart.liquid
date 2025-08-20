@@ -1,6 +1,7 @@
 <div class="flat-spacing-2" 
      data-currency-enabled="{% if settings.currency_code_enabled %}true{% else %}false{% endif %}"
-     data-currency-code="{{ shop.currency }}">
+     data-currency-code="{{ shop.currency }}"
+     data-free-shipping-threshold="{{ settings.free_shipping_threshold | times: 100 }}">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-4 col-sm-8">
@@ -23,7 +24,7 @@
                                 
                                 <div class="progress-sold tf-progress-ship">
                                     <div class="value" style="width: {{ progress_percentage }}%;" data-progress="{{ progress_percentage }}">
-                                        <i class="icon icon-{{ block.settings.progress_icon | default: 'car' }}"></i>
+                                        <i class="icon icon-car"></i>
                                     </div>
                                 </div>
                             </div>
@@ -511,12 +512,6 @@
           "id": "more_message",
           "label": "More Message",
           "default": "more to get"
-        },
-        {
-          "type": "text",
-          "id": "progress_icon",
-          "label": "Progress Icon Class",
-          "default": "car"
         }
       ]
     },
