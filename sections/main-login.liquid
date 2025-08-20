@@ -60,10 +60,14 @@
                         placeholder="{{ 'sections.main_login.password' | t }} *"
                       >
                     </div>
-                    <a href="#" class="forgot-link link mt-4 mb-4" id="show-reset-form">
-                      {{- 'sections.main_login.forgot_password' | t -}}
-                    </a>
-                    <button class="btn btn-primary tf-btn" type="submit">{{ 'sections.main_login.log_in' | t }}</button>
+                    <div class="form-field">
+                      <a href="#" class="forgot-link link mt-4 mb-4" id="show-reset-form">
+                        {{- 'sections.main_login.forgot_password' | t -}}
+                      </a>
+                    </div>
+                    <button class="btn tf-btn {% if block.settings.btn_full %}btn-full{% endif %}" type="submit">
+                      {{ 'sections.main_login.log_in' | t }}
+                    </button>
                   {%- endform -%}
                 </div>
               </div>
@@ -123,7 +127,9 @@
                     </a>
                   </div>
                   <div class="form-field">
-                    <button class="btn btn-primary tf-btn" type="submit">{{ 'sections.main_login.submit' | t }}</button>
+                    <button class="btn tf-btn {% if block.settings.btn_full %}btn-full{% endif %}" type="submit">
+                      {{ 'sections.main_login.submit' | t }}
+                    </button>
                   </div>
                 {%- endform -%}
               </div>
@@ -392,8 +398,11 @@
     text-decoration: none;
     transition: all 0.2s ease;
     cursor: pointer;
-    width: 100%;
     font-size: 1.5rem;
+  }
+
+  .btn-full {
+    width: 100%;
   }
 
   .forgot-link {
@@ -533,30 +542,6 @@
           "type": "checkbox",
           "id": "btn_full",
           "label": "Full width button"
-        },
-        {
-          "type": "select",
-          "id": "btn_style",
-          "label": "Button style",
-          "options": [
-            {
-              "value": "primary",
-              "label": "Primary"
-            },
-            {
-              "value": "secondary",
-              "label": "Secondary"
-            },
-            {
-              "value": "outline",
-              "label": "Outline"
-            },
-            {
-              "value": "text",
-              "label": "Text"
-            }
-          ],
-          "default": "primary"
         }
       ]
     },
@@ -576,35 +561,6 @@
           "id": "description",
           "label": "Description",
           "default": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
-        },
-        {
-          "type": "checkbox",
-          "id": "btn_full",
-          "label": "Full width button"
-        },
-        {
-          "type": "select",
-          "id": "btn_style",
-          "label": "Button style",
-          "options": [
-            {
-              "value": "primary",
-              "label": "Primary"
-            },
-            {
-              "value": "secondary",
-              "label": "Secondary"
-            },
-            {
-              "value": "outline",
-              "label": "Outline"
-            },
-            {
-              "value": "text",
-              "label": "Text"
-            }
-          ],
-          "default": "primary"
         }
       ]
     }
