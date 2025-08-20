@@ -54,6 +54,9 @@ class CartDrawer extends HTMLElement {
     
     // Check empty cart state on initialization
     this.checkEmptyCart();
+    
+    // Check gift wrap status on initialization
+    this.checkGiftWrapInCart();
   }
 
   reinitWithoutSwiper() {
@@ -83,6 +86,9 @@ class CartDrawer extends HTMLElement {
     
     // Check empty cart state on initialization
     this.checkEmptyCart();
+    
+    // Check gift wrap status after reinitialization
+    this.checkGiftWrapInCart();
   }
 
   setupRemoveButtons() {
@@ -166,6 +172,9 @@ class CartDrawer extends HTMLElement {
       this.updateCart(cart);
       // Check complementary products after quantity update
       this.checkComplementaryProducts();
+      
+      // Check gift wrap status after quantity update
+      this.checkGiftWrapInCart();
     })
     .catch(error => {
       console.error('Error updating quantity:', error);
@@ -620,6 +629,55 @@ class CartDrawer extends HTMLElement {
         this.addGiftWrap();
       });
     }
+    
+    // Check if gift wrap is already in cart and hide button if needed
+    this.checkGiftWrapInCart();
+  }
+
+  checkGiftWrapInCart() {
+    const giftWrapButton = this.querySelector('.btn-add-gift');
+    if (!giftWrapButton) return;
+
+    // Check if gift wrap product is already in cart
+    const cartItems = this.querySelectorAll('[data-cart-item]');
+    let giftWrapInCart = false;
+
+    // Get gift wrap product ID from the form or settings
+    let giftWrapProductId = null;
+    
+    // Try to get from the gift wrap form first
+    const giftWrapForm = this.querySelector('[data-cart-gift-wrap]');
+    if (giftWrapForm) {
+      const giftWrapInput = giftWrapForm.querySelector('input[name="gift_wrap_product_id"]');
+      if (giftWrapInput && giftWrapInput.value) {
+        giftWrapProductId = giftWrapInput.value;
+      }
+    }
+    
+    // If no gift wrap product ID found, try to get from Shopify settings
+    if (!giftWrapProductId && window.Shopify && window.Shopify.settings && window.Shopify.settings.gift_wrap_product) {
+      giftWrapProductId = window.Shopify.settings.gift_wrap_product;
+    }
+
+    if (giftWrapProductId) {
+      cartItems.forEach(cartItem => {
+        // Check if this cart item is gift wrap by looking for gift wrap product ID
+        const variantSelect = cartItem.querySelector('select[id^="variant-"]');
+        if (variantSelect) {
+          const currentVariantId = variantSelect.getAttribute('data-current-variant');
+          if (currentVariantId && currentVariantId.toString() === giftWrapProductId.toString()) {
+            giftWrapInCart = true;
+          }
+        }
+      });
+    }
+
+    // Hide gift wrap button if gift wrap is already in cart
+    if (giftWrapInCart) {
+      giftWrapButton.style.display = 'none';
+    } else {
+      giftWrapButton.style.display = 'block';
+    }
   }
 
   updateItemVariant(selectElement) {
@@ -669,6 +727,9 @@ class CartDrawer extends HTMLElement {
         this.updateCart(result);
         // Check complementary products after variant update
         this.checkComplementaryProducts();
+        
+        // Check gift wrap status after variant update
+        this.checkGiftWrapInCart();
       }
     })
     .catch(error => {
@@ -690,6 +751,9 @@ class CartDrawer extends HTMLElement {
       this.updateCart(cart);
       // Check complementary products after item removal
       this.checkComplementaryProducts();
+      
+      // Check gift wrap status after item removal
+      this.checkGiftWrapInCart();
     })
     .catch(error => {
       console.error('Error removing item:', error);
@@ -729,6 +793,12 @@ class CartDrawer extends HTMLElement {
       } else {
         // Successfully added gift wrap
         this.updateCart(result);
+        
+        // Hide the gift wrap button after adding
+        const giftWrapButton = this.querySelector('.btn-add-gift');
+        if (giftWrapButton) {
+          giftWrapButton.style.display = 'none';
+        }
         
         // Check complementary products after adding gift wrap
         this.checkComplementaryProducts();
@@ -859,6 +929,9 @@ class CartDrawer extends HTMLElement {
             
             // Check complementary products after content update
             this.checkComplementaryProducts();
+            
+            // Check gift wrap status after content update
+            this.checkGiftWrapInCart();
       }
     }
 
@@ -929,6 +1002,9 @@ class CartDrawer extends HTMLElement {
             
             // Check complementary products after cart update
             this.checkComplementaryProducts();
+            
+            // Check gift wrap status after cart update
+            this.checkGiftWrapInCart();
           }
         }
       })
