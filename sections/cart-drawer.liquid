@@ -433,9 +433,9 @@
                                                     class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">{{ block.settings.view_cart_text }}</a>
                                             {%- endif -%}
                                             {%- if block.settings.show_checkout -%}
-                                                <a href="{{ routes.checkout_url }}"
+                                                <button type="button"
                                                     class="tf-btn btn-out-line-dark2 w-100 justify-content-center"
-                                                    data-checkout-button><span>{{ block.settings.checkout_text }}</span></a>
+                                                    data-checkout-button><span>{{ block.settings.checkout_text }}</span></button>
                                             {%- endif -%}
                                         </div>
                                 {%- endcase -%}
@@ -473,9 +473,9 @@
                             <div class="tf-mini-cart-view-checkout">
                                 <a href="{{ routes.cart_url }}"
                                     class="tf-btn animate-btn d-inline-flex bg-dark-2 w-100 justify-content-center">View cart</a>
-                                <a href="{{ routes.checkout_url }}"
+                                <button type="button"
                                     class="tf-btn btn-out-line-dark2 w-100 justify-content-center"
-                                    data-checkout-button><span>Check out</span></a>
+                                    data-checkout-button><span>Check out</span></button>
                             </div>
                         {%- endif -%}
                     </div>

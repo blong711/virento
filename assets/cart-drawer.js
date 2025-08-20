@@ -51,6 +51,9 @@ class CartDrawer extends HTMLElement {
     
     // Set up terms checkbox functionality
     this.setupTermsCheckbox();
+
+    // Set up checkout buttons to navigate to checkout
+    this.setupCheckoutButtons();
     
     // Check empty cart state on initialization
     this.checkEmptyCart();
@@ -83,6 +86,9 @@ class CartDrawer extends HTMLElement {
     
     // Set up terms checkbox functionality
     this.setupTermsCheckbox();
+
+    // Re-bind checkout buttons after DOM updates
+    this.setupCheckoutButtons();
     
     // Check empty cart state on initialization
     this.checkEmptyCart();
@@ -823,33 +829,59 @@ class CartDrawer extends HTMLElement {
 
   setupTermsCheckbox() {
     const termsCheckbox = this.querySelector('#CartDrawer-Form_agree');
-    const checkoutButton = this.querySelector('[data-checkout-button]');
+    const checkoutButtons = this.querySelectorAll('[data-checkout-button]');
     
-    if (termsCheckbox && checkoutButton) {
-      // Initially disable checkout button if checkbox exists
-      this.updateCheckoutButtonState(termsCheckbox, checkoutButton);
+    if (termsCheckbox && checkoutButtons.length) {
+      // Initially set state for all checkout buttons if checkbox exists
+      this.updateCheckoutButtonState(termsCheckbox, checkoutButtons);
       
-      // Add event listener to checkbox
+      // Add event listener to checkbox to update all buttons
       termsCheckbox.addEventListener('change', () => {
-        this.updateCheckoutButtonState(termsCheckbox, checkoutButton);
+        this.updateCheckoutButtonState(termsCheckbox, checkoutButtons);
       });
     }
   }
 
-  updateCheckoutButtonState(checkbox, checkoutButton) {
+  updateCheckoutButtonState(checkbox, checkoutButtons) {
+    const buttons = Array.from(checkoutButtons || []);
+    if (buttons.length === 0) return;
+    
     if (checkbox.checked) {
-      // Enable checkout button
-      checkoutButton.classList.remove('disabled');
-      checkoutButton.style.pointerEvents = 'auto';
-      checkoutButton.style.opacity = '1';
-      checkoutButton.removeAttribute('disabled');
+      // Enable all checkout buttons
+      buttons.forEach((button) => {
+        button.classList.remove('disabled');
+        button.style.pointerEvents = 'auto';
+        button.style.opacity = '1';
+        button.removeAttribute('disabled');
+      });
     } else {
-      // Disable checkout button
-      checkoutButton.classList.add('disabled');
-      checkoutButton.style.pointerEvents = 'none';
-      checkoutButton.style.opacity = '0.5';
-      checkoutButton.setAttribute('disabled', 'disabled');
+      // Disable all checkout buttons
+      buttons.forEach((button) => {
+        button.classList.add('disabled');
+        button.style.pointerEvents = 'none';
+        button.style.opacity = '0.5';
+        button.setAttribute('disabled', 'disabled');
+      });
     }
+  }
+
+  setupCheckoutButtons() {
+    const checkoutButtons = this.querySelectorAll('[data-checkout-button]');
+    if (!checkoutButtons || checkoutButtons.length === 0) return;
+    
+    checkoutButtons.forEach((button) => {
+      // Prevent duplicate bindings across re-inits
+      if (button.dataset.checkoutBound === 'true') return;
+      button.dataset.checkoutBound = 'true';
+
+      button.addEventListener('click', (event) => {
+        event.preventDefault();
+        // Respect disabled state (e.g., terms not agreed)
+        if (button.hasAttribute('disabled') || button.classList.contains('disabled')) return;
+        const checkoutUrl = window.routes?.checkout_url || '/checkout';
+        window.location.href = checkoutUrl;
+      });
+    });
   }
 
 
