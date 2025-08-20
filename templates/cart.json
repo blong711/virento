@@ -27,8 +27,7 @@
             "qualified_message": "You've qualified for",
             "free_shipping_text": "Free Shipping!",
             "spend_message": "Spend",
-            "more_message": "more to get",
-            "progress_icon": "car"
+            "more_message": "more to get"
           }
         },
         "cart_items_table_TbLcKU": {
@@ -46,8 +45,7 @@
           "settings": {
             "empty_cart_title": "Your cart is empty",
             "empty_cart_message": "Looks like you haven't added any items to your cart yet.",
-            "continue_shopping_text": "Continue Shopping",
-            "continue_shopping_url": "shopify://collections/all"
+            "continue_shopping_text": "Continue Shopping"
           }
         },
         "gift_wrap_tUKKmM": {
@@ -139,7 +137,13 @@
         "features_slider_9jeEXt",
         "testimonials_NwMq8J"
       ],
-      "settings": {}
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "padding_mobile_rate": 75
+      }
     },
     "featured_product_carousel": {
       "type": "featured-product-carousel",
