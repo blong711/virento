@@ -2413,10 +2413,19 @@
         }
       }
     },
-    "main-login": {
+    "main_login": {
       "name": "Login",
-      "shop_login_button": {
-        "enable": "Enable Sign in with Shop"
+      "padding": "Padding",
+      "form": {
+        "name": "Form",
+        "btn_full": "Full width button"
+      },
+      "infos": {
+        "name": "Infos",
+        "title": "Title",
+        "description": "Description",
+        "title_default": "I'm new here",
+        "description_default": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
       }
     },
     "main-order": {

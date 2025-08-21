@@ -793,6 +793,23 @@
       "reset_success": "We've sent you an email with a link to update your password.",
       "error_message": "An error occurred. Please try again."
     },
+    "sections": {
+      "main_login": {
+        "name": "Login",
+        "padding": "Padding",
+        "form": {
+          "name": "Form",
+          "btn_full": "Full width button"
+        },
+        "infos": {
+          "name": "Infos",
+          "title": "Title",
+          "description": "Description",
+          "title_default": "I'm new here",
+          "description_default": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
+        }
+      }
+    },
     "main_addresses": {
       "first_name": "First Name",
       "last_name": "Last Name",
