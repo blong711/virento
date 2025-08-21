@@ -13354,6 +13354,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  aspect-ratio: 19 / 27;
 }
 .tf-mini-cart-item .tf-mini-cart-info {
   flex-grow: 1;
