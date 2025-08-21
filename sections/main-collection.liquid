@@ -2,6 +2,7 @@
 {% assign max_products_per_page = section.settings.max_products_per_page | default: 8 %}
 {% assign pagination_type = section.settings.pagination_type | default: 'pagination' %}
 {% assign default_grid_layout = section.settings.default_grid_layout | default: 'tf-col-4' %}
+{% assign default_layout_type = section.settings.default_layout_type | default: 'grid' %}
 {% assign total_products = collection.products.size %}
 
 {% comment %} For load more functionality, use a very high pagination limit to show all products {% endcomment %}
@@ -321,7 +322,8 @@
         priceMax: {{ collection.price_max | divided_by: 100.0 | round: 0 }},
         paginationType: '{{ pagination_type }}',
         maxProductsPerPage: {{ max_products_per_page }},
-        defaultGridLayout: '{{ default_grid_layout }}'
+        defaultGridLayout: '{{ default_grid_layout }}',
+        defaultLayoutType: '{{ default_layout_type }}'
     };
 </script>
 
@@ -364,6 +366,17 @@
             ],
             "default": "tf-col-4",
             "info": "Default grid layout for the collection page"
+        },
+        {
+            "type": "select",
+            "id": "default_layout_type",
+            "label": "Default layout type",
+            "options": [
+                { "value": "grid", "label": "Grid" },
+                { "value": "list", "label": "List" }
+            ],
+            "default": "grid",
+            "info": "Default layout to display products on the collection page"
         }
     ]
 }

@@ -5,8 +5,12 @@
 //collection
 // Initialize all shop functionality when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize global layout state
-    isListActive = document.querySelector('.sw-layout-list')?.classList.contains('active') || false;
+    // Initialize global layout state based on theme settings
+    if (window.collectionData && window.collectionData.defaultLayoutType === 'list') {
+        isListActive = true;
+    } else {
+        isListActive = false;
+    }
     
     // Initialize total products count from Shopify data
     if (window.collectionData) {
@@ -498,8 +502,12 @@ function displayPagination(products, isListActive, container, paginationList, pa
 
 // Layout Switching
 function initLayoutSwitching() {
-    // Initialize global layout state
-    isListActive = document.querySelector('.sw-layout-list')?.classList.contains('active');
+    // Initialize global layout state based on theme settings
+    if (window.collectionData && window.collectionData.defaultLayoutType === 'list') {
+        isListActive = true;
+    } else {
+        isListActive = false;
+    }
     let userSelectedLayout = null;
 
     function hasValidLayout() {
@@ -609,12 +617,22 @@ function initLayoutSwitching() {
     });
 
     // Initial layout setup
-    if (isListActive) {
+    if (window.collectionData && window.collectionData.defaultLayoutType === 'list') {
+        // Start with list layout
+        isListActive = true;
         document.getElementById('gridLayout').style.display = 'none';
         document.getElementById('listLayout').style.display = '';
         document.querySelector('.wrapper-control-shop')?.classList.add('listLayout-wrapper');
         document.querySelector('.wrapper-control-shop')?.classList.remove('gridLayout-wrapper');
+        
+        // Set active state for list layout button
+        const listLayoutBtn = document.querySelector('.tf-view-layout-switch[data-value-layout="list"]');
+        if (listLayoutBtn) {
+            listLayoutBtn.classList.add('active');
+        }
     } else {
+        // Start with grid layout (default)
+        isListActive = false;
         document.getElementById('listLayout').style.display = 'none';
         document.getElementById('gridLayout').style.display = '';
         
