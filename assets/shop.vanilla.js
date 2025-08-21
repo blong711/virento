@@ -365,14 +365,9 @@ function updateMetaFilter() {
 function updatePaginationVisibility(visibleProductCountGrid, visibleProductCountList) {
     const paginationElements = document.querySelectorAll('.wrapper-shop .wg-pagination, .wrapper-shop .tf-loading');
     
-    // Only manage pagination if we have pagination elements (for load more functionality)
-    if (paginationElements.length === 0) return;
-    
-    if (visibleProductCountGrid >= 12 || visibleProductCountList >= 12) {
-        paginationElements.forEach(el => el.style.display = '');
-    } else {
-        paginationElements.forEach(el => el.style.display = 'none');
-    }
+    // Always show pagination elements as Shopify handles pagination logic
+    // The original logic was for load-more functionality, but we're using Shopify pagination
+    paginationElements.forEach(el => el.style.display = '');
 }
 
 function updateLastVisibleItem() {
@@ -474,14 +469,14 @@ function applySorting(sortValue, isListActive, originalProductsList, originalPro
 }
 
 function displayPagination(products, isListActive, container, paginationList, paginationGrid) {
-    if (products >= 12) {
-        const containerEl = document.querySelector(container);
-        if (containerEl) {
-            if (isListActive && paginationList) {
-                containerEl.appendChild(paginationList.cloneNode(true));
-            } else if (!isListActive && paginationGrid) {
-                containerEl.appendChild(paginationGrid.cloneNode(true));
-            }
+    // Always show pagination if it exists, as Shopify handles pagination logic
+    // The original logic was for load-more functionality, but we're using Shopify pagination
+    const containerEl = document.querySelector(container);
+    if (containerEl) {
+        if (isListActive && paginationList) {
+            containerEl.appendChild(paginationList.cloneNode(true));
+        } else if (!isListActive && paginationGrid) {
+            containerEl.appendChild(paginationGrid.cloneNode(true));
         }
     }
 }
@@ -727,6 +722,71 @@ function initLoadMore() {
 
     window.addEventListener('scroll', onScroll);
 }
+
+// Load More Functionality
+function initLoadMoreFunctionality() {
+    const loadMoreListBtn = document.getElementById('loadMoreListBtn');
+    const loadMoreGridBtn = document.getElementById('loadMoreGridBtn');
+    
+    if (loadMoreListBtn) {
+        loadMoreListBtn.addEventListener('click', function() {
+            handleLoadMore('list');
+        });
+    }
+    
+    if (loadMoreGridBtn) {
+        loadMoreGridBtn.addEventListener('click', function() {
+            handleLoadMore('grid');
+        });
+    }
+}
+
+function handleLoadMore(layout) {
+    const button = layout === 'list' ? document.getElementById('loadMoreListBtn') : document.getElementById('loadMoreGridBtn');
+    const currentPage = parseInt(button.dataset.currentPage) || 1;
+    const maxPerPage = parseInt(button.dataset.maxPerPage) || 8;
+    const totalProducts = parseInt(button.dataset.totalProducts) || 0;
+    
+    // Calculate next page
+    const nextPage = currentPage + 1;
+    const startIndex = (nextPage - 1) * maxPerPage;
+    const endIndex = Math.min(startIndex + maxPerPage, totalProducts);
+    
+    // Show loading state
+    button.classList.add('loading');
+    button.querySelector('.text').textContent = 'Loading...';
+    
+    // Simulate loading (in real implementation, this would be an AJAX call)
+    setTimeout(() => {
+        // Update button state
+        button.dataset.currentPage = nextPage;
+        
+        // Check if we've loaded all products
+        if (endIndex >= totalProducts) {
+            button.style.display = 'none';
+        } else {
+            button.querySelector('.text').textContent = 'Load more';
+        }
+        
+        button.classList.remove('loading');
+        
+        // In a real implementation, you would:
+        // 1. Make an AJAX call to get more products
+        // 2. Append new products to the layout
+        // 3. Update the product count
+        // 4. Handle any additional logic
+        
+        console.log(`Loaded products ${startIndex + 1} to ${endIndex} of ${totalProducts}`);
+    }, 1000);
+}
+
+// Initialize load more functionality when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're using load more pagination type
+    if (window.collectionData && window.collectionData.paginationType === 'load_more') {
+        initLoadMoreFunctionality();
+    }
+});
 
 // Product Event Binding
 function bindProductEvents() {

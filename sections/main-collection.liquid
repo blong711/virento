@@ -1,7 +1,9 @@
 {% comment %} Settings {% endcomment %}
 {% assign max_products_per_page = section.settings.max_products_per_page | default: 8 %}
+{% assign pagination_type = section.settings.pagination_type | default: 'pagination' %}
 
 {% paginate collection.products by max_products_per_page %}
+
 <section class="flat-spacing pt-0">
     <div class="container">
         <div class="tf-shop-control">
@@ -93,43 +95,69 @@
                         {% render 'product-card-list', product: product %}
                     {% endfor %}
                     
-                    {% comment %} Pagination {% endcomment %}
-                    {% if paginate.pages > 1 %}
-                        <ul class="wg-pagination">
-                            {% if paginate.previous %}
-                                <li>
-                                    <a href="{{ paginate.previous.url }}" class="pagination-item">
-                                        <i class="icon-arr-left2"></i>
-                                    </a>
-                                </li>
-                            {% endif %}
-                            
-                            {% for part in paginate.parts %}
-                                {% if part.is_link %}
+                    {% comment %} Pagination or Load More {% endcomment %}
+                    {% if pagination_type == 'pagination' %}
+                        {% if paginate.pages > 1 %}
+                            <ul class="wg-pagination">
+                                {% if paginate.previous %}
                                     <li>
-                                        <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                                        <a href="{{ paginate.previous.url }}" class="pagination-item">
+                                            <i class="icon-arr-left"></i>
+                                        </a>
                                     </li>
-                                {% else %}
-                                    {% if part.title == paginate.current_page %}
-                                        <li class="active">
-                                            <div class="pagination-item">{{ part.title }}</div>
+                                {% endif %}
+                                
+                                {% for part in paginate.parts %}
+                                    {% if part.is_link %}
+                                        <li>
+                                            <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
                                         </li>
                                     {% else %}
-                                        <li>
-                                            <div class="pagination-item">{{ part.title }}</div>
-                                        </li>
+                                        {% if part.title == paginate.current_page %}
+                                            <li class="active">
+                                                <div class="pagination-item">{{ part.title }}</div>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <div class="pagination-item">{{ part.title }}</div>
+                                            </li>
+                                        {% endif %}
                                     {% endif %}
+                                {% endfor %}
+                                
+                                {% if paginate.next %}
+                                    <li>
+                                        <a href="{{ paginate.next.url }}" class="pagination-item">
+                                            <i class="icon-arr-right2"></i>
+                                        </a>
+                                    </li>
                                 {% endif %}
-                            {% endfor %}
-                            
-                            {% if paginate.next %}
-                                <li>
-                                    <a href="{{ paginate.next.url }}" class="pagination-item">
-                                        <i class="icon-arr-right2"></i>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
+                            </ul>
+                        {% endif %}
+                    {% else %}
+                        {% comment %} Load More Button for List Layout {% endcomment %}
+                        {% if collection.products.size > max_products_per_page %}
+                            <div class="wd-load d-flex justify-content-center">
+                                <button id="loadMoreListBtn" class="tf-btn btn-out-line-dark2 tf-loading loadmore" 
+                                        data-layout="list" 
+                                        data-current-page="1" 
+                                        data-max-per-page="{{ max_products_per_page }}"
+                                        data-total-products="{{ collection.products.size }}">
+                                    <span class="text">Load more</span>
+                                    <div class="spinner-circle">
+                                        <span class="spinner-circle1 spinner-child"></span>
+                                        <span class="spinner-circle2 spinner-child"></span>
+                                        <span class="spinner-circle3 spinner-child"></span>
+                                        <span class="spinner-circle4 spinner-child"></span>
+                                        <span class="spinner-circle5 spinner-child"></span>
+                                        <span class="spinner-circle6 spinner-child"></span>
+                                        <span class="spinner-circle7 spinner-child"></span>
+                                        <span class="spinner-circle8 spinner-child"></span>
+                                        <span class="spinner-circle9 spinner-child"></span>
+                                    </div>
+                                </button>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 {% else %}
                     <div class="text-center py-5">
@@ -145,43 +173,69 @@
                         {% render 'product-card', product: product %}
                     {% endfor %}
                     
-                    {% comment %} Pagination {% endcomment %}
-                    {% if paginate.pages > 1 %}
-                        <ul class="wg-pagination">
-                            {% if paginate.previous %}
-                                <li>
-                                    <a href="{{ paginate.previous.url }}" class="pagination-item">
-                                        <i class="icon-arr-left2"></i>
-                                    </a>
-                                </li>
-                            {% endif %}
-                            
-                            {% for part in paginate.parts %}
-                                {% if part.is_link %}
+                    {% comment %} Pagination or Load More {% endcomment %}
+                    {% if pagination_type == 'pagination' %}
+                        {% if paginate.pages > 1 %}
+                            <ul class="wg-pagination">
+                                {% if paginate.previous %}
                                     <li>
-                                        <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                                        <a href="{{ paginate.previous.url }}" class="pagination-item">
+                                            <i class="icon-arr-left"></i>
+                                        </a>
                                     </li>
-                                {% else %}
-                                    {% if part.title == paginate.current_page %}
-                                        <li class="active">
-                                            <div class="pagination-item">{{ part.title }}</div>
+                                {% endif %}
+                                
+                                {% for part in paginate.parts %}
+                                    {% if part.is_link %}
+                                        <li>
+                                            <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
                                         </li>
                                     {% else %}
-                                        <li>
-                                            <div class="pagination-item">{{ part.title }}</div>
-                                        </li>
+                                        {% if part.title == paginate.current_page %}
+                                            <li class="active">
+                                                <div class="pagination-item">{{ part.title }}</div>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <div class="pagination-item">{{ part.title }}</div>
+                                            </li>
+                                        {% endif %}
                                     {% endif %}
+                                {% endfor %}
+                                
+                                {% if paginate.next %}
+                                    <li>
+                                        <a href="{{ paginate.next.url }}" class="pagination-item">
+                                            <i class="icon-arr-right2"></i>
+                                        </a>
+                                    </li>
                                 {% endif %}
-                            {% endfor %}
-                            
-                            {% if paginate.next %}
-                                <li>
-                                    <a href="{{ paginate.next.url }}" class="pagination-item">
-                                        <i class="icon-arr-right2"></i>
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
+                            </ul>
+                        {% endif %}
+                    {% else %}
+                        {% comment %} Load More Button for Grid Layout {% endcomment %}
+                        {% if collection.products.size > max_products_per_page %}
+                            <div class="wd-load d-flex justify-content-center">
+                                <button id="loadMoreGridBtn" class="tf-btn btn-out-line-dark2 tf-loading loadmore"
+                                        data-layout="grid" 
+                                        data-current-page="1" 
+                                        data-max-per-page="{{ max_products_per_page }}"
+                                        data-total-products="{{ collection.products.size }}">
+                                    <span class="text">Load more</span>
+                                    <div class="spinner-circle">
+                                        <span class="spinner-circle1 spinner-child"></span>
+                                        <span class="spinner-circle2 spinner-child"></span>
+                                        <span class="spinner-circle3 spinner-child"></span>
+                                        <span class="spinner-circle4 spinner-child"></span>
+                                        <span class="spinner-circle5 spinner-child"></span>
+                                        <span class="spinner-circle6 spinner-child"></span>
+                                        <span class="spinner-circle7 spinner-child"></span>
+                                        <span class="spinner-circle8 spinner-child"></span>
+                                        <span class="spinner-circle9 spinner-child"></span>
+                                    </div>
+                                </button>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 {% else %}
                     <div class="text-center py-5">
@@ -214,7 +268,9 @@
     window.collectionData = {
         totalProducts: {{ collection.products.size }},
         priceMin: {{ collection.price_min | divided_by: 100.0 | round: 0 }},
-        priceMax: {{ collection.price_max | divided_by: 100.0 | round: 0 }}
+        priceMax: {{ collection.price_max | divided_by: 100.0 | round: 0 }},
+        paginationType: '{{ pagination_type }}',
+        maxProductsPerPage: {{ max_products_per_page }}
     };
 </script>
 
@@ -234,6 +290,16 @@
             "step": 4,
             "default": 8,
             "info": "Number of products to display per page"
+        },
+        {
+            "type": "select",
+            "id": "pagination_type",
+            "label": "Pagination type",
+            "options": [
+                { "value": "pagination", "label": "Pagination" },
+                { "value": "load_more", "label": "Load More" }
+            ],
+            "default": "pagination"
         }
     ]
 }
