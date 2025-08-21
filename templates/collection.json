@@ -23,7 +23,7 @@
       "settings": {
         "max_products_per_page": 8,
         "pagination_type": "pagination",
-        "default_grid_layout": "tf-col-3"
+        "default_grid_layout": "tf-col-4"
       }
     }
   },
