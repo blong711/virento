@@ -3,6 +3,15 @@
 {% assign pagination_type = section.settings.pagination_type | default: 'pagination' %}
 {% assign total_products = collection.products.size %}
 
+{% comment %} For load more functionality, use a very high pagination limit to show all products {% endcomment %}
+{% if pagination_type == 'load_more' %}
+    {% assign pagination_limit = 1000 %}
+{% else %}
+    {% assign pagination_limit = max_products_per_page %}
+{% endif %}
+
+{% paginate collection.products by pagination_limit %}
+
 {% comment %} For load more functionality, we need all products rendered {% endcomment %}
 {% comment %} Remove pagination limit to allow JavaScript load more to work {% endcomment %}
 
@@ -275,6 +284,8 @@
         maxProductsPerPage: {{ max_products_per_page }}
     };
 </script>
+
+{% endpaginate %}
 
 {% comment %} Schema for section settings {% endcomment %}
 {% schema %}
