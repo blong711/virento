@@ -26,10 +26,15 @@
         "default_grid_layout": "tf-col-4",
         "default_layout_type": "grid"
       }
+    },
+    "collection_description": {
+      "type": "collection-description",
+      "settings": {}
     }
   },
   "order": [
     "page_breadcrumb",
-    "main_collection"
+    "main_collection",
+    "collection_description"
   ]
 }

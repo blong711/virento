@@ -298,18 +298,6 @@
     </div>
 </section>
 
-<div class="flat-spacing pt-0">
-    <div class="container">
-        <p class="text text-md text-center">
-            {{ collection.description | default: "Our collection brings you a unique blend of classic sophistication and the latest fashion trends. Whether you're looking for versatile daywear, stylish work attire, or statement pieces for special occasions, this collection has it all. Each garment is thoughtfully crafted with attention to detail, using high-quality fabrics to ensure lasting comfort and a flawless fit." }}
-        </p>
-        <p class="mt_12 text-md text-center">
-            Looking for more? Don't miss out on our other exciting collections for 
-            <a href="/collections/bags" class="text-primary text-decoration-underline fw-medium">BAGS</a> and 
-            <a href="/collections/accessories" class="text-primary text-decoration-underline fw-medium">ACCESSORIES</a>.
-        </p>
-    </div>
-</div>
 
 {% comment %} Render the filter snippet {% endcomment %}
 {% render 'collection-filters', collection: collection %}

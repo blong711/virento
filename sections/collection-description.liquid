@@ -1,0 +1,159 @@
+{% comment %} Collection Description {% endcomment %}
+<section class="flat-spacing pt-0 section-{{ section.id }}-padding">
+    <div class="{{ section.settings.width }}">
+        {% if section.settings.show_collection_description %}
+            {% assign desc = collection.description | strip %}
+        {% else %}
+            {% assign desc = '' %}
+        {% endif %}
+
+        {% if desc != '' or section.settings.fallback_text != blank %}
+            <p class="text text-md text-{{ section.settings.text_alignment }}">
+                {{ desc | default: section.settings.fallback_text }}
+            </p>
+        {% endif %}
+
+        {% if section.settings.show_extra_links %}
+            <p class="mt_12 text-md text-{{ section.settings.text_alignment }}">
+                {{ section.settings.links_prefix_text }}
+                <a href="{{ section.settings.collection1_link_url }}" class="text-primary text-decoration-underline fw-medium">{{ section.settings.collection1_link_label }}</a>
+                {{ ' ' }}{{ section.settings.and_text }}{{ ' ' }}
+                <a href="{{ section.settings.collection2_link_url }}" class="text-primary text-decoration-underline fw-medium">{{ section.settings.collection2_link_label }}</a>.
+            </p>
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Description",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "container", "label": "Boxed" },
+        { "value": "container-full", "label": "Full width" }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "label": "Show collection description",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "fallback_text",
+      "label": "Fallback text (shown if collection has no description)",
+      "default": "Our collection brings you a unique blend of classic sophistication and the latest fashion trends. Whether you're looking for versatile daywear, stylish work attire, or statement pieces for special occasions, this collection has it all. Each garment is thoughtfully crafted with attention to detail, using high-quality fabrics to ensure lasting comfort and a flawless fit."
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "end", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_extra_links",
+      "label": "Show extra links row",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "links_prefix_text",
+      "label": "Prefix text before links",
+      "default": "Looking for more? Don't miss out on our other exciting collections for"
+    },
+    {
+      "type": "text",
+      "id": "and_text",
+      "label": "Connector text between links",
+      "default": "and"
+    },
+    {
+      "type": "url",
+      "id": "collection1_link_url",
+      "label": "Collection 1 link URL"
+    },
+    {
+      "type": "text",
+      "id": "collection1_link_label",
+      "label": "Collection 1 link label",
+      "default": "Collection 1"
+    },
+    {
+      "type": "url",
+      "id": "collection2_link_url",
+      "label": "Collection 2 link URL"
+    },
+    {
+      "type": "text",
+      "id": "collection2_link_label",
+      "label": "Collection 2 link label",
+      "default": "Collection 2"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Mobile padding rate",
+      "default": 75
+    }
+  ],
+  "presets": [
+    { "name": "Collection Description", "category": "Collection" }
+  ]
+}
+{% endschema %}
+
+{% style %}
+    .section-{{ section.id }}-padding {
+        padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+        padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    }
+
+    @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+            padding-top: {{ section.settings.padding_top }}px;
+            padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+    }
+{% endstyle %}
+
+
