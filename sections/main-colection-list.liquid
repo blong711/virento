@@ -140,41 +140,42 @@
 
 <!-- /Section Collection List -->
 
+
 {% schema %}
 {
-  "name": "Main Collection List",
+  "name": "t:sections.main_collection_list.name",
   "tag": "section",
   "class": "section-collection-list",
   "settings": [
     {
       "type": "header",
-      "content": "Main collections list"
+      "content": "t:sections.main_collection_list.settings.main_collections_list.content"
     },
     {
       "type": "radio",
       "id": "collection_display",
-      "label": "Select collections to show",
+      "label": "t:sections.main_collection_list.settings.collection_display.label",
       "options": [
         {
           "value": "all",
-          "label": "All"
+          "label": "t:sections.main_collection_list.settings.collection_display.options.all"
         },
         {
           "value": "selected",
-          "label": "Selected"
+          "label": "t:sections.main_collection_list.settings.collection_display.options.selected"
         }
       ],
       "default": "selected"
     },
     {
       "type": "header",
-      "content": "Section settings"
+      "content": "t:sections.main_collection_list.settings.section_settings.content"
     },
     {
       "id": "collection_list",
       "type": "collection_list",
-      "label": "Collection list",
-      "info": "Select the collection to show"
+      "label": "t:sections.main_collection_list.settings.collection_list.label",
+      "info": "t:sections.main_collection_list.settings.collection_list.info"
     },
     {
       "type": "range",
@@ -182,29 +183,39 @@
       "min": 2,
       "max": 50,
       "step": 1,
-      "label": "Maximum items to show",
+      "label": "t:sections.main_collection_list.settings.max_items_to_show.label",
       "default": 12
     },
-
     {
       "type": "select",
       "id": "width",
-      "label": "Width",
+      "label": "t:sections.main_collection_list.settings.width.label",
       "options": [
-        { "value": "full", "label": "Full" },
-        { "value": "boxed", "label": "Boxed" }
+        {
+          "value": "full",
+          "label": "t:sections.main_collection_list.settings.width.options.full"
+        },
+        {
+          "value": "boxed",
+          "label": "t:sections.main_collection_list.settings.width.options.boxed"
+        }
       ],
       "default": "boxed"
     },
-
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.main_collection_list.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
     {
       "type": "header",
-      "content": "Padding"
+      "content": "t:sections.main_collection_list.settings.padding.content"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "label": "t:sections.heading-with-text-horizontal.settings.padding_top.label",
+      "label": "t:sections.main_collection_list.settings.padding_top.label",
       "min": 0,
       "max": 120,
       "step": 4,
@@ -214,7 +225,7 @@
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "Padding bottom",
+      "label": "t:sections.main_collection_list.settings.padding_bottom.label",
       "min": 0,
       "max": 120,
       "step": 4,
@@ -228,13 +239,13 @@
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "Padding mobile rate",
+      "label": "t:sections.main_collection_list.settings.padding_mobile_rate.label",
       "default": 75,
-      "info": "Choose the padding for the mobile rate"
+      "info": "t:sections.main_collection_list.settings.padding_mobile_rate.info"
     },
     {
       "type": "header",
-      "content": "Width"
+      "content": "t:sections.main_collection_list.settings.width_settings.content"
     },
     {
       "type": "range",
@@ -242,7 +253,7 @@
       "min": 2,
       "max": 6,
       "step": 1,
-      "label": "Items per row (Desktop)",
+      "label": "t:sections.main_collection_list.settings.items_per_row_desktop.label",
       "default": 3
     },
     {
@@ -251,7 +262,7 @@
       "min": 2,
       "max": 4,
       "step": 1,
-      "label": "Items per row (Tablet)",
+      "label": "t:sections.main_collection_list.settings.items_per_row_tablet.label",
       "default": 2
     },
     {
@@ -260,42 +271,35 @@
       "min": 1,
       "max": 3,
       "step": 1,
-      "label": "Items per row (Mobile)",
+      "label": "t:sections.main_collection_list.settings.items_per_row_mobile.label",
       "default": 1
-    },
-
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
     },
     {
       "type": "header",
-      "content": "Options for collection items"
+      "content": "t:sections.main_collection_list.settings.options_for_collection_items.content"
     },
     {
       "type": "checkbox",
       "id": "enable_uppercase",
-      "label": "Enable uppercase text",
+      "label": "t:sections.main_collection_list.settings.enable_uppercase.label",
       "default": false
     },
     {
       "type": "select",
       "id": "content_position",
-      "label": "Content position",
+      "label": "t:sections.main_collection_list.settings.content_position.label",
       "options": [
         {
           "value": "left",
-          "label": "Left"
+          "label": "t:sections.main_collection_list.settings.content_position.options.left"
         },
         {
           "value": "center",
-          "label": "Center"
+          "label": "t:sections.main_collection_list.settings.content_position.options.center"
         },
         {
           "value": "right",
-          "label": "Right"
+          "label": "t:sections.main_collection_list.settings.content_position.options.right"
         }
       ],
       "default": "center"
@@ -303,48 +307,48 @@
     {
       "type": "select",
       "id": "image_ratio",
+      "label": "t:sections.main_collection_list.settings.image_ratio.label",
       "options": [
         {
           "value": "adapt_image",
-          "label": "Adapt to image"
+          "label": "t:sections.main_collection_list.settings.image_ratio.options.adapt_image"
         },
         {
           "value": "square",
-          "label": "Square"
+          "label": "t:sections.main_collection_list.settings.image_ratio.options.square"
         },
         {
           "value": "portrait",
-          "label": "Portrait"
+          "label": "t:sections.main_collection_list.settings.image_ratio.options.portrait"
         },
         {
           "value": "asos",
-          "label": "Asos"
+          "label": "t:sections.main_collection_list.settings.image_ratio.options.asos"
         },
         {
           "value": "landscape",
-          "label": "Landscape"
+          "label": "t:sections.main_collection_list.settings.image_ratio.options.landscape"
         }
       ],
-      "label": "Image ratio",
       "default": "adapt_image"
     },
     {
       "type": "header",
-      "content": "Collection layout"
+      "content": "t:sections.main_collection_list.settings.collection_layout.content"
     },
     {
       "type": "select",
       "id": "pagination_type",
-      "label": "Pagination",
-      "info": "Choose a type for the pagination on your page",
+      "label": "t:sections.main_collection_list.settings.pagination_type.label",
+      "info": "t:sections.main_collection_list.settings.pagination_type.info",
       "options": [
         {
           "value": "none",
-          "label": "None"
+          "label": "t:sections.main_collection_list.settings.pagination_type.options.none"
         },
         {
           "value": "numbers",
-          "label": "Numbers"
+          "label": "t:sections.main_collection_list.settings.pagination_type.options.numbers"
         }
       ],
       "default": "none"
@@ -352,19 +356,19 @@
     {
       "type": "select",
       "id": "pagination_position",
-      "label": "Pagination position",
+      "label": "t:sections.main_collection_list.settings.pagination_position.label",
       "options": [
         {
           "value": "left",
-          "label": "Left"
+          "label": "t:sections.main_collection_list.settings.pagination_position.options.left"
         },
         {
           "value": "center",
-          "label": "Center"
+          "label": "t:sections.main_collection_list.settings.pagination_position.options.center"
         },
         {
           "value": "right",
-          "label": "Right"
+          "label": "t:sections.main_collection_list.settings.pagination_position.options.right"
         }
       ],
       "default": "center"
@@ -373,37 +377,37 @@
   "blocks": [
     {
       "type": "collection_item",
-      "name": "Collection item",
+      "name": "t:sections.main_collection_list.blocks.collection_item.name",
       "settings": [
         {
           "type": "collection",
           "id": "collection",
-          "label": "Collection select"
+          "label": "t:sections.main_collection_list.blocks.collection_item.settings.collection.label"
         },
         {
           "type": "image_picker",
           "id": "collection_image",
-          "label": "Collection image",
-          "info": "Optional. Will use collection featured image if not set."
+          "label": "t:sections.main_collection_list.blocks.collection_item.settings.collection_image.label",
+          "info": "t:sections.main_collection_list.blocks.collection_item.settings.collection_image.info"
         },
         {
           "type": "text",
           "id": "collection_title",
-          "label": "Collection title",
-          "info": "Optional. Will use collection title if not set."
+          "label": "t:sections.main_collection_list.blocks.collection_item.settings.collection_title.label",
+          "info": "t:sections.main_collection_list.blocks.collection_item.settings.collection_title.info"
         },
         {
           "type": "url",
           "id": "collection_link",
-          "label": "Collection link",
-          "info": "Optional. Will use collection URL if not set."
+          "label": "t:sections.main_collection_list.blocks.collection_item.settings.collection_link.label",
+          "info": "t:sections.main_collection_list.blocks.collection_item.settings.collection_link.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Main Collection List"
+      "name": "t:sections.main_collection_list.presets.name"
     }
   ]
 }
