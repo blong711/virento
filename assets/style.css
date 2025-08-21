@@ -14309,7 +14309,6 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   color: var(--white);
 }
 .account-orders .account-no-orders-wrap {
-  display: none;
   text-align: center;
 }
 .account-orders .account-no-orders-wrap img {

@@ -16,7 +16,7 @@
           "label": "Default"
         },
         {
-          "value": "container-fluid",
+          "value": "container-full",
           "label": "Full Width"
         }
       ],
@@ -87,7 +87,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="/pages/wishlist" class="text-sm link fw-medium my-account-nav-item">
+                  <a href="/search/?view=wishlist" class="text-sm link fw-medium my-account-nav-item">
                     {{- 'sections.account.my_wishlist' | t -}}
                   </a>
                 </li>
@@ -103,23 +103,22 @@
                 </li>
               </ul>
             </div>
-            <div class="my-acount-content account-orders">
-              {% if customer.orders.size == 0 %}
-                <div class="account-no-orders-wrap">
-                  {% if section.settings.empty_state_image %}
-                    {{
-                      section.settings.empty_state_image
-                      | image_url: width: 400
-                      | image_tag: loading: 'lazy', class: 'lazyload'
-                    }}
-                  {% endif %}
-                  <div class="display-sm fw-medium title">{{ section.settings.empty_state_title }}</div>
-                  <div class="text text-sm">{{ section.settings.empty_state_text }}</div>
-                  <a href="/collections" class="tf-btn animate-btn d-inline-flex bg-dark-2 justify-content-center">
-                    {{ section.settings.shop_now_text }}
-                  </a>
-                </div>
-              {% else %}
+            <div class="my-acount-content account-orders{% if customer.orders.size == 0 %} no-orders{% endif %}">
+              <div class="account-no-orders-wrap">
+                {% if section.settings.empty_state_image %}
+                  {{
+                    section.settings.empty_state_image
+                    | image_url: width: 400
+                    | image_tag: loading: 'lazy', class: 'lazyload'
+                  }}
+                {% endif %}
+                <div class="display-sm fw-medium title">{{ section.settings.empty_state_title }}</div>
+                <div class="text text-sm">{{ section.settings.empty_state_text }}</div>
+                <a href="/collections" class="tf-btn animate-btn d-inline-flex bg-dark-2 justify-content-center">
+                  {{ section.settings.shop_now_text }}
+                </a>
+              </div>
+              {% if customer.orders.size > 0 %}
                 <div class="account-orders-wrap">
                   <h5 class="title">
                     {{ 'sections.account.order_history' | t }}
