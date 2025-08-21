@@ -1,58 +1,62 @@
 {% schema %}
 {
-  "name": "Account",
+  "name": "t:sections.main-account.name",
   "settings": [
     {
       "type": "header",
-      "content": "Layout Settings"
+      "content": "t:sections.main-account.settings.layout_settings"
+    },
+    {
+      "type": "header",
+      "content": "{{ 'sections.main-order.settings.layout' | t }}"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
     },
     {
       "type": "select",
-      "id": "container_width",
-      "label": "Container Width",
+      "id": "width",
+      "label": "t:sections.all.width.label",
       "options": [
         {
           "value": "container",
-          "label": "Default"
+          "label": "t:sections.all.width.options.boxed"
         },
         {
-          "value": "container-fluid",
-          "label": "Full Width"
+          "value": "container-full",
+          "label": "t:sections.all.width.options.full_width"
         }
       ],
       "default": "container"
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
-    },
-    {
       "type": "header",
-      "content": "Account Navigation"
+      "content": "t:sections.main-account.settings.account_navigation"
     },
     {
       "type": "checkbox",
       "id": "show_orders",
-      "label": "Show Orders Link",
+      "label": "t:sections.main-account.settings.show_orders",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_wishlist",
-      "label": "Show Wishlist Link",
+      "label": "t:sections.main-account.settings.show_wishlist",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_addresses",
-      "label": "Show Addresses Link",
+      "label": "t:sections.main-account.settings.show_addresses",
       "default": true
     },
     {
       "type": "header",
-      "content": "padding"
+      "content": "t:sections.all.padding.section_padding_heading"
     },
     {
       "type": "range",
@@ -61,8 +65,8 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Padding Top",
-      "default": 36
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
     },
     {
       "type": "range",
@@ -71,63 +75,63 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "Padding Bottom",
-      "default": 36
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
     },
     {
       "type": "range",
       "id": "padding_mobile_rate",
-      "min": 0,
-      "max": 100,
+      "min": 50,
+      "max": 150,
       "step": 1,
       "unit": "%",
-      "label": "Padding Rate",
-      "default": 75
+      "label": "t:sections.all.padding.padding_mobile_rate.label",
+      "default": 100
     }
   ],
   "blocks": [
     {
       "type": "free_shipping",
-      "name": "Free Shipping Banner",
+      "name": "t:sections.main-account.blocks.free_shipping.name",
       "settings": [
         {
           "type": "image_picker",
           "id": "banner_image",
-          "label": "Banner Image"
+          "label": "t:sections.main-account.blocks.free_shipping.settings.banner_image"
         },
         {
           "type": "text",
           "id": "free_shipping_threshold",
-          "label": "Free Shipping Threshold",
+          "label": "t:sections.main-account.blocks.free_shipping.settings.free_shipping_threshold",
           "default": "300.00"
         }
       ]
     },
     {
       "type": "promo_banner",
-      "name": "Promo Banner",
+      "name": "t:sections.main-account.blocks.promo_banner.name",
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "t:sections.main-account.blocks.promo_banner.settings.product"
         },
         {
           "type": "text",
           "id": "promo_title",
-          "label": "Promo Title",
+          "label": "t:sections.main-account.blocks.promo_banner.settings.promo_title",
           "default": "SUMMER SALE"
         },
         {
           "type": "text",
           "id": "promo_discount",
-          "label": "Promo Discount",
+          "label": "t:sections.main-account.blocks.promo_banner.settings.promo_discount",
           "default": "50% OFF"
         },
         {
           "type": "text",
           "id": "promo_code",
-          "label": "Promo Code",
+          "label": "t:sections.main-account.blocks.promo_banner.settings.promo_code",
           "default": "12D34E"
         }
       ]
@@ -135,8 +139,8 @@
   ],
   "presets": [
     {
-      "name": "Account Page",
-      "category": "Account",
+      "name": "t:sections.main-account.presets.name",
+      "category": "t:sections.main-account.presets.category",
       "blocks": [
         {
           "type": "free_shipping"
@@ -161,7 +165,7 @@
 
   <!-- Section-account -->
   <section class="flat-spacing-2 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
-    <div class="{{ section.settings.container_width }}">
+    <div class="{{ section.settings.width }}">
       <div class="row">
         <div class="col-lg-12">
           <div class="my-account-container">

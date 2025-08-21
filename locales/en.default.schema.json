@@ -2155,7 +2155,36 @@
       }
     },
     "main-account": {
-      "name": "Account"
+      "name": "Account",
+      "settings": {
+        "layout_settings": "Layout Settings",
+        "account_navigation": "Account Navigation",
+        "show_orders": "Show Orders Link",
+        "show_wishlist": "Show Wishlist Link",
+        "show_addresses": "Show Addresses Link"
+      },
+      "blocks": {
+        "free_shipping": {
+          "name": "Free Shipping Banner",
+          "settings": {
+            "banner_image": "Banner Image",
+            "free_shipping_threshold": "Free Shipping Threshold"
+          }
+        },
+        "promo_banner": {
+          "name": "Promo Banner",
+          "settings": {
+            "product": "Product",
+            "promo_title": "Promo Title",
+            "promo_discount": "Promo Discount",
+            "promo_code": "Promo Code"
+          }
+        }
+      },
+      "presets": {
+        "name": "Account Page",
+        "category": "Account"
+      }
     },
     "main-activate-account": {
       "name": "Account activation"
