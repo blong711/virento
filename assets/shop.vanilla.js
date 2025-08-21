@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSortFunctionality();
     initLayoutSwitching();
     // Skip load more if using Shopify pagination
-    if (document.querySelector('.loadItem')) {
+    if (document.querySelector('.loadmore')) {
         initLoadMore();
     }
     bindProductEvents(); // Initialize product events
@@ -319,6 +319,23 @@ function applyFilters() {
     updatePaginationVisibility(visibleProductCountGrid, visibleProductCountList);
 }
 
+function updateLoadMoreProductCount() {
+    const gridCountEl = document.getElementById('product-count-grid');
+    const listCountEl = document.getElementById('product-count-list');
+    
+    if (gridCountEl) {
+        const visibleGridProducts = document.querySelectorAll('#gridLayout .card-product:not([style*="display: none"])').length;
+        gridCountEl.innerHTML = `<span class="count">${visibleGridProducts}</span>Products found`;
+        console.log(`Load More Debug - Grid count updated: ${visibleGridProducts}`);
+    }
+    
+    if (listCountEl) {
+        const visibleListProducts = document.querySelectorAll('#listLayout .card-product:not([style*="display: none"])').length;
+        listCountEl.innerHTML = `<span class="count">${visibleListProducts}</span>Products found`;
+        console.log(`Load More Debug - List count updated: ${visibleListProducts}`);
+    }
+}
+
 function updateMetaFilter() {
     const appliedFilters = document.getElementById('applied-filters');
     const metaFilterShop = document.querySelector('.meta-filter-shop');
@@ -610,42 +627,86 @@ function initLayoutSwitching() {
 
 // Load More / Infinite Scroll
 function initLoadMore() {
-    const gridInitialItems = 8;
-    const listInitialItems = 4;
-    const gridItemsPerPage = 4;
-    const listItemsPerPage = 2;
+    // Get products per page from Shopify collection data or use default
+    let productsPerPage = 8; // Default fallback
+    
+    // Try to get from Shopify collection data
+    if (window.collectionData && window.collectionData.maxProductsPerPage) {
+        productsPerPage = window.collectionData.maxProductsPerPage;
+    }
+    // Try to get from theme settings if available
+    else if (window.theme && window.theme.maxProductsPerPage) {
+        productsPerPage = window.theme.maxProductsPerPage;
+    }
+    // Try to get from meta tag if available
+    else {
+        const metaTag = document.querySelector('meta[name="products-per-page"]');
+        if (metaTag) {
+            productsPerPage = parseInt(metaTag.getAttribute('content'), 10) || 8;
+        }
+    }
+    
+    console.log('Load More Debug - Products per page:', productsPerPage);
+    console.log('Load More Debug - Collection data:', window.collectionData);
+    console.log('Load More Debug - Total products from Shopify:', window.collectionData?.totalProducts);
+    
+    // Check actual products in HTML
+    const actualGridProducts = document.querySelectorAll('#gridLayout .card-product').length;
+    const actualListProducts = document.querySelectorAll('#listLayout .card-product').length;
+    console.log('Load More Debug - Actual products in HTML - Grid:', actualGridProducts, 'List:', actualListProducts);
+    
+    // Use the same value for both initial display and load more
+    const gridInitialItems = productsPerPage;
+    const listInitialItems = productsPerPage;
+    const gridItemsPerPage = productsPerPage;
+    const listItemsPerPage = productsPerPage;
 
     let listItemsDisplayed = listInitialItems;
     let gridItemsDisplayed = gridInitialItems;
     let scrollTimeout;
 
     function hideExtraItems(layout, itemsDisplayed) {
-        const items = layout.querySelectorAll('.loadItem');
-        items.forEach((item, index) => {
-            if (index >= itemsDisplayed) {
-                item.classList.add('hidden');
-            }
-        });
+        const items = layout.querySelectorAll('.card-product');
+        console.log(`Load More Debug - ${layout.id}: Found ${items.length} products, showing ${itemsDisplayed}`);
+        
+        // If we have more products than the initial display amount, hide the extra ones
+        if (items.length > itemsDisplayed) {
+            items.forEach((item, index) => {
+                if (index >= itemsDisplayed) {
+                    item.style.display = 'none';
+                    console.log(`Load More Debug - ${layout.id}: Hiding product ${index + 1}`);
+                } else {
+                    item.style.display = '';
+                    console.log(`Load More Debug - ${layout.id}: Showing product ${index + 1}`);
+                }
+            });
+        } else {
+            // If we don't have enough products to hide, show all of them
+            items.forEach(item => item.style.display = '');
+        }
+        
         if (layout.id === 'listLayout') updateLastVisible(layout);
     }
 
     function showMoreItems(layout, itemsPerPage, itemsDisplayed) {
-        const hiddenItems = layout.querySelectorAll('.loadItem.hidden');
+        const hiddenItems = layout.querySelectorAll('.card-product[style*="display: none"]');
+        console.log(`Load More Debug - ${layout.id}: Showing ${itemsPerPage} more items, ${hiddenItems.length} hidden items available`);
 
         setTimeout(function() {
             const itemsToShow = Array.from(hiddenItems).slice(0, itemsPerPage);
-            itemsToShow.forEach(item => item.classList.remove('hidden'));
+            itemsToShow.forEach(item => item.style.display = '');
             
             if (layout.id === 'listLayout') updateLastVisible(layout);
             checkLoadMoreButton(layout);
+            updateLoadMoreProductCount(); // Update product count after showing more items
         }, 600);
 
         return itemsDisplayed + itemsPerPage;
     }
 
     function updateLastVisible(layout) {
-        layout.querySelectorAll('.loadItem').forEach(item => item.classList.remove('last-visible'));
-        const visibleItems = layout.querySelectorAll('.loadItem:not(.hidden)');
+        layout.querySelectorAll('.card-product').forEach(item => item.classList.remove('last-visible'));
+        const visibleItems = layout.querySelectorAll('.card-product:not([style*="display: none"])');
         const lastVisible = visibleItems[visibleItems.length - 1];
         if (lastVisible) {
             lastVisible.classList.add('last-visible');
@@ -653,16 +714,25 @@ function initLoadMore() {
     }
 
     function checkLoadMoreButton(layout) {
-        if (layout.querySelectorAll('.loadItem.hidden').length === 0) {
+        const hiddenCount = layout.querySelectorAll('.card-product[style*="display: none"]').length;
+        console.log(`Load More Debug - ${layout.id}: ${hiddenCount} hidden items remaining`);
+        
+        if (hiddenCount === 0) {
             if (layout.id === 'listLayout') {
                 const loadMoreBtn = document.getElementById('loadMoreListBtn');
                 const infiniteScroll = document.getElementById('infiniteScrollList');
-                if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+                if (loadMoreBtn) {
+                    loadMoreBtn.style.display = 'none';
+                    console.log('Load More Debug - List button hidden');
+                }
                 if (infiniteScroll) infiniteScroll.style.display = 'none';
             } else if (layout.id === 'gridLayout') {
                 const loadMoreBtn = document.getElementById('loadMoreGridBtn');
                 const infiniteScroll = document.getElementById('infiniteScrollGrid');
-                if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+                if (loadMoreBtn) {
+                    loadMoreBtn.style.display = 'none';
+                    console.log('Load More Debug - Grid button hidden');
+                }
                 if (infiniteScroll) infiniteScroll.style.display = 'none';
             }
         }
@@ -671,28 +741,54 @@ function initLoadMore() {
     // Hide initial items
     hideExtraItems(document.getElementById('listLayout'), listItemsDisplayed);
     hideExtraItems(document.getElementById('gridLayout'), gridItemsDisplayed);
+    
+    // Show load more buttons if there are hidden items
+    checkLoadMoreButton(document.getElementById('listLayout'));
+    checkLoadMoreButton(document.getElementById('gridLayout'));
+    
+    // Ensure grid load more button is visible if there are hidden products
+    const gridLayout = document.getElementById('gridLayout');
+    const gridLoadMoreBtn = document.getElementById('loadMoreGridBtn');
+    if (gridLayout && gridLoadMoreBtn) {
+        const hiddenProducts = gridLayout.querySelectorAll('.card-product[style*="display: none"]');
+        if (hiddenProducts.length > 0) {
+            gridLoadMoreBtn.style.display = '';
+            console.log('Load More Debug - Grid button made visible');
+        }
+    }
+    
+    // Update product count display
+    updateLoadMoreProductCount();
 
     // Load More button handlers
     const loadMoreListBtn = document.getElementById('loadMoreListBtn');
     if (loadMoreListBtn) {
+        console.log('Load More Debug - List button found');
         loadMoreListBtn.addEventListener('click', function() {
+            console.log('Load More Debug - List button clicked');
             listItemsDisplayed = showMoreItems(
                 document.getElementById('listLayout'),
                 listItemsPerPage,
                 listItemsDisplayed
             );
         });
+    } else {
+        console.log('Load More Debug - List button NOT found');
     }
 
     const loadMoreGridBtn = document.getElementById('loadMoreGridBtn');
     if (loadMoreGridBtn) {
+        console.log('Load More Debug - Grid button found');
         loadMoreGridBtn.addEventListener('click', function() {
+            console.log('Load More Debug - Grid button clicked');
             gridItemsDisplayed = showMoreItems(
                 document.getElementById('gridLayout'),
                 gridItemsPerPage,
                 gridItemsDisplayed
             );
         });
+    } else {
+        console.log('Load More Debug - Grid button NOT found');
     }
 
     // Infinite Scrolling
@@ -744,7 +840,31 @@ function initLoadMoreFunctionality() {
 function handleLoadMore(layout) {
     const button = layout === 'list' ? document.getElementById('loadMoreListBtn') : document.getElementById('loadMoreGridBtn');
     const currentPage = parseInt(button.dataset.currentPage) || 1;
-    const maxPerPage = parseInt(button.dataset.maxPerPage) || 8;
+    
+    // Get products per page from the same sources as initLoadMore
+    let maxPerPage = 8; // Default fallback
+    
+    // Try to get from Shopify collection data
+    if (window.collectionData && window.collectionData.maxProductsPerPage) {
+        maxPerPage = window.collectionData.maxProductsPerPage;
+    }
+    // Try to get from theme settings if available
+    else if (window.theme && window.theme.maxProductsPerPage) {
+        maxPerPage = window.theme.maxProductsPerPage;
+    }
+    // Try to get from meta tag if available
+    else {
+        const metaTag = document.querySelector('meta[name="products-per-page"]');
+        if (metaTag) {
+            maxPerPage = parseInt(metaTag.getAttribute('content'), 10) || 8;
+        }
+    }
+    
+    // Use button data attribute as fallback if available
+    if (button.dataset.maxPerPage) {
+        maxPerPage = parseInt(button.dataset.maxPerPage, 10) || maxPerPage;
+    }
+    
     const totalProducts = parseInt(button.dataset.totalProducts) || 0;
     
     // Calculate next page
@@ -786,6 +906,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.collectionData && window.collectionData.paginationType === 'load_more') {
         initLoadMoreFunctionality();
     }
+    
+    // Update product count display after DOM is ready
+    setTimeout(() => {
+        if (document.querySelector('.loadmore')) {
+            updateLoadMoreProductCount();
+        }
+    }, 100);
 });
 
 // Product Event Binding

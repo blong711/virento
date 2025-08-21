@@ -1,8 +1,10 @@
 {% comment %} Settings {% endcomment %}
 {% assign max_products_per_page = section.settings.max_products_per_page | default: 8 %}
 {% assign pagination_type = section.settings.pagination_type | default: 'pagination' %}
+{% assign total_products = collection.products.size %}
 
-{% paginate collection.products by max_products_per_page %}
+{% comment %} For load more functionality, we need all products rendered {% endcomment %}
+{% comment %} Remove pagination limit to allow JavaScript load more to work {% endcomment %}
 
 <section class="flat-spacing pt-0">
     <div class="container">
@@ -69,15 +71,15 @@
         <div class="wrapper-control-shop">
             <div class="meta-filter-shop">
                 <div id="product-count-grid" class="count-text">
-                    {% if collection.products.size > 0 %}
-                        <span class="count">{{ collection.products.size }}</span> Products found
+                    {% if total_products > 0 %}
+                        <span class="count">{{ total_products }}</span> Products found
                     {% else %}
                         No products found
                     {% endif %}
                 </div>
                 <div id="product-count-list" class="count-text">
-                    {% if collection.products.size > 0 %}
-                        <span class="count">{{ collection.products.size }}</span> Products found
+                    {% if total_products > 0 %}
+                        <span class="count">{{ total_products }}</span> Products found
                     {% else %}
                         No products found
                     {% endif %}
@@ -136,13 +138,13 @@
                         {% endif %}
                     {% else %}
                         {% comment %} Load More Button for List Layout {% endcomment %}
-                        {% if collection.products.size > max_products_per_page %}
+                        {% if total_products > max_products_per_page %}
                             <div class="wd-load d-flex justify-content-center">
                                 <button id="loadMoreListBtn" class="tf-btn btn-out-line-dark2 tf-loading loadmore" 
                                         data-layout="list" 
                                         data-current-page="1" 
                                         data-max-per-page="{{ max_products_per_page }}"
-                                        data-total-products="{{ collection.products.size }}">
+                                        data-total-products="{{ total_products }}">
                                     <span class="text">Load more</span>
                                     <div class="spinner-circle">
                                         <span class="spinner-circle1 spinner-child"></span>
@@ -214,13 +216,13 @@
                         {% endif %}
                     {% else %}
                         {% comment %} Load More Button for Grid Layout {% endcomment %}
-                        {% if collection.products.size > max_products_per_page %}
+                        {% if total_products > max_products_per_page %}
                             <div class="wd-load d-flex justify-content-center">
                                 <button id="loadMoreGridBtn" class="tf-btn btn-out-line-dark2 tf-loading loadmore"
                                         data-layout="grid" 
                                         data-current-page="1" 
                                         data-max-per-page="{{ max_products_per_page }}"
-                                        data-total-products="{{ collection.products.size }}">
+                                        data-total-products="{{ total_products }}">
                                     <span class="text">Load more</span>
                                     <div class="spinner-circle">
                                         <span class="spinner-circle1 spinner-child"></span>
@@ -266,15 +268,13 @@
 {% comment %} Add necessary data for JavaScript {% endcomment %}
 <script>
     window.collectionData = {
-        totalProducts: {{ collection.products.size }},
+        totalProducts: {{ total_products }},
         priceMin: {{ collection.price_min | divided_by: 100.0 | round: 0 }},
         priceMax: {{ collection.price_max | divided_by: 100.0 | round: 0 }},
         paginationType: '{{ pagination_type }}',
         maxProductsPerPage: {{ max_products_per_page }}
     };
 </script>
-
-{% endpaginate %}
 
 {% comment %} Schema for section settings {% endcomment %}
 {% schema %}
