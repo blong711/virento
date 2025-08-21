@@ -56,12 +56,6 @@
     "show_vendor": false,
     "cart_drawer_collection": "",
     "sections": {
-      "main-password-header": {
-        "type": "main-password-header",
-        "settings": {
-          "color_scheme": "scheme-1"
-        }
-      },
       "main-password-footer": {
         "type": "main-password-footer",
         "settings": {
@@ -317,6 +311,25 @@
           "primary_input": "#ffffff",
           "secondary_input": "#f5f5f5"
         }
+      },
+      "scheme-3177a2bd-c147-4630-8df4-ed34a0c93962": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "background2": "#f5f5f5",
+          "text": "#000000",
+          "text2": "#686868",
+          "text_hover": "#666666",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "button_outline": "#ffffff",
+          "button_hover": "#000000",
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#000000",
+          "shadow": "rgba(0,0,0,0)",
+          "primary_input": "#ffffff",
+          "secondary_input": "#f5f5f5"
+        }
       }
     }
   },
@@ -420,12 +433,6 @@
       "show_cart_note": false,
       "cart_drawer_collection": "",
       "sections": {
-        "main-password-header": {
-          "type": "main-password-header",
-          "settings": {
-            "color_scheme": "scheme-1"
-          }
-        },
         "main-password-footer": {
           "type": "main-password-footer",
           "settings": {

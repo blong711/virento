@@ -6198,6 +6198,134 @@
           }
         }
       }
+    },
+    "main_collection_list": {
+      "name": "Main Collection List",
+      "settings": {
+        "main_collections_list": {
+          "content": "Main collections list"
+        },
+        "collection_display": {
+          "label": "Select collections to show",
+          "options": {
+            "all": "All",
+            "selected": "Selected"
+          }
+        },
+        "section_settings": {
+          "content": "Section settings"
+        },
+        "collection_list": {
+          "label": "Collection list",
+          "info": "Select the collection to show"
+        },
+        "max_items_to_show": {
+          "label": "Maximum items to show"
+        },
+        "width": {
+          "label": "Width",
+          "options": {
+            "full": "Full",
+            "boxed": "Boxed"
+          }
+        },
+        "padding": {
+          "content": "Padding"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        },
+        "padding_mobile_rate": {
+          "label": "Padding mobile rate",
+          "info": "Choose the padding for the mobile rate"
+        },
+        "width_settings": {
+          "content": "Width"
+        },
+        "items_per_row_desktop": {
+          "label": "Items per row (Desktop)"
+        },
+        "items_per_row_tablet": {
+          "label": "Items per row (Tablet)"
+        },
+        "items_per_row_mobile": {
+          "label": "Items per row (Mobile)"
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "options_for_collection_items": {
+          "content": "Options for collection items"
+        },
+        "enable_uppercase": {
+          "label": "Enable uppercase text"
+        },
+        "content_position": {
+          "label": "Content position",
+          "options": {
+            "left": "Left",
+            "center": "Center", 
+            "right": "Right"
+          }
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "options": {
+            "adapt_image": "Adapt to image",
+            "square": "Square",
+            "portrait": "Portrait",
+            "asos": "Asos",
+            "landscape": "Landscape"
+          }
+        },
+        "collection_layout": {
+          "content": "Collection layout"
+        },
+        "pagination_type": {
+          "label": "Pagination",
+          "info": "Choose a type for the pagination on your page",
+          "options": {
+            "none": "None",
+            "numbers": "Numbers"
+          }
+        },
+        "pagination_position": {
+          "label": "Pagination position",
+          "options": {
+            "left": "Left",
+            "center": "Center",
+            "right": "Right"
+          }
+        }
+      },
+      "blocks": {
+        "collection_item": {
+          "name": "Collection item",
+          "settings": {
+            "collection": {
+              "label": "Collection select"
+            },
+            "collection_image": {
+              "label": "Collection image",
+              "info": "Optional. Will use collection featured image if not set."
+            },
+            "collection_title": {
+              "label": "Collection title",
+              "info": "Optional. Will use collection title if not set."
+            },
+            "collection_link": {
+              "label": "Collection link",
+              "info": "Optional. Will use collection URL if not set."
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Main Collection List"
+      }
     }
   }
 }
