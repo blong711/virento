@@ -75,6 +75,7 @@
         "pause_on_hover": true,
         "draggable": true,
         "show_arrows": false,
+        "show_arrows_mobile": false,
         "show_dots": true,
         "padding_top": 67,
         "padding_bottom": 0,
@@ -626,6 +627,80 @@
         "padding_bottom": 44,
         "padding_mobile_rate": 75
       }
+    },
+    "main_slider_aT9Cp8": {
+      "type": "main-slider",
+      "blocks": {
+        "slide_GUz9z9": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify://shop_images/women-black-2.jpg",
+            "heading": "Slide Heading",
+            "heading_size": "display-md",
+            "heading_weight": "fw-medium",
+            "description": "Slide description goes here",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "",
+            "button_text": "Explore More"
+          }
+        },
+        "slide_BPPWp8": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify://shop_images/blog-author-3.jpg",
+            "heading": "Slide Heading",
+            "heading_size": "display-md",
+            "heading_weight": "fw-medium",
+            "description": "Slide description goes here",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "",
+            "button_text": "Explore More"
+          }
+        },
+        "slide_FtrNj7": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify://shop_images/B2.png",
+            "heading": "Slide Heading",
+            "heading_size": "display-md",
+            "heading_weight": "fw-medium",
+            "description": "Slide description goes here",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "",
+            "button_text": "Explore More"
+          }
+        }
+      },
+      "block_order": [
+        "slide_GUz9z9",
+        "slide_BPPWp8",
+        "slide_FtrNj7"
+      ],
+      "name": "t:sections.main_slider.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "height": "adapt-first",
+        "height_fixed": 500,
+        "mobile_height": "adapt",
+        "mobile_height_fixed": 300,
+        "loop": true,
+        "autoplay_speed": 5,
+        "pause_on_hover": true,
+        "draggable": true,
+        "show_arrows": false,
+        "show_arrows_mobile": false,
+        "show_dots": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -638,6 +713,7 @@
     "featured_products_tab",
     "collection_banner",
     "featured_product_carousel",
-    "icon_box"
+    "icon_box",
+    "main_slider_aT9Cp8"
   ]
 }
