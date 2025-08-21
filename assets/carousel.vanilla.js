@@ -1,91 +1,94 @@
 // Slideshow initialization
 function initSlideshow() {
-    const tfSwSlideshow = document.querySelector(".tf-sw-slideshow");
-    if (!tfSwSlideshow) return;
+    const tfSwSlideshows = document.querySelectorAll(".tf-sw-slideshow");
+    if (!tfSwSlideshows.length) return;
 
-    const preview = parseInt(tfSwSlideshow.dataset.preview);
-    const tablet = parseInt(tfSwSlideshow.dataset.tablet);
-    const mobile = parseInt(tfSwSlideshow.dataset.mobile);
-    const spacing = parseInt(tfSwSlideshow.dataset.space);
-    const spacingMb = parseInt(tfSwSlideshow.dataset.spaceMb);
-    const loop = tfSwSlideshow.dataset.loop === 'true';
-    const play = tfSwSlideshow.dataset.autoPlay === 'true';
-    const delay = parseInt(tfSwSlideshow.dataset.delay) || 5000;
-    const pauseOnHover = tfSwSlideshow.dataset.pauseOnHover === 'true';
-    const centered = tfSwSlideshow.dataset.centered === 'true';
-    const effect = tfSwSlideshow.dataset.effect;
-    const speed = tfSwSlideshow.dataset.speed ? parseInt(tfSwSlideshow.dataset.speed) : 1000;
-    const simulateTouch = tfSwSlideshow.dataset.simulateTouch === 'true';
+    tfSwSlideshows.forEach((tfSwSlideshow) => {
+        const sliderId = tfSwSlideshow.dataset.sliderId;
+        const preview = parseInt(tfSwSlideshow.dataset.preview);
+        const tablet = parseInt(tfSwSlideshow.dataset.tablet);
+        const mobile = parseInt(tfSwSlideshow.dataset.mobile);
+        const spacing = parseInt(tfSwSlideshow.dataset.space);
+        const spacingMb = parseInt(tfSwSlideshow.dataset.spaceMb);
+        const loop = tfSwSlideshow.dataset.loop === 'true';
+        const play = tfSwSlideshow.dataset.autoPlay === 'true';
+        const delay = parseInt(tfSwSlideshow.dataset.delay) || 5000;
+        const pauseOnHover = tfSwSlideshow.dataset.pauseOnHover === 'true';
+        const centered = tfSwSlideshow.dataset.centered === 'true';
+        const effect = tfSwSlideshow.dataset.effect;
+        const speed = tfSwSlideshow.dataset.speed ? parseInt(tfSwSlideshow.dataset.speed) : 1000;
+        const simulateTouch = tfSwSlideshow.dataset.simulateTouch === 'true';
 
-    const swiperSlider = {
-        autoplay: play ? {
-            delay: delay,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: pauseOnHover,
-        } : false,
-        slidesPerView: mobile,
-        loop: loop,
-        spaceBetween: spacingMb,
-        speed: speed,
-        observer: true,
-        observeParents: true,
-        simulateTouch: simulateTouch,
-        pagination: {
-            el: ".sw-pagination-slider",
-            clickable: true,
-        },
-        navigation: {
-            clickable: true,
-            nextEl: ".navigation-next-slider",
-            prevEl: ".navigation-prev-slider",
-        },
-        centeredSlides: false,
-        breakpoints: {
-            768: {
-                slidesPerView: tablet,
-                spaceBetween: spacing,
-                centeredSlides: false,
+        const swiperSlider = {
+            autoplay: play ? {
+                delay: delay,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: pauseOnHover,
+            } : false,
+            slidesPerView: mobile,
+            loop: loop,
+            spaceBetween: spacingMb,
+            speed: speed,
+            observer: true,
+            observeParents: true,
+            simulateTouch: simulateTouch,
+            pagination: {
+                el: tfSwSlideshow.querySelector(".sw-pagination-slider"),
+                clickable: true,
             },
-            1200: {
-                slidesPerView: preview,
-                spaceBetween: spacing,
-                centeredSlides: centered,
+            navigation: {
+                clickable: true,
+                nextEl: tfSwSlideshow.querySelector(".navigation-next-slider"),
+                prevEl: tfSwSlideshow.querySelector(".navigation-prev-slider"),
             },
-        },
-    };
-
-    if (effect === "fade") {
-        swiperSlider.effect = "fade";
-        swiperSlider.fadeEffect = {
-            crossFade: true,
+            centeredSlides: false,
+            breakpoints: {
+                768: {
+                    slidesPerView: tablet,
+                    spaceBetween: spacing,
+                    centeredSlides: false,
+                },
+                1200: {
+                    slidesPerView: preview,
+                    spaceBetween: spacing,
+                    centeredSlides: centered,
+                },
+            },
         };
-    }
 
-    const swiper = new Swiper(".tf-sw-slideshow", swiperSlider);
-    
-    // Update active dot when slide changes
-    swiper.on('slideChange', function() {
-        const activeIndex = swiper.realIndex;
-        const dots = document.querySelectorAll('.sw-pagination-slider .swiper-pagination-bullet');
-        dots.forEach((dot, index) => {
-            dot.classList.remove('swiper-pagination-bullet-active');
-            if (index === activeIndex) {
-                dot.classList.add('swiper-pagination-bullet-active');
-            }
+        if (effect === "fade") {
+            swiperSlider.effect = "fade";
+            swiperSlider.fadeEffect = {
+                crossFade: true,
+            };
+        }
+
+        const swiper = new Swiper(tfSwSlideshow, swiperSlider);
+        
+        // Update active dot when slide changes
+        swiper.on('slideChange', function() {
+            const activeIndex = swiper.realIndex;
+            const dots = tfSwSlideshow.querySelectorAll('.sw-pagination-slider .swiper-pagination-bullet');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('swiper-pagination-bullet-active');
+                if (index === activeIndex) {
+                    dot.classList.add('swiper-pagination-bullet-active');
+                }
+            });
         });
+        
+        // Set initial active dot state
+        setTimeout(() => {
+            const activeIndex = swiper.realIndex;
+            const dots = tfSwSlideshow.querySelectorAll('.sw-pagination-slider .swiper-pagination-bullet');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('swiper-pagination-bullet-active');
+                if (index === activeIndex) {
+                    dot.classList.add('swiper-pagination-bullet-active');
+                }
+            });
+        }, 100);
     });
-    
-    // Set initial active dot state
-    setTimeout(() => {
-        const activeIndex = swiper.realIndex;
-        const dots = document.querySelectorAll('.sw-pagination-slider .swiper-pagination-bullet');
-        dots.forEach((dot, index) => {
-            dot.classList.remove('swiper-pagination-bullet-active');
-            if (index === activeIndex) {
-                dot.classList.add('swiper-pagination-bullet-active');
-            }
-        });
-    }, 100);
 }
 
 // Generic Swiper initialization
