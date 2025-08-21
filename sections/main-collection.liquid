@@ -346,6 +346,28 @@
         },
         {
             "type": "select",
+            "id": "default_layout_type",
+            "label": "Default layout type",
+            "options": [
+                { "value": "grid", "label": "Grid" },
+                { "value": "list", "label": "List" }
+            ],
+            "default": "grid"
+        },
+        {
+            "type": "select",
+            "id": "default_grid_layout",
+            "label": "Grid layout",
+            "options": [
+                { "value": "tf-col-2", "label": "2 Columns" },
+                { "value": "tf-col-3", "label": "3 Columns" },
+                { "value": "tf-col-4", "label": "4 Columns" }
+            ],
+            "default": "tf-col-4",
+            "visible_if": "{{ section.settings.default_layout_type == 'grid' }}"
+        },
+        {
+            "type": "select",
             "id": "pagination_type",
             "label": "Pagination type",
             "options": [
@@ -354,29 +376,6 @@
                 { "value": "infinity_scroll", "label": "Infinity Scroll" }
             ],
             "default": "pagination"
-        },
-        {
-            "type": "select",
-            "id": "default_grid_layout",
-            "label": "Default grid layout",
-            "options": [
-                { "value": "tf-col-2", "label": "2 Columns" },
-                { "value": "tf-col-3", "label": "3 Columns" },
-                { "value": "tf-col-4", "label": "4 Columns" }
-            ],
-            "default": "tf-col-4",
-            "info": "Default grid layout for the collection page"
-        },
-        {
-            "type": "select",
-            "id": "default_layout_type",
-            "label": "Default layout type",
-            "options": [
-                { "value": "grid", "label": "Grid" },
-                { "value": "list", "label": "List" }
-            ],
-            "default": "grid",
-            "info": "Default layout to display products on the collection page"
         }
     ]
 }
