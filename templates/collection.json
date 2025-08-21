@@ -24,7 +24,7 @@
         "max_products_per_page": 8,
         "pagination_type": "pagination",
         "default_grid_layout": "tf-col-4",
-        "default_layout_type": "list"
+        "default_layout_type": "grid"
       }
     }
   },
