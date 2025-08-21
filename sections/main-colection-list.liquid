@@ -1,0 +1,410 @@
+<!-- Section Collection List -->
+{%- liquid
+  assign collection_display = section.settings.collection_display
+  assign items_per_row_desktop = section.settings.items_per_row_desktop
+  assign items_per_row_tablet = section.settings.items_per_row_tablet
+  assign items_per_row_mobile = section.settings.items_per_row_mobile
+  assign max_items = section.settings.max_items_to_show
+  assign enable_uppercase = section.settings.enable_uppercase
+  assign content_position = section.settings.content_position
+  assign image_ratio = section.settings.image_ratio
+  assign pagination_type = section.settings.pagination_type
+  assign pagination_position = section.settings.pagination_position
+  assign padding_top = section.settings.padding_top
+  assign padding_bottom = section.settings.padding_bottom
+  assign padding_mobile_rate = section.settings.padding_mobile_rate
+
+  assign collections = collections
+  case collection_display
+    when 'selected'
+      assign collections = section.settings.collection_list
+      if collections == blank
+        assign collections = section.blocks
+      endif
+  endcase
+-%}
+
+<style>
+  .collection-list-{{ section.id }} {
+    --items-per-row-desktop: {{ items_per_row_desktop }};
+    --items-per-row-tablet: {{ items_per_row_tablet }};
+    --items-per-row-mobile: {{ items_per_row_mobile }};
+    padding-top: {{ padding_top }}px;
+    padding-bottom: {{ padding_bottom }}px;
+  }
+  .collection-list-{{ section.id }} .tf-grid-layout {
+    grid-template-columns: repeat(var(--items-per-row-mobile), 1fr);
+    gap: 20px;
+  }
+  @media (min-width: 768px) {
+    .collection-list-{{ section.id }} .tf-grid-layout {
+      grid-template-columns: repeat(var(--items-per-row-tablet), 1fr);
+    }
+  }
+  @media (min-width: 1200px) {
+    .collection-list-{{ section.id }} .tf-grid-layout {
+      grid-template-columns: repeat(var(--items-per-row-desktop), 1fr);
+    }
+  }
+  @media (max-width: 767px) {
+    .collection-list-{{ section.id }} {
+      padding-top: calc({{ padding_top }}px * {{ padding_mobile_rate }} / 100);
+      padding-bottom: calc({{ padding_bottom }}px * {{ padding_mobile_rate }} / 100);
+    }
+  }
+  .collection-list-{{ section.id }} .image img {
+    {%- if image_ratio == 'adapt_image' -%}
+      width: 100%;
+      height: auto;
+    {%- elsif image_ratio == 'square' -%}
+      aspect-ratio: 1 / 1;
+    {%- elsif image_ratio == 'portrait' -%}
+      aspect-ratio: 3 / 4;
+    {%- elsif image_ratio == 'landscape' -%}
+      aspect-ratio: 4 / 3;
+    {%- elsif image_ratio == 'asos' -%}
+      aspect-ratio: 2 / 3;
+    {%- endif -%}
+    object-fit: cover;
+  }
+</style>
+
+{%- paginate collections by max_items -%}
+  <section class="collection-list-{{ section.id }} color-{{ section.settings.color_scheme }}">
+    <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
+      <div class="flat-wrap-cls tf-grid-layout">
+        {%- if collection_display == 'all' -%}
+          {%- for collection in collections -%}
+            {%- render 'collection-item',
+              collection: collection,
+              content_position: content_position,
+              enable_uppercase: enable_uppercase,
+              image_ratio: image_ratio
+            -%}
+          {%- endfor -%}
+        {%- elsif collection_display == 'selected' -%}
+          {%- for collection in collections -%}
+            {%- render 'collection-item',
+              collection: collection,
+              content_position: content_position,
+              enable_uppercase: enable_uppercase,
+              image_ratio: image_ratio
+            -%}
+          {%- endfor -%}
+        {%- endif -%}
+
+        {%- if pagination_type != 'none' and paginate.pages > 1 -%}
+          <!-- Pagination -->
+          {%- if pagination_type == 'numbers' -%}
+            <ul class="wg-pagination" style="justify-content: {{ pagination_position }} !important;">
+              {%- if paginate.previous -%}
+                <li>
+                  <a href="{{ paginate.previous.url }}" class="pagination-item">
+                    <i class="icon-arr-left"></i>
+                  </a>
+                </li>
+              {%- endif -%}
+
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <li>
+                    <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                  </li>
+                {%- else -%}
+                  {%- if part.title == paginate.current_page -%}
+                    <li class="active">
+                      <div class="pagination-item">{{ part.title }}</div>
+                    </li>
+                  {%- else -%}
+                    <li>
+                      <span class="pagination-item">{{ part.title }}</span>
+                    </li>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if paginate.next -%}
+                <li>
+                  <a href="{{ paginate.next.url }}" class="pagination-item">
+                    <i class="icon-arr-right2"></i>
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{%- endpaginate -%}
+
+<!-- /Section Collection List -->
+
+{% schema %}
+{
+  "name": "Main Collection List",
+  "tag": "section",
+  "class": "section-collection-list",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main collections list"
+    },
+    {
+      "type": "radio",
+      "id": "collection_display",
+      "label": "Select collections to show",
+      "options": [
+        {
+          "value": "all",
+          "label": "All"
+        },
+        {
+          "value": "selected",
+          "label": "Selected"
+        }
+      ],
+      "default": "selected"
+    },
+    {
+      "type": "header",
+      "content": "Section settings"
+    },
+    {
+      "id": "collection_list",
+      "type": "collection_list",
+      "label": "Collection list",
+      "info": "Select the collection to show"
+    },
+    {
+      "type": "range",
+      "id": "max_items_to_show",
+      "min": 2,
+      "max": 50,
+      "step": 1,
+      "label": "Maximum items to show",
+      "default": 12
+    },
+
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "full", "label": "Full" },
+        { "value": "boxed", "label": "Boxed" }
+      ],
+      "default": "boxed"
+    },
+
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.heading-with-text-horizontal.settings.padding_top.label",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Padding mobile rate",
+      "default": 75,
+      "info": "Choose the padding for the mobile rate"
+    },
+    {
+      "type": "header",
+      "content": "Width"
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "label": "Items per row (Desktop)",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Items per row (Tablet)",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "items_per_row_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Items per row (Mobile)",
+      "default": 1
+    },
+
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Options for collection items"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_uppercase",
+      "label": "Enable uppercase text",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Content position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt_image",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "asos",
+          "label": "Asos"
+        },
+        {
+          "value": "landscape",
+          "label": "Landscape"
+        }
+      ],
+      "label": "Image ratio",
+      "default": "adapt_image"
+    },
+    {
+      "type": "header",
+      "content": "Collection layout"
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Pagination",
+      "info": "Choose a type for the pagination on your page",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "numbers",
+          "label": "Numbers"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "pagination_position",
+      "label": "Pagination position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_item",
+      "name": "Collection item",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection select"
+        },
+        {
+          "type": "image_picker",
+          "id": "collection_image",
+          "label": "Collection image",
+          "info": "Optional. Will use collection featured image if not set."
+        },
+        {
+          "type": "text",
+          "id": "collection_title",
+          "label": "Collection title",
+          "info": "Optional. Will use collection title if not set."
+        },
+        {
+          "type": "url",
+          "id": "collection_link",
+          "label": "Collection link",
+          "info": "Optional. Will use collection URL if not set."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Collection List"
+    }
+  ]
+}
+{% endschema %}
