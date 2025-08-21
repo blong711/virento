@@ -4,7 +4,7 @@
 {% assign total_products = collection.products.size %}
 
 {% comment %} For load more functionality, use a very high pagination limit to show all products {% endcomment %}
-{% if pagination_type == 'load_more' %}
+{% if pagination_type == 'load_more' or pagination_type == 'infinity_scroll' %}
     {% assign pagination_limit = 1000 %}
 {% else %}
     {% assign pagination_limit = max_products_per_page %}
@@ -169,6 +169,25 @@
                                 </button>
                             </div>
                         {% endif %}
+                        
+                        {% comment %} Infinity Scroll for List Layout {% endcomment %}
+                        {% if pagination_type == 'infinity_scroll' and total_products > max_products_per_page %}
+                            <div class="wd-load d-flex justify-content-center">
+                                <button id="infiniteScrollList" class="tf-btn btn-dark2 tf-loading animate-btn animate-dark">
+                                    <div class="spinner-circle">
+                                        <span class="spinner-circle1 spinner-child"></span>
+                                        <span class="spinner-circle2 spinner-child"></span>
+                                        <span class="spinner-circle3 spinner-child"></span>
+                                        <span class="spinner-circle4 spinner-child"></span>
+                                        <span class="spinner-circle5 spinner-child"></span>
+                                        <span class="spinner-circle6 spinner-child"></span>
+                                        <span class="spinner-circle7 spinner-child"></span>
+                                        <span class="spinner-circle8 spinner-child"></span>
+                                        <span class="spinner-circle9 spinner-child"></span>
+                                    </div>
+                                </button>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 {% else %}
                     <div class="text-center py-5">
@@ -247,6 +266,25 @@
                                 </button>
                             </div>
                         {% endif %}
+                        
+                        {% comment %} Infinity Scroll for Grid Layout {% endcomment %}
+                        {% if pagination_type == 'infinity_scroll' and total_products > max_products_per_page %}
+                            <div class="wd-load d-flex justify-content-center">
+                                <button id="infiniteScrollGrid" class="tf-btn btn-dark2 tf-loading animate-btn animate-dark">
+                                    <div class="spinner-circle">
+                                        <span class="spinner-circle1 spinner-child"></span>
+                                        <span class="spinner-circle2 spinner-child"></span>
+                                        <span class="spinner-circle3 spinner-child"></span>
+                                        <span class="spinner-circle4 spinner-child"></span>
+                                        <span class="spinner-circle5 spinner-child"></span>
+                                        <span class="spinner-circle6 spinner-child"></span>
+                                        <span class="spinner-circle7 spinner-child"></span>
+                                        <span class="spinner-circle8 spinner-child"></span>
+                                        <span class="spinner-circle9 spinner-child"></span>
+                                    </div>
+                                </button>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 {% else %}
                     <div class="text-center py-5">
@@ -308,7 +346,8 @@
             "label": "Pagination type",
             "options": [
                 { "value": "pagination", "label": "Pagination" },
-                { "value": "load_more", "label": "Load More" }
+                { "value": "load_more", "label": "Load More" },
+                { "value": "infinity_scroll", "label": "Infinity Scroll" }
             ],
             "default": "pagination"
         }

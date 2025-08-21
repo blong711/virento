@@ -326,13 +326,11 @@ function updateLoadMoreProductCount() {
     if (gridCountEl) {
         const visibleGridProducts = document.querySelectorAll('#gridLayout .card-product:not([style*="display: none"])').length;
         gridCountEl.innerHTML = `<span class="count">${visibleGridProducts}</span>Products found`;
-        console.log(`Load More Debug - Grid count updated: ${visibleGridProducts}`);
     }
     
     if (listCountEl) {
         const visibleListProducts = document.querySelectorAll('#listLayout .card-product:not([style*="display: none"])').length;
         listCountEl.innerHTML = `<span class="count">${visibleListProducts}</span>Products found`;
-        console.log(`Load More Debug - List count updated: ${visibleListProducts}`);
     }
 }
 
@@ -646,15 +644,6 @@ function initLoadMore() {
         }
     }
     
-    console.log('Load More Debug - Products per page:', productsPerPage);
-    console.log('Load More Debug - Collection data:', window.collectionData);
-    console.log('Load More Debug - Total products from Shopify:', window.collectionData?.totalProducts);
-    
-    // Check actual products in HTML
-    const actualGridProducts = document.querySelectorAll('#gridLayout .card-product').length;
-    const actualListProducts = document.querySelectorAll('#listLayout .card-product').length;
-    console.log('Load More Debug - Actual products in HTML - Grid:', actualGridProducts, 'List:', actualListProducts);
-    
     // Use the same value for both initial display and load more
     const gridInitialItems = productsPerPage;
     const listInitialItems = productsPerPage;
@@ -667,17 +656,14 @@ function initLoadMore() {
 
     function hideExtraItems(layout, itemsDisplayed) {
         const items = layout.querySelectorAll('.card-product');
-        console.log(`Load More Debug - ${layout.id}: Found ${items.length} products, showing ${itemsDisplayed}`);
         
         // If we have more products than the initial display amount, hide the extra ones
         if (items.length > itemsDisplayed) {
             items.forEach((item, index) => {
                 if (index >= itemsDisplayed) {
                     item.style.display = 'none';
-                    console.log(`Load More Debug - ${layout.id}: Hiding product ${index + 1}`);
                 } else {
                     item.style.display = '';
-                    console.log(`Load More Debug - ${layout.id}: Showing product ${index + 1}`);
                 }
             });
         } else {
@@ -690,7 +676,6 @@ function initLoadMore() {
 
     function showMoreItems(layout, itemsPerPage, itemsDisplayed) {
         const hiddenItems = layout.querySelectorAll('.card-product[style*="display: none"]');
-        console.log(`Load More Debug - ${layout.id}: Showing ${itemsPerPage} more items, ${hiddenItems.length} hidden items available`);
 
         setTimeout(function() {
             const itemsToShow = Array.from(hiddenItems).slice(0, itemsPerPage);
@@ -715,7 +700,6 @@ function initLoadMore() {
 
     function checkLoadMoreButton(layout) {
         const hiddenCount = layout.querySelectorAll('.card-product[style*="display: none"]').length;
-        console.log(`Load More Debug - ${layout.id}: ${hiddenCount} hidden items remaining`);
         
         if (hiddenCount === 0) {
             if (layout.id === 'listLayout') {
@@ -723,7 +707,6 @@ function initLoadMore() {
                 const infiniteScroll = document.getElementById('infiniteScrollList');
                 if (loadMoreBtn) {
                     loadMoreBtn.style.display = 'none';
-                    console.log('Load More Debug - List button hidden');
                 }
                 if (infiniteScroll) infiniteScroll.style.display = 'none';
             } else if (layout.id === 'gridLayout') {
@@ -731,7 +714,6 @@ function initLoadMore() {
                 const infiniteScroll = document.getElementById('infiniteScrollGrid');
                 if (loadMoreBtn) {
                     loadMoreBtn.style.display = 'none';
-                    console.log('Load More Debug - Grid button hidden');
                 }
                 if (infiniteScroll) infiniteScroll.style.display = 'none';
             }
@@ -753,42 +735,55 @@ function initLoadMore() {
         const hiddenProducts = gridLayout.querySelectorAll('.card-product[style*="display: none"]');
         if (hiddenProducts.length > 0) {
             gridLoadMoreBtn.style.display = '';
-            console.log('Load More Debug - Grid button made visible');
         }
+    }
+    
+    // Initialize infinity scroll if enabled
+    if (window.collectionData && window.collectionData.paginationType === 'infinity_scroll') {
+        initInfinityScroll();
     }
     
     // Update product count display
     updateLoadMoreProductCount();
+    
+    // Handle initial visibility of infinity scroll elements
+    if (window.collectionData && window.collectionData.paginationType === 'infinity_scroll') {
+        const infiniteScrollList = document.getElementById('infiniteScrollList');
+        const infiniteScrollGrid = document.getElementById('infiniteScrollGrid');
+        
+        // Hide load more buttons
+        const loadMoreListBtn = document.getElementById('loadMoreListBtn');
+        const loadMoreGridBtn = document.getElementById('loadMoreGridBtn');
+        
+        if (loadMoreListBtn) loadMoreListBtn.style.display = 'none';
+        if (loadMoreGridBtn) loadMoreGridBtn.style.display = 'none';
+        
+        // Show infinity scroll elements
+        if (infiniteScrollList) infiniteScrollList.style.display = '';
+        if (infiniteScrollGrid) infiniteScrollGrid.style.display = '';
+    }
 
     // Load More button handlers
     const loadMoreListBtn = document.getElementById('loadMoreListBtn');
     if (loadMoreListBtn) {
-        console.log('Load More Debug - List button found');
         loadMoreListBtn.addEventListener('click', function() {
-            console.log('Load More Debug - List button clicked');
             listItemsDisplayed = showMoreItems(
                 document.getElementById('listLayout'),
                 listItemsPerPage,
                 listItemsDisplayed
             );
         });
-    } else {
-        console.log('Load More Debug - List button NOT found');
     }
 
     const loadMoreGridBtn = document.getElementById('loadMoreGridBtn');
     if (loadMoreGridBtn) {
-        console.log('Load More Debug - Grid button found');
         loadMoreGridBtn.addEventListener('click', function() {
-            console.log('Load More Debug - Grid button clicked');
             gridItemsDisplayed = showMoreItems(
                 document.getElementById('gridLayout'),
                 gridItemsPerPage,
                 gridItemsDisplayed
             );
         });
-    } else {
-        console.log('Load More Debug - Grid button NOT found');
     }
 
     // Infinite Scrolling
@@ -816,6 +811,72 @@ function initLoadMore() {
         }, 300);
     }
 
+    window.addEventListener('scroll', onScroll);
+}
+
+function initInfinityScroll() {
+    const infiniteScrollList = document.getElementById('infiniteScrollList');
+    const infiniteScrollGrid = document.getElementById('infiniteScrollGrid');
+    
+    // Hide load more buttons when infinity scroll is enabled
+    const loadMoreListBtn = document.getElementById('loadMoreListBtn');
+    const loadMoreGridBtn = document.getElementById('loadMoreGridBtn');
+    
+    if (loadMoreListBtn) loadMoreListBtn.style.display = 'none';
+    if (loadMoreGridBtn) loadMoreGridBtn.style.display = 'none';
+    
+    // Show infinity scroll elements
+    if (infiniteScrollList) infiniteScrollList.style.display = '';
+    if (infiniteScrollGrid) infiniteScrollGrid.style.display = '';
+    
+    // Initialize scroll event for infinity scroll
+    let scrollTimeout;
+    
+    function onScroll() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+            // Check if user is near bottom of page
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            // If user is within 200px of bottom, trigger load more
+            if (scrollTop + windowHeight >= documentHeight - 200) {
+                // Determine which layout is active
+                if (isListActive && infiniteScrollList) {
+                    loadMoreProducts('list');
+                } else if (!isListActive && infiniteScrollGrid) {
+                    loadMoreProducts('grid');
+                }
+            }
+        }, 300);
+    }
+    
+    function loadMoreProducts(layout) {
+        const layoutEl = layout === 'list' ? document.getElementById('listLayout') : document.getElementById('gridLayout');
+        const hiddenProducts = layoutEl.querySelectorAll('.card-product[style*="display: none"]');
+        
+        if (hiddenProducts.length > 0) {
+            // Show next batch of products
+            const productsPerPage = window.collectionData?.maxProductsPerPage || 8;
+            const productsToShow = Array.from(hiddenProducts).slice(0, productsPerPage);
+            
+            productsToShow.forEach(product => {
+                product.style.display = '';
+            });
+            
+            // Update product count
+            updateLoadMoreProductCount();
+            
+            // Hide infinity scroll if no more products
+            if (layoutEl.querySelectorAll('.card-product[style*="display: none"]').length === 0) {
+                const infiniteScroll = layout === 'list' ? infiniteScrollList : infiniteScrollGrid;
+                if (infiniteScroll) infiniteScroll.style.display = 'none';
+            }
+        }
+    }
+    
+    // Add scroll event listener
     window.addEventListener('scroll', onScroll);
 }
 
