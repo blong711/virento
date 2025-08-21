@@ -1,0 +1,60 @@
+{%- liquid
+  assign image = collection.settings.collection_image | default: collection.image | default: collection.products.first.featured_image
+  assign title = collection.settings.collection_title | default: collection.title
+  assign collection_link = collection.settings.collection_link | default: collection.url
+  assign collection_products_count = collection.settings.collection.all_products_count | default: collection.all_products_count | default: 0
+  assign image_ratio = section.settings.image_ratio
+  assign enable_uppercase = section.settings.enable_uppercase
+  assign content_position = section.settings.content_position
+
+  case image_ratio
+    when 'adapt_image'
+      assign numeric_ratio = 1
+    when 'square'
+      assign numeric_ratio = 1
+    when 'portrait'
+      assign numeric_ratio = 0.75
+    when 'landscape'
+      assign numeric_ratio = 1.33
+    when 'asos'
+      assign numeric_ratio = 0.67
+    else
+      assign numeric_ratio = 1
+  endcase
+-%}
+
+<div class="wg-cls style-abs2 style-lg hover-img">
+  <a href="{{ collection_link }}" class="image-wrap relative">
+    <div class="image img-style">
+      {%- if image -%}
+        <img
+          src="{{ image | image_url: width: 600 }}"
+          data-src="{{ image | image_url: width: 600 }}"
+          alt="{{ image.alt | default: title }}"
+          class="lazyload"
+          width="600"
+          height="{{ 600 | divided_by: numeric_ratio | ceil }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div class="placeholder-image">{{ 'collection-1' | placeholder_svg_tag }}</div>
+      {%- endif -%}
+    </div>
+    <div class="cls-btn text-center">
+      <button class="tf-btn">View all</button>
+    </div>
+    <span class="tf-overlay"></span>
+  </a>
+  <div class="cls-content {% if content_position == 'center' %}text-center{% elsif content_position == 'left' %}text-start{% elsif content_position == 'right' %}text-end{% endif %}">
+    <a
+      href="{{ collection_link }}"
+      class="text-type text-xl-2 fw-medium link{% if enable_uppercase %} text-uppercase{% endif %}"
+    >
+      {{ title }}
+    </a>
+    <span class="count-item body-text-2">
+      {{ collection_products_count }}
+      {% if collection_products_count == 1 %}item{% else %}items{% endif %}
+    </span>
+  </div>
+</div>
