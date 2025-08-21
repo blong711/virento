@@ -2,7 +2,7 @@
 <section class="flat-spacing pt-0 section-{{ section.id }}-padding">
     <div class="{{ section.settings.width }}">
         {% if section.settings.show_collection_description %}
-            {% assign desc = collection.description | strip %}
+            {% assign desc = collection.description | strip_html | strip %}
         {% else %}
             {% assign desc = '' %}
         {% endif %}
