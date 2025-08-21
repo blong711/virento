@@ -1,0 +1,62 @@
+{
+  "sections": {
+    "page_breadcrumb": {
+      "type": "page-breadcrumb",
+      "settings": {
+        "show_breadcrumbs": true,
+        "breadcrumb_separator": ">",
+        "breadcrumb_style": "default"
+      }
+    },
+    "main_collection": {
+      "type": "main-collection",
+      "settings": {
+        "default_layout": "grid",
+        "grid_columns": "4",
+        "products_per_page": 20,
+        "show_product_images": true,
+        "show_product_titles": true,
+        "show_product_prices": true,
+        "show_product_descriptions": true,
+        "show_color_swatches": true,
+        "show_size_options": true,
+        "show_sale_badges": true,
+        "show_out_of_stock_badges": true,
+        "show_quick_view": true,
+        "show_wishlist": true,
+        "show_compare": true,
+        "show_add_to_cart": true,
+        "show_filter_button": true,
+        "show_sort_dropdown": true,
+        "show_layout_switcher": true,
+        "show_product_count": true,
+        "show_applied_filters": true,
+        "show_pagination": true,
+        "pagination_style": "numbers",
+        "show_collection_description": true,
+        "custom_description": "",
+        "show_collection_links": true,
+        "bags_collection_url": "/collections/bags",
+        "accessories_collection_url": "/collections/accessories",
+        "primary_color": "#007bff",
+        "secondary_color": "#6c757d",
+        "card_style": "style-1",
+        "show_shadows": true,
+        "show_borders": false,
+        "border_radius": 8,
+        "image_size": "400x",
+        "enable_lazy_loading": true,
+        "show_image_hover": true,
+        "mobile_columns": "2",
+        "stack_mobile_buttons": false,
+        "enable_infinite_scroll": false,
+        "enable_ajax_filtering": true,
+        "enable_ajax_sorting": true
+      }
+    }
+  },
+  "order": [
+    "page_breadcrumb",
+    "main_collection"
+  ]
+}

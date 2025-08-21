@@ -1,0 +1,730 @@
+<section class="flat-spacing pt-0">
+    <div class="container">
+        <div class="tf-shop-control">
+            <div class="tf-group-filter">
+                {% if section.settings.show_filter_button %}
+                <a href="#filterShop" data-bs-toggle="offcanvas" aria-controls="filterShop"
+                    class="tf-btn-filter">
+                    <span class="icon icon-filter"></span><span class="text">Filter</span></a>
+                {% endif %}
+                {% if section.settings.show_sort_dropdown %}
+                <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
+                    <div class="btn-select">
+                        <span class="text-sort-value">{{ collection.sort_by | default: 'Best selling' }}</span>
+                        <span class="icon icon-arr-down"></span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <div class="select-item{% if collection.sort_by == 'best-selling' or collection.sort_by == blank %} active{% endif %}" data-sort-value="best-selling">
+                            <span class="text-value-item">Best selling</span>
+                        </div>
+                        <div class="select-item{% if collection.sort_by == 'a-z' %} active{% endif %}" data-sort-value="a-z">
+                            <span class="text-value-item">Alphabetically, A-Z</span>
+                        </div>
+                        <div class="select-item{% if collection.sort_by == 'z-a' %} active{% endif %}" data-sort-value="z-a">
+                            <span class="text-value-item">Alphabetically, Z-A</span>
+                        </div>
+                        <div class="select-item{% if collection.sort_by == 'price-low-high' %} active{% endif %}" data-sort-value="price-low-high">
+                            <span class="text-value-item">Price, low to high</span>
+                        </div>
+                        <div class="select-item{% if collection.sort_by == 'price-high-low' %} active{% endif %}" data-sort-value="price-high-low">
+                            <span class="text-value-item">Price, high to low</span>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% if section.settings.show_layout_switcher %}
+            <ul class="tf-control-layout">
+                <li class="tf-view-layout-switch sw-layout-list list-layout" data-value-layout="list">
+                    <div class="item icon-list">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-2" data-value-layout="tf-col-2">
+                    <div class="item icon-grid-2">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-3" data-value-layout="tf-col-3">
+                    <div class="item icon-grid-3">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-4 active" data-value-layout="tf-col-4">
+                    <div class="item icon-grid-4">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+        <div class="wrapper-control-shop">
+            <div class="meta-filter-shop">
+                {% if section.settings.show_product_count %}
+                <div id="product-count-grid" class="count-text">{{ collection.products_count }} products</div>
+                <div id="product-count-list" class="count-text">{{ collection.products_count }} products</div>
+                {% endif %}
+                {% if section.settings.show_applied_filters %}
+                <div id="applied-filters">
+                    {% if collection.current_vendor %}
+                        <span class="filter-tag">Vendor: {{ collection.current_vendor }}</span>
+                    {% endif %}
+                    {% if collection.current_type %}
+                        <span class="filter-tag">Type: {{ collection.current_type }}</span>
+                    {% endif %}
+                </div>
+                <button id="remove-all" class="remove-all-filters" style="display: none;"><i
+                        class="icon icon-close"></i> Clear all filter</button>
+                {% endif %}
+            </div>
+            
+            <!-- List Layout -->
+            <div class="tf-list-layout wrapper-shop" id="listLayout" style="display: none;">
+                {% for product in collection.products %}
+                <div class="card-product style-list" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+                    <div class="card-product-wrapper">
+                        <a href="{{ product.url }}" class="product-img">
+                            <img class="img-product lazyload" data-src="{{ product.featured_image | img_url: '400x' }}"
+                                src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.featured_image.alt | escape }}" width="400" height="400">
+                            {% if product.images[1] %}
+                            <img class="img-hover lazyload" data-src="{{ product.images[1] | img_url: '400x' }}"
+                                src="{{ product.images[1] | img_url: '400x' }}" alt="{{ product.images[1].alt | escape }}" width="400" height="400">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="card-product-info">
+                        <div class="info-list">
+                            <a href="{{ product.url }}" class="name-product link fw-medium text-md">{{ product.title }}</a>
+                            <p class="price-wrap fw-medium text-md">
+                                {% if product.compare_at_price > product.price %}
+                                    <span class="price-new text-primary">{{ product.price | money }}</span>
+                                    <span class="price-old">{{ product.compare_at_price | money }}</span>
+                                {% else %}
+                                    <span class="price-new">{{ product.price | money }}</span>
+                                {% endif %}
+                            </p>
+                            <p class="decs text-sm text-main text-line-clamp-2">
+                                {{ product.description | strip_html | truncate: 150 }}
+                            </p>
+                            
+                            {% if product.options_by_name['Color'] %}
+                            <ul class="list-color-product">
+                                {% for option in product.options_by_name['Color'].values %}
+                                <li class="list-color-item color-swatch{% if forloop.first %} active{% endif %}">
+                                    <span class="d-none color-filter">{{ option }}</span>
+                                    <span class="swatch-value bg-{{ option | handleize }}"></span>
+                                    {% assign color_image = product.images | where: 'alt', option | first %}
+                                    {% if color_image %}
+                                    <img class="lazyload" data-src="{{ color_image | img_url: '400x' }}"
+                                        src="{{ color_image | img_url: '400x' }}" alt="{{ option }}" width="400" height="400">
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                            
+                            {% if product.options_by_name['Size'] %}
+                            <ul class="size-box">
+                                {% for option in product.options_by_name['Size'].values %}
+                                <li class="size-item text-xs">{{ option }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        <div class="list-product-btn">
+                            {% if product.available %}
+                            <a href="#shoppingCart" data-bs-toggle="offcanvas"
+                                class="tf-btn btn-main-product animate-btn">Add To cart</a>
+                            {% else %}
+                            <span class="tf-btn btn-main-product disabled">Out of Stock</span>
+                            {% endif %}
+                            <a href="javascript:void(0);" class="box-icon wishlist hover-tooltip">
+                                <span class="icon icon-heart2"></span>
+                                <span class="tooltip">Add to Wishlist</span>
+                            </a>
+                            <a href="#compare" data-bs-toggle="offcanvas" aria-controls="compare"
+                                class="box-icon compare hover-tooltip">
+                                <span class="icon icon-compare3"></span>
+                                <span class="tooltip">Add to Compare</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+                <!-- Pagination -->
+                {% if section.settings.show_pagination and paginate.pages > 1 %}
+                <ul class="wg-pagination">
+                    {% if paginate.previous %}
+                    <li>
+                        <a href="{{ paginate.previous.url }}" class="pagination-item"><i class="icon-arr-left2"></i></a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for part in paginate.parts %}
+                        {% if part.is_link %}
+                        <li>
+                            <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                        </li>
+                        {% else %}
+                        <li class="{% if part.title == paginate.current_page %}active{% endif %}">
+                            <div class="pagination-item">{{ part.title }}</div>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if paginate.next %}
+                    <li>
+                        <a href="{{ paginate.next.url }}" class="pagination-item"><i class="icon-arr-right2"></i></a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+            
+            <!-- Grid Layout -->
+            <div class="wrapper-shop tf-grid-layout tf-col-4" id="gridLayout">
+                {% for product in collection.products %}
+                <div class="card-product grid style-1{% if product.options_by_name['Size'] %} card-product-size{% endif %}{% unless product.available %} out-of-stock{% endunless %}" 
+                     data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" 
+                     data-brand="{{ product.vendor }}">
+                    <div class="card-product-wrapper">
+                        <a href="{{ product.url }}" class="product-img">
+                            <img class="img-product lazyload" data-src="{{ product.featured_image | img_url: '400x' }}"
+                                src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.featured_image.alt | escape }}" width="400" height="400">
+                            {% if product.images[1] %}
+                            <img class="img-hover lazyload" data-src="{{ product.images[1] | img_url: '400x' }}"
+                                src="{{ product.images[1] | img_url: '400x' }}" alt="{{ product.images[1].alt | escape }}" width="400" height="400">
+                            {% endif %}
+                        </a>
+                        
+                        {% if product.compare_at_price > product.price %}
+                        <div class="on-sale-wrap">
+                            <span class="on-sale-item">
+                                {% assign discount = product.compare_at_price | minus: product.price %}
+                                {% assign discount_percentage = discount | times: 100.0 | divided_by: product.compare_at_price | round %}
+                                {{ discount_percentage }}% Off
+                            </span>
+                        </div>
+                        {% endif %}
+                        
+                        <ul class="list-product-btn">
+                            <li>
+                                {% if product.available %}
+                                <a href="#shoppingCart" data-bs-toggle="offcanvas"
+                                    class="hover-tooltip tooltip-left box-icon">
+                                    <span class="icon icon-cart2"></span>
+                                    <span class="tooltip">Add to Cart</span>
+                                </a>
+                                {% else %}
+                                <span class="hover-tooltip tooltip-left box-icon disabled">
+                                    <span class="icon icon-cart2"></span>
+                                    <span class="tooltip">Out of Stock</span>
+                                </span>
+                                {% endif %}
+                            </li>
+                            <li class="wishlist">
+                                <a href="javascript:void(0);" class="hover-tooltip tooltip-left box-icon">
+                                    <span class="icon icon-heart2"></span>
+                                    <span class="tooltip">Add to Wishlist</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#quickView" data-bs-toggle="modal"
+                                    class="hover-tooltip tooltip-left box-icon quickview">
+                                    <span class="icon icon-view"></span>
+                                    <span class="tooltip">Quick View</span>
+                                </a>
+                            </li>
+                            <li class="compare">
+                                <a href="#compare" data-bs-toggle="modal" aria-controls="compare"
+                                    class="hover-tooltip tooltip-left box-icon">
+                                    <span class="icon icon-compare"></span>
+                                    <span class="tooltip">Add to Compare</span>
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        {% if product.options_by_name['Size'] %}
+                        <ul class="size-box">
+                            {% for option in product.options_by_name['Size'].values %}
+                            <li class="size-item text-xs text-white">{{ option }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="card-product-info">
+                        <a href="{{ product.url }}" class="name-product link fw-medium text-md">{{ product.title }}</a>
+                        <p class="price-wrap fw-medium">
+                            {% if product.compare_at_price > product.price %}
+                                <span class="price-new text-primary">{{ product.price | money }}</span>
+                                <span class="price-old">{{ product.compare_at_price | money }}</span>
+                            {% else %}
+                                <span class="price-new">{{ product.price | money }}</span>
+                            {% endif %}
+                        </p>
+                        
+                        {% if product.options_by_name['Color'] %}
+                        <ul class="list-color-product">
+                            {% for option in product.options_by_name['Color'].values %}
+                            <li class="list-color-item color-swatch hover-tooltip tooltip-bot{% if forloop.first %} active{% endif %}">
+                                <span class="tooltip color-filter">{{ option }}</span>
+                                <span class="swatch-value bg-{{ option | handleize }}"></span>
+                                {% assign color_image = product.images | where: 'alt', option | first %}
+                                {% if color_image %}
+                                <img class="lazyload" data-src="{{ color_image | img_url: '400x' }}"
+                                    src="{{ color_image | img_url: '400x' }}" alt="{{ option }}" width="400" height="400">
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                
+                <!-- Pagination -->
+                {% if section.settings.show_pagination and paginate.pages > 1 %}
+                <ul class="wg-pagination">
+                    {% if paginate.previous %}
+                    <li>
+                        <a href="{{ paginate.previous.url }}" class="pagination-item"><i class="icon-arr-left2"></i></a>
+                    </li>
+                    {% endif %}
+                    
+                    {% for part in paginate.parts %}
+                        {% if part.is_link %}
+                        <li>
+                            <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                        </li>
+                        {% else %}
+                        <li class="{% if part.title == paginate.current_page %}active{% endif %}">
+                            <div class="pagination-item">{{ part.title }}</div>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if paginate.next %}
+                    <li>
+                        <a href="{{ paginate.next.url }}" class="pagination-item"><i class="icon-arr-right2"></i></a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if section.settings.show_collection_description %}
+<div class="flat-spacing pt-0">
+    <div class="container">
+        <p class="text text-md text-center">
+            {% if section.settings.custom_description != blank %}
+                {{ section.settings.custom_description }}
+            {% else %}
+                {{ collection.description | default: "Our women's collection brings you a unique blend of classic sophistication and the latest fashion trends. Whether you're looking for versatile daywear, stylish work attire, or statement pieces for special occasions, this collection has it all. Each garment is thoughtfully crafted with attention to detail, using high-quality fabrics to ensure lasting comfort and a flawless fit. From chic blouses and tailored pants to stunning dresses and outerwear, you'll find pieces that seamlessly blend elegance with practicality. Our collection is designed to empower women with confidence and style, no matter the occasion." }}
+            {% endif %}
+        </p>
+        {% if section.settings.show_collection_links %}
+        <p class="mt_12 text-md text-center">Looking for more? Don't miss out on our other exciting collections
+            for <a href="{{ section.settings.bags_collection_url }}" class="text-primary text-decoration-underline fw-medium">BAGS</a> and <a href="{{ section.settings.accessories_collection_url }}" class="text-primary text-decoration-underline fw-medium">ACCESSORIES</a>.</p>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+{% paginate collection.products by section.settings.products_per_page %}
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "tag": "section",
+  "class": "collection-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "default_layout",
+      "label": "Default Layout",
+      "options": [
+        {
+          "value": "grid",
+          "label": "Grid Layout"
+        },
+        {
+          "value": "list",
+          "label": "List Layout"
+        }
+      ],
+      "default": "grid"
+    },
+    {
+      "type": "select",
+      "id": "grid_columns",
+      "label": "Grid Columns",
+      "options": [
+        {
+          "value": "2",
+          "label": "2 Columns"
+        },
+        {
+          "value": "3",
+          "label": "3 Columns"
+        },
+        {
+          "value": "4",
+          "label": "4 Columns"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 50,
+      "step": 2,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Product Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_images",
+      "label": "Show product images",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_titles",
+      "label": "Show product titles",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_prices",
+      "label": "Show product prices",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_descriptions",
+      "label": "Show product descriptions (list view)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_swatches",
+      "label": "Show color swatches",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_size_options",
+      "label": "Show size options",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_badges",
+      "label": "Show sale badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_out_of_stock_badges",
+      "label": "Show out of stock badges",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_view",
+      "label": "Show quick view button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show wishlist button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_compare",
+      "label": "Show compare button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_add_to_cart",
+      "label": "Show add to cart button",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Filter & Sort"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filter_button",
+      "label": "Show filter button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sort_dropdown",
+      "label": "Show sort dropdown",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_layout_switcher",
+      "label": "Show layout switcher",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_count",
+      "label": "Show product count",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_applied_filters",
+      "label": "Show applied filters",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Pagination"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "pagination_style",
+      "label": "Pagination style",
+      "options": [
+        {
+          "value": "numbers",
+          "label": "Page numbers"
+        },
+        {
+          "value": "load_more",
+          "label": "Load more button"
+        },
+        {
+          "value": "infinite_scroll",
+          "label": "Infinite scroll"
+        }
+      ],
+      "default": "numbers"
+    },
+    {
+      "type": "header",
+      "content": "Collection Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "label": "Show collection description",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "custom_description",
+      "label": "Custom description",
+      "info": "Leave empty to use collection's default description"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_links",
+      "label": "Show collection links",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "bags_collection_url",
+      "label": "Bags collection URL",
+      "default": "/collections/bags"
+    },
+    {
+      "type": "text",
+      "id": "accessories_collection_url",
+      "label": "Accessories collection URL",
+      "default": "/collections/accessories"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Primary color",
+      "default": "#007bff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_color",
+      "label": "Secondary color",
+      "default": "#6c757d"
+    },
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Card style",
+      "options": [
+        {
+          "value": "style-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "style-3",
+          "label": "Style 3"
+        }
+      ],
+      "default": "style-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shadows",
+      "label": "Show card shadows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_borders",
+      "label": "Show card borders",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "select",
+      "id": "image_size",
+      "label": "Image size",
+      "options": [
+        {
+          "value": "300x",
+          "label": "300px"
+        },
+        {
+          "value": "400x",
+          "label": "400px"
+        },
+        {
+          "value": "500x",
+          "label": "500px"
+        },
+        {
+          "value": "600x",
+          "label": "600px"
+        }
+      ],
+      "default": "400x"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_lazy_loading",
+      "label": "Enable lazy loading",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image_hover",
+      "label": "Show image hover effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Mobile Settings"
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile grid columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 Column"
+        },
+        {
+          "value": "2",
+          "label": "2 Columns"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_mobile_buttons",
+      "label": "Stack mobile buttons vertically",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Performance"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_infinite_scroll",
+      "label": "Enable infinite scroll",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_ajax_filtering",
+      "label": "Enable AJAX filtering",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_ajax_sorting",
+      "label": "Enable AJAX sorting",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Collection",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
