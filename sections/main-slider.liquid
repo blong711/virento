@@ -366,6 +366,17 @@
   .slider-height[data-height="adapt-first"] .swiper-slide:not(:first-child) {
     height: 100%;
   }
+
+  /* Ensure all images in adapt-first have the same height as the first image */
+  .slider-height[data-height="adapt-first"] .swiper-slide .image img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .slider-height[data-height="adapt-first"] .swiper-slide:first-child .image img {
+    height: auto;
+    object-fit: contain;
+  }
 {% endstyle %}
 
 <section class="tf-slideshow slider-electric-access slider-default color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
