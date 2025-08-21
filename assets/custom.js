@@ -423,9 +423,75 @@ class CompareLink extends HTMLElement {
 customElements.define('hdt-compare-count', CompareCount);
 customElements.define('hdt-compare-a', CompareLink);
 
+// Handle compare close buttons (remove from compare page)
+function handleCompareCloseButtons() {
+  const compareCloseButtons = document.querySelectorAll('.compare-close[data-product-id]');
+
+  compareCloseButtons.forEach((button) => {
+    const productId = button.getAttribute('data-product-id');
+
+    button.setAttribute('data-action', 'remove');
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Remove from compare list
+      const index = arr_compare_list.findIndex(
+        (item) => (typeof item === 'object' ? item.id : item) === productId.toString()
+      );
+      if (index > -1) {
+        arr_compare_list.splice(index, 1);
+        localStorage.setItem(nameCachedCompare, JSON.stringify(arr_compare_list));
+      }
+
+      // Update all compare buttons for this product
+      updateAllCompareButtons(productId.toString(), 'add');
+
+      // Remove item from UI with animation
+      const compareItem = this.closest('.tf-compare-item');
+      if (compareItem) {
+        compareItem.style.opacity = '0';
+        compareItem.style.transform = 'scale(0.8)';
+
+        setTimeout(() => {
+          const compareCol = compareItem.closest('.tf-compare-col');
+          if (compareCol) {
+            // Remove column from all rows
+            const colIndex = Array.from(compareCol.parentElement.children).indexOf(compareCol);
+            document.querySelectorAll('.tf-compare-row').forEach((row) => {
+              const cols = row.querySelectorAll('.tf-compare-col');
+              if (cols[colIndex]) {
+                cols[colIndex].remove();
+              }
+            });
+
+            // Reload page if no products left
+            if (arr_compare_list.length === 0) {
+              if (window.location.pathname.includes('search') && window.location.search.includes('view=compare')) {
+                window.location.reload();
+              } else {
+                window.history.replaceState({}, document.title, conver_to_link_fn('compare', []));
+              }
+            }
+          }
+        }, 300);
+      }
+
+      // Dispatch update event
+      document.dispatchEvent(
+        new CustomEvent('gravio:compare:update', {
+          bubbles: true,
+          detail: arr_compare_list,
+        })
+      );
+    });
+  });
+}
+
 // Initialize compare functionality for existing buttons
 function initializeCompareButtons() {
-  // Find all compare buttons (including main product page button)
+  // Initialize compare close buttons
+  handleCompareCloseButtons(); // Find all compare buttons (including main product page button)
   const compareButtons = document.querySelectorAll('.compare a[data-product-id], .btn-add-compare[data-product-id]');
 
   compareButtons.forEach((button) => {
@@ -838,79 +904,6 @@ function removeFromCompare(productId) {
   }
 }
 
-// Function to remove from compare and refresh the page
-function removeFromComparePage(productId) {
-  const index = arr_compare_list.findIndex(
-    (item) => (typeof item === 'object' ? item.id : item) === productId.toString()
-  );
-
-  if (index > -1) {
-    // Remove from array
-    arr_compare_list.splice(index, 1);
-    // Update localStorage
-    localStorage.setItem(nameCachedCompare, JSON.stringify(arr_compare_list));
-
-    // Update all buttons for this product
-    updateAllCompareButtons(productId.toString(), 'add');
-
-    // Dispatch custom event
-    document.dispatchEvent(
-      new CustomEvent('gravio:compare:update', {
-        bubbles: true,
-        detail: arr_compare_list,
-      })
-    );
-
-    // If we're on the compare page, update UI without reload
-    if (window.isPageCompare) {
-      // Find the product card to remove
-      const productCard = document.querySelector(`.tf-compare-item[data-product-id="${productId}"]`);
-      if (productCard) {
-        // Add animation
-        productCard.style.opacity = '0';
-        productCard.style.transform = 'scale(0.8)';
-
-        setTimeout(() => {
-          // Get the parent column
-          const compareCol = productCard.closest('.tf-compare-col');
-          if (compareCol) {
-            // Get column index
-            const colIndex = Array.from(compareCol.parentElement.children).indexOf(compareCol);
-
-            // Remove all related columns in other rows
-            document.querySelectorAll('.tf-compare-row').forEach((row) => {
-              const cols = row.querySelectorAll('.tf-compare-col');
-              if (cols[colIndex]) {
-                cols[colIndex].remove();
-              }
-            });
-
-            // If no products left, show empty state
-            if (arr_compare_list.length === 0) {
-              const container = document.querySelector('.container');
-              if (container) {
-                container.innerHTML = `
-                  <div class="tf-wishlist-empty text-center">
-                    <p class="text-md text-noti mb-4">${window.ShopifyTranslations.compare.no_products_added || 'No product were added to the compare.'}</p>
-                    <a href="${
-                      window.Shopify ? window.Shopify.routes.root : '/'
-                    }" class="tf-btn animate-btn btn-back-shop">${window.ShopifyTranslations.common.back_to_shopping || 'Back to Shopping'}</a>
-                  </div>
-                `;
-              }
-            }
-
-            // Update URL without reload
-            const newUrl =
-              arr_compare_list.length > 0 ? conver_to_link_fn('compare', arr_compare_list) : window.location.pathname;
-            window.history.replaceState({}, document.title, newUrl);
-          }
-        }, 300);
-      }
-    }
-  }
-}
-
 // Clean up modal state
 function cleanupModal() {
   // Remove all modal backdrops
@@ -997,7 +990,10 @@ function clearSearchInputOnSpecialPages() {
     const searchInputs = document.querySelectorAll('input[name="q"], input[type="search"]');
     searchInputs.forEach((input) => {
       input.value = '';
-      input.setAttribute('placeholder', input.getAttribute('placeholder') || (window.ShopifyTranslations.common.search_our_store || 'Search our store'));
+      input.setAttribute(
+        'placeholder',
+        input.getAttribute('placeholder') || window.ShopifyTranslations.common.search_our_store || 'Search our store'
+      );
     });
   }
 }
