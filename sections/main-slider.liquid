@@ -324,60 +324,41 @@
 {% endschema %}
 
 {% style %}
-.slider-height {
-  {% if section.settings.height == 'fixed' %}
-    height: {{ section.settings.height_fixed }}px;
-  {% elsif section.settings.height == 'fill' %}
-    height: 100vh;
-  {% elsif section.settings.height == 'adapt' %}
-    height: auto;
-  {% elsif section.settings.height == 'adapt-first' %}
-    height: auto;
-  {% endif %}
-}
-
-@media (max-width: 767px) {
   .slider-height {
-    {% if section.settings.mobile_height == 'fixed' %}
-      height: {{ section.settings.mobile_height_fixed }}px;
-    {% elsif section.settings.mobile_height == 'adapt' %}
-      height: auto;
+    {% if section.settings.height == 'fixed' %}
+      height: {{ section.settings.height_fixed }}px;
+    {% elsif section.settings.height == 'fill' %}
+      height: 100vh;
+    {% elsif section.settings.height == 'adapt' %}
+      height: auto; /* each slide adapts */
+    {% elsif section.settings.height == 'adapt-first' %}
+      height: auto; /* will be locked to first image by JS */
     {% endif %}
   }
-}
-.section-{{ section.id }}-padding {
+  
+  @media (max-width: 767px) {
+    .slider-height {
+      {% if section.settings.mobile_height == 'fixed' %}
+        height: {{ section.settings.mobile_height_fixed }}px;
+      {% elsif section.settings.mobile_height == 'adapt' %}
+        height: auto;
+      {% endif %}
+    }
+  }
+  
+  .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
   }
-
+  
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-
-  /* Additional styles for adapt heights */
-  .slider-height[data-height="adapt"] .swiper-slide,
-  .slider-height[data-height="adapt-first"] .swiper-slide {
-    height: auto;
-  }
-
-  .slider-height[data-height="adapt"] .swiper-slide:not(:first-child) {
-    height: 100%;
-  }
-
-  /* Ensure all images in adapt-first have the same height as the first image */
-  .slider-height[data-height="adapt"] .swiper-slide .image img {
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .slider-height[data-height="adapt"] .swiper-slide:first-child .image img {
-    height: auto;
-    object-fit: contain;
-  }
-{% endstyle %}
+  {% endstyle %}
+  
 
 <section class="tf-slideshow slider-electric-access slider-default color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
     <div class="{{ section.settings.width }}">
@@ -406,12 +387,7 @@
                                         <div class="image">
                                                                                             {% if block.settings.image %}
                                                 {% assign image_class = 'lazyload' %}
-                                                {% if section.settings.height == 'adapt' or section.settings.height == 'adapt-first' %}
-                                                    {% assign image_class = image_class | append: ' w-100' %}
-                                                    {% if section.settings.height == 'adapt-first' and forloop.first %}
-                                                        {% assign image_class = image_class | append: ' h-auto' %}
-                                                    {% endif %}
-                                                {% elsif section.settings.height == 'fill' or section.settings.height == 'fixed' %}
+                                                {% if section.settings.height == 'fill' or section.settings.height == 'fixed' %}
                                                     {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
                                                 {% endif %}
                                                 
@@ -487,3 +463,25 @@
         </div>
     </div>
 </section>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const slider = document.querySelector('[data-slider-id="{{ section.id }}"]');
+    if (!slider) return;
+  
+    if (slider.dataset.height === "adapt-first") {
+      const firstImg = slider.querySelector("img");
+      if (firstImg) {
+        const setHeight = () => slider.style.height = firstImg.offsetHeight + "px";
+  
+        if (firstImg.complete) {
+          setHeight();
+        } else {
+          firstImg.onload = setHeight;
+        }
+  
+        window.addEventListener("resize", setHeight);
+      }
+    }
+  });
+</script>
+  
