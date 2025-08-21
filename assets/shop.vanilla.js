@@ -8,12 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize global layout state
     isListActive = document.querySelector('.sw-layout-list')?.classList.contains('active') || false;
     
+    // Initialize total products count from Shopify data
+    if (window.collectionData) {
+        window.totalProducts = window.collectionData.totalProducts;
+    }
+    
     initializeFilters(); // Initialize filter values
     initPriceRange();
     initProductFilters();
     initSortFunctionality();
     initLayoutSwitching();
-    initLoadMore();
+    // Skip load more if using Shopify pagination
+    if (document.querySelector('.loadItem')) {
+        initLoadMore();
+    }
     bindProductEvents(); // Initialize product events
 });
 
@@ -79,6 +87,12 @@ function initializeFilters() {
     if (priceSlider) {
         filters.minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
         filters.maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
+    }
+    
+    // Use collection data if available
+    if (window.collectionData) {
+        filters.minPrice = window.collectionData.priceMin || filters.minPrice;
+        filters.maxPrice = window.collectionData.priceMax || filters.maxPrice;
     }
 }
 
@@ -187,6 +201,8 @@ function removeFilter(filterType) {
             const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
             const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
             priceSlider.noUiSlider.set([minPrice, maxPrice]);
+            filters.minPrice = minPrice;
+            filters.maxPrice = maxPrice;
         }
     }
     if (filterType === "sale") {
@@ -209,6 +225,8 @@ function resetAllFilters() {
         const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
         const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
         priceSlider.noUiSlider.set([minPrice, maxPrice]);
+        filters.minPrice = minPrice;
+        filters.maxPrice = maxPrice;
     }
     
     filters.sale = false;
@@ -231,39 +249,45 @@ function applyFilters() {
         let showProduct = true;
 
         // Price filter
-        const priceText = product.querySelector('.price-new')?.textContent.replace('$', '');
-        const price = parseFloat(priceText);
-        if (price < filters.minPrice || price > filters.maxPrice) {
+        let price = parseFloat(product.dataset.price);
+        if (isNaN(price)) {
+            // Fallback to text content if data attribute is not available
+            const priceText = product.querySelector('.price-new')?.textContent.replace(/[^0-9.]/g, '');
+            price = parseFloat(priceText);
+        }
+        if (isNaN(price) || price < filters.minPrice || price > filters.maxPrice) {
             showProduct = false;
         }
 
         // Size filter
-        if (filters.size && !product.querySelector(`.size-item:contains('${filters.size}')`)) {
-            // Fallback to text content search if :contains selector doesn't work
+        if (filters.size) {
             const sizeItems = Array.from(product.querySelectorAll('.size-item'));
-            const hasSize = sizeItems.some(item => item.textContent.includes(filters.size));
+            const hasSize = sizeItems.some(item => item.textContent.trim() === filters.size);
             if (!hasSize) {
                 showProduct = false;
             }
         }
 
         // Color filter
-        if (filters.color && !product.querySelector(`.color-swatch:contains('${filters.color}')`)) {
-            // Fallback to text content search if :contains selector doesn't work
+        if (filters.color) {
             const colorSwatches = Array.from(product.querySelectorAll('.color-swatch'));
-            const hasColor = colorSwatches.some(swatch => swatch.textContent.includes(filters.color));
+            const hasColor = colorSwatches.some(swatch => swatch.textContent.trim() === filters.color);
             if (!hasColor) {
                 showProduct = false;
             }
         }
 
         // Availability filter
-        if (filters.availability && product.dataset.availability !== filters.availability) {
-            showProduct = false;
+        if (filters.availability) {
+            const isInStock = product.dataset.availability === 'true';
+            const expectedInStock = filters.availability === 'In stock';
+            if (isInStock !== expectedInStock) {
+                showProduct = false;
+            }
         }
 
         // Sale filter
-        if (filters.sale && !product.querySelector('.on-sale-wrap')) {
+        if (filters.sale && !product.dataset.sale) {
             showProduct = false;
         }
 
@@ -307,7 +331,7 @@ function updateMetaFilter() {
         tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="availability"></span> Availability: ${filters.availability}</span>`);
     }
     if (filters.brands) {
-        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="brand"></span>Brand: ${filters.brands}</span>`);
+        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="brands"></span> Brand: ${filters.brands}</span>`);
     }
     
     const priceSlider = document.getElementById('price-value-range');
@@ -315,18 +339,18 @@ function updateMetaFilter() {
         const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
         const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
         if (filters.minPrice > minPrice || filters.maxPrice < maxPrice) {
-            tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="price"></span>Price: $${filters.minPrice} - $${filters.maxPrice}</span>`);
+            tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="price"></span> Price: $${filters.minPrice} - $${filters.maxPrice}</span>`);
         }
     }
     
     if (filters.color) {
-        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="color"></span>Color: ${filters.color}</span>`);
+        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="color"></span> Color: ${filters.color}</span>`);
     }
     if (filters.size) {
-        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="size"></span>Size: ${filters.size}</span>`);
+        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="size"></span> Size: ${filters.size}</span>`);
     }
     if (filters.sale) {
-        tags.push(`<span class="filter-tag on-sale d-none">On Sale <span class="remove-tag icon-close" data-filter="sale"></span></span>`);
+        tags.push(`<span class="filter-tag on-sale">On Sale <span class="remove-tag icon-close" data-filter="sale"></span></span>`);
     }
 
     appliedFilters.innerHTML = tags.join('');
@@ -340,6 +364,9 @@ function updateMetaFilter() {
 
 function updatePaginationVisibility(visibleProductCountGrid, visibleProductCountList) {
     const paginationElements = document.querySelectorAll('.wrapper-shop .wg-pagination, .wrapper-shop .tf-loading');
+    
+    // Only manage pagination if we have pagination elements (for load more functionality)
+    if (paginationElements.length === 0) return;
     
     if (visibleProductCountGrid >= 12 || visibleProductCountList >= 12) {
         paginationElements.forEach(el => el.style.display = '');

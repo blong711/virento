@@ -15,7 +15,11 @@
   {% assign should_show_progress = true %}
 {% endif %}
 
-<div class="card-product style-list" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+<div class="card-product style-list" 
+     data-availability="{{ product.available | default: false }}"
+     data-brand="{{ product.vendor | handleize }}"
+     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
+     {% if product.compare_at_price > product.price %}data-sale="true"{% endif %}>
     <div class="card-product-wrapper">
         <a href="{{ product.url }}" class="product-img">
             {% if product.featured_image %}
@@ -105,5 +109,25 @@
                 </a>
             </div>
         </div>
+        
+        {% comment %} Hidden size and color options for filtering {% endcomment %}
+        <div style="display: none;" class="product-options">
+            {% for option in product.options_with_values %}
+                {% if option.name == 'Size' %}
+                    {% for value in option.values %}
+                        <span class="size-item" data-size="{{ value }}">{{ value }}</span>
+                    {% endfor %}
+                {% elsif option.name == 'Color' %}
+                    {% for value in option.values %}
+                        <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        {% comment %} Sale indicator for filtering {% endcomment %}
+        {% if product.compare_at_price > product.price %}
+            <div style="display: none;" class="on-sale-wrap"></div>
+        {% endif %}
     </div>
 </div>

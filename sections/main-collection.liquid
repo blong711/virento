@@ -65,21 +65,22 @@
             <div class="meta-filter-shop">
                 <div id="product-count-grid" class="count-text">
                     {% if collection.products.size > 0 %}
-                        Showing {{ paginate.current_page | times: paginate.page_size | minus: paginate.page_size | plus: 1 }}-{{ paginate.current_page | times: paginate.page_size | at_most: collection.products.size }} of {{ collection.products.size }} products
+                        <span class="count">{{ collection.products.size }}</span> Products found
                     {% else %}
                         No products found
                     {% endif %}
                 </div>
                 <div id="product-count-list" class="count-text">
                     {% if collection.products.size > 0 %}
-                        Showing {{ paginate.current_page | times: paginate.page_size | minus: paginate.page_size | plus: 1 }}-{{ paginate.current_page | times: paginate.page_size | at_most: collection.products.size }} of {{ collection.products.size }} products
+                        <span class="count">{{ collection.products.size }}</span> Products found
                     {% else %}
                         No products found
                     {% endif %}
                 </div>
                 <div id="applied-filters"></div>
-                <button id="remove-all" class="remove-all-filters" style="display: none;"><i
-                        class="icon icon-close"></i> Clear all filter</button>
+                <button id="remove-all" class="remove-all-filters" style="display: none;">
+                    <i class="icon icon-close"></i> Clear all filters
+                </button>
             </div>
             
             {% comment %} List Layout {% endcomment %}
@@ -201,4 +202,17 @@
         </p>
     </div>
 </div>
+
+{% comment %} Render the filter snippet {% endcomment %}
+{% render 'collection-filters', collection: collection %}
+
+{% comment %} Add necessary data for JavaScript {% endcomment %}
+<script>
+    window.collectionData = {
+        totalProducts: {{ collection.products.size }},
+        priceMin: {{ collection.price_min | divided_by: 100.0 | round: 0 }},
+        priceMax: {{ collection.price_max | divided_by: 100.0 | round: 0 }}
+    };
+</script>
+
 {% endpaginate %}

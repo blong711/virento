@@ -15,7 +15,11 @@
 
 
 {% if card_style == 'style-1' %}
-<div class="card-product style-space color-{{ card_color_scheme }}"
+<div class="card-product grid style-space color-{{ card_color_scheme }}"
+     data-availability="{{ product.available | default: false }}"
+     data-brand="{{ product.vendor | handleize }}"
+     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
+     {% if product.compare_at_price > product.price %}data-sale="true"{% endif %}
      style="
         {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
         {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
@@ -80,10 +84,34 @@
                 </div>
             </div>
         {% endif %}
+        
+        {% comment %} Hidden size and color options for filtering {% endcomment %}
+        <div style="display: none;" class="product-options">
+            {% for option in product.options_with_values %}
+                {% if option.name == 'Size' %}
+                    {% for value in option.values %}
+                        <span class="size-item" data-size="{{ value }}">{{ value }}</span>
+                    {% endfor %}
+                {% elsif option.name == 'Color' %}
+                    {% for value in option.values %}
+                        <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        {% comment %} Sale indicator for filtering {% endcomment %}
+        {% if product.compare_at_price > product.price %}
+            <div style="display: none;" class="on-sale-wrap"></div>
+        {% endif %}
     </div>
 </div>
 {% else %}
-<div class="card-product style-2 style-border-2 color-{{ card_color_scheme }}"
+<div class="card-product grid style-2 style-border-2 color-{{ card_color_scheme }}"
+     data-availability="{{ product.available | default: false }}"
+     data-brand="{{ product.vendor | handleize }}"
+     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
+     {% if product.compare_at_price > product.price %}data-sale="true"{% endif %}
      style="
         {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
         {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
@@ -147,6 +175,26 @@
                     </p>
                 </div>
             </div>
+        {% endif %}
+        
+        {% comment %} Hidden size and color options for filtering {% endcomment %}
+        <div style="display: none;" class="product-options">
+            {% for option in product.options_with_values %}
+                {% if option.name == 'Size' %}
+                    {% for value in option.values %}
+                        <span class="size-item" data-size="{{ value }}">{{ value }}</span>
+                    {% endfor %}
+                {% elsif option.name == 'Color' %}
+                    {% for value in option.values %}
+                        <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        {% comment %} Sale indicator for filtering {% endcomment %}
+        {% if product.compare_at_price > product.price %}
+            <div style="display: none;" class="on-sale-wrap"></div>
         {% endif %}
     </div>
 </div>
