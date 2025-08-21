@@ -469,17 +469,29 @@
     if (!slider) return;
   
     if (slider.dataset.height === "adapt-first") {
-      const firstImg = slider.querySelector("img");
-      if (firstImg) {
-        const setHeight = () => slider.style.height = firstImg.offsetHeight + "px";
-  
-        if (firstImg.complete) {
-          setHeight();
-        } else {
-          firstImg.onload = setHeight;
+      // Get the first slide
+      const firstSlide = slider.querySelector(".swiper-slide");
+      if (firstSlide) {
+        // Get the desktop image from the first slide (or fallback to any image)
+        const firstImg = firstSlide.querySelector(".d-none.d-md-block img") || 
+                        firstSlide.querySelector("img");
+        
+        if (firstImg) {
+          const setHeight = () => {
+            const imgHeight = firstImg.offsetHeight;
+            if (imgHeight > 0) {
+              slider.style.height = imgHeight + "px";
+            }
+          };
+
+          if (firstImg.complete) {
+            setHeight();
+          } else {
+            firstImg.onload = setHeight;
+          }
+
+          window.addEventListener("resize", setHeight);
         }
-  
-        window.addEventListener("resize", setHeight);
       }
     }
   });
