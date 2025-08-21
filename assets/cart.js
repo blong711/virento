@@ -362,6 +362,10 @@
       this.hideAllLoadingStates();
     }, 10000); // 10 second timeout
     
+    // Check if cart was previously empty and now has items
+    const wasEmpty = document.querySelector('.empty-cart')?.style.display !== 'none';
+    const nowHasItems = cartData && cartData.item_count > 0;
+    
     // First, try to update cart totals directly from the cart data
     if (cartData && cartData.token) {
       this.updateCartTotals(cartData);
@@ -374,83 +378,96 @@
       }
     }
     
-    // Then try to update the full cart display via sections API
-    fetch('/?sections=main-cart')
-      .then(response => response.json())
-      .then(sections => {
-        if (sections['main-cart']) {
-          try {
-            // Get the full section HTML
-            const fullSectionHTML = sections['main-cart'];
-            
-            const parser = new DOMParser();
-            const newDoc = parser.parseFromString(fullSectionHTML, 'text/html');
-            
-            // Check if the sections API returned meaningful content
-            const newCartMain = newDoc.querySelector('.tf-page-cart-main');
-            const newCartSidebar = newDoc.querySelector('.tf-page-cart-sidebar');
-            const newCartItems = newDoc.querySelectorAll('.tf-cart-item');
-            const newFreeShipping = newDoc.querySelector('.tf-cart-head');
-            
-            // Check if sections API returned actual cart content
-            const hasCartContent = newCartItems.length > 0 || 
-                                 (newCartMain && newCartMain.innerHTML.trim() && newCartMain.innerHTML.trim() !== '') ||
-                                 (newCartSidebar && newCartSidebar.innerHTML.trim() && newCartSidebar.innerHTML.trim() !== '');
-            
-            if (hasCartContent) {
-              // Update cart main content if it exists and has content
-              if (newCartMain && newCartMain.innerHTML.trim()) {
-                const currentCartMain = document.querySelector('.tf-page-cart-main');
-                if (currentCartMain) {
-                  currentCartMain.innerHTML = newCartMain.innerHTML;
+    // If cart was empty and now has items, we need to restore the full cart structure
+    if (wasEmpty && nowHasItems) {
+      console.log('Cart transitioned from empty to non-empty - restoring full structure');
+      
+      // Try to fetch the complete cart page content to restore proper structure
+      this.refreshCartPageContent();
+      
+      // Also ensure cart elements are visible
+      setTimeout(() => {
+        this.ensureCartElementsVisible();
+      }, 100);
+    } else {
+      // Normal update - try to update via sections API
+      fetch('/?sections=main-cart')
+        .then(response => response.json())
+        .then(sections => {
+          if (sections['main-cart']) {
+            try {
+              // Get the full section HTML
+              const fullSectionHTML = sections['main-cart'];
+              
+              const parser = new DOMParser();
+              const newDoc = parser.parseFromString(fullSectionHTML, 'text/html');
+              
+              // Check if the sections API returned meaningful content
+              const newCartMain = newDoc.querySelector('.tf-page-cart-main');
+              const newCartSidebar = newDoc.querySelector('.tf-page-cart-sidebar');
+              const newCartItems = newDoc.querySelectorAll('.tf-cart-item');
+              const newFreeShipping = newDoc.querySelector('.tf-cart-head');
+              
+              // Check if sections API returned actual cart content
+              const hasCartContent = newCartItems.length > 0 || 
+                                   (newCartMain && newCartMain.innerHTML.trim() && newCartMain.innerHTML.trim() !== '') ||
+                                   (newCartSidebar && newCartSidebar.innerHTML.trim() && newCartSidebar.innerHTML.trim() !== '');
+              
+              if (hasCartContent) {
+                // Update cart main content if it exists and has content
+                if (newCartMain && newCartMain.innerHTML.trim()) {
+                  const currentCartMain = document.querySelector('.tf-page-cart-main');
+                  if (currentCartMain) {
+                    currentCartMain.innerHTML = newCartMain.innerHTML;
+                  }
                 }
+                
+                // Update cart sidebar if it exists and has content
+                if (newCartSidebar && newCartSidebar.innerHTML.trim()) {
+                  const currentCartSidebar = document.querySelector('.tf-page-cart-sidebar');
+                  if (currentCartSidebar) {
+                    currentCartSidebar.innerHTML = newCartSidebar.innerHTML;
+                  }
+                }
+                
+                // Update free shipping progress if it exists
+                if (newFreeShipping) {
+                  const currentFreeShipping = document.querySelector('.tf-cart-head');
+                  if (currentFreeShipping) {
+                    currentFreeShipping.innerHTML = newFreeShipping.innerHTML;
+                  }
+                }
+                
+                // Re-initialize functionality after content update
+                this.reinitAfterUpdate();
               }
               
-              // Update cart sidebar if it exists and has content
-              if (newCartSidebar && newCartSidebar.innerHTML.trim()) {
-                const currentCartSidebar = document.querySelector('.tf-page-cart-sidebar');
-                if (currentCartSidebar) {
-                  currentCartSidebar.innerHTML = newCartSidebar.innerHTML;
-                }
-              }
+              // Check empty cart state after update
+              this.checkEmptyCart();
               
-              // Update free shipping progress if it exists
-              if (newFreeShipping) {
-                const currentFreeShipping = document.querySelector('.tf-cart-head');
-                if (currentFreeShipping) {
-                  currentFreeShipping.innerHTML = newFreeShipping.innerHTML;
-                }
-              }
+              // Clear the loading timeout and hide loading states
+              clearTimeout(loadingTimeout);
+              this.hideAllLoadingStates();
               
-              // Re-initialize functionality after content update
-              this.reinitAfterUpdate();
+            } catch (error) {
+              console.error('Error parsing or updating cart content:', error);
+              // Clear timeout and hide loading states even if update failed
+              clearTimeout(loadingTimeout);
+              this.hideAllLoadingStates();
             }
-            
-            // Check empty cart state after update
-            this.checkEmptyCart();
-            
-            // Clear the loading timeout and hide loading states
-            clearTimeout(loadingTimeout);
-            this.hideAllLoadingStates();
-            
-          } catch (error) {
-            console.error('Error parsing or updating cart content:', error);
-            // Clear timeout and hide loading states even if update failed
+          } else {
+            // Clear timeout and hide loading states
             clearTimeout(loadingTimeout);
             this.hideAllLoadingStates();
           }
-        } else {
-          // Clear timeout and hide loading states
+        })
+        .catch(error => {
+          console.error('Error updating cart display via sections API:', error);
+          // Clear timeout and hide loading states on error
           clearTimeout(loadingTimeout);
           this.hideAllLoadingStates();
-        }
-      })
-      .catch(error => {
-        console.error('Error updating cart display via sections API:', error);
-        // Clear timeout and hide loading states on error
-        clearTimeout(loadingTimeout);
-        this.hideAllLoadingStates();
-      });
+        });
+    }
     
     // Trigger cart count update event
     document.dispatchEvent(new CustomEvent('cart:updated'));
@@ -564,6 +581,9 @@
         featuresSection.style.display = 'block';
       }
     }
+    
+    // Log the current state for debugging
+    console.log(`Cart state: ${cartItems.length} items, empty message visible: ${emptyCartMessage?.style.display !== 'none'}, cart content visible: ${cartContent?.style.display !== 'none'}`);
   }
 
 
@@ -807,6 +827,10 @@
     fetch('/cart.js')
       .then(response => response.json())
       .then(cart => {
+        // Check if cart was previously empty and now has items
+        const wasEmpty = document.querySelector('.empty-cart')?.style.display !== 'none';
+        const nowHasItems = cart.item_count > 0;
+        
         // Update cart totals and counts
         this.updateCartTotals(cart);
         this.updateCartCount(cart.item_count);
@@ -819,6 +843,14 @@
         
         // Check empty cart state
         this.checkEmptyCart();
+        
+        // If cart was empty and now has items, ensure all elements are visible
+        if (wasEmpty && nowHasItems) {
+          // Force a small delay to ensure DOM updates are complete
+          setTimeout(() => {
+            this.ensureCartElementsVisible();
+          }, 50);
+        }
         
         // Update gift wrap checkbox state with a small delay to ensure cart is fully updated
         setTimeout(() => {
@@ -837,6 +869,69 @@
         this.checkEmptyCart();
         document.dispatchEvent(new CustomEvent('cart:updated'));
       });
+  }
+
+  // Ensure cart elements are visible after transitioning from empty to non-empty
+  ensureCartElementsVisible() {
+    // Show cart content container
+    const cartContent = document.querySelector('.tf-page-cart-main');
+    if (cartContent) {
+      cartContent.style.display = 'block';
+    }
+    
+    // Show cart sidebar
+    const cartSidebar = document.querySelector('.tf-page-cart-sidebar');
+    if (cartSidebar) {
+      cartSidebar.style.display = 'block';
+    }
+    
+    // Show free shipping progress
+    const freeShippingProgress = document.querySelector('.tf-cart-head');
+    if (freeShippingProgress) {
+      freeShippingProgress.style.display = 'block';
+    }
+    
+    // Show cart table
+    const cartTable = document.querySelector('.table-page-cart');
+    if (cartTable) {
+      cartTable.style.display = 'table';
+    }
+    
+    // Show gift wrap section
+    const giftWrapSection = document.querySelector('.check-gift');
+    if (giftWrapSection) {
+      giftWrapSection.style.display = 'block';
+    }
+    
+    // Show discount section
+    const discountSection = document.querySelector('.box-ip-discount');
+    if (discountSection) {
+      discountSection.style.display = 'flex';
+    }
+    
+    // Show cart note section
+    const cartNoteSection = document.querySelector('.cart-note');
+    if (cartNoteSection) {
+      cartNoteSection.style.display = 'block';
+    }
+    
+    // Show features section
+    const featuresSection = document.querySelector('.fl-iconbox');
+    if (featuresSection) {
+      featuresSection.style.display = 'block';
+    }
+    
+    // Hide empty cart message
+    const emptyCartMessage = document.querySelector('.empty-cart');
+    if (emptyCartMessage) {
+      emptyCartMessage.style.display = 'none';
+    }
+    
+    // Hide empty cart column
+    const emptyCartColumn = document.querySelector('.col-12:has(.empty-cart)') || emptyCartMessage?.closest('.col-12');
+    if (emptyCartColumn) {
+      emptyCartColumn.style.display = 'none';
+    }
   }
 
   updateGiftWrapCheckboxState() {
@@ -872,254 +967,99 @@
   }
 
   createCartItemElement(cartItem) {
+    // The issue is that we need the proper cart table structure
+    // Instead of trying to create elements, let's trigger a full cart refresh
+    // This ensures we get the complete cart page structure from Shopify
     
-    // Find the cart items container - look for the actual container that holds cart items
-    let cartItemsContainer = document.querySelector('.tf-cart-items') || 
-                            document.querySelector('.cart-items') ||
-                            document.querySelector('.tf-page-cart-main .cart-items') ||
-                            document.querySelector('.tf-page-cart-main');
+    console.log('Creating cart item element - triggering full cart refresh for proper structure');
     
-    // If still not found, try to find any element that contains cart items
-    if (!cartItemsContainer) {
-      const cartItems = document.querySelectorAll('.tf-cart-item');
-      if (cartItems.length > 0) {
-        cartItemsContainer = cartItems[0].parentElement;
-      }
-    }
+    // Force a complete cart refresh to get the proper table structure
+    this.forceCartRefresh();
     
-    // Since cart items are <tr> elements, we need to find the <tbody> or <table> container
-    if (cartItemsContainer && cartItemsContainer.tagName === 'DIV') {
-      // Look for the table that contains the cart items
-      const tableContainer = cartItemsContainer.querySelector('table') || 
-                            cartItemsContainer.querySelector('tbody') ||
-                            cartItemsContainer.querySelector('thead');
-      
-      if (tableContainer) {
-        cartItemsContainer = tableContainer;
-      } else {
-        // If no table found, look for tbody specifically
-        const tbody = document.querySelector('tbody');
-        if (tbody) {
-          cartItemsContainer = tbody;
-        }
-      }
-    }
+    // Alternative approach: try to fetch the cart page content and update it
+    this.refreshCartPageContent();
+  }
+
+  // Refresh cart page content to get proper structure
+  refreshCartPageContent() {
+    console.log('Refreshing cart page content for proper structure');
     
-    if (!cartItemsContainer) {
-      return;
-    }
-    
-    // Try to clone an existing cart item to maintain the exact structure
-    const existingCartItem = document.querySelector('.tf-cart-item');
-    
-    if (existingCartItem) {
-      const newCartItem = existingCartItem.cloneNode(true);
-      
-      // Update the cloned item with new data
-      newCartItem.setAttribute('data-item-key', cartItem.key);
-      
-      // Clear any existing variant information that might have been copied
-      const variantElements = newCartItem.querySelectorAll('.variant-title, .variant, .variants');
-      variantElements.forEach(element => {
-        element.style.display = 'none';
-      });
-      
-      // Update image
-      const imgElement = newCartItem.querySelector('img');
-      if (imgElement) {
-        imgElement.src = cartItem.image || '/assets/no-image.png';
-        imgElement.alt = cartItem.product_title;
-      }
-      
-      // Update product name
-      const nameElement = newCartItem.querySelector('.name');
-      if (nameElement) {
-        nameElement.textContent = cartItem.product_title;
-      }
-      
-      // Update variant title if it exists - only show for actual product variants, not gift wrap
-      const variantElement = newCartItem.querySelector('.variant-title, .variant, .variants');
-      if (variantElement) {
-        if (cartItem.variant_title && cartItem.variant_title !== 'Default Title' && !(cartItem.product_title || '').toLowerCase().includes('gift wrap')) {
-          variantElement.textContent = cartItem.variant_title;
-          variantElement.style.display = 'block';
-        } else {
-          // Hide variant info for gift wrap or products without variants
-          variantElement.style.display = 'none';
-        }
-      }
-      
-      // Update price - ensure it's wrapped in span with class "cart-price text-md fw-medium"
-      const priceSelectors = [
-        '.tf-cart-item_price', '.price', '.item-price', '.cart-item-price', '.product-price', '.variant-price',
-        '.price-regular', '.price-sale', '.price-compare', '.price-current',
-        '[data-price]', '[data-item-price]', '.cart-item-price'
-      ];
-      
-      let priceUpdated = false;
-      for (const selector of priceSelectors) {
-        const priceElements = newCartItem.querySelectorAll(selector);
-        if (priceElements.length > 0) {
-          priceElements.forEach((element, index) => {
-            // Always replace the content with properly wrapped price span
-            const priceSpan = document.createElement('span');
-            priceSpan.className = 'cart-price text-md fw-medium';
-            priceSpan.textContent = this.formatMoney(cartItem.final_price);
-            
-            // Clear the element and add the new span
-            element.innerHTML = '';
-            element.appendChild(priceSpan);
-          });
-          priceUpdated = true;
-        }
-      }
-      
-      if (!priceUpdated) {
-        // Search for any element that might contain price information
-        const allElements = newCartItem.querySelectorAll('*');
-        const potentialPriceElements = Array.from(allElements).filter(el => {
-          const text = el.textContent.trim();
-          return text.includes('$') || text.includes('€') || text.includes('£') || 
-                 el.className.toLowerCase().includes('price') ||
-                 el.getAttribute('data-price') !== null;
-        });
+    // Fetch the updated cart page content
+    fetch(window.location.href)
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const newDoc = parser.parseFromString(html, 'text/html');
         
-        potentialPriceElements.forEach((element, index) => {
-          if (element.textContent.trim().match(/[\$€£]\d+\.?\d*/)) {
-            // Replace with properly wrapped price span
-            const priceSpan = document.createElement('span');
-            priceSpan.className = 'cart-price text-md fw-medium';
-            priceSpan.textContent = this.formatMoney(cartItem.final_price);
-            
-            // Clear the element and add the new span
-            element.innerHTML = '';
-            element.appendChild(priceSpan);
-          }
-        });
-      }
-      
-      // Special handling for the price cell - ensure it has the proper span wrapper
-      const priceCell = newCartItem.querySelector('.tf-cart-item_price');
-      if (priceCell) {
-        // Check if it already has the cart-price span
-        const existingPriceSpan = priceCell.querySelector('.cart-price.text-md.fw-medium');
-        if (!existingPriceSpan) {
-          // Create the proper price span wrapper
-          const priceSpan = document.createElement('span');
-          priceSpan.className = 'cart-price text-md fw-medium';
-          priceSpan.textContent = this.formatMoney(cartItem.final_price);
+        // Look for the main cart section
+        const newCartSection = newDoc.querySelector('#shopify-section-template--19608379425009__main-cart');
+        const currentCartSection = document.querySelector('#shopify-section-template--19608379425009__main-cart');
+        
+        if (newCartSection && currentCartSection) {
+          // Update the entire cart section to get proper structure
+          currentCartSection.innerHTML = newCartSection.innerHTML;
           
-          // Clear the cell and add the new span
-          priceCell.innerHTML = '';
-          priceCell.appendChild(priceSpan);
+          // Re-initialize cart functionality
+          this.reinitAfterUpdate();
+          
+          console.log('Cart page content refreshed successfully');
         } else {
-          existingPriceSpan.textContent = this.formatMoney(cartItem.final_price);
+          console.warn('Could not find cart section for refresh');
         }
-      }
-      
-      // Update quantity
-      const quantityElement = newCartItem.querySelector('.quantity-product');
-      if (quantityElement) {
-        quantityElement.value = cartItem.quantity;
-        quantityElement.setAttribute('data-item-key', cartItem.key);
-      }
-      
-      // Update total price - be more thorough in finding and updating ALL total-related elements
-      const totalSelectors = [
-        '.total-price', '.cart-total', '.item-total', '.line-total', '.subtotal',
-        '.cart-item-total', '.product-total', '.variant-total',
-        '[data-total]', '[data-line-total]', '.cart-total-price'
-      ];
-      
-      let totalUpdated = false;
-      for (const selector of totalSelectors) {
-        const totalElements = newCartItem.querySelectorAll(selector);
-        if (totalElements.length > 0) {
-          totalElements.forEach(element => {
-            element.textContent = this.formatMoney(cartItem.final_line_price);
-          });
-          totalUpdated = true;
-        }
-      }
-      
-      if (!totalUpdated) {
-        // Search for any element that might contain total information
-        const allElements = newCartItem.querySelectorAll('*');
-        const potentialTotalElements = Array.from(allElements).filter(el => {
-          const text = el.textContent.trim();
-          return text.includes('$') || text.includes('€') || text.includes('£') ||
-                 el.className.toLowerCase().includes('total') ||
-                 el.getAttribute('data-total') !== null;
-        });
-        
-        potentialTotalElements.forEach(element => {
-          if (element.textContent.trim().match(/[\$€£]\d+\.?\d*/)) {
-            element.textContent = this.formatMoney(cartItem.final_line_price);
-          }
-        });
-      }
-      
-      // Update data attributes for buttons
-      const buttons = newCartItem.querySelectorAll('.btn-increase, .btn-decrease, .remove-cart');
-      buttons.forEach(button => {
-        button.setAttribute('data-item-key', cartItem.key);
+      })
+      .catch(error => {
+        console.error('Error refreshing cart page content:', error);
+        // Fallback: force cart refresh
+        this.forceCartRefresh();
       });
-      
-      // Add the new item to the top of the cart table
-      // Insert at the beginning (top) instead of appending at the end
-      if (cartItemsContainer.firstChild) {
-        cartItemsContainer.insertBefore(newCartItem, cartItemsContainer.firstChild);
-      } else {
-        cartItemsContainer.appendChild(newCartItem);
-      }
-      
-      // Re-initialize functionality for the new item
-      this.setupQuantityButtons();
-      this.setupRemoveButtons();
-    } else {
-      // Fallback: create a basic cart item HTML structure
-      const cartItemHTML = `
-        <div class="tf-cart-item" data-item-key="${cartItem.key}">
-          <div class="cart-item-image">
-            <img src="${cartItem.image || '/assets/no-image.png'}" alt="${cartItem.product_title}" />
-          </div>
-          <div class="cart-item-details">
-            <div class="name">${cartItem.product_title}</div>
-            <div class="variant-title">${cartItem.variant_title || ''}</div>
-            <div class="price">
-              <span class="cart-price text-md fw-medium">${this.formatMoney(cartItem.final_price)}</span>
-            </div>
-          </div>
-          <div class="cart-item-quantity">
-            <button class="btn-decrease" data-item-key="${cartItem.key}">-</button>
-            <input type="number" class="quantity-product" value="${cartItem.quantity}" min="1" data-item-key="${cartItem.key}" />
-            <button class="btn-increase" data-item-key="${cartItem.key}">+</button>
-          </div>
-          <div class="cart-item-total">
-            <span class="total-price">${this.formatMoney(cartItem.final_line_price)}</span>
-          </div>
-          <div class="cart-item-remove">
-            <button class="remove-cart" data-item-key="${cartItem.key}">×</button>
-          </div>
-        </div>
-      `;
-      
-      // Create the DOM element
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = cartItemHTML.trim();
-      const newCartItem = tempDiv.firstChild;
-      
-      // Add the new item to the top of the cart table
-      if (cartItemsContainer.firstChild) {
-        cartItemsContainer.insertBefore(newCartItem, cartItemsContainer.firstChild);
-      } else {
-        cartItemsContainer.appendChild(newCartItem);
-      }
-      
-      // Re-initialize functionality for the new item
-      this.setupQuantityButtons();
-      this.setupRemoveButtons();
-    }
+  }
+
+  // Alternative method: refresh specific cart sections
+  refreshCartSections() {
+    console.log('Refreshing cart sections for proper structure');
+    
+    // Try to refresh the main cart section
+    fetch('/?sections=main-cart')
+      .then(response => response.json())
+      .then(sections => {
+        if (sections['main-cart']) {
+          const parser = new DOMParser();
+          const newDoc = parser.parseFromString(sections['main-cart'], 'text/html');
+          
+          // Update cart main content
+          const newCartMain = newDoc.querySelector('.tf-page-cart-main');
+          const currentCartMain = document.querySelector('.tf-page-cart-main');
+          if (newCartMain && currentCartMain) {
+            currentCartMain.innerHTML = newCartMain.innerHTML;
+          }
+          
+          // Update cart sidebar
+          const newCartSidebar = newDoc.querySelector('.tf-page-cart-sidebar');
+          const currentCartSidebar = document.querySelector('.tf-page-cart-sidebar');
+          if (newCartSidebar && currentCartSidebar) {
+            currentCartSidebar.innerHTML = newCartSidebar.innerHTML;
+          }
+          
+          // Update free shipping progress
+          const newFreeShipping = newDoc.querySelector('.tf-cart-head');
+          const currentFreeShipping = document.querySelector('.tf-cart-head');
+          if (newFreeShipping && currentFreeShipping) {
+            currentFreeShipping.innerHTML = newFreeShipping.innerHTML;
+          }
+          
+          // Re-initialize functionality
+          this.reinitAfterUpdate();
+          
+          console.log('Cart sections refreshed successfully');
+        } else {
+          console.warn('No main-cart section found in response');
+        }
+      })
+      .catch(error => {
+        console.error('Error refreshing cart sections:', error);
+        // Fallback: force cart refresh
+        this.forceCartRefresh();
+      });
   }
 
   setupShippingCalculator() {

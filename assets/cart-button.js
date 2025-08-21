@@ -550,328 +550,109 @@ if (!customElements.get('product-cart-button')) {
         this.triggerCartUpdate();
       }
 
-      // Update the cart page display when on cart page
+      // Cart page display updates are handled by cart.js MainCart class
+      // This method is kept for compatibility but delegates to the existing cart functionality
       updateCartPageDisplay(cartData) {
-        if (!cartData) return; // Only check if cartData exists
-        
-        // Always proceed with updates, even if items array is empty
-        // This allows us to handle empty cart state properly
-        
-        // Update cart items display (even if empty)
-        this.updateCartItemsDisplay(cartData.items || []);
-        
-        // Update cart totals
-        this.updateCartTotals(cartData);
-        
-        // Update cart count in header
-        this.updateHeaderCartCount(cartData.item_count);
-        
-        // Check and update empty cart state
-        this.checkEmptyCartState(cartData);
-        
-        // Update any cart-related UI elements
-        this.updateCartUIElements(cartData);
-      }
-
-      // Update cart items display on the cart page
-      updateCartItemsDisplay(cartItems) {
-        if (!Array.isArray(cartItems)) return;
-
-        // Handle empty cart case
-        if (cartItems.length === 0) {
-          // Clear existing cart items display
-          const cartItemsContainer = document.querySelector('.cart-items, .tf-cart-items, .main-cart-items');
-          if (cartItemsContainer) {
-            cartItemsContainer.innerHTML = '';
-          }
-          return;
-        }
-
-        cartItems.forEach(cartItem => {
-          // Find existing cart item element
-          const itemElement = document.querySelector(`[data-item-key="${cartItem.key}"]`);
-          
-          if (itemElement) {
-            // Update existing item
-            this.updateCartItemElement(itemElement, cartItem);
-          } else {
-            // Create new item element
-            this.createCartItemElement(cartItem);
-          }
-        });
-
-        // Remove items that are no longer in cart
-        this.removeRemovedCartItems(cartItems);
-      }
-
-      // Update an existing cart item element
-      updateCartItemElement(itemElement, cartItem) {
-        // Update quantity
-        const quantityInput = itemElement.querySelector('input[name="quantity"], .quantity-input, [data-quantity]');
-        if (quantityInput) {
-          quantityInput.value = cartItem.quantity;
-        }
-
-        // Update price
-        const priceElement = itemElement.querySelector('.price, .item-price, .cart-item-price');
-        if (priceElement) {
-          priceElement.textContent = this.formatMoney(cartItem.final_line_price);
-        }
-
-        // Update total
-        const totalElement = itemElement.querySelector('.item-total, .line-total, .total-price');
-        if (totalElement) {
-          totalElement.textContent = this.formatMoney(cartItem.final_line_price);
-        }
-
-        // Update variant info if present
-        const variantElement = itemElement.querySelector('.variant-title, .variant, .variants');
-        if (variantElement) {
-          if (cartItem.variant_title && cartItem.variant_title !== 'Default Title' && !(cartItem.product_title || '').toLowerCase().includes('gift wrap')) {
-            variantElement.textContent = cartItem.variant_title;
-            variantElement.style.display = 'block';
-          } else {
-            variantElement.style.display = 'none';
-          }
-        }
-
-        // Update image if available
-        if (cartItem.image) {
-          const imageElement = itemElement.querySelector('.cart-item-image img, .product-image img');
-          if (imageElement) {
-            imageElement.src = cartItem.image;
-            imageElement.alt = cartItem.product_title;
-          }
-        }
-      }
-
-      // Create a new cart item element
-      createCartItemElement(cartItem) {
-        // This would need to be implemented based on your cart page HTML structure
-        // For now, we'll trigger a page refresh to show the new item
-        // In a production environment, you'd want to create the HTML dynamically
-        console.log('New cart item added:', cartItem);
-        
-        // Option 1: Refresh the page to show new items (simple but not ideal)
-        // window.location.reload();
-        
-        // Option 2: Fetch updated cart page content (better UX)
-        this.refreshCartPageContent();
-      }
-
-      // Refresh cart page content without full page reload
-      refreshCartPageContent() {
-        // Fetch the updated cart page content
-        fetch(window.location.href)
-          .then(response => response.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const newDoc = parser.parseFromString(html, 'text/html');
-            
-            // Update cart items section
-            const newCartItems = newDoc.querySelector('.tf-cart-items, .cart-items, .main-cart');
-            const currentCartItems = document.querySelector('.tf-cart-items, .cart-items, .main-cart');
-            
-            if (newCartItems && currentCartItems) {
-              currentCartItems.innerHTML = newCartItems.innerHTML;
-            }
-            
-            // Update cart totals section
-            const newCartTotals = newDoc.querySelector('.cart-totals, .cart-summary, .cart-box');
-            const currentCartTotals = document.querySelector('.cart-totals, .cart-summary, .cart-box');
-            
-            if (newCartTotals && currentCartTotals) {
-              currentCartTotals.innerHTML = newCartTotals.innerHTML;
-            }
-            
-            // Re-initialize any cart page functionality
-            this.reinitializeCartPageFunctionality();
-          })
-          .catch(error => {
-            console.error('Error refreshing cart page:', error);
-            // Fallback to page reload
-            window.location.reload();
-          });
-      }
-
-      // Update cart totals
-      updateCartTotals(cartData) {
         if (!cartData) return;
-
-        // Update subtotal
-        const subtotalElement = document.querySelector('.cart-subtotal, .subtotal, .cart-subtotal .price');
-        if (subtotalElement) {
-          const subtotal = cartData.items_subtotal_price || 0;
-          subtotalElement.textContent = this.formatMoney(subtotal);
-        }
-
-        // Update total
-        const totalElement = document.querySelector('.cart-total, .total, .cart-total .price');
-        if (totalElement) {
-          const total = cartData.total_price || 0;
-          totalElement.textContent = this.formatMoney(total);
-        }
-
-        // Update item count
-        const itemCountElement = document.querySelector('.cart-item-count, .item-count');
-        if (itemCountElement) {
-          const itemCount = cartData.item_count || 0;
-          itemCountElement.textContent = itemCount;
-        }
-      }
-
-      // Update header cart count
-      updateHeaderCartCount(itemCount) {
-        const cartCountElements = document.querySelectorAll('.cart-count, .toolbar-count.cart-count, [data-cart-count]');
-        cartCountElements.forEach(element => {
-          element.textContent = itemCount;
-        });
-      }
-
-      // Check and update empty cart state
-      checkEmptyCartState(cartData) {
-        const emptyCartElement = document.querySelector('.empty-cart, .cart-empty');
-        const cartItemsElement = document.querySelector('.cart-items, .tf-cart-items');
         
-        if (cartData.item_count === 0) {
-          // Show empty cart message
-          if (emptyCartElement) {
-            emptyCartElement.style.display = 'block';
-          }
-          if (cartItemsElement) {
-            cartItemsElement.style.display = 'none';
-          }
-        } else {
-          // Hide empty cart message
-          if (emptyCartElement) {
-            emptyCartElement.style.display = 'none';
-          }
-          if (cartItemsElement) {
-            cartItemsElement.style.display = 'block';
+        // If we're on the cart page, let the MainCart class handle the updates
+        if (this.isOnCartPage() && window.mainCart) {
+          // Check if cart was previously empty and now has items
+          const wasEmpty = document.querySelector('.empty-cart')?.style.display !== 'none';
+          const nowHasItems = cartData.item_count > 0;
+          
+          // If cart was empty and now has items, we need to restore cart elements visibility
+          if (wasEmpty && nowHasItems) {
+            // Force a complete cart refresh to restore all elements
+            if (typeof window.mainCart.forceCartRefresh === 'function') {
+              window.mainCart.forceCartRefresh();
+            }
+            
+            // Also manually restore cart elements visibility as a backup
+            this.restoreCartElementsVisibility();
+          } else {
+            // Normal cart refresh
+            if (typeof window.mainCart.forceCartRefresh === 'function') {
+              window.mainCart.forceCartRefresh();
+            }
           }
         }
+        
+        // Still trigger cart update event for other components
+        this.triggerCartUpdate();
       }
 
-      // Update cart-related UI elements
-      updateCartUIElements(cartData) {
-        // Update free shipping progress if it exists
-        const freeShippingElement = document.querySelector('.free-shipping-progress, .shipping-progress');
-        if (freeShippingElement && cartData.total_price) {
-          // Update free shipping progress based on cart total
-          this.updateFreeShippingProgress(cartData.total_price);
+      // Restore cart elements visibility when transitioning from empty to non-empty cart
+      restoreCartElementsVisibility() {
+        // Show cart content container
+        const cartContent = document.querySelector('.tf-page-cart-main');
+        if (cartContent) {
+          cartContent.style.display = 'block';
         }
-
-        // Update any other cart-related UI elements
-        // This can be extended based on your specific cart page design
-      }
-
-      // Update free shipping progress
-      updateFreeShippingProgress(cartTotal) {
-        // This would need to be implemented based on your free shipping threshold
-        // For now, it's a placeholder
-        console.log('Updating free shipping progress for total:', cartTotal);
-      }
-
-      // Remove cart items that are no longer in the cart
-      removeRemovedCartItems(currentCartItems) {
-        const existingItemKeys = currentCartItems.map(item => item.key);
-        const existingElements = document.querySelectorAll('[data-item-key]');
         
-        existingElements.forEach(element => {
-          const itemKey = element.getAttribute('data-item-key');
-          if (!existingItemKeys.includes(itemKey)) {
-            element.remove();
-          }
-        });
-      }
-
-      // Re-initialize cart page functionality after content update
-      reinitializeCartPageFunctionality() {
-        // Re-initialize any cart page specific functionality
-        // This might include quantity inputs, remove buttons, etc.
+        // Show cart sidebar
+        const cartSidebar = document.querySelector('.tf-page-cart-sidebar');
+        if (cartSidebar) {
+          cartSidebar.style.display = 'block';
+        }
         
-        // Example: Re-setup quantity change handlers
-        const quantityInputs = document.querySelectorAll('input[name="quantity"], .quantity-input');
-        quantityInputs.forEach(input => {
-          input.addEventListener('change', (e) => {
-            // Handle quantity change
-            this.handleQuantityChange(e);
-          });
-        });
-
-        // Example: Re-setup remove button handlers
-        const removeButtons = document.querySelectorAll('.remove-item, .remove');
-        removeButtons.forEach(button => {
-          button.addEventListener('click', (e) => {
-            // Handle item removal
-            this.handleItemRemoval(e);
-          });
-        });
-      }
-
-      // Handle quantity change
-      handleQuantityChange(event) {
-        const input = event.target;
-        const itemKey = input.closest('[data-item-key]')?.getAttribute('data-item-key');
-        const newQuantity = parseInt(input.value);
+        // Show free shipping progress
+        const freeShippingProgress = document.querySelector('.tf-cart-head');
+        if (freeShippingProgress) {
+          freeShippingProgress.style.display = 'block';
+        }
         
-        if (itemKey && newQuantity > 0) {
-          this.updateItemQuantity(itemKey, newQuantity);
+        // Show cart table
+        const cartTable = document.querySelector('.table-page-cart');
+        if (cartTable) {
+          cartTable.style.display = 'table';
+        }
+        
+        // Show gift wrap section
+        const giftWrapSection = document.querySelector('.check-gift');
+        if (giftWrapSection) {
+          giftWrapSection.style.display = 'block';
+        }
+        
+        // Show discount section
+        const discountSection = document.querySelector('.box-ip-discount');
+        if (discountSection) {
+          discountSection.style.display = 'flex';
+        }
+        
+        // Show cart note section
+        const cartNoteSection = document.querySelector('.cart-note');
+        if (cartNoteSection) {
+          cartNoteSection.style.display = 'block';
+        }
+        
+        // Show features section
+        const featuresSection = document.querySelector('.fl-iconbox');
+        if (featuresSection) {
+          featuresSection.style.display = 'block';
+        }
+        
+        // Hide empty cart message
+        const emptyCartMessage = document.querySelector('.empty-cart');
+        if (emptyCartMessage) {
+          emptyCartMessage.style.display = 'none';
+        }
+        
+        // Hide empty cart column
+        const emptyCartColumn = document.querySelector('.col-12:has(.empty-cart)') || emptyCartMessage?.closest('.col-12');
+        if (emptyCartColumn) {
+          emptyCartColumn.style.display = 'none';
         }
       }
 
-      // Handle item removal
-      handleItemRemoval(event) {
-        const button = event.target;
-        const itemKey = button.closest('[data-item-key]')?.getAttribute('data-item-key');
-        
-        if (itemKey) {
-          this.removeCartItem(itemKey);
-        }
-      }
-
-      // Update item quantity
-      updateItemQuantity(itemKey, quantity) {
-        const formData = new FormData();
-        formData.append('id', itemKey);
-        formData.append('quantity', quantity);
-
-        fetch('/cart/change.js', {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => response.json())
-        .then(cart => {
-          // Update the cart display with new data
-          this.updateCartPageDisplay(cart);
-        })
-        .catch(error => {
-          console.error('Error updating item quantity:', error);
-        });
-      }
-
-      // Remove cart item
-      removeCartItem(itemKey) {
-        const formData = new FormData();
-        formData.append('id', itemKey);
-        formData.append('quantity', 0);
-
-        fetch('/cart/change.js', {
-          method: 'POST',
-          body: formData
-        })
-        .then(response => response.json())
-        .then(cart => {
-          // Update the cart display with new data
-          this.updateCartPageDisplay(cart);
-        })
-        .catch(error => {
-          console.error('Error removing item:', error);
-        });
-      }
-
-      // Format money for display
+      // Money formatting is handled by cart.js MainCart class
+      // This method is kept for compatibility but delegates to the existing cart functionality
       formatMoney(amount) {
+        if (window.mainCart && typeof window.mainCart.formatMoney === 'function') {
+          return window.mainCart.formatMoney(amount);
+        }
+        
+        // Fallback formatting if MainCart is not available
         if (typeof amount === 'string') {
           amount = parseFloat(amount);
         }
@@ -880,11 +661,10 @@ if (!customElements.get('product-cart-button')) {
           return '$0.00';
         }
         
-        // Basic money formatting - you might want to use Shopify's money format
         return new Intl.NumberFormat('en-US', {
           style: 'currency',
           currency: 'USD'
-        }).format(amount / 100); // Shopify prices are in cents
+        }).format(amount / 100);
       }
 
       triggerCartUpdate() {
