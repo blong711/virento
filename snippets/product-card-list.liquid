@@ -1,0 +1,109 @@
+{% comment %}
+    Product Card List View
+    Accepts:
+    - product: The product object
+    - show_progress_sale: Boolean to show/hide progress sale (default: true)
+{% endcomment %}
+
+{% assign card_style = settings.card_style | default: 'style-2' %}
+{% assign card_color_scheme = settings.card_color_scheme | default: 'scheme-2' %}
+
+{% comment %} Handle show_progress_sale parameter {% endcomment %}
+{% if show_progress_sale == false or show_progress_sale == 'false' %}
+  {% assign should_show_progress = false %}
+{% else %}
+  {% assign should_show_progress = true %}
+{% endif %}
+
+<div class="card-product style-list" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+    <div class="card-product-wrapper">
+        <a href="{{ product.url }}" class="product-img">
+            {% if product.featured_image %}
+                <img class="img-product lazyload" 
+                    data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
+                    alt="{{ product.featured_image.alt | escape }}" width="460" height="460">
+                <img class="img-hover lazyload" 
+                    data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}" width="460" height="460">
+            {% endif %}
+        </a>
+    </div>
+    <div class="card-product-info">
+        <div class="info-list">
+            <a href="{{ product.url }}" class="name-product link fw-medium text-md">{{ product.title }}</a>
+            <p class="price-wrap fw-medium text-md">
+                <span class="price-new text-primary">{% if settings.currency_code_enabled %}{{ product.price | money }} {{ shop.currency }}{% else %}{{ product.price | money }}{% endif %}</span>
+                {% if product.compare_at_price > product.price %}
+                    <span class="price-old">{% if settings.currency_code_enabled %}{{ product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ product.compare_at_price | money }}{% endif %}</span>
+                {% endif %}
+            </p>
+            <p class="decs text-sm text-main text-line-clamp-2">
+                {{ product.description | strip_html | truncate: 200 }}
+            </p>
+            
+            {% comment %} Color Swatches {% endcomment %}
+            {% if product.options_with_values.size > 0 %}
+                {% for option in product.options_with_values %}
+                    {% if option.name == 'Color' or option.name == 'Colour' %}
+                        <ul class="list-color-product">
+                            {% for value in option.values %}
+                                {% assign variant_for_value = null %}
+                                {% for variant in product.variants %}
+                                    {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                        {% assign variant_for_value = variant %}
+                                        {% break %}
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if variant_for_value and variant_for_value.featured_image %}
+                                    <li class="list-color-item color-swatch hover-tooltip tooltip-bot{% if forloop.first %} active{% endif %}">
+                                        <span class="d-none color-filter">{{ value }}</span>
+                                        <span class="swatch-value bg-{{ value | handle }}"></span>
+                                        <img class="lazyload" 
+                                            data-src="{{ variant_for_value.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
+                                            src="{{ variant_for_value.featured_image | image_url: width: 50, height: 50, crop: 'center' }}" 
+                                            alt="{{ variant_for_value.featured_image.alt | escape }}" width="50" height="50">
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            
+            {% comment %} Size Options {% endcomment %}
+            {% if product.options_with_values.size > 0 %}
+                {% for option in product.options_with_values %}
+                    {% if option.name == 'Size' %}
+                        <ul class="size-box">
+                            {% for value in option.values %}
+                                <li class="size-item text-xs">{{ value }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% break %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        <div class="list-product-btn">
+            <a data-bs-toggle="offcanvas" class="tf-btn btn-main-product animate-btn product-cart-button" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">Add To cart</a>
+            <div class="wishlist">            
+                <a class="box-icon hover-tooltip" data-product-id="{{ product.id }}"
+                    data-product-handle="{{ product.handle }}">
+                    <span class="icon icon-heart2"></span>
+                    <span class="tooltip">Add to Wishlist</span>
+                </a>
+            </div>
+            <div class="compare">
+                <a class="box-icon hover-tooltip" data-product-id="{{ product.id }}"
+                    data-product-handle="{{ product.handle }}">
+                    <span class="icon icon-compare3"></span>
+                    <span class="tooltip">Add to Compare</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
