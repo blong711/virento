@@ -1,6 +1,7 @@
 {% comment %} Settings {% endcomment %}
 {% assign max_products_per_page = section.settings.max_products_per_page | default: 8 %}
 {% assign pagination_type = section.settings.pagination_type | default: 'pagination' %}
+{% assign default_grid_layout = section.settings.default_grid_layout | default: 'tf-col-4' %}
 {% assign total_products = collection.products.size %}
 
 {% comment %} For load more functionality, use a very high pagination limit to show all products {% endcomment %}
@@ -66,7 +67,7 @@
                         <span></span>
                     </div>
                 </li>
-                <li class="tf-view-layout-switch sw-layout-4 active" data-value-layout="tf-col-4">
+                <li class="tf-view-layout-switch sw-layout-4" data-value-layout="tf-col-4">
                     <div class="item icon-grid-4">
                         <span></span>
                         <span></span>
@@ -197,7 +198,7 @@
             </div>
             
             {% comment %} Grid Layout {% endcomment %}
-            <div class="wrapper-shop tf-grid-layout tf-col-4" id="gridLayout">
+            <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }}" id="gridLayout">
                 {% if collection.products.size > 0 %}
                     {% for product in collection.products %}
                         {% render 'product-card', product: product %}
@@ -319,7 +320,8 @@
         priceMin: {{ collection.price_min | divided_by: 100.0 | round: 0 }},
         priceMax: {{ collection.price_max | divided_by: 100.0 | round: 0 }},
         paginationType: '{{ pagination_type }}',
-        maxProductsPerPage: {{ max_products_per_page }}
+        maxProductsPerPage: {{ max_products_per_page }},
+        defaultGridLayout: '{{ default_grid_layout }}'
     };
 </script>
 
@@ -350,6 +352,18 @@
                 { "value": "infinity_scroll", "label": "Infinity Scroll" }
             ],
             "default": "pagination"
+        },
+        {
+            "type": "select",
+            "id": "default_grid_layout",
+            "label": "Default grid layout",
+            "options": [
+                { "value": "tf-col-2", "label": "2 Columns" },
+                { "value": "tf-col-3", "label": "3 Columns" },
+                { "value": "tf-col-4", "label": "4 Columns" }
+            ],
+            "default": "tf-col-4",
+            "info": "Default grid layout for the collection page"
         }
     ]
 }

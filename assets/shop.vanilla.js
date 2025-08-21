@@ -617,7 +617,21 @@ function initLayoutSwitching() {
     } else {
         document.getElementById('listLayout').style.display = 'none';
         document.getElementById('gridLayout').style.display = '';
-        updateLayoutDisplay();
+        
+        // Set default grid layout from theme settings
+        if (window.collectionData && window.collectionData.defaultGridLayout) {
+            setGridLayout(window.collectionData.defaultGridLayout);
+        } else {
+            updateLayoutDisplay();
+        }
+        
+        // Set active state for default grid layout button
+        if (window.collectionData && window.collectionData.defaultGridLayout) {
+            const defaultLayoutBtn = document.querySelector(`.tf-view-layout-switch[data-value-layout="${window.collectionData.defaultGridLayout}"]`);
+            if (defaultLayoutBtn) {
+                defaultLayoutBtn.classList.add('active');
+            }
+        }
     }
 
     window.addEventListener('resize', updateLayoutDisplay);
