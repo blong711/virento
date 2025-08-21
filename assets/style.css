@@ -13317,7 +13317,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   overflow: auto;
 }
 .tf-mini-cart-sroll::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 .tf-mini-cart-sroll::-webkit-scrollbar-thumb {
   background: var(--primary);
