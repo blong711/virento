@@ -5460,6 +5460,7 @@
           "time": "After amount time",
           "scroll": "Scroll to end of page"
         },
+        "popup_trigger_info": "Move cursor only work on desktop. On Mobile, it 's work with scroll if you choose move cursor.",
         "popup_delay": "Popup delay (seconds)",
         "popup_delay_info": "Only applies to 'After amount time' trigger",
         "scroll_threshold": "Scroll threshold (%)",
