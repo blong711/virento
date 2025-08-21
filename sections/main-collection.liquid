@@ -1,4 +1,7 @@
-{% paginate collection.products by 20 %}
+{% comment %} Settings {% endcomment %}
+{% assign max_products_per_page = section.settings.max_products_per_page | default: 8 %}
+
+{% paginate collection.products by max_products_per_page %}
 <section class="flat-spacing pt-0">
     <div class="container">
         <div class="tf-shop-control">
@@ -214,5 +217,24 @@
         priceMax: {{ collection.price_max | divided_by: 100.0 | round: 0 }}
     };
 </script>
+
+{% comment %} Schema for section settings {% endcomment %}
+{% schema %}
+{
+    "name": "Main Collection",
+    "settings": [
+        {
+            "type": "range",
+            "id": "max_products_per_page",
+            "label": "Products per page",
+            "min": 4,
+            "max": 48,
+            "step": 4,
+            "default": 8,
+            "info": "Number of products to display per page"
+        }
+    ]
+}
+{% endschema %}
 
 {% endpaginate %}
