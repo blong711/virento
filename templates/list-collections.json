@@ -1,0 +1,27 @@
+
+ {
+  "sections": {
+    "page_breadcrumb": {
+      "type": "page-breadcrumb",
+      "settings": {
+        "background_image": "shopify://shop_images/page-title_1.jpg",
+        "show_description": true,
+        "custom_description": "",
+        "description_truncate_length": 120
+      }
+    },
+    "main": {
+      "type": "main-colection-list",
+      "settings": {
+        "collection_display": "all",
+        "image_ratio": "adapt_image",
+        "enable_uppercase": true,
+        "content_position": "center"
+      }
+    }
+  },
+  "order": [
+    "page_breadcrumb",
+    "main"
+  ]
+}
