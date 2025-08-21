@@ -182,7 +182,7 @@
       ],
       "settings": {
         "color_scheme": "scheme-99d3498c-ecaf-4951-a085-cd6bfffed0cc",
-        "popup_trigger": "time",
+        "popup_trigger": "scroll",
         "popup_delay": 5,
         "scroll_threshold": 100,
         "days_next_show": 1,
