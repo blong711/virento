@@ -22,7 +22,7 @@
       "type": "main-collection",
       "settings": {
         "max_products_per_page": 8,
-        "pagination_type": "load_more"
+        "pagination_type": "pagination"
       }
     }
   },
