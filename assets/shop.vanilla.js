@@ -2,7 +2,7 @@
  * Shop functionality in vanilla JavaScript
  * Includes price range, filtering, sorting, layout switching, and loading
  */
-
+//collection
 // Initialize all shop functionality when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize global layout state
