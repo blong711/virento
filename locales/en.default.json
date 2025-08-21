@@ -396,6 +396,32 @@
       "free_shipping_banner": "Free Shipping Banner",
       "close": "Close"
     },
+    "main-order": {
+      "name": "Account Orders",
+      "settings": {
+        "layout": "Layout",
+        "empty": "Empty State",
+        "empty_state_image": {
+          "label": "Empty State Image"
+        },
+        "empty_state_title": {
+          "label": "Empty State Title",
+          "default": "You haven't placed any order yet"
+        },
+        "empty_state_text": {
+          "label": "Empty State Text",
+          "default": "It's time to make your first order"
+        },
+        "shop_now_text": {
+          "label": "Shop Now Button Text",
+          "default": "Shop Now"
+        }
+      },
+      "presets": {
+        "name": "Account Orders",
+        "category": "Account"
+      }
+    },
     "blog_post": {
       "name": "Blog post",
       "settings": {

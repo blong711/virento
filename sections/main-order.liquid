@@ -4,50 +4,90 @@
   "settings": [
     {
       "type": "header",
-      "content": "Layout Settings"
+      "content": "{{ 'sections.main-order.settings.layout' | t }}"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
     },
     {
       "type": "select",
-      "id": "container_width",
-      "label": "Container Width",
+      "id": "width",
+      "label": "t:sections.all.width.label",
       "options": [
         {
           "value": "container",
-          "label": "Default"
+          "label": "t:sections.all.width.options.boxed"
         },
         {
           "value": "container-full",
-          "label": "Full Width"
+          "label": "t:sections.all.width.options.full_width"
         }
       ],
       "default": "container"
     },
     {
       "type": "header",
-      "content": "Empty State"
+      "content": "{{ 'sections.main-order.settings.empty' | t }}"
     },
     {
       "type": "image_picker",
       "id": "empty_state_image",
-      "label": "Empty State Image"
+      "label": "{{ 'sections.main-order.settings.empty_state_image.label' | t }}"
     },
     {
       "type": "text",
       "id": "empty_state_title",
-      "label": "Empty State Title",
-      "default": "You haven't placed any order yet"
+      "label": "{{ 'sections.main-order.settings.empty_state_title.label' | t }}",
+      "default": "{{ 'sections.main-order.settings.empty_state_title.default' | t }}"
     },
     {
       "type": "text",
       "id": "empty_state_text",
-      "label": "Empty State Text",
-      "default": "It's time to make your first order"
+      "label": "{{ 'sections.main-order.settings.empty_state_text.label' | t }}",
+      "default": "{{ 'sections.main-order.settings.empty_state_text.default' | t }}"
     },
     {
       "type": "text",
       "id": "shop_now_text",
-      "label": "Shop Now Button Text",
-      "default": "Shop Now"
+      "label": "{{ 'sections.main-order.settings.shop_now_text.label' | t }}",
+      "default": "{{ 'sections.main-order.settings.shop_now_text.default' | t }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 50,
+      "max": 150,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.all.padding.padding_mobile_rate.label",
+      "default": 100
     }
   ],
   "presets": [
@@ -69,8 +109,8 @@
   <!-- /sidebar-account -->
 
   <!-- Section-acount -->
-  <section class="s-account flat-spacing-17">
-    <div class="{{ section.settings.container_width }}">
+  <section class="s-account flat-spacing-17 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    <div class="{{ section.settings.width }}">
       <div class="row">
         <div class="col-lg-12">
           <div class="my-account-container">
@@ -175,154 +215,16 @@
     {% render 'order-detail-modal', order: order %}
   {% endfor %}
 </div>
-<script>
-  // Function to wait for Bootstrap to be available
-  function waitForBootstrap(callback, maxAttempts = 50) {
-    let attempts = 0;
-
-    function checkBootstrap() {
-      attempts++;
-
-      if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
-        console.log('Bootstrap Modal is available');
-        callback();
-      } else if (attempts < maxAttempts) {
-        // Check again after 100ms
-        setTimeout(checkBootstrap, 100);
-      } else {
-        console.error('Bootstrap Modal failed to load after', maxAttempts * 100, 'ms');
-        // Fallback: try to initialize modals manually
-        initializeOrderModalsFallback();
-      }
+<style>
+.section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+}
+    
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
     }
-
-    checkBootstrap();
-  }
-
-  // Initialize modals when DOM is ready
-  document.addEventListener('DOMContentLoaded', function () {
-    waitForBootstrap(initializeOrderModals);
-  });
-
-  function initializeOrderModals() {
-    console.log('Initializing order modals...');
-
-    // Initialize all order detail modals
-    const orderDetailModals = document.querySelectorAll('.modal-order-detail');
-    console.log('Found', orderDetailModals.length, 'order detail modals');
-
-    orderDetailModals.forEach((modal, index) => {
-      try {
-        console.log('Initializing modal', index + 1, 'with ID:', modal.id);
-
-        // Initialize Bootstrap modal for this element
-        const bootstrapModal = new bootstrap.Modal(modal, {
-          backdrop: true,
-          keyboard: true,
-          focus: true,
-        });
-
-        // Store the modal instance for later use
-        modal.bootstrapModalInstance = bootstrapModal;
-
-        // Add event listeners for custom close functionality
-        modal.addEventListener('click', function (e) {
-          if (e.target === modal) {
-            bootstrapModal.hide();
-          }
-        });
-
-        // Handle close buttons
-        const closeButtons = modal.querySelectorAll('[data-bs-dismiss="modal"]');
-        closeButtons.forEach((button) => {
-          button.addEventListener('click', function () {
-            bootstrapModal.hide();
-          });
-        });
-
-        console.log('Successfully initialized modal', index + 1);
-      } catch (error) {
-        console.error('Error initializing modal', index + 1, ':', error);
-      }
-    });
-
-    // Add click handlers for detail buttons
-    const detailButtons = document.querySelectorAll('.view-detail');
-    console.log('Found', detailButtons.length, 'detail buttons');
-
-    detailButtons.forEach((button, index) => {
-      const targetId = button.getAttribute('data-bs-target');
-      console.log('Button', index + 1, 'targets:', targetId);
-
-      button.addEventListener('click', function (e) {
-        console.log('Detail button clicked, target:', targetId);
-
-        if (targetId) {
-          const targetModal = document.querySelector(targetId);
-          if (targetModal && targetModal.bootstrapModalInstance) {
-            console.log('Showing modal:', targetId);
-            targetModal.bootstrapModalInstance.show();
-          } else {
-            console.error('Modal not found or not initialized:', targetId);
-          }
-        }
-      });
-    });
-
-    console.log('Order modals initialization complete');
-  }
-
-  // Fallback initialization if Bootstrap fails to load
-  function initializeOrderModalsFallback() {
-    console.warn('Using fallback modal initialization');
-
-    const detailButtons = document.querySelectorAll('.view-detail');
-    detailButtons.forEach((button) => {
-      button.addEventListener('click', function (e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('data-bs-target');
-        if (targetId) {
-          const targetModal = document.querySelector(targetId);
-          if (targetModal) {
-            // Show modal manually
-            targetModal.style.display = 'block';
-            targetModal.classList.add('show');
-            document.body.classList.add('modal-open');
-
-            // Add backdrop
-            const backdrop = document.createElement('div');
-            backdrop.className = 'modal-backdrop fade show';
-            document.body.appendChild(backdrop);
-
-            // Handle close
-            const closeModal = () => {
-              targetModal.style.display = 'none';
-              targetModal.classList.remove('show');
-              document.body.classList.remove('modal-open');
-              if (backdrop.parentNode) {
-                backdrop.parentNode.removeChild(backdrop);
-              }
-            };
-
-            // Add close event listeners
-            const closeButtons = targetModal.querySelectorAll('[data-bs-dismiss="modal"], .icon-close');
-            closeButtons.forEach((closeBtn) => {
-              closeBtn.addEventListener('click', closeModal);
-            });
-
-            backdrop.addEventListener('click', closeModal);
-
-            // Close on escape key
-            const handleEscape = (e) => {
-              if (e.key === 'Escape') {
-                closeModal();
-                document.removeEventListener('keydown', handleEscape);
-              }
-            };
-            document.addEventListener('keydown', handleEscape);
-          }
-        }
-      });
-    });
-  }
-</script>
+}
+</style>
