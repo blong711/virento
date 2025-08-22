@@ -372,45 +372,90 @@
       {% if section.settings.mobile_height == 'fixed' %}
         height: {{ section.settings.mobile_height_fixed }}px;
       {% elsif section.settings.mobile_height == 'adapt-first' %}
-        height: auto;
+        height: auto !important;
       {% endif %}
     }
     
-    /* Mobile overrides for adapt-first mode */
-    .slider-height[data-height="adapt-first"] .slider-wrap .image {
+    /* Mobile-specific adapt-first styles - more aggressive overrides */
+    .slider-height[data-height="adapt-first"] .slider-wrap .image,
+    .slider-height[data-mobile-height="adapt-first"] .slider-wrap .image {
       height: auto !important;
     }
     
-    .slider-height[data-height="adapt-first"] .slider-wrap img {
+    .slider-height[data-height="adapt-first"] .slider-wrap img,
+    .slider-height[data-mobile-height="adapt-first"] .slider-wrap img {
       height: auto !important;
       width: 100% !important;
       object-fit: contain !important;
     }
     
-    .slider-height[data-height="adapt-first"] .swiper-slide {
+    .slider-height[data-height="adapt-first"] .swiper-slide,
+    .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
       height: auto !important;
       min-height: auto !important;
       max-height: none !important;
     }
     
-    .slider-height[data-height="adapt-first"] .slider-wrap {
+    .slider-height[data-height="adapt-first"] .slider-wrap,
+    .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
       height: auto !important;
       min-height: auto !important;
       max-height: none !important;
     }
     
-    /* Override Swiper's internal height management on mobile */
-    .slider-height[data-height="adapt-first"] .swiper-wrapper {
+    .slider-height[data-height="adapt-first"] .swiper-wrapper,
+    .slider-height[data-mobile-height="adapt-first"] .swiper-wrapper {
       height: auto !important;
       align-items: stretch !important;
     }
     
-    .slider-height[data-height="adapt-first"] .swiper {
+    .slider-height[data-height="adapt-first"] .swiper,
+    .slider-height[data-mobile-height="adapt-first"] .swiper {
       height: auto !important;
     }
     
-    .slider-height[data-height="adapt-first"] .tf-sw-slideshow {
+    .slider-height[data-height="adapt-first"] .tf-sw-slideshow,
+    .slider-height[data-mobile-height="adapt-first"] .tf-sw-slideshow {
       height: auto !important;
+    }
+    
+    /* Additional mobile-specific overrides to ensure height is respected */
+    .slider-height[data-mobile-height="adapt-first"] {
+      height: auto !important;
+    }
+    
+    .slider-height[data-mobile-height="adapt-first"] * {
+      box-sizing: border-box !important;
+    }
+    
+    /* Force all slides to have the same height on mobile */
+    .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
+      height: inherit !important;
+      min-height: inherit !important;
+      max-height: inherit !important;
+    }
+    
+    .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
+      height: inherit !important;
+      min-height: inherit !important;
+      max-height: inherit !important;
+    }
+    
+    /* CSS custom properties for dynamic height control */
+    .slider-height[data-mobile-height="adapt-first"] {
+      --mobile-slider-height: auto;
+    }
+    
+    .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
+      height: var(--mobile-slider-height) !important;
+      min-height: var(--mobile-slider-height) !important;
+      max-height: var(--mobile-slider-height) !important;
+    }
+    
+    .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
+      height: var(--mobile-slider-height) !important;
+      min-height: var(--mobile-slider-height) !important;
+      max-height: var(--mobile-slider-height) !important;
     }
   }
   
@@ -435,6 +480,7 @@
                 <div class="swiper tf-sw-slideshow slider-effect-fade slider-height" 
                     data-slider-id="{{ section.id }}"
                     data-height="{{ section.settings.height }}"
+                    data-mobile-height="{{ section.settings.mobile_height }}"
                     data-preview="1" 
                     data-tablet="1"
                     data-mobile="1" 
@@ -538,12 +584,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!slider) return;
   
   const heightSetting = slider.getAttribute('data-height');
+  const mobileHeightSetting = slider.getAttribute('data-mobile-height');
   
-  // Handle adapt-first height option
-  if (heightSetting === 'adapt-first') {
+  // Handle adapt-first height option for both desktop and mobile
+  if (heightSetting === 'adapt-first' || mobileHeightSetting === 'adapt-first') {
     const slides = slider.querySelectorAll('.swiper-slide');
     let isAdjusting = false;
     let lastHeight = 0;
+    let lastMobileHeight = 0;
     
     // Function to adjust slide heights
     function adjustSlideHeights() {
@@ -551,8 +599,13 @@ document.addEventListener('DOMContentLoaded', function() {
       
       isAdjusting = true;
       
-      if (heightSetting === 'adapt-first') {
-        // For adapt-first: first slide determines height for all slides
+      // Check if we should use adapt-first for current viewport
+      const isMobile = window.innerWidth <= 767;
+      const shouldUseAdaptFirst = (isMobile && mobileHeightSetting === 'adapt-first') || 
+                                 (!isMobile && heightSetting === 'adapt-first');
+      
+      if (shouldUseAdaptFirst) {
+        // For adapt-first: ALWAYS use the first slide to determine height
         const firstSlide = slides[0];
         if (firstSlide) {
           const firstContent = firstSlide.querySelector('.slider-wrap');
@@ -569,15 +622,29 @@ document.addEventListener('DOMContentLoaded', function() {
               
               // Calculate the scaled height while maintaining aspect ratio
               firstHeight = Math.round((containerWidth * naturalHeight) / naturalWidth);
+              
             } else {
               // Fallback to container height if no image found
               firstHeight = Math.round(firstContent.getBoundingClientRect().height);
             }
             
+            // Ensure minimum height and check if height is reasonable
+            const minHeight = isMobile ? 50 : 50; // Minimum heights for mobile/desktop
+            if (firstHeight < minHeight) {
+              firstHeight = minHeight;
+            }
+            
             // Only apply if height is reasonable and different from last height
-            if (firstHeight > 100 && firstHeight !== lastHeight) {
-              lastHeight = firstHeight;
-              slides.forEach(slide => {
+            const currentLastHeight = isMobile ? lastMobileHeight : lastHeight;
+            if (firstHeight >= minHeight && firstHeight !== currentLastHeight) {
+              if (isMobile) {
+                lastMobileHeight = firstHeight;
+              } else {
+                lastHeight = firstHeight;
+              }
+                            
+              // Apply the first slide height to ALL slides
+              slides.forEach((slide, index) => {
                 const content = slide.querySelector('.slider-wrap');
                 if (content) {
                   // Force the height with !important equivalent
@@ -592,6 +659,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
               });
               
+              // Set CSS custom property for mobile
+              if (isMobile) {
+                slider.style.setProperty('--mobile-slider-height', firstHeight + 'px');
+              }
+              
               // Force Swiper to recalculate and respect our heights
               if (window.Swiper && slider.swiper) {
                 setTimeout(() => {
@@ -600,6 +672,8 @@ document.addEventListener('DOMContentLoaded', function() {
                   slider.swiper.updateSlides();
                 }, 100);
               }
+
+            } else {
             }
           }
         }
