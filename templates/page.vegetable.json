@@ -7,14 +7,61 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
-
-    "grid_collection": {
-      "type": "grid-collection"
+    "grid_collection_JKT7V3": {
+      "type": "grid-collection",
+      "blocks": {
+        "sale_item1_QjBf8a": {
+          "type": "sale_item1",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify://shop_images/vegetable-1.png",
+            "sale_text": "Save up to 20% on",
+            "title": "Dairy Milk Chocolate",
+            "button_label": "Shop Now",
+            "button_link": "/collections/all"
+          }
+        },
+        "sale_item2_hcTWxH": {
+          "type": "sale_item2",
+          "settings": {
+            "color_scheme": "",
+            "image": "shopify://shop_images/vegetable-2.png",
+            "sale_text": "Save up to 10% on",
+            "title": "Yoghurt Pouch Blueberry 140g",
+            "button_label": "Shop Now",
+            "button_link": "/collections/all"
+          }
+        },
+        "discover_item_NaqwVp": {
+          "type": "discover_item",
+          "settings": {
+            "color_scheme": "scheme-2",
+            "image": "shopify://shop_images/vegetable-3.jpg",
+            "title": "Eat Fresh, Live Well",
+            "content": "Discover farm-fresh, organic veggies at our store. Locally sourced, quality guaranteed—perfect for your healthy meals!",
+            "button_label": "Discover Now",
+            "button_link": "shopify://collections"
+          }
+        }
+      },
+      "block_order": [
+        "sale_item1_QjBf8a",
+        "sale_item2_hcTWxH",
+        "discover_item_NaqwVp"
+      ],
+      "name": "t:sections.grid_collection.presets.name",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "",
+        "padding_top": 30,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
-    "grid_collection",
+    "grid_collection_JKT7V3"
   ]
 }
