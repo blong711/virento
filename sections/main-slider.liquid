@@ -441,22 +441,7 @@
       max-height: inherit !important;
     }
     
-    /* CSS custom properties for dynamic height control */
-    .slider-height[data-mobile-height="adapt-first"] {
-      --mobile-slider-height: auto;
-    }
-    
-    .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
-      height: var(--mobile-slider-height) !important;
-      min-height: var(--mobile-slider-height) !important;
-      max-height: var(--mobile-slider-height) !important;
-    }
-    
-    .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
-      height: var(--mobile-slider-height) !important;
-      min-height: var(--mobile-slider-height) !important;
-      max-height: var(--mobile-slider-height) !important;
-    }
+
   }
   
   .section-{{ section.id }}-padding {
@@ -599,6 +584,8 @@ document.addEventListener('DOMContentLoaded', function() {
       
       isAdjusting = true;
       
+
+      
       // Check if we should use adapt-first for current viewport
       const isMobile = window.innerWidth <= 767;
       const shouldUseAdaptFirst = (isMobile && mobileHeightSetting === 'adapt-first') || 
@@ -615,13 +602,20 @@ document.addEventListener('DOMContentLoaded', function() {
             let firstHeight = 0;
             
             if (image) {
-              // Use the actual image height when scaled to container width
-              const containerWidth = firstContent.offsetWidth;
-              const naturalWidth = image.naturalWidth;
-              const naturalHeight = image.naturalHeight;
-              
-              // Calculate the scaled height while maintaining aspect ratio
-              firstHeight = Math.round((containerWidth * naturalHeight) / naturalWidth);
+              // Check if image has loaded and has valid dimensions
+              if (image.complete && image.naturalWidth > 0 && image.naturalHeight > 0) {
+                // Use the actual image height when scaled to container width
+                const containerWidth = firstContent.offsetWidth;
+                const naturalWidth = image.naturalWidth;
+                const naturalHeight = image.naturalHeight;
+                
+                // Calculate the scaled height while maintaining aspect ratio
+                firstHeight = Math.round((containerWidth * naturalHeight) / naturalWidth);
+                
+              } else {
+                // Image not fully loaded, use container height as fallback
+                firstHeight = Math.round(firstContent.getBoundingClientRect().height);
+              }
               
             } else {
               // Fallback to container height if no image found
@@ -636,6 +630,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Only apply if height is reasonable and different from last height
             const currentLastHeight = isMobile ? lastMobileHeight : lastHeight;
+            
             if (firstHeight >= minHeight && firstHeight !== currentLastHeight) {
               if (isMobile) {
                 lastMobileHeight = firstHeight;
@@ -659,10 +654,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
               });
               
-              // Set CSS custom property for mobile
-              if (isMobile) {
-                slider.style.setProperty('--mobile-slider-height', firstHeight + 'px');
-              }
+
               
               // Force Swiper to recalculate and respect our heights
               if (window.Swiper && slider.swiper) {
