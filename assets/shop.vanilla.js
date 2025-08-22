@@ -17,6 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.totalProducts = window.collectionData.totalProducts;
     }
     
+    // Initialize filters from URL parameters first (this will override defaults)
+    initializeFiltersFromURL();
+    
+    // Then initialize other components
     initializeFilters(); // Initialize filter values
     initPriceRange();
     initProductFilters();
@@ -58,7 +62,7 @@ function initPriceRange() {
     const minValueDisplay = document.getElementById('price-min-value');
     const maxValueDisplay = document.getElementById('price-max-value');
 
-    priceSlider.noUiSlider.on('update', (values, handle) => {
+    priceSlider.noUiSlider.on('change', (values, handle) => {
         const displays = [minValueDisplay, maxValueDisplay];
         displays[handle].textContent = values[handle];
         
@@ -66,8 +70,17 @@ function initPriceRange() {
         filters.minPrice = parseInt(values[0], 10);
         filters.maxPrice = parseInt(values[1], 10);
         
-        applyFilters();
-        updateMetaFilter();
+        // Apply filters after user stops dragging (debounced)
+        clearTimeout(priceSlider.debounceTimer);
+        priceSlider.debounceTimer = setTimeout(() => {
+            applyServerSideFilters();
+        }, 500);
+    });
+    
+    // Update display values during drag
+    priceSlider.noUiSlider.on('update', (values, handle) => {
+        const displays = [minValueDisplay, maxValueDisplay];
+        displays[handle].textContent = values[handle];
     });
 }
 
@@ -98,6 +111,8 @@ function initializeFilters() {
         filters.minPrice = window.collectionData.priceMin || filters.minPrice;
         filters.maxPrice = window.collectionData.priceMax || filters.maxPrice;
     }
+    
+    console.log('Filters initialized:', filters);
 }
 
 function initProductFilters() {
@@ -110,7 +125,8 @@ function initProductFilters() {
             this.classList.add('active');
             
             filters.size = this.querySelector('.size').textContent.trim();
-            applyFilters();
+            console.log('Size filter clicked:', filters.size);
+            applyServerSideFilters();
             updateMetaFilter();
         });
     });
@@ -124,7 +140,8 @@ function initProductFilters() {
             this.classList.add('active');
             
             filters.color = this.querySelector('.color-text').textContent.trim();
-            applyFilters();
+            console.log('Color filter clicked:', filters.color);
+            applyServerSideFilters();
             updateMetaFilter();
         });
     });
@@ -133,7 +150,7 @@ function initProductFilters() {
     document.querySelectorAll('input[name="availability"]').forEach(input => {
         input.addEventListener('change', function() {
             filters.availability = this.id === 'inStock' ? 'In stock' : 'Out of stock';
-            applyFilters();
+            applyServerSideFilters();
             updateMetaFilter();
         });
     });
@@ -142,7 +159,7 @@ function initProductFilters() {
     document.querySelectorAll('input[name="brand"]').forEach(input => {
         input.addEventListener('change', function() {
             filters.brands = this.id;
-            applyFilters();
+            applyServerSideFilters();
             updateMetaFilter();
         });
     });
@@ -153,7 +170,7 @@ function initProductFilters() {
         saleText.addEventListener('click', function() {
             filters.sale = !filters.sale;
             this.classList.toggle('active', filters.sale);
-            applyFilters();
+            applyServerSideFilters();
             updateMetaFilter();
         });
     }
@@ -168,7 +185,11 @@ function initProductFilters() {
 
     // Reset all filters
     ['remove-all', 'reset-filter'].forEach(id => {
-        document.getElementById(id)?.addEventListener('click', resetAllFilters);
+        document.getElementById(id)?.addEventListener('click', () => {
+            // Navigate to base collection URL without filters
+            const baseUrl = window.location.pathname;
+            window.location.href = baseUrl;
+        });
     });
 
     // Reset price
@@ -178,6 +199,8 @@ function initProductFilters() {
             const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
             const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
             priceSlider.noUiSlider.set([minPrice, maxPrice]);
+            filters.minPrice = minPrice;
+            filters.maxPrice = maxPrice;
         }
     });
 }
@@ -214,7 +237,7 @@ function removeFilter(filterType) {
         document.querySelector('.shop-sale-text')?.classList.remove('active');
     }
     
-    applyFilters();
+    applyServerSideFilters();
     updateMetaFilter();
 }
 
@@ -241,86 +264,176 @@ function resetAllFilters() {
     document.querySelectorAll('input[name="availability"]').forEach(input => input.checked = false);
     document.querySelectorAll('.size-check, .color-check').forEach(btn => btn.classList.remove('active'));
     
-    applyFilters();
+    applyServerSideFilters();
     updateMetaFilter();
 }
 
-function applyFilters() {
-    let visibleProductCountGrid = 0;
-    let visibleProductCountList = 0;
-
-    document.querySelectorAll('.wrapper-shop .card-product').forEach(product => {
-        let showProduct = true;
-
-        // Price filter
-        let price = parseFloat(product.dataset.price);
-        if (isNaN(price)) {
-            // Fallback to text content if data attribute is not available
-            const priceText = product.querySelector('.price-new')?.textContent.replace(/[^0-9.]/g, '');
-            price = parseFloat(priceText);
-        }
-        if (isNaN(price) || price < filters.minPrice || price > filters.maxPrice) {
-            showProduct = false;
-        }
-
-        // Size filter
-        if (filters.size) {
-            const sizeItems = Array.from(product.querySelectorAll('.size-item'));
-            const hasSize = sizeItems.some(item => item.textContent.trim() === filters.size);
-            if (!hasSize) {
-                showProduct = false;
-            }
-        }
-
-        // Color filter
-        if (filters.color) {
-            const colorSwatches = Array.from(product.querySelectorAll('.color-swatch'));
-            const hasColor = colorSwatches.some(swatch => swatch.textContent.trim() === filters.color);
-            if (!hasColor) {
-                showProduct = false;
-            }
-        }
-
-        // Availability filter
-        if (filters.availability) {
-            const isInStock = product.dataset.availability === 'true';
-            const expectedInStock = filters.availability === 'In stock';
-            if (isInStock !== expectedInStock) {
-                showProduct = false;
-            }
-        }
-
-        // Sale filter
-        if (filters.sale && !product.dataset.sale) {
-            showProduct = false;
-        }
-
-        // Brand filter
-        if (filters.brands && product.dataset.brand !== filters.brands) {
-            showProduct = false;
-        }
-
-        product.style.display = showProduct ? '' : 'none';
-
-        if (showProduct) {
-            if (product.classList.contains('grid')) visibleProductCountGrid++;
-            else if (product.classList.contains('style-list')) visibleProductCountList++;
-        }
-    });
-
-    // Update product counts
-    const gridCountEl = document.getElementById('product-count-grid');
-    const listCountEl = document.getElementById('product-count-list');
+// Server-side filtering using Shopify's collection filtering
+function applyServerSideFilters() {
+    const currentUrl = new URL(window.location);
+    const searchParams = currentUrl.searchParams;
     
-    if (gridCountEl) {
-        gridCountEl.innerHTML = `<span class="count">${visibleProductCountGrid}</span>Products found`;
+    // Clear existing filter parameters
+    searchParams.delete('filter.v.option.size');
+    searchParams.delete('filter.v.option.color');
+    searchParams.delete('filter.v.availability');
+    searchParams.delete('filter.p.vendor');
+    searchParams.delete('filter.v.price.gte');
+    searchParams.delete('filter.v.price.lte');
+    searchParams.delete('filter.v.compare_at_price.gt');
+    searchParams.delete('tag');
+    
+    // Add size filter - use option1 or option2 depending on which is the size option
+    if (filters.size) {
+        // Try option1 first, then option2
+        searchParams.set('filter.v.option1', filters.size);
     }
-    if (listCountEl) {
-        listCountEl.innerHTML = `<span class="count">${visibleProductCountList}</span>Products found`;
+    
+    // Add color filter - use the correct Shopify parameter format
+    if (filters.color) {
+        searchParams.set('filter.v.option.color', filters.color);
     }
+    
+    // Add availability filter
+    if (filters.availability) {
+        if (filters.availability === 'In stock') {
+            searchParams.set('filter.v.availability', '1');
+        } else {
+            searchParams.set('filter.v.availability', '0');
+        }
+    }
+    
+    // Add brand filter
+    if (filters.brands) {
+        searchParams.set('filter.p.vendor', filters.brands);
+    }
+    
+    // Add price filter - use the correct Shopify parameter format
+    const priceSlider = document.getElementById('price-value-range');
+    if (priceSlider) {
+        const defaultMin = parseInt(priceSlider.dataset.min, 10) || 0;
+        const defaultMax = parseInt(priceSlider.dataset.max, 10) || 500;
+        
+        // Only apply price filter if it's different from the default range
+        if (filters.minPrice > defaultMin) {
+            searchParams.set('filter.v.price.gte', filters.minPrice.toString()); // Keep in dollars
+        }
+        if (filters.maxPrice < defaultMax) {
+            searchParams.set('filter.v.price.lte', filters.maxPrice.toString()); // Keep in dollars
+        }
+    }
+    
+    // Debug logging
+    console.log('Applying filters:', {
+        size: filters.size,
+        color: filters.color,
+        minPrice: filters.minPrice,
+        maxPrice: filters.maxPrice,
+        availability: filters.availability,
+        brands: filters.brands,
+        sale: filters.sale
+    });
+    console.log('URL:', currentUrl.toString());
+    
+    // Add sale filter
+    if (filters.sale) {
+        searchParams.set('filter.v.compare_at_price.gt', '0');
+    }
+    
+    // Navigate to filtered collection
+    window.location.href = currentUrl.toString();
+}
 
-    updateLastVisibleItem();
-    updatePaginationVisibility(visibleProductCountGrid, visibleProductCountList);
+// Initialize filters from URL parameters when page loads
+function initializeFiltersFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Initialize size filter
+    const sizeFilter = urlParams.get('filter.v.option1') || urlParams.get('filter.v.option2');
+    if (sizeFilter) {
+        filters.size = sizeFilter;
+        // Update UI to show active state
+        document.querySelectorAll('.size-check').forEach(btn => {
+            if (btn.querySelector('.size').textContent.trim() === sizeFilter) {
+                btn.classList.add('active');
+            }
+        });
+    }
+    
+    // Initialize color filter
+    const colorFilter = urlParams.get('filter.v.option.color');
+    if (colorFilter) {
+        filters.color = colorFilter;
+        // Update UI to show active state
+        document.querySelectorAll('.color-check').forEach(btn => {
+            if (btn.querySelector('.color-text').textContent.trim() === colorFilter) {
+                btn.classList.add('active');
+            }
+        });
+    }
+    
+    // Initialize availability filter
+    const availabilityFilter = urlParams.get('filter.v.availability');
+    if (availabilityFilter) {
+        if (availabilityFilter === '1') {
+            filters.availability = 'In stock';
+            document.getElementById('inStock').checked = true;
+        } else if (availabilityFilter === '0') {
+            filters.availability = 'Out of stock';
+            document.getElementById('outStock').checked = true;
+        }
+    }
+    
+    // Initialize brand filter
+    const brandFilter = urlParams.get('filter.p.vendor');
+    if (brandFilter) {
+        filters.brands = brandFilter;
+        // Update UI to show active state
+        document.querySelectorAll('input[name="brand"]').forEach(input => {
+            if (input.id === brandFilter) {
+                input.checked = true;
+            }
+        });
+    }
+    
+    // Initialize price filter
+    const minPriceFilter = urlParams.get('filter.v.price.gte');
+    const maxPriceFilter = urlParams.get('filter.v.price.lte');
+    if (minPriceFilter || maxPriceFilter) {
+        if (minPriceFilter) {
+            filters.minPrice = parseInt(minPriceFilter); // Keep in dollars
+        }
+        if (maxPriceFilter) {
+            filters.maxPrice = parseInt(maxPriceFilter); // Keep in dollars
+        }
+        
+        console.log('Price filters from URL:', { minPriceFilter, maxPriceFilter, filters: { minPrice: filters.minPrice, maxPrice: filters.maxPrice } });
+        
+        // Update price slider
+        const priceSlider = document.getElementById('price-value-range');
+        if (priceSlider && priceSlider.noUiSlider) {
+            priceSlider.noUiSlider.set([filters.minPrice, filters.maxPrice]);
+        }
+    }
+    
+    console.log('Final filters after URL initialization:', filters);
+    
+    // Initialize sale filter
+    const saleFilter = urlParams.get('filter.v.compare_at_price.gt');
+    if (saleFilter && saleFilter === '0') {
+        filters.sale = true;
+        document.querySelector('.shop-sale-text')?.classList.add('active');
+    }
+    
+    // Update meta filter display
+    updateMetaFilter();
+}
+
+// Legacy client-side filtering (kept for backward compatibility but not used)
+function applyFilters() {
+    // This function is now deprecated in favor of server-side filtering
+    // Keeping it for backward compatibility
+    console.warn('Client-side filtering is deprecated. Use server-side filtering instead.');
 }
 
 function updateLoadMoreProductCount() {
@@ -358,7 +471,10 @@ function updateMetaFilter() {
         const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
         const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
         if (filters.minPrice > minPrice || filters.maxPrice < maxPrice) {
-            tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="price"></span> Price: $${filters.minPrice} - $${filters.maxPrice}</span>`);
+            // Ensure price values are in dollars, not cents
+            const displayMinPrice = typeof filters.minPrice === 'number' ? filters.minPrice : 0;
+            const displayMaxPrice = typeof filters.maxPrice === 'number' ? filters.maxPrice : 500;
+            tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="price"></span> Price: $${displayMinPrice} - $${displayMaxPrice}</span>`);
         }
     }
     
