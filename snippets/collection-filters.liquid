@@ -12,6 +12,7 @@
 {% assign show_collection_banner = show_collection_banner | default: true %}
 {% assign collection_banner_title = collection_banner_title | default: "Elevate Your Style" %}
 {% assign collection_banner_button_text = collection_banner_button_text | default: "Shop Now" %}
+{% assign collection_banner_button_url = collection_banner_button_url | default: "" %}
 {% assign show_availability_filter = show_availability_filter | default: true %}
 {% assign show_price_filter = show_price_filter | default: true %}
 {% assign show_color_filter = show_color_filter | default: true %}
@@ -253,15 +254,13 @@
                     <div class="image img-style">
                         {% if collection_banner_image %}
                             <img src="{{ collection_banner_image | img_url: '300x200' }}" alt="Collection Banner" class="lazyload" width="300" height="200">
-                        {% else %}
-                            <img src="" alt="Collection Banner" class="lazyload" width="300" height="200">
                         {% endif %}
                     </div>
                     <div class="banner-content">
                         <p class="title">
                             {{ collection_banner_title | replace: ' ', '<br>' }}
                         </p>
-                        <a href="{{ collection.url }}" class="tf-btn btn-white hover-primary">{{ collection_banner_button_text }}</a>
+                        <a href="{% if collection_banner_button_url != blank %}{{ collection_banner_button_url }}{% else %}{{ collection.url }}{% endif %}" class="tf-btn btn-white hover-primary">{{ collection_banner_button_text }}</a>
                     </div>
                 </div>
             </div>

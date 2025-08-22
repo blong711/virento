@@ -308,6 +308,7 @@
     collection_banner_image: section.settings.collection_banner_image,
     collection_banner_title: section.settings.collection_banner_title,
     collection_banner_button_text: section.settings.collection_banner_button_text,
+    collection_banner_button_url: section.settings.collection_banner_button_url,
     show_availability_filter: section.settings.show_availability_filter,
     show_price_filter: section.settings.show_price_filter,
     show_color_filter: section.settings.show_color_filter,
@@ -424,6 +425,13 @@
             "label": "Banner button text",
             "default": "Shop Now",
             "info": "Text for the call-to-action button"
+        },
+        {
+            "type": "url",
+            "id": "collection_banner_button_url",
+            "label": "Banner button URL",
+            "default": "",
+            "info": "URL for the banner button (leave empty to use collection URL)"
         },
         {
             "type": "header",
