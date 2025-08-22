@@ -30,7 +30,7 @@
                     <p class="text-sm">{{ block.settings.sale_text }}</p>
                   {%- endif -%}
                   {%- if block.settings.title != blank -%}
-                    <h6>{{ block.settings.title | newline_to_br }}</h6>
+                    {{ block.settings.title | replace: '<p>', '<h6>' | replace: '</p>', '</h6'}}
                   {%- endif -%}
                 </div>
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
