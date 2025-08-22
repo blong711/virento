@@ -30,10 +30,6 @@
       "label": "t:sections.main_slider.settings.height.label",
       "options": [
         {
-          "value": "adapt",
-          "label": "t:sections.main_slider.settings.height.options.adapt"
-        },
-        {
           "value": "adapt-first",
           "label": "t:sections.main_slider.settings.height.options.adapt_first"
         },
@@ -46,7 +42,7 @@
           "label": "t:sections.main_slider.settings.height.options.fixed"
         }
       ],
-      "default": "adapt"
+      "default": "adapt-first"
     },
     {
       "type": "range",
@@ -329,84 +325,15 @@
       height: {{ section.settings.height_fixed }}px;
     {% elsif section.settings.height == 'fill' %}
       height: 100vh;
-    {% elsif section.settings.height == 'adapt' %}
-      height: auto;
     {% elsif section.settings.height == 'adapt-first' %}
       height: auto;
     {% endif %}
-  }
-  
-  .slider-height .swiper-slide {
-    {% if section.settings.height == 'adapt' %}
-      height: auto;
-    {% elsif section.settings.height == 'adapt-first' %}
-      height: auto;
-    {% endif %}
-  }
-  
-  .slider-height .swiper-slide .slider-wrap {
-    {% if section.settings.height == 'adapt' %}
-      height: auto;
-    {% elsif section.settings.height == 'adapt-first' %}
-      height: auto;
-    {% endif %}
-  }
-  
-  .slider-height .swiper-slide .image {
-    {% if section.settings.height == 'adapt' %}
-      height: auto;
-    {% elsif section.settings.height == 'adapt-first' %}
-      height: auto;
-    {% endif %}
-  }
-  
-  .slider-height .swiper-slide .image img {
-    {% if section.settings.height == 'adapt' %}
-      height: auto;
-      max-height: none;
-      width: 100%;
-      object-fit: contain;
-    {% elsif section.settings.height == 'adapt-first' %}
-      height: auto;
-      max-height: none;
-      width: 100%;
-      object-fit: contain;
-    {% endif %}
-  }
-  
-  /* Ensure proper spacing for adapt heights */
-  .slider-height[data-height="adapt"] .swiper-slide,
-  .slider-height[data-height="adapt-first"] .swiper-slide {
-    display: flex;
-    align-items: center;
-  }
-  
-  .slider-height[data-height="adapt"] .slider-wrap,
-  .slider-height[data-height="adapt-first"] .slider-wrap {
-    width: 100%;
   }
   
   @media (max-width: 767px) {
     .slider-height {
       {% if section.settings.mobile_height == 'fixed' %}
         height: {{ section.settings.mobile_height_fixed }}px;
-      {% elsif section.settings.mobile_height == 'adapt' %}
-        height: auto;
-      {% endif %}
-    }
-    
-    .slider-height .swiper-slide,
-    .slider-height .swiper-slide .slider-wrap,
-    .slider-height .swiper-slide .image {
-      {% if section.settings.mobile_height == 'adapt' %}
-        height: auto;
-      {% endif %}
-    }
-    
-    .slider-height .swiper-slide .image img {
-      {% if section.settings.mobile_height == 'adapt' %}
-        height: auto;
-        max-height: none;
       {% endif %}
     }
   }
@@ -536,42 +463,66 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const heightSetting = slider.getAttribute('data-height');
   
-  // Handle adapt and adapt-first height options
-  if (heightSetting === 'adapt' || heightSetting === 'adapt-first') {
+  // Handle adapt-first height option
+  if (heightSetting === 'adapt-first') {
     const slides = slider.querySelectorAll('.swiper-slide');
+    let isAdjusting = false;
+    let lastHeight = 0;
     
     // Function to adjust slide heights
     function adjustSlideHeights() {
-      if (heightSetting === 'adapt') {
-        // For adapt: each slide takes the height of its content
-        slides.forEach(slide => {
-          const content = slide.querySelector('.slider-wrap');
-          if (content) {
-            slide.style.height = 'auto';
-            content.style.height = 'auto';
-          }
-        });
-      } else if (heightSetting === 'adapt-first') {
+      if (isAdjusting) return; // Prevent multiple simultaneous executions
+      
+      isAdjusting = true;
+      
+      if (heightSetting === 'adapt-first') {
         // For adapt-first: first slide determines height for all slides
         const firstSlide = slides[0];
         if (firstSlide) {
           const firstContent = firstSlide.querySelector('.slider-wrap');
           if (firstContent) {
-            const firstHeight = firstContent.offsetHeight;
-            slides.forEach(slide => {
-              const content = slide.querySelector('.slider-wrap');
-              if (content) {
-                slide.style.height = firstHeight + 'px';
-                content.style.height = firstHeight + 'px';
-              }
-            });
+            // Get all content elements to calculate total height
+            const image = firstContent.querySelector('.image');
+            const boxContent = firstContent.querySelector('.box-content');
+            
+            let totalHeight = 0;
+            
+            if (image) {
+              const imageHeight = Math.round(image.getBoundingClientRect().height);
+              totalHeight = Math.max(totalHeight, imageHeight);
+            }
+            
+            if (boxContent) {
+              const contentHeight = Math.round(boxContent.getBoundingClientRect().height);
+              totalHeight = Math.max(totalHeight, contentHeight);
+            }
+            
+            // Use the larger of the two heights, or fallback to offsetHeight
+            const firstHeight = totalHeight > 0 ? totalHeight : Math.round(firstContent.getBoundingClientRect().height);
+            
+            // Only apply if height is reasonable and different from last height
+            if (firstHeight > 100 && firstHeight !== lastHeight) {
+              lastHeight = firstHeight;
+              slides.forEach(slide => {
+                const content = slide.querySelector('.slider-wrap');
+                if (content) {
+                  slide.style.height = firstHeight + 'px';
+                  content.style.height = firstHeight + 'px';
+                }
+              });
+            }
           }
         }
       }
+      
+      // Reset flag after a short delay
+      setTimeout(() => {
+        isAdjusting = false;
+      }, 100);
     }
     
-    // Initial adjustment
-    adjustSlideHeights();
+    // Initial adjustment - wait a bit for content to settle
+    setTimeout(adjustSlideHeights, 100);
     
     // Adjust on window resize
     let resizeTimer;
@@ -588,17 +539,36 @@ document.addEventListener('DOMContentLoaded', function() {
       if (img.complete) {
         loadedImages++;
         if (loadedImages === images.length) {
-          adjustSlideHeights();
+          setTimeout(adjustSlideHeights, 100);
         }
       } else {
         img.addEventListener('load', function() {
           loadedImages++;
           if (loadedImages === images.length) {
-            adjustSlideHeights();
+            setTimeout(adjustSlideHeights, 100);
           }
         });
       }
     });
+    
+    // Final height adjustment after everything is settled
+    // This ensures we get the final, stable height
+    setTimeout(() => {
+      adjustSlideHeights();
+    }, 500);
+    
+    // Additional check after fonts and CSS are fully loaded
+    if (document.readyState === 'complete') {
+      setTimeout(() => {
+        adjustSlideHeights();
+      }, 1000);
+    } else {
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          adjustSlideHeights();
+        }, 1000);
+      });
+    }
   }
 });
 </script>
