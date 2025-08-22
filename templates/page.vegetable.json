@@ -18,7 +18,7 @@
             "color_scheme": "scheme-929b7eda-6c1a-46e5-a2ea-1bcc2aaeb14d",
             "image": "shopify://shop_images/vegetable-1.png",
             "sale_text": "Save up to 20% on",
-            "title": "Dairy Milk Chocolate",
+            "title": "<p>Dairy Milk </p><p>Chocolate</p>",
             "button_label": "Shop Now",
             "button_link": "/collections/all"
           }
@@ -29,7 +29,7 @@
             "color_scheme": "scheme-43ab2b8f-788a-400c-95a7-99f370cf4cac",
             "image": "shopify://shop_images/vegetable-2.png",
             "sale_text": "Save up to 10% on",
-            "title": "Yoghurt Pouch Blueberry 140g",
+            "title": "<p>Yoghurt Pouch </p><p>Blueberry 140g</p>",
             "button_label": "Shop Now",
             "button_link": "/collections/all"
           }
@@ -40,7 +40,7 @@
             "color_scheme": "scheme-2",
             "image": "shopify://shop_images/vegetable-3.jpg",
             "title": "Eat Fresh, Live Well",
-            "content": "Discover farm-fresh, organic veggies at our store. Locally sourced, quality guaranteed—perfect for your healthy meals!",
+            "content": "<p>Discover farm-fresh, organic veggies at our</p><p>store. Locally sourced, quality guaranteed—</p><p>perfect for your healthy meals!</p>",
             "button_label": "Discover Now",
             "button_link": "shopify://collections"
           }
