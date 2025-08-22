@@ -3,6 +3,9 @@
   Usage: {% render 'collection-filters', collection: collection %}
 {% endcomment %}
 
+{% comment %} Get the full collection to access all products {% endcomment %}
+{% assign full_collection = collections[collection.handle] %}
+
 <div class="offcanvas offcanvas-start canvas-sidebar canvas-filter" id="filterShop">
     <div class="canvas-wrapper">
         <div class="canvas-header">
@@ -40,14 +43,14 @@
                             <input type="radio" name="availability" class="tf-check" id="inStock">
                             <label for="inStock" class="label">
                                 <span>In stock</span>&nbsp;
-                                <span class="count">({{ collection.products | where: "available", true | size }})</span>
+                                <span class="count">({{ full_collection.products | where: "available", true | size }})</span>
                             </label>
                         </li>
                         <li class="list-item">
                             <input type="radio" name="availability" class="tf-check" id="outStock">
                             <label for="outStock" class="label">
                                 <span>Out of stock</span>&nbsp;
-                                <span class="count">({{ collection.products | where: "available", false | size }})</span>
+                                <span class="count">({{ full_collection.products | where: "available", false | size }})</span>
                             </label>
                         </li>
                     </ul>
@@ -65,8 +68,8 @@
                     <div class="collapse-body widget-price filter-price">
                         <span class="reset-price">Reset</span>
                         <div class="price-val-range" id="price-value-range" 
-                             data-min="{{ collection.price_min | divided_by: 100.0 | round: 0 }}" 
-                             data-max="{{ collection.price_max | divided_by: 100.0 | round: 0 }}"></div>
+                             data-min="{{ full_collection.price_min | divided_by: 100.0 | round: 0 }}" 
+                             data-max="{{ full_collection.price_max | divided_by: 100.0 | round: 0 }}"></div>
                         <div class="box-value-price">
                             <span class="text-sm">Price:</span>
                             <div class="price-box">
@@ -81,7 +84,7 @@
 
             {% comment %} Colors {% endcomment %}
             {% assign all_colors = '' %}
-            {% for product in collection.products %}
+            {% for product in full_collection.products %}
                 {% for option in product.options_with_values %}
                     {% if option.name == 'Color' %}
                         {% for value in option.values %}
@@ -117,7 +120,7 @@
 
             {% comment %} Sizes {% endcomment %}
             {% assign all_sizes = '' %}
-            {% for product in collection.products %}
+            {% for product in full_collection.products %}
                 {% for option in product.options_with_values %}
                     {% if option.name == 'Size' %}
                         {% for value in option.values %}
@@ -141,7 +144,7 @@
                         {% for size in sizes_array limit: 10 %}
                             {% unless size == blank %}
                                 {% assign size_count = 0 %}
-                                {% for product in collection.products %}
+                                {% for product in full_collection.products %}
                                     {% for variant in product.variants %}
                                         {% if variant.option2 == size or variant.option1 == size or variant.option3 == size %}
                                             {% assign size_count = size_count | plus: 1 %}
@@ -161,7 +164,7 @@
             {% endif %}
 
             {% comment %} Brands/Vendors {% endcomment %}
-            {% assign vendors = collection.products | map: 'vendor' | uniq %}
+            {% assign vendors = full_collection.products | map: 'vendor' | uniq %}
             {% if vendors.size > 0 %}
             <div class="widget-facet">
                 <div class="facet-title text-xl fw-medium" data-bs-target="#brand" role="button"
@@ -176,7 +179,7 @@
                                 <input type="radio" name="brand" class="tf-check" id="{{ vendor | handleize }}">
                                 <label for="{{ vendor | handleize }}" class="label">
                                     <span>{{ vendor }}</span>&nbsp;
-                                    <span class="count">({{ collection.products | where: 'vendor', vendor | size }})</span>
+                                    <span class="count">({{ full_collection.products | where: 'vendor', vendor | size }})</span>
                                 </label>
                             </li>
                         {% endfor %}
@@ -193,7 +196,7 @@
             </div>
 
             {% comment %} Sale Items Preview {% endcomment %}
-            {% assign sale_products = collection.products | where: 'compare_at_price' %}
+            {% assign sale_products = full_collection.products | where: 'compare_at_price' %}
             {% if sale_products.size > 0 %}
             <div class="widget-facet">
                 <ul class="collapse-body list-recent">
