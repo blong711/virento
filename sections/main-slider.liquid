@@ -330,10 +330,60 @@
     {% elsif section.settings.height == 'fill' %}
       height: 100vh;
     {% elsif section.settings.height == 'adapt' %}
-      height: auto; /* each slide adapts */
+      height: auto;
     {% elsif section.settings.height == 'adapt-first' %}
-      height: auto; /* will be locked to first image by JS */
+      height: auto;
     {% endif %}
+  }
+  
+  .slider-height .swiper-slide {
+    {% if section.settings.height == 'adapt' %}
+      height: auto;
+    {% elsif section.settings.height == 'adapt-first' %}
+      height: auto;
+    {% endif %}
+  }
+  
+  .slider-height .swiper-slide .slider-wrap {
+    {% if section.settings.height == 'adapt' %}
+      height: auto;
+    {% elsif section.settings.height == 'adapt-first' %}
+      height: auto;
+    {% endif %}
+  }
+  
+  .slider-height .swiper-slide .image {
+    {% if section.settings.height == 'adapt' %}
+      height: auto;
+    {% elsif section.settings.height == 'adapt-first' %}
+      height: auto;
+    {% endif %}
+  }
+  
+  .slider-height .swiper-slide .image img {
+    {% if section.settings.height == 'adapt' %}
+      height: auto;
+      max-height: none;
+      width: 100%;
+      object-fit: contain;
+    {% elsif section.settings.height == 'adapt-first' %}
+      height: auto;
+      max-height: none;
+      width: 100%;
+      object-fit: contain;
+    {% endif %}
+  }
+  
+  /* Ensure proper spacing for adapt heights */
+  .slider-height[data-height="adapt"] .swiper-slide,
+  .slider-height[data-height="adapt-first"] .swiper-slide {
+    display: flex;
+    align-items: center;
+  }
+  
+  .slider-height[data-height="adapt"] .slider-wrap,
+  .slider-height[data-height="adapt-first"] .slider-wrap {
+    width: 100%;
   }
   
   @media (max-width: 767px) {
@@ -342,6 +392,21 @@
         height: {{ section.settings.mobile_height_fixed }}px;
       {% elsif section.settings.mobile_height == 'adapt' %}
         height: auto;
+      {% endif %}
+    }
+    
+    .slider-height .swiper-slide,
+    .slider-height .swiper-slide .slider-wrap,
+    .slider-height .swiper-slide .image {
+      {% if section.settings.mobile_height == 'adapt' %}
+        height: auto;
+      {% endif %}
+    }
+    
+    .slider-height .swiper-slide .image img {
+      {% if section.settings.mobile_height == 'adapt' %}
+        height: auto;
+        max-height: none;
       {% endif %}
     }
   }
@@ -463,37 +528,77 @@
         </div>
     </div>
 </section>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const slider = document.querySelector('[data-slider-id="{{ section.id }}"]');
-    if (!slider) return;
+document.addEventListener('DOMContentLoaded', function() {
+  const slider = document.querySelector('[data-slider-id="{{ section.id }}"]');
+  if (!slider) return;
   
-    if (slider.dataset.height === "adapt-first") {
-      // Get the first slide
-      const firstSlide = slider.querySelector(".swiper-slide");
-      if (firstSlide) {
-        // Get the desktop image from the first slide (or fallback to any image)
-        const firstImg = firstSlide.querySelector(".d-none.d-md-block img") || 
-                        firstSlide.querySelector("img");
-        
-        if (firstImg) {
-          const setHeight = () => {
-            const imgHeight = firstImg.offsetHeight;
-            if (imgHeight > 0) {
-              slider.style.height = imgHeight + "px";
-            }
-          };
-
-          if (firstImg.complete) {
-            setHeight();
-          } else {
-            firstImg.onload = setHeight;
+  const heightSetting = slider.getAttribute('data-height');
+  
+  // Handle adapt and adapt-first height options
+  if (heightSetting === 'adapt' || heightSetting === 'adapt-first') {
+    const slides = slider.querySelectorAll('.swiper-slide');
+    
+    // Function to adjust slide heights
+    function adjustSlideHeights() {
+      if (heightSetting === 'adapt') {
+        // For adapt: each slide takes the height of its content
+        slides.forEach(slide => {
+          const content = slide.querySelector('.slider-wrap');
+          if (content) {
+            slide.style.height = 'auto';
+            content.style.height = 'auto';
           }
-
-          window.addEventListener("resize", setHeight);
+        });
+      } else if (heightSetting === 'adapt-first') {
+        // For adapt-first: first slide determines height for all slides
+        const firstSlide = slides[0];
+        if (firstSlide) {
+          const firstContent = firstSlide.querySelector('.slider-wrap');
+          if (firstContent) {
+            const firstHeight = firstContent.offsetHeight;
+            slides.forEach(slide => {
+              const content = slide.querySelector('.slider-wrap');
+              if (content) {
+                slide.style.height = firstHeight + 'px';
+                content.style.height = firstHeight + 'px';
+              }
+            });
+          }
         }
       }
     }
-  });
+    
+    // Initial adjustment
+    adjustSlideHeights();
+    
+    // Adjust on window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(adjustSlideHeights, 250);
+    });
+    
+    // Adjust when images are loaded
+    const images = slider.querySelectorAll('img');
+    let loadedImages = 0;
+    
+    images.forEach(img => {
+      if (img.complete) {
+        loadedImages++;
+        if (loadedImages === images.length) {
+          adjustSlideHeights();
+        }
+      } else {
+        img.addEventListener('load', function() {
+          loadedImages++;
+          if (loadedImages === images.length) {
+            adjustSlideHeights();
+          }
+        });
+      }
+    });
+  }
+});
 </script>
-  
