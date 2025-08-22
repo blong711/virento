@@ -330,6 +330,43 @@
     {% endif %}
   }
   
+  /* Override CSS constraints for adapt-first to use actual image heights */
+  .slider-height[data-height="adapt-first"] .slider-wrap .image {
+    height: auto !important;
+  }
+  
+  .slider-height[data-height="adapt-first"] .slider-wrap img {
+    height: auto !important;
+    width: 100% !important;
+    object-fit: contain !important;
+  }
+  
+  .slider-height[data-height="adapt-first"] .swiper-slide {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+  }
+  
+  .slider-height[data-height="adapt-first"] .slider-wrap {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+  }
+  
+  /* Override Swiper's internal height management */
+  .slider-height[data-height="adapt-first"] .swiper-wrapper {
+    height: auto !important;
+    align-items: stretch !important;
+  }
+  
+  .slider-height[data-height="adapt-first"] .swiper {
+    height: auto !important;
+  }
+  
+  .slider-height[data-height="adapt-first"] .tf-sw-slideshow {
+    height: auto !important;
+  }
+  
   @media (max-width: 767px) {
     .slider-height {
       {% if section.settings.mobile_height == 'fixed' %}
@@ -481,24 +518,22 @@ document.addEventListener('DOMContentLoaded', function() {
         if (firstSlide) {
           const firstContent = firstSlide.querySelector('.slider-wrap');
           if (firstContent) {
-            // Get all content elements to calculate total height
-            const image = firstContent.querySelector('.image');
-            const boxContent = firstContent.querySelector('.box-content');
-            
-            let totalHeight = 0;
+            // Get the first slide's actual image height instead of container height
+            const image = firstContent.querySelector('.image img');
+            let firstHeight = 0;
             
             if (image) {
-              const imageHeight = Math.round(image.getBoundingClientRect().height);
-              totalHeight = Math.max(totalHeight, imageHeight);
+              // Use the actual image height when scaled to container width
+              const containerWidth = firstContent.offsetWidth;
+              const naturalWidth = image.naturalWidth;
+              const naturalHeight = image.naturalHeight;
+              
+              // Calculate the scaled height while maintaining aspect ratio
+              firstHeight = Math.round((containerWidth * naturalHeight) / naturalWidth);
+            } else {
+              // Fallback to container height if no image found
+              firstHeight = Math.round(firstContent.getBoundingClientRect().height);
             }
-            
-            if (boxContent) {
-              const contentHeight = Math.round(boxContent.getBoundingClientRect().height);
-              totalHeight = Math.max(totalHeight, contentHeight);
-            }
-            
-            // Use the larger of the two heights, or fallback to offsetHeight
-            const firstHeight = totalHeight > 0 ? totalHeight : Math.round(firstContent.getBoundingClientRect().height);
             
             // Only apply if height is reasonable and different from last height
             if (firstHeight > 100 && firstHeight !== lastHeight) {
@@ -506,10 +541,26 @@ document.addEventListener('DOMContentLoaded', function() {
               slides.forEach(slide => {
                 const content = slide.querySelector('.slider-wrap');
                 if (content) {
-                  slide.style.height = firstHeight + 'px';
-                  content.style.height = firstHeight + 'px';
+                  // Force the height with !important equivalent
+                  slide.style.setProperty('height', firstHeight + 'px', 'important');
+                  content.style.setProperty('height', firstHeight + 'px', 'important');
+                  
+                  // Also set min-height and max-height to prevent Swiper from overriding
+                  slide.style.setProperty('min-height', firstHeight + 'px', 'important');
+                  slide.style.setProperty('max-height', firstHeight + 'px', 'important');
+                  content.style.setProperty('min-height', firstHeight + 'px', 'important');
+                  content.style.setProperty('max-height', firstHeight + 'px', 'important');
                 }
               });
+              
+              // Force Swiper to recalculate and respect our heights
+              if (window.Swiper && slider.swiper) {
+                setTimeout(() => {
+                  slider.swiper.update();
+                  slider.swiper.updateSize();
+                  slider.swiper.updateSlides();
+                }, 100);
+              }
             }
           }
         }
