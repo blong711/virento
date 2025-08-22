@@ -53,7 +53,7 @@
       "step": 10,
       "unit": "px",
       "default": 500,
-      "info": "t:sections.main_slider.settings.height_fixed.info"
+      "visible_if": "{{section.settings.height == 'fixed'}}"
     },
     {
       "type": "select",
@@ -80,7 +80,7 @@
       "step": 10,
       "unit": "px",
       "default": 300,
-      "info": "t:sections.main_slider.settings.mobile_height_fixed.info"
+      "visible_if": "{{section.settings.mobile_height == 'fixed'}}"
     },
     {
       "type": "header",
