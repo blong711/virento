@@ -300,7 +300,19 @@
 
 
 {% comment %} Render the filter snippet {% endcomment %}
-{% render 'collection-filters', collection: collection %}
+{% render 'collection-filters', 
+    collection: collection,
+    show_on_sale: section.settings.show_on_sale,
+    on_sale_limit: section.settings.on_sale_limit,
+    show_collection_banner: section.settings.show_collection_banner,
+    collection_banner_image: section.settings.collection_banner_image,
+    collection_banner_title: section.settings.collection_banner_title,
+    collection_banner_button_text: section.settings.collection_banner_button_text,
+    show_availability_filter: section.settings.show_availability_filter,
+    show_price_filter: section.settings.show_price_filter,
+    show_color_filter: section.settings.show_color_filter,
+    show_brand_filter: section.settings.show_brand_filter
+%}
 
 {% comment %} Add necessary data for JavaScript {% endcomment %}
 <script>
@@ -364,6 +376,86 @@
                 { "value": "infinity_scroll", "label": "Infinity Scroll" }
             ],
             "default": "pagination"
+        },
+        {
+            "type": "header",
+            "content": "Filter Sidebar Settings"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_on_sale",
+            "label": "Show on-sale products in filters",
+            "default": true,
+            "info": "Display on-sale products preview in the filter sidebar"
+        },
+        {
+            "type": "range",
+            "id": "on_sale_limit",
+            "label": "On-sale products limit",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "default": 3,
+            "info": "Maximum number of on-sale products to show in filters"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_collection_banner",
+            "label": "Show collection banner in filters",
+            "default": true,
+            "info": "Display promotional banner in the filter sidebar"
+        },
+        {
+            "type": "image_picker",
+            "id": "collection_banner_image",
+            "label": "Collection banner image",
+            "info": "Recommended size: 300x200px"
+        },
+        {
+            "type": "text",
+            "id": "collection_banner_title",
+            "label": "Banner title",
+            "default": "Elevate Your Style",
+            "info": "Main text displayed on the banner"
+        },
+        {
+            "type": "text",
+            "id": "collection_banner_button_text",
+            "label": "Banner button text",
+            "default": "Shop Now",
+            "info": "Text for the call-to-action button"
+        },
+        {
+            "type": "header",
+            "content": "Filter Options"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_availability_filter",
+            "label": "Show availability filter",
+            "default": true,
+            "info": "Display in-stock/out-of-stock filter options"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_price_filter",
+            "label": "Show price filter",
+            "default": true,
+            "info": "Display price range slider filter"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_color_filter",
+            "label": "Show color filter",
+            "default": true,
+            "info": "Display color selection filter options"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_brand_filter",
+            "label": "Show brand filter",
+            "default": true,
+            "info": "Display brand/vendor filter options"
         }
     ]
 }

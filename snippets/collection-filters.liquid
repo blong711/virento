@@ -6,6 +6,17 @@
 {% comment %} Get the full collection to access all products {% endcomment %}
 {% assign full_collection = collections[collection.handle] %}
 
+{% comment %} Set default values for settings if not provided {% endcomment %}
+{% assign show_on_sale = show_on_sale | default: true %}
+{% assign on_sale_limit = on_sale_limit | default: 3 %}
+{% assign show_collection_banner = show_collection_banner | default: true %}
+{% assign collection_banner_title = collection_banner_title | default: "Elevate Your Style" %}
+{% assign collection_banner_button_text = collection_banner_button_text | default: "Shop Now" %}
+{% assign show_availability_filter = show_availability_filter | default: true %}
+{% assign show_price_filter = show_price_filter | default: true %}
+{% assign show_color_filter = show_color_filter | default: true %}
+{% assign show_brand_filter = show_brand_filter | default: true %}
+
 <div class="offcanvas offcanvas-start canvas-sidebar canvas-filter" id="filterShop">
     <div class="canvas-wrapper">
         <div class="canvas-header">
@@ -31,6 +42,7 @@
             {% endif %}
 
             {% comment %} Availability {% endcomment %}
+            {% if show_availability_filter %}
             <div class="widget-facet">
                 <div class="facet-title text-xl fw-medium" data-bs-target="#availability" role="button"
                     data-bs-toggle="collapse" aria-expanded="true" aria-controls="availability">
@@ -56,8 +68,10 @@
                     </ul>
                 </div>
             </div>
+            {% endif %}
 
             {% comment %} Price Range {% endcomment %}
+            {% if show_price_filter %}
             <div class="widget-facet">
                 <div class="facet-title text-xl fw-medium" data-bs-target="#price" role="button"
                     data-bs-toggle="collapse" aria-expanded="true" aria-controls="price">
@@ -81,8 +95,10 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
 
             {% comment %} Colors {% endcomment %}
+            {% if show_color_filter %}
             {% assign all_colors = '' %}
             {% for product in full_collection.products %}
                 {% for option in product.options_with_values %}
@@ -116,6 +132,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endif %}
 
             {% comment %} Sizes {% endcomment %}
@@ -164,6 +181,7 @@
             {% endif %}
 
             {% comment %} Brands/Vendors {% endcomment %}
+            {% if show_brand_filter %}
             {% assign vendors = full_collection.products | map: 'vendor' | uniq %}
             {% if vendors.size > 0 %}
             <div class="widget-facet">
@@ -187,8 +205,10 @@
                 </div>
             </div>
             {% endif %}
+            {% endif %}
 
             {% comment %} On Sale Toggle {% endcomment %}
+            {% if show_on_sale %}
             <div class="widget-facet">
                 <div class="facet-title text-xl fw-medium">
                     <span class="shop-sale-text">On sale</span>
@@ -200,7 +220,7 @@
             {% if sale_products.size > 0 %}
             <div class="widget-facet">
                 <ul class="collapse-body list-recent">
-                    {% for product in sale_products limit: 3 %}
+                    {% for product in sale_products limit: on_sale_limit %}
                         {% if product.compare_at_price > product.price %}
                             <li>
                                 <div class="recent-blog-item">
@@ -224,21 +244,28 @@
                 </ul>
             </div>
             {% endif %}
+            {% endif %}
 
             {% comment %} Banner {% endcomment %}
+            {% if show_collection_banner %}
             <div class="widget-facet">
                 <div class="sb-banner hover-img">
                     <div class="image img-style">
-                        <img src="" alt="Collection Banner" class="lazyload" width="300" height="200">
+                        {% if collection_banner_image %}
+                            <img src="{{ collection_banner_image | img_url: '300x200' }}" alt="Collection Banner" class="lazyload" width="300" height="200">
+                        {% else %}
+                            <img src="" alt="Collection Banner" class="lazyload" width="300" height="200">
+                        {% endif %}
                     </div>
                     <div class="banner-content">
                         <p class="title">
-                            Elevate <br> Your Style
+                            {{ collection_banner_title | replace: ' ', '<br>' }}
                         </p>
-                        <a href="{{ collection.url }}" class="tf-btn btn-white hover-primary">Shop Now</a>
+                        <a href="{{ collection.url }}" class="tf-btn btn-white hover-primary">{{ collection_banner_button_text }}</a>
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

@@ -3,6 +3,108 @@
  * Includes price range, filtering, sorting, layout switching, and loading
  */
 //collection
+
+// Add styles for AJAX filtering
+(function() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .filter-loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #ff6f61;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .wrapper-control-shop.filtering {
+            position: relative;
+        }
+        
+        .wrapper-control-shop.filtering::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .no-products-found {
+            text-align: center;
+            padding: 60px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .no-products-content h3 {
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .no-products-content p {
+            color: #6c757d;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        
+        .btn-reset-filters {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-reset-filters:hover {
+            background: #0056b3;
+        }
+        
+        .filter-transition {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .filter-transition.fade-out {
+            opacity: 0;
+        }
+        
+        .filter-transition.fade-in {
+            opacity: 1;
+        }
+    `;
+    document.head.appendChild(style);
+})();
+
 // Initialize all shop functionality when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize global layout state based on theme settings
@@ -31,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initLoadMore();
     }
     bindProductEvents(); // Initialize product events
+    initBrowserNavigation(); // Initialize browser navigation handler
 });
 
 // Price Range Slider
@@ -112,7 +215,7 @@ function initializeFilters() {
         filters.maxPrice = window.collectionData.priceMax || filters.maxPrice;
     }
     
-    console.log('Filters initialized:', filters);
+
 }
 
 function initProductFilters() {
@@ -125,7 +228,7 @@ function initProductFilters() {
             this.classList.add('active');
             
             filters.size = this.querySelector('.size').textContent.trim();
-            console.log('Size filter clicked:', filters.size);
+
             applyServerSideFilters();
             updateMetaFilter();
         });
@@ -140,7 +243,7 @@ function initProductFilters() {
             this.classList.add('active');
             
             filters.color = this.querySelector('.color-text').textContent.trim();
-            console.log('Color filter clicked:', filters.color);
+
             applyServerSideFilters();
             updateMetaFilter();
         });
@@ -186,9 +289,8 @@ function initProductFilters() {
     // Reset all filters
     ['remove-all', 'reset-filter'].forEach(id => {
         document.getElementById(id)?.addEventListener('click', () => {
-            // Navigate to base collection URL without filters
-            const baseUrl = window.location.pathname;
-            window.location.href = baseUrl;
+            // Reset filters and reload products without page reload
+            resetAllFilters();
         });
     });
 
@@ -264,12 +366,270 @@ function resetAllFilters() {
     document.querySelectorAll('input[name="availability"]').forEach(input => input.checked = false);
     document.querySelectorAll('.size-check, .color-check').forEach(btn => btn.classList.remove('active'));
     
-    applyServerSideFilters();
+    // Update URL to base collection without filters
+    const baseUrl = window.location.pathname;
+    updateURLWithoutReload(baseUrl);
+    
+    // Fetch products without filters using AJAX
+    fetchFilteredProducts(baseUrl);
     updateMetaFilter();
 }
 
-// Server-side filtering using Shopify's collection filtering
+// Server-side filtering using AJAX to avoid page reloads
 function applyServerSideFilters() {
+    // Build the filter URL using the enhanced function
+    const filterUrl = buildFilterURL();
+    
+
+    
+    // Use AJAX to fetch filtered products instead of navigating
+    fetchFilteredProducts(filterUrl);
+}
+
+// AJAX function to fetch filtered products
+function fetchFilteredProducts(filterUrl) {
+    // Show loading state
+    showFilterLoadingState(true);
+    
+    // Use the filter URL directly without adding ajax view parameters
+    // This prevents 404 errors when the ajax view doesn't exist
+    const ajaxUrl = filterUrl;
+    
+    // Check if fetch is available, otherwise fallback to XMLHttpRequest
+    if (window.fetch) {
+        fetch(ajaxUrl, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'text/html, application/xhtml+xml'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            handleFilterResponse(html, filterUrl);
+        })
+        .catch(error => {
+            handleFilterError(error, filterUrl);
+        })
+        .finally(() => {
+            // Hide loading state
+            showFilterLoadingState(false);
+        });
+    } else {
+        // Fallback for older browsers
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', ajaxUrl, true);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.setRequestHeader('Accept', 'text/html, application/xhtml+xml');
+        
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    handleFilterResponse(xhr.responseText, filterUrl);
+                } else {
+                    handleFilterError(new Error(`HTTP ${xhr.status}`), filterUrl);
+                }
+                // Hide loading state
+                showFilterLoadingState(false);
+            }
+        };
+        
+        xhr.onerror = function() {
+            handleFilterError(new Error('Network error occurred'), filterUrl);
+            showFilterLoadingState(false);
+        };
+        
+        xhr.send();
+    }
+}
+
+// Handle the filter response
+function handleFilterResponse(html, filterUrl) {
+    try {
+        // Parse the HTML response
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Extract products from the response
+        const newGridProducts = doc.querySelector('#gridLayout');
+        const newListProducts = doc.querySelector('#listLayout');
+        
+        if (newProducts.length > 0) {
+            // Update the current page with new products
+            updateProductsWithoutReload(newGridProducts, newListProducts);
+            
+            // Update URL without reloading (for bookmarking/sharing)
+            updateURLWithoutReload(filterUrl);
+            
+            // Update product count
+            updateProductCount(window.collectionData.totalProducts);
+            
+            // Rebind product events for new products
+            bindProductEvents();
+            
+            // Update meta filter display
+            updateMetaFilter();
+            
+            // Scroll to top of products section
+            scrollToProducts();
+            
+            // Trigger custom event for other scripts
+            document.dispatchEvent(new CustomEvent('productsFiltered', {
+                detail: { productCount: newProducts.length, filters: filters }
+            }));
+            
+            // Reset AJAX failure counter on success
+            resetAjaxFailureCount();
+        } else {
+            // No products found - check if this is an error page
+            const errorElements = doc.querySelectorAll('.error-page, .404-error, .not-found');
+            if (errorElements.length > 0) {
+                console.warn('Received error page instead of products');
+                throw new Error('Server returned error page');
+            }
+            
+            // No products found
+            showNoProductsMessage();
+            
+            // Trigger custom event for no products
+            document.dispatchEvent(new CustomEvent('noProductsFound', {
+                detail: { filters: filters }
+            }));
+        }
+    } catch (error) {
+        // Trigger error event
+        document.dispatchEvent(new CustomEvent('filterParseError', {
+            detail: { error: error.message, html: html.substring(0, 200) }
+        }));
+    }
+}
+
+// Update products without page reload
+function updateProductsWithoutReload(newGridProducts, newListProducts) {
+    const currentGridLayout = document.getElementById('gridLayout');
+    const currentListLayout = document.getElementById('listLayout');
+    
+    // Add transition class for smooth updates
+    if (currentGridLayout) currentGridLayout.classList.add('filter-transition');
+    if (currentListLayout) currentListLayout.classList.add('filter-transition');
+    
+    // Fade out current products
+    setTimeout(() => {
+        if (currentGridLayout) currentGridLayout.classList.add('fade-out');
+        if (currentListLayout) currentListLayout.classList.add('fade-out');
+        
+        // Update content after fade out
+        setTimeout(() => {
+            if (newGridProducts && currentGridLayout) {
+                // Preserve current layout classes and data attributes
+                const currentClasses = currentGridLayout.className.replace('filter-transition fade-out', '');
+                const currentDataAttrs = {};
+                
+                // Preserve important data attributes
+                ['data-current-page', 'data-total-pages', 'data-products-per-page'].forEach(attr => {
+                    if (currentGridLayout.hasAttribute(attr)) {
+                        currentDataAttrs[attr] = currentGridLayout.getAttribute(attr);
+                    }
+                });
+                
+                currentGridLayout.innerHTML = newGridProducts.innerHTML;
+                currentGridLayout.className = currentClasses;
+                
+                // Restore data attributes
+                Object.keys(currentDataAttrs).forEach(attr => {
+                    currentGridLayout.setAttribute(attr, currentDataAttrs[attr]);
+                });
+            }
+            
+            if (newListProducts && currentListLayout) {
+                currentListLayout.innerHTML = newListProducts.innerHTML;
+            }
+            
+            // Update pagination if it exists
+            updatePaginationFromResponse(newGridProducts, newListProducts);
+            
+            // Fade in new products
+            setTimeout(() => {
+                if (currentGridLayout) {
+                    currentGridLayout.classList.remove('fade-out');
+                    currentGridLayout.classList.add('fade-in');
+                }
+                if (currentListLayout) {
+                    currentListLayout.classList.remove('fade-out');
+                    currentListLayout.classList.add('fade-in');
+                }
+                
+                // Remove transition classes after animation
+                setTimeout(() => {
+                    if (currentGridLayout) {
+                        currentGridLayout.classList.remove('filter-transition', 'fade-in');
+                    }
+                    if (currentListLayout) {
+                        currentListLayout.classList.remove('filter-transition', 'fade-in');
+                    }
+                }, 300);
+            }, 50);
+        }, 150);
+    }, 50);
+}
+
+// Update pagination elements from AJAX response
+function updatePaginationFromResponse(newGridProducts, newListProducts) {
+    // Update grid pagination
+    if (newGridProducts) {
+        const newGridPagination = newGridProducts.querySelector('.wg-pagination');
+        const currentGridPagination = document.querySelector('#gridLayout .wg-pagination');
+        
+        if (newGridPagination && currentGridPagination) {
+            currentGridPagination.innerHTML = newGridPagination.innerHTML;
+        } else if (newGridPagination && !currentGridPagination) {
+            document.getElementById('gridLayout').appendChild(newGridPagination.cloneNode(true));
+        }
+    }
+    
+    // Update list pagination
+    if (newListProducts) {
+        const newListPagination = newListProducts.querySelector('.wg-pagination');
+        const currentListPagination = document.querySelector('#listLayout .wg-pagination');
+        
+        if (newListPagination && currentListPagination) {
+            currentListPagination.innerHTML = newListPagination.innerHTML;
+        } else if (newListPagination && !currentListPagination) {
+            document.getElementById('listLayout').appendChild(newListPagination.cloneNode(true));
+        }
+    }
+}
+
+// Update URL without page reload
+function updateURLWithoutReload(newUrl) {
+    if (window.history && window.history.pushState) {
+        window.history.pushState({ path: newUrl }, '', newUrl);
+    }
+}
+
+// Handle browser back/forward navigation
+function handlePopState(event) {
+    if (event.state && event.state.path) {
+        // Re-apply filters from URL when navigating back/forward
+        initializeFiltersFromURL();
+        
+        // Fetch products for the URL we navigated to
+        fetchFilteredProducts(event.state.path);
+    }
+}
+
+// Initialize popstate handler for browser navigation
+function initBrowserNavigation() {
+    window.addEventListener('popstate', handlePopState);
+}
+
+// Enhanced URL parameter handling
+function buildFilterURL() {
     const currentUrl = new URL(window.location);
     const searchParams = currentUrl.searchParams;
     
@@ -283,18 +643,15 @@ function applyServerSideFilters() {
     searchParams.delete('filter.v.compare_at_price.gt');
     searchParams.delete('tag');
     
-    // Add size filter - use option1 or option2 depending on which is the size option
+    // Add active filters
     if (filters.size) {
-        // Try option1 first, then option2
         searchParams.set('filter.v.option1', filters.size);
     }
     
-    // Add color filter - use the correct Shopify parameter format
     if (filters.color) {
         searchParams.set('filter.v.option.color', filters.color);
     }
     
-    // Add availability filter
     if (filters.availability) {
         if (filters.availability === 'In stock') {
             searchParams.set('filter.v.availability', '1');
@@ -303,45 +660,136 @@ function applyServerSideFilters() {
         }
     }
     
-    // Add brand filter
     if (filters.brands) {
         searchParams.set('filter.p.vendor', filters.brands);
     }
     
-    // Add price filter - use the correct Shopify parameter format
     const priceSlider = document.getElementById('price-value-range');
     if (priceSlider) {
         const defaultMin = parseInt(priceSlider.dataset.min, 10) || 0;
         const defaultMax = parseInt(priceSlider.dataset.max, 10) || 500;
         
-        // Only apply price filter if it's different from the default range
         if (filters.minPrice > defaultMin) {
-            searchParams.set('filter.v.price.gte', filters.minPrice.toString()); // Keep in dollars
+            searchParams.set('filter.v.price.gte', filters.minPrice.toString());
         }
         if (filters.maxPrice < defaultMax) {
-            searchParams.set('filter.v.price.lte', filters.maxPrice.toString()); // Keep in dollars
+            searchParams.set('filter.v.price.lte', filters.maxPrice.toString());
         }
     }
     
-    // Debug logging
-    console.log('Applying filters:', {
-        size: filters.size,
-        color: filters.color,
-        minPrice: filters.minPrice,
-        maxPrice: filters.maxPrice,
-        availability: filters.availability,
-        brands: filters.brands,
-        sale: filters.sale
-    });
-    console.log('URL:', currentUrl.toString());
-    
-    // Add sale filter
     if (filters.sale) {
         searchParams.set('filter.v.compare_at_price.gt', '0');
     }
     
-    // Navigate to filtered collection
-    window.location.href = currentUrl.toString();
+    return currentUrl.toString();
+}
+
+// Update product count display
+function updateProductCount(count) {
+    // Update any product count displays
+    const countElements = document.querySelectorAll('.product-count, .total-products');
+    countElements.forEach(el => {
+        if (el.textContent.includes('Products found') || el.textContent.includes('products')) {
+            el.innerHTML = el.innerHTML.replace(/\d+/, count);
+        }
+    });
+    
+    // Update load more product count if it exists
+    if (typeof updateLoadMoreProductCount === 'function') {
+        updateLoadMoreProductCount();
+    }
+}
+
+// Show loading state during filtering
+function showFilterLoadingState(show) {
+    const wrapper = document.querySelector('.wrapper-control-shop');
+    if (wrapper) {
+        if (show) {
+            wrapper.classList.add('filtering');
+            // Add loading indicator
+            if (!document.querySelector('.filter-loading')) {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'filter-loading';
+                loadingDiv.innerHTML = '<div class="loading-spinner"></div>';
+                wrapper.appendChild(loadingDiv);
+            }
+        } else {
+            wrapper.classList.remove('filtering');
+            const loadingDiv = document.querySelector('.filter-loading');
+            if (loadingDiv) {
+                loadingDiv.remove();
+            }
+        }
+    }
+}
+
+// Show no products message
+function showNoProductsMessage() {
+    const gridLayout = document.getElementById('gridLayout');
+    const listLayout = document.getElementById('listLayout');
+    
+    const noProductsMessage = `
+        <div class="no-products-found">
+            <div class="no-products-content">
+                <h3>No products found</h3>
+                <p>Try adjusting your filters or search criteria.</p>
+                <button class="btn-reset-filters" onclick="resetAllFilters()">Reset All Filters</button>
+            </div>
+        </div>
+    `;
+    
+    if (gridLayout) {
+        gridLayout.innerHTML = noProductsMessage;
+    }
+    if (listLayout) {
+        listLayout.innerHTML = noProductsMessage;
+    }
+}
+
+
+
+// Global counter for AJAX failures
+let ajaxFailureCount = 0;
+const MAX_AJAX_FAILURES = 3;
+
+// Enhanced error handling for AJAX requests
+function handleFilterError(error, filterUrl) {
+    // Increment failure counter
+    ajaxFailureCount++;
+    
+    // If we've had too many failures, fallback to traditional navigation
+    if (ajaxFailureCount >= MAX_AJAX_FAILURES) {
+        showFilterLoadingState(false);
+        
+        // Reset counter and use traditional navigation
+        ajaxFailureCount = 0;
+        window.location.href = filterUrl;
+        return;
+    }
+    
+    // Optionally send error to analytics service
+    if (window.gtag) {
+        window.gtag('event', 'filter_error', {
+            'event_category': 'shop_filtering',
+            'event_label': error.message || 'unknown_error',
+            'value': ajaxFailureCount
+        });
+    }
+}
+
+// Reset failure counter on successful requests
+function resetAjaxFailureCount() {
+    ajaxFailureCount = 0;
+}
+
+
+
+// Scroll to products section
+function scrollToProducts() {
+    const productsSection = document.querySelector('.wrapper-shop');
+    if (productsSection) {
+        productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 // Initialize filters from URL parameters when page loads
@@ -407,7 +855,7 @@ function initializeFiltersFromURL() {
             filters.maxPrice = parseInt(maxPriceFilter); // Keep in dollars
         }
         
-        console.log('Price filters from URL:', { minPriceFilter, maxPriceFilter, filters: { minPrice: filters.minPrice, maxPrice: filters.maxPrice } });
+
         
         // Update price slider
         const priceSlider = document.getElementById('price-value-range');
@@ -416,7 +864,7 @@ function initializeFiltersFromURL() {
         }
     }
     
-    console.log('Final filters after URL initialization:', filters);
+
     
     // Initialize sale filter
     const saleFilter = urlParams.get('filter.v.compare_at_price.gt');
@@ -646,7 +1094,6 @@ function initLayoutSwitching() {
         const currentLayout = gridLayout?.className || '';
 
         if (!hasValidLayout()) {
-            console.warn('Page does not contain a valid layout (2-7 columns), skipping layout adjustments.');
             return;
         }
 
@@ -1105,7 +1552,7 @@ function handleLoadMore(layout) {
         // 3. Update the product count
         // 4. Handle any additional logic
         
-        console.log(`Loaded products ${startIndex + 1} to ${endIndex} of ${totalProducts}`);
+
     }, 1000);
 }
 
