@@ -22,14 +22,39 @@
       "type": "main-collection",
       "settings": {
         "max_products_per_page": 8,
-        "pagination_type": "pagination",
+        "default_layout_type": "grid",
         "default_grid_layout": "tf-col-4",
-        "default_layout_type": "grid"
+        "pagination_type": "pagination",
+        "show_on_sale": true,
+        "on_sale_limit": 3,
+        "show_collection_banner": true,
+        "collection_banner_image": "shopify://shop_images/sb-banner_1.jpg",
+        "collection_banner_title": "Elevate Your Style",
+        "collection_banner_button_text": "Shop Now",
+        "show_availability_filter": true,
+        "show_price_filter": true,
+        "show_color_filter": true,
+        "show_brand_filter": true
       }
     },
     "collection_description": {
       "type": "collection-description",
-      "settings": {}
+      "settings": {
+        "width": "container",
+        "show_collection_description": true,
+        "fallback_text": "Our collection brings you a unique blend of classic sophistication and the latest fashion trends. Whether you're looking for versatile daywear, stylish work attire, or statement pieces for special occasions, this collection has it all. Each garment is thoughtfully crafted with attention to detail, using high-quality fabrics to ensure lasting comfort and a flawless fit.",
+        "text_alignment": "center",
+        "show_extra_links": true,
+        "links_prefix_text": "Looking for more? Don't miss out on our other exciting collections for",
+        "and_text": "and",
+        "collection1_link_url": "",
+        "collection1_link_label": "Collection 1",
+        "collection2_link_url": "",
+        "collection2_link_label": "Collection 2",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
