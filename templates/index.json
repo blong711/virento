@@ -66,7 +66,7 @@
       "settings": {
         "color_scheme": "",
         "width": "container",
-        "height": "adapt",
+        "height": "adapt-first",
         "height_fixed": 500,
         "mobile_height": "adapt",
         "mobile_height_fixed": 300,
