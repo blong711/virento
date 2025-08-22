@@ -2947,7 +2947,7 @@
       "name": "Compare page",
       "settings": {
         "wishlist_demo": {
-          "content": "Demo exist compare products on editor",
+          "content": "Demo exist compare products on editor"
         },
         "product_list": {
           "label": "Product test",
@@ -6268,7 +6268,7 @@
           "label": "Content position",
           "options": {
             "left": "Left",
-            "center": "Center", 
+            "center": "Center",
             "right": "Right"
           }
         },
@@ -6326,6 +6326,61 @@
       },
       "presets": {
         "name": "Main Collection List"
+      }
+    },
+    "grid_collection": {
+      "name": "Grid Collection",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full"
+          }
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "image": {
+          "label": "Image"
+        },
+        "sale_text": {
+          "label": "Sale text",
+          "default": "Save up to 20% on",
+          "default_2": "Save up to 10% on"
+        },
+        "title": {
+          "label": "Title",
+          "default_1": "Dairy Milk Chocolate",
+          "default_2": "Yoghurt Pouch Blueberry 140g",
+          "default_3": "Eat Fresh, Live Well"
+        },
+        "content": {
+          "label": "Content",
+          "default": "Discover farm-fresh, organic veggies at our store. Locally sourced, quality guaranteed—perfect for your healthy meals!"
+        },
+        "button_label": {
+          "label": "Button label",
+          "default": "Shop Now",
+          "default_2": "Discover Now"
+        },
+        "button_link": {
+          "label": "Button link"
+        }
+      },
+      "blocks": {
+        "sale_item1": {
+          "name": "Sale Item 1"
+        },
+        "sale_item2": {
+          "name": "Sale Item 2"
+        },
+        "discover_item": {
+          "name": "Discover Item"
+        }
+      },
+      "presets": {
+        "name": "Grid Collection"
       }
     }
   }

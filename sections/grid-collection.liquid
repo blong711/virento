@@ -1,0 +1,358 @@
+<!-- Grid Collection -->
+<section
+  class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
+>
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
+    <div class="grid-cls grid-cls-v4 grid-vegetable">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'sale_item1' -%}
+            <div
+              class="item1 s-cls style-absolute hover-img abs-left-center color-{{ block.settings.color_scheme }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="image img-style">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 300 }}"
+                    data-src="{{ block.settings.image | image_url: width: 300 }}"
+                    alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                    class="lazyload"
+                    width="{{ block.settings.image.width | default: 300 }}"
+                    height="{{ block.settings.image.height | default: 200 }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </div>
+              <div class="content">
+                <div class="box-title">
+                  {%- if block.settings.sale_text != blank -%}
+                    <p class="text-sm">{{ block.settings.sale_text }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.title != blank -%}
+                    {{ block.settings.title | replace: '<p>', '<h6>' | replace: '</p>', '</h6>' }}
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                  <div class="box-btn">
+                    <a href="{{ block.settings.button_link }}" class="tf-btn animate-btn">
+                      <span class="text-sm">{{ block.settings.button_label }}</span>
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+
+          {%- when 'sale_item2' -%}
+            <div
+              class="item2 s-cls style-absolute hover-img abs-left-center color-{{ block.settings.color_scheme }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="image img-style">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 300 }}"
+                    data-src="{{ block.settings.image | image_url: width: 300 }}"
+                    alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                    class="lazyload"
+                    width="{{ block.settings.image.width | default: 300 }}"
+                    height="{{ block.settings.image.height | default: 200 }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </div>
+              <div class="content">
+                <div class="box-title">
+                  {%- if block.settings.sale_text != blank -%}
+                    <p class="text-sm">{{ block.settings.sale_text }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.title != blank -%}
+                     {{ block.settings.title | replace: '<p>', '<h6>' | replace: '</p>', '</h6>' }}
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                  <div class="box-btn">
+                    <a href="{{ block.settings.button_link }}" class="tf-btn animate-btn">
+                      <span class="text-sm">{{ block.settings.button_label }}</span>
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+
+          {%- when 'discover_item' -%}
+            <div
+              class="item3 s-cls style-absolute abs-left-center type-large hover-img color-{{ block.settings.color_scheme }}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="image img-style">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 600 }}"
+                    data-src="{{ block.settings.image | image_url: width: 600 }}"
+                    alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                    class="lazyload"
+                    width="{{ block.settings.image.width | default: 600 }}"
+                    height="{{ block.settings.image.height | default: 400 }}"
+                    loading="lazy"
+                  >
+                {%- endif -%}
+              </div>
+              <div class="content">
+                <div class="box-title">
+                  {%- if block.settings.title != blank -%}
+                    <h4>{{ block.settings.title }}</h4>
+                  {%- endif -%}
+                  {%- if block.settings.content != blank -%}
+                     {{ block.settings.content | replace: '<p>', '<p class="text-md">' }}
+                  {%- endif -%}
+                </div>
+                {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
+                  <div class="box-btn">
+                    <a href="{{ block.settings.button_link }}" class="tf-btn animate-btn">
+                      {{ block.settings.button_label }}
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+<!-- Grid Collection -->
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "t:sections.grid_collection.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "options": [
+        {
+          "value": "boxed",
+          "label": "t:sections.grid_collection.settings.width.options.boxed"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.grid_collection.settings.width.options.full"
+        }
+      ],
+      "default": "boxed",
+      "label": "t:sections.grid_collection.settings.width.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.grid_collection.settings.color_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "t:sections.all.padding.padding_mobile_rate.label",
+      "info": "t:sections.all.padding.padding_mobile_rate.info",
+      "default": 75
+    }
+  ],
+  "blocks": [
+    {
+      "type": "sale_item1",
+      "name": "t:sections.grid_collection.blocks.sale_item1.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.grid_collection.settings.color_scheme.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.grid_collection.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "sale_text",
+          "label": "t:sections.grid_collection.settings.sale_text.label",
+          "default": "t:sections.grid_collection.settings.sale_text.default"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "t:sections.grid_collection.settings.title.label",
+          "default": "t:sections.grid_collection.settings.title.default_1"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.grid_collection.settings.button_label.label",
+          "default": "t:sections.grid_collection.settings.button_label.default"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.grid_collection.settings.button_link.label"
+        }
+      ]
+    },
+    {
+      "type": "sale_item2",
+      "name": "t:sections.grid_collection.blocks.sale_item2.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.grid_collection.settings.color_scheme.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.grid_collection.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "sale_text",
+          "label": "t:sections.grid_collection.settings.sale_text.label",
+          "default": "t:sections.grid_collection.settings.sale_text.default_2"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "t:sections.grid_collection.settings.title.label",
+          "default": "t:sections.grid_collection.settings.title.default_2"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.grid_collection.settings.button_label.label",
+          "default": "t:sections.grid_collection.settings.button_label.default"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.grid_collection.settings.button_link.label"
+        }
+      ]
+    },
+    {
+      "type": "discover_item",
+      "name": "t:sections.grid_collection.blocks.discover_item.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.grid_collection.settings.color_scheme.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.grid_collection.settings.image.label"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.grid_collection.settings.title.label",
+          "default": "t:sections.grid_collection.settings.title.default_3"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "t:sections.grid_collection.settings.content.label",
+          "default": "t:sections.grid_collection.settings.content.default"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.grid_collection.settings.button_label.label",
+          "default": "t:sections.grid_collection.settings.button_label.default_2"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "t:sections.grid_collection.settings.button_link.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.grid_collection.presets.name",
+      "blocks": [
+        {
+          "type": "sale_item1",
+          "settings": {
+            "sale_text": "Save up to 20% on",
+            "title": "<p>Dairy Milk Chocolate</p>",
+            "button_label": "Shop Now",
+            "button_link": "/collections/all"
+          }
+        },
+        {
+          "type": "sale_item2",
+          "settings": {
+            "sale_text": "Save up to 10% on",
+            "title": "<p>Yoghurt Pouch Blueberry 140g</p>",
+            "button_label": "Shop Now",
+            "button_link": "/collections/all"
+          }
+        },
+        {
+          "type": "discover_item",
+          "settings": {
+            "title": "Eat Fresh, Live Well",
+            "content": "<p>Discover farm-fresh, organic veggies at our store. Locally sourced, quality guaranteed—perfect for your healthy meals!</p>",
+            "button_label": "Discover Now",
+            "button_link": "/collections/all"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,67 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "grid_collection_JKT7V3": {
+      "type": "grid-collection",
+      "blocks": {
+        "sale_item1_QjBf8a": {
+          "type": "sale_item1",
+          "settings": {
+            "color_scheme": "scheme-929b7eda-6c1a-46e5-a2ea-1bcc2aaeb14d",
+            "image": "shopify://shop_images/vegetable-1.png",
+            "sale_text": "Save up to 20% on",
+            "title": "<p>Dairy Milk </p><p>Chocolate</p>",
+            "button_label": "Shop Now",
+            "button_link": "/collections/all"
+          }
+        },
+        "sale_item2_hcTWxH": {
+          "type": "sale_item2",
+          "settings": {
+            "color_scheme": "scheme-43ab2b8f-788a-400c-95a7-99f370cf4cac",
+            "image": "shopify://shop_images/vegetable-2.png",
+            "sale_text": "Save up to 10% on",
+            "title": "<p>Yoghurt Pouch </p><p>Blueberry 140g</p>",
+            "button_label": "Shop Now",
+            "button_link": "/collections/all"
+          }
+        },
+        "discover_item_NaqwVp": {
+          "type": "discover_item",
+          "settings": {
+            "color_scheme": "scheme-2",
+            "image": "shopify://shop_images/vegetable-3.jpg",
+            "title": "Eat Fresh, Live Well",
+            "content": "<p>Discover farm-fresh, organic veggies at our</p><p>store. Locally sourced, quality guaranteed—</p><p>perfect for your healthy meals!</p>",
+            "button_label": "Discover Now",
+            "button_link": "shopify://collections"
+          }
+        }
+      },
+      "block_order": [
+        "sale_item1_QjBf8a",
+        "sale_item2_hcTWxH",
+        "discover_item_NaqwVp"
+      ],
+      "name": "t:sections.grid_collection.presets.name",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "",
+        "padding_top": 30,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
+      }
+    }
+  },
+  "order": [
+    "grid_collection_JKT7V3"
+  ]
+}
