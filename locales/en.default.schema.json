@@ -576,7 +576,7 @@
         "mobile_height": {
           "label": "Mobile height",
           "options": {
-            "adapt": "Adapt to image",
+            "adapt": "Adapt to first image",
             "fixed": "Fixed height"
           }
         },

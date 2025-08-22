@@ -61,7 +61,7 @@
       "label": "t:sections.main_slider.settings.mobile_height.label",
       "options": [
         {
-          "value": "adapt",
+          "value": "adapt-first",
           "label": "t:sections.main_slider.settings.mobile_height.options.adapt"
         },
         {
@@ -69,7 +69,7 @@
           "label": "t:sections.main_slider.settings.mobile_height.options.fixed"
         }
       ],
-      "default": "adapt"
+      "default": "adapt-first"
     },
     {
       "type": "range",
@@ -371,7 +371,46 @@
     .slider-height {
       {% if section.settings.mobile_height == 'fixed' %}
         height: {{ section.settings.mobile_height_fixed }}px;
+      {% elsif section.settings.mobile_height == 'adapt-first' %}
+        height: auto;
       {% endif %}
+    }
+    
+    /* Mobile overrides for adapt-first mode */
+    .slider-height[data-height="adapt-first"] .slider-wrap .image {
+      height: auto !important;
+    }
+    
+    .slider-height[data-height="adapt-first"] .slider-wrap img {
+      height: auto !important;
+      width: 100% !important;
+      object-fit: contain !important;
+    }
+    
+    .slider-height[data-height="adapt-first"] .swiper-slide {
+      height: auto !important;
+      min-height: auto !important;
+      max-height: none !important;
+    }
+    
+    .slider-height[data-height="adapt-first"] .slider-wrap {
+      height: auto !important;
+      min-height: auto !important;
+      max-height: none !important;
+    }
+    
+    /* Override Swiper's internal height management on mobile */
+    .slider-height[data-height="adapt-first"] .swiper-wrapper {
+      height: auto !important;
+      align-items: stretch !important;
+    }
+    
+    .slider-height[data-height="adapt-first"] .swiper {
+      height: auto !important;
+    }
+    
+    .slider-height[data-height="adapt-first"] .tf-sw-slideshow {
+      height: auto !important;
     }
   }
   
