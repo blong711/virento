@@ -27,22 +27,35 @@
               <div class="content">
                 <div class="box-title">
                   {%- if block.settings.sale_text != blank -%}
-                    {%- if block.settings.sale_text_size == 'small' -%}
-                      <p class="text-sm">{{ block.settings.sale_text }}</p>
-                    {%- elsif block.settings.sale_text_size == 'medium' -%}
-                      <p class="text-md">{{ block.settings.sale_text }}</p>
-                    {%- elsif block.settings.sale_text_size == 'large' -%}
-                      <p class="text-lg">{{ block.settings.sale_text }}</p>
-                    {%- endif -%}
+                    <div class="">
+                      {%- if block.settings.sale_text_size == 'small' -%}
+                        <p class="text-sm">{{ block.settings.sale_text }}</p>
+                      {%- elsif block.settings.sale_text_size == 'medium' -%}
+                        <p class="text-md">{{ block.settings.sale_text }}</p>
+                      {%- elsif block.settings.sale_text_size == 'large' -%}
+                        <p class="text-lg">{{ block.settings.sale_text }}</p>
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                   {%- if block.settings.title != blank -%}
-                    {%- if block.settings.title_size == 'small' -%}
-                      {{ block.settings.title | replace: '<p>', '<p class="display-xs" style="font-weight: 500;">' }}
-                    {%- elsif block.settings.title_size == 'medium' -%}
-                      {{ block.settings.title | replace: '<p>', '<p class="display-sm" style="font-weight: 500;">' }}
-                    {%- elsif block.settings.title_size == 'large' -%}
-                      {{ block.settings.title | replace: '<p>', '<p class="display-md" style="font-weight: 500;">' }}
-                    {%- endif -%}
+                    <div>
+                      {%- if block.settings.title_size == 'small' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 16px; line-height: 24px; font-weight: 500;">'
+                        }}
+                      {%- elsif block.settings.title_size == 'medium' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 24px; line-height: 32px; font-weight: 500;">'
+                        }}
+                      {%- elsif block.settings.title_size == 'large' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 32px; line-height: 38px; font-weight: 500;">'
+                        }}
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                 </div>
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
@@ -85,13 +98,24 @@
                     {%- endif -%}
                   {%- endif -%}
                   {%- if block.settings.title != blank -%}
-                    {%- if block.settings.title_size == 'small' -%}
-                      {{ block.settings.title | replace: '<p>', '<p class="display-xs" style="font-weight: 500;">' }}
-                    {%- elsif block.settings.title_size == 'medium' -%}
-                      {{ block.settings.title | replace: '<p>', '<p class="display-sm" style="font-weight: 500;">' }}
-                    {%- elsif block.settings.title_size == 'large' -%}
-                      {{ block.settings.title | replace: '<p>', '<p class="display-md" style="font-weight: 500;">' }}
-                    {%- endif -%}
+                    <div>
+                      {%- if block.settings.title_size == 'small' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 16px; line-height: 24px; font-weight: 500;">'
+                        }}
+                      {%- elsif block.settings.title_size == 'medium' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 24px; line-height: 32px; font-weight: 500;">'
+                        }}
+                      {%- elsif block.settings.title_size == 'large' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 32px; line-height: 38px; font-weight: 500;">'
+                        }}
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                 </div>
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
@@ -134,13 +158,15 @@
                     {%- endif -%}
                   {%- endif -%}
                   {%- if block.settings.content != blank -%}
-                    {%- if block.settings.content_size == 'small' -%}
-                      {{ block.settings.content | replace: '<p>', '<p class="text-sm">' }}
-                    {%- elsif block.settings.content_size == 'medium' -%}
-                      {{ block.settings.content | replace: '<p>', '<p class="text-md">' }}
-                    {%- elsif block.settings.content_size == 'large' -%}
-                      {{ block.settings.content | replace: '<p>', '<p class="text-lg">' }}
-                    {%- endif -%}
+                    <div>
+                      {%- if block.settings.content_size == 'small' -%}
+                        {{ block.settings.content | replace: '<p>', '<p class="text-sm">' }}
+                      {%- elsif block.settings.content_size == 'medium' -%}
+                        {{ block.settings.content | replace: '<p>', '<p class="text-md">' }}
+                      {%- elsif block.settings.content_size == 'large' -%}
+                        {{ block.settings.content | replace: '<p>', '<p class="text-lg">' }}
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                 </div>
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
