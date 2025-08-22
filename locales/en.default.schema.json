@@ -6328,9 +6328,21 @@
         "name": "Main Collection List"
       }
     },
-    "grid_collection": {
+     "grid_collection": {
       "name": "Grid Collection",
       "settings": {
+        "heading_size": {
+          "label": "Heading Size"
+        },
+        "sale_text_size": {
+          "label": "Sale Text Size"
+        },
+        "title_size": {
+          "label": "Title Size"
+        },
+        "content_size": {
+          "label": "Content Size"
+        },
         "width": {
           "label": "Width",
           "options": {
