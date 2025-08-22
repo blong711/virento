@@ -20,7 +20,9 @@
             "sale_text": "Save up to 20% on",
             "title": "<p>Dairy Milk </p><p>Chocolate</p>",
             "button_label": "Shop Now",
-            "button_link": "/collections/all"
+            "button_link": "/collections/all",
+            "sale_text_size": "small",
+            "title_size": "medium"
           }
         },
         "sale_item2_hcTWxH": {
@@ -31,18 +33,22 @@
             "sale_text": "Save up to 10% on",
             "title": "<p>Yoghurt Pouch </p><p>Blueberry 140g</p>",
             "button_label": "Shop Now",
-            "button_link": "/collections/all"
+            "button_link": "/collections/all",
+            "sale_text_size": "small",
+            "title_size": "medium"
           }
         },
         "discover_item_NaqwVp": {
           "type": "discover_item",
           "settings": {
-            "color_scheme": "scheme-2",
+            "color_scheme": "scheme-ec567319-3125-4f13-b2d9-cbba35749ffb",
             "image": "shopify://shop_images/vegetable-3.jpg",
             "title": "Eat Fresh, Live Well",
             "content": "<p>Discover farm-fresh, organic veggies at our</p><p>store. Locally sourced, quality guaranteed—</p><p>perfect for your healthy meals!</p>",
             "button_label": "Discover Now",
-            "button_link": "shopify://collections"
+            "button_link": "shopify://collections",
+            "title_size": "small",
+            "content_size": "medium"
           }
         }
       },
@@ -54,7 +60,7 @@
       "name": "t:sections.grid_collection.presets.name",
       "settings": {
         "width": "boxed",
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "padding_top": 30,
         "padding_bottom": 60,
         "padding_mobile_rate": 75

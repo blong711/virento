@@ -27,10 +27,35 @@
               <div class="content">
                 <div class="box-title">
                   {%- if block.settings.sale_text != blank -%}
-                    <p class="text-sm">{{ block.settings.sale_text }}</p>
+                    <div class="">
+                      {%- if block.settings.sale_text_size == 'small' -%}
+                        <p class="text-sm">{{ block.settings.sale_text }}</p>
+                      {%- elsif block.settings.sale_text_size == 'medium' -%}
+                        <p class="text-md">{{ block.settings.sale_text }}</p>
+                      {%- elsif block.settings.sale_text_size == 'large' -%}
+                        <p class="text-lg">{{ block.settings.sale_text }}</p>
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                   {%- if block.settings.title != blank -%}
-                    {{ block.settings.title | replace: '<p>', '<h6>' | replace: '</p>', '</h6>' }}
+                    <div>
+                      {%- if block.settings.title_size == 'small' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 16px; line-height: 24px; font-weight: 500;">'
+                        }}
+                      {%- elsif block.settings.title_size == 'medium' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 24px; line-height: 32px; font-weight: 500;">'
+                        }}
+                      {%- elsif block.settings.title_size == 'large' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 32px; line-height: 38px; font-weight: 500;">'
+                        }}
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                 </div>
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
@@ -64,10 +89,33 @@
               <div class="content">
                 <div class="box-title">
                   {%- if block.settings.sale_text != blank -%}
-                    <p class="text-sm">{{ block.settings.sale_text }}</p>
+                    {%- if block.settings.sale_text_size == 'small' -%}
+                      <p class="text-sm">{{ block.settings.sale_text }}</p>
+                    {%- elsif block.settings.sale_text_size == 'medium' -%}
+                      <p class="text-md">{{ block.settings.sale_text }}</p>
+                    {%- elsif block.settings.sale_text_size == 'large' -%}
+                      <p class="text-lg">{{ block.settings.sale_text }}</p>
+                    {%- endif -%}
                   {%- endif -%}
                   {%- if block.settings.title != blank -%}
-                     {{ block.settings.title | replace: '<p>', '<h6>' | replace: '</p>', '</h6>' }}
+                    <div>
+                      {%- if block.settings.title_size == 'small' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 16px; line-height: 24px; font-weight: 500;">'
+                        }}
+                      {%- elsif block.settings.title_size == 'medium' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 24px; line-height: 32px; font-weight: 500;">'
+                        }}
+                      {%- elsif block.settings.title_size == 'large' -%}
+                        {{
+                          block.settings.title
+                          | replace: '<p>', '<p style="font-size: 32px; line-height: 38px; font-weight: 500;">'
+                        }}
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                 </div>
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
@@ -101,15 +149,29 @@
               <div class="content">
                 <div class="box-title">
                   {%- if block.settings.title != blank -%}
-                    <h4>{{ block.settings.title }}</h4>
+                    {%- if block.settings.title_size == 'small' -%}
+                      <h4>{{ block.settings.title }}</h4>
+                    {%- elsif block.settings.title_size == 'medium' -%}
+                      <h3>{{ block.settings.title }}</h3>
+                    {%- elsif block.settings.title_size == 'large' -%}
+                      <h2>{{ block.settings.title }}</h2>
+                    {%- endif -%}
                   {%- endif -%}
                   {%- if block.settings.content != blank -%}
-                     {{ block.settings.content | replace: '<p>', '<p class="text-md">' }}
+                    <div>
+                      {%- if block.settings.content_size == 'small' -%}
+                        {{ block.settings.content | replace: '<p>', '<p class="text-sm">' }}
+                      {%- elsif block.settings.content_size == 'medium' -%}
+                        {{ block.settings.content | replace: '<p>', '<p class="text-md">' }}
+                      {%- elsif block.settings.content_size == 'large' -%}
+                        {{ block.settings.content | replace: '<p>', '<p class="text-lg">' }}
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                 </div>
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
                   <div class="box-btn">
-                    <a href="{{ block.settings.button_link }}" class="tf-btn animate-btn">
+                    <a href="{{ block.settings.button_link }}" class="tf-btn animate-btn animate-dark">
                       {{ block.settings.button_label }}
                     </a>
                   </div>
@@ -236,6 +298,32 @@
           "type": "url",
           "id": "button_link",
           "label": "t:sections.grid_collection.settings.button_link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.grid_collection.settings.heading_size.label"
+        },
+        {
+          "type": "select",
+          "id": "sale_text_size",
+          "label": "t:sections.grid_collection.settings.sale_text_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "small"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "label": "t:sections.grid_collection.settings.title_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "medium"
         }
       ]
     },
@@ -260,12 +348,14 @@
           "label": "t:sections.grid_collection.settings.sale_text.label",
           "default": "t:sections.grid_collection.settings.sale_text.default_2"
         },
+
         {
           "type": "richtext",
           "id": "title",
           "label": "t:sections.grid_collection.settings.title.label",
           "default": "t:sections.grid_collection.settings.title.default_2"
         },
+
         {
           "type": "text",
           "id": "button_label",
@@ -276,6 +366,32 @@
           "type": "url",
           "id": "button_link",
           "label": "t:sections.grid_collection.settings.button_link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.grid_collection.settings.heading_size.label"
+        },
+        {
+          "type": "select",
+          "id": "sale_text_size",
+          "label": "t:sections.grid_collection.settings.sale_text_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "small"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "label": "t:sections.grid_collection.settings.title_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "medium"
         }
       ]
     },
@@ -300,12 +416,14 @@
           "label": "t:sections.grid_collection.settings.title.label",
           "default": "t:sections.grid_collection.settings.title.default_3"
         },
+
         {
           "type": "richtext",
           "id": "content",
           "label": "t:sections.grid_collection.settings.content.label",
           "default": "t:sections.grid_collection.settings.content.default"
         },
+
         {
           "type": "text",
           "id": "button_label",
@@ -316,6 +434,32 @@
           "type": "url",
           "id": "button_link",
           "label": "t:sections.grid_collection.settings.button_link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.grid_collection.settings.heading_size.label"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "label": "t:sections.grid_collection.settings.title_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "medium"
+        },
+        {
+          "type": "select",
+          "id": "content_size",
+          "label": "t:sections.grid_collection.settings.content_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "medium"
         }
       ]
     }

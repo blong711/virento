@@ -368,6 +368,25 @@
           "primary_input": "#ffffff",
           "secondary_input": "#f5f5f5"
         }
+      },
+      "scheme-ec567319-3125-4f13-b2d9-cbba35749ffb": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "background2": "#ffffff",
+          "text": "#ffffff",
+          "text2": "#686868",
+          "text_hover": "#ff6f61",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "button_outline": "#ffffff",
+          "button_hover": "#ffffff",
+          "button_label_hover": "#000000",
+          "button_outline_hover": "#ffffff",
+          "shadow": "rgba(0,0,0,0)",
+          "primary_input": "#ffffff",
+          "secondary_input": "#f5f5f5"
+        }
       }
     }
   },
