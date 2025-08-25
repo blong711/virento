@@ -2189,7 +2189,9 @@
           "settings": {
             "banner_image": "Banner Image",
             "image_height": "Image Height",
-            "free_shipping_threshold": "Free Shipping Threshold"
+            "free_shipping_threshold": "Free Shipping Threshold",
+            "button_text": "Button Text",
+            "button_url": "Button URL"
           }
         },
         "promo_banner": {
@@ -2198,7 +2200,9 @@
             "product": "Product",
             "promo_title": "Promo Title",
             "promo_discount": "Promo Discount",
-            "promo_code": "Promo Code"
+            "promo_code": "Promo Code",
+            "button_text": "Button Text",
+            "button_url": "Button URL"
           }
         }
       },
