@@ -2478,7 +2478,30 @@
       }
     },
     "main-order": {
-      "name": "Order"
+      "name": "Order",
+      "settings": {
+        "layout": {
+          "content": "Layout Settings"
+        },
+        "empty": {
+          "content": "Empty State Settings"
+        },
+        "empty_state_image": {
+          "label": "Empty State Image"
+        },
+        "empty_state_title": {
+          "label": "Empty State Title",
+          "default": "No orders yet"
+        },
+        "empty_state_text": {
+          "label": "Empty State Text",
+          "default": "Looks like you haven't placed any orders yet. Start shopping to see your order history here."
+        },
+        "shop_now_text": {
+          "label": "Shop Now Button Text",
+          "default": "Start Shopping"
+        }
+      }
     },
     "main-page": {
       "name": "Page"
