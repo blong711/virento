@@ -5,7 +5,7 @@
       class="swiper tf-swiper hover-sw-nav wow fadeInUp"
       data-swiper='
         {
-          "slidesPerView": 3,
+          "slidesPerView": {{ section.settings.slides_per_view_mobile }},
           "spaceBetween": {{ section.settings.space_between }},
           "speed": 800,
           "observer": true,
@@ -108,17 +108,17 @@
       }
     }
 
-         .text-main {
-       color: rgb(var(--color-foreground)) !important;
-   }
-   
-    {% if section.settings.slides_per_view_mobile == 3 %}
-     @media screen and (max-width: 749px) {
-       .section-{{ section.id }}-padding .image.img-style {
-         max-width: 100px;
-       }
-     }
-     {% endif %}
+    .text-main {
+      color: rgb(var(--color-foreground)) !important;
+  }
+  
+  {% if section.settings.slides_per_view_mobile == 3 %}
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding .image.img-style {
+      max-width: 100px;
+    }
+  }
+  {% endif %}
 {%- endstyle -%}
 
 {% schema %}
@@ -234,7 +234,7 @@
     {
       "type": "range",
       "id": "space_between",
-      "label": "t:sections.blog-sub-collection.settings.space_between.label",
+      "label": "t:sections.blog-sub-collection.settings.slides_between.label",
       "min": 10,
       "max": 50,
       "step": 2,
@@ -362,3 +362,4 @@
   ]
 }
 {% endschema %}
+
