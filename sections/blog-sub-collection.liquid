@@ -112,21 +112,13 @@
        color: rgb(var(--color-foreground)) !important;
    }
    
-   /* Ensure slides maintain minimum width and consistent sizing */
-   .section-{{ section.id }}-padding .swiper-slide {
-     width: auto;
-   }
-   
-   .section-{{ section.id }}-padding .image.img-style {
-     aspect-ratio: 1 / 1;
-     overflow: hidden;
-   }
-   
-   .section-{{ section.id }}-padding .image.img-style img {
-    min-width: 108px;
-     object-fit: cover;
-     object-position: center;
-   }
+    {% if section.settings.slides_per_view_mobile == 3 %}
+     @media screen and (max-width: 749px) {
+       .section-{{ section.id }}-padding .image.img-style {
+         max-width: 100px;
+       }
+     }
+     {% endif %}
 {%- endstyle -%}
 
 {% schema %}
