@@ -215,15 +215,15 @@
       ],
       "name": "t:sections.map-with-text.presets.default",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-353a2edf-db3d-4371-8eb0-dc311d4a96e2",
         "width": "boxed",
-        "heading": "",
-        "heading_align": "left",
+        "heading": "Visit Our Store!",
+        "heading_align": "center",
         "heading_size": "medium",
-        "subtitle": "",
+        "subtitle": "Discover expert advice, style inspiration, and product updates on our blog.",
         "subtitle_size": "medium",
         "map": "",
-        "padding_top": 0,
+        "padding_top": 60,
         "padding_bottom": 0,
         "padding_mobile_ratio": 75
       }
