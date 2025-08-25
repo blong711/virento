@@ -314,7 +314,7 @@
                                 {% assign icon_width_mobile = block.settings.icon_width_mobile | default: 32 %}
                                 <div class="box-icon" style="--icon-width: {{ icon_width }}px; --icon-width-mobile: {{ icon_width_mobile }}px;">
                                     {% if block.settings.custom_svg != blank %}
-                                        <span class="icon">{{ block.settings.custom_svg }}</span>
+                                        {{ block.settings.custom_svg }}
                                     {% else %}
                                         <i class="icon {{ block.settings.icon_class }}"></i>
                                     {% endif %}
