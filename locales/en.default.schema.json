@@ -4295,20 +4295,53 @@
       "name": "Map With Text",
       "settings": {
         "width": {
-          "label": "Width"
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full width"
+          }
         },
         "color_scheme": {
           "label": "Color scheme"
         },
+        "heading_options": {
+          "content": "Heading options"
+        },
+        "heading": {
+          "label": "Heading"
+        },
+        "heading_align": {
+          "label": "Heading align",
+          "options": {
+            "default": "Left",
+            "center": "Center"
+          }
+        },
+        "heading_size": {
+          "label": "Heading size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "heading_mb": {
+          "label": "Heading margin bottom"
+        },
+        "subtitle": {
+          "label": "Subtitle"
+        },
+        "subtitle_size": {
+          "label": "Subtitle size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
         "source_map": {
           "label": "Source map",
-          "info": "[You can get the map at here](https://www.google.com/maps),need to use iframes"
-        },
-        "full_width": {
-          "label": "Full width"
-        },
-        "boxed": {
-          "label": "Boxed"
+          "info": "You can get the map at Google Maps, need to use iframes"
         },
         "padding_top": {
           "label": "Top padding"
@@ -4317,11 +4350,59 @@
           "label": "Bottom padding"
         },
         "padding_mobile_ratio": {
-          "label": "Mobile height ratio"
+          "label": "Mobile padding ratio",
+          "info": "Mobile padding as percentage of desktop padding"
+        }
+      },
+      "blocks": {
+        "contact_info": {
+          "name": "Contact Info",
+          "settings": {
+            "position": {
+              "label": "Position",
+              "options": {
+                "left": "Left",
+                "center": "Center",
+                "right": "Right"
+              }
+            },
+            "title": {
+              "label": "Title",
+              "default": "Vineta Store"
+            },
+            "address": {
+              "label": "Address",
+              "default": "15 Yarran st, Punchbowl, NSW, Australia"
+            },
+            "email": {
+              "label": "Email",
+              "default": "support@vineta.com"
+            },
+            "phone": {
+              "label": "Phone",
+              "default": "(01) 245 2451"
+            },
+            "hours_weekday": {
+              "label": "Weekday hours",
+              "default": "Monday - Friday: 9:00 AM - 5:00 PM"
+            },
+            "hours_weekend": {
+              "label": "Weekend hours",
+              "default": "Saturday - Sunday: 10:00 AM - 4:00 PM"
+            },
+            "button_text": {
+              "label": "Button text",
+              "default": "Get direction"
+            },
+            "button_url": {
+              "label": "Button URL",
+            }
+          }
         }
       },
       "presets": {
-        "default": "Map with Text"
+        "name": "Map with Text",
+        "category": "Contact"
       }
     },
     "heading-with-text-vertical": {
@@ -6379,7 +6460,7 @@
         "name": "Main Collection List"
       }
     },
-     "grid_collection": {
+    "grid_collection": {
       "name": "Grid Collection",
       "settings": {
         "heading_size": {
