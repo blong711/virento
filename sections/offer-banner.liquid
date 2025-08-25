@@ -100,6 +100,15 @@
   </div>
 </section>
 
+{% style %}
+  .section-{{ section.id }} .banner-shop {
+    {% if settings.background_gradient != empty %}
+      background: var(--gradient-background);
+    {% else %}
+      background-color: rgb(var(--gradient-background));
+    {% endif %}
+  }
+{% endstyle %}
 {% schema %}
 {
   "name": "t:sections.offer_banner.name",
