@@ -545,6 +545,25 @@
             },
             "button_label": {
               "label": "Button Label"
+            },
+            "text_alignment": {
+              "label": "Text Alignment",
+              "options": {
+                "text-start": "Left",
+                "text-center": "Center",
+                "text-end": "Right"
+              }
+            },
+            "subtitle": {
+              "label": "Subtitle"
+            },
+            "subtitle_size": {
+              "label": "Subtitle Size",
+              "options": {
+                "small": "Small",
+                "medium": "Medium",
+                "large": "Large"
+              }
             }
           }
         }
