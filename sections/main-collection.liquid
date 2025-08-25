@@ -39,11 +39,14 @@
                     %}
                 </div>
                 <div class="col-xl-9">
+        {% elsif filter_layout == 'right_sidebar' %}
+            <div class="row">
+                <div class="col-xl-9">
         {% endif %}
         
         <div class="tf-shop-control">
             <div class="tf-group-filter">
-                {% if filter_layout == 'left_sidebar' %}
+                {% if filter_layout == 'left_sidebar' or filter_layout == 'right_sidebar' %}
                     <button id="filterShop" class="tf-btn-filter d-flex d-xl-none">
                         <span class="icon icon-filter"></span><span class="text">Filter</span>
                     </button>
@@ -327,11 +330,30 @@
         {% if filter_layout == 'left_sidebar' %}
                 </div>
             </div>
+        {% elsif filter_layout == 'right_sidebar' %}
+            </div>
+            <div class="col-xl-3">
+                {% render 'collection-sidebar-filters', 
+                    collection: collection,
+                    show_on_sale: section.settings.show_on_sale,
+                    on_sale_limit: section.settings.on_sale_limit,
+                    show_collection_banner: section.settings.show_collection_banner,
+                    collection_banner_image: section.settings.collection_banner_image,
+                    collection_banner_title: section.settings.collection_banner_title,
+                    collection_banner_button_text: section.settings.collection_banner_button_text,
+                    collection_banner_button_url: section.settings.collection_banner_button_url,
+                    show_availability_filter: section.settings.show_availability_filter,
+                    show_price_filter: section.settings.show_price_filter,
+                    show_color_filter: section.settings.show_color_filter,
+                    show_brand_filter: section.settings.show_brand_filter
+                %}
+            </div>
+        </div>
         {% endif %}
     </div>
 </section>
 
-{% comment %} Render the default filter snippet only when not using left sidebar {% endcomment %}
+{% comment %} Render the default filter snippet only when not using sidebar layouts {% endcomment %}
 {% if filter_layout == 'default' %}
     {% render 'collection-filters', 
         collection: collection,
@@ -362,28 +384,43 @@
     }
 }
 
-{% comment %} Left Sidebar Layout Styles {% endcomment %}
-{% if filter_layout == 'left_sidebar' %}
+{% comment %} Sidebar Layout Styles {% endcomment %}
+{% if filter_layout == 'left_sidebar' or filter_layout == 'right_sidebar' %}
 .section-{{ section.id }}-padding .canvas-sidebar {
     position: sticky;
     top: 20px;
 }
 
+{% if filter_layout == 'right_sidebar' %}
+.section-{{ section.id }}-padding .canvas-sidebar.right {
+    position: sticky;
+    top: 20px;
+}
+{% endif %}
+
 @media (max-width: 1199px) {
     .section-{{ section.id }}-padding .canvas-sidebar {
         position: fixed;
         top: 0;
+        {% if filter_layout == 'left_sidebar' %}
         left: -100%;
+        {% elsif filter_layout == 'right_sidebar' %}
+        right: -100%;
+        {% endif %}
         width: 300px;
         height: 100vh;
         z-index: 1050;
-        transition: left 0.3s ease;
+        transition: {% if filter_layout == 'left_sidebar' %}left{% elsif filter_layout == 'right_sidebar' %}right{% endif %} 0.3s ease;
         background: white;
-        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        box-shadow: {% if filter_layout == 'left_sidebar' %}2px 0 10px{% elsif filter_layout == 'right_sidebar' %}-2px 0 10px{% endif %} rgba(0,0,0,0.1);
     }
     
     .section-{{ section.id }}-padding .canvas-sidebar.active {
+        {% if filter_layout == 'left_sidebar' %}
         left: 0;
+        {% elsif filter_layout == 'right_sidebar' %}
+        right: 0;
+        {% endif %}
     }
 }
 {% endif %}
@@ -481,7 +518,8 @@
             "label": "Filter Layout",
             "options": [
                 { "value": "default", "label": "Default Filter" },
-                { "value": "left_sidebar", "label": "Left Sidebar Filter" }
+                { "value": "left_sidebar", "label": "Left Sidebar Filter" },
+                { "value": "right_sidebar", "label": "Right Sidebar Filter" }
             ],
             "default": "default"
         },
@@ -567,7 +605,7 @@
         {
             "type": "checkbox",
             "id": "show_brand_filter",
-            "label": "Show brand filter",
+            "label": "Show brand/vendor filter options",
             "default": true,
             "info": "Display brand/vendor filter options"
         },
