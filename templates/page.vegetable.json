@@ -132,10 +132,81 @@
         "padding_bottom": 40,
         "padding_mobile_rate": 75
       }
+    },
+    "offer_banner_d4NYLb": {
+      "type": "offer-banner",
+      "blocks": {
+        "banner_QNAYQ7": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/vegetable-1_557309c3-28be-4406-b4eb-6301ab49ed3a.png",
+            "title": "Fresh Produce Everyday",
+            "title_tag": "h5",
+            "title_weight": "fw-medium",
+            "subtitle": "Straight from the farm to your kitchen.",
+            "subtitle_size": "small",
+            "text_alignment": "text-start",
+            "color_scheme": "scheme-11f0fcc1-fb20-4759-9bf3-238b1c73e6d4",
+            "link": "",
+            "button_label": "Shop Now"
+          }
+        },
+        "banner_rgQH3n": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/vegetable-2_2036b525-c413-41b4-b1b2-56e75c8b4c8d.png",
+            "title": "Shop Local & Organic",
+            "title_tag": "h5",
+            "title_weight": "fw-medium",
+            "subtitle": "Support sustainable farming with every purchase.",
+            "subtitle_size": "small",
+            "text_alignment": "text-start",
+            "color_scheme": "scheme-5",
+            "link": "",
+            "button_label": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "banner_QNAYQ7",
+        "banner_rgQH3n"
+      ],
+      "name": "Offer Banner",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "show_arrows": false,
+        "show_dots": true,
+        "slides_per_view_desktop": 2,
+        "space_between_desktop": 24,
+        "item_height_desktop": 400,
+        "slides_per_view_tablet": 1,
+        "space_between_tablet": 12,
+        "item_height_tablet": 350,
+        "slides_per_view_mobile": 1,
+        "space_between_mobile": 12,
+        "item_height_mobile": 300,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "map_with_text_cTzEtF": {
+      "type": "map-with-text",
+      "name": "t:sections.map-with-text.presets.default",
+      "settings": {
+        "width": "boxed",
+        "map": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_ratio": 75
+      }
     }
   },
   "order": [
     "grid_collection_JKT7V3",
-    "color_icon_box_RC3DXf"
+    "color_icon_box_RC3DXf",
+    "offer_banner_d4NYLb",
+    "map_with_text_cTzEtF"
   ]
 }

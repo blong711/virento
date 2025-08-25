@@ -143,21 +143,21 @@
       },
       "scheme-5": {
         "settings": {
-          "background": "#334fb4",
-          "background_gradient": "",
-          "background2": "#1539bc",
-          "text": "#ffffff",
-          "text2": "#686868",
-          "text_hover": "#666666",
-          "button": "#ffffff",
-          "button_label": "#334fb4",
-          "button_outline": "#ffffff",
-          "button_hover": "#2c2c2c",
+          "background": "rgba(0,0,0,0)",
+          "background_gradient": "linear-gradient(270deg, #6adf80 0%, #b3de3c 100%)",
+          "background2": "rgba(0,0,0,0)",
+          "text": "#000000",
+          "text2": "#000000",
+          "text_hover": "#000000",
+          "button": "#000000",
+          "button_label": "#ffffff",
+          "button_outline": "#000000",
+          "button_hover": "#000000",
           "button_label_hover": "#ffffff",
-          "button_outline_hover": "#ffffff",
-          "shadow": "#121212",
-          "primary_input": "#ffffff",
-          "secondary_input": "#f5f5f5"
+          "button_outline_hover": "#000000",
+          "shadow": "rgba(0,0,0,0)",
+          "primary_input": "rgba(0,0,0,0)",
+          "secondary_input": "rgba(0,0,0,0)"
         }
       },
       "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11": {
@@ -441,6 +441,25 @@
           "button_label_hover": "#ffffff",
           "button_outline_hover": "#ffffff",
           "shadow": "#121212",
+          "primary_input": "#ffffff",
+          "secondary_input": "#f5f5f5"
+        }
+      },
+      "scheme-11f0fcc1-fb20-4759-9bf3-238b1c73e6d4": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "linear-gradient(270deg, #edd1ff 0%, #fff4d1 100%)",
+          "background2": "#f5f5f5",
+          "text": "#000000",
+          "text2": "#000000",
+          "text_hover": "#000000",
+          "button": "#000000",
+          "button_label": "#ffffff",
+          "button_outline": "#000000",
+          "button_hover": "#000000",
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#000000",
           "primary_input": "#ffffff",
           "secondary_input": "#f5f5f5"
         }
