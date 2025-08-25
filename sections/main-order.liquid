@@ -154,9 +154,11 @@
                 {% endif %}
                 <div class="display-sm fw-medium title">{{ section.settings.empty_state_title }}</div>
                 <div class="text text-sm">{{ section.settings.empty_state_text }}</div>
+                {% if section.settings.shop_now_text != blank %}
                 <a href="/collections" class="tf-btn animate-btn d-inline-flex bg-dark-2 justify-content-center">
                   {{ section.settings.shop_now_text }}
                 </a>
+                {% endif %}
               </div>
               {% if customer.orders.size > 0 %}
                 <div class="account-orders-wrap">
