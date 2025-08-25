@@ -444,6 +444,25 @@
           "primary_input": "#ffffff",
           "secondary_input": "#f5f5f5"
         }
+      },
+      "scheme-11f0fcc1-fb20-4759-9bf3-238b1c73e6d4": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "linear-gradient(270deg, #edd1ff 0%, #fff4d1 100%)",
+          "background2": "#f5f5f5",
+          "text": "#000000",
+          "text2": "#000000",
+          "text_hover": "#000000",
+          "button": "#000000",
+          "button_label": "#ffffff",
+          "button_outline": "#000000",
+          "button_hover": "#000000",
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#000000",
+          "primary_input": "#ffffff",
+          "secondary_input": "#f5f5f5"
+        }
       }
     }
   },
