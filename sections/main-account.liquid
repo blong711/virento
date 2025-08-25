@@ -96,6 +96,16 @@
           "label": "t:sections.main-account.blocks.free_shipping.settings.banner_image"
         },
         {
+          "type": "range",
+          "id": "image_height",
+          "min": 100,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "label": "t:sections.main-account.blocks.free_shipping.settings.image_height",
+          "default": 300
+        },
+        {
           "type": "text",
           "id": "free_shipping_threshold",
           "label": "t:sections.main-account.blocks.free_shipping.settings.free_shipping_threshold",
@@ -291,9 +301,9 @@
                               alt="{{ block.settings.banner_image.alt | default: 'sections.account.free_shipping_banner' | t }}"
                               class="lazyload"
                               loading="lazy"
-                              style="width: 100%; height: auto;"
+                              style="width: 100%; height: {{ block.settings.image_height }}px; object-fit: cover;"
                               width="600"
-                              height="300"
+                              height="{{ block.settings.image_height }}"
                             >
                           </div>
                         {% endif %}

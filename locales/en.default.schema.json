@@ -2188,6 +2188,7 @@
           "name": "Free Shipping Banner",
           "settings": {
             "banner_image": "Banner Image",
+            "image_height": "Image Height",
             "free_shipping_threshold": "Free Shipping Threshold"
           }
         },
