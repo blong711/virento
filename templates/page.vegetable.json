@@ -193,9 +193,35 @@
     },
     "map_with_text_cTzEtF": {
       "type": "map-with-text",
+      "blocks": {
+        "contact_info_V8bNT4": {
+          "type": "contact_info",
+          "settings": {
+            "color_scheme": "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11",
+            "position": "left",
+            "title": "Vineta Store",
+            "address": "15 Yarran st, Punchbowl, NSW, Australia",
+            "email": "support@vineta.com",
+            "phone": "(01) 245 2451",
+            "hours_weekday": "Monday - Friday: 9:00 AM - 5:00 PM",
+            "hours_weekend": "Saturday - Sunday: 10:00 AM - 4:00 PM",
+            "button_text": "Get direction",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "contact_info_V8bNT4"
+      ],
       "name": "t:sections.map-with-text.presets.default",
       "settings": {
+        "color_scheme": "",
         "width": "boxed",
+        "heading": "",
+        "heading_align": "left",
+        "heading_size": "medium",
+        "subtitle": "",
+        "subtitle_size": "medium",
         "map": "",
         "padding_top": 0,
         "padding_bottom": 0,

@@ -162,21 +162,21 @@
       },
       "scheme-b04ddb60-8fef-4fb3-ba76-65bfbc36ec11": {
         "settings": {
-          "background": "#ffffff",
+          "background": "#409724",
           "background_gradient": "",
           "background2": "rgba(0,0,0,0)",
-          "text": "#000000",
-          "text2": "#686868",
+          "text": "#ffffff",
+          "text2": "rgba(0,0,0,0)",
           "text_hover": "#ff6f61",
-          "button": "#ffffff",
+          "button": "#409724",
           "button_label": "#ffffff",
-          "button_outline": "#ffffff",
-          "button_hover": "#000000",
-          "button_label_hover": "#ffffff",
-          "button_outline_hover": "#ffffff",
+          "button_outline": "#409724",
+          "button_hover": "#409724",
+          "button_label_hover": "#ff6f61",
+          "button_outline_hover": "#409724",
           "shadow": "rgba(0,0,0,0)",
-          "primary_input": "#ffffff",
-          "secondary_input": "#f5f5f5"
+          "primary_input": "rgba(0,0,0,0)",
+          "secondary_input": "rgba(0,0,0,0)"
         }
       },
       "scheme-e379edfd-3a7b-4c25-9cc1-a180d15178ce": {
