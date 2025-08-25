@@ -831,6 +831,7 @@ video {
 
 .text-main {
   color: var(--text) !important;
+  line-height: 20px;
 }
 
 .text-main-2 {
@@ -11972,7 +11973,7 @@ button.animate-btn::after,
   transform: rotate(180deg);
 }
 .widget-accordion .accordion-body {
-  padding: 20px 0px;
+  padding: 0px 0px 20px;
 }
 .widget-accordion:first-child {
   border-top: 1px solid var(--line);

@@ -119,7 +119,7 @@
                               data-bs-parent="#accordion{{ current_accordion_id }}"
                             >
                               <div class="accordion-body" style="color: rgb(var(--color-foreground2));">
-                                {{ inner_block.settings.content }}
+                                {{ inner_block.settings.content | replace: '<p>', '<p class="text-main">'}}
                               </div>
                             </div>
                           </div>
@@ -192,7 +192,7 @@
                               data-bs-parent="#accordion{{ current_accordion_id }}"
                             >
                               <div class="accordion-body" style="color: rgb(var(--color-foreground2));">
-                                {{ inner_block.settings.content }}
+                                {{ inner_block.settings.content | replace: '<p>', '<p class="text-main">'}}
                               </div>
                             </div>
                           </div>
