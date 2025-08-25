@@ -1,7 +1,7 @@
 <section
   class="s-term-user flat-spacing-2 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
 >
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
+  <div class="{{ section.settings.width }}">
     <div class="row">
       <div class="col-lg-12">
         <div class="content">
@@ -66,26 +66,26 @@
   "class": "section",
   "settings": [
     {
-      "type": "select",
-      "id": "width",
-      "options": [
-        {
-          "value": "boxed",
-          "label": "t:sections.heading-with-text-vertical.settings.width.options.boxed.label"
-        },
-        {
-          "value": "full",
-          "label": "t:sections.heading-with-text-vertical.settings.width.options.full.label"
-        }
-      ],
-      "default": "boxed",
-      "label": "t:sections.heading-with-text-vertical.settings.width.label"
-    },
-    {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:sections.heading-with-text-vertical.settings.color_scheme.label",
+      "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.all.width.label",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.width.options.boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.all.width.options.full_width"
+        }
+      ],
+      "default": "container"
     },
     {
       "type": "range",
