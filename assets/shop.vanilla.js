@@ -459,28 +459,28 @@ function handleFilterResponse(html, filterUrl) {
         const newGridProducts = doc.querySelector('#gridLayout');
         const newListProducts = doc.querySelector('#listLayout');
         
-        if (newProducts.length > 0) {
+        if (window.collectionData.totalProducts > 0) {
             // Update the current page with new products
             updateProductsWithoutReload(newGridProducts, newListProducts);
             
             // Update URL without reloading (for bookmarking/sharing)
             updateURLWithoutReload(filterUrl);
             
-            // Update product count
-            updateProductCount(window.collectionData.totalProducts);
-            
             // Rebind product events for new products
             bindProductEvents();
             
             // Update meta filter display
-            updateMetaFilter();
+            updateMetaFilter(); 
             
             // Scroll to top of products section
             scrollToProducts();
+
+            // Update product count
+            updateProductCount(window.collectionData.totalProducts);
             
             // Trigger custom event for other scripts
             document.dispatchEvent(new CustomEvent('productsFiltered', {
-                detail: { productCount: newProducts.length, filters: filters }
+                detail: { productCount: window.collectionData.totalProducts, filters: filters }
             }));
             
             // Reset AJAX failure counter on success
@@ -695,9 +695,9 @@ function updateProductCount(count) {
     });
     
     // Update load more product count if it exists
-    if (typeof updateLoadMoreProductCount === 'function') {
-        updateLoadMoreProductCount();
-    }
+    // if (typeof updateLoadMoreProductCount === 'function') {
+    //     updateLoadMoreProductCount();
+    // }
 }
 
 // Show loading state during filtering
