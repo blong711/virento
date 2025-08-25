@@ -136,6 +136,9 @@
             "title": "Best-Selling Accessories",
             "title_tag": "h4",
             "title_weight": "fw-medium",
+            "subtitle": "",
+            "subtitle_size": "medium",
+            "text_alignment": "text-center",
             "color_scheme": "scheme-2",
             "link": "/collections/watches",
             "button_label": "Shop Now"
@@ -148,6 +151,9 @@
             "title": "New Arrivals, Hot Tech",
             "title_tag": "h4",
             "title_weight": "fw-medium",
+            "subtitle": "",
+            "subtitle_size": "medium",
+            "text_alignment": "text-center",
             "color_scheme": "scheme-2",
             "link": "/collections/audio",
             "button_label": "Shop Now"
@@ -280,7 +286,7 @@
           "type": "tab",
           "settings": {
             "title": "What's Hot?",
-            "collection": "featured",
+            "collection": "screen-protectors",
             "product_list": [
               "true-wireless-bluetooth-earbuds",
               "wireless-earbuds-for-playstation-5",
