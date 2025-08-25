@@ -110,6 +110,18 @@
           "id": "free_shipping_threshold",
           "label": "t:sections.main-account.blocks.free_shipping.settings.free_shipping_threshold",
           "default": "300.00"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:sections.main-account.blocks.free_shipping.settings.button_text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:sections.main-account.blocks.free_shipping.settings.button_url",
+          "default": "/collections"
         }
       ]
     },
@@ -320,9 +332,11 @@
                             </p>
                           </div>
                           <div class="banner-btn">
-                            <a href="{{ routes.collections_url }}" class="tf-btn animate-btn">
-                              {{ 'customer.account.shop_now' | t }}
+                            {% if block.settings.button_url != blank %}
+                            <a href="{{ block.settings.button_url | default: routes.collections_url }}" class="tf-btn animate-btn">
+                              {{ block.settings.button_text | default: 'customer.account.shop_now' | t }}
                             </a>
+                            {% endif %}
                           </div>
                         </div>
                       </div>
