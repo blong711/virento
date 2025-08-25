@@ -5339,6 +5339,9 @@
         },
         "space_between": {
           "label": "Space Between Slides"
+        },
+        "show_pagination": {
+          "label": "Show Pagination Dots on mobile"
         }
       },
       "blocks": {
