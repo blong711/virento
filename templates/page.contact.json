@@ -47,7 +47,7 @@
           "type": "contact_info",
           "settings": {
             "address": "15 Yarran st, Punchbowl, NSW, Australia",
-            "address_url": "",
+            "address_url": "https://www.google.com/maps?q=15Yarranst,Punchbowl,NSW,Australia",
             "phone": "+1 234 567",
             "email": "contact@gravitech.com",
             "hours": "8am - 7pm, Mon - Sat"
