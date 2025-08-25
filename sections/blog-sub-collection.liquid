@@ -46,7 +46,7 @@
               <div class="swiper-slide" {{ block.shopify_attributes }}>
                 <div class="wg-cls style-abs2 hover-img">
                   <a href="{{ block.settings.category_url | default: blog.url }}" class="image-wrap relative">
-                    <div class="image img-style {% if section.settings.slides_per_view_mobile == 3 %}mobile-3{% endif %}">
+                    <div class="image img-style {% if section.settings.slides_per_view_mobile == '3' %}mobile-3{% endif %}">
                       {% if block.settings.category_image %}
                         <img
                           src="{{ block.settings.category_image | image_url: width: 300 }}"
