@@ -6516,6 +6516,29 @@
           }
         }
       }
+    },
+    "page-breadcrumb": {
+      "name": "Page Breadcrumb",
+      "settings": {
+        "background_image": {
+          "label": "Background image"
+        },
+        "description_settings": {
+          "label": "Description settings"
+        },
+        "show_description": {
+          "label": "Show description",
+          "info": "Enable to show description below the title"
+        },
+        "custom_description": {
+          "label": "Custom description",
+          "info": "Leave blank to use collection description (if available). This will override collection description when set."
+        },
+        "description_truncate_length": {
+          "label": "Description truncate length",
+          "info": "Number of characters to show before truncating with 'Read More'"
+        }
+      }
     }
   }
 }

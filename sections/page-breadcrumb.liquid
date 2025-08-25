@@ -315,9 +315,6 @@
           {% assign show_description = true %}
           {% assign description_text = collection.description %}
         {% endif %}
-      {% elsif template contains 'collection' and collection.description != blank %}
-        {% assign show_description = true %}
-        {% assign description_text = collection.description %}
       {% endif %}
 
       {% if show_description %}
@@ -371,29 +368,29 @@
 
 {% schema %}
 {
-  "name": "Page breadcrumb",
+  "name": "t:sections.page-breadcrumb.name",
   "settings": [
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background Image"
+      "label": "t:sections.page-breadcrumb.settings.background_image.label"
     },
     {
       "type": "header",
-      "content": "Description Settings"
+      "content": "t:sections.page-breadcrumb.settings.description_settings.label"
     },
     {
       "type": "checkbox",
       "id": "show_description",
-      "label": "Show Description",
+      "label": "t:sections.page-breadcrumb.settings.show_description.label",
       "default": true,
-      "info": "Enable to show description below the title"
+      "info": "t:sections.page-breadcrumb.settings.show_description.info"
     },
     {
       "type": "textarea",
       "id": "custom_description",
-      "label": "Custom Description",
-      "info": "Leave blank to use collection description (if available). This will override collection description when set."
+      "label": "t:sections.page-breadcrumb.settings.custom_description.label",
+      "info": "t:sections.page-breadcrumb.settings.custom_description.info"
     },
     {
       "type": "range",
@@ -402,9 +399,9 @@
       "max": 300,
       "step": 10,
       "unit": "ch",
-      "label": "Description Truncate Length",
+      "label": "t:sections.page-breadcrumb.settings.description_truncate_length.label",
       "default": 120,
-      "info": "Number of characters to show before truncating with 'Read More'"
+      "info": "t:sections.page-breadcrumb.settings.description_truncate_length.info"
     }
   ]
 }
