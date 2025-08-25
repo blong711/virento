@@ -65,9 +65,77 @@
         "padding_bottom": 60,
         "padding_mobile_rate": 75
       }
+    },
+    "color_icon_box_RC3DXf": {
+      "type": "color-icon-box",
+      "blocks": {
+        "item_PVPVNN": {
+          "type": "item",
+          "settings": {
+            "color_scheme": "scheme-1954cf34-6369-4206-b280-f633822c1a6f",
+            "icon": "quality",
+            "custom_svg": "",
+            "icon_w": 64,
+            "icon_w_mobile": 30,
+            "heading": "Quality Products",
+            "content": "<p>Only the freshest ingredients for your table.</p>"
+          }
+        },
+        "item_iFQnaB": {
+          "type": "item",
+          "settings": {
+            "color_scheme": "scheme-08d89d2c-a815-407b-a174-bbae5707e4c5",
+            "icon": "shop",
+            "custom_svg": "",
+            "icon_w": 64,
+            "icon_w_mobile": 30,
+            "heading": "Convenient Shopping",
+            "content": "<p>Easy and quick delivery straight to your door.</p>"
+          }
+        },
+        "item_micCgd": {
+          "type": "item",
+          "settings": {
+            "color_scheme": "scheme-2006ee92-b918-4b6e-8425-b5cf6a38f549",
+            "icon": "prices",
+            "custom_svg": "",
+            "icon_w": 64,
+            "icon_w_mobile": 30,
+            "heading": "Affordable Prices",
+            "content": "<p>Great value on all your daily </p><p>essentials.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "item_PVPVNN",
+        "item_iFQnaB",
+        "item_micCgd"
+      ],
+      "name": "Color Icon Box",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "",
+        "heading": "Why Shop With Us?",
+        "heading_align": "center",
+        "heading_size": "medium",
+        "subtitle": "",
+        "subtitle_size": "medium",
+        "heading_mb": 0,
+        "icon_gap": "none",
+        "heading_uppercase": false,
+        "text_gap": "none",
+        "cols_desktop": 3,
+        "cols_tablet": 3,
+        "cols_mobile": 2,
+        "mobile_dots": true,
+        "padding_top": 60,
+        "padding_bottom": 40,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
-    "grid_collection_JKT7V3"
+    "grid_collection_JKT7V3",
+    "color_icon_box_RC3DXf"
   ]
 }

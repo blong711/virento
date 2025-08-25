@@ -16835,7 +16835,8 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
     line-height: 20px;
   }
   .tf-icon-box.style-4 {
-    padding: 32px 0px;
+    padding: 32px 24px;
+    gap: 24px;
   }
   .tf-icon-box.style-4 .title {
     font-size: 20px;
