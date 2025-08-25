@@ -1,9 +1,52 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .color-{{ section.settings.color_scheme }} .box-store:hover {
+    background-color: rgb(var(--color-background)) !important;
+  }
+</style>
+
 <section
-  class="s-contact flat-spacing-13"
-  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+  class="s-contact section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
 >
   <div class="{% if section.settings.width == 'boxed' %} container{% else %} container-full{% endif %}">
-    <div class="wg-map" style="--mobile-ratio: {{ section.settings.padding_mobile_ratio }}%;">
+    <div class="flat-title wow fadeInUp" style="text-align: {{ section.settings.heading_align }};">
+      {% if section.settings.heading != blank %}
+        {% if section.settings.heading_size == 'small' %}
+          <h5 class="title" style="margin-bottom: {{ section.settings.heading_mb }}px;">
+            {{ section.settings.heading }}
+          </h5>
+        {% elsif section.settings.heading_size == 'large' %}
+          <h3 class="title" style="margin-bottom: {{ section.settings.heading_mb }}px;">
+            {{ section.settings.heading }}
+          </h3>
+        {% else %}
+          <h4 class="title" style="margin-bottom: {{ section.settings.heading_mb }}px;">
+            {{ section.settings.heading }}
+          </h4>
+        {% endif %}
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        {% if section.settings.subtitle_size == 'small' %}
+          <p class="desc text-sm " style="color: rgb(var(--color-foreground2));">{{ section.settings.subtitle }}</p>
+        {% elsif section.settings.subtitle_size == 'large' %}
+          <p class="desc text-lg" style="color: rgb(var(--color-foreground2));">{{ section.settings.subtitle }}</p>
+        {% else %}
+          <p class="desc text-md" style="color: rgb(var(--color-foreground2));">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="wg-map style-absolute" style="--mobile-ratio: {{ section.settings.padding_mobile_ratio }}%;">
       {% if section.settings.map != blank %}
         {{ section.settings.map }}
       {% else %}
@@ -16,6 +59,54 @@
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       {% endif %}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'contact_info' %}
+            <div
+              class="box-store box-store-bg style-2 border-0 color-{{ block.settings.color_scheme }} position-{{ block.settings.position }}"
+            >
+              <h6>{{ block.settings.title }}</h6>
+              <ul>
+                <li>
+                  <a
+                    class="link text-sm"
+                    href="https://www.google.com/maps?q={{ block.settings.address | url_encode }}"
+                    target="_blank"
+                  >
+                    {{ block.settings.address }}
+                  </a>
+                </li>
+                <li>
+                  <a class="link text-sm" href="mailto:{{ block.settings.email }}">
+                    {{ block.settings.email }}
+                  </a>
+                </li>
+                <li>
+                  <a class="link text-sm" href="tel:{{ block.settings.phone }}">
+                    {{ block.settings.phone }}
+                  </a>
+                </li>
+              </ul>
+              <ul>
+                <li>
+                  <span class=" text-sm">{{ block.settings.hours_weekday }}</span>
+                </li>
+                <li>
+                  <span class=" text-sm">{{ block.settings.hours_weekend }}</span>
+                </li>
+              </ul>
+              <div class="bot">
+                <a
+                  href="{{ block.settings.button_url }}"
+                  class="tf-btn btn-line"
+                >
+                  <span class="text-sm">{{ block.settings.button_text }}</span>
+                  <i class="icon-arrow-top-left fs-8"></i>
+                </a>
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -33,6 +124,32 @@
     height: 589px;
     width: 100%;
   }
+
+  /* Override default positioning with higher specificity */
+  .wg-map.style-absolute .box-store.position-left {
+    left: 30px !important;
+  }
+
+  @media (min-width: 768px) {
+    .wg-map.style-absolute .box-store.position-center {
+      left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+    }
+  }
+
+  .wg-map.style-absolute .box-store.position-right {
+    right: 30px !important;
+    left: auto !important;
+    width: 419px !important;
+  }
+
+  @media (max-width: 1200px) {
+    .wg-map.style-absolute .box-store.position-left,
+    .wg-map.style-absolute .box-store.position-center,
+    .wg-map.style-absolute .box-store.position-right {
+      left: 73px !important;
+    }
+  }
 {% endstyle %}
 
 {% schema %}
@@ -44,20 +161,64 @@
   },
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.map-with-text.settings.color_scheme.label",
+      "default": "background-1"
+    },
+    {
       "type": "select",
       "id": "width",
       "label": "t:sections.map-with-text.settings.width.label",
       "options": [
         {
           "value": "boxed",
-          "label": "t:sections.map-with-text.settings.boxed.label"
+          "label": "t:sections.map-with-text.settings.width.options.boxed"
         },
         {
           "value": "full",
-          "label": "t:sections.map-with-text.settings.full_width.label"
+          "label": "t:sections.map-with-text.settings.width.options.full"
         }
       ],
       "default": "boxed"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.map-with-text.settings.heading_options.content"
+    },
+    { "type": "text", "id": "heading", "label": "t:sections.map-with-text.settings.heading.label" },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "label": "t:sections.color-icon-box.settings.heading_align.label",
+      "options": [
+        { "value": "left", "label": "t:sections.map-with-text.settings.heading_align.options.default" },
+        { "value": "center", "label": "t:sections.map-with-text.settings.heading_align.options.center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:sections.map-with-text.settings.heading_size.label",
+      "options": [
+        { "value": "small", "label": "t:sections.common.size.small" },
+        { "value": "medium", "label": "t:sections.common.size.medium" },
+        { "value": "large", "label": "t:sections.common.size.large" }
+      ],
+      "default": "medium"
+    },
+    { "type": "text", "id": "subtitle", "label": "t:sections.map-with-text.settings.subtitle.label" },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "t:sections.map-with-text.settings.subtitle_size.label",
+      "options": [
+        { "value": "small", "label": "t:sections.common.size.small" },
+        { "value": "medium", "label": "t:sections.common.size.medium" },
+        { "value": "large", "label": "t:sections.common.size.large" }
+      ],
+      "default": "medium"
     },
     {
       "type": "liquid",
@@ -98,6 +259,88 @@
       "unit": "%",
       "label": "t:sections.map-with-text.settings.padding_mobile_ratio.label",
       "default": 75
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact_info",
+      "name": "t:sections.map-with-text.blocks.contact_info.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.map-with-text.settings.color_scheme.label",
+          "default": "background-1"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.position.label",
+          "options": [
+            {
+              "value": "left",
+              "label": "t:sections.map-with-text.blocks.contact_info.settings.position.options.left"
+            },
+            {
+              "value": "center",
+              "label": "t:sections.map-with-text.blocks.contact_info.settings.position.options.center"
+            },
+            {
+              "value": "right",
+              "label": "t:sections.map-with-text.blocks.contact_info.settings.position.options.right"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.title.label",
+          "default": "t:sections.map-with-text.blocks.contact_info.settings.title.default"
+        },
+        {
+          "type": "text",
+          "id": "address",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.address.label",
+          "default": "t:sections.map-with-text.blocks.contact_info.settings.address.default"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.email.label",
+          "default": "t:sections.map-with-text.blocks.contact_info.settings.email.default"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.phone.label",
+          "default": "t:sections.map-with-text.blocks.contact_info.settings.phone.default"
+        },
+        {
+          "type": "text",
+          "id": "hours_weekday",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.hours_weekday.label",
+          "default": "t:sections.map-with-text.blocks.contact_info.settings.hours_weekday.default"
+        },
+        {
+          "type": "text",
+          "id": "hours_weekend",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.hours_weekend.label",
+          "default": "t:sections.map-with-text.blocks.contact_info.settings.hours_weekend.default"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.button_text.label",
+          "default": "t:sections.map-with-text.blocks.contact_info.settings.button_text.default"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "t:sections.map-with-text.blocks.contact_info.settings.button_url.label"
+        }
+      ]
     }
   ],
   "presets": [

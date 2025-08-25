@@ -23353,6 +23353,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
     text-align: center;
     padding: 30px 0px 0px;
   }
+  .wg-map.style-absolute .box-store.box-store-bg {
+    margin-top: 24px;
+  }
   .banner-account.banner-acc-countdown {
     padding: 15px;
   }
