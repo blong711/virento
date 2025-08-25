@@ -247,7 +247,7 @@
           msg.remove();
         });
 
-        fetch(window.location.href, {
+        fetch('{{ routes.account_recover_url }}', {
           method: 'POST',
           body: formData,
           headers: {
