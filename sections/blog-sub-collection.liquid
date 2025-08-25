@@ -46,7 +46,7 @@
               <div class="swiper-slide" {{ block.shopify_attributes }}>
                 <div class="wg-cls style-abs2 hover-img">
                   <a href="{{ block.settings.category_url | default: blog.url }}" class="image-wrap relative">
-                    <div class="image img-style">
+                    <div class="image img-style {% if section.settings.slides_per_view_mobile == 3 %}mobile-3{% endif %}">
                       {% if block.settings.category_image %}
                         <img
                           src="{{ block.settings.category_image | image_url: width: 300 }}"
@@ -112,13 +112,11 @@
       color: rgb(var(--color-foreground)) !important;
   }
   
-  {% if section.settings.slides_per_view_mobile == 3 %}
   @media screen and (max-width: 749px) {
-    .section-{{ section.id }}-padding .image.img-style {
+    .section-{{ section.id }}-padding .image.img-style.mobile-3 {
       max-width: 100px;
     }
   }
-  {% endif %}
 {%- endstyle -%}
 
 {% schema %}
