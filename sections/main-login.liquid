@@ -183,6 +183,50 @@
       });
     }
 
+    // Handle login form submission with validation
+    var loginForm = document.querySelector('#login form');
+    if (loginForm) {
+      loginForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        // Remove any existing messages
+        var existingMessages = loginForm.querySelectorAll('.form-message');
+        existingMessages.forEach(function (msg) {
+          msg.remove();
+        });
+        
+        var email = document.getElementById('CustomerEmail-{{ section.id }}').value.trim();
+        var password = document.getElementById('CustomerPassword-{{ section.id }}').value.trim();
+        var hasError = false;
+        
+        // Check if email is empty
+        if (!email) {
+          var emailError = document.createElement('div');
+          emailError.className = 'form-message error';
+          emailError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.email_missing" | t }}</li></ul>';
+          loginForm.insertBefore(emailError, loginForm.firstChild);
+          hasError = true;
+        }
+        
+        // Check if password is empty
+        if (!password) {
+          var passwordError = document.createElement('div');
+          passwordError.className = 'form-message error';
+          passwordError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.password_missing" | t }}</li></ul>';
+          loginForm.insertBefore(passwordError, loginForm.firstChild);
+          hasError = true;
+        }
+        
+        // If there are validation errors, don't submit
+        if (hasError) {
+          return;
+        }
+        
+        // If validation passes, submit the form normally
+        this.submit();
+      });
+    }
+
     // Handle reset password form submission via AJAX
     var resetForm = document.querySelector('#reset-form-block form');
     if (resetForm) {

@@ -791,7 +791,9 @@
       "register": "Register",
       "sending": "Sending...",
       "reset_success": "We've sent you an email with a link to update your password.",
-      "error_message": "An error occurred. Please try again."
+      "error_message": "An error occurred. Please try again.",
+      "email_missing": "Email is required",
+      "password_missing": "Password is required"
     },
     "sections": {
       "main_login": {
