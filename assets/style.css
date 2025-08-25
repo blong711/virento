@@ -831,7 +831,6 @@ video {
 
 .text-main {
   color: var(--text) !important;
-  line-height: 20px;
 }
 
 .text-main-2 {
