@@ -22,7 +22,7 @@
       "type": "main-order",
       "settings": {
         "color_scheme": "scheme-1",
-        "width": "container",
+        "width": "container-full",
         "empty_state_title": "You haven't placed any order yet",
         "empty_state_text": "It's time to make your first order",
         "shop_now_text": "Shop now",
