@@ -338,9 +338,9 @@
                             </p>
                           </div>
                           <div class="banner-btn">
-                            {% if block.settings.button_url != blank %}
-                            <a href="{{ block.settings.button_url | default: routes.collections_url }}" class="tf-btn animate-btn">
-                              {{ block.settings.button_text | default: 'customer.account.shop_now' | t }}
+                            {% if block.settings.button_url != blank and block.settings.button_text != blank %}
+                            <a href="{{ block.settings.button_url }}" class="tf-btn animate-btn">
+                              {{ block.settings.button_text }}
                             </a>
                             {% endif %}
                           </div>
@@ -370,14 +370,14 @@
                                 href="{{ block.settings.product.url }}"
                                 class="tf-btn btn-white animate-btn animate-dark"
                               >
-                                {{ block.settings.button_text | default: 'customer.account.shop_now' | t }}
+                                {{ block.settings.button_text }}
                               </a>
                             {% else %}
                               <a
                                 href="{{ routes.collections_url }}"
                                 class="tf-btn btn-white animate-btn animate-dark"
                               >
-                                {{ block.settings.button_text | default: 'customer.account.shop_now' | t }}
+                                {{ block.settings.button_text }}
                               </a>
                             {% endif %}
                           </div>
