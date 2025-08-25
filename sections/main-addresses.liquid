@@ -556,21 +556,7 @@
   <!-- /Account -->
 </div>
 <!-- sidebar account -->
-<div class="offcanvas offcanvas-start canvas-filter canvas-sidebar canvas-sidebar-account" id="mbAccount">
-  <div class="canvas-wrapper">
-    <div class="canvas-header">
-      <span class="title">{{ 'sections.main_addresses.sidebar_account' | t }}</span>
-      <button
-        class="icon-close icon-close-popup"
-        data-bs-dismiss="offcanvas"
-        aria-label="{{ 'sections.main_addresses.close' | t }}"
-      ></button>
-    </div>
-    <div class="canvas-body">
-      <div class="sidebar-account-wrap sidebar-mobile-append"></div>
-    </div>
-  </div>
-</div>
+{% render 'account-sidebar' %}
 <!-- End sidebar account -->
 <!-- /Main Content -->
 

@@ -217,6 +217,7 @@
     {% render 'order-detail-modal', order: order %}
   {% endfor %}
 </div>
+{% render 'account-sidebar' %}
 <style>
 .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
