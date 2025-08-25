@@ -190,11 +190,23 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "map_with_text_cTzEtF": {
+      "type": "map-with-text",
+      "name": "t:sections.map-with-text.presets.default",
+      "settings": {
+        "width": "boxed",
+        "map": "",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_ratio": 75
+      }
     }
   },
   "order": [
     "grid_collection_JKT7V3",
     "color_icon_box_RC3DXf",
-    "offer_banner_d4NYLb"
+    "offer_banner_d4NYLb",
+    "map_with_text_cTzEtF"
   ]
 }
