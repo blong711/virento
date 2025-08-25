@@ -765,6 +765,7 @@
     },
     "common": {
       "size": {
+        "none": "None",
         "small": "Small",
         "medium": "Medium",
         "large": "Large"
@@ -6393,6 +6394,108 @@
       },
       "presets": {
         "name": "Grid Collection"
+      }
+    },
+    "color-icon-box": {
+      "name": "Color Icon Box",
+      "settings": {
+        "layout_options": {
+          "content": "Options for layout section"
+        },
+        "subtitle": {
+          "label": "Subtitle"
+        },
+        "subtitle_size": {
+          "label": "Subtitle size"
+        },
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full"
+          }
+        },
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "heading_options": {
+          "content": "Heading options"
+        },
+        "heading": {
+          "label": "Heading"
+        },
+        "heading_align": {
+          "label": "Heading align",
+          "options": {
+            "default": "Default",
+            "center": "Center"
+          }
+        },
+        "heading_size": {
+          "label": "Heading size"
+        },
+        "heading_mb": {
+          "label": "Distance between heading and content"
+        },
+        "item_options": {
+          "content": "Item options"
+        },
+        "icon_gap": {
+          "label": "Spacing icon and heading"
+        },
+        "heading_uppercase": {
+          "label": "Heading uppercase"
+        },
+        "text_gap": {
+          "label": "Space heading and content"
+        },
+        "cols_desktop": {
+          "label": "Items per row (Desktop)"
+        },
+        "cols_tablet": {
+          "label": "Items per row (Tablet)"
+        },
+        "cols_mobile": {
+          "label": "Items per row (Mobile)"
+        },
+        "mobile_dots": {
+          "label": "Enable pagination dots on mobile"
+        }
+      },
+      "blocks": {
+        "item": {
+          "name": "Icon box item",
+          "settings": {
+            "color_scheme": {
+              "label": "Color scheme"
+            },
+            "icon": {
+              "label": "Select icon",
+              "options": {
+                "none": "None",
+                "quality": "Quality",
+                "shop": "Shop",
+                "prices": "Prices"
+              }
+            },
+            "custom_svg": {
+              "label": "Custom SVG",
+              "info": "[Remixicon](https://remixicon.com/)"
+            },
+            "icon_w": {
+              "label": "Icon width"
+            },
+            "icon_w_mobile": {
+              "label": "Icon width (mobile)"
+            },
+            "heading": {
+              "label": "Heading"
+            },
+            "content": {
+              "label": "Content"
+            }
+          }
+        }
       }
     }
   }
