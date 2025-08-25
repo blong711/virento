@@ -7,10 +7,6 @@
       "content": "t:sections.main-account.settings.layout_settings"
     },
     {
-      "type": "header",
-      "content": "{{ 'sections.main-order.settings.layout' | t }}"
-    },
-    {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
@@ -154,7 +150,7 @@
 }
 {% endschema %}
 
-<div class="main-content-account">
+<div class="main-content-account{% if section.settings.width == 'container-full' %} container-full{% endif %}">
   <!-- sidebar-account -->
   <div class="btn-sidebar-mb d-lg-none">
     <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
