@@ -14910,9 +14910,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   display: grid;
   gap: 20px;
 }
-.s-contact .wg-map {
+/* .s-contact .wg-map {
   margin-bottom: 91px;
-}
+} */
 .s-contact .sub-title {
   font-size: 16px;
   line-height: 26px;
@@ -19468,11 +19468,11 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   margin-top: 2rem;
 }
 
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   .s-contact .wg-map {
     margin-bottom: 60px;
   }
-}
+} */
 .tf-mini-cart-item .tf-mini-cart-info .info-variant {
   display: flex;
   gap: 10px;
