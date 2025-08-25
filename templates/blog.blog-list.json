@@ -79,7 +79,7 @@
         "width": "boxed",
         "color_scheme": "",
         "show_post_count": true,
-        "slides_per_view_mobile": "2",
+        "slides_per_view_mobile": "3",
         "slides_per_view_tablet": "3",
         "slides_per_view_desktop": "5",
         "space_between": 20,
