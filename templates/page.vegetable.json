@@ -75,7 +75,7 @@
             "color_scheme": "",
             "icon": "quality",
             "custom_svg": "",
-            "icon_w": 60,
+            "icon_w": 64,
             "icon_w_mobile": 30,
             "heading": "Quality Products",
             "content": "<p>Only the freshest ingredients for your table.</p>"
@@ -87,7 +87,7 @@
             "color_scheme": "",
             "icon": "shop",
             "custom_svg": "",
-            "icon_w": 30,
+            "icon_w": 64,
             "icon_w_mobile": 30,
             "heading": "Convenient Shopping",
             "content": "<p>Easy and quick delivery straight to your door.</p>"
@@ -99,7 +99,7 @@
             "color_scheme": "",
             "icon": "prices",
             "custom_svg": "",
-            "icon_w": 30,
+            "icon_w": 64,
             "icon_w_mobile": 30,
             "heading": "Affordable Prices",
             "content": "<p>Great value on all your daily </p><p>essentials.</p>"
