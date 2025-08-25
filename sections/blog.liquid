@@ -344,6 +344,12 @@
     {% endfor %}
   </div>
 </div>
+<div class="btn-sidebar-mb d-lg-none right">
+  <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
+      <i class="icon icon-sidebar"></i>
+  </button>
+</div>
+{% render 'blog-sidebar' %}
 
 {% style %}
   .recent-blog-list .hover-img img {
@@ -828,3 +834,4 @@
   ]
 }
 {% endschema %}
+
