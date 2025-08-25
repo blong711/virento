@@ -298,7 +298,7 @@
                                     {{ block.settings.brand_image | image_url: width: 180 }} 180w,
                                     {{ block.settings.brand_image | image_url: width: 360 }} 360w
                                     "
-                                    alt="{{ block.settings.brand_image.alt | escape }}"
+                                    alt="{{ block.settings.brand_name | escape }}"
                                     width="{{ block.settings.brand_image.width | default: 240 }}"
                                     height="{{ block.settings.brand_image.height | default: 114 }}"
                                     loading="lazy"
