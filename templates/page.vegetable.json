@@ -72,7 +72,7 @@
         "item_PVPVNN": {
           "type": "item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-1954cf34-6369-4206-b280-f633822c1a6f",
             "icon": "quality",
             "custom_svg": "",
             "icon_w": 64,
@@ -84,7 +84,7 @@
         "item_iFQnaB": {
           "type": "item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-08d89d2c-a815-407b-a174-bbae5707e4c5",
             "icon": "shop",
             "custom_svg": "",
             "icon_w": 64,
@@ -96,7 +96,7 @@
         "item_micCgd": {
           "type": "item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-2006ee92-b918-4b6e-8425-b5cf6a38f549",
             "icon": "prices",
             "custom_svg": "",
             "icon_w": 64,
