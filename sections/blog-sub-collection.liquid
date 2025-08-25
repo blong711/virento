@@ -108,9 +108,25 @@
       }
     }
 
-    .text-main {
-      color: rgb(var(--color-foreground)) !important;
-  }
+         .text-main {
+       color: rgb(var(--color-foreground)) !important;
+   }
+   
+   /* Ensure slides maintain minimum width and consistent sizing */
+   .section-{{ section.id }}-padding .swiper-slide {
+     width: auto;
+   }
+   
+   .section-{{ section.id }}-padding .image.img-style {
+     aspect-ratio: 1 / 1;
+     overflow: hidden;
+   }
+   
+   .section-{{ section.id }}-padding .image.img-style img {
+    min-width: 108px;
+     object-fit: cover;
+     object-position: center;
+   }
 {%- endstyle -%}
 
 {% schema %}
