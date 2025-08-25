@@ -319,12 +319,37 @@
             }
           })
           .catch(function (error) {
-            // Show error message for network issues
-            var errorContainer = document.createElement('div');
-            errorContainer.className = 'form-message error';
-            errorContainer.innerHTML =
-              '<ul class="error-list"><li>{{ "sections.main_login.error_message" | t }}</li></ul>';
-            resetForm.insertBefore(errorContainer, resetForm.firstChild);
+            // Always show success message even if there's an error
+            var successContainer = document.createElement('div');
+            successContainer.className = 'form-message success';
+            
+            const successIcon = HTMLSanitizer.createElement('svg', {
+              class: 'success-icon',
+              xmlns: 'http://www.w3.org/2000/svg',
+              width: '20',
+              height: '20',
+              viewBox: '0 0 20 20',
+              fill: 'currentColor',
+            });
+            const path = HTMLSanitizer.createElement('path', {
+              'fill-rule': 'evenodd',
+              d: 'M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z',
+              'clip-rule': 'evenodd',
+            });
+            successIcon.appendChild(path);
+            successContainer.appendChild(successIcon);
+
+            const messageSpan = HTMLSanitizer.createElement(
+              'span',
+              {},
+              "{{ 'sections.main_login.reset_success' | t }}"
+            );
+            successContainer.appendChild(messageSpan);
+            
+            resetForm.insertBefore(successContainer, resetForm.firstChild);
+            
+            // Clear the form
+            resetForm.reset();
           })
           .finally(function () {
             // Re-enable submit button
