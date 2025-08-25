@@ -320,7 +320,7 @@ function removeFilter(filterType) {
         filters.availability = null;
         document.querySelectorAll('input[name="availability"]').forEach(input => input.checked = false);
     }
-    if (filterType === "brand") {
+    if (filterType === "brands") {
         filters.brands = null;
         document.querySelectorAll('input[name="brand"]').forEach(input => input.checked = false);
     }

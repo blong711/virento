@@ -3,6 +3,7 @@
 {% assign pagination_type = section.settings.pagination_type | default: 'pagination' %}
 {% assign default_grid_layout = section.settings.default_grid_layout | default: 'tf-col-4' %}
 {% assign default_layout_type = section.settings.default_layout_type | default: 'grid' %}
+{% assign filter_layout = section.settings.filter_layout | default: 'default' %}
 {% assign total_products = collection.products.size %}
 
 {% comment %} For load more functionality, use a very high pagination limit to show all products {% endcomment %}
@@ -17,13 +18,40 @@
 {% comment %} For load more functionality, we need all products rendered {% endcomment %}
 {% comment %} Remove pagination limit to allow JavaScript load more to work {% endcomment %}
 
-<section class="flat-spacing pt-0">
-    <div class="container">
+<section class="flat-spacing pt-0 color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+    <div class="{{ section.settings.width }}">
+        {% if filter_layout == 'left_sidebar' %}
+            <div class="row">
+                <div class="col-xl-3">
+                    {% render 'collection-sidebar-filters', 
+                        collection: collection,
+                        show_on_sale: section.settings.show_on_sale,
+                        on_sale_limit: section.settings.on_sale_limit,
+                        show_collection_banner: section.settings.show_collection_banner,
+                        collection_banner_image: section.settings.collection_banner_image,
+                        collection_banner_title: section.settings.collection_banner_title,
+                        collection_banner_button_text: section.settings.collection_banner_button_text,
+                        collection_banner_button_url: section.settings.collection_banner_button_url,
+                        show_availability_filter: section.settings.show_availability_filter,
+                        show_price_filter: section.settings.show_price_filter,
+                        show_color_filter: section.settings.show_color_filter,
+                        show_brand_filter: section.settings.show_brand_filter
+                    %}
+                </div>
+                <div class="col-xl-9">
+        {% endif %}
+        
         <div class="tf-shop-control">
             <div class="tf-group-filter">
-                <a href="#filterShop" data-bs-toggle="offcanvas" aria-controls="filterShop"
-                    class="tf-btn-filter">
-                    <span class="icon icon-filter"></span><span class="text">Filter</span></a>
+                {% if filter_layout == 'left_sidebar' %}
+                    <button id="filterShop" class="tf-btn-filter d-flex d-xl-none">
+                        <span class="icon icon-filter"></span><span class="text">Filter</span>
+                    </button>
+                {% else %}
+                    <a href="#filterShop" data-bs-toggle="offcanvas" aria-controls="filterShop"
+                        class="tf-btn-filter">
+                        <span class="icon icon-filter"></span><span class="text">Filter</span></a>
+                {% endif %}
                 <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
                     <div class="btn-select">
                         <span class="text-sort-value">Best selling</span>
@@ -295,25 +323,71 @@
                 {% endif %}
             </div>
         </div>
+        
+        {% if filter_layout == 'left_sidebar' %}
+                </div>
+            </div>
+        {% endif %}
     </div>
 </section>
 
+{% comment %} Render the default filter snippet only when not using left sidebar {% endcomment %}
+{% if filter_layout == 'default' %}
+    {% render 'collection-filters', 
+        collection: collection,
+        show_on_sale: section.settings.show_on_sale,
+        on_sale_limit: section.settings.on_sale_limit,
+        show_collection_banner: section.settings.show_collection_banner,
+        collection_banner_image: section.settings.collection_banner_image,
+        collection_banner_title: section.settings.collection_banner_title,
+        collection_banner_button_text: section.settings.collection_banner_button_text,
+        collection_banner_button_url: section.settings.collection_banner_button_url,
+        show_availability_filter: section.settings.show_availability_filter,
+        show_price_filter: section.settings.show_price_filter,
+        show_color_filter: section.settings.show_color_filter,
+        show_brand_filter: section.settings.show_brand_filter
+    %}
+{% endif %}
 
-{% comment %} Render the filter snippet {% endcomment %}
-{% render 'collection-filters', 
-    collection: collection,
-    show_on_sale: section.settings.show_on_sale,
-    on_sale_limit: section.settings.on_sale_limit,
-    show_collection_banner: section.settings.show_collection_banner,
-    collection_banner_image: section.settings.collection_banner_image,
-    collection_banner_title: section.settings.collection_banner_title,
-    collection_banner_button_text: section.settings.collection_banner_button_text,
-    collection_banner_button_url: section.settings.collection_banner_button_url,
-    show_availability_filter: section.settings.show_availability_filter,
-    show_price_filter: section.settings.show_price_filter,
-    show_color_filter: section.settings.show_color_filter,
-    show_brand_filter: section.settings.show_brand_filter
-%}
+{% style %}
+.section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+}
+
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+}
+
+{% comment %} Left Sidebar Layout Styles {% endcomment %}
+{% if filter_layout == 'left_sidebar' %}
+.section-{{ section.id }}-padding .canvas-sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+@media (max-width: 1199px) {
+    .section-{{ section.id }}-padding .canvas-sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 300px;
+        height: 100vh;
+        z-index: 1050;
+        transition: left 0.3s ease;
+        background: white;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .section-{{ section.id }}-padding .canvas-sidebar.active {
+        left: 0;
+    }
+}
+{% endif %}
+{% endstyle %}
 
 {% comment %} Add necessary data for JavaScript {% endcomment %}
 <script>
@@ -324,7 +398,8 @@
         paginationType: '{{ pagination_type }}',
         maxProductsPerPage: {{ max_products_per_page }},
         defaultGridLayout: '{{ default_grid_layout }}',
-        defaultLayoutType: '{{ default_layout_type }}'
+        defaultLayoutType: '{{ default_layout_type }}',
+        filterLayout: '{{ filter_layout }}'
     };
 </script>
 
@@ -335,6 +410,28 @@
 {
     "name": "Main Collection",
     "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "default": "scheme-1"
+            },
+            {
+            "type": "select",
+            "id": "width",
+            "label": "t:sections.main_slider.settings.width.label",
+            "options": [
+                {
+                "value": "container",
+                "label": "t:sections.main_slider.settings.width.options.boxed"
+                },
+                {
+                "value": "container-full",
+                "label": "t:sections.main_slider.settings.width.options.full_width"
+                }
+            ],
+            "default": "container"
+        },
         {
             "type": "range",
             "id": "max_products_per_page",
@@ -377,6 +474,16 @@
                 { "value": "infinity_scroll", "label": "Infinity Scroll" }
             ],
             "default": "pagination"
+        },
+        {
+            "type": "select",
+            "id": "filter_layout",
+            "label": "Filter Layout",
+            "options": [
+                { "value": "default", "label": "Default Filter" },
+                { "value": "left_sidebar", "label": "Left Sidebar Filter" }
+            ],
+            "default": "default"
         },
         {
             "type": "header",
@@ -463,6 +570,41 @@
             "label": "Show brand filter",
             "default": true,
             "info": "Display brand/vendor filter options"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding_mobile_rate",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "label": "t:sections.all.padding_mobile_rate.label",
+            "default": 75,
+            "info": "t:sections.all.padding_mobile_rate.info"
         }
     ]
 }

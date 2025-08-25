@@ -1,0 +1,279 @@
+{% comment %}
+  Collection Sidebar Filters Snippet
+  Renders a left sidebar with collection filters
+{% endcomment %}
+
+{% comment %} Get collection tags and vendors for dynamic filtering {% endcomment %}
+{% assign collection_tags = collection.all_tags %}
+{% assign collection_vendors = collection.all_vendors %}
+
+<div class="canvas-sidebar sidebar-filter canvas-filter left">
+    <div class="canvas-wrapper">
+        <div class="canvas-header d-flex d-xl-none">
+            <span class="title">Filter</span>
+            <span class="icon-close icon-close-popup close-filter"></span>
+        </div>
+        <div class="canvas-body">
+            
+            {% comment %} Collections Filter {% endcomment %}
+            <div class="widget-facet">
+                <div class="facet-title text-xl fw-medium" data-bs-target="#collections"
+                    data-bs-toggle="collapse" aria-expanded="true" aria-controls="collections">
+                    <span>Collections</span>
+                    <span class="icon icon-arrow-up"></span>
+                </div>
+                <div id="collections" class="collapse show">
+                    <ul class="collapse-body list-categories current-scrollbar">
+                        {% for collection in collections %}
+                            {% if forloop.index <= 10 %}
+                            <li class="cate-item">
+                                <a class="text-sm link" href="{{ collection.url }}">
+                                    <span>{{ collection.title }}</span>
+                                    <span class="count">({{ collection.products_count }})</span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            {% comment %} Availability Filter {% endcomment %}
+            {% if show_availability_filter %}
+                <div class="widget-facet">
+                    <div class="facet-title text-xl fw-medium" data-bs-target="#availability"
+                        role="button" data-bs-toggle="collapse" aria-expanded="true"
+                        aria-controls="availability">
+                        <span>Availability</span>
+                        <span class="icon icon-arrow-up"></span>
+                    </div>
+                    <div id="availability" class="collapse show">
+                        <ul class="collapse-body filter-group-check current-scrollbar">
+                            <li class="list-item">
+                                <input type="radio" name="availability" class="tf-check"
+                                    id="inStock" value="in_stock">
+                                <label for="inStock" class="label">
+                                    <span>In stock</span>&nbsp;
+                                    <span class="count">({{ collection.products | where: "available" | size }})</span>
+                                </label>
+                            </li>
+                            <li class="list-item">
+                                <input type="radio" name="availability" class="tf-check"
+                                    id="outStock" value="out_of_stock">
+                                <label for="outStock" class="label">
+                                    <span>Out of stock</span>&nbsp;
+                                    <span class="count">({{ collection.products | where: "available", false | size }})</span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% comment %} Price Filter {% endcomment %}
+            {% if show_price_filter %}
+                <div class="widget-facet">
+                    <div class="facet-title text-xl fw-medium" data-bs-target="#price" role="button"
+                        data-bs-toggle="collapse" aria-expanded="true" aria-controls="price">
+                        <span>Price</span>
+                        <span class="icon icon-arrow-up"></span>
+                    </div>
+                    <div id="price" class="collapse show">
+                        <div class="collapse-body widget-price filter-price">
+                            <span class="reset-price">Reset</span>
+                            <div class="price-val-range" id="price-value-range" 
+                                data-min="{{ collection.price_min | divided_by: 100.0 | round: 0 }}" 
+                                data-max="{{ collection.price_max | divided_by: 100.0 | round: 0 }}">
+                            </div>
+                            <div class="box-value-price">
+                                <span class="text-sm">Price:</span>
+                                <div class="price-box">
+                                    <div class="price-val" id="price-min-value" data-currency="{{ shop.currency_symbol }}">
+                                        {{ collection.price_min | money_without_currency }}
+                                    </div>
+                                    <span>-</span>
+                                    <div class="price-val" id="price-max-value" data-currency="{{ shop.currency_symbol }}">
+                                        {{ collection.price_max | money_without_currency }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% comment %} Color Filter {% endcomment %}
+            {% if show_color_filter %}
+                <div class="widget-facet">
+                    <div class="facet-title text-xl fw-medium" data-bs-target="#color" role="button"
+                        data-bs-toggle="collapse" aria-expanded="true" aria-controls="color">
+                        <span>Color</span>
+                        <span class="icon icon-arrow-up"></span>
+                    </div>
+                    <div id="color" class="collapse show">
+                        <div class="collapse-body filter-color-box flat-check-list">
+                            {% comment %} Common color options - you can customize these based on your product tags {% endcomment %}
+                            <div class="check-item color-item color-check">
+                                <span class="color bg-yellow"></span>
+                                <span class="color-text">Yellow</span>
+                            </div>
+                            <div class="check-item color-item color-check">
+                                <span class="color bg-dark"></span>
+                                <span class="color-text">Black</span>
+                            </div>
+                            <div class="check-item color-item color-check line">
+                                <span class="color bg-white"></span>
+                                <span class="color-text">White</span>
+                            </div>
+                            <div class="check-item color-item color-check">
+                                <span class="color bg-purple-3"></span>
+                                <span class="color-text">Purple</span>
+                            </div>
+                            <div class="check-item color-item color-check">
+                                <span class="color bg-light-orange"></span>
+                                <span class="color-text">Light Orange</span>
+                            </div>
+                            <div class="check-item color-item color-check">
+                                <span class="color bg-light-pink-4"></span>
+                                <span class="color-text">Light Pink</span>
+                            </div>
+                            <div class="check-item color-item color-check">
+                                <span class="color bg-pink"></span>
+                                <span class="color-text">Pink</span>
+                            </div>
+                            <div class="check-item color-item color-check">
+                                <span class="color bg-dark-green"></span>
+                                <span class="color-text">Dark Green</span>
+                            </div>
+                            <div class="check-item color-item color-check">
+                                <span class="color bg-grey-4"></span>
+                                <span class="color-text">Grey</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% comment %} Size Filter {% endcomment %}
+            <div class="widget-facet">
+                <div class="facet-title text-xl fw-medium" data-bs-target="#size" role="button"
+                    data-bs-toggle="collapse" aria-expanded="true" aria-controls="size">
+                    <span>Size</span>
+                    <span class="icon icon-arrow-up"></span>
+                </div>
+                <div id="size" class="collapse show">
+                    <div class="collapse-body filter-size-box flat-check-list">
+                        {% comment %} Common size options - you can customize these based on your product tags {% endcomment %}
+                        <div class="check-item size-item size-check">
+                            <span class="size">XS</span>&nbsp;
+                            <span class="count">(10)</span>
+                        </div>
+                        <div class="check-item size-item size-check">
+                            <span class="size">S</span>&nbsp;
+                            <span class="count">(8)</span>
+                        </div>
+                        <div class="check-item size-item size-check">
+                            <span class="size">L</span>&nbsp;
+                            <span class="count">(20)</span>
+                        </div>
+                        <div class="check-item size-item size-check">
+                            <span class="size">M</span>&nbsp;
+                            <span class="count">(10)</span>
+                        </div>
+                        <div class="check-item size-item size-check">
+                            <span class="size">XL</span>&nbsp;
+                            <span class="count">(20)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% comment %} Brand Filter {% endcomment %}
+            {% if show_brand_filter %}
+                <div class="widget-facet">
+                    <div class="facet-title text-xl fw-medium" data-bs-target="#brand" role="button"
+                        data-bs-toggle="collapse" aria-expanded="true" aria-controls="brand">
+                        <span>Brand</span>
+                        <span class="icon icon-arrow-up"></span>
+                    </div>
+                    <div id="brand" class="collapse show">
+                        <ul class="collapse-body filter-group-check current-scrollbar">
+                            {% for vendor in collection_vendors %}
+                                {% if forloop.index <= 10 %}
+                                <li class="list-item">
+                                    <input type="radio" name="brand" class="tf-check" id="{{ vendor | handleize }}" value="{{ vendor }}">
+                                    <label for="{{ vendor | handleize }}" class="label">
+                                        <span>{{ vendor }}</span>&nbsp;
+                                        <span class="count">({{ collection.products | where: "vendor", vendor | size }})</span>
+                                    </label>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% comment %} On Sale Products {% endcomment %}
+            {% if show_on_sale %}
+                <div class="widget-facet">
+                    <div class="facet-title text-xl fw-medium">
+                        <span>On sale</span>
+                    </div>
+                    <ul class="collapse-body list-recent">
+                        {% assign on_sale_products = collection.products | where: "compare_at_price", ">" %}
+                        {% assign on_sale_products = on_sale_products | slice: 0, on_sale_limit %}
+                        {% for product in on_sale_products %}
+                            <li>
+                                <div class="recent-blog-item">
+                                    <a href="{{ product.url }}" class="img-product">
+                                        <img src="{{ product.featured_image | img_url: '100x100', crop: 'center' }}" 
+                                             alt="{{ product.title | escape }}"
+                                             width="100" height="100">
+                                    </a>
+                                    <div class="content">
+                                        <a href="{{ product.url }}" class="title text-md link fw-medium">
+                                            {{ product.title | truncate: 30 }}
+                                        </a>
+                                        <div class="price text-md fw-medium">
+                                            <span class="new-price">{{ product.price | money }}</span>
+                                            {% if product.compare_at_price > product.price %}
+                                                <span class="old-price">{{ product.compare_at_price | money }}</span>
+                                            {% endif %}
+                                        </div>
+                                        <p class="text-sm">{{ product.variants.size }} variant{% if product.variants.size != 1 %}s{% endif %} available</p>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% comment %} Collection Banner {% endcomment %}
+            {% if show_collection_banner and collection_banner_image %}
+                <div class="widget-facet">
+                    <div class="sb-banner hover-img">
+                        <div class="image img-style">
+                            <img src="{{ collection_banner_image | img_url: '300x200', crop: 'center' }}"
+                                 data-src="{{ collection_banner_image | img_url: '300x200', crop: 'center' }}" 
+                                 alt="banner" class="lazyload"
+                                 width="300" height="200">
+                        </div>
+                        <div class="banner-content">
+                            <p class="title">
+                                {{ collection_banner_title | default: "Elevate Your Style" }}
+                            </p>
+                            <a href="{{ collection_banner_button_url | default: collection.url }}" 
+                               class="tf-btn btn-white hover-primary">
+                                {{ collection_banner_button_text | default: "Shop Now" }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% comment %} Add JavaScript for sidebar functionality on mobile {% endcomment %}
