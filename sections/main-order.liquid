@@ -38,6 +38,16 @@
       "label": "t:sections.main-order.settings.empty_state_image.label"
     },
     {
+      "type": "range",
+      "id": "empty_state_image_width",
+      "label": "t:sections.main-order.settings.empty_state_image_width.label",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 400
+    },
+    {
       "type": "text",
       "id": "empty_state_title",
       "label": "t:sections.main-order.settings.empty_state_title.label",
@@ -148,7 +158,7 @@
                 {% if section.settings.empty_state_image %}
                   {{
                     section.settings.empty_state_image
-                    | image_url: width: 400
+                    | image_url: width: section.settings.empty_state_image_width
                     | image_tag: loading: 'lazy', class: 'lazyload'
                   }}
                 {% endif %}

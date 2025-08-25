@@ -2489,6 +2489,9 @@
         "empty_state_image": {
           "label": "Empty State Image"
         },
+        "empty_state_image_width": {
+          "label": "Empty State Image Width"
+        },
         "empty_state_title": {
           "label": "Empty State Title",
           "default": "No orders yet"
