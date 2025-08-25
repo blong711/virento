@@ -26,9 +26,9 @@
         "empty_state_image": "shopify://shop_images/vegetable-3.jpg",
         "empty_state_title": "You haven't placed any order yet You haven't placed any order yet",
         "empty_state_text": "It's time to make your first order It's time to make your first order",
-        "shop_now_text": "",
-        "padding_top": 40,
-        "padding_bottom": 52,
+        "shop_now_text": "Shop now",
+        "padding_top": 36,
+        "padding_bottom": 32,
         "padding_mobile_rate": 100
       }
     }
