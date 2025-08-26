@@ -4621,7 +4621,7 @@
       }
     },
     "tag-products-carousel": {
-      "name": "Tag Products Carousel",
+      "name": "Tab Products Carousel",
       "settings": {
         "width": {
           "label": "Width",
@@ -4708,7 +4708,7 @@
         }
       },
       "presets": {
-        "name": "Tag Products Carousel",
+        "name": "Tab Products Carousel",
         "category": "Product",
         "blocks": {
           "tab1": {
