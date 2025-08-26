@@ -15,10 +15,10 @@
                                 {% assign progress_percentage = cart_total | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100 %}
                                 
                                 {% if cart_total >= free_shipping_threshold %}
-                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.qualified_message | default: "You've qualified for" }} <span class="fw-medium">{{ block.settings.free_shipping_text | default: "Free Shipping!" }}</span></p>
+                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.qualified_message }} <span class="fw-medium">{{ block.settings.free_shipping_text }}</span></p>
                                 {% else %}
-                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.spend_message | default: "Spend" }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_for_free_shipping | money }} {{ shop.currency }}{% else %}{{ remaining_for_free_shipping | money }}{% endif %}</span> {{ block.settings.more_message | default: "more to get" }}
-                                        <span class="fw-medium">{{ block.settings.free_shipping_text | default: "Free Shipping" }}</span>
+                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.spend_message }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_for_free_shipping | money }} {{ shop.currency }}{% else %}{{ remaining_for_free_shipping | money }}{% endif %}</span> {{ block.settings.more_message }}
+                                        <span class="fw-medium">{{ block.settings.free_shipping_text }}</span>
                                     </p>
                                 {% endif %}
                                 
@@ -49,10 +49,10 @@
                                         <table class="table-page-cart">
                                             <thead>
                                                 <tr>
-                                                    <th>{{ block.settings.product_column_header | default: 'Product' }}</th>
-                                                    <th>{{ block.settings.price_column_header | default: 'Price' }}</th>
-                                                    <th>{{ block.settings.quantity_column_header | default: 'Quantity' }}</th>
-                                                    <th>{{ block.settings.total_column_header | default: 'Total' }}</th>
+                                                    <th>{{ block.settings.product_column_header }}</th>
+                                                    <th>{{ block.settings.price_column_header }}</th>
+                                                    <th>{{ block.settings.quantity_column_header }}</th>
+                                                    <th>{{ block.settings.total_column_header }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -67,7 +67,7 @@
                                                                 {% if item.variant.title != 'Default Title' %}
                                                                     <div class="variants">{{ item.variant.title }}</div>
                                                                 {% endif %}
-                                                                <span class="remove-cart link remove" data-item-key="{{ item.key }}">{{ block.settings.remove_text | default: 'Remove' }}</span>
+                                                                <span class="remove-cart link remove" data-item-key="{{ item.key }}">{{ block.settings.remove_text }}</span>
                                                             </div>
                                                         </td>
                                                         <td class="tf-cart-item_price text-center" data-cart-title="Price">
@@ -102,13 +102,13 @@
                                                 {%- if settings.gift_wrap_product != blank -%}
                                                     {%- assign gift_wrap_product = all_products[settings.gift_wrap_product] -%}
                                                     {%- if gift_wrap_product != blank -%}
-                                                        {{ block.settings.label_text | default: 'Add gift wrap. Only' }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }} {{ shop.currency }}{% else %}{{ gift_wrap_product.price | money }}{% endif %}.</span> {{ block.settings.optional_text | default: '(You can choose or not)' }}
+                                                        {{ block.settings.label_text }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }} {{ shop.currency }}{% else %}{{ gift_wrap_product.price | money }}{% endif %}.</span> {{ block.settings.optional_text }}
                                                         <input type="hidden" name="gift_wrap_product_id" value="{{ gift_wrap_product.selected_or_first_available_variant.id }}">
                                                     {%- else -%}
-                                                        {{ block.settings.label_text | default: 'Add gift wrap. Only' }} <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text | default: '(You can choose or not)' }}
+                                                        {{ block.settings.label_text }} <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text }}
                                                     {%- endif -%}
                                                 {%- else -%}
-                                                    {{ block.settings.label_text | default: 'Add gift wrap. Only' }} <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text | default: '(You can choose or not)' }}
+                                                    {{ block.settings.label_text }} <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text }}
                                                 {%- endif -%}
                                             </label>
                                         </div>
@@ -116,13 +116,13 @@
                                 
                                 {% when 'discount_code' %}
                                     <div class="box-ip-discount" {{ block.shopify_attributes }}>
-                                        <input type="text" placeholder="{{ block.settings.placeholder_text | default: 'Discount code' }}" name="discount">
-                                        <button type="button" class="tf-btn radius-6 btn-out-line-dark-2">{{ block.settings.button_text | default: 'Apply' }}</button>
+                                        <input type="text" placeholder="{{ block.settings.placeholder_text }}" name="discount">
+                                        <button type="button" class="tf-btn radius-6 btn-out-line-dark-2">{{ block.settings.button_text }}</button>
                                     </div>
                                 
                                 {% when 'cart_note' %}
                                     <div class="cart-note" {{ block.shopify_attributes }}>
-                                        <label for="note" class="text-md fw-medium">{{ block.settings.label_text | default: 'Special instructions for seller' }}</label>
+                                        <label for="note" class="text-md fw-medium">{{ block.settings.label_text }}</label>
                                         <textarea id="note" name="note" placeholder="{{ block.settings.placeholder_text }}">{{ cart.note }}</textarea>
                                     </div>
                                 
@@ -152,7 +152,7 @@
                                                                     <i class="icon icon-{{ block.settings.feature_1_icon }}"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.feature_1_title | default: 'Feature 1' }}</div>
+                                                                    <div class="title text-uppercase">{{ block.settings.feature_1_title }}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -164,7 +164,7 @@
                                                                     <i class="icon icon-{{ block.settings.feature_2_icon }}"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.feature_2_title | default: 'Feature 2' }}</div>
+                                                                    <div class="title text-uppercase">{{ block.settings.feature_2_title }}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -176,7 +176,7 @@
                                                                     <i class="icon icon-{{ block.settings.feature_3_icon }}"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.feature_3_title | default: 'Feature 3' }}</div>
+                                                                    <div class="title text-uppercase">{{ block.settings.feature_3_title }}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -188,7 +188,7 @@
                                                                     <i class="icon icon-{{ block.settings.feature_4_icon }}"></i>
                                                                 </div>
                                                                 <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.feature_4_title | default: 'Feature 4' }}</div>
+                                                                    <div class="title text-uppercase">{{ block.settings.feature_4_title }}</div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -243,9 +243,9 @@
                         {% case block.type %}
                             {% when 'empty_cart' %}
                                 <div class="empty-cart text-center" {{ block.shopify_attributes }}>
-                                    <h3>{{ block.settings.empty_cart_title | default: 'Your cart is empty' }}</h3>
-                                    <p>{{ block.settings.empty_cart_message | default: "Looks like you haven't added any items to your cart yet." }}</p>
-                                    <a href="{{ settings.empty_cart_link | default: routes.all_products_collection_url }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text | default: 'Continue Shopping' }}</a>
+                                    <h3>{{ block.settings.empty_cart_title }}</h3>
+                                    <p>{{ block.settings.empty_cart_message }}</p>
+                                    <a href="{{ settings.empty_cart_link }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text }}</a>
                                 </div>
                         {% endcase %}
                     {% endfor %}
@@ -263,7 +263,7 @@
                                         <div class="text-lg title fw-medium">{{ block.settings.title | default: 'Shipping estimates' }}</div>
                                         <form class="shipping-calculator-form" data-shipping-calculator>
                                             <div class="field">
-                                                <label for="shipping-country-main" class="text-sm">{{ block.settings.country_label | default: 'Country' }}</label>
+                                                <label for="shipping-country-main" class="text-sm">{{ block.settings.country_label }}</label>
                                                 <div class="tf-select">
                                                     <select class="w-100" id="shipping-country-main" name="shipping_address[country]" data-shipping-country>
                                                         {{ all_country_option_tags }}
@@ -271,13 +271,13 @@
                                                 </div>
                                             </div>
                                             <div class="field" id="shipping-province-field-main" style="display: none;">
-                                                <label for="shipping-province-main" class="text-sm">{{ block.settings.state_label | default: 'State/Province' }}</label>
+                                                <label for="shipping-province-main" class="text-sm">{{ block.settings.state_label }}</label>
                                                 <div class="tf-select">
                                                     <select id="shipping-province-main" name="shipping_address[province]" data-shipping-province></select>
                                                 </div>
                                             </div>
                                             <div class="field">
-                                                <label for="shipping-zip-main" class="text-sm">{{ block.settings.zipcode_label | default: 'Zipcode' }}</label>
+                                                <label for="shipping-zip-main" class="text-sm">{{ block.settings.zipcode_label }}</label>
                                                 <input type="text" 
                                                        id="shipping-zip-main" 
                                                        name="shipping_address[zip]" 
@@ -288,7 +288,7 @@
                                                 <p class="shipping-rates__heading"></p>
                                                 <ul class="shipping-rates__list"></ul>
                                             </div>
-                                            <button type="submit" class="tf-btn btn-dark2 animate-btn w-100" data-shipping-calculator-submit>{{ block.settings.button_text | default: 'Estimate' }}</button>
+                                            <button type="submit" class="tf-btn btn-dark2 animate-btn w-100" data-shipping-calculator-submit>{{ block.settings.button_text }}</button>
                                         </form>
                                     </div>
                                 
@@ -296,7 +296,7 @@
                                     <form action="/cart" method="post" class="cart-box checkout-cart-box" {{ block.shopify_attributes }}>
                                         <div class="cart-head">
                                             <div class="total-discount text-xl fw-medium">
-                                                <span>{{ block.settings.subtotal_label | default: 'Subtotal:' }}</span>
+                                                <span>{{ block.settings.subtotal_label }}</span>
                                                 <span class="total">{{ cart.total_price | money }} {{ shop.currency }}</span>
                                             </div>
                                             
@@ -307,23 +307,23 @@
                                                 </div>
                                             {% endif %} {% endcomment %}
                                             
-                                            <p class="text-sm text-dark-4">{{ block.settings.tax_message | default: 'Taxes and shipping calculated at checkout' }}</p>
+                                            <p class="text-sm text-dark-4">{{ block.settings.tax_message }}</p>
                                         </div>
                                         
                                         {% if block.settings.show_terms_checkbox %}
                                             <div class="check-agree">
                                                 <input type="checkbox" class="tf-check" id="check-agree" required>
-                                                <label for="check-agree" class="label text-dark-4">{{ block.settings.terms_text | default: 'I agree with' }} <a href="{{ block.settings.terms_url | default: '/pages/terms-and-conditions' }}" class="text-dark-4 fw-medium text-underline link">{{ block.settings.terms_link_text | default: 'terms and conditions' }}</a></label>
+                                                <label for="check-agree" class="label text-dark-4">{{ block.settings.terms_text }} <a href="{{ block.settings.terms_url }}" class="text-dark-4 fw-medium text-underline link">{{ block.settings.terms_link_text }}</a></label>
                                             </div>
                                         {% endif %}
                                         
                                         <div class="checkout-btn">
-                                            <button type="submit" name="checkout" class="tf-btn btn-dark2 animate-btn w-100">{{ block.settings.checkout_button_text | default: 'Checkout' }}</button>
+                                            <button type="submit" name="checkout" class="tf-btn btn-dark2 animate-btn w-100">{{ block.settings.checkout_button_text }}</button>
                                         </div>
                                         
                                         {% if block.settings.show_payment_icons %}
                                             <div class="cart-imgtrust">
-                                                <p class="text-center text-sm text-dark-1">{{ block.settings.payment_methods_title | default: 'We accept' }}</p>
+                                                <p class="text-center text-sm text-dark-1">{{ block.settings.payment_methods_title }}</p>
                                                 <div class="cart-list-social">
                                                     {% if block.settings.payment_svg_list != blank %}
                                                         {% assign payment_icons = block.settings.payment_svg_list | split: ',' %}
@@ -375,7 +375,7 @@
                                                                                 </div>
                                                                             {% endif %}
                                                                         </div>
-                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_1_author | default: 'Customer' }}</span>
+                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_1_author }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -402,7 +402,7 @@
                                                                                 </div>
                                                                             {% endif %}
                                                                         </div>
-                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_2_author | default: 'Customer' }}</span>
+                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_2_author }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -429,7 +429,7 @@
                                                                                 </div>
                                                                             {% endif %}
                                                                         </div>
-                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_3_author | default: 'Customer' }}</span>
+                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_3_author }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
