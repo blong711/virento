@@ -127,12 +127,36 @@
     const checkoutButton = document.querySelector('button[name="checkout"]');
     
     if (termsCheckbox && checkoutButton) {
-      // Set initial state
-      this.updateCheckoutButtonState(termsCheckbox.checked);
+      // Force checkbox to be unchecked and ensure button state matches
+      termsCheckbox.checked = false;
+      termsCheckbox.removeAttribute('checked');
+      
+      // Set initial state to disabled
+      this.updateCheckoutButtonState(false);
       
       // Add event listener for checkbox changes
       termsCheckbox.addEventListener('change', (e) => {
         this.updateCheckoutButtonState(e.target.checked);
+      });
+      
+      // Handle browser back/forward navigation
+      window.addEventListener('pageshow', (event) => {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+          // User navigated back to this page
+          termsCheckbox.checked = false;
+          termsCheckbox.removeAttribute('checked');
+          this.updateCheckoutButtonState(false);
+        }
+      });
+      
+      // Also handle focus events to catch when user returns to the page
+      window.addEventListener('focus', () => {
+        // Check if we're on the cart page and reset checkbox if needed
+        if (document.querySelector('.tf-page-cart-main')) {
+          termsCheckbox.checked = false;
+          termsCheckbox.removeAttribute('checked');
+          this.updateCheckoutButtonState(false);
+        }
       });
     }
   }
