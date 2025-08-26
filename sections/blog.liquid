@@ -373,7 +373,7 @@
     position: relative;
     overflow: hidden;
     display: block;
-    border-radius: inherit; /* Inherit border radius from parent */
+    border-radius: 16px; /* Set explicit border radius */
   }
 
   .blog-image-ratio--adapt {
@@ -411,13 +411,24 @@
 
   /* Ensure image container inherits styling */
   .img-style {
-    border-radius: inherit;
+    border-radius: 12px; /* Set explicit border radius */
     overflow: hidden;
   }
 
   .entry_image .img-style {
-    border-radius: inherit;
+    border-radius: 12px; /* Set explicit border radius */
     display: block;
+  }
+
+  /* Ensure blog post items have proper border radius */
+  .blog-post-item {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .entry_image {
+    border-radius: 12px;
+    overflow: hidden;
   }
 
   /* Content alignment */
