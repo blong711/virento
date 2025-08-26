@@ -46,7 +46,7 @@
               <div class="swiper-slide" {{ block.shopify_attributes }}>
                 <div class="wg-cls style-abs2 hover-img">
                   <a href="{{ block.settings.category_url | default: blog.url }}" class="image-wrap relative">
-                    <div class="image img-style {% if section.settings.slides_per_view_mobile == '3' %}mobile-3{% endif %}">
+                    <div class="image img-style ratio-{{ section.settings.image_ratio }} {% if section.settings.slides_per_view_mobile == '3' %}mobile-3{% endif %}">
                       {% if block.settings.category_image %}
                         <img
                           src="{{ block.settings.category_image | image_url: width: 300 }}"
@@ -118,6 +118,45 @@
       max-width: 100px;
     }
   }
+
+  /* Image ratio styles */
+  .section-{{ section.id }}-padding .image.img-style {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }}-padding .image.img-style img,
+  .section-{{ section.id }}-padding .image.img-style .placeholder-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .section-{{ section.id }}-padding .image.img-style.ratio-square {
+    aspect-ratio: 1 / 1;
+  }
+
+  .section-{{ section.id }}-padding .image.img-style.ratio-portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  .section-{{ section.id }}-padding .image.img-style.ratio-landscape {
+    aspect-ratio: 4 / 3;
+  }
+
+  .section-{{ section.id }}-padding .image.img-style.ratio-wide {
+    aspect-ratio: 16 / 9;
+  }
+
+
+  @supports (aspect-ratio: 1 / 1) {
+    .section-{{ section.id }}-padding .image.img-style.ratio-square,
+    .section-{{ section.id }}-padding .image.img-style.ratio-portrait,
+    .section-{{ section.id }}-padding .image.img-style.ratio-landscape,
+    .section-{{ section.id }}-padding .image.img-style.ratio-wide {
+      padding-bottom: 0;
+    }
+  }
 {%- endstyle -%}
 
 {% schema %}
@@ -147,6 +186,31 @@
       "id": "color_scheme",
       "label": "t:sections.blog-sub-collection.settings.color_scheme.label",
       "default": "background-1"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:sections.blog-sub-collection.settings.image_ratio.label",
+      "options": [
+        {
+          "value": "square",
+          "label": "t:sections.blog-sub-collection.settings.image_ratio.options.square"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.blog-sub-collection.settings.image_ratio.options.portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "t:sections.blog-sub-collection.settings.image_ratio.options.landscape"
+        },
+        {
+          "value": "wide",
+          "label": "t:sections.blog-sub-collection.settings.image_ratio.options.wide"
+        }
+      ],
+      "default": "square",
+      "info": "t:sections.blog-sub-collection.settings.image_ratio.info"
     },
     {
       "type": "checkbox",

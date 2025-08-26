@@ -5311,7 +5311,8 @@
             "adapt": "Adapt to image",
             "square": "Square",
             "portrait": "Portrait",
-            "landscape": "Landscape"
+            "landscape": "Landscape",
+            "wide": "Wide"
           }
         },
         "show_count": {
