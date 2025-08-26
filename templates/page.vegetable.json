@@ -453,6 +453,60 @@
         "padding_mobile_rate": 75
       }
     },
+    "bunder_product_G4r6DK": {
+      "type": "bunder-product",
+      "blocks": {
+        "bundle_item_3WX9AB": {
+          "type": "bundle_item",
+          "settings": {
+            "bundle_product": "beef-scotch-fillet-steak-1kg"
+          }
+        },
+        "bundle_item_xmexcX": {
+          "type": "bundle_item",
+          "settings": {
+            "bundle_product": "superfries-shoestring"
+          }
+        },
+        "bundle_item_CDyzr6": {
+          "type": "bundle_item",
+          "settings": {
+            "bundle_product": "garlic-head-each"
+          }
+        },
+        "bundle_item_rk3ehV": {
+          "type": "bundle_item",
+          "settings": {
+            "bundle_product": "beef-scotch-fillet-steak-1kg"
+          }
+        }
+      },
+      "block_order": [
+        "bundle_item_3WX9AB",
+        "bundle_item_xmexcX",
+        "bundle_item_CDyzr6",
+        "bundle_item_rk3ehV"
+      ],
+      "name": "t:sections.bundle_product.presets.name",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "scheme-a392b522-8a27-45d7-9bfc-b379b2ac12bc",
+        "banner_image": "shopify://shop_images/food.jpg",
+        "banner_title": "Beef Steak",
+        "banner_subtitle1": "Cook time: 1 hour",
+        "banner_subtitle2": "Difficult: 2/5",
+        "banner_btn_label": "See recipe",
+        "banner_btn_link": "",
+        "bundle_heading": "Don’t Know What to Eat?",
+        "bundle_subheading": "Let us inspire you! Discover delicious recipe ideas for every meal.",
+        "bundle_note": "*All these portions are made enough for 4 people",
+        "bundle_btn_label": "Add Bundle to Cart",
+        "bundle_btn_link": "",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_rate_mobile": 50
+      }
+    },
     "map_with_text_cTzEtF": {
       "type": "map-with-text",
       "blocks": {
@@ -499,6 +553,7 @@
     "featured_product_carousel_jAUM44",
     "featured_products_tab_gYFJYp",
     "offer_banner_d4NYLb",
+    "bunder_product_G4r6DK",
     "map_with_text_cTzEtF"
   ]
 }
