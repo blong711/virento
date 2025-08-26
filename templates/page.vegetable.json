@@ -180,7 +180,13 @@
         "subtitle": "Grab fresh deals at unbeatable prices!",
         "subtitle_size": "text-md",
         "collection": "vegetables-fruits",
-        "product_list": [],
+        "product_list": [
+          "strawberry-each",
+          "tasmania-cherry",
+          "orange-navel",
+          "blueberry",
+          "vanilla-ice-cream-2l"
+        ],
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
