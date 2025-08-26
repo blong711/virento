@@ -50,7 +50,6 @@
 
   @media screen and (max-width: 749px) {
     .hero-image-{{ section.id }} picture img {
-      {% if section.settings.mobile_image != blank %}
         {% comment %} Mobile image exists - use mobile_image_height setting for object-fit {% endcomment %}
         {% if section.settings.mobile_image_height == 'adapt_image' %}
           height: auto;
@@ -59,16 +58,6 @@
           height: 100%;
           object-fit: cover;
         {% endif %}
-      {% else %}
-        {% comment %} No mobile image - fallback to desktop image_height setting {% endcomment %}
-        {% if section.settings.image_height == 'adapt_image' %}
-          height: auto;
-          object-fit: contain;
-        {% else %}
-          height: 100%;
-          object-fit: cover;
-        {% endif %}
-      {% endif %}
     }
 
     .hero-image-{{ section.id }} {
