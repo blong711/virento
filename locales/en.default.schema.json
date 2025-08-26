@@ -4341,7 +4341,7 @@
         },
         "source_map": {
           "label": "Source map",
-          "info": "You can get the map at Google Maps, need to use iframes"
+          "info": "Paste Google Maps embed iframe code. [You can get it here.](https://www.google.com/maps)"
         },
         "padding_top": {
           "label": "Top padding"
