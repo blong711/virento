@@ -36,18 +36,19 @@
         "variants": {
           "type": "variants",
           "settings": {
-            "title": "Color"
+            "title": "Size"
           }
         }
       },
       "block_order": [
         "availability",
-        "vendor", 
+        "vendor",
         "variants"
       ],
       "settings": {
         "product_list": [],
         "color_scheme": "background-1",
+        "width": "boxed",
         "padding_top": 50,
         "padding_bottom": 60,
         "padding_mobile_rate": 75
