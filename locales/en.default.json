@@ -814,6 +814,21 @@
           "title_default": "I'm new here",
           "description_default": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
         }
+      },
+    },
+    "contact-form-with-text": {
+      "contact_info": {
+        "address_label": "Address",
+        "phone_label": "Phone number",
+        "email_label": "Email",
+        "hours_label": "Open"
+      },
+      "form": {
+        "success_message": "Thank you for contacting us! We'll get back to you soon.",
+        "name_label": "Your name*",
+        "email_label": "Your email*",
+        "message_label": "Message",
+        "submit_button": "Send"
       }
     },
     "main_addresses": {

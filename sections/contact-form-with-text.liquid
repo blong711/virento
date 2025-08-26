@@ -39,7 +39,7 @@
                     {% if block.settings.address != blank %}
                       <li>
                         <p>
-                          Address:
+                          {{ 'sections.contact-form-with-text.contact_info.address_label' | t }}:
                           {% if block.settings.address_url != blank %}
                             <a class="link" href="{{ block.settings.address_url }}" target="_blank">
                               {{ block.settings.address }}
@@ -54,7 +54,7 @@
                     {% if block.settings.phone != blank %}
                       <li>
                         <p>
-                          Phone number:
+                          {{ 'sections.contact-form-with-text.contact_info.phone_label' | t }}:
                           <a class="link" href="tel:{{ block.settings.phone }}">
                             {{ block.settings.phone }}
                           </a>
@@ -65,7 +65,7 @@
                     {% if block.settings.email != blank %}
                       <li>
                         <p>
-                          Email:
+                          {{ 'sections.contact-form-with-text.contact_info.email_label' | t }}:
                           <a class="link" href="mailto:{{ block.settings.email }}">
                             {{ block.settings.email }}
                           </a>
@@ -76,7 +76,7 @@
                     {% if block.settings.hours != blank %}
                       <li>
                         <p>
-                          Open:
+                          {{ 'sections.contact-form-with-text.contact_info.hours_label' | t }}:
                           <span class="text-main">
                             {{ block.settings.hours }}
                           </span>
@@ -137,7 +137,7 @@
               {% form 'contact' %}
                 {% if form.posted_successfully? %}
                   <div class="form-success">
-                    <p>Thank you for contacting us! We'll get back to you soon.</p>
+                    <p>{{ 'sections.contact-form-with-text.form.success_message' | t }}</p>
                   </div>
                 {% endif %}
 
@@ -151,11 +151,11 @@
                   <div class="wrap">
                     <div class="cols">
                       <fieldset>
-                        <label for="ContactFormName">Your name*</label>
+                        <label for="ContactFormName">{{ 'sections.contact-form-with-text.form.name_label' | t }}</label>
                         <input id="ContactFormName" type="text" name="contact[name]" value="{{ form.name }}" required>
                       </fieldset>
                       <fieldset>
-                        <label for="ContactFormEmail">Your email*</label>
+                        <label for="ContactFormEmail">{{ 'sections.contact-form-with-text.form.email_label' | t }}</label>
                         <input
                           id="ContactFormEmail"
                           type="email"
@@ -167,12 +167,12 @@
                     </div>
                     <div class="cols">
                       <fieldset class="textarea">
-                        <label for="ContactFormMessage">Message</label>
+                        <label for="ContactFormMessage">{{ 'sections.contact-form-with-text.form.message_label' | t }}</label>
                         <textarea id="ContactFormMessage" name="contact[body]" required>{{ form.body }}</textarea>
                       </fieldset>
                     </div>
                     <div class="button-submit">
-                      <button class="tf-btn animate-btn" type="submit">Send</button>
+                      <button class="tf-btn animate-btn" type="submit">{{ 'sections.contact-form-with-text.form.submit_button' | t }}</button>
                     </div>
                   </div>
                 </div>
