@@ -778,6 +778,10 @@
       "confirm_password": "Confirm password",
       "reset_password_button": "Reset password"
     },
+    "main_compare": {
+      "no_products_message": "No products were added to compare.",
+      "back_to_shopping": "Back to Shopping"
+    },
     "main_login": {
       "log_in": "Log in",
       "email": "Email",

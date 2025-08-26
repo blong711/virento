@@ -79,7 +79,7 @@
                 <div class="tf-compare-col tf-compare-field d-md-block d-none">
                   <p class="text-md fw-medium">{{ block.settings.title | escape }}</p>
                 </div>
-                {%- for product in arr_results limit: 4 -%}
+                {%- for product in arr_results -%}
                   <div class="tf-compare-col tf-compare-field tf-compare-stock{% unless product.available %} text-red{% endunless %}">
                     <div class="icon">
                       {%- if product.available -%}
@@ -114,7 +114,7 @@
                 <div class="tf-compare-col tf-compare-field d-md-block d-none">
                   <p class="text-md fw-medium">{{ block.settings.title | escape }}</p>
                 </div>
-                {%- for product in arr_results limit: 4 -%}
+                {%- for product in arr_results -%}
                   <div class="tf-compare-col tf-compare-value text-center">
                     <p class="text-sm">{{ product.vendor | escape }}</p>
                   </div>
@@ -125,7 +125,7 @@
                 <div class="tf-compare-col tf-compare-field d-md-block d-none">
                   <p class="text-md fw-medium">{{ block.settings.title | escape }}</p>
                 </div>
-                {%- for product in arr_results limit: 4 -%}
+                {%- for product in arr_results -%}
                   <div class="tf-compare-col tf-compare-value text-center">
                     <p class="text-sm">
                       {%- assign option_values = '' -%}
@@ -150,8 +150,8 @@
     {%- endif -%}
     {% if results_count <= 0 %}
       <div class="tf-wishlist-empty text-center">
-        <p class="text-md text-noti mb-4">No product were added to the compare .</p>
-        <a href="{{ routes.root_url }}" class="tf-btn animate-btn btn-back-shop">Back to Shopping</a>
+        <p class="text-md text-noti mb-4">{{ 'sections.main_compare.no_products_message' | t }}</p>
+        <a href="{{ routes.root_url }}" class="tf-btn animate-btn btn-back-shop">{{ 'sections.main_compare.back_to_shopping' | t }}</a>
       </div>
     {% endif %}
   </div>
