@@ -72,7 +72,6 @@
     }
 
     .hero-image-{{ section.id }} {
-      {% if section.settings.mobile_image != blank %}
         {% comment %} Mobile image exists - use mobile_image_height setting {% endcomment %}
         {% if section.settings.mobile_image_height == 'fixed' %}
           height: {{ section.settings.mobile_fixed_height }}px;
@@ -81,16 +80,6 @@
         {% else %}
           height: auto;
         {% endif %}
-      {% else %}
-        {% comment %} No mobile image - fallback to desktop image_height setting {% endcomment %}
-        {% if section.settings.image_height == 'fixed' %}
-          height: {{ section.settings.mobile_fixed_height }}px;
-        {% elsif section.settings.image_height == 'fullscreen' %}
-          height: 100vh;
-        {% else %}
-          height: auto;
-        {% endif %}
-      {% endif %}
     }
   }
 {%- endstyle -%}
