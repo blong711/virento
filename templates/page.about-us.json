@@ -50,10 +50,10 @@
     "hero_image": {
       "type": "hero-image",
       "settings": {
-        "width": "full",
-        "image_height": "fixed",
+        "width": "boxed",
+        "image_height": "adapt_image",
         "fixed_height": 670,
-        "mobile_image_height": "adapt_image",
+        "mobile_image_height": "fixed",
         "mobile_fixed_height": 400,
         "image": "shopify://shop_images/about.jpg",
         "border_radius": 16,
