@@ -3810,7 +3810,7 @@ header.header-bg {
   display: flex;
   gap: 12px;
   overflow-x: visible;
-  overflow-y: hidden;
+  overflow-y: visible;
 }
 .menu-tab-line .tab-link {
   padding: 4px;
@@ -8561,8 +8561,8 @@ header.header-bg {
 .menu-tab-line {
   display: flex;
   gap: 12px;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: visible;
+  overflow-y: visible;
 }
 .menu-tab-line .tab-link {
   padding: 4px;
