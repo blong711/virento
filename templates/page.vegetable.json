@@ -296,6 +296,57 @@
         "padding_mobile_rate": 75
       }
     },
+    "featured_products_tab_gYFJYp": {
+      "type": "featured-products-tab",
+      "blocks": {
+        "tab_MxHwdG": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "",
+            "collection": "vegetables-fruits",
+            "products": []
+          }
+        },
+        "tab_neQ7UR": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Featured",
+            "collection": "meat",
+            "products": []
+          }
+        },
+        "tab_hRqprg": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Trending",
+            "collection": "",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "tab_MxHwdG",
+        "tab_neQ7UR",
+        "tab_hRqprg"
+      ],
+      "name": "Featured Products Tab",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title": "Popular Products",
+        "title_tag": "h4",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
+        "show_nav": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
     "offer_banner_d4NYLb": {
       "type": "offer-banner",
       "blocks": {
@@ -398,6 +449,7 @@
     "featured_products_countdown_rJywgx",
     "color_icon_box_RC3DXf",
     "featured_product_carousel_jAUM44",
+    "featured_products_tab_gYFJYp",
     "offer_banner_d4NYLb",
     "map_with_text_cTzEtF"
   ]
