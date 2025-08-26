@@ -4981,7 +4981,7 @@
             },
             "map_iframe": {
               "label": "Map iframe",
-              "info": "Paste Google Maps embed iframe code here"
+              "info": "Paste Google Maps embed iframe code. [You can get it here.](https://www.google.com/maps)"
             }
           }
         }
