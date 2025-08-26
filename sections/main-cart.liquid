@@ -117,7 +117,9 @@
                                 {% when 'discount_code' %}
                                     <div class="box-ip-discount" {{ block.shopify_attributes }}>
                                         <input type="text" placeholder="{{ block.settings.placeholder_text }}" name="discount">
-                                        <button type="button" class="tf-btn radius-6 btn-out-line-dark-2">{{ block.settings.button_text }}</button>
+                                        {% if block.settings.button_text != blank %}
+                                            <button type="button" class="tf-btn radius-6 btn-out-line-dark-2">{{ block.settings.button_text }}</button>
+                                        {% endif %}
                                     </div>
                                 
                                 {% when 'cart_note' %}
@@ -245,7 +247,9 @@
                                 <div class="empty-cart text-center" {{ block.shopify_attributes }}>
                                     <h3>{{ block.settings.empty_cart_title }}</h3>
                                     <p>{{ block.settings.empty_cart_message }}</p>
+                                    {% if settings.empty_cart_link != blank and block.settings.continue_shopping_text != blank %}
                                     <a href="{{ settings.empty_cart_link }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text }}</a>
+                                    {% endif %}
                                 </div>
                         {% endcase %}
                     {% endfor %}
@@ -288,7 +292,9 @@
                                                 <p class="shipping-rates__heading"></p>
                                                 <ul class="shipping-rates__list"></ul>
                                             </div>
-                                            <button type="submit" class="tf-btn btn-dark2 animate-btn w-100" data-shipping-calculator-submit>{{ block.settings.button_text }}</button>
+                                            {% if block.settings.button_text != blank %}
+                                                <button type="submit" class="tf-btn btn-dark2 animate-btn w-100" data-shipping-calculator-submit>{{ block.settings.button_text }}</button>
+                                            {% endif %}
                                         </form>
                                     </div>
                                 
@@ -318,7 +324,9 @@
                                         {% endif %}
                                         
                                         <div class="checkout-btn">
-                                            <button type="submit" name="checkout" class="tf-btn btn-dark2 animate-btn w-100">{{ block.settings.checkout_button_text }}</button>
+                                            {% if block.settings.checkout_button_text != blank %}
+                                                <button type="submit" name="checkout" class="tf-btn btn-dark2 animate-btn w-100">{{ block.settings.checkout_button_text }}</button>
+                                            {% endif %}
                                         </div>
                                         
                                         {% if block.settings.show_payment_icons %}
