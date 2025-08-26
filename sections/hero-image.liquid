@@ -49,27 +49,42 @@
   }
 
   @media screen and (max-width: 749px) {
-    .hero-image-{{ section.id }} picture img {
-        {% comment %} Mobile image exists - use mobile_image_height setting for object-fit {% endcomment %}
-        {% if section.settings.mobile_image_height == 'adapt_image' %}
-          height: auto;
-          object-fit: contain;
-        {% else %}
-          height: 100%;
-          object-fit: cover;
-        {% endif %}
+    .hero-image-{{ section.id }} {
+      border-radius: {{ section.settings.border_radius }}px;
+      overflow: hidden;
+
+      {% if section.settings.mobile_image_height == 'fixed' %}
+        height: {{ section.settings.mobile_fixed_height }}px;
+      {% elsif section.settings.mobile_image_height == 'fullscreen' %}
+        height: 100vh;
+      {% else %}
+        height: auto;
+      {% endif %}
     }
 
-    .hero-image-{{ section.id }} {
-        {% comment %} Mobile image exists - use mobile_image_height setting {% endcomment %}
-        {% if section.settings.mobile_image_height == 'fixed' %}
-          height: {{ section.settings.mobile_fixed_height }}px;
-        {% elsif section.settings.mobile_image_height == 'fullscreen' %}
-          height: 100vh;
-        {% else %}
-          height: auto;
-        {% endif %}
+    .hero-image-{{ section.id }} img {
+      width: 100%;
+
+      {% if section.settings.mobile_image_height == 'adapt_image' %}
+        height: auto;
+        object-fit: contain;
+      {% else %}
+        height: 100%;
+        object-fit: cover;
+      {% endif %}
     }
+
+    .hero-image-{{ section.id }} picture img {
+      width: 100%;
+
+      {% if section.settings.mobile_image_height == 'adapt_image' %}
+        height: auto;
+        object-fit: contain;
+      {% else %}
+        height: 100%;
+        object-fit: cover;
+      {% endif %}
+    } 
   }
 {%- endstyle -%}
 
