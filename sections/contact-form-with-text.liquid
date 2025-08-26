@@ -24,14 +24,13 @@
               {% case block.type %}
                 {% when 'heading' %}
                   <div class="title fw-medium display-md-2" {{ block.shopify_attributes }}>
-                    {{ block.settings.title | default: 'Contact Us' }}
+                    {{ block.settings.title }}
                   </div>
 
                 {% when 'subheading' %}
                   <p class="sub-title text-main" {{ block.shopify_attributes }}>
                     {{
                       block.settings.subheading
-                      | default: 'Have a question? Please contact us using the customer support channels below.'
                     }}
                   </p>
 
@@ -88,7 +87,7 @@
 
                 {% when 'socials' %}
                   <ul
-                    class="tf-social-icon style-large social-size-{{ block.settings.socials_size | default: 'large' }} social-style-{{ block.settings.socials_style | default: 'default' }}"
+                    class="tf-social-icon style-large social-size-{{ block.settings.socials_size }} social-style-{{ block.settings.socials_style }}"
                     {{ block.shopify_attributes }}
                   >
                     {% if settings.social_facebook_link != blank %}
@@ -127,12 +126,11 @@
         <div class="col-lg-6">
           <div class="content-right">
             <div class="title fw-medium display-md-2">
-              {{ section.settings.form_heading | default: 'Get In Touch' }}
+              {{ section.settings.form_heading }}
             </div>
             <p class="sub-title text-main">
               {{
                 section.settings.form_subheading
-                | default: 'Please submit all general enquiries in the contact form below and we look forward to hearing from you soon.'
               }}
             </p>
             <div class="form-contact-wrap">
@@ -145,7 +143,7 @@
 
                 {% if form.errors %}
                   <div class="form-errors">
-                    {{ form.errors | default_errors }}
+                    {{ form.errors }}
                   </div>
                 {% endif %}
 
