@@ -129,19 +129,20 @@
                   <div class="tf-compare-col tf-compare-value text-center">
                     <p class="text-sm">
                       {%- assign option_values = '' -%}
-                      {%- assign option_name = block.settings.title | downcase -%}
-                      {%- for option in product.options -%}
-                        {%- assign option_name_lower = option.name | downcase -%}
-                        {%- if option_name_lower == option_name -%}
-                          {%- for value in option.values -%}
-                            {%- unless option_values contains value -%}
+                      {%- for variant in product.variants -%}
+                        {%- for option in variant.options -%}
+                          {%- assign option_index = forloop.index0 -%}
+                          {%- assign option_name = product.options[option_index] | downcase -%}
+                          {%- assign title_lower = block.settings.title | downcase -%}
+                          {%- if option_name contains title_lower or title_lower contains option_name -%}
+                            {%- unless option_values contains option -%}
                               {%- if option_values != '' -%}
                                 {%- assign option_values = option_values | append: ', ' -%}
                               {%- endif -%}
-                              {%- assign option_values = option_values | append: value -%}
+                              {%- assign option_values = option_values | append: option -%}
                             {%- endunless -%}
-                          {%- endfor -%}
-                        {%- endif -%}
+                          {%- endif -%}
+                        {%- endfor -%}
                       {%- endfor -%}
                       {{ option_values | escape }}
                     </p>
