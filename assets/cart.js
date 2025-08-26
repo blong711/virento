@@ -569,7 +569,7 @@
         cartTable.style.display = 'table';
       }
       if (giftWrapSection) {
-        giftWrapSection.style.display = 'block';
+        giftWrapSection.style.display = 'flex';
       }
       if (discountSection) {
         discountSection.style.display = 'flex';
