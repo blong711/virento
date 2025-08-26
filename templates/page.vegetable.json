@@ -221,6 +221,29 @@
         "padding_mobile_rate": 75
       }
     },
+    "featured_products_countdown_rJywgx": {
+      "type": "featured-products-countdown",
+      "name": "t:sections.featured-products-countdown.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title": "Hot Deals",
+        "heading_tag": "h4",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
+        "collection": "vegetables-fruits",
+        "product_list": [],
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "show_navigation": true,
+        "show_mobile_dots": true,
+        "products_to_show": 6,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
     "offer_banner_d4NYLb": {
       "type": "offer-banner",
       "blocks": {
@@ -321,6 +344,7 @@
     "grid_collection_JKT7V3",
     "color_icon_box_RC3DXf",
     "categories_Ppq9Br",
+    "featured_products_countdown_rJywgx",
     "offer_banner_d4NYLb",
     "map_with_text_cTzEtF"
   ]
