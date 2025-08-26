@@ -596,6 +596,7 @@
           "label": "Mobile height",
           "options": {
             "adapt": "Adapt to first image",
+            "fill": "Fill screen height",
             "fixed": "Fixed height"
           }
         },

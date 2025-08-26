@@ -65,6 +65,10 @@
           "label": "t:sections.main_slider.settings.mobile_height.options.adapt"
         },
         {
+          "value": "fill",
+          "label": "t:sections.main_slider.settings.mobile_height.options.fill"
+        },
+        {
           "value": "fixed",
           "label": "t:sections.main_slider.settings.mobile_height.options.fixed"
         }
@@ -371,6 +375,8 @@
     .slider-height {
       {% if section.settings.mobile_height == 'fixed' %}
         height: {{ section.settings.mobile_height_fixed }}px;
+      {% elsif section.settings.mobile_height == 'fill' %}
+        height: 100vh;
       {% elsif section.settings.mobile_height == 'adapt-first' %}
         height: auto !important;
       {% endif %}
@@ -590,6 +596,11 @@ document.addEventListener('DOMContentLoaded', function() {
       const isMobile = window.innerWidth <= 767;
       const shouldUseAdaptFirst = (isMobile && mobileHeightSetting === 'adapt-first') || 
                                  (!isMobile && heightSetting === 'adapt-first');
+      
+      // Skip height adjustment if mobile is set to 'fill' (let CSS handle it)
+      if (isMobile && mobileHeightSetting === 'fill') {
+        return;
+      }
       
       if (shouldUseAdaptFirst) {
         // For adapt-first: ALWAYS use the first slide to determine height
