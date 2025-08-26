@@ -991,9 +991,9 @@
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(html, 'text/html');
         
-        // Look for the main cart section
-        const newCartSection = newDoc.querySelector('#shopify-section-template--19608379425009__main-cart');
-        const currentCartSection = document.querySelector('#shopify-section-template--19608379425009__main-cart');
+        // Look for the main cart section - use dynamic selector
+        const newCartSection = newDoc.querySelector('[id*="main-cart"]');
+        const currentCartSection = document.querySelector('[id*="main-cart"]');
         
         if (newCartSection && currentCartSection) {
           // Update the entire cart section to get proper structure
