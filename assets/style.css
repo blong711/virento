@@ -3809,7 +3809,7 @@ header.header-bg {
 .menu-tab-line {
   display: flex;
   gap: 12px;
-  overflow-x: auto;
+  overflow-x: visible;
   overflow-y: hidden;
 }
 .menu-tab-line .tab-link {
