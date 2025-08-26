@@ -4998,6 +4998,10 @@
           "label": "Icon Position Center",
           "info": "When enabled, icons will be centered above the text"
         },
+        "line_top": {
+          "label": "Line Top",
+          "info": "When enabled, a line will be displayed above the icon box"
+        },
         "slider_settings": {
           "content": "Slider Settings"
         },
