@@ -1,4 +1,4 @@
-{% assign card_style = settings.card_style | default: 'style-2' %}
+{% assign card_style = card_style | default: settings.card_style | default: 'style-2' %}
 {% assign card_image_padding = settings.card_image_padding | default: 0 %}
 {% assign card_text_alignment = settings.card_text_alignment | default: 'start' %}
 {% assign card_color_scheme = settings.card_color_scheme | default: 'scheme-2' %}
@@ -48,10 +48,10 @@
             </div>
         {% endif %}
         <ul class="list-product-btn">
-            {% render 'product-cart-button', product: product %}
-            {% render 'product-wishlist-button', product: product %}
-            {% render 'product-quickview-button', product: product %}
-            {% render 'product-compare-button', product: product %}
+            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% render 'product-wishlist-button', product: product, card_style: card_style %}
+            {% render 'product-quickview-button', product: product, card_style: card_style %}
+            {% render 'product-compare-button', product: product, card_style: card_style %}
         </ul>
     </div>
     <div class="card-product-info text-{{ card_text_alignment }}">
@@ -84,6 +84,77 @@
                 </div>
             </div>
         {% endif %}
+        
+        {% comment %} Hidden size and color options for filtering {% endcomment %}
+        <div style="display: none;" class="product-options">
+            {% for option in product.options_with_values %}
+                {% if option.name == 'Size' %}
+                    {% for value in option.values %}
+                        <span class="size-item" data-size="{{ value }}">{{ value }}</span>
+                    {% endfor %}
+                {% elsif option.name == 'Color' %}
+                    {% for value in option.values %}
+                        <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        {% comment %} Sale indicator for filtering {% endcomment %}
+        {% if product.compare_at_price > product.price %}
+            <div style="display: none;" class="on-sale-wrap"></div>
+        {% endif %}
+    </div>
+</div>
+{% elsif card_style == 'style-small' %}
+<div class="card-product style-small color-{{ card_color_scheme }}"
+     data-availability="{{ product.available | default: false }}"
+     data-brand="{{ product.vendor | handleize }}"
+     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
+     {% if product.compare_at_price > product.price %}data-sale="true"{% endif %}
+     style="
+        {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
+        {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
+        {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
+        {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+     ">
+    <div class="card-product-wrapper asp-ratio-0 radius-8">
+        <a href="{{ product.url }}" class="product-img">
+            {% if product.featured_image %}
+                <img class="img-product lazyload"
+                    width="120" height="120"
+                    data-src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+                    src="{{ product.featured_image | image_url: width: 60, height: 60, crop: 'center' }}" 
+                    alt="{{ product.featured_image.alt | escape }}">
+                <img class="img-hover lazyload"
+                    width="120" height="120"
+                    data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 60, height: 60, crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}">
+            {% endif %}
+        </a>
+        {% if product.compare_at_price > product.price %}
+            {% assign save_percentage = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+            <div class="on-sale-wrap">
+                <span class="on-sale-item">{{ save_percentage }}% Off</span>
+            </div>
+        {% endif %}
+        <ul class="list-product-btn">
+            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% render 'product-wishlist-button', product: product, card_style: card_style %}
+            {% render 'product-quickview-button', product: product, card_style: card_style %}
+            {% render 'product-compare-button', product: product, card_style: card_style %}
+        </ul>
+    </div>
+    <div class="card-product-info text-{{ card_text_alignment }}">
+        <a href="{{ product.url }}"
+            class="name-product link fw-medium text-sm">{{ product.title }}</a>
+        <p class="price-wrap fw-medium">
+            <span class="price-new text-primary">{% if settings.currency_code_enabled %}{{ product.price | money }} {{ shop.currency }}{% else %}{{ product.price | money }}{% endif %}</span>
+            {% if product.compare_at_price > product.price %}
+                <span class="price-old text-sm old-line">{% if settings.currency_code_enabled %}{{ product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ product.compare_at_price | money }}{% endif %}</span>
+            {% endif %}
+        </p>
         
         {% comment %} Hidden size and color options for filtering {% endcomment %}
         <div style="display: none;" class="product-options">
@@ -140,10 +211,10 @@
             </div>
         {% endif %}
         <ul class="list-product-btn">
-            {% render 'product-cart-button', product: product %}
-            {% render 'product-wishlist-button', product: product %}
-            {% render 'product-quickview-button', product: product %}
-            {% render 'product-compare-button', product: product %}
+            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% render 'product-wishlist-button', product: product, card_style: card_style %}
+            {% render 'product-quickview-button', product: product, card_style: card_style %}
+            {% render 'product-compare-button', product: product, card_style: card_style %}
         </ul>
     </div>
     <div class="card-product-info text-{{ card_text_alignment }}">
