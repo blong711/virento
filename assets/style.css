@@ -18393,17 +18393,18 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 }
 .tf-page-cart-main .box-ip-discount {
   margin: 24px 0px;
-  max-width: 443px;
   display: flex;
   gap: 6px;
 }
 .tf-page-cart-main .box-ip-discount .tf-btn {
   padding-top: 12px;
   padding-bottom: 12px;
+  max-height: 50px;
 }
 .tf-page-cart-main .box-ip-discount input {
   padding-left: 12px;
   padding-right: 12px;
+  max-width: 324.61px;
 }
 .tf-page-cart-main .cart-note label {
   margin-bottom: 10px;
