@@ -223,13 +223,28 @@
     },
     "featured_products_countdown_rJywgx": {
       "type": "featured-products-countdown",
+      "blocks": {
+        "countdown_JHYzrX": {
+          "type": "countdown",
+          "settings": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 23,
+            "minute": 59
+          }
+        }
+      },
+      "block_order": [
+        "countdown_JHYzrX"
+      ],
       "name": "t:sections.featured-products-countdown.name",
       "settings": {
         "color_scheme": "",
         "width": "container",
-        "title": "Hot Deals",
+        "title": "Today’s Best Offer",
         "heading_tag": "h4",
-        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle": "Grab fresh deals at unbeatable prices!",
         "subtitle_size": "text-md",
         "collection": "vegetables-fruits",
         "product_list": [],
