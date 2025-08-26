@@ -316,31 +316,73 @@
         "tab_neQ7UR": {
           "type": "tab",
           "settings": {
-            "tab_title": "Featured",
+            "tab_title": "Deli",
             "collection": "meat",
-            "products": []
+            "products": [
+              "vanilla-ice-cream-2l",
+              "uht-skim-milk-1l",
+              "natural-greek-style-yoghurt-1kg",
+              "salmon-tasmanian-atlantic-fillets-1",
+              "chicken-breast-fillet-min"
+            ]
           }
         },
         "tab_hRqprg": {
           "type": "tab",
           "settings": {
-            "tab_title": "Trending",
+            "tab_title": "Seafood",
             "collection": "",
-            "products": []
+            "products": [
+              "chicken-breast-fillet-min",
+              "salmon-tasmanian-atlantic-fillets-1",
+              "natural-greek-style-yoghurt-1kg",
+              "uht-skim-milk-1l",
+              "vanilla-ice-cream-2l"
+            ]
+          }
+        },
+        "tab_6NkGET": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Bakery",
+            "collection": "",
+            "products": [
+              "vanilla-ice-cream-2l",
+              "glass-elite-privacy-screen-protector-1",
+              "ham-leg-triple-smoked",
+              "extra-lean-beef-mince-500g-1",
+              "chicken-breast-fillet-min"
+            ]
+          }
+        },
+        "tab_UCi6za": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Vegetable",
+            "collection": "",
+            "products": [
+              "hans-devon-sliced-per-kg-1",
+              "extra-lean-beef-mince-500g-1",
+              "ham-leg-triple-smoked",
+              "glass-elite-privacy-screen-protector-1",
+              "vanilla-ice-cream-2l"
+            ]
           }
         }
       },
       "block_order": [
         "tab_MxHwdG",
         "tab_neQ7UR",
-        "tab_hRqprg"
+        "tab_hRqprg",
+        "tab_6NkGET",
+        "tab_UCi6za"
       ],
       "name": "Featured Products Tab",
       "settings": {
         "color_scheme": "",
         "width": "container",
         "title": "Popular Products",
-        "title_tag": "h4",
+        "title_tag": "h5",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
         "show_nav": true,
