@@ -302,9 +302,15 @@
         "tab_MxHwdG": {
           "type": "tab",
           "settings": {
-            "tab_title": "",
+            "tab_title": "Meat",
             "collection": "vegetables-fruits",
-            "products": []
+            "products": [
+              "hans-devon-sliced-per-kg",
+              "extra-lean-beef-mince-500g",
+              "doritos-corn-chips-cheese",
+              "green-capsicum",
+              "vanilla-ice-cream-2l"
+            ]
           }
         },
         "tab_neQ7UR": {
