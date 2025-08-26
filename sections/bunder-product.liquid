@@ -1,0 +1,303 @@
+<!-- Bunder Product -->
+<section class="s-banner-bundle bundle-suppermarket section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
+    <div class="row">
+      <div class="col-md-5 col-xl-5">
+        <div class="image-wrap radius-16  hover-shine hover-img">
+          <div class="image img-style shine-item overflow-hidden">
+            {% if section.settings.banner_image %}
+              <img
+                src="{{ section.settings.banner_image | image_url: width: 500 }}"
+                data-src="{{ section.settings.banner_image | image_url: width: 500 }}"
+                alt="{{ section.settings.banner_image.alt | default: section.settings.banner_title }}"
+                width="500"
+                height="300"
+                class="lazyload"
+              >
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+          <div class="content-list">
+            <ul class="list-recipe">
+              {% if section.settings.banner_title != blank %}
+                <li>
+                  <span class="fw-medium text-xl">{{ section.settings.banner_title }}</span>
+                </li>
+              {% endif %}
+              {% if section.settings.banner_subtitle1 != blank %}
+                <li class="br--line"></li>
+                <li>
+                  <p class="text-sm">{{ section.settings.banner_subtitle1 }}</p>
+                </li>
+              {% endif %}
+              {% if section.settings.banner_subtitle2 != blank %}
+                <li class="br--line"></li>
+                <li>
+                  <p class="text-sm">{{ section.settings.banner_subtitle2 }}</p>
+                </li>
+              {% endif %}
+            </ul>
+            {% if section.settings.banner_btn_label != blank %}
+              <a href="{{ section.settings.banner_btn_link | default: '#' }}" class="tf-btn btn-line-dark fw-normal">
+                <span class="text-sm">{{ section.settings.banner_btn_label }}</span>
+                <i class="icon-arrow-top-left fs-8"></i>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7 col-xl-7">
+        <div class="bundle-wrap">
+          <div class="flat-title mb-0 wow fadeInUp">
+            {% if section.settings.bundle_heading != blank %}
+              <h4 class="title">{{ section.settings.bundle_heading }}</h4>
+            {% endif %}
+            {% if section.settings.bundle_subheading != blank %}
+              <p class="desc text-md">
+                {{ section.settings.bundle_subheading }}
+              </p>
+            {% endif %}
+          </div>
+          <div
+            dir="ltr"
+            class="swiper tf-swiper"
+            data-swiper='
+              {
+              "slidesPerView": 2,
+              "spaceBetween": 12,
+              "speed": 800,
+              "observer": true,
+              "observeParents": true,
+              "slidesPerGroup": 1,
+              "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-bundle",
+                  "prevEl": ".nav-prev-bundle"
+              },
+              "pagination": { "el": ".sw-pagination-bundle", "clickable": true },
+              "breakpoints": {
+              "1200": { "slidesPerView": 3, "spaceBetween": 24, "slidesPerGroup": 3}
+              }
+              }
+            '
+          >
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                {% assign product = block.settings.bundle_product %}
+                {% if product != blank %}
+                  <div class="swiper-slide" {{ block.shopify_attributes }}>
+                    {% render 'product-card',
+                      product: product,
+                      show_vendor: false,
+                      show_rating: true,
+                      show_quick_add: true,
+                      show_quick_view: true
+                    %}
+                  </div>
+                {% else %}
+                  <div class="swiper-slide">
+                    <div class="product-card">
+                      <div class="product-card-image">
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="sw-dot-default sw-pagination-bundle justify-content-center"></div>
+          </div>
+
+          {% if section.settings.bundle_note != blank %}
+            <p class="text-md text-center">{{ section.settings.bundle_note }}</p>
+          {% endif %}
+          {% if section.settings.bundle_btn_label != blank %}
+            <div class="box-btn text-center">
+              <a
+                href="{{ section.settings.bundle_btn_link | default: '#shoppingCart' }}"
+                data-bs-toggle="offcanvas"
+                class="tf-btn animate-btn"
+              >
+                {{ section.settings.bundle_btn_label }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Banner Product -->
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .tf-btn.btn-line-dark:hover::after {
+    background-color: rgb(var(--color-button-hover));
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "t:sections.bundle_product.name",
+  "settings": [
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.bundle_product.settings.width.label",
+      "options": [
+        { "value": "boxed", "label": "t:sections.bundle_product.settings.width.options.boxed" },
+        { "value": "full", "label": "t:sections.bundle_product.settings.width.options.full" }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.bundle_product.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.bundle_product.settings.banner_header.content"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "t:sections.bundle_product.settings.banner_image.label"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "t:sections.bundle_product.settings.banner_title.label",
+      "default": "t:sections.bundle_product.settings.banner_title.default"
+    },
+    {
+      "type": "text",
+      "id": "banner_subtitle1",
+      "label": "t:sections.bundle_product.settings.banner_subtitle1.label",
+      "default": "t:sections.bundle_product.settings.banner_subtitle1.default"
+    },
+    {
+      "type": "text",
+      "id": "banner_subtitle2",
+      "label": "t:sections.bundle_product.settings.banner_subtitle2.label",
+      "default": "t:sections.bundle_product.settings.banner_subtitle2.default"
+    },
+    {
+      "type": "text",
+      "id": "banner_btn_label",
+      "label": "t:sections.bundle_product.settings.banner_btn_label.label",
+      "default": "t:sections.bundle_product.settings.banner_btn_label.default"
+    },
+    { "type": "url", "id": "banner_btn_link", "label": "t:sections.bundle_product.settings.banner_btn_link.label" },
+
+    {
+      "type": "header",
+      "content": "t:sections.bundle_product.settings.bundle_header.content"
+    },
+    {
+      "type": "text",
+      "id": "bundle_heading",
+      "label": "t:sections.bundle_product.settings.bundle_heading.label",
+      "default": "t:sections.bundle_product.settings.bundle_heading.default"
+    },
+    {
+      "type": "text",
+      "id": "bundle_subheading",
+      "label": "t:sections.bundle_product.settings.bundle_subheading.label",
+      "default": "t:sections.bundle_product.settings.bundle_subheading.default"
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_note",
+      "label": "t:sections.bundle_product.settings.bundle_note.label",
+      "default": "t:sections.bundle_product.settings.bundle_note.default"
+    },
+    {
+      "type": "text",
+      "id": "bundle_btn_label",
+      "label": "t:sections.bundle_product.settings.bundle_btn_label.label",
+      "default": "t:sections.bundle_product.settings.bundle_btn_label.default"
+    },
+    { "type": "url", "id": "bundle_btn_link", "label": "t:sections.bundle_product.settings.bundle_btn_link.label" },
+
+    {
+      "type": "header",
+      "content": "t:sections.bundle_product.settings.padding_header.content"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:sections.bundle_product.settings.padding_top.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:sections.bundle_product.settings.padding_bottom.label",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_rate_mobile",
+      "label": "t:sections.bundle_product.settings.padding_rate_mobile.label",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bundle_item",
+      "name": "t:sections.bundle_product.blocks.bundle_item.name",
+      "settings": [
+        {
+          "type": "product",
+          "id": "bundle_product",
+          "label": "t:sections.bundle_product.blocks.bundle_item.settings.bundle_product.label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.bundle_product.presets.name",
+      "blocks": [
+        {
+          "type": "bundle_item"
+        },
+        {
+          "type": "bundle_item"
+        },
+        {
+          "type": "bundle_item"
+        },
+        {
+          "type": "bundle_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
