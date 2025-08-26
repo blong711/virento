@@ -24692,3 +24692,61 @@ shopify-accelerated-checkout {
   font-size: 20px;
 }
 /*# sourceMappingURL=styles.css.map */
+
+/* Form Validation Styles */
+.form-input {
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-input.error {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.form-input.error:focus {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.field-error,
+.error-message {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.field-error .error-list,
+.error-message .error-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.field-error .error-list li,
+.error-message .error-list li {
+  color: #dc3545;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.error-message {
+  min-height: 20px;
+}
+
+/* Real-time validation feedback */
+.form-input:valid:not(:placeholder-shown) {
+  border-color: #28a745 !important;
+}
+
+.form-input:invalid:not(:placeholder-shown) {
+  border-color: #dc3545 !important;
+}
+
+/* Submit button states */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  transform: none;
+}

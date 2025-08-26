@@ -797,7 +797,10 @@
       "reset_success": "We've sent you an email with a link to update your password.",
       "error_message": "An error occurred. Please try again.",
       "email_missing": "Email is required",
-      "password_missing": "Password is required"
+      "password_missing": "Password is required",
+      "email_invalid": "Please enter a valid email address",
+      "password_too_short": "Password must be at least 6 characters long",
+      "logging_in": "Logging in..."
     },
     "sections": {
       "main_login": {

@@ -15,7 +15,7 @@
               <div id="login-form-block">
                 <h2 class="display-sm fw-medium mb-5">{{ 'sections.main_login.log_in' | t }}</h2>
                 <div id="login">
-                  {%- form 'customer_login', novalidate: 'novalidate' -%}
+                  {%- form 'customer_login' -%}
                     {%- if form.errors -%}
                       <div class="form-message error">
                         <ul class="error-list">
@@ -43,11 +43,15 @@
                         autocomplete="email"
                         autocorrect="off"
                         autocapitalize="off"
+                        required
+                        aria-required="true"
+                        aria-describedby="email-error-{{ section.id }}"
                         {% if form.errors contains 'form' %}
                           aria-invalid="true"
                         {% endif %}
                         placeholder="{{ 'sections.main_login.email' | t }} *"
                       >
+                      <div id="email-error-{{ section.id }}" class="error-message" aria-live="polite" style="display: none;"></div>
                     </div>
                     <div class="form-field">
                       <input
@@ -57,8 +61,13 @@
                         name="customer[password]"
                         id="CustomerPassword-{{ section.id }}"
                         autocomplete="current-password"
+                        required
+                        minlength="6"
+                        aria-required="true"
+                        aria-describedby="password-error-{{ section.id }}"
                         placeholder="{{ 'sections.main_login.password' | t }} *"
                       >
+                      <div id="password-error-{{ section.id }}" class="error-message" aria-live="polite" style="display: none;"></div>
                     </div>
                     <div class="form-field">
                       <a href="#" class="forgot-link link mt-4 mb-4" id="show-reset-form">
@@ -183,9 +192,70 @@
       });
     }
 
+    // Email validation function
+    function isValidEmail(email) {
+      // More robust email validation regex
+      var emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+      return emailRegex.test(email);
+    }
+    
+    // Helper function to show field-specific errors
+    function showFieldError(input, message, fieldType) {
+      // Remove existing error for this field
+      removeFieldError(input, fieldType);
+      
+      // Find the error message container
+      var errorContainer = input.parentNode.querySelector('.error-message');
+      if (errorContainer) {
+        errorContainer.innerHTML = '<ul class="error-list"><li>' + message + '</li></ul>';
+        errorContainer.style.display = 'block';
+        errorContainer.className = 'error-message form-message error field-error';
+      }
+      
+      // Add error styling to input
+      input.classList.add('error');
+      input.setAttribute('aria-invalid', 'true');
+    }
+    
+    // Helper function to remove field-specific errors
+    function removeFieldError(input, fieldType) {
+      var errorContainer = input.parentNode.querySelector('.error-message');
+      if (errorContainer) {
+        errorContainer.innerHTML = '';
+        errorContainer.style.display = 'none';
+        errorContainer.className = 'error-message';
+      }
+      input.classList.remove('error');
+      input.setAttribute('aria-invalid', 'false');
+    }
+
     // Handle login form submission with validation
     var loginForm = document.querySelector('#login form');
     if (loginForm) {
+      // Add real-time validation feedback
+      var emailInput = document.getElementById('CustomerEmail-{{ section.id }}');
+      var passwordInput = document.getElementById('CustomerPassword-{{ section.id }}');
+      
+      // Real-time email validation
+      if (emailInput) {
+        emailInput.addEventListener('input', function() {
+          removeFieldError(this, 'email');
+          if (this.value.trim() && !isValidEmail(this.value.trim())) {
+            showFieldError(this, '{{ "sections.main_login.email_invalid" | t }}', 'email');
+          }
+        });
+      }
+      
+      // Real-time password validation
+      if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+          removeFieldError(this, 'password');
+          if (this.value.trim() && this.value.length < 6) {
+            showFieldError(this, '{{ "sections.main_login.password_too_short" | t }}', 'password');
+          }
+        });
+      }
+      
       loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
         
@@ -206,6 +276,20 @@
           emailError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.email_missing" | t }}</li></ul>';
           loginForm.insertBefore(emailError, loginForm.firstChild);
           hasError = true;
+        } else if (!isValidEmail(email)) {
+          // Check if email format is valid
+          var emailError = document.createElement('div');
+          emailError.className = 'form-message error';
+          emailError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.email_invalid" | t }}</li></ul>';
+          loginForm.insertBefore(emailError, loginForm.firstChild);
+          hasError = true;
+        } else if (!email.includes('@') || !email.includes('.')) {
+          // Additional basic email format check
+          var emailError = document.createElement('div');
+          emailError.className = 'form-message error';
+          emailError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.email_invalid" | t }}</li></ul>';
+          loginForm.insertBefore(emailError, loginForm.firstChild);
+          hasError = true;
         }
         
         // Check if password is empty
@@ -215,6 +299,13 @@
           passwordError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.password_missing" | t }}</li></ul>';
           loginForm.insertBefore(passwordError, loginForm.firstChild);
           hasError = true;
+        } else if (password.length < 6) {
+          // Check if password meets minimum length requirement
+          var passwordError = document.createElement('div');
+          passwordError.className = 'form-message error';
+          passwordError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.password_too_short" | t }}</li></ul>';
+          loginForm.insertBefore(passwordError, loginForm.firstChild);
+          hasError = true;
         }
         
         // If there are validation errors, don't submit
@@ -222,7 +313,15 @@
           return;
         }
         
-        // If validation passes, submit the form normally
+        // If validation passes, show loading state and submit the form
+        var submitButton = this.querySelector('button[type="submit"]');
+        var originalButtonText = submitButton.textContent;
+        
+        // Disable submit button and show loading state
+        submitButton.disabled = true;
+        submitButton.textContent = '{{ "sections.main_login.logging_in" | t }}';
+        
+        // Submit the form
         this.submit();
       });
     }
