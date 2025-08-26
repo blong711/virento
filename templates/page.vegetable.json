@@ -265,17 +265,18 @@
         "padding_mobile_rate": 75
       }
     },
-    "featured_products_countdown_beREfN": {
-      "type": "featured-products-countdown",
-      "name": "t:sections.featured-products-countdown.name",
+    "featured_product_carousel_jAUM44": {
+      "type": "featured-product-carousel",
+      "name": "t:sections.featured-product-carousel.name",
       "settings": {
         "color_scheme": "",
         "width": "container",
+        "title_alignment": "start",
         "title": "Weekly Discount",
-        "heading_tag": "h4",
+        "title_tag": "h4",
         "subtitle": "Stock up and save with exclusive weekend offers — only for a limited time!",
         "subtitle_size": "text-md",
-        "collection": "",
+        "featured_collection": "",
         "product_list": [
           "vanilla-ice-cream-2l",
           "cauliflower",
@@ -283,12 +284,13 @@
           "salmon-tasmanian-atlantic-fillets",
           "chicken-breast-fillet-min"
         ],
+        "products_to_show": 6,
+        "show_navigation": true,
+        "navigation_style": "individual",
+        "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
-        "show_navigation": true,
-        "show_mobile_dots": true,
-        "products_to_show": 6,
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
@@ -395,7 +397,7 @@
     "categories_Ppq9Br",
     "featured_products_countdown_rJywgx",
     "color_icon_box_RC3DXf",
-    "featured_products_countdown_beREfN",
+    "featured_product_carousel_jAUM44",
     "offer_banner_d4NYLb",
     "map_with_text_cTzEtF"
   ]
