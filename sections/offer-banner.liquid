@@ -18,15 +18,25 @@
             },
             "pagination": { "el": ".sw-pagination-cls", "clickable": true },
             "breakpoints": {
-                "768": {
-                    "slidesPerView": {{ section.settings.slides_per_view_tablet }},
-                    "spaceBetween": {{ section.settings.space_between_tablet }},
-                    "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+                "575": {
+                    "slidesPerView": {{ section.settings.items_per_row_mobile }},
+                    "spaceBetween": 12,
+                    "slidesPerGroup": {{ section.settings.items_per_row_mobile }}
                 },
-                "1024": {
-                    "slidesPerView": {{ section.settings.slides_per_view_desktop }},
-                    "spaceBetween": {{ section.settings.space_between_desktop }},
-                    "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+                "768": { 
+                    "slidesPerView": {{ section.settings.items_per_row_tablet }}, 
+                    "spaceBetween": 12,
+                    "slidesPerGroup": {{ section.settings.items_per_row_tablet }}
+                },
+                "992": { 
+                    "slidesPerView": {{ section.settings.items_per_row_tablet }},
+                    "spaceBetween": 24,
+                    "slidesPerGroup": {{ section.settings.items_per_row_tablet }}
+                },
+                "1200": {
+                    "slidesPerView": {{ section.settings.items_per_row_desktop }},
+                    "spaceBetween": 24,
+                    "slidesPerGroup": {{ section.settings.items_per_row_desktop }}
                 }
             }
         }
