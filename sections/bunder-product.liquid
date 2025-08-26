@@ -142,8 +142,10 @@
     }
   }
 
-  .tf-btn.btn-line-dark:hover::after {
-    background-color: rgb(var(--color-button-hover));
+   .tf-btn.btn-line-dark {
+      background: transparent !important;
+      color: var(--dark) !important;
+      border: none !important;
   }
 {%- endstyle -%}
 
@@ -242,7 +244,7 @@
       "id": "padding_top",
       "label": "t:sections.bundle_product.settings.padding_top.label",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "default": 40
@@ -252,7 +254,7 @@
       "id": "padding_bottom",
       "label": "t:sections.bundle_product.settings.padding_bottom.label",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "default": 40

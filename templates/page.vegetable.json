@@ -502,8 +502,8 @@
         "bundle_note": "*All these portions are made enough for 4 people",
         "bundle_btn_label": "Add Bundle to Cart",
         "bundle_btn_link": "",
-        "padding_top": 40,
-        "padding_bottom": 40,
+        "padding_top": 0,
+        "padding_bottom": 120,
         "padding_rate_mobile": 50
       }
     },
