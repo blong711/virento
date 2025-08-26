@@ -358,7 +358,26 @@
     })
     .then(response => response.json())
     .then(cart => {
-      if (cart.token) {
+      // Check if discount was actually applied by comparing total_discounts
+      const previousTotalDiscounts = parseFloat(document.querySelector('[data-cart-total-discounts]')?.getAttribute('data-cart-total-discounts') || '0');
+      const currentTotalDiscounts = cart.total_discounts || 0;
+      
+      // Check if the discount code was actually applied
+      const hasDiscountApplied = cart.total_discounts > 0 && 
+                                (cart.discount_applications && cart.discount_applications.length > 0);
+      
+      // Check if this is a new discount application (total discounts increased)
+      const isNewDiscount = currentTotalDiscounts > previousTotalDiscounts;
+      
+      // Also check if the discount code exists in discount applications
+      const discountCodeExists = cart.discount_applications && 
+                                cart.discount_applications.some(app => 
+                                  app.type === 'discount_code' && 
+                                  app.code && 
+                                  app.code.toLowerCase() === discountCode.toLowerCase()
+                                );
+      
+      if (hasDiscountApplied && (isNewDiscount || discountCodeExists)) {
         // Successfully applied discount
         this.updateCartDisplay(cart);
         alert('Discount code applied successfully!');
@@ -366,8 +385,21 @@
         // Clear the input
         const discountInput = document.querySelector('.box-ip-discount input[name="discount"]');
         if (discountInput) discountInput.value = '';
+        
+        // Update the data attribute for future comparisons
+        const discountElement = document.querySelector('[data-cart-total-discounts]');
+        if (discountElement) {
+          discountElement.setAttribute('data-cart-total-discounts', currentTotalDiscounts.toString());
+        }
       } else {
-        alert('Invalid discount code. Please try again.');
+        // Check if there's an error message in the response
+        if (cart.errors && cart.errors.discount) {
+          alert('Discount code error: ' + cart.errors.discount);
+        } else if (cart.errors && cart.errors.discount_code) {
+          alert('Discount code error: ' + cart.errors.discount_code);
+        } else {
+          alert('Invalid discount code. Please try again.');
+        }
       }
     })
     .catch(error => {
@@ -687,9 +719,29 @@
         const element = document.querySelector(selector);
         if (element) {
           element.textContent = '-' + this.formatMoney(cart.total_discounts);
+          // Add data attribute to track discount changes
+          element.setAttribute('data-cart-total-discounts', cart.total_discounts.toString());
           discountUpdated = true;
           break;
         }
+      }
+      
+      // If no discount element found, create a hidden one to track discount changes
+      if (!discountUpdated) {
+        let hiddenDiscountTracker = document.querySelector('[data-cart-total-discounts]');
+        if (!hiddenDiscountTracker) {
+          hiddenDiscountTracker = document.createElement('div');
+          hiddenDiscountTracker.setAttribute('data-cart-total-discounts', '0');
+          hiddenDiscountTracker.style.display = 'none';
+          document.body.appendChild(hiddenDiscountTracker);
+        }
+        hiddenDiscountTracker.setAttribute('data-cart-total-discounts', cart.total_discounts.toString());
+      }
+    } else {
+      // Reset discount tracker when no discounts
+      const discountTracker = document.querySelector('[data-cart-total-discounts]');
+      if (discountTracker) {
+        discountTracker.setAttribute('data-cart-total-discounts', '0');
       }
     }
     
