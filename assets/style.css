@@ -16042,7 +16042,7 @@ button.animate-btn::after,
   gap: 5px;
 }
 .list-star-default i {
-  color: #98ab23;
+  /* color: #98ab23; */
   font-size: 14px;
 }
 
