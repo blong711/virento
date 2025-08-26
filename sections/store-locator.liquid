@@ -4,20 +4,12 @@
 {% endcomment %}
 
 {%- liquid
-  assign padding_top = section.settings.padding_top
-  assign padding_bottom = section.settings.padding_bottom
-  assign padding_mobile_rate = section.settings.padding_mobile_rate
   assign color_scheme = section.settings.color_scheme
   assign width = section.settings.width
 -%}
 
 <section
-  class="s-store-location flat-spacing-2 color-{{ color_scheme }}{% if width == 'full' %} section-full-width{% endif %}"
-  style="
-    padding-top: {{ padding_top }}px;
-    padding-bottom: {{ padding_bottom }}px;
-    --padding-mobile-rate: {{ padding_mobile_rate }}%;
-  "
+  class="s-store-location flat-spacing-2 color-{{ color_scheme }}{% if width == 'full' %} section-full-width{% endif %} section-{{ section.id }}-padding"
 >
   <div class="{% if width == 'boxed' %}container{% else %}container-full{% endif %}">
     <div class="row">
@@ -138,11 +130,18 @@
 
 {%- comment -%} Mobile padding media query {%- endcomment -%}
 <style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  } 
+    
+  @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+  }
   @media (max-width: 767px) {
-    .s-store-location {
-      padding-top: calc({{padding_top}}px * var(--padding-mobile-rate) / 100);
-      padding-bottom: calc({{padding_bottom}}px * var(--padding-mobile-rate) / 100);
-    }
     .wg-map iframe {
       height: 350px !important;
     }
