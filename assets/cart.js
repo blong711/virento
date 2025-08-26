@@ -191,6 +191,11 @@
   removeCartItem(itemKey) {
     if (!itemKey) return;
 
+    // Check if this is a gift wrap item before removing
+    const itemElement = document.querySelector(`[data-item-key="${itemKey}"]`);
+    const isGiftWrap = itemElement && itemElement.querySelector('.name') && 
+                       itemElement.querySelector('.name').textContent.toLowerCase().includes('gift wrap');
+
     const formData = new FormData();
     formData.append('id', itemKey);
     formData.append('quantity', 0);
@@ -205,9 +210,16 @@
     .then(response => response.json())
     .then(cart => {
       // Immediately remove the item from display
-      const itemElement = document.querySelector(`[data-item-key="${itemKey}"]`);
       if (itemElement) {
         itemElement.remove();
+      }
+      
+      // If this was a gift wrap item, immediately uncheck the checkbox
+      if (isGiftWrap) {
+        const giftWrapCheckbox = document.querySelector('#checkGift');
+        if (giftWrapCheckbox) {
+          giftWrapCheckbox.checked = false;
+        }
       }
       
       // Update the rest of the cart display
@@ -285,6 +297,12 @@
     });
     
     if (giftWrapRemoved) {
+      // Immediately uncheck the gift wrap checkbox
+      const giftWrapCheckbox = document.querySelector('#checkGift');
+      if (giftWrapCheckbox) {
+        giftWrapCheckbox.checked = false;
+      }
+      
       // Force a complete cart refresh to ensure the gift wrap item is removed from display
       this.forceCartRefresh();
     } else {
@@ -630,7 +648,7 @@
     for (const selector of subtotalSelectors) {
       const element = document.querySelector(selector);
       if (element) {
-        element.textContent = this.formatMoney(cart.total_price);
+        element.textContent = this.formatMoney(cart.total_price) + ' ' + document.querySelector('[data-currency-code]')?.getAttribute('data-currency-code');
         subtotalUpdated = true;
         break;
       }
@@ -768,19 +786,8 @@
   }
 
   formatMoney(cents) {
-    // Format money with currency code if enabled
-    const amount = '$' + (cents / 100).toFixed(2);
-    
-    // Check if currency code should be displayed
-    // Look for the currency setting in the page
-    const currencyEnabled = document.querySelector('[data-currency-enabled]')?.getAttribute('data-currency-enabled') === 'true';
-    const currencyCode = document.querySelector('[data-currency-code]')?.getAttribute('data-currency-code');
-    
-    if (currencyEnabled && currencyCode) {
-      return amount + ' ' + currencyCode;
-    }
-    
-    return amount;
+    // Format money as simple dollar amount
+    return '$' + (cents / 100).toFixed(2);
   }
 
   updateFreeShippingProgress(cartTotal) {
@@ -955,14 +962,9 @@
       }
     });
     
-    // Only update checkbox if the state is different to avoid interfering with user interactions
+    // Update checkbox state to match cart state
     if (giftWrapCheckbox.checked !== hasGiftWrap) {
-      // Add a small delay to prevent immediate re-checking during removal operations
-      setTimeout(() => {
-        if (giftWrapCheckbox.checked !== hasGiftWrap && !this.isRemovingGiftWrap) {
-          giftWrapCheckbox.checked = hasGiftWrap;
-        }
-      }, 50);
+      giftWrapCheckbox.checked = hasGiftWrap;
     }
   }
 
