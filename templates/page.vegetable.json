@@ -260,8 +260,8 @@
         "cols_tablet": 3,
         "cols_mobile": 2,
         "mobile_dots": true,
-        "padding_top": 120,
-        "padding_bottom": 120,
+        "padding_top": 100,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     },
