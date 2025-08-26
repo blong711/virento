@@ -382,6 +382,66 @@
       {% endif %}
     }
     
+    /* Mobile-specific fill and fixed height styles to eliminate blank space */
+    .slider-height[data-mobile-height="fill"] .slider-wrap,
+    .slider-height[data-mobile-height="fixed"] .slider-wrap {
+      height: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    
+    .slider-height[data-mobile-height="fill"] .slider-wrap .image,
+    .slider-height[data-mobile-height="fixed"] .slider-wrap .image {
+      flex: 1 !important;
+      height: auto !important;
+      min-height: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    
+    .slider-height[data-mobile-height="fill"] .slider-wrap img,
+    .slider-height[data-mobile-height="fixed"] .slider-wrap img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+    }
+    
+    .slider-height[data-mobile-height="fill"] .slider-wrap .box-content,
+    .slider-height[data-mobile-height="fixed"] .slider-wrap .box-content {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      z-index: 2 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    
+    .slider-height[data-mobile-height="fill"] .slider-wrap .box-content .content-slider,
+    .slider-height[data-mobile-height="fixed"] .slider-wrap .box-content .content-slider {
+      text-align: center !important;
+      padding: 20px !important;
+      background: rgba(0, 0, 0, 0.3) !important;
+      border-radius: 8px !important;
+      backdrop-filter: blur(5px) !important;
+    }
+    
+    .slider-height[data-mobile-height="fill"] .slider-wrap .box-content .box-title-slider h4,
+    .slider-height[data-mobile-height="fixed"] .slider-wrap .box-content .box-title-slider h4 {
+      color: white !important;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7) !important;
+    }
+    
+    .slider-height[data-mobile-height="fill"] .slider-wrap .box-content .box-title-slider .sub,
+    .slider-height[data-mobile-height="fixed"] .slider-wrap .box-content .box-title-slider .sub {
+      color: rgba(255, 255, 255, 0.9) !important;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7) !important;
+    }
+    
     /* Mobile-specific adapt-first styles - more aggressive overrides */
     .slider-height[data-height="adapt-first"] .slider-wrap .image,
     .slider-height[data-mobile-height="adapt-first"] .slider-wrap .image {
@@ -737,5 +797,55 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   }
+  
+  // Handle fill and fixed height modes on mobile to eliminate blank space
+  function handleMobileHeightModes() {
+    const isMobile = window.innerWidth <= 767;
+    if (!isMobile) return;
+    
+    if (mobileHeightSetting === 'fill' || mobileHeightSetting === 'fixed') {
+      const slides = slider.querySelectorAll('.swiper-slide');
+      
+      slides.forEach(slide => {
+        const content = slide.querySelector('.slider-wrap');
+        const imageContainer = slide.querySelector('.image');
+        const textContent = slide.querySelector('.box-content');
+        
+        if (content && imageContainer && textContent) {
+          // Ensure the image container takes up the full available space
+          imageContainer.style.setProperty('flex', '1', 'important');
+          imageContainer.style.setProperty('min-height', '0', 'important');
+          
+          // Position text content absolutely over the image
+          textContent.style.setProperty('position', 'absolute', 'important');
+          textContent.style.setProperty('top', '0', 'important');
+          textContent.style.setProperty('left', '0', 'important');
+          textContent.style.setProperty('right', '0', 'important');
+          textContent.style.setProperty('bottom', '0', 'important');
+          textContent.style.setProperty('z-index', '2', 'important');
+          
+          // Ensure images fill the container properly
+          const images = imageContainer.querySelectorAll('img');
+          images.forEach(img => {
+            img.style.setProperty('width', '100%', 'important');
+            img.style.setProperty('height', '100%', 'important');
+            img.style.setProperty('object-fit', 'cover', 'important');
+            img.style.setProperty('object-position', 'center', 'important');
+          });
+        }
+      });
+    }
+  }
+  
+  // Call mobile height handler
+  handleMobileHeightModes();
+  
+  // Handle on resize
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      handleMobileHeightModes();
+    }, 250);
+  });
 });
 </script>
