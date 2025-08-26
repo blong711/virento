@@ -39,7 +39,6 @@
         "language_selector_p7TkXJ",
         "currency_selector_TcTzBp"
       ],
-      "disabled": true,
       "settings": {
         "show_social_icons": true,
         "show_language_selector": true,
@@ -111,7 +110,6 @@
         "mega_pages_3bFYDC",
         "mega_blog_MJU78y"
       ],
-      "disabled": true,
       "settings": {
         "layout_type": "electric",
         "sticky_header": "on_scroll_up",

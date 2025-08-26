@@ -84,7 +84,6 @@
           "type": "cart_summary",
           "settings": {
             "subtotal_label": "Subtotal:",
-            "discounts_label": "Discounts:",
             "tax_message": "Taxes and shipping calculated at checkout",
             "show_terms_checkbox": true,
             "terms_text": "I agree with",
