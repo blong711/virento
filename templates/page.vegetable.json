@@ -133,6 +133,94 @@
         "padding_mobile_rate": 75
       }
     },
+    "categories_Ppq9Br": {
+      "type": "categories",
+      "blocks": {
+        "category_BtcLrc": {
+          "type": "category",
+          "settings": {
+            "collection": "vegetables-fruits",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_CaUbWe": {
+          "type": "category",
+          "settings": {
+            "collection": "seafood",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_6fxqKb": {
+          "type": "category",
+          "settings": {
+            "collection": "meat",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_WWHA4Y": {
+          "type": "category",
+          "settings": {
+            "collection": "dairy",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_Udqit3": {
+          "type": "category",
+          "settings": {
+            "collection": "bakery",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_yE6BTh": {
+          "type": "category",
+          "settings": {
+            "collection": "beverages",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_mN6zWV": {
+          "type": "category",
+          "settings": {
+            "collection": "vegetables-fruits",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_BtcLrc",
+        "category_CaUbWe",
+        "category_6fxqKb",
+        "category_WWHA4Y",
+        "category_Udqit3",
+        "category_yE6BTh",
+        "category_mN6zWV"
+      ],
+      "name": "t:sections.categories.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title_alignment": "center",
+        "title": "Categories",
+        "title_tag": "h4",
+        "subtitle": "Explore our wide range of fresh and packaged goods, perfect for every meal.",
+        "subtitle_size": "text-md",
+        "show_arrows": true,
+        "show_mobile_dots": true,
+        "items_per_row_desktop": 6,
+        "items_per_row_tablet": 4,
+        "items_per_row_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
     "offer_banner_d4NYLb": {
       "type": "offer-banner",
       "blocks": {
@@ -232,6 +320,7 @@
   "order": [
     "grid_collection_JKT7V3",
     "color_icon_box_RC3DXf",
+    "categories_Ppq9Br",
     "offer_banner_d4NYLb",
     "map_with_text_cTzEtF"
   ]
