@@ -259,6 +259,35 @@
         "padding_mobile_rate": 75
       }
     },
+    "featured_products_countdown_beREfN": {
+      "type": "featured-products-countdown",
+      "name": "t:sections.featured-products-countdown.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title": "Weekly Discount",
+        "heading_tag": "h4",
+        "subtitle": "Stock up and save with exclusive weekend offers — only for a limited time!",
+        "subtitle_size": "text-md",
+        "collection": "",
+        "product_list": [
+          "vanilla-ice-cream-2l",
+          "cauliflower",
+          "natural-greek-style-yoghurt-1kg",
+          "salmon-tasmanian-atlantic-fillets",
+          "chicken-breast-fillet-min"
+        ],
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "show_navigation": true,
+        "show_mobile_dots": true,
+        "products_to_show": 6,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
     "offer_banner_d4NYLb": {
       "type": "offer-banner",
       "blocks": {
@@ -360,6 +389,7 @@
     "categories_Ppq9Br",
     "featured_products_countdown_rJywgx",
     "color_icon_box_RC3DXf",
+    "featured_products_countdown_beREfN",
     "offer_banner_d4NYLb",
     "map_with_text_cTzEtF"
   ]
