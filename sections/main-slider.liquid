@@ -492,7 +492,7 @@
                                         <div class="image">
                                                                                             {% if block.settings.image %}
                                                 {% assign image_class = 'lazyload' %}
-                                                {% if section.settings.height == 'fill' or section.settings.height == 'fixed' %}
+                                                {% if section.settings.height == 'fill' or section.settings.height == 'fixed' or section.settings.mobile_height == 'fill' %}
                                                     {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
                                                 {% endif %}
                                                 
