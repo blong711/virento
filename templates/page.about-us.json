@@ -54,7 +54,7 @@
         "image_height": "fixed",
         "fixed_height": 670,
         "mobile_image_height": "fullscreen",
-        "mobile_fixed_height": 150,
+        "mobile_fixed_height": 400,
         "image": "shopify://shop_images/about.jpg",
         "border_radius": 16,
         "padding_top": 0,
