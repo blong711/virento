@@ -543,6 +543,75 @@
         "padding_bottom": 0,
         "padding_mobile_ratio": 75
       }
+    },
+    "icon_box_UihXfc": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_QkU3GF": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "Free Shipping",
+            "description": ""
+          }
+        },
+        "icon_box_wcxJHP": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-gift",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "Gift Package",
+            "description": ""
+          }
+        },
+        "icon_box_8Mk8nA": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "EASY RETURNS",
+            "description": ""
+          }
+        },
+        "icon_box_VY9cJQ": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "ONE YEAR WARRANTY",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_QkU3GF",
+        "icon_box_wcxJHP",
+        "icon_box_8Mk8nA",
+        "icon_box_VY9cJQ"
+      ],
+      "name": "t:sections.icon-box.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "icon_position_center": false,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "icon_style": "default",
+        "padding_top": 52,
+        "padding_bottom": 52,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -554,6 +623,7 @@
     "featured_products_tab_gYFJYp",
     "offer_banner_d4NYLb",
     "bunder_product_G4r6DK",
-    "map_with_text_cTzEtF"
+    "map_with_text_cTzEtF",
+    "icon_box_UihXfc"
   ]
 }
