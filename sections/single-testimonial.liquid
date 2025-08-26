@@ -22,7 +22,7 @@
       {%- if section.settings.rating > 0 -%}
         <div class="list-star-default justify-content-center star-rating-{{ section.id }}">
           {%- for i in (1..5) -%}
-            <i class="icon-star {% if i <= section.settings.rating %}text-green{% endif %}"></i>
+            <i class="icon-start {% if i <= section.settings.rating %}text-green{% endif %}"></i>
           {%- endfor -%}
         </div>
       {%- endif -%}

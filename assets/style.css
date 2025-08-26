@@ -24677,5 +24677,7 @@ shopify-accelerated-checkout {
 .container-full .fl-control-sw2 .swiper-button-next {
   right: 0px;
 }
-
+.box-testimonial-quote .icon-start {
+  font-size: 20px;
+}
 /*# sourceMappingURL=styles.css.map */
