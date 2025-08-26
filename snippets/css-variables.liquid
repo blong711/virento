@@ -60,7 +60,11 @@
 
    body{{ scheme_classes }} {
      color: rgba(var(--color-foreground));
-     background-color: rgb(var(--color-background));
+     {% if scheme.settings.background_gradient != empty %}
+       background: var(--gradient-background);
+     {% else %}
+       background-color: rgb(var(--color-background));
+     {% endif %}
    }
 
    /* Heading styles - only applied to sections with color schemes */
