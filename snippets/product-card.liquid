@@ -1,10 +1,26 @@
+{% comment %}
+    Accepts:
+    - product: The product object
+    - card_style: The card style (style-1, style-2, style-small)
+    - card_color_scheme: Color scheme for the card
+    - card_image_padding: Padding around the product image
+    - card_border_thickness: Border thickness
+    - card_border_opacity: Border opacity
+    - card_corner_radius: Corner radius
+    - card_text_alignment: Text alignment (left, center, right)
+    - should_show_progress: Whether to show inventory progress
+    - cart_button_style: Button style for add to cart (icon, button)
+{% endcomment %}
+
 {% assign card_style = card_style | default: settings.card_style | default: 'style-2' %}
-{% assign card_image_padding = settings.card_image_padding | default: 0 %}
-{% assign card_text_alignment = settings.card_text_alignment | default: 'start' %}
-{% assign card_color_scheme = settings.card_color_scheme | default: 'scheme-2' %}
-{% assign card_border_thickness = settings.card_border_thickness | default: 0 %}
-{% assign card_border_opacity = settings.card_border_opacity | default: 0 %}
-{% assign card_corner_radius = settings.card_corner_radius | default: 0 %}
+{% assign card_color_scheme = card_color_scheme | default: settings.card_color_scheme | default: 'default' %}
+{% assign card_image_padding = card_image_padding | default: settings.card_image_padding | default: 0 %}
+{% assign card_border_thickness = card_border_thickness | default: settings.card_border_thickness | default: 0 %}
+{% assign card_border_opacity = card_border_opacity | default: settings.card_border_opacity | default: 0 %}
+{% assign card_corner_radius = card_corner_radius | default: settings.card_corner_radius | default: 0 %}
+{% assign card_text_alignment = card_text_alignment | default: settings.card_text_alignment | default: 'center' %}
+{% assign should_show_progress = should_show_progress | default: false %}
+{% assign cart_button_style = cart_button_style | default: settings.cart_button_style | default: 'icon' %}
 
 {% comment %} Handle show_progress_sale parameter {% endcomment %}
 {% if show_progress_sale == false or show_progress_sale == 'false' %}
@@ -48,7 +64,9 @@
             </div>
         {% endif %}
         <ul class="list-product-btn">
-            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% if cart_button_style == 'icon' %}
+                {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% endif %}
             {% render 'product-wishlist-button', product: product, card_style: card_style %}
             {% render 'product-quickview-button', product: product, card_style: card_style %}
             {% render 'product-compare-button', product: product, card_style: card_style %}
@@ -83,6 +101,18 @@
                     </p>
                 </div>
             </div>
+        {% endif %}
+        
+        {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
+        {% if cart_button_style == 'button' %}
+            <a href="#shoppingCart" 
+               data-bs-toggle="offcanvas"
+               class="tf-btn btn-out-line-primary product-cart-button"
+               data-product-id="{{ product.id }}"
+               data-product-handle="{{ product.handle }}"
+               data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                Add to Cart
+            </a>
         {% endif %}
         
         {% comment %} Hidden size and color options for filtering {% endcomment %}
@@ -140,7 +170,9 @@
             </div>
         {% endif %}
         <ul class="list-product-btn">
-            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% if cart_button_style == 'icon' %}
+                {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% endif %}
             {% render 'product-wishlist-button', product: product, card_style: card_style %}
             {% render 'product-quickview-button', product: product, card_style: card_style %}
             {% render 'product-compare-button', product: product, card_style: card_style %}
@@ -211,7 +243,9 @@
             </div>
         {% endif %}
         <ul class="list-product-btn">
-            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% if cart_button_style == 'icon' %}
+                {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% endif %}
             {% render 'product-wishlist-button', product: product, card_style: card_style %}
             {% render 'product-quickview-button', product: product, card_style: card_style %}
             {% render 'product-compare-button', product: product, card_style: card_style %}
@@ -246,6 +280,18 @@
                     </p>
                 </div>
             </div>
+        {% endif %}
+        
+        {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
+        {% if cart_button_style == 'button' %}
+            <a href="#shoppingCart" 
+               data-bs-toggle="offcanvas"
+               class="tf-btn btn-out-line-primary product-cart-button"
+               data-product-id="{{ product.id }}"
+               data-product-handle="{{ product.handle }}"
+               data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                Add to Cart
+            </a>
         {% endif %}
         
         {% comment %} Hidden size and color options for filtering {% endcomment %}
