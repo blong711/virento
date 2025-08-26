@@ -24,7 +24,7 @@
         "free_shipping_progress_PKEUKD": {
           "type": "free_shipping_progress",
           "settings": {
-            "qualified_message": "You've qualified for",
+            "qualified_message": "Congratulations! You've got",
             "free_shipping_text": "Free Shipping!",
             "spend_message": "Spend",
             "more_message": "more to get"

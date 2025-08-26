@@ -6087,7 +6087,7 @@
           "settings": {
             "qualified_message": {
               "label": "Qualified Message",
-              "default": "You've qualified for"
+              "default": "Congratulations! You've got"
             },
             "free_shipping_text": {
               "label": "Free Shipping Text",

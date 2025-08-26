@@ -5,31 +5,33 @@
     <div class="{{ section.settings.width }}">
         <div class="row justify-content-center">
             <div class="col-xl-4 col-sm-8">
-                {% for block in section.blocks %}
-                    {% case block.type %}
-                        {% when 'free_shipping_progress' %}
-                            <div class="tf-cart-head text-center" {{ block.shopify_attributes }}>
-                                {% assign cart_total = cart.total_price %}
-                                {% assign free_shipping_threshold = settings.free_shipping_threshold | times: 100 %}
-                                {% assign remaining_for_free_shipping = free_shipping_threshold | minus: cart_total %}
-                                {% assign progress_percentage = cart_total | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100 %}
-                                
-                                {% if cart_total >= free_shipping_threshold %}
-                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.qualified_message }} <span class="fw-medium">{{ block.settings.free_shipping_text }}</span></p>
-                                {% else %}
-                                    <p class="text-xl-3 title text-dark-4">{{ block.settings.spend_message }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_for_free_shipping | money }} {{ shop.currency }}{% else %}{{ remaining_for_free_shipping | money }}{% endif %}</span> {{ block.settings.more_message }}
-                                        <span class="fw-medium">{{ block.settings.free_shipping_text }}</span>
-                                    </p>
-                                {% endif %}
-                                
-                                <div class="progress-sold tf-progress-ship">
-                                    <div class="value" style="width: {{ progress_percentage }}%;" data-progress="{{ progress_percentage }}">
-                                        <i class="icon icon-car"></i>
+                {% if cart.item_count > 0 %}
+                    {% for block in section.blocks %}
+                        {% case block.type %}
+                            {% when 'free_shipping_progress' %}
+                                <div class="tf-cart-head text-center" {{ block.shopify_attributes }}>
+                                    {% assign cart_total = cart.total_price %}
+                                    {% assign free_shipping_threshold = settings.free_shipping_threshold | times: 100 %}
+                                    {% assign remaining_for_free_shipping = free_shipping_threshold | minus: cart_total %}
+                                    {% assign progress_percentage = cart_total | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100 %}
+                                    
+                                    {% if cart_total >= free_shipping_threshold %}
+                                        <p class="text-xl-3 title text-dark-4">{{ block.settings.qualified_message }} <span class="fw-medium">{{ block.settings.free_shipping_text }}</span></p>
+                                    {% else %}
+                                        <p class="text-xl-3 title text-dark-4">{{ block.settings.spend_message }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_for_free_shipping | money }} {{ shop.currency }}{% else %}{{ remaining_for_free_shipping | money }}{% endif %}</span> {{ block.settings.more_message }}
+                                            <span class="fw-medium">{{ block.settings.free_shipping_text }}</span>
+                                        </p>
+                                    {% endif %}
+                                    
+                                    <div class="progress-sold tf-progress-ship">
+                                        <div class="value" style="width: {{ progress_percentage }}%;" data-progress="{{ progress_percentage }}">
+                                            <i class="icon icon-car"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                    {% endcase %}
-                {% endfor %}
+                        {% endcase %}
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
