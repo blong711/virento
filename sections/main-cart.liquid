@@ -150,7 +150,7 @@
                                             <div class="swiper-wrapper">
                                                 {% if block.settings.feature_1_icon != blank or block.settings.feature_2_icon != blank or block.settings.feature_3_icon != blank or block.settings.feature_4_icon != blank %}
                                                     {% if block.settings.feature_1_icon != blank %}
-                                                        <div class="swiper-slide">
+                                                        <div class="swiper-slide" style="margin-right: 24px;" >
                                                             <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
                                                                 <div class="box-icon">
                                                                     <i class="icon icon-{{ block.settings.feature_1_icon }}"></i>
@@ -162,7 +162,7 @@
                                                         </div>
                                                     {% endif %}
                                                     {% if block.settings.feature_2_icon != blank %}
-                                                        <div class="swiper-slide">
+                                                        <div class="swiper-slide" style="margin-right: 24px;">
                                                             <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
                                                                 <div class="box-icon">
                                                                     <i class="icon icon-{{ block.settings.feature_2_icon }}"></i>
@@ -174,7 +174,7 @@
                                                         </div>
                                                     {% endif %}
                                                     {% if block.settings.feature_3_icon != blank %}
-                                                        <div class="swiper-slide">
+                                                        <div class="swiper-slide" style="margin-right: 24px;">
                                                             <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
                                                                 <div class="box-icon">
                                                                     <i class="icon icon-{{ block.settings.feature_3_icon }}"></i>
@@ -186,7 +186,7 @@
                                                         </div>
                                                     {% endif %}
                                                     {% if block.settings.feature_4_icon != blank %}
-                                                        <div class="swiper-slide">
+                                                        <div class="swiper-slide" style="margin-right: 24px;">
                                                             <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
                                                                 <div class="box-icon">
                                                                     <i class="icon icon-{{ block.settings.feature_4_icon }}"></i>
@@ -197,38 +197,6 @@
                                                             </div>
                                                         </div>
                                                     {% endif %}
-                                                {% else %}
-                                                    <!-- Fallback to default features if no custom ones are set -->
-                                                    <div class="swiper-slide">
-                                                        <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
-                                                            <div class="box-icon">
-                                                                <i class="icon icon-shipping"></i>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="title text-uppercase">Free Shipping</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
-                                                            <div class="box-icon">
-                                                                <i class="icon icon-gift"></i>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="title text-uppercase">Gift Package</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="swiper-slide">
-                                                        <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
-                                                            <div class="box-icon">
-                                                                <i class="icon icon-return"></i>
-                                                            </div>
-                                                            <div class="content">
-                                                                <div class="title text-uppercase">Easy Returns</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 {% endif %}
                                             </div>
                                         </div>
