@@ -3,49 +3,49 @@
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
   }
-
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
-  }
+    
 
-  .hero-image-{{ section.id }} {
-    border-radius: {{ section.settings.border_radius }}px;
-    overflow: hidden;
+    .hero-image-{{ section.id }} {
+      border-radius: {{ section.settings.border_radius }}px;
+      overflow: hidden;
 
-    {% if section.settings.image_height == 'fixed' %}
-      height: {{ section.settings.fixed_height }}px;
-    {% elsif section.settings.image_height == 'fullscreen' %}
-      height: 100vh;
-    {% else %}
-      height: auto;
-    {% endif %}
-  }
+      {% if section.settings.image_height == 'fixed' %}
+        height: {{ section.settings.fixed_height }}px;
+      {% elsif section.settings.image_height == 'fullscreen' %}
+        height: 100vh;
+      {% else %}
+        height: auto;
+      {% endif %}
+    }
 
-  .hero-image-{{ section.id }} img {
-    width: 100%;
+    .hero-image-{{ section.id }} img {
+      width: 100%;
 
-    {% if section.settings.image_height == 'adapt_image' %}
-      height: auto;
-      object-fit: contain;
-    {% else %}
-      height: 100%;
-      object-fit: cover;
-    {% endif %}
-  }
+      {% if section.settings.image_height == 'adapt_image' %}
+        height: auto;
+        object-fit: contain;
+      {% else %}
+        height: 100%;
+        object-fit: cover;
+      {% endif %}
+    }
 
-  .hero-image-{{ section.id }} picture img {
-    width: 100%;
+    .hero-image-{{ section.id }} picture img {
+      width: 100%;
 
-    {% if section.settings.image_height == 'adapt_image' %}
-      height: auto;
-      object-fit: contain;
-    {% else %}
-      height: 100%;
-      object-fit: cover;
-    {% endif %}
+      {% if section.settings.image_height == 'adapt_image' %}
+        height: auto;
+        object-fit: contain;
+      {% else %}
+        height: 100%;
+        object-fit: cover;
+      {% endif %}
+    } 
   }
 
   @media screen and (max-width: 749px) {
