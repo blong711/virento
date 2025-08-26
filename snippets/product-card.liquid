@@ -75,7 +75,7 @@
                 <div class="box-quantity d-flex justify-content-between">
                     <p class="text-sold text-sm">
                         Sold:
-                        <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity }}</span>
+                        <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
                     </p>
                     <p class="text-avaiable text-sm">
                         Available:
@@ -238,7 +238,7 @@
                 <div class="box-quantity d-flex justify-content-between">
                     <p class="text-sold text-sm">
                         Sold:
-                        <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity }}</span>
+                        <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
                     </p>
                     <p class="text-avaiable text-sm">
                         Available:
