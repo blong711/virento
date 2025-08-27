@@ -26,10 +26,6 @@
               {% if block.settings.content_page and pages[block.settings.content_page] %}
                 {% assign selected_page = pages[block.settings.content_page] %}
 
-                {% if selected_page.content != blank %}
-                  {{ selected_page.content }}
-                {% endif %}
-
                 {% if selected_page.metafields.home.menu.value %}
                   <div class="sub-menu mega-menu mega-home start-0">
                     <div class="row-demo">
