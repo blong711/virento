@@ -83,6 +83,33 @@ class RecentlyViewedProducts {
         }
     }
 
+    // Function to reinitialize the swiper
+    reinitializeSwiper() {
+        const section = document.getElementById(this.sectionId);
+        if (!section) return;
+        
+        // Destroy existing swiper if it exists
+        if (window.recentlyViewedSwiper) {
+            window.recentlyViewedSwiper.destroy(true, true);
+        }
+        
+        // Find the swiper container
+        const swiperContainer = section.querySelector('.tf-swiper');
+        if (swiperContainer) {
+            // Get the swiper options from data attribute
+            const swiperOptions = swiperContainer.getAttribute('data-swiper');
+            if (swiperOptions) {
+                try {
+                    const options = JSON.parse(swiperOptions);
+                    // Initialize new swiper
+                    window.recentlyViewedSwiper = new Swiper(swiperContainer, options);
+                } catch (e) {
+                    console.warn('Failed to parse swiper options:', e);
+                }
+            }
+        }
+    }
+
     // Generate product card HTML
     generateProductCardHTML(product) {
         return `
@@ -344,6 +371,69 @@ document.addEventListener('DOMContentLoaded', function() {
         const productsToShowElement = section.querySelector('[data-products-to-show]');
         const productsToShow = productsToShowElement ? 
                               parseInt(productsToShowElement.getAttribute('data-products-to-show')) : 8;
-        new RecentlyViewedProducts(sectionId, productsToShow);
+        const recentlyViewed = new RecentlyViewedProducts(sectionId, productsToShow);
+        
+        // Watch for changes in the section content and reinitialize if needed
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                    // Check if the swiper-wrapper was modified and is empty
+                    const swiperWrapper = section.querySelector('.swiper-wrapper');
+                    if (swiperWrapper && swiperWrapper.children.length === 0) {
+                        // Reinitialize the products
+                        recentlyViewed.updateRecentlyViewedSection();
+                    }
+                }
+            });
+        });
+        
+        // Start observing the section for changes
+        observer.observe(section, {
+            childList: true,
+            subtree: true
+        });
     });
 });
+
+// Global function to manually refresh recently viewed products
+window.refreshRecentlyViewedProducts = function() {
+    const recentlyViewedSections = document.querySelectorAll('[id^="recently-viewed-"]');
+    recentlyViewedSections.forEach(section => {
+        const sectionId = section.id;
+        const productsToShowElement = section.querySelector('[data-products-to-show]');
+        const productsToShow = productsToShowElement ? 
+                              parseInt(productsToShowElement.getAttribute('data-products-to-show')) : 8;
+        
+        // Create a temporary instance to refresh the section
+        const tempRecentlyViewed = new RecentlyViewedProducts(sectionId, productsToShow);
+        tempRecentlyViewed.updateRecentlyViewedSection();
+    });
+};
+
+// Listen for Shopify section rendering events
+document.addEventListener('shopify:section:load', function(event) {
+    if (event.target.id && event.target.id.startsWith('recently-viewed-')) {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+            window.refreshRecentlyViewedProducts();
+        }, 100);
+    }
+});
+
+// Periodic check as fallback (every 5 seconds)
+setInterval(function() {
+    const recentlyViewedSections = document.querySelectorAll('[id^="recently-viewed-"]');
+    recentlyViewedSections.forEach(section => {
+        const swiperWrapper = section.querySelector('.swiper-wrapper');
+        if (swiperWrapper && swiperWrapper.children.length === 0) {
+            // Section is empty, refresh it
+            const sectionId = section.id;
+            const productsToShowElement = section.querySelector('[data-products-to-show]');
+            const productsToShow = productsToShowElement ? 
+                                  parseInt(productsToShowElement.getAttribute('data-products-to-show')) : 8;
+            
+            const tempRecentlyViewed = new RecentlyViewedProducts(sectionId, productsToShow);
+            tempRecentlyViewed.updateRecentlyViewedSection();
+        }
+    });
+}, 5000);
