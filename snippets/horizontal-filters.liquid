@@ -60,14 +60,15 @@
                             <span class="text-sm">Price:</span>
                             <div class="price-box">
                                 <div class="price-val" id="price-min-value" data-currency="{{ shop.currency_symbol }}">
-                                    {{ full_collection.price_min | money_without_currency }}
+                                    {{ full_collection.price_min | money }}
                                 </div>
-                                <span>-</span>
+                                <span class="price-separator">-</span>
                                 <div class="price-val" id="price-max-value" data-currency="{{ shop.currency_symbol }}">
-                                    {{ full_collection.price_max | money_without_currency }}
+                                    {{ full_collection.price_max | money }}
                                 </div>
                             </div>
                         </div>
+                        <span class="reset-price">Reset</span>
                     </div>
                 </div>
             </div>

@@ -164,10 +164,18 @@ function initPriceRange() {
 
     const minValueDisplay = document.getElementById('price-min-value');
     const maxValueDisplay = document.getElementById('price-max-value');
+    
+    // Initialize display with currency symbol
+    if (minValueDisplay && maxValueDisplay) {
+        const currency = minValueDisplay.dataset.currency || '$';
+        minValueDisplay.textContent = currency + minPrice;
+        maxValueDisplay.textContent = currency + maxPrice;
+    }
 
     priceSlider.noUiSlider.on('change', (values, handle) => {
         const displays = [minValueDisplay, maxValueDisplay];
-        displays[handle].textContent = values[handle];
+        const currency = displays[handle].dataset.currency || '$';
+        displays[handle].textContent = currency + values[handle];
         
         // Update global filters
         filters.minPrice = parseInt(values[0], 10);
@@ -183,7 +191,8 @@ function initPriceRange() {
     // Update display values during drag
     priceSlider.noUiSlider.on('update', (values, handle) => {
         const displays = [minValueDisplay, maxValueDisplay];
-        displays[handle].textContent = values[handle];
+        const currency = displays[handle].dataset.currency || '$';
+        displays[handle].textContent = currency + values[handle];
     });
 }
 
