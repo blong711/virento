@@ -60,7 +60,7 @@
         "mega_shop_xYCnFY": {
           "type": "mega_shop",
           "settings": {
-            "menu_item_match": "",
+            "menu_item_match": "Shop",
             "collections": [
               "cables",
               "chargers",
@@ -87,7 +87,7 @@
         "mega_pages_3bFYDC": {
           "type": "mega_pages",
           "settings": {
-            "menu_item_match": "",
+            "menu_item_match": "Pages",
             "banner_image": "shopify://shop_images/banner-header.jpg",
             "banner_title": "Unveiling the latest gear",
             "banner_url": ""
