@@ -192,7 +192,7 @@
                                         data-current-page="1" 
                                         data-max-per-page="{{ max_products_per_page }}"
                                         data-total-products="{{ total_products }}">
-                                    <span class="text">Load more</span>
+                                    <span class="text">{{ 'sections.main_collection.load_more' | t }}</span>
                                     <div class="spinner-circle">
                                         <span class="spinner-circle1 spinner-child"></span>
                                         <span class="spinner-circle2 spinner-child"></span>
@@ -229,7 +229,7 @@
                     {% endif %}
                 {% else %}
                     <div class="text-center py-5">
-                        <p class="text-lg">{{ 'sections.main_collection.no_products_found_in_collection' | t }}</p>
+                        <p class="text-lg">{{ 'sections.main_collection.no_products_in_collection' | t }}</p>
                     </div>
                 {% endif %}
             </div>
@@ -326,7 +326,7 @@
                     {% endif %}
                 {% else %}
                     <div class="text-center py-5">
-                        <p class="text-lg">{{ 'sections.main_collection.no_products_found_in_collection' | t }}</p>
+                        <p class="text-lg">{{ 'sections.main_collection.no_products_in_collection' | t }}</p>
                     </div>
                 {% endif %}
             </div>
@@ -449,7 +449,7 @@
 {% comment %} Schema for section settings {% endcomment %}
 {% schema %}
 {
-    "name": "Main Collection",
+    "name": "t:sections.main_collection.name",
     "settings": [
         {
             "type": "color_scheme",
@@ -476,31 +476,31 @@
         {
             "type": "range",
             "id": "max_products_per_page",
-            "label": "Products per page",
+            "label": "t:sections.main_collection.settings.max_products_per_page.label",
             "min": 4,
             "max": 48,
             "step": 4,
             "default": 8,
-            "info": "Number of products to display per page"
+            "info": "t:sections.main_collection.settings.max_products_per_page.info"
         },
         {
             "type": "select",
             "id": "default_layout_type",
-            "label": "Default layout type",
+            "label": "t:sections.main_collection.settings.default_layout_type.label",
             "options": [
-                { "value": "grid", "label": "Grid" },
-                { "value": "list", "label": "List" }
+                { "value": "grid", "label": "t:sections.main_collection.settings.default_layout_type_options.grid" },
+                { "value": "list", "label": "t:sections.main_collection.settings.default_layout_type_options.list" }
             ],
             "default": "grid"
         },
         {
             "type": "select",
             "id": "default_grid_layout",
-            "label": "Grid layout",
+            "label": "t:sections.main_collection.settings.default_grid_layout.label",
             "options": [
-                { "value": "tf-col-2", "label": "2 Columns" },
-                { "value": "tf-col-3", "label": "3 Columns" },
-                { "value": "tf-col-4", "label": "4 Columns" }
+                { "value": "tf-col-2", "label": "t:sections.main_collection.settings.default_grid_layout_options.tf-col-2" },
+                { "value": "tf-col-3", "label": "t:sections.main_collection.settings.default_grid_layout_options.tf-col-3" },
+                { "value": "tf-col-4", "label": "t:sections.main_collection.settings.default_grid_layout_options.tf-col-4" }
             ],
             "default": "tf-col-4",
             "visible_if": "{{ section.settings.default_layout_type == 'grid' }}"
@@ -508,118 +508,118 @@
         {
             "type": "select",
             "id": "pagination_type",
-            "label": "Pagination type",
+            "label": "t:sections.main_collection.settings.pagination_type.label",
             "options": [
-                { "value": "pagination", "label": "Pagination" },
-                { "value": "load_more", "label": "Load More" },
-                { "value": "infinity_scroll", "label": "Infinity Scroll" }
+                { "value": "pagination", "label": "t:sections.main_collection.settings.pagination_type_options.pagination" },
+                { "value": "load_more", "label": "t:sections.main_collection.settings.pagination_type_options.load_more" },
+                { "value": "infinity_scroll", "label": "t:sections.main_collection.settings.pagination_type_options.infinity_scroll" }
             ],
             "default": "pagination"
         },
         {
             "type": "select",
             "id": "filter_layout",
-            "label": "Filter Layout",
+            "label": "t:sections.main_collection.settings.filter_layout.label",
             "options": [
-                { "value": "default", "label": "Default Filter" },
-                { "value": "horizontal", "label": "Horizontal Filter" },
-                { "value": "left_sidebar", "label": "Left Sidebar Filter" },
-                { "value": "right_sidebar", "label": "Right Sidebar Filter" }
+                { "value": "default", "label": "t:sections.main_collection.settings.filter_layout_options.default" },
+                { "value": "horizontal", "label": "t:sections.main_collection.settings.filter_layout_options.horizontal" },
+                { "value": "left_sidebar", "label": "t:sections.main_collection.settings.filter_layout_options.left_sidebar" },
+                { "value": "right_sidebar", "label": "t:sections.main_collection.settings.filter_layout_options.right_sidebar" }
             ],
             "default": "default"
         },
         {
             "type": "header",
-            "content": "Filter Sidebar Settings"
+            "content": "t:sections.main_collection.settings.filter_sidebar_settings.header"
         },
         {
             "type": "checkbox",
             "id": "show_on_sale",
-            "label": "Show on-sale products in filters",
+            "label": "t:sections.main_collection.settings.show_on_sale.label",
             "default": true,
-            "info": "Display on-sale products preview in the filter sidebar"
+            "info": "t:sections.main_collection.settings.show_on_sale.info"
         },
         {
             "type": "range",
             "id": "on_sale_limit",
-            "label": "On-sale products limit",
+            "label": "t:sections.main_collection.settings.on_sale_limit.label",
             "min": 1,
             "max": 10,
             "step": 1,
             "default": 3,
-            "info": "Maximum number of on-sale products to show in filters"
+            "info": "t:sections.main_collection.settings.on_sale_limit.info"
         },
         {
             "type": "checkbox",
             "id": "show_collection_banner",
-            "label": "Show collection banner in filters",
+            "label": "t:sections.main_collection.settings.show_collection_banner.label",
             "default": true,
-            "info": "Display promotional banner in the filter sidebar"
+            "info": "t:sections.main_collection.settings.show_collection_banner.info"
         },
         {
             "type": "image_picker",
             "id": "collection_banner_image",
-            "label": "Collection banner image",
-            "info": "Recommended size: 300x200px"
+            "label": "t:sections.main_collection.settings.collection_banner_image.label",
+            "info": "t:sections.main_collection.settings.collection_banner_image.info"
         },
         {
             "type": "text",
             "id": "collection_banner_title",
-            "label": "Banner title",
-            "default": "Elevate Your Style",
-            "info": "Main text displayed on the banner"
+            "label": "t:sections.main_collection.settings.collection_banner_title.label",
+            "default": "t:sections.main_collection.settings.collection_banner_title.default",
+            "info": "t:sections.main_collection.settings.collection_banner_title.info"
         },
         {
             "type": "text",
             "id": "collection_banner_button_text",
-            "label": "Banner button text",
-            "default": "Shop Now",
-            "info": "Text for the call-to-action button"
+            "label": "t:sections.main_collection.settings.collection_banner_button_text.label",
+            "default": "t:sections.main_collection.settings.collection_banner_button_text.default",
+            "info": "t:sections.main_collection.settings.collection_banner_button_text.info"
         },
         {
             "type": "url",
             "id": "collection_banner_button_url",
-            "label": "Banner button URL",
-            "info": "URL for the banner button (leave empty to use collection URL)"
+            "label": "t:sections.main_collection.settings.collection_banner_button_url.label",
+            "info": "t:sections.main_collection.settings.collection_banner_button_url.info"
         },
         {
             "type": "header",
-            "content": "Filter Options"
+            "content": "t:sections.main_collection.settings.filter_options.header"
         },
         {
             "type": "checkbox",
             "id": "show_availability_filter",
-            "label": "Show availability filter",
+            "label": "t:sections.main_collection.settings.show_availability_filter.label",
             "default": true,
-            "info": "Display in-stock/out-of-stock filter options"
+            "info": "t:sections.main_collection.settings.show_availability_filter.info"
         },
         {
             "type": "checkbox",
             "id": "show_price_filter",
-            "label": "Show price filter",
+            "label": "t:sections.main_collection.settings.show_price_filter.label",
             "default": true,
-            "info": "Display price range slider filter"
+            "info": "t:sections.main_collection.settings.show_price_filter.info"
         },
         {
             "type": "checkbox",
             "id": "show_color_filter",
-            "label": "Show color filter",
+            "label": "t:sections.main_collection.settings.show_color_filter.label",
             "default": true,
-            "info": "Display color selection filter options"
+            "info": "t:sections.main_collection.settings.show_color_filter.info"
         },
         {
             "type": "checkbox",
             "id": "show_size_filter",
-            "label": "Show size filter",
+            "label": "t:sections.main_collection.settings.show_size_filter.label",
             "default": true,
-            "info": "Display size selection filter options"
+            "info": "t:sections.main_collection.settings.show_size_filter.info"
         },
         {
             "type": "checkbox",
             "id": "show_brand_filter",
-            "label": "Show brand/vendor filter options",
+            "label": "t:sections.main_collection.settings.show_brand_filter.label",
             "default": true,
-            "info": "Display brand/vendor filter options"
+            "info": "t:sections.main_collection.settings.show_brand_filter.info"
         },
         {
             "type": "header",
