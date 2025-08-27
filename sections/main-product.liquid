@@ -314,8 +314,12 @@
                         </div>
                       {% when 'stock_count' %}
                         {% assign inventory_quantity = product.variants.first.inventory_quantity %}
-                        {% assign inventory_policy = product.variants.first.inventory_policy %}
-                        {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: inventory_policy %}
+                        {% if product.variants.first.inventory_policy == 'continue' %}
+                          {% assign max_inventory = 1000 %}
+                        {% else %}
+                          {% assign max_inventory = inventory_quantity | plus: 100 %}
+                        {% endif %}
+                        {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
                         {% if inventory_percentage < block.settings.stock_threshold %}
                           <div class="product-info-progress-sale" {{ block.shopify_attributes }}>
                             <div class="title-hurry-up">
@@ -330,7 +334,7 @@
                               </div>
                             {% endif %}
                           </div>
-                        {% endif %}          
+                        {% endif %}
                     {% endcase %}
                   {% endfor %}
                                 <!-- Countdown Timer Block -->
