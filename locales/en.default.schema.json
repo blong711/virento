@@ -1522,13 +1522,6 @@
               "label": "Collections to Show",
               "limit": "8",
               "info": "Select collections to feature in the mega menu"
-            },
-            "view_all_text": {
-              "label": "View all text",
-              "default": "View All Collections"
-            },
-            "view_all_url": {
-              "label": "View all URL"
             }
           }
         },
