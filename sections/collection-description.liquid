@@ -1,5 +1,5 @@
 {% comment %} Collection Description {% endcomment %}
-<section class="flat-spacing pt-0 section-{{ section.id }}-padding">
+<section class="flat-spacing pt-0 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
     <div class="{{ section.settings.width }}">
         {% if section.settings.show_collection_description %}
             {% assign desc = collection.description | strip_html | strip %}
@@ -30,6 +30,12 @@
 {
   "name": "Collection Description",
   "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
     {
       "type": "select",
       "id": "width",
