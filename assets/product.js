@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize settings from Liquid template
     window.enableVariantByImage = window.enableVariantByImage || false;
+    console.log('Debug: Initial enableVariantByImage value:', window.enableVariantByImage);
+    console.log('Debug: Initial enableVariantByImage type:', typeof window.enableVariantByImage);
     
     // Video Consent Handling
     // Handle video consent
@@ -145,24 +147,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
 
-          // Handle variant and media updates
-          const mediaId = parseInt(activeSlide.getAttribute('data-media-id'));
-          const productMedia = window.productMedia || [];
-          const media = productMedia.find(m => m.id === mediaId);
+          // Handle variant and media updates (only when setting is enabled)
+          if (window.enableVariantByImage) {
+            console.log('Debug: slideChange: Setting enabled, updating variant selection');
+            const mediaId = parseInt(activeSlide.getAttribute('data-media-id'));
+            const productMedia = window.productMedia || [];
+            const media = productMedia.find(m => m.id === mediaId);
 
-          // Find the variant that matches this media (by variant_ids or src)
-          let matchedVariant = null;
-          const variants = window.productVariants || [];
-          if (media && media.variant_ids && media.variant_ids.length > 0) {
-            matchedVariant = variants.find(v => media.variant_ids.includes(v.id));
-          }
-          if (!matchedVariant && media && media.src) {
-            matchedVariant = variants.find(v => v.featured_image && v.featured_image.src === media.src);
-          }
+            // Find the variant that matches this media (by variant_ids or src)
+            let matchedVariant = null;
+            const variants = window.productVariants || [];
+            if (media && media.variant_ids && media.variant_ids.length > 0) {
+              matchedVariant = variants.find(v => media.variant_ids.includes(v.id));
+            }
+            if (!matchedVariant && media && media.src) {
+              matchedVariant = variants.find(v => v.featured_image && v.featured_image.src === media.src);
+            }
 
-          // Update variant selection if a matching variant was found
-          if (matchedVariant) {
-            updateVariantSelection(matchedVariant);
+            // Update variant selection if a matching variant was found
+            if (matchedVariant) {
+              console.log('Debug: slideChange: Found matching variant, updating selection');
+              updateVariantSelection(matchedVariant);
+            }
+          } else {
+            console.log('Debug: slideChange: Setting disabled, NOT updating variant selection');
           }
 
           // Update color swatch active state
@@ -180,71 +188,82 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
-    // Add click handler for images to select variants
-    document.querySelectorAll('.tf-product-media-main .swiper-slide').forEach(slide => {
-      slide.addEventListener('click', function() {
-        // Only proceed if the setting is enabled
-        if (!window.enableVariantByImage) {
-          return;
-        }
+    // Add click handler for images to select variants (only when setting is enabled)
+    console.log('Debug: enableVariantByImage setting value:', window.enableVariantByImage);
+    console.log('Debug: enableVariantByImage type:', typeof window.enableVariantByImage);
+    
+    if (window.enableVariantByImage) {
+      console.log('Debug: Adding click handlers for Swiper slides');
+      document.querySelectorAll('.tf-product-media-main .swiper-slide').forEach(slide => {
+        slide.addEventListener('click', function() {
+          console.log('Debug: Swiper slide clicked, media ID:', this.getAttribute('data-media-id'));
+          const mediaId = parseInt(this.getAttribute('data-media-id'));
+          const productMedia = window.productMedia || [];
+          const media = productMedia.find(m => m.id === mediaId);
 
-        const mediaId = parseInt(this.getAttribute('data-media-id'));
-        const productMedia = window.productMedia || [];
-        const media = productMedia.find(m => m.id === mediaId);
+          if (media) {
+            const variants = window.productVariants || [];
+            let matchedVariant = null;
 
-        if (media) {
-          const variants = window.productVariants || [];
-          let matchedVariant = null;
+            // Try to find variant by variant_ids
+            if (media.variant_ids && media.variant_ids.length > 0) {
+              matchedVariant = variants.find(v => media.variant_ids.includes(v.id));
+            }
 
-          // Try to find variant by variant_ids
-          if (media.variant_ids && media.variant_ids.length > 0) {
-            matchedVariant = variants.find(v => media.variant_ids.includes(v.id));
+            // If no match found, try to match by src
+            if (!matchedVariant && media.src) {
+              matchedVariant = variants.find(v => v.featured_image && v.featured_image.src === media.src);
+            }
+
+            if (matchedVariant) {
+              console.log('Debug: Found matching variant:', matchedVariant);
+              updateVariantSelection(matchedVariant);
+            } else {
+              console.log('Debug: No matching variant found for media:', media);
+            }
           }
-
-          // If no match found, try to match by src
-          if (!matchedVariant && media.src) {
-            matchedVariant = variants.find(v => v.featured_image && v.featured_image.src === media.src);
-          }
-
-          if (matchedVariant) {
-            updateVariantSelection(matchedVariant);
-          }
-        }
+        });
       });
-    });
+    } else {
+      console.log('Debug: Setting is disabled, NOT adding click handlers for Swiper slides');
+    }
 
-    // Add click handler for grid/stacked layout images to select variants
-    document.querySelectorAll('.item-scroll-target').forEach(item => {
-      item.addEventListener('click', function() {
-        // Only proceed if the setting is enabled
-        if (!window.enableVariantByImage) {
-          return;
-        }
+    // Add click handler for grid/stacked layout images to select variants (only when setting is enabled)
+    if (window.enableVariantByImage) {
+      console.log('Debug: Adding click handlers for grid/stacked layout images');
+      document.querySelectorAll('.item-scroll-target').forEach(item => {
+        item.addEventListener('click', function() {
+          console.log('Debug: Grid/stacked image clicked, media ID:', this.getAttribute('data-media-id'));
+          const mediaId = parseInt(this.getAttribute('data-media-id'));
+          const productMedia = window.productMedia || [];
+          const media = productMedia.find(m => m.id === mediaId);
 
-        const mediaId = parseInt(this.getAttribute('data-media-id'));
-        const productMedia = window.productMedia || [];
-        const media = productMedia.find(m => m.id === mediaId);
+          if (media) {
+            const variants = window.productVariants || [];
+            let matchedVariant = null;
 
-        if (media) {
-          const variants = window.productVariants || [];
-          let matchedVariant = null;
+            // Try to find variant by variant_ids
+            if (media.variant_ids && media.variant_ids.length > 0) {
+              matchedVariant = variants.find(v => media.variant_ids.includes(v.id));
+            }
 
-          // Try to find variant by variant_ids
-          if (media.variant_ids && media.variant_ids.length > 0) {
-            matchedVariant = variants.find(v => media.variant_ids.includes(v.id));
+            // If no match found, try to match by src
+            if (!matchedVariant && media.src) {
+              matchedVariant = variants.find(v => v.featured_image && v.featured_image.src === media.src);
+            }
+
+            if (matchedVariant) {
+              console.log('Debug: Found matching variant for grid image:', matchedVariant);
+              updateVariantSelection(matchedVariant);
+            } else {
+              console.log('Debug: No matching variant found for grid media:', media);
+            }
           }
-
-          // If no match found, try to match by src
-          if (!matchedVariant && media.src) {
-            matchedVariant = variants.find(v => v.featured_image && v.featured_image.src === media.src);
-          }
-
-          if (matchedVariant) {
-            updateVariantSelection(matchedVariant);
-          }
-        }
+        });
       });
-    });
+    } else {
+      console.log('Debug: Setting is disabled, NOT adding click handlers for grid/stacked images');
+    }
 
     // Disable navigation buttons when at start/end
     function updateNavigationButtons() {
