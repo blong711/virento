@@ -53,33 +53,33 @@
             <div class="tf-group-filter">
                 {% if filter_layout == 'left_sidebar' or filter_layout == 'right_sidebar' %}
                     <button id="filterShop" class="tf-btn-filter d-flex d-xl-none">
-                        <span class="icon icon-filter"></span><span class="text">Filter</span>
+                        <span class="icon icon-filter"></span><span class="text">{{ 'sections.main_collection.filter' | t }}</span>
                     </button>
                 {% elsif filter_layout != 'horizontal' %}
                     <a href="#filterShop" data-bs-toggle="offcanvas" aria-controls="filterShop"
                         class="tf-btn-filter">
-                        <span class="icon icon-filter"></span><span class="text">Filter</span></a>
+                        <span class="icon icon-filter"></span><span class="text">{{ 'sections.main_collection.filter' | t }}</span></a>
                 {% endif %}
                 <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
                     <div class="btn-select">
-                        <span class="text-sort-value">Best selling</span>
+                        <span class="text-sort-value">{{ 'sections.main_collection.sort.best_selling' | t }}</span>
                         <span class="icon icon-arr-down"></span>
                     </div>
                     <div class="dropdown-menu">
                         <div class="select-item active" data-sort-value="best-selling">
-                            <span class="text-value-item">Best selling</span>
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.best_selling' | t }}</span>
                         </div>
                         <div class="select-item" data-sort-value="a-z">
-                            <span class="text-value-item">Alphabetically, A-Z</span>
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.a_to_z' | t }}</span>
                         </div>
                         <div class="select-item" data-sort-value="z-a">
-                            <span class="text-value-item">Alphabetically, Z-A</span>
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.z_to_a' | t }}</span>
                         </div>
                         <div class="select-item" data-sort-value="price-low-high">
-                            <span class="text-value-item">Price, low to high</span>
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.price_low_to_high' | t }}</span>
                         </div>
                         <div class="select-item" data-sort-value="price-high-low">
-                            <span class="text-value-item">Price, high to low</span>
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.price_high_to_low' | t }}</span>
                         </div>
                     </div>
                 </div>
@@ -119,21 +119,21 @@
             <div class="meta-filter-shop">
                 <div id="product-count-grid" class="count-text">
                     {% if total_products > 0 %}
-                        <span class="count">{{ total_products }}</span> Products found
+                        <span class="count">{{ total_products }}</span> {{ 'sections.main_collection.products_found' | t }}
                     {% else %}
-                        No products found
+                        {{ 'sections.main_collection.no_products_found' | t }}
                     {% endif %}
                 </div>
                 <div id="product-count-list" class="count-text">
                     {% if total_products > 0 %}
-                        <span class="count">{{ total_products }}</span> Products found
+                        <span class="count">{{ total_products }}</span> {{ 'sections.main_collection.products_found' | t }}
                     {% else %}
-                        No products found
+                        {{ 'sections.main_collection.no_products_found' | t }}
                     {% endif %}
                 </div>
                 <div id="applied-filters"></div>
                 <button id="remove-all" class="remove-all-filters" style="display: none;">
-                    <i class="icon icon-close"></i> Clear all filters
+                    <i class="icon icon-close"></i> {{ 'sections.main_collection.clear_all_filters' | t }}
                 </button>
             </div>
             
@@ -229,7 +229,7 @@
                     {% endif %}
                 {% else %}
                     <div class="text-center py-5">
-                        <p class="text-lg">No products found in this collection.</p>
+                        <p class="text-lg">{{ 'sections.main_collection.no_products_found_in_collection' | t }}</p>
                     </div>
                 {% endif %}
             </div>
@@ -289,7 +289,7 @@
                                         data-current-page="1" 
                                         data-max-per-page="{{ max_products_per_page }}"
                                         data-total-products="{{ total_products }}">
-                                    <span class="text">Load more</span>
+                                    <span class="text">{{ 'sections.main_collection.load_more' | t }}</span>
                                     <div class="spinner-circle">
                                         <span class="spinner-circle1 spinner-child"></span>
                                         <span class="spinner-circle2 spinner-child"></span>
@@ -326,7 +326,7 @@
                     {% endif %}
                 {% else %}
                     <div class="text-center py-5">
-                        <p class="text-lg">No products found in this collection.</p>
+                        <p class="text-lg">{{ 'sections.main_collection.no_products_found_in_collection' | t }}</p>
                     </div>
                 {% endif %}
             </div>

@@ -810,6 +810,29 @@
       "password_too_short": "Password must be at least 6 characters long",
       "logging_in": "Logging in..."
     },
+    "main_collection": {
+      "filter": "Filter",
+      "sort": {
+        "best_selling": "Best selling",
+        "a_to_z": "Alphabetically, A-Z",
+        "z_to_a": "Alphabetically, Z-A",
+        "price_low_to_high": "Price, low to high",
+        "price_high_to_low": "Price, high to low"
+      },
+      "products_found": "Products found",
+      "no_products_found": "No products found",
+      "clear_all_filters": "Clear all filters",
+      "load_more": "Load more",
+      "no_products_in_collection": "No products found in this collection.",
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+      },
+      "banner": {
+        "default_title": "Elevate Your Style",
+        "default_button_text": "Shop Now"
+      }
+    },
     "sections": {
       "main_login": {
         "name": "Login",
