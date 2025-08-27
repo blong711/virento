@@ -67,16 +67,30 @@
                     <a href="{{ section.settings.help_url }}" class="text-need">{{ section.settings.help_text }}</a>
                 </div>
                 {% endif %}
-                
-                {% if section.settings.phone_number %}
+
+                {% if section.settings.address %}
                 <div class="mb-contact">
-                    <p>{{ section.settings.phone_display }}</p>
+                    <p>Address: {{ section.settings.address }}</p>
                 </div>
+                {% endif %}
+                
+                {% if section.settings.email or section.settings.phone_number %}
                 <ul class="mb-info">
+                    {% if section.settings.email %}
+                    <li>
+                        Email:
+                        <b class="fw-medium">{{ section.settings.email }}</b>
+                    </li>
+                    {% endif %}
+                    
+                    {% if section.settings.phone_number %}
                     <li>
                         Phone:
-                        <b class="fw-medium">{{ section.settings.phone_number }}</b>
+                        <b class="fw-medium">
+                            {{ section.settings.phone_number }}
+                        </b>
                     </li>
+                    {% endif %}
                 </ul>
                 {% endif %}
             </div>
@@ -165,14 +179,18 @@
     },
     {
       "type": "text",
-      "id": "phone_number",
-      "label": "Phone number"
+      "id": "address",
+      "label": "Address"
     },
     {
       "type": "text",
-      "id": "phone_display",
-      "label": "Phone display text",
-      "info": "Custom text to display instead of phone number"
+      "id": "email",
+      "label": "Email address"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone number"
     },
     {
       "type": "header",
