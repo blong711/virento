@@ -203,16 +203,12 @@
 
 {% comment %} On Sale Products {% endcomment %}
 {% if show_on_sale %}
+    {% assign sale_products = full_collection.products | where: 'compare_at_price' %}
+    {% if sale_products.size > 0 %}
     <div class="widget-facet">
         <div class="facet-title text-xl fw-medium">
             <span class="shop-sale-text">On sale</span>
         </div>
-    </div>
-
-    {% comment %} Sale Items Preview {% endcomment %}
-    {% assign sale_products = full_collection.products | where: 'compare_at_price' %}
-    {% if sale_products.size > 0 %}
-    <div class="widget-facet">
         <ul class="collapse-body list-recent">
             {% for product in sale_products limit: on_sale_limit %}
                 {% if product.compare_at_price > product.price %}
