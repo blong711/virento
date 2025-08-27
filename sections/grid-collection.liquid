@@ -3,7 +3,7 @@
   class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
 >
   <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
-    <div class="grid-cls grid-cls-v4 grid-vegetable">
+    <div class="grid-cls grid-vegetable{% if section.settings.reverse_layout %} grid-cls-v4-reverse  {% else %} grid-cls-v4 {% endif %}">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'sale_item1' -%}
@@ -148,6 +148,13 @@
               </div>
               <div class="content">
                 <div class="box-title">
+                  <div class="box-offer mb_4">
+                    {%- if block.settings.offer_text != blank -%}
+                      <p class="offer text-xs bg-white text-dark fw-semibold">
+                        {{- block.settings.offer_text -}}
+                      </p>
+                    {%- endif -%}
+                  </div>
                   {%- if block.settings.title != blank -%}
                     {%- if block.settings.title_size == 'small' -%}
                       <h4>{{ block.settings.title }}</h4>
@@ -168,6 +175,16 @@
                       {%- endif -%}
                     </div>
                   {%- endif -%}
+                  {%- if block.settings.show_price and block.settings.price != blank -%}
+                    <p class="text-md fw-medium">
+                      {%- if block.settings.price_prefix != blank -%}
+                        {{ block.settings.price_prefix }}
+                      {%- endif -%}
+                      <span class="display-md" style="color: rgb(var(--color-foreground2)) !important;">
+                        {{- block.settings.price -}}
+                      </span>
+                    </p>
+                  {%- endif -%}
                 </div>
                 {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
                   <div class="box-btn">
@@ -186,6 +203,18 @@
 <!-- Grid Collection -->
 
 <style>
+  .grid-cls-v4-reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-cls-v4-reverse {
+    grid-template-areas:'aa bb' 'cc cc' ;
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid-cls-v4-reverse {
+    grid-template-areas: 'cc cc aa' 'cc cc bb';
+    grid-template-columns: 1fr 1fr 1fr;
+  }
   .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
@@ -258,6 +287,13 @@
       "label": "t:sections.all.padding.padding_mobile_rate.label",
       "info": "t:sections.all.padding.padding_mobile_rate.info",
       "default": 75
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse_layout",
+      "label": "Reverse Layout Direction",
+      "info": "When checked, the layout direction will be reversed",
+      "default": false
     }
   ],
   "blocks": [
@@ -412,6 +448,12 @@
         },
         {
           "type": "text",
+          "id": "offer_text",
+          "label": "Offer Text",
+          "default": "APPLE"
+        },
+        {
+          "type": "text",
           "id": "title",
           "label": "t:sections.grid_collection.settings.title.label",
           "default": "t:sections.grid_collection.settings.title.default_3"
@@ -460,6 +502,28 @@
             { "value": "large", "label": "t:sections.common.size.large" }
           ],
           "default": "medium"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.grid_collection.settings.price_settings.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_price",
+          "label": "t:sections.grid_collection.settings.show_price.label",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "price_prefix",
+          "label": "t:sections.grid_collection.settings.price_prefix.label",
+          "default": "From"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "t:sections.grid_collection.settings.price.label",
+          "default": "$1,200"
         }
       ]
     }

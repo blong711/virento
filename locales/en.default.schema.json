@@ -6472,6 +6472,21 @@
     "grid_collection": {
       "name": "Grid Collection",
       "settings": {
+        "price_settings": {
+          "content": "Price settings"
+        },
+        "show_price": {
+          "label": "Show price"
+        },
+        "price_prefix": {
+          "label": "Price prefix"
+        },
+        "price": {
+          "label": "Price"
+        },
+        "offer_text": {
+          "label": "Offer text"
+        },
         "heading_size": {
           "label": "Heading Size"
         },
