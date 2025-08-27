@@ -7,19 +7,27 @@
 <ul class="box-nav-menu" style="gap: {{ section.settings.menu_item_spacing }}px;">
   {% for link in linklists[menu].links %}
     {%- assign menu_title = link.title | downcase -%}
+    {%- assign has_mega_menu = false -%}
     <li class="menu-item {% if menu_title == 'pages' or menu_title == 'blog' %} position-relative {% endif %}">
       <a href="{{ link.url }}" class="item-link">
         {{ link.title }}
-        {% if link.links.size > 0 or menu_title == 'home' %}<i class="icon icon-arr-down"></i>{% endif %}
+        {%- comment -%} Check for mega menu match before showing icon {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- assign menu_match = block.settings.menu_item_match | strip | downcase -%}
+          {%- assign link_match = link.title | strip | downcase -%}
+          {%- if menu_match == link_match and menu_match != blank -%}
+            {%- assign has_mega_menu = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {% if has_mega_menu %}<i class="icon icon-arr-down"></i>{% endif %}
       </a>
 
-      {% assign has_mega_menu = false %}
       {% for block in section.blocks %}
-        {% assign menu_match_normalized = block.settings.menu_item_match | strip | downcase %}
-        {% assign link_title_normalized = link.title | strip | downcase %}
-
-        {% if menu_match_normalized == link_title_normalized and menu_match_normalized != blank %}
-          {% assign has_mega_menu = true %}
+        {% assign menu_match = block.settings.menu_item_match | strip | downcase %}
+        {% assign link_match = link.title | strip | downcase %}
+        {% assign links = link.links %}
+        {% if menu_match == link_match and menu_match != blank %}
           {% case block.type %}
             {% when 'mega_home' %}
               <!-- HTML Content Mega Menu -->
@@ -73,25 +81,31 @@
               {% endif %}
 
             {% when 'mega_shop' %}
-              <div class="sub-menu mega-menu mega-shop">
-                <div class="wrapper-sub-menu">
-                  {% for child in link.links %}
-                    <div class="mega-menu-item">
-                      <div class="menu-heading">{{ child.title }}</div>
-                      {% if child.links != blank %}
-                        <ul class="menu-list">
-                          {% for grandchild in child.links %}
-                            <li>
-                              <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
-                            </li>
-                          {% endfor %}
-                        </ul>
-                      {% endif %}
-                    </div>
-                  {% endfor %}
-                </div>
-                <div class="wrapper-sub-collection">
-                  {% if block.settings.collections != blank %}
+              {% assign collection = block.settings.collections | first %}
+              <div
+                class="sub-menu mega-menu mega-shop"
+                style="{% if collection == blank  or links.size <= 0 %} grid-template-columns: 1fr !important; max-width: 600px; {% endif %}"
+              >
+                {%- if links.size > 0 -%}
+                  <div class="wrapper-sub-menu">
+                    {% for child in links %}
+                      <div class="mega-menu-item">
+                        <div class="menu-heading">{{ child.title }}</div>
+                        {% if child.links != blank %}
+                          <ul class="menu-list">
+                            {% for grandchild in child.links %}
+                              <li>
+                                <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {% endif %}
+                      </div>
+                    {% endfor %}
+                  </div>
+                {%- endif -%}
+                {% if collection != blank %}
+                  <div class="wrapper-sub-collection">
                     <div
                       dir="ltr"
                       class="swiper tf-swiper hover-sw-nav wow fadeInUp"
@@ -149,12 +163,13 @@
                         <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls-header"></div>
                       {% endif %}
                     </div>
-                  {% endif %}
-                </div>
+                  </div>
+                {% endif %}
               </div>
             {% when 'mega_product' %}
+              {% assign mega_products = block.settings.products | first %}
               <div class="sub-menu mega-menu mega-product">
-                <div class="wrapper-sub-menu">
+                <div class="wrapper-sub-menu" style="{% if mega_products == blank %} width: 100%; {% endif %}">
                   {% for child in link.links %}
                     <div class="mega-menu-item">
                       <div class="menu-heading">{{ child.title }}</div>
@@ -170,9 +185,8 @@
                     </div>
                   {% endfor %}
                 </div>
-                <div class="wrapper-sub-product">
-                  {% assign block = section.blocks | where: 'type', 'mega_product' | first %}
-                  {% if block and block.settings.products != blank %}
+                {% if mega_products != blank %}
+                  <div class="wrapper-sub-product">
                     <div
                       dir="ltr"
                       class="swiper tf-swiper wrap-sw-over wow fadeInUp"
@@ -202,8 +216,8 @@
                       </div>
                       <div class="sw-dot-default sw-pagination-product-header justify-content-center"></div>
                     </div>
-                  {% endif %}
-                </div>
+                  </div>
+                {% endif %}
               </div>
             {% when 'mega_pages' %}
               <div class="sub-menu sub-menu-style-2">
@@ -240,14 +254,16 @@
                       >
                     </a>
                   {% endif %}
-                  <div class="content">
-                    <div class="title">
-                      {{ block.settings.banner_title }}
+                  {% if block.settings.banner_title != blank %}
+                    <div class="content">
+                      <div class="title">
+                        {{ block.settings.banner_title }}
+                      </div>
+                      <a href="{{ block.settings.banner_url }}" class="box-icon animate-btn"
+                        ><i class="icon icon-arrow-top-left"></i
+                      ></a>
                     </div>
-                    <a href="{{ block.settings.banner_url }}" class="box-icon animate-btn"
-                      ><i class="icon icon-arrow-top-left"></i
-                    ></a>
-                  </div>
+                  {% endif %}
                 </div>
               </div>
             {% when 'mega_blog' %}
@@ -302,16 +318,6 @@
           {% break %}
         {% endif %}
       {% endfor %}
-
-      {% if has_mega_menu == false and link.links.size > 0 %}
-        <ul class="sub-menu">
-          {% for child_link in link.links %}
-            <li>
-              <a href="{{ child_link.url }}">{{ child_link.title }}</a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
     </li>
   {% endfor %}
 </ul>
