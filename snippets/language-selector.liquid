@@ -1,0 +1,12 @@
+{% comment %}
+  Language Selector Snippet
+  Renders language selector dropdown
+{% endcomment %}
+
+  <select class="image-select center style-default type-languages" onchange="this.form.submit()">
+    {% for locale in shop.enabled_locales %}
+      <option value="{{ locale.iso_code }}" {% if locale.iso_code == shop.locale %}selected{% endif %}>
+        {{ locale.endonym_name }}
+      </option>
+    {% endfor %}
+  </select>

@@ -1,0 +1,12 @@
+{% comment %}
+  Currency Selector Snippet
+  Renders currency selector dropdown
+{% endcomment %}
+
+  <select class="image-select center style-default type-currencies" onchange="this.form.submit()">
+    {% for currency in shop.enabled_currencies %}
+      <option value="{{ currency.iso_code }}" {% if currency.iso_code == cart.currency.iso_code %}selected{% endif %}>
+        {{ currency.iso_code }}
+      </option>
+    {% endfor %}
+  </select>

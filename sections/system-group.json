@@ -191,6 +191,22 @@
         "heading_size": "display-sm",
         "heading_font_weight": "fw-medium"
       }
+    },
+    "mobile-menu": {
+      "type": "mobile-menu",
+      "settings": {
+        "main_menu": "main-menu",
+        "show_search": true,
+        "search_placeholder": "Search product",
+        "show_wishlist": true,
+        "show_account": true,
+        "help_text": "Need Help?",
+        "help_url": "",
+        "phone_number": "",
+        "phone_display": "",
+        "show_currency_selector": true,
+        "show_language_selector": true
+      }
     }
   },
   "order": [
@@ -199,6 +215,7 @@
     "mobile-toolbar",
     "cookies-popup",
     "newsletter-popup",
-    "exit-popup"
+    "exit-popup",
+    "mobile-menu"
   ]
 }

@@ -1,0 +1,207 @@
+{% comment %}
+  Mobile Menu Section
+  Renders mobile navigation menu that can be configured independently
+{% endcomment %}
+
+{% assign menu = section.settings.main_menu | default: linklists.main-menu %}
+
+<div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu">
+    <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div class="mb-canvas-content">
+        <div class="mb-body">
+            <div class="mb-content-top">
+                <!-- Search Form -->
+                {% if section.settings.show_search %}
+                <form class="form-search" action="{{ routes.search_url }}" method="get">
+                    <input type="text" placeholder="{{ section.settings.search_placeholder | default: 'Search product' }}" class="" name="q" tabindex="0" value="{{ search.terms | escape }}" aria-required="true" required="">
+                    <button type="submit"><i class="icon icon-search"></i></button>
+                </form>
+                {% endif %}
+
+                <!-- Mobile Navigation Menu -->
+                <ul class="nav-ul-mb" id="wrapper-menu-navigation">
+                    {% for link in linklists[menu].links %}
+                        <li class="nav-mb-item">
+                            <a href="#dropdown-menu-{{ link.handle }}" class="collapsed mb-menu-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="dropdown-menu-{{ link.handle }}">
+                                <span>{{ link.title }}</span>
+                                {% if link.links.size > 0 %}<span class="btn-open-sub"></span>{% endif %}
+                            </a>
+                            
+                            {% if link.links.size > 0 %}
+                            <div id="dropdown-menu-{{ link.handle }}" class="collapse">
+                                <ul class="sub-nav-menu">
+                                    {% for child_link in link.links %}
+                                        <li><a href="{{ child_link.url }}" class="sub-nav-link">{{ child_link.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="mb-other-content">
+                <div class="group-icon">
+                    {% if section.settings.show_wishlist %}
+                    <a href="{{ routes.search_url }}/?view=wishlist" class="site-nav-icon">
+                        <i class="icon icon-heart"></i>
+                        {{ 'general.wishlist.title' | t }}
+                    </a>
+                    {% endif %}
+                    
+                    {% if section.settings.show_account %}
+                    <a href="#login" data-bs-toggle="offcanvas" class="site-nav-icon">
+                        <i class="icon icon-user"></i>
+                        {% if customer %}
+                            {{ 'customer.account.title' | t }}
+                        {% else %}
+                            {{ 'customer.login.title' | t }}
+                        {% endif %}
+                    </a>
+                    {% endif %}
+                </div>
+                
+                {% if section.settings.help_text %}
+                <div class="mb-notice">
+                    <a href="{{ section.settings.help_url }}" class="text-need">{{ section.settings.help_text }}</a>
+                </div>
+                {% endif %}
+                
+                {% if section.settings.phone_number %}
+                <div class="mb-contact">
+                    <p>{{ section.settings.phone_display }}</p>
+                </div>
+                <ul class="mb-info">
+                    <li>
+                        Phone:
+                        <b class="fw-medium">{{ section.settings.phone_number }}</b>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="mb-bottom">
+            <div class="bottom-bar-language">
+                {% if section.settings.show_currency_selector %}
+                <div class="tf-currencies">
+                    {% render 'currency-selector' %}
+                </div>
+                {% endif %}
+                
+                {% if section.settings.show_language_selector %}
+                <div class="tf-languages">
+                    {% render 'language-selector' %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": "Mobile Menu",
+  "tag": "section",
+  "class": "section-mobile-menu",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Menu Configuration"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Main Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search form",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder text",
+      "default": "Search product"
+    },
+    {
+      "type": "header",
+      "content": "Utility Icons"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_wishlist",
+      "label": "Show wishlist icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "help_text",
+      "label": "Help text",
+      "default": "Need Help?"
+    },
+    {
+      "type": "url",
+      "id": "help_url",
+      "label": "Help link URL"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone number"
+    },
+    {
+      "type": "text",
+      "id": "phone_display",
+      "label": "Phone display text",
+      "info": "Custom text to display instead of phone number"
+    },
+    {
+      "type": "header",
+      "content": "Language & Currency"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "label": "Show currency selector",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_language_selector",
+      "label": "Show language selector",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mobile Menu",
+      "settings": {
+        "show_search": true,
+        "show_wishlist": true,
+        "show_account": true,
+        "show_currency_selector": true,
+        "show_language_selector": true
+      }
+    }
+  ]
+}
+{% endschema %}
