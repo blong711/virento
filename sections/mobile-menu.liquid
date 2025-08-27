@@ -3,15 +3,15 @@
   Renders mobile navigation menu that can be configured independently
 {% endcomment %}
 
-<div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu">
-    <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+<div class="offcanvas offcanvas-start canvas-mb color-{{ section.settings.color_scheme }}" id="mobileMenu">
+    <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="{{ 'general.accessibility.close' | t }}"></button>
     <div class="mb-canvas-content">
         <div class="mb-body">
             <div class="mb-content-top">
                 <!-- Search Form -->
                 {% if section.settings.show_search %}
                 <form class="form-search" action="{{ routes.search_url }}" method="get">
-                    <input type="text" placeholder="{{ section.settings.search_placeholder | default: 'Search product' }}" class="" name="q" tabindex="0" value="{{ search.terms | escape }}" aria-required="true" required="">
+                    <input type="text" placeholder="{{ section.settings.search_placeholder }}" class="" name="q" tabindex="0" value="{{ search.terms | escape }}" aria-required="true" required="">
                     <button type="submit"><i class="icon icon-search"></i></button>
                 </form>
                 {% endif %}
@@ -103,7 +103,7 @@
 
                 {% if section.settings.address %}
                 <div class="mb-contact">
-                    <p>Address: {{ section.settings.address }}</p>
+                    <p>{{ 'general.contact.address_label' | t }}: {{ section.settings.address }}</p>
                 </div>
                 {% endif %}
                 
@@ -111,14 +111,14 @@
                 <ul class="mb-info">
                     {% if section.settings.email %}
                     <li>
-                        Email:
+                        {{ 'general.contact.email_label' | t }}:
                         <b class="fw-medium">{{ section.settings.email }}</b>
                     </li>
                     {% endif %}
                     
                     {% if section.settings.phone_number %}
                     <li>
-                        Phone:
+                        {{ 'general.contact.phone_label' | t }}:
                         <b class="fw-medium">
                             {{ section.settings.phone_number }}
                         </b>
@@ -149,92 +149,98 @@
 
 {% schema %}
 {
-  "name": "Mobile Menu",
+  "name": "t:sections.mobile_menu.name",
   "tag": "section",
   "class": "section-mobile-menu",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
       "type": "header",
-      "content": "Search"
+      "content": "t:sections.mobile_menu.settings.search.header"
     },
     {
       "type": "checkbox",
       "id": "show_search",
-      "label": "Show search form",
+      "label": "t:sections.mobile_menu.settings.search.show_search.label",
       "default": true
     },
     {
       "type": "text",
       "id": "search_placeholder",
-      "label": "Search placeholder text",
-      "default": "Search product"
+      "label": "t:sections.mobile_menu.settings.search.search_placeholder.label",
+      "default": "t:general.search.placeholder"
     },
     {
       "type": "header",
-      "content": "Utility Icons"
+      "content": "t:sections.mobile_menu.settings.utility_icons.header"
     },
     {
       "type": "checkbox",
       "id": "show_wishlist",
-      "label": "Show wishlist icon",
+      "label": "t:sections.mobile_menu.settings.utility_icons.show_wishlist.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_account",
-      "label": "Show account icon",
+      "label": "t:sections.mobile_menu.settings.utility_icons.show_account.label",
       "default": true
     },
     {
       "type": "header",
-      "content": "Contact Information"
+      "content": "t:sections.mobile_menu.settings.contact_information.header"
     },
     {
       "type": "text",
       "id": "help_text",
-      "label": "Help text",
-      "default": "Need Help?"
+      "label": "t:sections.mobile_menu.settings.contact_information.help_text.label",
+      "default": "t:sections.mobile_menu.settings.contact_information.help_text.default"
     },
     {
       "type": "url",
       "id": "help_url",
-      "label": "Help link URL"
+      "label": "t:sections.mobile_menu.settings.contact_information.help_url.label"
     },
     {
       "type": "text",
       "id": "address",
-      "label": "Address"
+      "label": "t:sections.mobile_menu.settings.contact_information.address.label"
     },
     {
       "type": "text",
       "id": "email",
-      "label": "Email address"
+      "label": "t:sections.mobile_menu.settings.contact_information.email.label"
     },
     {
       "type": "text",
       "id": "phone_number",
-      "label": "Phone number"
+      "label": "t:sections.mobile_menu.settings.contact_information.phone_number.label"
     },
     {
       "type": "header",
-      "content": "Language & Currency"
+      "content": "t:sections.mobile_menu.settings.language_currency.header"
     },
     {
       "type": "checkbox",
       "id": "show_currency_selector",
-      "label": "Show currency selector",
+      "label": "t:sections.mobile_menu.settings.language_currency.show_currency_selector.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_language_selector",
-      "label": "Show language selector",
+      "label": "t:sections.mobile_menu.settings.language_currency.show_language_selector.label",
       "default": true
     }
   ],
   "presets": [
     {
-      "name": "Mobile Menu",
+      "name": "t:sections.mobile_menu.presets.name",
       "settings": {
         "show_search": true,
         "show_wishlist": true,

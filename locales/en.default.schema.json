@@ -6762,6 +6762,60 @@
       "presets": {
         "name": "Bundle Product"
       }
-    }
+    },
+    "mobile_menu": {
+      "name": "Mobile Menu",
+      "settings": {
+        "search": {
+          "header": "Search",
+          "show_search": {
+            "label": "Show search form"
+          },
+          "search_placeholder": {
+            "label": "Search placeholder text"
+          }
+        },
+        "utility_icons": {
+          "header": "Utility Icons",
+          "show_wishlist": {
+            "label": "Show wishlist icon"
+          },
+          "show_account": {
+            "label": "Show account icon"
+          }
+        },
+        "contact_information": {
+          "header": "Contact Information",
+          "help_text": {
+            "label": "Help text",
+            "default": "Need Help?"
+          },
+          "help_url": {
+            "label": "Help link URL"
+          },
+          "address": {
+            "label": "Address"
+          },
+          "email": {
+            "label": "Email address"
+          },
+          "phone_number": {
+            "label": "Phone number"
+          }
+        },
+        "language_currency": {
+          "header": "Language & Currency",
+          "show_currency_selector": {
+            "label": "Show currency selector"
+          },
+          "show_language_selector": {
+            "label": "Show language selector"
+          }
+        }
+      },
+      "presets": {
+        "name": "Mobile Menu"
+      }
+    },
   }
 }
