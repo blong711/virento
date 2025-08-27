@@ -1,13 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize settings from Liquid template
     window.enableVariantByImage = window.enableVariantByImage || false;
-    console.log('Debug: Initial enableVariantByImage value:', window.enableVariantByImage);
-    console.log('Debug: Initial enableVariantByImage type:', typeof window.enableVariantByImage);
+
     
-    // Initialize button states based on initial variant
+    // Initialize button states based on initial variant and pick mode
     const initializeButtonStates = () => {
       if (window.initialVariant) {
         updateVariantSelection(window.initialVariant);
+        
+        // If pick mode is "user_select", don't automatically select any variant options
+        // Let the user make their own selection
+        if (window.variantPickerSettings && window.variantPickerSettings.pickMode === 'user_select') {
+          // Clear any active states and let user choose
+          document.querySelectorAll('.color-btn.active, .btn-scroll-target.active, .size-btn.active, .select-item.active').forEach(btn => {
+            btn.classList.remove('active');
+          });
+        }
       }
     };
     
@@ -157,8 +165,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
 
-          // Handle variant and media updates (only when setting is enabled)
-          if (window.enableVariantByImage) {
+          // Handle variant and media updates (only when setting is enabled and not in user_select mode)
+          if (window.enableVariantByImage && (!window.variantPickerSettings || window.variantPickerSettings.pickMode !== 'user_select')) {
             const mediaId = parseInt(activeSlide.getAttribute('data-media-id'));
             const productMedia = window.productMedia || [];
             const media = productMedia.find(m => m.id === mediaId);
@@ -178,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
               updateVariantSelection(matchedVariant);
             }
           } else {
-            console.log('Debug: slideChange: Setting disabled, NOT updating variant selection');
+            console.log('Debug: slideChange: Setting disabled or user_select mode, NOT updating variant selection');
           }
 
           // Update color swatch active state
@@ -196,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
     
-    if (window.enableVariantByImage) {
+    if (window.enableVariantByImage && (!window.variantPickerSettings || window.variantPickerSettings.pickMode !== 'user_select')) {
       document.querySelectorAll('.tf-product-media-main .swiper-slide').forEach(slide => {
         slide.addEventListener('click', function() {
           const mediaId = parseInt(this.getAttribute('data-media-id'));
@@ -226,11 +234,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       });
     } else {
-      console.log('Debug: Setting is disabled, NOT adding click handlers for Swiper slides');
+      console.log('Debug: Setting is disabled or user_select mode, NOT adding click handlers for Swiper slides');
     }
 
-    // Add click handler for grid/stacked layout images to select variants (only when setting is enabled)
-    if (window.enableVariantByImage) {
+    // Add click handler for grid/stacked layout images to select variants (only when setting is enabled and not in user_select mode)
+    if (window.enableVariantByImage && (!window.variantPickerSettings || window.variantPickerSettings.pickMode !== 'user_select')) {
       document.querySelectorAll('.item-scroll-target').forEach(item => {
         item.addEventListener('click', function() {
           const mediaId = parseInt(this.getAttribute('data-media-id'));
@@ -260,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
       });
     } else {
-      console.log('Debug: Setting is disabled, NOT adding click handlers for grid/stacked images');
+      console.log('Debug: Setting is disabled or user_select mode, NOT adding click handlers for grid/stacked images');
     }
 
     // Disable navigation buttons when at start/end
@@ -550,108 +558,113 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check if we're in grid or stacked layout
         const isGridOrStacked = document.querySelector('.flat-single-grid') !== null;
         
-        try {
-          // Handle image switching based on layout
-          if (isGridOrStacked) {
-            // For grid and stacked layouts, scroll to the matching image
-            const productMedia = window.productMedia || [];
-            if (!Array.isArray(productMedia)) {
-              return;
-            }
-  
-            let targetImage = null;
-            
-            // First try to find the variant's featured image
-            if (variant.featured_image) {
-              targetImage = productMedia.find(m => m.id === variant.featured_image.id);
-            }
-            
-            // If no featured image found, try to find any image associated with this variant
-            if (!targetImage) {
-              targetImage = productMedia.find(m => 
-                m.variant_ids && Array.isArray(m.variant_ids) && m.variant_ids.includes(variant.id)
-              );
-            }
-            
-            // If still no image found, try to match by src
-            if (!targetImage && variant.featured_image && variant.featured_image.src) {
-              targetImage = productMedia.find(m => m.src === variant.featured_image.src);
-            }
-            
-            // Scroll to the target image if found
-            if (targetImage) {
-              // Find the gallery item with the matching media ID
-              const galleryItems = document.querySelectorAll('.item-scroll-target');
-              for (let item of galleryItems) {
-                const mediaId = parseInt(item.getAttribute('data-media-id'));
-                if (mediaId === targetImage.id) {
-                  item.scrollIntoView({ 
-                    behavior: 'smooth', 
-                    block: 'center',
-                    inline: 'center'
-                  });
-                  break;
-                }
+        // Only handle image switching if not in user_select mode
+        if (!window.variantPickerSettings || window.variantPickerSettings.pickMode !== 'user_select') {
+          try {
+            // Handle image switching based on layout
+            if (isGridOrStacked) {
+              // For grid and stacked layouts, scroll to the matching image
+              const productMedia = window.productMedia || [];
+              if (!Array.isArray(productMedia)) {
+                return;
               }
-            }
-          } else {
-            // Default layout with Swiper
-            const mainSwiper = document.querySelector('.tf-product-media-main')?.swiper;
-            
-            if (mainSwiper && mainSwiper.slides) {
-              const slides = mainSwiper.slides;
-              let foundMatchingSlide = false;
+    
+              let targetImage = null;
               
-              // First try to find a slide that matches the variant's featured image
+              // First try to find the variant's featured image
               if (variant.featured_image) {
-                for (let i = 0; i < slides.length; i++) {
-                  const mediaId = parseInt(slides[i].getAttribute('data-media-id'));
-                  
-                  if (mediaId === variant.featured_image.id) {
-                    mainSwiper.slideTo(i);
-                    foundMatchingSlide = true;
+                targetImage = productMedia.find(m => m.id === variant.featured_image.id);
+              }
+              
+              // If no featured image found, try to find any image associated with this variant
+              if (!targetImage) {
+                targetImage = productMedia.find(m => 
+                  m.variant_ids && Array.isArray(m.variant_ids) && m.variant_ids.includes(variant.id)
+                );
+              }
+              
+              // If still no image found, try to match by src
+              if (!targetImage && variant.featured_image && variant.featured_image.src) {
+                targetImage = productMedia.find(m => m.src === variant.featured_image.src);
+              }
+              
+              // Scroll to the target image if found
+              if (targetImage) {
+                // Find the gallery item with the matching media ID
+                const galleryItems = document.querySelectorAll('.item-scroll-target');
+                for (let item of galleryItems) {
+                  const mediaId = parseInt(item.getAttribute('data-media-id'));
+                  if (mediaId === targetImage.id) {
+                    item.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'center',
+                      inline: 'center'
+                    });
                     break;
                   }
                 }
               }
+            } else {
+              // Default layout with Swiper
+              const mainSwiper = document.querySelector('.tf-product-media-main')?.swiper;
               
-              // If no exact match found, try to find the first image for this variant
-              if (!foundMatchingSlide) {
-                const productMedia = window.productMedia || [];
-                if (Array.isArray(productMedia)) {
+              if (mainSwiper && mainSwiper.slides) {
+                const slides = mainSwiper.slides;
+                let foundMatchingSlide = false;
+                
+                // First try to find a slide that matches the variant's featured image
+                if (variant.featured_image) {
                   for (let i = 0; i < slides.length; i++) {
                     const mediaId = parseInt(slides[i].getAttribute('data-media-id'));
-                    const media = productMedia.find(m => m.id === mediaId);
                     
-                    if (media && media.variant_ids && media.variant_ids.includes(variant.id)) {
+                    if (mediaId === variant.featured_image.id) {
                       mainSwiper.slideTo(i);
                       foundMatchingSlide = true;
                       break;
                     }
                   }
-                  
-                  // Fallback: try matching by src if variant.featured_image.src exists
-                  if (!foundMatchingSlide && variant.featured_image && variant.featured_image.src) {
+                }
+                
+                // If no exact match found, try to find the first image for this variant
+                if (!foundMatchingSlide) {
+                  const productMedia = window.productMedia || [];
+                  if (Array.isArray(productMedia)) {
                     for (let i = 0; i < slides.length; i++) {
                       const mediaId = parseInt(slides[i].getAttribute('data-media-id'));
                       const media = productMedia.find(m => m.id === mediaId);
-                      if (media && media.src === variant.featured_image.src) {
+                      
+                      if (media && media.variant_ids && media.variant_ids.includes(variant.id)) {
                         mainSwiper.slideTo(i);
                         foundMatchingSlide = true;
                         break;
+                      }
+                    }
+                    
+                    // Fallback: try matching by src if variant.featured_image.src exists
+                    if (!foundMatchingSlide && variant.featured_image && variant.featured_image.src) {
+                      for (let i = 0; i < slides.length; i++) {
+                        const mediaId = parseInt(slides[i].getAttribute('data-media-id'));
+                        const media = productMedia.find(m => m.id === mediaId);
+                        if (media && media.src === variant.featured_image.src) {
+                          mainSwiper.slideTo(i);
+                          foundMatchingSlide = true;
+                          break;
+                        }
                       }
                     }
                   }
                 }
               }
             }
+          } catch (error) {
+            console.error(error);
           }
-        } catch (error) {
-          console.error(error);
+        } else {
+          console.log('Debug: user_select mode - NOT automatically switching images');
         }
   
-        // Set the active color swatch based on the selected color
-        if (variant.option1) {
+        // Set the active color swatch based on the selected color (only if not user_select mode)
+        if (variant.option1 && (!window.variantPickerSettings || window.variantPickerSettings.pickMode !== 'user_select')) {
           const color = variant.option1.toLowerCase();
           document.querySelectorAll('.color-btn, .btn-scroll-target, .select-item[data-option="color"]').forEach(btn => {
             try {
@@ -688,8 +701,8 @@ document.addEventListener('DOMContentLoaded', function() {
           });
         }
   
-        // Set the active size button based on the selected size
-        if (variant.option2) {
+        // Set the active size button based on the selected size (only if not user_select mode)
+        if (variant.option2 && (!window.variantPickerSettings || window.variantPickerSettings.pickMode !== 'user_select')) {
           const size = variant.option2.toLowerCase();
           document.querySelectorAll('.size-btn, .select-item[data-option="size"]').forEach(btn => {
             try {
