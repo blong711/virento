@@ -16,9 +16,11 @@
         {% if section.settings.show_extra_links %}
             <p class="mt_12 text-md text-{{ section.settings.text_alignment }}">
                 {{ section.settings.links_prefix_text }}
-                <a href="{{ section.settings.collection1_link_url }}" class="text-primary text-decoration-underline fw-medium">{{ section.settings.collection1_link_label }}</a>
-                {{ ' ' }}{{ section.settings.and_text }}{{ ' ' }}
-                <a href="{{ section.settings.collection2_link_url }}" class="text-primary text-decoration-underline fw-medium">{{ section.settings.collection2_link_label }}</a>.
+                <a href="{{ section.settings.collection1_link_url.url }}" class="text-primary text-decoration-underline fw-medium">{{ section.settings.collection1_link_url.title }}</a>
+                {% if section.settings.collection2_link_url != blank %}
+                    {{ ' ' }}{{ section.settings.and_text }}{{ ' ' }}
+                    <a href="{{ section.settings.collection2_link_url.url }}" class="text-primary text-decoration-underline fw-medium">{{ section.settings.collection2_link_url.title }}</a>.
+                {% endif %}
             </p>
         {% endif %}
     </div>
@@ -80,26 +82,14 @@
       "default": "and"
     },
     {
-      "type": "url",
+      "type": "collection",
       "id": "collection1_link_url",
-      "label": "Collection 1 link URL"
+      "label": "Collection 1"
     },
     {
-      "type": "text",
-      "id": "collection1_link_label",
-      "label": "Collection 1 link label",
-      "default": "Collection 1"
-    },
-    {
-      "type": "url",
+      "type": "collection",
       "id": "collection2_link_url",
-      "label": "Collection 2 link URL"
-    },
-    {
-      "type": "text",
-      "id": "collection2_link_label",
-      "label": "Collection 2 link label",
-      "default": "Collection 2"
+      "label": "Collection 2"
     },
     {
       "type": "header",
