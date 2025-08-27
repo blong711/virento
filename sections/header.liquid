@@ -6,13 +6,13 @@
   assign bottom_classes = 'header-bottom d-none d-xl-block line-bt'
 
   case layout_type
-    when 'electric'
+    when 'layout_1'
       assign header_classes = header_classes | append: ' header-style-2'
       assign categories_style = ''
-    when 'mega'
+    when 'layout_2'
       assign bottom_classes = bottom_classes | append: ' bg-light-purple-11'
       assign show_categories = false
-    when 'market'
+    when 'layout_3'
       assign header_classes = header_classes | append: ' header-style-2'
       assign categories_style = ' style-market'
   endcase
@@ -105,7 +105,7 @@
 
             {% if section.settings.show_cart %}
               <li class="nav-cart">
-                {% if layout_type == 'mega' or layout_type == 'market' %}
+                {% if layout_type == 'layout_2' or layout_type == 'layout_3' %}
                   <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas">
                     <i class="icon icon-cart"></i>
                     <span class="text d-none d-xl-block">{{ cart.total_price | money }}</span>
@@ -128,7 +128,7 @@
   <div class="{{ bottom_classes }}">
     <div class="container">
       <div class="wrapper-header-bottom">
-        {% if layout_type == 'mega' %}
+        {% if layout_type == 'layout_2' %}
           <!-- Mega Layout: Full-width navigation only -->
           <nav class="box-navigation text-center">
             {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
@@ -150,7 +150,7 @@
             {% endif %}
           </div>
 
-        {% elsif layout_type == 'market' %}
+        {% elsif layout_type == 'layout_3' %}
           <!-- Market Layout: Categories + Navigation on left, Big phone on right -->
           <div class="inner-left">
             {% if show_categories %}
@@ -159,24 +159,26 @@
                   <i class="icon icon-categories"></i>
                   {{ section.settings.categories_title }}
                 </a>
-                <ul class="mega-categories">
-                  {% for collection in section.settings.selected_collections %}
-                    <li>
-                      <a href="{{ collection.url }}" class="cate-item">
-                        {% if collection.image %}
-                          <div class="img">
-                            {{
-                              collection.image
-                              | image_url: width: 50
-                              | image_tag: loading: 'lazy', alt: collection.title
-                            }}
-                          </div>
-                        {% endif %}
-                        <span class="name-cate">{{ collection.title }}</span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
+                {% if section.settings.selected_collections != blank %}
+                  <ul class="mega-categories">
+                    {% for collection in section.settings.selected_collections %}
+                      <li>
+                        <a href="{{ collection.url }}" class="cate-item">
+                          {% if collection.image %}
+                            <div class="img">
+                              {{
+                                collection.image
+                                | image_url: width: 50
+                                | image_tag: loading: 'lazy', alt: collection.title
+                              }}
+                            </div>
+                          {% endif %}
+                          <span class="name-cate">{{ collection.title }}</span>
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
               </div>
             {% endif %}
 
@@ -205,24 +207,26 @@
                   <i class="icon icon-categories"></i>
                   {{ section.settings.categories_title }}
                 </a>
-                <ul class="mega-categories">
-                  {% for collection in section.settings.selected_collections %}
-                    <li>
-                      <a href="{{ collection.url }}" class="cate-item">
-                        {% if collection.image %}
-                          <div class="img">
-                            {{
-                              collection.image
-                              | image_url: width: 50
-                              | image_tag: loading: 'lazy', alt: collection.title
-                            }}
-                          </div>
-                        {% endif %}
-                        <span class="name-cate">{{ collection.title }}</span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
+                {% if section.settings.selected_collections != blank %}
+                  <ul class="mega-categories">
+                    {% for collection in section.settings.selected_collections %}
+                      <li>
+                        <a href="{{ collection.url }}" class="cate-item">
+                          {% if collection.image %}
+                            <div class="img">
+                              {{
+                                collection.image
+                                | image_url: width: 50
+                                | image_tag: loading: 'lazy', alt: collection.title
+                              }}
+                            </div>
+                          {% endif %}
+                          <span class="name-cate">{{ collection.title }}</span>
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
               </div>
             {% endif %}
 
@@ -291,11 +295,11 @@
       "id": "layout_type",
       "label": "t:sections.header.settings.layout.label",
       "options": [
-        { "value": "electric", "label": "t:sections.header.settings.layout_1" },
-        { "value": "mega", "label": "t:sections.header.settings.layout_2" },
-        { "value": "market", "label": "t:sections.header.settings.layout_3" }
+        { "value": "layout_1", "label": "t:sections.header.settings.layout_1" },
+        { "value": "layout_2", "label": "t:sections.header.settings.layout_2" },
+        { "value": "layout_3", "label": "t:sections.header.settings.layout_3" }
       ],
-      "default": "electric"
+      "default": "layout_1"
     },
     {
       "type": "select",
@@ -347,7 +351,8 @@
       "type": "checkbox",
       "id": "show_categories",
       "label": "t:sections.header.settings.show_categories_menu.label",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.layout_type != 'layout_2' }}"
     },
     {
       "type": "text",
@@ -462,17 +467,6 @@
           "label": "t:sections.header.blocks.mega_shop.settings.collections.label",
           "limit": 8,
           "info": "t:sections.header.blocks.mega_shop.settings.collections.info"
-        },
-        {
-          "type": "text",
-          "id": "view_all_text",
-          "label": "t:sections.header.blocks.mega_shop.settings.view_all_text.label",
-          "default": "t:sections.header.blocks.mega_shop.settings.view_all_text.default"
-        },
-        {
-          "type": "url",
-          "id": "view_all_url",
-          "label": "t:sections.header.blocks.mega_shop.settings.view_all_url.label"
         }
       ]
     },
@@ -565,7 +559,7 @@
     {
       "name": "t:sections.header.presets.name",
       "settings": {
-        "layout_type": "electric",
+        "layout_type": "layout_1",
         "show_categories": true,
         "show_search": true,
         "show_account": true,
