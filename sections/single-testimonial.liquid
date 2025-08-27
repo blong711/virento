@@ -16,9 +16,9 @@
   }
 {%- endstyle -%}
 
-<section class="section-{{ section.id }}-padding">
+<section class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
   <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
-    <div class="box-testimonial-quote text-center color-{{ section.settings.color_scheme }}">
+    <div class="box-testimonial-quote text-center">
       {%- if section.settings.rating > 0 -%}
         <div class="list-star-default justify-content-center star-rating-{{ section.id }}">
           {%- for i in (1..5) -%}
