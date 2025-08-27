@@ -1,0 +1,26 @@
+{% comment %}
+  Horizontal Filters Snippet
+  Usage: {% render 'horizontal-filters', collection: collection %}
+{% endcomment %}
+
+{% comment %} Get the full collection to access all products {% endcomment %}
+{% assign full_collection = collections[collection.handle] %}
+
+{% comment %} Set default values for settings if not provided {% endcomment %}
+{% assign show_availability_filter = show_availability_filter | default: true %}
+{% assign show_price_filter = show_price_filter | default: true %}
+{% assign show_color_filter = show_color_filter | default: true %}
+{% assign show_brand_filter = show_brand_filter | default: true %}
+
+<div class="tf-filter-dropdown">
+    <span class="title-filter">Filter:</span>
+    <div class="meta-dropdown-filter">
+        {% render 'filter-widgets', 
+            full_collection: full_collection,
+            collections: collections,
+            show_availability_filter: show_availability_filter,
+            show_price_filter: show_price_filter,
+            show_color_filter: show_color_filter,
+            show_brand_filter: show_brand_filter %}
+    </div>
+</div>
