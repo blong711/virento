@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize settings from Liquid template
+    window.enableVariantByImage = window.enableVariantByImage || false;
+    
     // Video Consent Handling
     // Handle video consent
     const handleVideoConsent = (consent) => {
@@ -180,6 +183,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add click handler for images to select variants
     document.querySelectorAll('.tf-product-media-main .swiper-slide').forEach(slide => {
       slide.addEventListener('click', function() {
+        // Only proceed if the setting is enabled
+        if (!window.enableVariantByImage) {
+          return;
+        }
+
+        const mediaId = parseInt(this.getAttribute('data-media-id'));
+        const productMedia = window.productMedia || [];
+        const media = productMedia.find(m => m.id === mediaId);
+
+        if (media) {
+          const variants = window.productVariants || [];
+          let matchedVariant = null;
+
+          // Try to find variant by variant_ids
+          if (media.variant_ids && media.variant_ids.length > 0) {
+            matchedVariant = variants.find(v => media.variant_ids.includes(v.id));
+          }
+
+          // If no match found, try to match by src
+          if (!matchedVariant && media.src) {
+            matchedVariant = variants.find(v => v.featured_image && v.featured_image.src === media.src);
+          }
+
+          if (matchedVariant) {
+            updateVariantSelection(matchedVariant);
+          }
+        }
+      });
+    });
+
+    // Add click handler for grid/stacked layout images to select variants
+    document.querySelectorAll('.item-scroll-target').forEach(item => {
+      item.addEventListener('click', function() {
+        // Only proceed if the setting is enabled
+        if (!window.enableVariantByImage) {
+          return;
+        }
+
         const mediaId = parseInt(this.getAttribute('data-media-id'));
         const productMedia = window.productMedia || [];
         const media = productMedia.find(m => m.id === mediaId);
