@@ -114,9 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
         isListActive = false;
     }
     
-    // Initialize total products count from Shopify data
-    if (window.collectionData) {
-        window.totalProducts = window.collectionData.totalProducts;
+    // Initialize total products count from DOM data attribute
+    const totalProductsElement = document.querySelector('section[data-total-products]');
+    if (totalProductsElement) {
+        window.totalProducts = parseInt(totalProductsElement.getAttribute('data-total-products')) || 0;
+    } else {
+        window.totalProducts = 0;
     }
     
     // Initialize filters from URL parameters first (this will override defaults)
@@ -470,7 +473,10 @@ function handleFilterResponse(html, filterUrl) {
         const newGridProducts = doc.querySelector('#gridLayout');
         const newListProducts = doc.querySelector('#listLayout');
         
-        if (window.collectionData.totalProducts > 0) {
+        // Get total products from the response HTML
+        const totalProducts = getTotalProductsFromResponse(doc);
+        
+        if (totalProducts > 0) {
             // Update the current page with new products
             updateProductsWithoutReload(newGridProducts, newListProducts);
             
@@ -487,11 +493,11 @@ function handleFilterResponse(html, filterUrl) {
             scrollToProducts();
 
             // Update product count
-            updateProductCount(window.collectionData.totalProducts);
+            updateProductCount(totalProducts);
             
             // Trigger custom event for other scripts
             document.dispatchEvent(new CustomEvent('productsFiltered', {
-                detail: { productCount: window.collectionData.totalProducts, filters: filters }
+                detail: { productCount: totalProducts, filters: filters }
             }));
             
             // Reset AJAX failure counter on success
@@ -695,20 +701,43 @@ function buildFilterURL() {
     return currentUrl.toString();
 }
 
+// Get total products from response HTML
+function getTotalProductsFromResponse(doc) {
+    // Look for the section with data-total-products attribute in the response
+    const collectionSection = doc.querySelector('section[data-total-products]');
+    if (collectionSection) {
+        const totalProducts = parseInt(collectionSection.getAttribute('data-total-products'));
+        return isNaN(totalProducts) ? 0 : totalProducts;
+    }
+    
+    // Fallback: try to find any element with data-total-products
+    const fallbackElement = doc.querySelector('[data-total-products]');
+    if (fallbackElement) {
+        const totalProducts = parseInt(fallbackElement.getAttribute('data-total-products'));
+        return isNaN(totalProducts) ? 0 : totalProducts;
+    }
+    
+    // Final fallback: return 0 if no data found
+    console.warn('Could not find data-total-products attribute in response HTML');
+    return 0;
+}
+
 // Update product count display
 function updateProductCount(count) {
     // Update any product count displays
-    const countElements = document.querySelectorAll('.product-count, .total-products');
+    const countElements = document.querySelectorAll('#product-count-grid, #product-count-list, .product-count, .total-products');
     countElements.forEach(el => {
         if (el.textContent.includes('Products found') || el.textContent.includes('products')) {
-            el.innerHTML = el.innerHTML.replace(/\d+/, count);
+            // Update the span with class 'count' specifically
+            const countSpan = el.querySelector('.count');
+            if (countSpan) {
+                countSpan.textContent = count;
+            } else {
+                // Fallback to the old method if no count span is found
+                el.innerHTML = el.innerHTML.replace(/\d+/, count);
+            }
         }
     });
-    
-    // Update load more product count if it exists
-    // if (typeof updateLoadMoreProductCount === 'function') {
-    //     updateLoadMoreProductCount();
-    // }
 }
 
 // Show loading state during filtering
@@ -893,21 +922,6 @@ function applyFilters() {
     // This function is now deprecated in favor of server-side filtering
     // Keeping it for backward compatibility
     console.warn('Client-side filtering is deprecated. Use server-side filtering instead.');
-}
-
-function updateLoadMoreProductCount() {
-    const gridCountEl = document.getElementById('product-count-grid');
-    const listCountEl = document.getElementById('product-count-list');
-    
-    if (gridCountEl) {
-        const visibleGridProducts = document.querySelectorAll('#gridLayout .card-product:not([style*="display: none"])').length;
-        gridCountEl.innerHTML = `<span class="count">${visibleGridProducts}</span>Products found`;
-    }
-    
-    if (listCountEl) {
-        const visibleListProducts = document.querySelectorAll('#listLayout .card-product:not([style*="display: none"])').length;
-        listCountEl.innerHTML = `<span class="count">${visibleListProducts}</span>Products found`;
-    }
 }
 
 function updateMetaFilter() {
@@ -1289,7 +1303,6 @@ function initLoadMore() {
             
             if (layout.id === 'listLayout') updateLastVisible(layout);
             checkLoadMoreButton(layout);
-            updateLoadMoreProductCount(); // Update product count after showing more items
         }, 600);
 
         return itemsDisplayed + itemsPerPage;
@@ -1348,9 +1361,6 @@ function initLoadMore() {
     if (window.collectionData && window.collectionData.paginationType === 'infinity_scroll') {
         initInfinityScroll();
     }
-    
-    // Update product count display
-    updateLoadMoreProductCount();
     
     // Handle initial visibility of infinity scroll elements
     if (window.collectionData && window.collectionData.paginationType === 'infinity_scroll') {
@@ -1471,9 +1481,6 @@ function initInfinityScroll() {
                 product.style.display = '';
             });
             
-            // Update product count
-            updateLoadMoreProductCount();
-            
             // Hide infinity scroll if no more products
             if (layoutEl.querySelectorAll('.card-product[style*="display: none"]').length === 0) {
                 const infiniteScroll = layout === 'list' ? infiniteScrollList : infiniteScrollGrid;
@@ -1573,13 +1580,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (window.collectionData && window.collectionData.paginationType === 'load_more') {
         initLoadMoreFunctionality();
     }
-    
-    // Update product count display after DOM is ready
-    setTimeout(() => {
-        if (document.querySelector('.loadmore')) {
-            updateLoadMoreProductCount();
-        }
-    }, 100);
 });
 
 // Product Event Binding
