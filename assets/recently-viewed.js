@@ -413,10 +413,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (shouldReinitialize) {
-                // Small delay to ensure DOM is fully updated
+                // Minimal delay to ensure DOM is fully updated
                 setTimeout(() => {
                     recentlyViewed.updateRecentlyViewedSection();
-                }, 100);
+                }, 50);
             }
         });
         
@@ -448,10 +448,10 @@ window.refreshRecentlyViewedProducts = function() {
 // Listen for Shopify section rendering events
 document.addEventListener('shopify:section:load', function(event) {
     if (event.target.id && event.target.id.startsWith('recently-viewed-')) {
-        // Small delay to ensure DOM is ready
+        // Minimal delay to ensure DOM is ready
         setTimeout(() => {
             window.refreshRecentlyViewedProducts();
-        }, 100);
+        }, 50);
     }
 });
 
@@ -460,7 +460,7 @@ document.addEventListener('shopify:section:reorder', function(event) {
     if (event.target.id && event.target.id.startsWith('recently-viewed-')) {
         setTimeout(() => {
             window.refreshRecentlyViewedProducts();
-        }, 100);
+        }, 50);
     }
 });
 
