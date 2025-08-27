@@ -88,7 +88,6 @@ class RecentlyViewedProducts {
         return `
             <div class="card-product style-2 style-border-2" 
                  style="
-                    --card-image-padding: 0px;
                     --card-border-thickness: 1px;
                     --card-border-opacity: 0.1;
                     --card-corner-radius: 16px;
