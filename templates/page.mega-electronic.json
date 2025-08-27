@@ -77,13 +77,13 @@
         "banner_QNAYQ7": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/vegetable-1_557309c3-28be-4406-b4eb-6301ab49ed3a.png",
-            "title": "Fresh Produce Everyday",
+            "image": "shopify://shop_images/mega-electric.jpg",
+            "title": "Elevate Your Wellness",
             "title_tag": "h5",
             "title_weight": "fw-medium",
-            "subtitle": "Straight from the farm to your kitchen.",
+            "subtitle": "Track your health and optimize performance with the Oura Ring 4.",
             "subtitle_size": "small",
-            "text_alignment": "text-start",
+            "text_alignment": "text-center",
             "color_scheme": "scheme-11f0fcc1-fb20-4759-9bf3-238b1c73e6d4",
             "link": "",
             "button_label": "Shop Now"
