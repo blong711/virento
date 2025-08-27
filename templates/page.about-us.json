@@ -191,6 +191,7 @@
         "color_scheme": "",
         "width": "container",
         "icon_position_center": true,
+        "line_top": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": 3,
         "products_per_row_tablet": 2,
