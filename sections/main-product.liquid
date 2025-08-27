@@ -162,7 +162,7 @@
                       {% endfor %}
                     </div>
                   </div>
-                  {% if section.settings.show_slider_nav %}
+                  {% if section.settings.show_slider_nav and product.media.size > 1 %}
                     <div class="swiper-button-next nav-swiper thumbs-next"></div>
                     <div class="swiper-button-prev nav-swiper thumbs-prev"></div>
                   {% endif %}
