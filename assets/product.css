@@ -214,4 +214,29 @@
   .buy-it-now.loading {
     opacity: 0.7;
     pointer-events: none;
+  }
+  
+  /* Out of Stock Button Styles */
+  .product-cart-button.disabled,
+  .product-cart-button.btn-out-stock {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    color: #fff !important;
+    cursor: not-allowed !important;
+    opacity: 0.6 !important;
+    pointer-events: none !important;
+    transition: all 0.3s ease;
+  }
+  
+  .product-cart-button.disabled:hover,
+  .product-cart-button.btn-out-stock:hover {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  
+  .product-cart-button.disabled:active,
+  .product-cart-button.btn-out-stock:active {
+    transform: none !important;
   } 

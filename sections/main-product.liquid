@@ -1081,7 +1081,8 @@
     variantNotAvailable: {{ 'sections.product.variant_not_available' | t | json }},
     colorNotAvailable: {{ 'sections.product.color_not_available' | t | json }},
     sizeNotAvailable: {{ 'sections.product.size_not_available' | t | json }},
-    variantError: {{ 'sections.product.variant_error' | t | json }}
+    variantError: {{ 'sections.product.variant_error' | t | json }},
+    addToCart: {{ 'sections.product.add_to_cart' | t | json }}
   };
   window.selectedOptions = {
     {% for option in product.options_with_values %}

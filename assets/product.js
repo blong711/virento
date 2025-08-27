@@ -4,6 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Debug: Initial enableVariantByImage value:', window.enableVariantByImage);
     console.log('Debug: Initial enableVariantByImage type:', typeof window.enableVariantByImage);
     
+    // Initialize button states based on initial variant
+    const initializeButtonStates = () => {
+      if (window.initialVariant) {
+        updateVariantSelection(window.initialVariant);
+      }
+    };
+    
+    // Call initialization after a short delay to ensure DOM is fully ready
+    setTimeout(initializeButtonStates, 100);
+    
     // Video Consent Handling
     // Handle video consent
     const handleVideoConsent = (consent) => {
@@ -451,7 +461,47 @@ document.addEventListener('DOMContentLoaded', function() {
             const quantity = parseInt(quantityInput.value) || 1;
             addToCartBtn.dataset.quantity = quantity;
           }
+          
+          // Check if variant is available and update button state
+          if (variant.available === false) {
+            addToCartBtn.textContent = 'Out of Stock';
+            addToCartBtn.classList.add('disabled', 'btn-out-stock');
+            addToCartBtn.style.pointerEvents = 'none';
+            addToCartBtn.style.opacity = '0.6';
+          } else {
+            addToCartBtn.textContent = window.translations?.addToCart || 'Add to Cart';
+            addToCartBtn.classList.remove('disabled', 'btn-out-stock');
+            addToCartBtn.style.pointerEvents = 'auto';
+            addToCartBtn.style.opacity = '1';
+          }
         });
+        
+        // Update sticky cart button
+        const stickyAddToCartBtn = document.querySelector('.tf-sticky-btn-atc .product-cart-button');
+        if (stickyAddToCartBtn) {
+          stickyAddToCartBtn.dataset.variantId = variant.id;
+          stickyAddToCartBtn.dataset.selectedVariant = variant.id;
+          
+          // Update quantity in sticky add to cart button
+          const stickyQuantityInput = stickyAddToCartBtn.closest('form')?.querySelector('.quantity-product');
+          if (stickyQuantityInput) {
+            const quantity = parseInt(stickyQuantityInput.value) || 1;
+            stickyAddToCartBtn.dataset.quantity = quantity;
+          }
+          
+          // Check if variant is available and update sticky button state
+          if (variant.available === false) {
+            stickyAddToCartBtn.textContent = 'Out of Stock';
+            stickyAddToCartBtn.classList.add('disabled', 'btn-out-stock');
+            stickyAddToCartBtn.style.pointerEvents = 'none';
+            stickyAddToCartBtn.style.opacity = '0.6';
+          } else {
+            stickyAddToCartBtn.textContent = window.translations?.addToCart || 'Add to Cart';
+            stickyAddToCartBtn.classList.remove('disabled', 'btn-out-stock');
+            stickyAddToCartBtn.style.pointerEvents = 'auto';
+            stickyAddToCartBtn.style.opacity = '1';
+          }
+        }
         
 
   
