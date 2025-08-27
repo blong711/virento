@@ -3,8 +3,6 @@
   Renders mobile navigation menu that can be configured independently
 {% endcomment %}
 
-{% assign menu = section.settings.main_menu | default: linklists.main-menu %}
-
 <div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu">
     <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     <div class="mb-canvas-content">
@@ -20,25 +18,60 @@
 
                 <!-- Mobile Navigation Menu -->
                 <ul class="nav-ul-mb" id="wrapper-menu-navigation">
-                    {% for link in linklists[menu].links %}
-                        <li class="nav-mb-item">
-                            <a href="#dropdown-menu-{{ link.handle }}" class="collapsed mb-menu-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="dropdown-menu-{{ link.handle }}">
-                                <span>{{ link.title }}</span>
-                                {% if link.links.size > 0 %}<span class="btn-open-sub"></span>{% endif %}
-                            </a>
-                            
-                            {% if link.links.size > 0 %}
-                            <div id="dropdown-menu-{{ link.handle }}" class="collapse">
-                                <ul class="sub-nav-menu">
-                                    {% for child_link in link.links %}
-                                        <li><a href="{{ child_link.url }}" class="sub-nav-link">{{ child_link.title }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            {% endif %}
-                        </li>
+                    {% for link in linklists.main-menu.links %}
+                      <li class="nav-mb-item">
+                        {% if link.links != blank %}
+                          <a href="#dropdown-menu-{{ link.handle }}" 
+                             class="collapsed mb-menu-link" 
+                             data-bs-toggle="collapse"
+                             aria-expanded="false" 
+                             aria-controls="dropdown-menu-{{ link.handle }}"
+                             role="button">
+                            <span>{{ link.title }}</span>
+                            <span class="btn-open-sub" aria-hidden="true"></span>
+                          </a>
+                          <div id="dropdown-menu-{{ link.handle }}" class="collapse" role="region" aria-labelledby="dropdown-menu-{{ link.handle }}">
+                            <ul class="sub-nav-menu">
+                              {% for childlink in link.links %}
+                                <li>
+                                  {% if childlink.links != blank %}
+                                    <a href="#sub-{{ childlink.handle }}" 
+                                       class="sub-nav-link collapsed"
+                                       data-bs-toggle="collapse" 
+                                       aria-expanded="false"
+                                       aria-controls="sub-{{ childlink.handle }}"
+                                       role="button">
+                                      <span>{{ childlink.title }}</span>
+                                      <span class="btn-open-sub" aria-hidden="true"></span>
+                                    </a>
+                                    <div id="sub-{{ childlink.handle }}" class="collapse" role="region" aria-labelledby="sub-{{ childlink.handle }}">
+                                      <ul class="sub-nav-menu sub-menu-level-2">
+                                        {% for grandchildlink in childlink.links %}
+                                          <li>
+                                            <a href="{{ grandchildlink.url }}" class="sub-nav-link">
+                                              {{ grandchildlink.title }}
+                                            </a>
+                                          </li>
+                                        {% endfor %}
+                                      </ul>
+                                    </div>
+                                  {% else %}
+                                    <a href="{{ childlink.url }}" class="sub-nav-link">
+                                      {{ childlink.title }}
+                                    </a>
+                                  {% endif %}
+                                </li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                        {% else %}
+                          <a href="{{ link.url }}" class="mb-menu-link">
+                            {{ link.title }}
+                          </a>
+                        {% endif %}
+                      </li>
                     {% endfor %}
-                </ul>
+                  </ul>
             </div>
             
             <div class="mb-other-content">
@@ -120,16 +153,6 @@
   "tag": "section",
   "class": "section-mobile-menu",
   "settings": [
-    {
-      "type": "header",
-      "content": "Menu Configuration"
-    },
-    {
-      "type": "link_list",
-      "id": "main_menu",
-      "label": "Main Menu",
-      "default": "main-menu"
-    },
     {
       "type": "header",
       "content": "Search"
