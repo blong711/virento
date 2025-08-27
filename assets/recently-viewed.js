@@ -55,6 +55,24 @@ class RecentlyViewedProducts {
         localStorage.setItem('recentlyViewedProducts', JSON.stringify(recentlyViewed));
     }
     
+    // Function to check if section needs refreshing
+    needsRefreshing() {
+        const section = document.getElementById(this.sectionId);
+        if (!section) return false;
+        
+        const swiperWrapper = section.querySelector('[data-recently-viewed-wrapper="true"]');
+        if (!swiperWrapper) return false;
+        
+        // Check if all slides are empty
+        const slides = swiperWrapper.querySelectorAll('.swiper-slide');
+        if (slides.length === 0) return true;
+        
+        // Check if first slide is empty (indicating section was re-rendered)
+        if (slides[0] && slides[0].innerHTML.trim() === '') return true;
+        
+        return false;
+    }
+
     // Function to update recently viewed section
     updateRecentlyViewedSection() {
         const recentlyViewed = this.getRecentlyViewedProducts();
@@ -78,9 +96,7 @@ class RecentlyViewedProducts {
         });
         
         // Reinitialize swiper if it exists
-        if (window.recentlyViewedSwiper) {
-            window.recentlyViewedSwiper.update();
-        }
+        this.reinitializeSwiper();
     }
 
     // Function to reinitialize the swiper
@@ -375,22 +391,41 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Watch for changes in the section content and reinitialize if needed
         const observer = new MutationObserver(function(mutations) {
+            let shouldReinitialize = false;
+            
             mutations.forEach(function(mutation) {
-                if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-                    // Check if the swiper-wrapper was modified and is empty
-                    const swiperWrapper = section.querySelector('.swiper-wrapper');
-                    if (swiperWrapper && swiperWrapper.children.length === 0) {
-                        // Reinitialize the products
-                        recentlyViewed.updateRecentlyViewedSection();
+                if (mutation.type === 'childList') {
+                    // Check if swiper-wrapper was modified
+                    const swiperWrapper = section.querySelector('[data-recently-viewed-wrapper="true"]');
+                    if (swiperWrapper) {
+                        // Check if all slides are empty or if the wrapper was completely replaced
+                        const slides = swiperWrapper.querySelectorAll('.swiper-slide');
+                        if (slides.length === 0 || (slides.length > 0 && slides[0].innerHTML.trim() === '')) {
+                            shouldReinitialize = true;
+                        }
                     }
                 }
+                
+                // Check for attribute changes on the swiper container
+                if (mutation.type === 'attributes' && mutation.target.classList.contains('tf-swiper')) {
+                    shouldReinitialize = true;
+                }
             });
+            
+            if (shouldReinitialize) {
+                // Small delay to ensure DOM is fully updated
+                setTimeout(() => {
+                    recentlyViewed.updateRecentlyViewedSection();
+                }, 100);
+            }
         });
         
         // Start observing the section for changes
         observer.observe(section, {
             childList: true,
-            subtree: true
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['data-swiper']
         });
     });
 });
@@ -420,20 +455,32 @@ document.addEventListener('shopify:section:load', function(event) {
     }
 });
 
-// Periodic check as fallback (every 5 seconds)
+// Also listen for section updates
+document.addEventListener('shopify:section:reorder', function(event) {
+    if (event.target.id && event.target.id.startsWith('recently-viewed-')) {
+        setTimeout(() => {
+            window.refreshRecentlyViewedProducts();
+        }, 100);
+    }
+});
+
+// Periodic check as final fallback (every 3 seconds)
 setInterval(function() {
     const recentlyViewedSections = document.querySelectorAll('[id^="recently-viewed-"]');
     recentlyViewedSections.forEach(section => {
-        const swiperWrapper = section.querySelector('.swiper-wrapper');
-        if (swiperWrapper && swiperWrapper.children.length === 0) {
-            // Section is empty, refresh it
-            const sectionId = section.id;
-            const productsToShowElement = section.querySelector('[data-products-to-show]');
-            const productsToShow = productsToShowElement ? 
-                                  parseInt(productsToShowElement.getAttribute('data-products-to-show')) : 8;
-            
-            const tempRecentlyViewed = new RecentlyViewedProducts(sectionId, productsToShow);
-            tempRecentlyViewed.updateRecentlyViewedSection();
+        const swiperWrapper = section.querySelector('[data-recently-viewed-wrapper="true"]');
+        if (swiperWrapper) {
+            const slides = swiperWrapper.querySelectorAll('.swiper-slide');
+            if (slides.length === 0 || (slides.length > 0 && slides[0].innerHTML.trim() === '')) {
+                // Section is empty, refresh it
+                const sectionId = section.id;
+                const productsToShowElement = section.querySelector('[data-products-to-show]');
+                const productsToShow = productsToShowElement ? 
+                                      parseInt(productsToShowElement.getAttribute('data-products-to-show')) : 8;
+                
+                const tempRecentlyViewed = new RecentlyViewedProducts(sectionId, productsToShow);
+                tempRecentlyViewed.updateRecentlyViewedSection();
+            }
         }
     });
-}, 5000);
+}, 3000);
