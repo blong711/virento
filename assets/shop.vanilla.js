@@ -4,107 +4,6 @@
  */
 //collection
 
-// Add styles for AJAX filtering
-(function() {
-    const style = document.createElement('style');
-    style.textContent = `
-        .filter-loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #ff6f61;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .wrapper-control-shop.filtering {
-            position: relative;
-        }
-        
-        .wrapper-control-shop.filtering::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.3);
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .no-products-found {
-            text-align: center;
-            padding: 60px 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-        
-        .no-products-content h3 {
-            color: #6c757d;
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-        
-        .no-products-content p {
-            color: #6c757d;
-            margin-bottom: 25px;
-            font-size: 16px;
-        }
-        
-        .btn-reset-filters {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
-        
-        .btn-reset-filters:hover {
-            background: #0056b3;
-        }
-        
-        .filter-transition {
-            transition: opacity 0.3s ease-in-out;
-        }
-        
-        .filter-transition.fade-out {
-            opacity: 0;
-        }
-        
-        .filter-transition.fade-in {
-            opacity: 1;
-        }
-    `;
-    document.head.appendChild(style);
-})();
-
 // Initialize all shop functionality when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize global layout state based on theme settings
@@ -476,8 +375,6 @@ function handleFilterResponse(html, filterUrl) {
         // Get total products from the response HTML
         const totalProducts = getTotalProductsFromResponse(doc);
         
-        if (totalProducts > 0) {
-            // Update the current page with new products
             updateProductsWithoutReload(newGridProducts, newListProducts);
             
             // Update URL without reloading (for bookmarking/sharing)
@@ -502,22 +399,6 @@ function handleFilterResponse(html, filterUrl) {
             
             // Reset AJAX failure counter on success
             resetAjaxFailureCount();
-        } else {
-            // No products found - check if this is an error page
-            const errorElements = doc.querySelectorAll('.error-page, .404-error, .not-found');
-            if (errorElements.length > 0) {
-                console.warn('Received error page instead of products');
-                throw new Error('Server returned error page');
-            }
-            
-            // No products found
-            showNoProductsMessage();
-            
-            // Trigger custom event for no products
-            document.dispatchEvent(new CustomEvent('noProductsFound', {
-                detail: { filters: filters }
-            }));
-        }
     } catch (error) {
         // Trigger error event
         document.dispatchEvent(new CustomEvent('filterParseError', {
@@ -716,10 +597,7 @@ function getTotalProductsFromResponse(doc) {
         const totalProducts = parseInt(fallbackElement.getAttribute('data-total-products'));
         return isNaN(totalProducts) ? 0 : totalProducts;
     }
-    
-    // Final fallback: return 0 if no data found
-    console.warn('Could not find data-total-products attribute in response HTML');
-    return 0;
+        return 0;
 }
 
 // Update product count display
@@ -915,13 +793,6 @@ function initializeFiltersFromURL() {
     
     // Update meta filter display
     updateMetaFilter();
-}
-
-// Legacy client-side filtering (kept for backward compatibility but not used)
-function applyFilters() {
-    // This function is now deprecated in favor of server-side filtering
-    // Keeping it for backward compatibility
-    console.warn('Client-side filtering is deprecated. Use server-side filtering instead.');
 }
 
 function updateMetaFilter() {
