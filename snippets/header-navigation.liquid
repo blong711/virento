@@ -210,7 +210,7 @@
                       <div class="swiper-wrapper">
                         {% for product in block.settings.products %}
                           <div class="swiper-slide">
-                            {% render 'product-card', product: product %}
+                            {% render 'product-card', product: product, show_progress_sale: false %}
                           </div>
                         {% endfor %}
                       </div>
