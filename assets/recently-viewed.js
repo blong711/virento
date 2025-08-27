@@ -91,7 +91,7 @@ class RecentlyViewedProducts {
                     --card-image-padding: 0px;
                     --card-border-thickness: 1px;
                     --card-border-opacity: 0.1;
-                    --card-corner-radius: 8px;
+                    --card-corner-radius: 16px;
                  ">
                 <div class="card-product-wrapper asp-ratio-0">
                     <a href="${product.url}" class="product-img">
