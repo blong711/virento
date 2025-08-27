@@ -53,7 +53,7 @@
             "stock_count_text": "HURRY UP!",
             "show_inventory_count": true,
             "show_progress_bar": true,
-            "stock_threshold": 100
+            "stock_threshold": 50
           }
         },
         "countdown_timer_K4UDNT": {

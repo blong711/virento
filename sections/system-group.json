@@ -201,9 +201,10 @@
         "show_wishlist": true,
         "show_account": true,
         "help_text": "Need Help?",
-        "help_url": "",
-        "phone_number": "",
-        "phone_display": "",
+        "help_url": "shopify://pages/about-us",
+        "address": "123 Yarran st, Punchbowl, NSW 2196, Australia",
+        "email": "clientcare@ecom.com",
+        "phone_number": "1.888.838.3022",
         "show_currency_selector": true,
         "show_language_selector": true
       }
