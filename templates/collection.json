@@ -55,10 +55,8 @@
         "show_extra_links": true,
         "links_prefix_text": "Looking for more? Don't miss out on our other exciting collections for",
         "and_text": "and",
-        "collection1_link_url": "",
-        "collection1_link_label": "Collection 1",
-        "collection2_link_url": "",
-        "collection2_link_label": "Collection 2",
+        "collection1_link_url": "phones",
+        "collection2_link_url": "cables",
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
