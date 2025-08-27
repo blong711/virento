@@ -87,7 +87,7 @@
         "mega_pages_3bFYDC": {
           "type": "mega_pages",
           "settings": {
-            "menu_item_match": "Pages",
+            "menu_item_match": "",
             "banner_image": "shopify://shop_images/banner-header.jpg",
             "banner_title": "Unveiling the latest gear",
             "banner_url": ""
