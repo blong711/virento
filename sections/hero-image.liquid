@@ -108,9 +108,9 @@
               (max-width: 1199px) 1200px,
               1600px
             "
-            src="{{ section.settings.image | image_url: width: 1200 }}"
-            width="{{ section.settings.image.width | default: 1200 }}"
-            height="{{ section.settings.image.height | default: 600 }}"
+                      src="{{ section.settings.image | image_url: width: 800 }}"
+          width="{{ section.settings.image.width | default: 800 }}"
+          height="{{ section.settings.image.height | default: 400 }}"
             loading="lazy"
             alt="{{ section.settings.image.alt | escape }}"
             class="lazyload"
@@ -130,9 +130,9 @@
             (max-width: 1199px) 1200px,
             1600px
           "
-          src="{{ section.settings.image | image_url: width: 1200 }}"
-          width="{{ section.settings.image.width | default: 1200 }}"
-          height="{{ section.settings.image.height | default: 600 }}"
+          src="{{ section.settings.image | image_url: width: 800 }}"
+          width="{{ section.settings.image.width | default: 800 }}"
+          height="{{ section.settings.image.height | default: 400 }}"
           loading="lazy"
           alt="{{ section.settings.image.alt | escape }}"
           class="lazyload"
