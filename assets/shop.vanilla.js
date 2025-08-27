@@ -312,6 +312,8 @@ function initProductFilters() {
             priceSlider.noUiSlider.set([minPrice, maxPrice]);
             filters.minPrice = minPrice;
             filters.maxPrice = maxPrice;
+            // Apply the reset price filter to clear any active price filtering
+            applyServerSideFilters();
         }
     });
 }
