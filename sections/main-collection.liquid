@@ -46,7 +46,7 @@
         
         {% comment %} Horizontal Filter Layout {% endcomment %}
         {% if filter_layout == 'horizontal' %}
-            {% render 'horizontal-filters', collection: collection %}
+            {% render 'horizontal-filters', collection: collection, show_availability_filter: section.settings.show_availability_filter, show_price_filter: section.settings.show_price_filter, show_color_filter: section.settings.show_color_filter, show_brand_filter: section.settings.show_brand_filter %}
         {% endif %}
         
         <div class="tf-shop-control">

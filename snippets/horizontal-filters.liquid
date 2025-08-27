@@ -15,12 +15,173 @@
 <div class="tf-filter-dropdown">
     <span class="title-filter">Filter:</span>
     <div class="meta-dropdown-filter">
-        {% render 'filter-widgets', 
-            full_collection: full_collection,
-            collections: collections,
-            show_availability_filter: show_availability_filter,
-            show_price_filter: show_price_filter,
-            show_color_filter: show_color_filter,
-            show_brand_filter: show_brand_filter %}
+        {% if show_availability_filter %}
+            <div class="dropdown dropdown-filter">
+                <div class="dropdown-toggle" id="availability" data-bs-toggle="dropdown"
+                    aria-expanded="false" data-bs-auto-close="outside">
+                    <span class="text-value">Availability</span>
+                    <span class="icon icon-arr-down"></span>
+                </div>
+                <div class="dropdown-menu" aria-labelledby="availability">
+                    <ul class="filter-group-check">
+                        <li class="list-item">
+                            <input type="radio" name="availability" class="tf-check" id="inStock" value="in_stock">
+                            <label for="inStock" class="label">
+                                <span>In stock</span>&nbsp;
+                                <span class="count">({{ full_collection.products | where: "available", true | size }})</span>
+                            </label>
+                        </li>
+                        <li class="list-item">
+                            <input type="radio" name="availability" class="tf-check" id="outStock" value="out_of_stock">
+                            <label for="outStock" class="label">
+                                <span>Out of stock</span>&nbsp;
+                                <span class="count">({{ full_collection.products | where: "available", false | size }})</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        
+        {% if show_price_filter %}
+            <div class="dropdown dropdown-filter">
+                <div class="dropdown-toggle" id="price" data-bs-toggle="dropdown" aria-expanded="false"
+                    data-bs-auto-close="outside">
+                    <span class="text-value">Price</span>
+                    <span class="icon icon-arr-down"></span>
+                </div>
+                <div class="dropdown-menu" aria-labelledby="price">
+                    <div class="widget-price filter-price">
+                        <div class="price-val-range" id="price-value-range" 
+                             data-min="{{ full_collection.price_min | divided_by: 100.0 | round: 0 }}" 
+                             data-max="{{ full_collection.price_max | divided_by: 100.0 | round: 0 }}">
+                        </div>
+                        <div class="box-value-price">
+                            <span class="text-sm">Price:</span>
+                            <div class="price-box">
+                                <div class="price-val" id="price-min-value" data-currency="{{ shop.currency_symbol }}">
+                                    {{ full_collection.price_min | money_without_currency }}
+                                </div>
+                                <span>-</span>
+                                <div class="price-val" id="price-max-value" data-currency="{{ shop.currency_symbol }}">
+                                    {{ full_collection.price_max | money_without_currency }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+        {% if show_color_filter %}
+            {% comment %} Get dynamic colors from products {% endcomment %}
+            {% assign all_colors = '' %}
+            {% for product in full_collection.products %}
+                {% for option in product.options_with_values %}
+                    {% if option.name == 'Color' %}
+                        {% for value in option.values %}
+                            {% unless all_colors contains value %}
+                                {% assign all_colors = all_colors | append: value | append: ',' %}
+                            {% endunless %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            {% assign colors_array = all_colors | split: ',' %}
+            
+            {% if colors_array.size > 0 and all_colors != '' %}
+                <div class="dropdown dropdown-filter">
+                    <div class="dropdown-toggle" id="color" data-bs-toggle="dropdown" aria-expanded="false"
+                        data-bs-auto-close="outside">
+                        <span class="text-value">Color</span>
+                        <span class="icon icon-arr-down"></span>
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="color">
+                        <div class="filter-color-box flat-check-list">
+                            {% for color in colors_array limit: 10 %}
+                                {% unless color == blank %}
+                                    <div class="check-item color-item color-check">
+                                        <span class="color bg-{{ color | handleize }}"></span>
+                                        <span class="color-text">{{ color }}</span>
+                                    </div>
+                                {% endunless %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+        
+        {% if show_brand_filter %}
+            {% comment %} Get dynamic sizes from products {% endcomment %}
+            {% assign all_sizes = '' %}
+            {% for product in full_collection.products %}
+                {% for option in product.options_with_values %}
+                    {% if option.name == 'Size' %}
+                        {% for value in option.values %}
+                            {% unless all_sizes contains value %}
+                                {% assign all_sizes = all_sizes | append: value | append: ',' %}
+                            {% endunless %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            {% assign sizes_array = all_sizes | split: ',' %}
+            
+            {% if sizes_array.size > 0 and all_sizes != '' %}
+                <div class="dropdown dropdown-filter">
+                    <div class="dropdown-toggle" id="size" data-bs-toggle="dropdown" aria-expanded="false"
+                        data-bs-auto-close="outside">
+                        <span class="text-value">Size</span>
+                        <span class="icon icon-arr-down"></span>
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="size">
+                        <div class="filter-size-box flat-check-list">
+                            {% for size in sizes_array limit: 10 %}
+                                {% unless size == blank %}
+                                    {% assign size_count = 0 %}
+                                    {% for product in full_collection.products %}
+                                        {% for variant in product.variants %}
+                                            {% if variant.option2 == size or variant.option1 == size or variant.option3 == size %}
+                                                {% assign size_count = size_count | plus: 1 %}
+                                                {% break %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                    <div class="check-item size-item size-check">
+                                        <span class="size">{{ size }}</span>&nbsp;
+                                        <span class="count">({{ size_count }})</span>
+                                    </div>
+                                {% endunless %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+        
+        {% if show_brand_filter %}
+            <div class="dropdown dropdown-filter">
+                <div class="dropdown-toggle" id="brand" data-bs-toggle="dropdown" aria-expanded="false"
+                    data-bs-auto-close="outside">
+                    <span class="text-value">Brand</span>
+                    <span class="icon icon-arr-down"></span>
+                </div>
+                <div class="dropdown-menu" aria-labelledby="brand">
+                    <ul class="filter-group-check">
+                        {% assign vendors = full_collection.products | map: "vendor" | uniq %}
+                        {% for vendor in vendors limit: 10 %}
+                            <li class="list-item">
+                                <input type="radio" name="brand" class="tf-check" id="{{ vendor | handleize }}" value="{{ vendor }}">
+                                <label for="{{ vendor | handleize }}" class="label">
+                                    <span>{{ vendor }}</span>&nbsp;
+                                    <span class="count">({{ full_collection.products | where: "vendor", vendor | size }})</span>
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
