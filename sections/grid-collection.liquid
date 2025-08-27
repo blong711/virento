@@ -150,7 +150,7 @@
                 <div class="box-title">
                   <div class="box-offer mb_4">
                     {%- if block.settings.offer_text != blank -%}
-                      <p class="offer text-xs bg-white text-dark fw-semibold">
+                      <p class="offer text-xs fw-semibold">
                         {{- block.settings.offer_text -}}
                       </p>
                     {%- endif -%}
@@ -214,6 +214,11 @@
   .grid-cls-v4-reverse {
     grid-template-areas: 'cc cc aa' 'cc cc bb';
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .s-cls .offer {
+     background-color: rgb(var(--color-background2));
+     color: rgb(var(--color-foreground2));
   }
   .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
