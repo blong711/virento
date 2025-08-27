@@ -70,6 +70,9 @@
                                                                 {% if item.variant.title != 'Default Title' %}
                                                                     <div class="variants">{{ item.variant.title }}</div>
                                                                 {% endif %}
+                                                                {% if item.variant.title == 'Default Title' %}
+                                                                  <div class="variants"></div>
+                                                              {% endif %}
                                                                 <span class="remove-cart link remove" data-item-key="{{ item.key }}">{{ block.settings.remove_text }}</span>
                                                             </div>
                                                         </td>

@@ -820,7 +820,9 @@
             variantEl.textContent = cartItem.variant_title;
             variantEl.style.display = 'block';
           } else {
-            variantEl.style.display = 'none';
+            // Show variants div even for products without variants (empty content)
+            variantEl.textContent = '';
+            variantEl.style.display = 'block';
           }
         }
         
