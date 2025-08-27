@@ -1,0 +1,112 @@
+{
+    "sections": {
+        "grid_collection_JKT7V3": {
+            "type": "grid-collection",
+            "blocks": {
+                "sale_item1_QjBf8a": {
+                    "type": "sale_item1",
+                    "settings": {
+                        "color_scheme": "scheme-1",
+                        "image": "shopify://shop_images/vegetable-1.png",
+                        "sale_text": "Save up to 20% on",
+                        "title": "<p>Dairy Milk </p><p>Chocolate</p>",
+                        "button_label": "Shop Now",
+                        "button_link": "/collections/all",
+                        "sale_text_size": "small",
+                        "title_size": "medium"
+                    }
+                },
+                "sale_item2_hcTWxH": {
+                    "type": "sale_item2",
+                    "settings": {
+                        "color_scheme": "scheme-43ab2b8f-788a-400c-95a7-99f370cf4cac",
+                        "image": "shopify://shop_images/vegetable-2.png",
+                        "sale_text": "Save up to 10% on",
+                        "title": "<p>Yoghurt Pouch </p><p>Blueberry 140g</p>",
+                        "button_label": "Shop Now",
+                        "button_link": "/collections/all",
+                        "sale_text_size": "small",
+                        "title_size": "medium"
+                    }
+                },
+                "discover_item_NaqwVp": {
+                    "type": "discover_item",
+                    "settings": {
+                        "color_scheme": "scheme-ec567319-3125-4f13-b2d9-cbba35749ffb",
+                        "image": "shopify://shop_images/vegetable-3.jpg",
+                        "offer_text": "",
+                        "title": "Eat Fresh, Live Well",
+                        "content": "<p>Discover farm-fresh, organic veggies at our</p><p>store. Locally sourced, quality guaranteed—</p><p>perfect for your healthy meals!</p>",
+                        "button_label": "Discover Now",
+                        "button_link": "shopify://collections",
+                        "title_size": "small",
+                        "content_size": "medium",
+                        "show_price": false,
+                        "price_prefix": "From",
+                        "price": "$1,200"
+                    }
+                }
+            },
+            "block_order": [
+                "sale_item1_QjBf8a",
+                "sale_item2_hcTWxH",
+                "discover_item_NaqwVp"
+            ],
+            "name": "t:sections.grid_collection.presets.name",
+            "settings": {
+                "width": "boxed",
+                "color_scheme": "scheme-1",
+                "padding_top": 30,
+                "padding_bottom": 60,
+                "padding_mobile_rate": 75,
+                "reverse_layout": false
+            }
+        },
+        "offer_banner_d4NYLb": {
+            "type": "offer-banner",
+            "blocks": {
+                "banner_QNAYQ7": {
+                    "type": "banner",
+                    "settings": {
+                        "image": "shopify://shop_images/vegetable-1_557309c3-28be-4406-b4eb-6301ab49ed3a.png",
+                        "title": "Fresh Produce Everyday",
+                        "title_tag": "h5",
+                        "title_weight": "fw-medium",
+                        "subtitle": "Straight from the farm to your kitchen.",
+                        "subtitle_size": "small",
+                        "text_alignment": "text-start",
+                        "color_scheme": "scheme-11f0fcc1-fb20-4759-9bf3-238b1c73e6d4",
+                        "link": "",
+                        "button_label": "Shop Now"
+                    }
+                },
+            },
+            "block_order": [
+                "banner_QNAYQ7",
+            ],
+            "name": "Offer Banner",
+            "settings": {
+                "color_scheme": "",
+                "width": "container",
+                "show_arrows": false,
+                "show_dots": true,
+                "slides_per_view_desktop": 1,
+                "space_between_desktop": 24,
+                "item_height_desktop": 300,
+                "slides_per_view_tablet": 1,
+                "space_between_tablet": 12,
+                "item_height_tablet": 350,
+                "slides_per_view_mobile": 1,
+                "space_between_mobile": 12,
+                "item_height_mobile": 300,
+                "padding_top": 120,
+                "padding_bottom": 120,
+                "padding_mobile_rate": 75
+            }
+        },
+    },
+    "order": [
+        "grid_collection_JKT7V3",
+        "offer_banner_d4NYLb"
+    ]
+}

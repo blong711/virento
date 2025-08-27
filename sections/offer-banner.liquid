@@ -64,6 +64,9 @@
                   </a>
                   <div class="content {{ block.settings.text_alignment }} wow fadeInUp">
                     <div class="box-title">
+                      <div class="new-badge-wrapper {{ block.settings.text_alignment }}">
+                        <p class="new text-xs fw-semibold">NEW IN</p>
+                      </div>
                       <{{ block.settings.title_tag }} class="{{ block.settings.title_weight }}">
                         <a href="{{ block.settings.link }}" class="title link">
                           {{ block.settings.title }}
@@ -72,7 +75,6 @@
                       {% if block.settings.subtitle != blank %}
                         <p
                           class="{% if block.settings.subtitle_size == 'small' %}text-sm{% elsif block.settings.subtitle_size == 'medium' %}text-md{% elsif block.settings.subtitle_size == 'large' %}text-lg{% endif %}"
-                          style="color: rgb(var(--color-foreground2));"
                         >
                           {{ block.settings.subtitle }}
                         </p>
@@ -492,18 +494,28 @@
   }
 
   /* Override default justify-items to allow text alignment classes to work */
-  .section-{{ section.id }} .banner-shop .content.text-start {
+  .section-{{ section.id }} .banner-shop .content.text-start,
+  .section-{{ section.id }} .banner-shop .content .new-badge-wrapper.text-start {
     justify-items: start !important;
     text-align: left;
   }
 
-  .section-{{ section.id }} .banner-shop .content.text-center {
+  .section-{{ section.id }} .banner-shop .content.text-center,
+  .section-{{ section.id }} .banner-shop .content .new-badge-wrapper.text-center {
     justify-items: center !important;
     text-align: center;
   }
 
-  .section-{{ section.id }} .banner-shop .content.text-end {
+  .section-{{ section.id }} .banner-shop .content.text-end,
+  .section-{{ section.id }} .banner-shop .content .new-badge-wrapper.text-end {
     justify-items: end !important;
     text-align: right;
+  }
+  .section-{{ section.id }} .banner-shop .content .new {
+    background-color: rgb(var(--color-background2));
+    border-radius: 22px;
+    padding: 5px 12px;
+    width: fit-content;
+    color: rgb(var(--color-foreground2));
   }
 {%- endstyle -%}
