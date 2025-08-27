@@ -19,7 +19,7 @@
             "image": "shopify://shop_images/mega-2.jpg",
             "sale_text": "Save up to 20% on",
             "title": "<p>Apple Watch Ultra</p>",
-            "button_label": "Shop Now",
+            "button_label": "Explore Now",
             "button_link": "/collections/all",
             "sale_text_size": "small",
             "title_size": "medium"
@@ -31,8 +31,8 @@
             "color_scheme": "scheme-43ab2b8f-788a-400c-95a7-99f370cf4cac",
             "image": "shopify://shop_images/mega-3.jpg",
             "sale_text": "Save up to 10% on",
-            "title": "<p>Yoghurt Pouch </p><p>Blueberry 140g</p>",
-            "button_label": "Shop Now",
+            "title": "<p>Instax Mini 12<br/>Camera</p>",
+            "button_label": "Explore Now",
             "button_link": "/collections/all",
             "sale_text_size": "small",
             "title_size": "medium"
