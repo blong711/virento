@@ -5793,7 +5793,7 @@
           "name": "Additional Information",
           "settings": {
             "paragraph": {
-              "content": "This block shows additional product information. It will display custom metafields if available, or fall back to basic product details like brand, type, and tags. To set up custom metafields: Go to Settings > Metafields and metaobjects > Products > Add definition > Namespace: 'custom', Key: 'additional_information', Type: 'List of metafield references' with 'Label' and 'Value' fields"
+              "content": "This block shows additional product information. It will display custom metafields if available, or fall back to basic product details like brand, type, and tags. To set up custom metafields: Go to Settings > Metafields and metaobjects > Products > Add definition > Namespace: 'custom', Key: 'additional_information', Type: 'Metaobject' and select reference to 'Additional Information' metaobject with 'Label' and 'Value' fields"
             },
             "title": {
               "label": "Tab Title",

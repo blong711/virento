@@ -44,13 +44,141 @@
                 <div class="col-xl-9">
         {% endif %}
         
+        {% comment %} Horizontal Filter Layout {% endcomment %}
+        {% if filter_layout == 'horizontal' %}
+            <div class="tf-filter-dropdown">
+                <span class="title-filter">Filter:</span>
+                <div class="meta-dropdown-filter">
+                    {% if section.settings.show_availability_filter %}
+                        <div class="dropdown dropdown-filter">
+                            <div class="dropdown-toggle" id="availability" data-bs-toggle="dropdown"
+                                aria-expanded="false" data-bs-auto-close="outside">
+                                <span class="text-value">Availability</span>
+                                <span class="icon icon-arr-down"></span>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="availability">
+                                <ul class="filter-group-check">
+                                    <li class="list-item">
+                                        <input type="radio" name="availability" class="tf-check" id="inStock" value="In stock">
+                                        <label for="inStock" class="label">
+                                            <span>In stock</span>&nbsp;
+                                            <span class="count">({{ collection.products | where: "available" | size }})</span>
+                                        </label>
+                                    </li>
+                                    <li class="list-item">
+                                        <input type="radio" name="availability" class="tf-check" id="outStock" value="Out of stock">
+                                        <label for="outStock" class="label">
+                                            <span>Out of stock</span>&nbsp;
+                                            <span class="count">({{ collection.products | where: "available", false | size }})</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if section.settings.show_price_filter %}
+                        <div class="dropdown dropdown-filter">
+                            <div class="dropdown-toggle" id="price" data-bs-toggle="dropdown" aria-expanded="false"
+                                data-bs-auto-close="outside">
+                                <span class="text-value">Price</span>
+                                <span class="icon icon-arr-down"></span>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="price">
+                                <div class="widget-price filter-price">
+                                    <div class="price-val-range" id="price-value-range" 
+                                         data-min="{{ collection.price_min | divided_by: 100.0 | round: 0 }}" 
+                                         data-max="{{ collection.price_max | divided_by: 100.0 | round: 0 }}">
+                                    </div>
+                                    <div class="box-value-price">
+                                        <span class="text-sm">Price:</span>
+                                        <div class="price-box">
+                                            <div class="price-val" id="price-min-value" data-currency="{{ shop.currency_symbol }}"></div>
+                                            <span>-</span>
+                                            <div class="price-val" id="price-max-value" data-currency="{{ shop.currency_symbol }}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if section.settings.show_color_filter %}
+                        <div class="dropdown dropdown-filter">
+                            <div class="dropdown-toggle" id="color" data-bs-toggle="dropdown" aria-expanded="false"
+                                data-bs-auto-close="outside">
+                                <span class="text-value">Color</span>
+                                <span class="icon icon-arr-down"></span>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="color">
+                                <div class="filter-color-box flat-check-list">
+                                    {% assign colors = "Yellow,Black,White,Purple,Light Orange,Light Pink,Pink,Dark Green,Grey" | split: "," %}
+                                    {% for color in colors %}
+                                        <div class="check-item color-item color-check">
+                                            <span class="color bg-{{ color | downcase | replace: ' ', '-' }}"></span>
+                                            <span class="color-text">{{ color }}</span>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if section.settings.show_size_filter %}
+                        <div class="dropdown dropdown-filter">
+                            <div class="dropdown-toggle" id="size" data-bs-toggle="dropdown" aria-expanded="false"
+                                data-bs-auto-close="outside">
+                                <span class="text-value">Size</span>
+                                <span class="icon icon-arr-down"></span>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="size">
+                                <div class="filter-size-box flat-check-list">
+                                    {% assign sizes = "XS,S,M,L,XL,2XL" | split: "," %}
+                                    {% for size in sizes %}
+                                        <div class="check-item size-item size-check">
+                                            <span class="size">{{ size }}</span>&nbsp;
+                                            <span class="count">({{ collection.products.size | divided_by: 6 | plus: 1 }})</span>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                    {% if section.settings.show_brand_filter %}
+                        <div class="dropdown dropdown-filter">
+                            <div class="dropdown-toggle" id="brand" data-bs-toggle="dropdown" aria-expanded="false"
+                                data-bs-auto-close="outside">
+                                <span class="text-value">Brand</span>
+                                <span class="icon icon-arr-down"></span>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="brand">
+                                <ul class="filter-group-check">
+                                    {% assign vendors = collection.products | map: "vendor" | uniq %}
+                                    {% for vendor in vendors limit: 5 %}
+                                        <li class="list-item">
+                                            <input type="radio" name="brand" class="tf-check" id="{{ vendor | handleize }}" value="{{ vendor }}">
+                                            <label for="{{ vendor | handleize }}" class="label">
+                                                <span>{{ vendor }}</span>&nbsp;
+                                                <span class="count">({{ collection.products | where: "vendor", vendor | size }})</span>
+                                            </label>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+        
         <div class="tf-shop-control">
             <div class="tf-group-filter">
                 {% if filter_layout == 'left_sidebar' or filter_layout == 'right_sidebar' %}
                     <button id="filterShop" class="tf-btn-filter d-flex d-xl-none">
                         <span class="icon icon-filter"></span><span class="text">Filter</span>
                     </button>
-                {% else %}
+                {% elsif filter_layout != 'horizontal' %}
                     <a href="#filterShop" data-bs-toggle="offcanvas" aria-controls="filterShop"
                         class="tf-btn-filter">
                         <span class="icon icon-filter"></span><span class="text">Filter</span></a>
@@ -353,7 +481,7 @@
     </div>
 </section>
 
-{% comment %} Render the default filter snippet only when not using sidebar layouts {% endcomment %}
+{% comment %} Render the default filter snippet only when not using sidebar layouts or horizontal layout {% endcomment %}
 {% if filter_layout == 'default' %}
     {% render 'collection-filters', 
         collection: collection,
@@ -518,6 +646,7 @@
             "label": "Filter Layout",
             "options": [
                 { "value": "default", "label": "Default Filter" },
+                { "value": "horizontal", "label": "Horizontal Filter" },
                 { "value": "left_sidebar", "label": "Left Sidebar Filter" },
                 { "value": "right_sidebar", "label": "Right Sidebar Filter" }
             ],
@@ -601,6 +730,13 @@
             "label": "Show color filter",
             "default": true,
             "info": "Display color selection filter options"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_size_filter",
+            "label": "Show size filter",
+            "default": true,
+            "info": "Display size selection filter options"
         },
         {
             "type": "checkbox",
