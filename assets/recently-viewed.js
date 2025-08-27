@@ -341,7 +341,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const recentlyViewedSections = document.querySelectorAll('[id^="recently-viewed-"]');
     recentlyViewedSections.forEach(section => {
         const sectionId = section.id;
-        const productsToShow = parseInt(section.dataset.productsToShow) || 8;
+        // Find the div with data-products-to-show attribute within this section
+        const productsToShowElement = section.querySelector('[data-products-to-show]');
+        const productsToShow = productsToShowElement ? 
+                              parseInt(productsToShowElement.getAttribute('data-products-to-show')) : 8;
         new RecentlyViewedProducts(sectionId, productsToShow);
     });
 });
