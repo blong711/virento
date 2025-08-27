@@ -3,10 +3,27 @@
   Renders currency selector dropdown
 {% endcomment %}
 
-  <select class="image-select center style-default type-currencies" onchange="this.form.submit()">
-    {% for currency in shop.enabled_currencies %}
-      <option value="{{ currency.iso_code }}" {% if currency.iso_code == cart.currency.iso_code %}selected{% endif %}>
-        {{ currency.iso_code }}
-      </option>
-    {% endfor %}
-  </select>
+{%- form 'localization', id: 'CurrencyForm', class: 'localization-form' -%}
+  <div class="no-js-hidden">
+    <select
+      name="country_code"
+      id="currency-selector"
+      class="image-select center style-default type-currencies"
+      aria-labelledby="CurrencyLabel"
+    >
+      {%- for country in localization.available_countries -%}
+        <option
+          value="{{ country.iso_code }}"
+          {% if country.iso_code == localization.country.iso_code %}
+            selected
+          {% endif %}
+          data-thumbnail="{{ 'country/' | append: country.iso_code | downcase | append: '.png' | asset_url }}"
+        >
+          {{ country.currency.symbol }}
+          {{ country.currency.iso_code }}
+        </option>
+      {%- endfor -%}
+    </select>
+  </div>
+  <input type="hidden" name="return_to" value="{{ request.path }}">
+{%- endform -%}
