@@ -60,16 +60,14 @@
         "mega_shop_xYCnFY": {
           "type": "mega_shop",
           "settings": {
-            "menu_item_match": "Shop",
+            "menu_item_match": "",
             "collections": [
               "cables",
               "chargers",
               "earphones",
               "headphones",
               "frontpage"
-            ],
-            "view_all_text": "View All Collections",
-            "view_all_url": ""
+            ]
           }
         },
         "mega_product_zffamK": {
