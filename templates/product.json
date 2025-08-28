@@ -118,7 +118,7 @@
           "type": "fbt",
           "settings": {
             "fbt_title": "Frequently Bought Together",
-            "fbt_source": "manual",
+            "fbt_source": "metafield",
             "fbt_products": [
               "10000mah-power-go-power-bank",
               "apple-iphone-16-promax",
