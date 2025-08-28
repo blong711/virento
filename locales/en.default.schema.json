@@ -1452,10 +1452,12 @@
           "content": "Categories Menu"
         },
         "show_categories_menu": {
-          "label": "Show categories menu"
+          "label": "Show categories menu",
+          "info": "Does not work in Layout 2."
         },
         "selected_collections": {
-          "label": "Select Collections to Show"
+          "label": "Select Collections to Show",
+          "info": "Does not work in Layout 2."
         },
         "layout_configuration": {
           "content": "Layout Configuration"
@@ -1499,7 +1501,8 @@
         },
         "categories_title": {
           "label": "Categories title",
-          "default": "browse categories"
+          "default": "browse categories",
+          "info": "Does not work in Layout 2."
         },
         "browse_categories": "browse categories"
       },

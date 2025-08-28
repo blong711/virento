@@ -250,7 +250,7 @@
           </div>
         {% endif %}
       </div>
-      </div>
+    </div>
   </div>
 </header>
 
@@ -352,19 +352,21 @@
       "id": "show_categories",
       "label": "t:sections.header.settings.show_categories_menu.label",
       "default": true,
-      "visible_if": "{{ section.settings.layout_type != 'layout_2' }}"
+      "info": "t:sections.header.settings.show_categories_menu.info"
     },
     {
       "type": "text",
       "id": "categories_title",
       "label": "t:sections.header.settings.categories_title.label",
-      "default": "t:sections.header.settings.categories_title.default"
+      "default": "t:sections.header.settings.categories_title.default",
+      "info": "t:sections.header.settings.categories_title.info"
     },
     {
       "type": "collection_list",
       "id": "selected_collections",
       "label": "t:sections.header.settings.selected_collections.label",
-      "limit": 20
+      "limit": 20,
+      "info": "t:sections.header.settings.selected_collections.info"
     },
     {
       "type": "header",
