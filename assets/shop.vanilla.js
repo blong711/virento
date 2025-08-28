@@ -36,6 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     bindProductEvents(); // Initialize product events
     initBrowserNavigation(); // Initialize browser navigation handler
+    
+    // Ensure product count visibility is correct on initial page load
+    setTimeout(() => {
+        updateProductCountVisibility();
+    }, 100);
+    
+    // Also ensure it's correct after a longer delay to handle theme customization
+    setTimeout(() => {
+        updateProductCountVisibility();
+    }, 1000);
 });
 
 // Price Range Slider
@@ -391,6 +401,9 @@ function handleFilterResponse(html, filterUrl) {
 
             // Update product count
             updateProductCount(totalProducts);
+            
+            // Ensure product count visibility is correct after filtering
+            updateProductCountVisibility();
             
             // Trigger custom event for other scripts
             document.dispatchEvent(new CustomEvent('productsFiltered', {
@@ -969,6 +982,18 @@ function initLayoutSwitching() {
         isListActive = false;
     }
     let userSelectedLayout = null;
+    
+    // Ensure wrapper classes are set correctly on page load
+    const wrapper = document.querySelector('.wrapper-control-shop');
+    if (wrapper) {
+        if (isListActive) {
+            wrapper.classList.add('listLayout-wrapper');
+            wrapper.classList.remove('gridLayout-wrapper');
+        } else {
+            wrapper.classList.add('gridLayout-wrapper');
+            wrapper.classList.remove('listLayout-wrapper');
+        }
+    }
 
     function hasValidLayout() {
         const gridLayout = document.getElementById('gridLayout');
@@ -1067,6 +1092,9 @@ function initLayoutSwitching() {
                 document.getElementById('listLayout').style.display = '';
                 document.querySelector('.wrapper-control-shop')?.classList.add('listLayout-wrapper');
                 document.querySelector('.wrapper-control-shop')?.classList.remove('gridLayout-wrapper');
+                
+                // Ensure product count elements are properly shown/hidden
+                updateProductCountVisibility();
             } else {
                 isListActive = false;
                 userSelectedLayout = layout;
@@ -1095,6 +1123,13 @@ function initLayoutSwitching() {
         document.getElementById('listLayout').style.display = 'none';
         document.getElementById('gridLayout').style.display = '';
         
+        // Ensure wrapper classes are set correctly for grid layout
+        const wrapper = document.querySelector('.wrapper-control-shop');
+        if (wrapper) {
+            wrapper.classList.add('gridLayout-wrapper');
+            wrapper.classList.remove('listLayout-wrapper');
+        }
+        
         // Set default grid layout from theme settings
         if (window.collectionData && window.collectionData.defaultGridLayout) {
             setGridLayout(window.collectionData.defaultGridLayout);
@@ -1108,10 +1143,20 @@ function initLayoutSwitching() {
             if (defaultLayoutBtn) {
                 defaultLayoutBtn.classList.add('active');
             }
+        } else {
+            // Set default active state for grid layout
+            const defaultGridBtn = document.querySelector('.tf-view-layout-switch[data-value-layout="tf-col-3"]') || 
+                                  document.querySelector('.tf-view-layout-switch[data-value-layout="tf-col-4"]');
+            if (defaultGridBtn) {
+                defaultGridBtn.classList.add('active');
+            }
         }
     }
 
     window.addEventListener('resize', updateLayoutDisplay);
+    
+    // Ensure product count visibility is correct on initial load
+    updateProductCountVisibility();
 }
 
 // Load More / Infinite Scroll
@@ -1530,6 +1575,9 @@ function setListLayout() {
         wrapper.classList.add('listLayout-wrapper');
         wrapper.classList.remove('gridLayout-wrapper');
     }
+    
+    // Ensure product count elements are properly shown/hidden
+    updateProductCountVisibility();
 }
 
 function setGridLayout(layoutClass) {
@@ -1552,4 +1600,33 @@ function setGridLayout(layoutClass) {
     document.querySelectorAll('.tf-view-layout-switch').forEach(btn => btn.classList.remove('active'));
     const activeBtn = document.querySelector(`.tf-view-layout-switch[data-value-layout="${layoutClass}"]`);
     if (activeBtn) activeBtn.classList.add('active');
+    
+    // Ensure product count elements are properly shown/hidden
+    updateProductCountVisibility();
+}
+
+// Function to ensure product count elements are properly shown/hidden based on current layout
+function updateProductCountVisibility() {
+    const wrapper = document.querySelector('.wrapper-control-shop');
+    const productCountGrid = document.getElementById('product-count-grid');
+    const productCountList = document.getElementById('product-count-list');
+    
+    if (!wrapper || !productCountGrid || !productCountList) return;
+    
+    // Check if we're in list or grid layout mode
+    if (wrapper.classList.contains('listLayout-wrapper')) {
+        // List layout: show list count, hide grid count
+        productCountGrid.style.display = 'none';
+        productCountList.style.display = 'block';
+    } else if (wrapper.classList.contains('gridLayout-wrapper')) {
+        // Grid layout: show grid count, hide list count
+        productCountGrid.style.display = 'block';
+        productCountList.style.display = 'none';
+    } else {
+        // Fallback: if no wrapper class is set, default to grid layout
+        wrapper.classList.add('gridLayout-wrapper');
+        wrapper.classList.remove('listLayout-wrapper');
+        productCountGrid.style.display = 'block';
+        productCountList.style.display = 'none';
+    }
 }

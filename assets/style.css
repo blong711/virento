@@ -17814,6 +17814,18 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   display: none;
 }
 
+/* Hide both product count elements by default until JavaScript initializes */
+#product-count-grid,
+#product-count-list {
+  display: none;
+}
+
+/* Show the appropriate one when wrapper classes are applied */
+.gridLayout-wrapper #product-count-grid,
+.listLayout-wrapper #product-count-list {
+  display: block;
+}
+
 .meta-filter-shop {
   display: flex;
   gap: 10px;
