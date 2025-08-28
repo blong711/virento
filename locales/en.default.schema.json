@@ -6956,6 +6956,78 @@
           "info": "Display brand/vendor filter options"
         }
       }
-    }
+    },
+    "testimonial": {
+      "name": "Testimonial",
+      "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "full": { "label": "Full width" },
+            "boxed": { "label": "Boxed" }
+          }
+        },
+        "content_align": {
+          "label": "Content align",
+          "options": {
+            "left": { "label": "Left" },
+            "center": { "label": "Center" },
+            "right": { "label": "Right" }
+          }
+        },
+        "color_scheme": { "label": "Color Scheme" },
+        "rating_star_color": { "label": "Rating star color" },
+        "header_group": { "content": "Heading settings" },
+        "heading": { "label": "Heading" },
+        "subheading": { "label": "Subheading" },
+        "heading_size": {
+          "label": "Heading size",
+          "options": {
+            "small": { "label": "Small" },
+            "medium": { "label": "Medium" },
+            "large": { "label": "Large" }
+          }
+        },
+        "subheading_size": {
+          "label": "Subheading size",
+          "options": {
+            "small": { "label": "Small" },
+            "medium": { "label": "Medium" },
+            "large": { "label": "Large" }
+          }
+        },
+        "heading_spacing": { "label": "Distance between heading and content" },
+        "slider_group": { "content": "Slider settings" },
+        "use_prev_next": { "label": "Use prev/next button" },
+        "use_dots_mobile": { "label": "Use dots on mobile" },
+        "items_desktop": { "label": "Items per row (Desktop)" },
+        "items_tablet": { "label": "Items per row (Tablet)" },
+        "items_mobile": { "label": "Items per row (Mobile)" },
+        "padding_group": { "content": "Section padding" },
+        "padding_top": { "label": "Top padding" },
+        "padding_bottom": { "label": "Bottom padding" },
+        "padding_mobile_rate": {
+          "label": "Padding mobile rate",
+          "info": "Padding mobile rate"
+        }
+      },
+      "blocks": {
+        "testimonial_item": {
+          "name": "Testimonial Item",
+          "settings": {
+            "rating": { "label": "Rating star" },
+            "heading": { "label": "Heading" },
+            "content": { "label": "Content" },
+            "author_name": { "label": "Author name" },
+            "author_image": { "label": "Author image" },
+            "product": { "label": "Product select" }
+          }
+        }
+      },
+      "presets": {
+        "name": "Testimonial",
+        "category": "Custom"
+      }
+    },
   }
 }
