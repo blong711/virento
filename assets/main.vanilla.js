@@ -1659,11 +1659,14 @@ const copyText = () => {
       // Use modern Clipboard API
       await navigator.clipboard.writeText(text.innerText);
       
-      // Optional: Show success feedback
-      const originalIcon = copyBtn.innerHTML;
-      copyBtn.innerHTML = '<i class="icon-check"></i>';
+      // Show success feedback
+      const originalText = copyBtn.textContent || copyBtn.innerHTML;
+      copyBtn.innerHTML = '<i class="icon-check"></i> Copied!';
+      copyBtn.style.pointerEvents = 'none'; // Prevent multiple clicks
+      
       setTimeout(() => {
-        copyBtn.innerHTML = originalIcon;
+        copyBtn.innerHTML = originalText;
+        copyBtn.style.pointerEvents = 'auto'; // Re-enable clicks
       }, 2000);
       
     } catch (err) {
@@ -1679,10 +1682,13 @@ const copyText = () => {
         document.body.removeChild(textarea);
         
         // Show success feedback
-        const originalIcon = copyBtn.innerHTML;
-        copyBtn.innerHTML = '<i class="icon-check"></i>';
+        const originalText = copyBtn.textContent || copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="icon-check"></i> Copied!';
+        copyBtn.style.pointerEvents = 'none'; // Prevent multiple clicks
+        
         setTimeout(() => {
-          copyBtn.innerHTML = originalIcon;
+          copyBtn.innerHTML = originalText;
+          copyBtn.style.pointerEvents = 'auto'; // Re-enable clicks
         }, 2000);
         
       } catch (fallbackErr) {
