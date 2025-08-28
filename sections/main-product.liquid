@@ -604,7 +604,12 @@
                                data-product-id="{{ product.id }}"
                                data-selected-variant="{{ product.selected_or_first_available_variant.id }}"
                                data-quantity="1">
-                              {{ 'sections.product.add_to_cart' | t }}
+                              {% assign current_variant = product.selected_or_first_available_variant %}
+                              {% if current_variant.available and current_variant.inventory_quantity <= 0 and current_variant.inventory_policy == 'continue' %}
+                                {{ 'products.product.pre_order' | t }}
+                              {% else %}
+                                {{ 'sections.product.add_to_cart' | t }}
+                              {% endif %}
                             </a>
                           </div>
                           
