@@ -1,0 +1,247 @@
+
+
+<div class="flat-spacing-4" id="sub-collection-{{ section.id }}">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <div class="section-header text-center mb-5">
+        <h2 class="section-title">{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle != blank -%}
+          <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="fl-control-sw pos1">
+      <div dir="ltr" class="swiper tf-swiper hover-sw-nav wow fadeInUp" 
+           data-swiper='{
+             "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+             "spaceBetween": {{ section.settings.space_between }},
+             "speed": 800,
+             "observer": true,
+             "observeParents": true,
+             "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
+             {%- if section.settings.autoplay -%}
+             "autoplay": {
+               "delay": {{ section.settings.autoplay_speed }},
+               "disableOnInteraction": false
+             },
+             {%- endif -%}
+             {%- if section.settings.show_navigation -%}
+             "navigation": {
+               "clickable": true,
+               "nextEl": ".nav-next-cls",
+               "prevEl": ".nav-prev-cls"
+             },
+             {%- endif -%}
+             {%- if section.settings.show_pagination -%}
+             "pagination": { 
+               "el": ".sw-pagination-cls", 
+               "clickable": true 
+             },
+             {%- endif -%}
+             "breakpoints": {
+               "768": { 
+                 "slidesPerView": {{ section.settings.slides_per_view_tablet }}, 
+                 "spaceBetween": 24, 
+                 "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+               },
+               "1200": { 
+                 "slidesPerView": {{ section.settings.slides_per_view_desktop }}, 
+                 "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+               }
+             }
+           }'>
+                 <div class="swiper-wrapper">
+           {%- for collection in collections limit: section.settings.collections_limit -%}
+            <div class="swiper-slide">
+              <div class="wg-cls style-abs2 hover-img">
+                                 <a href="{{ collection.url }}" class="image-wrap relative">
+                   <div class="image img-style">
+                     {%- if collection.image -%}
+                       <img src="{{ collection.image | img_url: '400x' }}"
+                            data-src="{{ collection.image | img_url: '400x' }}" 
+                            alt="{{ collection.title | escape }}"
+                            class="lazyload"
+                            loading="lazy"
+                            width="400"
+                            height="400">
+                     {%- else -%}
+                       {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                     {%- endif -%}
+                   </div>
+                   <div class="cls-btn text-center">
+                     <button class="tf-btn btn-white hover-dark">
+                       {{ section.settings.button_text }}
+                     </button>
+                   </div>
+                   <span class="tf-overlay"></span>
+                 </a>
+                 <div class="cls-content text-center">
+                   <a href="{{ collection.url }}" class="text-type text-xl-2 fw-medium link">
+                     {{ collection.title }}
+                   </a>
+                   <span class="count-item body-text-2 text-main">
+                     {{ collection.products_count }} {{ section.settings.item_text }}
+                   </span>
+                 </div>
+              </div>
+            </div>
+                     {%- else -%}
+             {%- comment -%} Fallback content if no collections {%- endcomment -%}
+             {%- for i in (1..6) -%}
+               <div class="swiper-slide">
+                 <div class="wg-cls style-abs2 hover-img">
+                   <div class="image-wrap relative">
+                     <div class="image img-style">
+                       {{ 'collection-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                     </div>
+                     <div class="cls-btn text-center">
+                       <button class="tf-btn btn-white hover-dark">
+                         {{ section.settings.button_text }}
+                       </button>
+                     </div>
+                     <span class="tf-overlay"></span>
+                   </div>
+                   <div class="cls-content text-center">
+                     <span class="text-type text-xl-2 fw-medium link">
+                       {{ section.settings.fallback_title }} {{ i }}
+                     </span>
+                     <span class="count-item body-text-2 text-main">
+                       0 {{ section.settings.item_text }}
+                     </span>
+                   </div>
+                 </div>
+               </div>
+             {%- endfor -%}
+          {%- endfor -%}
+        </div>
+        
+        {%- if section.settings.show_pagination -%}
+          <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+        {%- endif -%}
+      </div>
+      
+      {%- if section.settings.show_navigation -%}
+        <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
+        <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Sub Collection",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Collections"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle"
+    },
+    
+    {
+      "type": "range",
+      "id": "collections_limit",
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "default": 6,
+      "label": "Number of collections to show"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1,
+      "label": "Slides per view (mobile)"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "label": "Slides per view (tablet)"
+    },
+    {
+      "type": "range",
+      "id": "slides_per_view_desktop",
+      "min": 3,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Slides per view (desktop)"
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "min": 8,
+      "max": 40,
+      "step": 4,
+      "default": 12,
+      "label": "Space between slides"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination dots on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 3000,
+      "label": "Autoplay speed (ms)"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View all"
+    },
+    {
+      "type": "text",
+      "id": "item_text",
+      "label": "Item count text",
+      "default": "items"
+    },
+    {
+      "type": "text",
+      "id":        "fallback_title",
+       "label": "Fallback collection title",
+       "default": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sub Collection"
+    }
+  ]
+}
+{% endschema %}
