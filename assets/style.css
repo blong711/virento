@@ -12951,8 +12951,8 @@ button.animate-btn::after,
 .tf-icon-box.style-2 .box-icon {
   width: 64px;
   height: 64px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
+  /* border: 1px solid var(--line);
+  border-radius: 50%; */
 }
 .tf-icon-box.style-2 .box-icon .icon {
   font-size: 24px;

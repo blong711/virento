@@ -5035,6 +5035,16 @@
         "products_per_row_mobile": {
           "label": "Items per row (Mobile)",
           "info": "Number of items to show per row on mobile screens"
+        },
+        "show_border": {
+          "label": "Show icon border"
+        },
+        "icon_style": {
+          "label": "Icon style",
+          "options": {
+            "default": "Default",
+            "border": "Border"
+          }
         }
       },
       "blocks": {

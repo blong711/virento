@@ -81,18 +81,24 @@
     {
       "type": "select",
       "id": "icon_style",
-      "label": "Icon box style",
+      "label": "t:sections.icon-box.settings.icon_style.label",
       "options": [
         {
           "value": "default",
-          "label": "Default"
+          "label": "t:sections.icon-box.settings.icon_style.options.default"
         },
         {
           "value": "style-border",
-          "label": "Border style"
+          "label": "t:sections.icon-box.settings.icon_style.options.border"
         }
       ],
       "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border",
+      "label": "t:sections.icon-box.settings.show_border.label",
+      "default": true
     },
     {
       "type": "header",
@@ -382,14 +388,14 @@
   #shopify-section-{{ section.id }} .tf-icon-box.style-2 .box-icon {
       width: var(--icon-width);
       height: var(--icon-width);
-      border: 1px solid var(--line);
+      {% if section.settings.show_border %}border: 1px solid var(--line);{% endif %}  
       border-radius: 50%;
   }
   #shopify-section-{{ section.id }} .tf-icon-box.style-3 .box-icon {
       width: var(--icon-width);
       height: var(--icon-width);
       flex-shrink: 0;
-      border: 1px solid var(--line);
+      {% if section.settings.show_border %}border: 1px solid var(--line);{% endif %}
       border-radius: 50%;
   }
 
@@ -400,7 +406,7 @@
   #shopify-section-{{ section.id }} .tf-icon-box.style-border .box-icon {
       width: var(--icon-width);
       height: var(--icon-width);
-      border: 1px solid var(--line);
+      {% if section.settings.show_border %}border: 1px solid var(--line);{% endif %}
       border-radius: 50%;
       display: flex;
       align-items: center;
