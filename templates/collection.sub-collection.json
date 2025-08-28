@@ -9,6 +9,25 @@
  */
 {
   "sections": {
+    "sub_collection": {
+      "type": "sub-collection",
+      "settings": {
+        "title": "Featured Collections",
+        "subtitle": "Discover our curated selection of premium collections",
+        "collections_limit": 6,
+        "slides_per_view_mobile": 1,
+        "slides_per_view_tablet": 2,
+        "slides_per_view_desktop": 4,
+        "space_between": 12,
+        "show_navigation": true,
+        "show_pagination": true,
+        "autoplay": false,
+        "autoplay_speed": 3000,
+        "button_text": "View all",
+        "item_text": "items",
+        "fallback_title": "Collection"
+      }
+    },
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
@@ -125,6 +144,7 @@
   },
   "order": [
     "page_breadcrumb",
+    "sub_collection",
     "main_collection",
     "collection_description",
     "icon_box_rRceTc"
