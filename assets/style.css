@@ -11744,8 +11744,8 @@ button.animate-btn::after,
 
 .modal-quick-view .tf-product-info-wrap .variant-color .color-btn.out-of-stock .out-of-stock-overlay .slash,
 .modal-quick-view .tf-product-info-wrap .variant-size .size-btn.out-of-stock .out-of-stock-overlay .slash {
-  color: var(--red);
-  font-size: 36px;
+  color: #A9A9A9;
+  font-size: 30px;
   line-height: 1;
   transform: rotate(30deg);
 }
@@ -14198,8 +14198,8 @@ button.animate-btn::after,
 
 .tf-product-info-wrap .variant-color .color-btn.out-of-stock .out-of-stock-overlay .slash,
 .tf-product-info-wrap .variant-size .size-btn.out-of-stock .out-of-stock-overlay .slash {
-  color: var(--red);
-  font-size: 36px;
+  color: #A9A9A9;
+  font-size: 30px;
   line-height: 1;
   transform: rotate(30deg);
 }
