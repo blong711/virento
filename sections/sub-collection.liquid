@@ -1,49 +1,49 @@
 
 
-<div class="flat-spacing-4" id="sub-collection-{{ section.id }}">
-  <div class="container">
-    <div class="fl-control-sw pos1">
-      <div dir="ltr" class="swiper tf-swiper hover-sw-nav wow fadeInUp" 
-           data-swiper='{
-             "slidesPerView": {{ section.settings.slides_per_view_mobile }},
-             "spaceBetween": {{ section.settings.space_between }},
-             "speed": 800,
-             "observer": true,
-             "observeParents": true,
-             "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
-             {%- if section.settings.autoplay -%}
-             "autoplay": {
-               "delay": {{ section.settings.autoplay_speed }},
-               "disableOnInteraction": false
-             },
-             {%- endif -%}
-             {%- if section.settings.show_navigation -%}
-             "navigation": {
-               "clickable": true,
-               "nextEl": ".nav-next-cls",
-               "prevEl": ".nav-prev-cls"
-             },
-             {%- endif -%}
-             {%- if section.settings.show_pagination -%}
-             "pagination": { 
-               "el": ".sw-pagination-cls", 
-               "clickable": true 
-             },
-             {%- endif -%}
-             "breakpoints": {
-               "768": { 
-                 "slidesPerView": {{ section.settings.slides_per_view_tablet }}, 
-                 "spaceBetween": 24, 
-                 "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+{%- if section.settings.selected_collections != blank -%}
+  <div class="flat-spacing-4" id="sub-collection-{{ section.id }}">
+    <div class="container">
+      <div class="fl-control-sw pos1">
+        <div dir="ltr" class="swiper tf-swiper hover-sw-nav wow fadeInUp" 
+             data-swiper='{
+               "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+               "spaceBetween": {{ section.settings.space_between }},
+               "speed": 800,
+               "observer": true,
+               "observeParents": true,
+               "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
+               {%- if section.settings.autoplay -%}
+               "autoplay": {
+                 "delay": {{ section.settings.autoplay_speed }},
+                 "disableOnInteraction": false
                },
-               "1200": { 
-                 "slidesPerView": {{ section.settings.slides_per_view_desktop }}, 
-                 "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+               {%- endif -%}
+               {%- if section.settings.show_navigation -%}
+               "navigation": {
+                 "clickable": true,
+                 "nextEl": ".nav-next-cls",
+                 "prevEl": ".nav-prev-cls"
+               },
+               {%- endif -%}
+               {%- if section.settings.show_pagination -%}
+               "pagination": { 
+                 "el": ".sw-pagination-cls", 
+                 "clickable": true 
+               },
+               {%- endif -%}
+               "breakpoints": {
+                 "768": { 
+                   "slidesPerView": {{ section.settings.slides_per_view_tablet }}, 
+                   "spaceBetween": 24, 
+                   "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+                 },
+                 "1200": { 
+                   "slidesPerView": {{ section.settings.slides_per_view_desktop }}, 
+                   "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+                 }
                }
-             }
-           }'>
-            <div class="swiper-wrapper">
-           {%- if section.settings.selected_collections != blank -%}
+             }'>
+              <div class="swiper-wrapper">
              {%- for collection_handle in section.settings.selected_collections -%}
                {%- assign collection = collections[collection_handle] -%}
                {%- if collection != blank -%}
@@ -82,21 +82,21 @@
                          </div>
                {%- endif -%}
              {%- endfor -%}
-            {%- endif -%}
-           </div>
+            </div>
+          
+          {%- if section.settings.show_pagination -%}
+            <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+          {%- endif -%}
+        </div>
         
-        {%- if section.settings.show_pagination -%}
-          <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+        {%- if section.settings.show_navigation -%}
+          <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
+          <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
         {%- endif -%}
       </div>
-      
-      {%- if section.settings.show_navigation -%}
-        <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
-        <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
-      {%- endif -%}
     </div>
   </div>
-</div>
+{%- endif -%}
 
 {% schema %}
 {
