@@ -24967,5 +24967,61 @@ shopify-accelerated-checkout {
 .filter-transition.fade-in {
   opacity: 1;
 }
-
+.tf-btn-line{
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--dark);
+  border: 1px solid var(--dark);
+  color: var(--white);
+  padding: 13px 32px;
+  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  text-transform: capitalize;
+  border: none;
+  background: transparent;
+  padding: 0px;
+  color: var(--dark);
+  justify-content: unset;
+  width: max-content;
+  position: relative;
+  gap: 6px;
+}
+.tf-btn-line .icon {
+  display: flex;
+}
+.tf-btn-line i {
+  font-size: 12px;
+}
+.tf-btn-line:hover {
+  color: var(--primary);
+}
+.tf-btn-line:hover::after {
+  left: 0;
+  right: auto;
+  width: 100%;
+}
+.tf-btn-line::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: auto;
+  right: 0;
+  width: 0%;
+  height: 1px;
+  background-color: var(--primary);
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
 
