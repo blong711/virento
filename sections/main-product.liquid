@@ -421,11 +421,12 @@
                                       <span class="text-sort-value value-current{{ option.name }}">{{ option.selected_value }}</span>
                                       <span class="icon icon-arrow-down"></span>
                                     </div>
-                                                                      <div class="dropdown-menu">
+                                    <div class="dropdown-menu">
                                     {% for value in option.values %}
                                       {% assign show_value = true %}
+                                      {% assign variant_for_value = null %}
+                                      {% assign is_out_of_stock = false %}
                                       {% if block.settings.hide_sold_out %}
-                                        {% assign variant_for_value = null %}
                                         {% for variant in product.variants %}
                                           {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
                                             {% if variant.available == false %}
@@ -436,10 +437,19 @@
                                         {% endfor %}
                                       {% endif %}
                                       {% if show_value %}
-                                        <div class="select-item{% if value == option.selected_value %} active{% endif %}"
+                                        {% for variant in product.variants %}
+                                          {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                            {% assign variant_for_value = variant %}
+                                            {% if variant.available == false %}
+                                              {% assign is_out_of_stock = true %}
+                                            {% endif %}
+                                            {% break %}
+                                          {% endif %}
+                                        {% endfor %}
+                                        <div class="select-item{% if value == option.selected_value %} active{% endif %}{% if is_out_of_stock %} out-of-stock{% endif %}"
                                             data-value="{{ value | handle }}" data-option="{{ option.name | handle }}"
                                             {% if option.name == 'Color' %} data-color="{{ value | handle }}"{% endif %} {% if option.name == 'Size' %} data-size="{{ value | handle }}"{% endif %}>
-                                          <span class="text-value-item">{{ value }}</span>
+                                          <span class="text-value-item">{{ value }}{% if is_out_of_stock %} (Out of stock){% endif %}</span>
                                         </div>
                                       {% endif %}
                                     {% endfor %}
@@ -451,8 +461,9 @@
                                       <span class="value-currentColor" style="display: none;">{{ option.selected_value }}</span>
                                       {% for value in option.values %}
                                         {% assign show_value = true %}
+                                        {% assign variant_for_value = null %}
+                                        {% assign is_out_of_stock = false %}
                                         {% if block.settings.hide_sold_out %}
-                                          {% assign variant_for_value = null %}
                                           {% for variant in product.variants %}
                                             {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
                                               {% if variant.available == false %}
@@ -463,12 +474,26 @@
                                           {% endfor %}
                                         {% endif %}
                                         {% if show_value %}
-                                          <div class="hover-tooltip tooltip-bot color-btn btn-scroll-target color-size-{{ block.settings.color_selector_size }}{% if value == option.selected_value %} active{% endif %}"
+                                          {% for variant in product.variants %}
+                                            {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                              {% assign variant_for_value = variant %}
+                                              {% if variant.available == false %}
+                                                {% assign is_out_of_stock = true %}
+                                              {% endif %}
+                                              {% break %}
+                                            {% endif %}
+                                          {% endfor %}
+                                          <div class="hover-tooltip tooltip-bot color-btn btn-scroll-target color-size-{{ block.settings.color_selector_size }}{% if value == option.selected_value %} active{% endif %}{% if is_out_of_stock %} out-of-stock{% endif %}"
                                               data-scroll="{{ value | handle }}"
                                               data-option="{{ option.name | handle }}"
                                               data-value="{{ value | handle }}">
                                             <span class="check-color bg-{{ value | handle }}"></span>
-                                            <span class="tooltip">{{ value }}</span>
+                                            <span class="tooltip">{{ value }}{% if is_out_of_stock %} (Out of stock){% endif %}</span>
+                                            {% if is_out_of_stock %}
+                                              <div class="out-of-stock-overlay">
+                                                <span class="slash">/</span>
+                                              </div>
+                                            {% endif %}
                                           </div>
                                         {% endif %}
                                       {% endfor %}
@@ -476,8 +501,9 @@
                                       <span class="value-currentSize" style="display: none;">{{ option.selected_value }}</span>
                                       {% for value in option.values %}
                                         {% assign show_value = true %}
+                                        {% assign variant_for_value = null %}
+                                        {% assign is_out_of_stock = false %}
                                         {% if block.settings.hide_sold_out %}
-                                          {% assign variant_for_value = null %}
                                           {% for variant in product.variants %}
                                             {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
                                               {% if variant.available == false %}
@@ -488,10 +514,26 @@
                                           {% endfor %}
                                         {% endif %}
                                         {% if show_value %}
-                                          <span class="size-btn{% if value == option.selected_value %} active{% endif %}"
+                                          {% for variant in product.variants %}
+                                            {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                              {% assign variant_for_value = variant %}
+                                              {% if variant.available == false %}
+                                                {% assign is_out_of_stock = true %}
+                                              {% endif %}
+                                              {% break %}
+                                            {% endif %}
+                                          {% endfor %}
+                                          <span class="size-btn{% if value == option.selected_value %} active{% endif %}{% if is_out_of_stock %} out-of-stock{% endif %}"
                                                 data-size="{{ value | handle }}"
                                                 data-option="{{ option.name | handle }}"
-                                                data-value="{{ value | handle }}">{{ value }}</span>
+                                                data-value="{{ value | handle }}">
+                                            {{ value }}{% if is_out_of_stock %} (Out of stock){% endif %}
+                                            {% if is_out_of_stock %}
+                                              <div class="out-of-stock-overlay">
+                                                <span class="slash">/</span>
+                                              </div>
+                                            {% endif %}
+                                          </span>
                                         {% endif %}
                                       {% endfor %}
                                     {% else %}
@@ -503,8 +545,9 @@
                                         <div class="dropdown-menu">
                                           {% for value in option.values %}
                                             {% assign show_value = true %}
+                                            {% assign variant_for_value = null %}
+                                            {% assign is_out_of_stock = false %}
                                             {% if block.settings.hide_sold_out %}
-                                              {% assign variant_for_value = null %}
                                               {% for variant in product.variants %}
                                                 {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
                                                   {% if variant.available == false %}
@@ -515,8 +558,17 @@
                                               {% endfor %}
                                             {% endif %}
                                             {% if show_value %}
-                                              <div class="select-item{% if value == option.selected_value %} active{% endif %}" data-value="{{ value | handle }}">
-                                                <span class="text-value-item">{{ value }}</span>
+                                              {% for variant in product.variants %}
+                                                {% if variant.option1 == value or variant.option2 == value or variant.option3 == value %}
+                                                  {% assign variant_for_value = variant %}
+                                                  {% if variant.available == false %}
+                                                    {% assign is_out_of_stock = true %}
+                                                  {% endif %}
+                                                  {% break %}
+                                                {% endif %}
+                                              {% endfor %}
+                                              <div class="select-item{% if value == option.selected_value %} active{% endif %}{% if is_out_of_stock %} out-of-stock{% endif %}" data-value="{{ value | handle }}">
+                                                <span class="text-value-item">{{ value }}{% if is_out_of_stock %} (Out of stock){% endif %}</span>
                                               </div>
                                             {% endif %}
                                           {% endfor %}

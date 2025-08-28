@@ -11716,6 +11716,38 @@ button.animate-btn::after,
   width: 28px !important;
   height: 28px !important;
 }
+
+/* Modal quick view out of stock variant styles */
+.modal-quick-view .tf-product-info-wrap .variant-color .color-btn.out-of-stock,
+.modal-quick-view .tf-product-info-wrap .variant-size .size-btn.out-of-stock {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.modal-quick-view .tf-product-info-wrap .variant-color .color-btn.out-of-stock .out-of-stock-overlay,
+.modal-quick-view .tf-product-info-wrap .variant-size .size-btn.out-of-stock .out-of-stock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.modal-quick-view .tf-product-info-wrap .variant-color .color-btn.out-of-stock .out-of-stock-overlay .slash,
+.modal-quick-view .tf-product-info-wrap .variant-size .size-btn.out-of-stock .out-of-stock-overlay .slash {
+  color: var(--red);
+  font-size: 36px;
+  line-height: 1;
+  transform: rotate(30deg);
+}
+
 .modal-quick-view .tf-product-info-wrap .wg-quantity .quantity-product,
 .modal-quick-view .tf-product-info-wrap .wg-quantity .btn-quantity {
   height: 48px !important;
@@ -14138,6 +14170,58 @@ button.animate-btn::after,
 .tf-product-info-wrap .variant-size .size-btn:not(.select-item).active {
   border-color: var(--dark);
 }
+
+/* Out of stock variant styles */
+.tf-product-info-wrap .variant-color .color-btn.out-of-stock,
+.tf-product-info-wrap .variant-size .size-btn.out-of-stock {
+  opacity: 0.6;
+  cursor: not-allowed;
+  position: relative;
+}
+
+.tf-product-info-wrap .variant-color .color-btn.out-of-stock .out-of-stock-overlay,
+.tf-product-info-wrap .variant-size .size-btn.out-of-stock .out-of-stock-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.tf-product-info-wrap .variant-color .color-btn.out-of-stock .out-of-stock-overlay .slash,
+.tf-product-info-wrap .variant-size .size-btn.out-of-stock .out-of-stock-overlay .slash {
+  color: var(--red);
+  font-size: 36px;
+  line-height: 1;
+  transform: rotate(30deg);
+}
+
+/* Dropdown out of stock styles */
+.tf-variant-dropdown .select-item.out-of-stock {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tf-variant-dropdown .select-item.out-of-stock .text-value-item {
+  color: var(--text-3);
+}
+
+/* Additional dropdown out of stock styles */
+.tf-variant-dropdown .select-item.out-of-stock:hover {
+  background-color: transparent;
+  color: var(--text-3);
+}
+
+.tf-variant-dropdown .select-item.out-of-stock::before {
+  background-color: var(--text-3);
+}
+
 .tf-product-info-wrap .product-info-countdown {
   padding: 20px;
   display: inline-block;
