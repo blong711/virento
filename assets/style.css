@@ -24262,9 +24262,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 }
 
 /* Hide button text when loading */
-.tf-btn.loading > *:not(.cart-spinner),
-.product-cart-button.loading > *:not(.cart-spinner),
-.buy-it-now.loading > *:not(.cart-spinner) {
+.tf-btn.loading > *:not(.cart-spinner):not(.spinner-circle),
+.product-cart-button.loading > *:not(.cart-spinner):not(.spinner-circle),
+.buy-it-now.loading > *:not(.cart-spinner):not(.spinner-circle) {
   opacity: 0;
 }
 
