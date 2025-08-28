@@ -906,9 +906,10 @@ if (!customElements.get('product-cart-button')) {
           </div>
         `;
         
-        // Store original content and add spinner
+        // Store original content but don't clear it
         button.setAttribute('data-original-content', button.innerHTML);
-        button.innerHTML = '';
+        
+        // Add spinner without clearing content
         button.appendChild(spinner);
         
         // Add loading class
@@ -916,20 +917,10 @@ if (!customElements.get('product-cart-button')) {
       }
 
       removeSpinner(button, originalHTML) {
-        // Remove spinner and restore original content
+        // Remove spinner only
         const spinner = button.querySelector('.cart-spinner');
         if (spinner) {
           spinner.remove();
-        }
-        
-        // Restore original content
-        if (originalHTML) {
-          button.innerHTML = originalHTML;
-        } else {
-          const originalContent = button.getAttribute('data-original-content');
-          if (originalContent) {
-            button.innerHTML = originalContent;
-          }
         }
         
         // Remove loading class

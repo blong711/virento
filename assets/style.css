@@ -24220,26 +24220,51 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: inherit;
+  border-radius: inherit;
 }
 
-.box-icon.loading {
+/* Ensure buttons maintain size when loading */
+.tf-btn.loading,
+.product-cart-button.loading,
+.buy-it-now.loading {
+  position: relative;
   opacity: 0.7;
   pointer-events: none;
 }
 
-.box-icon.loading .cart-spinner {
+/* Position spinner in center of button */
+.tf-btn.loading .cart-spinner,
+.product-cart-button.loading .cart-spinner,
+.buy-it-now.loading .cart-spinner {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* Hide button text when loading */
+.tf-btn.loading > *:not(.cart-spinner),
+.product-cart-button.loading > *:not(.cart-spinner),
+.buy-it-now.loading > *:not(.cart-spinner) {
+  opacity: 0;
 }
 
 .spinner-border-sm {
-  width: 1rem;
-  height: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-width: 0.125em;
+}
+
+/* Ensure spinner is visible on all button types */
+.cart-spinner .spinner-border {
+  color: currentColor;
 }
 
 /* Empty cart styles */
