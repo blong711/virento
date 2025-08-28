@@ -2683,9 +2683,24 @@
               "default": "Size Guide",
               "info": "This text appears on the size guide link next to the size selector"
             },
+            "size_guide_source": {
+              "label": "Size Guide Source",
+              "options": {
+                "page": {
+                  "label": "Shopify Page"
+                },
+                "image": {
+                  "label": "Image"
+                }
+              }
+            },
             "size_guide_page": {
               "label": "Size Guide Page",
               "info": "Select a Shopify page containing your size guide content. This is used when 'Shopify Page' is selected as the source."
+            },
+            "size_guide_image": {
+              "label": "Size Guide Image",
+              "info": "Upload an image for your size guide. This is used when 'Image' is selected as the source."
             }
           }
         },

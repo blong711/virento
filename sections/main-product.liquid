@@ -982,7 +982,19 @@
         <span class="icon-close icon-close-popup" data-bs-dismiss="modal" aria-label="Close"></span>
       </div>
       <div class="tf-rte">
-        {% if size_guide_block.settings.size_guide_page != blank %}     
+        {% if size_guide_block.settings.size_guide_source == 'image' and size_guide_block.settings.size_guide_image != blank %}
+          <div class="size-guide-image-container">
+            <img 
+              src="{{ size_guide_block.settings.size_guide_image | image_url: width: 800 }}"
+              alt="{{ size_guide_block.settings.size_guide_image.alt }}"
+              class="size-guide-image"
+              loading="lazy"
+              style="max-width: 100%; height: auto;"
+              width="800"
+              height="800"
+            >
+          </div>
+        {% elsif size_guide_block.settings.size_guide_source == 'page' and size_guide_block.settings.size_guide_page != blank %}
           {% if pages[size_guide_block.settings.size_guide_page].content != blank %}
             {{ pages[size_guide_block.settings.size_guide_page].content }}
           {% else %}
@@ -1467,10 +1479,32 @@
           "info": "t:sections.main-product.blocks.size_guide.settings.size_guide_text.info"
         },
         {
+          "type": "select",
+          "id": "size_guide_source",
+          "label": "t:sections.main-product.blocks.size_guide.settings.size_guide_source.label",
+          "options": [
+            {
+              "value": "page",
+              "label": "t:sections.main-product.blocks.size_guide.settings.size_guide_source.options.page.label"
+            },
+            {
+              "value": "image",
+              "label": "t:sections.main-product.blocks.size_guide.settings.size_guide_source.options.image.label"
+            }
+          ],
+          "default": "page"
+        },
+        {
           "type": "page",
           "id": "size_guide_page",
           "label": "t:sections.main-product.blocks.size_guide.settings.size_guide_page.label",
           "info": "t:sections.main-product.blocks.size_guide.settings.size_guide_page.info"
+        },
+        {
+          "type": "image_picker",
+          "id": "size_guide_image",
+          "label": "t:sections.main-product.blocks.size_guide.settings.size_guide_image.label",
+          "info": "t:sections.main-product.blocks.size_guide.settings.size_guide_image.info"
         }
       ]
     },
