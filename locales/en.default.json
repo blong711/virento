@@ -1139,6 +1139,15 @@
       "available_html": "Pickup available at <span class=\"fw-medium\">{{ location_name }} Store</span>. {{ pick_up_time }}",
       "unavailable_at_html": "Pickup currently unavailable at <span class=\"fw-medium\">{{ location_name }} Store</span>.",
       "unavailable": "Pickup currently unavailable."
+    },
+    "product-card": {
+      "add_to_cart": "Add to Cart",
+      "add_to_wishlist": "Add to Wishlist",
+      "quick_view": "Quick View",
+      "add_to_compare": "Add to Compare",
+      "off": "% Off",
+      "sold": "Sold",
+      "available": "Available"
     }
   }
 }

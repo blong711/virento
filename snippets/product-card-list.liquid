@@ -5,15 +5,7 @@
     - show_progress_sale: Boolean to show/hide progress sale (default: true)
 {% endcomment %}
 
-{% assign card_style = settings.card_style | default: 'style-2' %}
-{% assign card_color_scheme = settings.card_color_scheme | default: 'scheme-2' %}
-
 {% comment %} Handle show_progress_sale parameter {% endcomment %}
-{% if show_progress_sale == false or show_progress_sale == 'false' %}
-  {% assign should_show_progress = false %}
-{% else %}
-  {% assign should_show_progress = true %}
-{% endif %}
 
 <div class="card-product style-list" 
      data-availability="{{ product.available | default: false }}"
@@ -98,14 +90,14 @@
                 <a class="box-icon hover-tooltip" data-product-id="{{ product.id }}"
                     data-product-handle="{{ product.handle }}">
                     <span class="icon icon-heart2"></span>
-                    <span class="tooltip">Add to Wishlist</span>
+                    <span class="tooltip">{{ 'snippets.product-card.add_to_wishlist' | t }}</span>
                 </a>
             </div>
             <div class="compare">
                 <a class="box-icon hover-tooltip" data-product-id="{{ product.id }}"
                     data-product-handle="{{ product.handle }}">
                     <span class="icon icon-compare3"></span>
-                    <span class="tooltip">Add to Compare</span>
+                    <span class="tooltip">{{ 'snippets.product-card.add_to_compare' | t }}</span>
                 </a>
             </div>
         </div>

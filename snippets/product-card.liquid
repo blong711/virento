@@ -113,7 +113,7 @@
                data-product-id="{{ product.id }}"
                data-product-handle="{{ product.handle }}"
                data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                Add to Cart
+                {{ 'snippets.product-card.add_to_cart' | t }}
             </a>
         {% endif %}
         
@@ -168,7 +168,7 @@
         {% if product.compare_at_price > product.price %}
             {% assign save_percentage = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
             <div class="on-sale-wrap">
-                <span class="on-sale-item">{{ save_percentage }}% Off</span>
+                <span class="on-sale-item">{{ save_percentage }}{{ 'snippets.product-card.off' | t }}</span>
             </div>
         {% endif %}
         {% if product.available %}
@@ -243,7 +243,7 @@
         {% if product.compare_at_price > product.price %}
             {% assign save_percentage = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
             <div class="on-sale-wrap">
-                <span class="on-sale-item">{{ save_percentage }}% Off</span>
+                <span class="on-sale-item">{{ save_percentage }}{{ 'snippets.product-card.off' | t }}</span>
             </div>
         {% endif %}
         {% if product.available %}
@@ -277,11 +277,11 @@
                 </div>
                 <div class="box-quantity d-flex justify-content-between">
                     <p class="text-sold text-sm">
-                        Sold:
+                        {{ 'snippets.product-card.sold' | t }}:
                         <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
                     </p>
                     <p class="text-avaiable text-sm">
-                        Available:
+                        {{ 'snippets.product-card.available' | t }}:
                         <span class="fw-medium">{{ inventory_quantity }}</span>
                     </p>
                 </div>
@@ -296,7 +296,7 @@
                data-product-id="{{ product.id }}"
                data-product-handle="{{ product.handle }}"
                data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                Add to Cart
+                {{ 'snippets.product-card.add_to_cart' | t }}
             </a>
         {% endif %}
         
