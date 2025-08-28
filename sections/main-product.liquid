@@ -851,7 +851,7 @@
                   {% if block.settings.fbt_source == 'manual' %}
                     {% assign fbt_products = block.settings.fbt_products %}
                   {% elsif block.settings.fbt_source == 'metafield' %}
-                    {% assign fbt_products = product.metafields.bundle.products %}
+                    {% assign fbt_products = product.metafields.bundle.products.value %}
                   {% endif %}
 
                   {% if fbt_products != blank %}
