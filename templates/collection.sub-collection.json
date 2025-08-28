@@ -12,8 +12,6 @@
     "sub_collection": {
       "type": "sub-collection",
       "settings": {
-        "title": "Featured Collections",
-        "subtitle": "Discover our curated selection of premium collections",
         "collections_limit": 6,
         "slides_per_view_mobile": 1,
         "slides_per_view_tablet": 2,
