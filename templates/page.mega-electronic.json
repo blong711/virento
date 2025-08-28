@@ -122,10 +122,82 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "testimonial_FzYjjR": {
+      "type": "testimonial",
+      "blocks": {
+        "testimonial_item_8Qy7fm": {
+          "type": "testimonial_item",
+          "settings": {
+            "rating": 5,
+            "heading": "Top-Notch Smartwatch!",
+            "content": "<p>I really love this product. It exceeded my expectations!</p>",
+            "author_name": "John Doe",
+            "product": ""
+          }
+        },
+        "testimonial_item_wbcrGe": {
+          "type": "testimonial_item",
+          "settings": {
+            "rating": 5,
+            "heading": "Great product!",
+            "content": "<p>I really love this product. It exceeded my expectations!</p>",
+            "author_name": "John Doe",
+            "product": ""
+          }
+        },
+        "testimonial_item_hAmQt8": {
+          "type": "testimonial_item",
+          "settings": {
+            "rating": 5,
+            "heading": "Great product!",
+            "content": "<p>I really love this product. It exceeded my expectations!</p>",
+            "author_name": "John Doe",
+            "product": ""
+          }
+        },
+        "testimonial_item_jVfM6R": {
+          "type": "testimonial_item",
+          "settings": {
+            "rating": 5,
+            "heading": "Great product!",
+            "content": "<p>I really love this product. It exceeded my expectations!</p>",
+            "author_name": "John Doe",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_item_8Qy7fm",
+        "testimonial_item_wbcrGe",
+        "testimonial_item_hAmQt8",
+        "testimonial_item_jVfM6R"
+      ],
+      "name": "t:sections.testimonial.presets.name",
+      "settings": {
+        "width": "boxed",
+        "content_align": "center",
+        "color_scheme": "",
+        "rating_star_color": "#FFD700",
+        "heading": "Customer Favorites",
+        "subheading": "Discover expert advice, style inspiration, and product updates on our blog.",
+        "heading_size": "medium",
+        "subheading_size": "medium",
+        "heading_spacing": 20,
+        "use_prev_next": true,
+        "use_dots_mobile": true,
+        "items_desktop": 3,
+        "items_tablet": 2,
+        "items_mobile": 1,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "grid_collection_JKT7V3",
-    "offer_banner_d4NYLb"
+    "offer_banner_d4NYLb",
+    "testimonial_FzYjjR"
   ]
 }
