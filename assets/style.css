@@ -4576,9 +4576,9 @@ header.header-bg {
   border-color: #f77904 !important;
 }
 .tf-btn.hover-primary:hover {
-  background-color: var(--primary);
-  color: var(--white);
-  border-color: var(--primary);
+  background-color: var(--primary) !important;
+  color: var(--white) !important;
+  border-color: var(--primary) !important;
 }
 .tf-btn.hover-dark:hover {
   background-color: var(--dark) !important;
@@ -15878,7 +15878,7 @@ button.animate-btn::after,
   font-size: 26px;
   font-weight: 500;
   line-height: 33.2px;
-  color: var(--white);
+  color: var(--white) !important;
   text-align: center;
   margin-bottom: 16px;
 }
