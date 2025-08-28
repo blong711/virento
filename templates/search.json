@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -11,6 +20,10 @@
         "show_on_sale": true,
         "on_sale_limit": 3,
         "show_collection_banner": false,
+        "collection_banner_image": "shopify://shop_images/sb-banner_1.jpg",
+        "collection_banner_title": "Elevate Your Style",
+        "collection_banner_button_text": "Shop Now",
+        "collection_banner_button_url": "shopify://collections",
         "show_availability_filter": true,
         "show_price_filter": true,
         "show_color_filter": true,
