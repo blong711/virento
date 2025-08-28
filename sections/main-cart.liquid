@@ -1,5 +1,4 @@
-<div class="color-{{ section.settings.color_scheme }}">
-  <div class="section-{{ section.id }}-padding">
+<div class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
   <div class="color-{{ section.settings.color_scheme }}" style="margin-bottom: 95px;" 
      data-currency-enabled="{% if settings.currency_code_enabled %}true{% else %}false{% endif %}"
      data-currency-code="{{ shop.currency }}"
@@ -456,7 +455,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 </div>
 {% style %}
