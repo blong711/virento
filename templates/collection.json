@@ -59,7 +59,77 @@
         "collection1_link_url": "phones",
         "collection2_link_url": "cables",
         "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
+    },
+    "icon_box_rRceTc": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_NjQbDF": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "FREE DELIVERY",
+            "description": "Enjoy free delivery on all orders"
+          }
+        },
+        "icon_box_FT6i9L": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-payment",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "SECURED PAYMENT",
+            "description": "Secured payment"
+          }
+        },
+        "icon_box_RxXMwW": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "EASY RETURNS",
+            "description": "Within 14 days for a return"
+          }
+        },
+        "icon_box_n6fPaC": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "24/7 SUPPORT",
+            "description": "Outstanding premium support"
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_NjQbDF",
+        "icon_box_FT6i9L",
+        "icon_box_RxXMwW",
+        "icon_box_n6fPaC"
+      ],
+      "name": "t:sections.icon-box.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "icon_position_center": true,
+        "line_top": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "icon_style": "default",
+        "padding_top": 44,
+        "padding_bottom": 44,
         "padding_mobile_rate": 75
       }
     }
@@ -67,6 +137,7 @@
   "order": [
     "page_breadcrumb",
     "main_collection",
-    "collection_description"
+    "collection_description",
+    "icon_box_rRceTc"
   ]
 }
