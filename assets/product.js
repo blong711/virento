@@ -195,21 +195,21 @@ document.addEventListener('DOMContentLoaded', function() {
               const targetButton = mainSection ? mainSection.querySelector('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)') : null;
               
               updateVariantSelection(matchedVariant, false, targetButton);
+              
+              // Update color swatch active state
+              if (matchedVariant.option1) {
+                const color = matchedVariant.option1.toLowerCase();
+                document.querySelectorAll('.color-btn, .btn-scroll-target').forEach(btn => {
+                  if (btn.getAttribute('data-scroll') && btn.getAttribute('data-scroll').toLowerCase() === color) {
+                    btn.classList.add('active');
+                  } else {
+                    btn.classList.remove('active');
+                  }
+                });
+              }
             }
           } else {
             console.log('Debug: slideChange: Setting disabled or user_select mode, NOT updating variant selection');
-          }
-
-          // Update color swatch active state
-          if (matchedVariant && matchedVariant.option1) {
-            const color = matchedVariant.option1.toLowerCase();
-            document.querySelectorAll('.color-btn, .btn-scroll-target').forEach(btn => {
-              if (btn.getAttribute('data-scroll') && btn.getAttribute('data-scroll').toLowerCase() === color) {
-                btn.classList.add('active');
-              } else {
-                btn.classList.remove('active');
-              }
-            });
           }
         }
       }
