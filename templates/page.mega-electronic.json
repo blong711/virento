@@ -57,7 +57,7 @@
             "button_link": "shopify://collections",
             "title_size": "small",
             "content_size": "medium",
-            "show_price": false,
+            "show_price": true,
             "price_prefix": "From",
             "price": "$1,200",
             "price_size": "medium"
