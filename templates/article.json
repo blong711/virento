@@ -12,7 +12,7 @@
     "main": {
       "type": "blog-post",
       "settings": {
-        "width": "full",
+        "width": "boxed",
         "color_scheme": "scheme-99d3498c-ecaf-4951-a085-cd6bfffed0cc",
         "show_tags": true,
         "show_author": true,
