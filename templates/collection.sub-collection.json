@@ -22,12 +22,12 @@
       "type": "sub-collection",
       "settings": {
         "selected_collections": [
-          "bakery",
-          "beverages",
           "cables",
           "chargers",
-          "dairy",
-          "earphones"
+          "earphones",
+          "headphones",
+          "keyboards",
+          "phones"
         ],
         "collections_limit": 6,
         "slides_per_view_mobile": 1,
