@@ -817,7 +817,11 @@
                           </ul>
                         </div>
                       {% when 'delivery_info' %}
-                        <div class="tf-product-info-delivery-return" {{ block.shopify_attributes }}>
+                        {% assign delivery_count = 0 %}
+                        {% if block.settings.show_delivery_info %}{% assign delivery_count = delivery_count | plus: 1 %}{% endif %}
+                        {% if block.settings.show_free_shipping %}{% assign delivery_count = delivery_count | plus: 1 %}{% endif %}
+                        
+                        <div class="tf-product-info-delivery-return{% if delivery_count == 1 %} text-center{% endif %}" {{ block.shopify_attributes }}>
                           {% if block.settings.show_delivery_info %}
                             <div class="product-delivery">
                               <div class="icon {{ block.settings.delivery_icon }}" style="font-size: {{ block.settings.icon_size }}px;"></div>
