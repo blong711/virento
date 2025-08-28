@@ -148,6 +148,28 @@
   "class": "section-collection-list",
   "settings": [
     {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.main_collection_list.settings.width.label",
+      "options": [
+        {
+          "value": "full",
+          "label": "t:sections.main_collection_list.settings.width.options.full"
+        },
+        {
+          "value": "boxed",
+          "label": "t:sections.main_collection_list.settings.width.options.boxed"
+        }
+      ],
+      "default": "boxed"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.main_collection_list.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
       "type": "header",
       "content": "t:sections.main_collection_list.settings.main_collections_list.content"
     },
@@ -185,28 +207,6 @@
       "step": 1,
       "label": "t:sections.main_collection_list.settings.max_items_to_show.label",
       "default": 12
-    },
-    {
-      "type": "select",
-      "id": "width",
-      "label": "t:sections.main_collection_list.settings.width.label",
-      "options": [
-        {
-          "value": "full",
-          "label": "t:sections.main_collection_list.settings.width.options.full"
-        },
-        {
-          "value": "boxed",
-          "label": "t:sections.main_collection_list.settings.width.options.boxed"
-        }
-      ],
-      "default": "boxed"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.main_collection_list.settings.color_scheme.label",
-      "default": "scheme-1"
     },
     {
       "type": "header",
