@@ -835,7 +835,18 @@
       "banner": {
         "default_title": "Elevate Your Style",
         "default_button_text": "Shop Now"
-      }
+      },
+      "availability": "Availability",
+      "in_stock": "In stock",
+      "out_of_stock": "Out of stock",
+      "price": "Price",
+      "color": "Color",
+      "size": "Size",
+      "brand": "Brand",
+      "reset": "Reset",
+      "on_sale": "On sale",
+      "options_available": "options available",
+      "collections": "Collections"
     },
     "sections": {
       "main_login": {

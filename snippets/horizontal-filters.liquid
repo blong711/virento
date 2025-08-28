@@ -13,13 +13,13 @@
 {% assign show_brand_filter = show_brand_filter | default: true %}
 
 <div class="tf-filter-dropdown">
-    <span class="title-filter">Filter:</span>
+    <span class="title-filter">{{ section.main_collection.filter | t }}:</span>
     <div class="meta-dropdown-filter">
         {% if show_availability_filter %}
             <div class="dropdown dropdown-filter">
                 <div class="dropdown-toggle" id="availability" data-bs-toggle="dropdown"
                     aria-expanded="false" data-bs-auto-close="outside">
-                    <span class="text-value">Availability</span>
+                    <span class="text-value">{{ section.main_collection.availability | t }}</span>
                     <span class="icon icon-arr-down"></span>
                 </div>
                 <div class="dropdown-menu" aria-labelledby="availability">
@@ -27,14 +27,14 @@
                         <li class="list-item">
                             <input type="radio" name="availability" class="tf-check" id="inStock" value="in_stock">
                             <label for="inStock" class="label">
-                                <span>In stock</span>&nbsp;
+                                <span>{{ section.main_collection.in_stock | t }}</span>&nbsp;
                                 <span class="count">({{ full_collection.products | where: "available", true | size }})</span>
                             </label>
                         </li>
                         <li class="list-item">
                             <input type="radio" name="availability" class="tf-check" id="outStock" value="out_of_stock">
                             <label for="outStock" class="label">
-                                <span>Out of stock</span>&nbsp;
+                                <span>{{ section.main_collection.out_of_stock | t }}</span>&nbsp;
                                 <span class="count">({{ full_collection.products | where: "available", false | size }})</span>
                             </label>
                         </li>
@@ -47,7 +47,7 @@
             <div class="dropdown dropdown-filter">
                 <div class="dropdown-toggle" id="price" data-bs-toggle="dropdown" aria-expanded="false"
                     data-bs-auto-close="outside">
-                    <span class="text-value">Price</span>
+                    <span class="text-value">{{ section.main_collection.price | t }}</span>
                     <span class="icon icon-arr-down"></span>
                 </div>
                 <div class="dropdown-menu" aria-labelledby="price">
@@ -57,7 +57,7 @@
                              data-max="{{ full_collection.price_max | divided_by: 100.0 | round: 0 }}">
                         </div>
                         <div class="box-value-price">
-                            <span class="text-sm">Price:</span>
+                            <span class="text-sm">{{ section.main_collection.price | t }}:</span>
                             <div class="price-box">
                                 <div class="price-val" id="price-min-value" data-currency="{{ shop.currency_symbol }}">
                                     {{ full_collection.price_min | money }}
@@ -68,7 +68,7 @@
                                 </div>
                             </div>
                         </div>
-                        <span class="reset-price">Reset</span>
+                        <span class="reset-price">{{ section.main_collection.reset | t }}</span>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                 <div class="dropdown dropdown-filter">
                     <div class="dropdown-toggle" id="color" data-bs-toggle="dropdown" aria-expanded="false"
                         data-bs-auto-close="outside">
-                        <span class="text-value">Color</span>
+                        <span class="text-value">{{ section.main_collection.color | t }}</span>
                         <span class="icon icon-arr-down"></span>
                     </div>
                     <div class="dropdown-menu" aria-labelledby="color">
@@ -133,7 +133,7 @@
                 <div class="dropdown dropdown-filter">
                     <div class="dropdown-toggle" id="size" data-bs-toggle="dropdown" aria-expanded="false"
                         data-bs-auto-close="outside">
-                        <span class="text-value">Size</span>
+                        <span class="text-value">{{ section.main_collection.size | t }}</span>
                         <span class="icon icon-arr-down"></span>
                     </div>
                     <div class="dropdown-menu" aria-labelledby="size">
@@ -165,7 +165,7 @@
             <div class="dropdown dropdown-filter">
                 <div class="dropdown-toggle" id="brand" data-bs-toggle="dropdown" aria-expanded="false"
                     data-bs-auto-close="outside">
-                    <span class="text-value">Brand</span>
+                    <span class="text-value">{{ section.main_collection.brand | t }}</span>
                     <span class="icon icon-arr-down"></span>
                 </div>
                 <div class="dropdown-menu" aria-labelledby="brand">
