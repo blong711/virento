@@ -12,12 +12,6 @@
                "observer": true,
                "observeParents": true,
                "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
-               {%- if section.settings.autoplay -%}
-               "autoplay": {
-                 "delay": {{ section.settings.autoplay_speed }},
-                 "disableOnInteraction": false
-               },
-               {%- endif -%}
                {%- if section.settings.show_navigation -%}
                "navigation": {
                  "clickable": true,
@@ -153,21 +147,6 @@
       "default": true
     },
     {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Enable autoplay",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "autoplay_speed",
-      "min": 2000,
-      "max": 8000,
-      "step": 500,
-      "default": 3000,
-      "label": "Autoplay speed (ms)"
-    },
-    {
       "type": "text",
       "id": "button_text",
       "label": "Button text",
@@ -178,12 +157,6 @@
       "id": "item_text",
       "label": "Item count text",
       "default": "items"
-    },
-    {
-      "type": "text",
-      "id":        "fallback_title",
-       "label": "Fallback collection title",
-       "default": "Collection"
     }
   ],
   "presets": [
