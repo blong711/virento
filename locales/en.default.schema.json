@@ -5040,7 +5040,7 @@
           "label": "Show icon border"
         },
         "icon_style": {
-          "label": "Icon style",
+          "label": "Icon box style",
           "options": {
             "default": "Default",
             "border": "Border"
