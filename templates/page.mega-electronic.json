@@ -17,12 +17,15 @@
           "settings": {
             "color_scheme": "scheme-1",
             "image": "shopify://shop_images/mega-2.jpg",
-            "sale_text": "Save up to 20% on",
+            "sale_text": "",
+            "discount_style": "badge",
             "title": "<p>Apple Watch Ultra</p>",
+            "subtitle": "<p>Ultimate Performance, Anywhere</p>",
             "button_label": "Explore Now",
             "button_link": "/collections/all",
             "sale_text_size": "small",
-            "title_size": "medium"
+            "title_size": "medium",
+            "subtitle_size": "small"
           }
         },
         "sale_item2_hcTWxH": {
@@ -30,12 +33,15 @@
           "settings": {
             "color_scheme": "scheme-43ab2b8f-788a-400c-95a7-99f370cf4cac",
             "image": "shopify://shop_images/mega-3.jpg",
-            "sale_text": "Save up to 10% on",
+            "sale_text": "30% OFF",
+            "discount_style": "badge",
             "title": "<p>Instax Mini 12<br/>Camera</p>",
+            "subtitle": "<p>Capture Every Moment Instantly</p>",
             "button_label": "Explore Now",
             "button_link": "/collections/all",
             "sale_text_size": "small",
-            "title_size": "medium"
+            "title_size": "medium",
+            "subtitle_size": "small"
           }
         },
         "discover_item_NaqwVp": {
@@ -44,7 +50,8 @@
             "color_scheme": "scheme-1",
             "image": "shopify://shop_images/mega-1.jpg",
             "offer_text": "APPLE",
-            "title": "iPad Pro 11-inch 4th generation",
+            "discount_style": "badge",
+            "title": "<p>iPad Pro 11-inch </p><p>4th generation</p>",
             "content": "<p>Unlock Endless Possibilities</p>",
             "button_label": "Shop Now",
             "button_link": "shopify://collections",
@@ -52,7 +59,8 @@
             "content_size": "medium",
             "show_price": false,
             "price_prefix": "From",
-            "price": "$1,200"
+            "price": "$1,200",
+            "price_size": "medium"
           }
         }
       },
@@ -78,6 +86,8 @@
           "type": "banner",
           "settings": {
             "image": "shopify://shop_images/mega-electric.jpg",
+            "hover_image": false,
+            "baner_tag": "NEW IN",
             "title": "Elevate Your Wellness",
             "title_tag": "h5",
             "title_weight": "fw-medium",
