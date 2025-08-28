@@ -139,6 +139,23 @@ document.addEventListener('DOMContentLoaded', function() {
               videoObserver.observe(video);
             }
           });
+          
+          // Check if first slide is video and show consent modal if needed
+          if (this.slides.length > 0) {
+            const firstSlide = this.slides[0];
+            const mediaType = firstSlide.getAttribute('data-media-type');
+            
+            if (mediaType === 'video' && window.enableVideoAutoplay && localStorage.getItem('videoAutoplayConsent') === null) {
+              const consentModal = document.getElementById('videoAutoplayConsent');
+              if (consentModal) {
+                const modal = new bootstrap.Modal(consentModal);
+                // Small delay to ensure modal is properly initialized
+                setTimeout(() => {
+                  modal.show();
+                }, 200);
+              }
+            }
+          }
         },
         slideChange: function() {
           const activeSlide = this.slides[this.activeIndex];
@@ -1367,7 +1384,7 @@ document.addEventListener('DOMContentLoaded', function() {
               threshold: 0.5
             });
   
-            // Initialize all videos
+                        // Initialize all videos
             this.slides.forEach(slide => {
               const video = slide.querySelector('video');
               if (video) {
@@ -1379,11 +1396,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 video.addEventListener('error', function(e) {
                   console.log(e);
                 });
-  
+
                 // Observe the video for viewport visibility
                 videoObserver.observe(video);
               }
             });
+            
+            // Check if first slide is video and show consent modal if needed
+            if (this.slides.length > 0) {
+              const firstSlide = this.slides[0];
+              const mediaType = firstSlide.getAttribute('data-media-type');
+              
+              if (mediaType === 'video' && window.enableVideoAutoplay && localStorage.getItem('videoAutoplayConsent') === null) {
+                const consentModal = document.getElementById('videoAutoplayConsent');
+                if (consentModal) {
+                  const modal = new bootstrap.Modal(consentModal);
+                  // Small delay to ensure modal is properly initialized
+                  setTimeout(() => {
+                    modal.show();
+                  }, 200);
+                }
+              }
+            }
           },
           slideChange: function() {
             const activeSlide = this.slides[this.activeIndex];
@@ -1451,14 +1485,39 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       
-      // Only show modal if autoplay is enabled and no consent is stored
-      if (window.enableVideoAutoplay && existingConsent === null) {
-        const modal = new bootstrap.Modal(consentModal);
-        // Small delay to ensure modal is properly initialized
-        setTimeout(() => {
-          modal.show();
-        }, 100);
-      }
+      // Check if first slide is video and show modal if needed
+      const checkFirstSlideAndShowModal = () => {
+        // Check if autoplay is enabled and no consent is stored
+        if (window.enableVideoAutoplay && existingConsent === null) {
+          // Check if first slide is a video (for Swiper layout)
+          const firstSwiperSlide = document.querySelector('.tf-product-media-main .swiper-slide:first-child');
+          if (firstSwiperSlide && firstSwiperSlide.getAttribute('data-media-type') === 'video') {
+            const modal = new bootstrap.Modal(consentModal);
+            // Small delay to ensure modal is properly initialized
+            setTimeout(() => {
+              modal.show();
+            }, 100);
+            return;
+          }
+          
+          // Check if first item is a video (for grid/stacked layout)
+          const firstGridItem = document.querySelector('.item-scroll-target:first-child');
+          if (firstGridItem && firstGridItem.getAttribute('data-media-type') === 'video') {
+            const modal = new bootstrap.Modal(consentModal);
+            // Small delay to ensure modal is properly initialized
+            setTimeout(() => {
+              modal.show();
+            }, 100);
+            return;
+          }
+        }
+      };
+      
+      // Try to check immediately
+      checkFirstSlideAndShowModal();
+      
+      // Also check after a short delay to ensure Swiper is initialized
+      setTimeout(checkFirstSlideAndShowModal, 500);
     });
   
   });
