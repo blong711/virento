@@ -60,7 +60,7 @@
         "mega_shop_xYCnFY": {
           "type": "mega_shop",
           "settings": {
-            "menu_item_match": "",
+            "menu_item_match": "Shop",
             "collections": [
               "cables",
               "chargers",
