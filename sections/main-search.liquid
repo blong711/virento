@@ -1,0 +1,438 @@
+{% comment %} Settings {% endcomment %}
+{% assign max_products_per_page = section.settings.max_products_per_page | default: 8 %}
+{% assign default_grid_layout = section.settings.default_grid_layout | default: 'tf-col-4' %}
+{% assign default_layout_type = section.settings.default_layout_type | default: 'grid' %}
+{% assign search_results = search.results %}
+{% assign total_products = search.results_count %}
+
+{% paginate search.results by max_products_per_page %}
+
+<section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding" data-total-products="{{ total_products }}">
+    <div class="{{ section.settings.width }}">
+        <div class="tf-shop-control">
+            <div class="tf-group-filter">
+                <a href="#filterShop" data-bs-toggle="offcanvas" aria-controls="filterShop"
+                    class="tf-btn-filter">
+                    <span class="icon icon-filter"></span><span class="text">{{ 'sections.main_collection.filter' | t }}</span></a>
+                <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
+                    <div class="btn-select">
+                        <span class="text-sort-value">{{ 'sections.main_collection.sort.best_selling' | t }}</span>
+                        <span class="icon icon-arr-down"></span>
+                    </div>
+                    <div class="dropdown-menu">
+                        <div class="select-item active" data-sort-value="best-selling">
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.best_selling' | t }}</span>
+                        </div>
+                        <div class="select-item" data-sort-value="a-z">
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.a_to_z' | t }}</span>
+                        </div>
+                        <div class="select-item" data-sort-value="z-a">
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.z_to_a' | t }}</span>
+                        </div>
+                        <div class="select-item" data-sort-value="price-low-high">
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.price_low_to_high' | t }}</span>
+                        </div>
+                        <div class="select-item" data-sort-value="price-high-low">
+                            <span class="text-value-item">{{ 'sections.main_collection.sort.price_high_to_low' | t }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="tf-control-layout">
+                <li class="tf-view-layout-switch sw-layout-list list-layout" data-value-layout="list">
+                    <div class="item icon-list">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-2" data-value-layout="tf-col-2">
+                    <div class="item icon-grid-2">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-3" data-value-layout="tf-col-3">
+                    <div class="item icon-grid-3">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+                <li class="tf-view-layout-switch sw-layout-4" data-value-layout="tf-col-4">
+                    <div class="item icon-grid-4">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="wrapper-control-shop">
+            <div class="meta-filter-shop">
+                <div id="product-count-grid" class="count-text">
+                    {% if total_products > 0 %}
+                        <span class="count">{{ total_products }}</span> {{ 'sections.main_collection.products_found' | t }}
+                    {% else %}
+                        {{ 'sections.main_collection.no_products_found' | t }}
+                    {% endif %}
+                </div>
+                <div id="product-count-list" class="count-text">
+                    {% if total_products > 0 %}
+                        <span class="count">{{ total_products }}</span> {{ 'sections.main_collection.products_found' | t }}
+                    {% else %}
+                        {{ 'sections.main_collection.no_products_found' | t }}
+                    {% endif %}
+                </div>
+                <div id="applied-filters"></div>
+                <button id="remove-all" class="remove-all-filters" style="display: none;">
+                    <i class="icon icon-close"></i> {{ 'sections.main_collection.clear_all_filters' | t }}
+                </button>
+            </div>
+            
+            {% comment %} List Layout {% endcomment %}
+            <div class="tf-list-layout wrapper-shop" id="listLayout" style="display: none;">
+                {% if search_results.size > 0 %}
+                    {% for product in search_results %}
+                        {% if product.object_type == 'product' %}
+                            {% render 'product-card-list', product: product %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% comment %} Pagination {% endcomment %}
+                    {% if paginate.pages > 1 %}
+                        <ul class="wg-pagination">
+                            {% if paginate.previous %}
+                                <li>
+                                    <a href="{{ paginate.previous.url }}" class="pagination-item">
+                                        <i class="icon-arr-left"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            
+                            {% for part in paginate.parts %}
+                                {% if part.is_link %}
+                                    <li>
+                                        <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                                    </li>
+                                {% else %}
+                                    {% if part.title == paginate.current_page %}
+                                        <li class="active">
+                                            <div class="pagination-item">{{ part.title }}</div>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <div class="pagination-item">{{ part.title }}</div>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if paginate.next %}
+                                <li>
+                                    <a href="{{ paginate.next.url }}" class="pagination-item">
+                                        <i class="icon-arr-right2"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <p class="text-lg">{{ 'sections.main_collection.no_products_in_collection' | t }}</p>
+                    </div>
+                {% endif %}
+            </div>
+            
+            {% comment %} Grid Layout {% endcomment %}
+            <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }}" id="gridLayout">
+                {% if search_results.size > 0 %}
+                    {% for product in search_results %}
+                        {% if product.object_type == 'product' %}
+                            {% render 'product-card', product: product %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% comment %} Pagination {% endcomment %}
+                    {% if paginate.pages > 1 %}
+                        <ul class="wg-pagination">
+                            {% if paginate.previous %}
+                                <li>
+                                    <a href="{{ paginate.previous.url }}" class="pagination-item">
+                                        <i class="icon-arr-left"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            
+                            {% for part in paginate.parts %}
+                                {% if part.is_link %}
+                                    <li>
+                                        <a href="{{ part.url }}" class="pagination-item">{{ part.title }}</a>
+                                    </li>
+                                {% else %}
+                                    {% if part.title == paginate.current_page %}
+                                        <li class="active">
+                                            <div class="pagination-item">{{ part.title }}</div>
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                            <div class="pagination-item">{{ part.title }}</div>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if paginate.next %}
+                                <li>
+                                    <a href="{{ paginate.next.url }}" class="pagination-item">
+                                        <i class="icon-arr-right2"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    {% endif %}
+                {% else %}
+                    <div class="text-center py-5">
+                        <p class="text-lg">{{ 'sections.main_collection.no_products_in_collection' | t }}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% comment %} Render the default filter snippet {% endcomment %}
+{% render 'search-filters', 
+    show_on_sale: section.settings.show_on_sale,
+    on_sale_limit: section.settings.on_sale_limit,
+    show_collection_banner: section.settings.show_collection_banner,
+    collection_banner_image: section.settings.collection_banner_image,
+    collection_banner_title: section.settings.collection_banner_title,
+    collection_banner_button_text: section.settings.collection_banner_button_text,
+    collection_banner_button_url: section.settings.collection_banner_button_url,
+    show_availability_filter: section.settings.show_availability_filter,
+    show_price_filter: section.settings.show_price_filter,
+    show_color_filter: section.settings.show_color_filter,
+    show_brand_filter: section.settings.show_brand_filter
+%}
+
+{% style %}
+.section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+}
+
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+}
+{% endstyle %}
+
+{% comment %} Add necessary data for JavaScript {% endcomment %}
+<script>
+    window.collectionData = {
+        priceMin: {{ search.price_min | divided_by: 100.0 | round: 0 }},
+        priceMax: {{ search.price_max | divided_by: 100.0 | round: 0 }},
+        paginationType: 'pagination',
+        maxProductsPerPage: {{ max_products_per_page }},
+        defaultGridLayout: '{{ default_grid_layout }}',
+        defaultLayoutType: '{{ default_layout_type }}',
+        filterLayout: 'default'
+    };
+</script>
+
+{% endpaginate %}
+
+{% comment %} Schema for section settings {% endcomment %}
+{% schema %}
+{
+    "name": "Main Search",
+    "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "t:sections.all.colors.label",
+            "default": "scheme-1"
+        },
+        {
+            "type": "select",
+            "id": "width",
+            "label": "t:sections.main_slider.settings.width.label",
+            "options": [
+                {
+                "value": "container",
+                "label": "t:sections.main_slider.settings.width.options.boxed"
+                },
+                {
+                "value": "container-full",
+                "label": "t:sections.main_slider.settings.width.options.full_width"
+                }
+            ],
+            "default": "container"
+        },
+        {
+            "type": "range",
+            "id": "max_products_per_page",
+            "label": "t:sections.main_collection.settings.max_products_per_page.label",
+            "min": 4,
+            "max": 48,
+            "step": 4,
+            "default": 8,
+            "info": "t:sections.main_collection.settings.max_products_per_page.info"
+        },
+        {
+            "type": "select",
+            "id": "default_layout_type",
+            "label": "t:sections.main_collection.settings.default_layout_type.label",
+            "options": [
+                { "value": "grid", "label": "t:sections.main_collection.settings.default_layout_type_options.grid" },
+                { "value": "list", "label": "t:sections.main_collection.settings.default_layout_type_options.list" }
+            ],
+            "default": "grid"
+        },
+        {
+            "type": "select",
+            "id": "default_grid_layout",
+            "label": "t:sections.main_collection.settings.default_grid_layout.label",
+            "options": [
+                { "value": "tf-col-2", "label": "t:sections.main_collection.settings.default_grid_layout_options.tf-col-2" },
+                { "value": "tf-col-3", "label": "t:sections.main_collection.settings.default_grid_layout_options.tf-col-3" },
+                { "value": "tf-col-4", "label": "t:sections.main_collection.settings.default_grid_layout_options.tf-col-4" }
+            ],
+            "default": "tf-col-4",
+            "visible_if": "{{ section.settings.default_layout_type == 'grid' }}"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.main_collection.settings.filter_sidebar_settings.header"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_on_sale",
+            "label": "t:sections.main_collection.settings.show_on_sale.label",
+            "default": true,
+            "info": "t:sections.main_collection.settings.show_on_sale.info"
+        },
+        {
+            "type": "range",
+            "id": "on_sale_limit",
+            "label": "t:sections.main_collection.settings.on_sale_limit.label",
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "default": 3,
+            "info": "t:sections.main_collection.settings.on_sale_limit.info"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_collection_banner",
+            "label": "t:sections.main_collection.settings.show_collection_banner.label",
+            "default": true,
+            "info": "t:sections.main_collection.settings.show_collection_banner.info"
+        },
+        {
+            "type": "image_picker",
+            "id": "collection_banner_image",
+            "label": "t:sections.main_collection.settings.collection_banner_image.label",
+            "info": "t:sections.main_collection.settings.collection_banner_image.info"
+        },
+        {
+            "type": "text",
+            "id": "collection_banner_title",
+            "label": "t:sections.main_collection.settings.collection_banner_title.label",
+            "default": "t:sections.main_collection.settings.collection_banner_title.default",
+            "info": "t:sections.main_collection.settings.collection_banner_title.info"
+        },
+        {
+            "type": "text",
+            "id": "collection_banner_button_text",
+            "label": "t:sections.main_collection.settings.collection_banner_button_text.label",
+            "default": "t:sections.main_collection.settings.collection_banner_button_text.default",
+            "info": "t:sections.main_collection.settings.collection_banner_button_text.info"
+        },
+        {
+            "type": "url",
+            "id": "collection_banner_button_url",
+            "label": "t:sections.main_collection.settings.collection_banner_button_url.label",
+            "info": "t:sections.main_collection.settings.collection_banner_button_url.info"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.main_collection.settings.filter_options.header"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_availability_filter",
+            "label": "t:sections.main_collection.settings.show_availability_filter.label",
+            "default": true,
+            "info": "t:sections.main_collection.settings.show_availability_filter.info"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_price_filter",
+            "label": "t:sections.main_collection.settings.show_price_filter.label",
+            "default": true,
+            "info": "t:sections.main_collection.settings.show_price_filter.info"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_color_filter",
+            "label": "t:sections.main_collection.settings.show_color_filter.label",
+            "default": true,
+            "info": "t:sections.main_collection.settings.show_color_filter.info"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_size_filter",
+            "label": "t:sections.main_collection.settings.show_size_filter.label",
+            "default": true,
+            "info": "t:sections.main_collection.settings.show_size_filter.info"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_brand_filter",
+            "label": "t:sections.main_collection.settings.show_brand_filter.label",
+            "default": true,
+            "info": "t:sections.main_collection.settings.show_brand_filter.info"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.all.padding.section_padding_heading"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_top",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "t:sections.all.padding.padding_bottom",
+            "default": 0
+        },
+        {
+            "type": "range",
+            "id": "padding_mobile_rate",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "unit": "%",
+            "label": "t:sections.all.padding.padding_mobile_rate.label",
+            "default": 75,
+            "info": "t:sections.all.padding.padding_mobile_rate.info"
+        }
+    ]
+}
+{% endschema %}

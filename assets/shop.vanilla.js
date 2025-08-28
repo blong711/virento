@@ -289,8 +289,26 @@ function resetAllFilters() {
     document.querySelectorAll('input[name="availability"]').forEach(input => input.checked = false);
     document.querySelectorAll('.size-check, .color-check').forEach(btn => btn.classList.remove('active'));
     
-    // Update URL to base collection without filters
-    const baseUrl = window.location.pathname;
+    // Update URL to base collection without filters but preserve search query
+    const currentUrl = new URL(window.location);
+    const searchQuery = currentUrl.searchParams.get('q'); // Preserve search query
+    
+    // Clear all filter parameters but keep the search query
+    currentUrl.searchParams.delete('filter.v.option.size');
+    currentUrl.searchParams.delete('filter.v.option.color');
+    currentUrl.searchParams.delete('filter.v.availability');
+    currentUrl.searchParams.delete('filter.p.vendor');
+    currentUrl.searchParams.delete('filter.v.price.gte');
+    currentUrl.searchParams.delete('filter.v.price.lte');
+    currentUrl.searchParams.delete('filter.v.compare_at_price.gt');
+    currentUrl.searchParams.delete('tag');
+    
+    // Re-add the search query if it exists
+    if (searchQuery) {
+        currentUrl.searchParams.set('q', searchQuery);
+    }
+    
+    const baseUrl = currentUrl.toString();
     updateURLWithoutReload(baseUrl);
     
     // Fetch products without filters using AJAX
@@ -543,6 +561,7 @@ function initBrowserNavigation() {
 function buildFilterURL() {
     const currentUrl = new URL(window.location);
     const searchParams = currentUrl.searchParams;
+    const searchQuery = searchParams.get('q'); // Preserve search query
     
     // Clear existing filter parameters
     searchParams.delete('filter.v.option.size');
@@ -553,6 +572,11 @@ function buildFilterURL() {
     searchParams.delete('filter.v.price.lte');
     searchParams.delete('filter.v.compare_at_price.gt');
     searchParams.delete('tag');
+    
+    // Re-add the search query if it exists
+    if (searchQuery) {
+        searchParams.set('q', searchQuery);
+    }
     
     // Add active filters
     if (filters.size) {
