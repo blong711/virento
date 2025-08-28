@@ -153,7 +153,7 @@
           "settings": {
             "rating": 5,
             "heading": "Perfect Laptop for Work",
-            "content": "<p>The MacBook Air M2 I ordered is a game changer. Super fast and lightweight—perfect for my needs!<br/></p>",
+            "content": "<p>The MacBook Air M2 I ordered is a game changer. Super fast and lightweight— perfect for my needs!</p>",
             "author_name": "Michael R.",
             "author_image": "shopify://shop_images/author-mega-elec3.jpg",
             "product": "armani-exchange-armani-exchange-watch-ax2707"
@@ -181,13 +181,13 @@
       "settings": {
         "width": "boxed",
         "content_align": "center",
-        "color_scheme": "",
-        "rating_star_color": "#FFD700",
+        "color_scheme": "scheme-1",
+        "rating_star_color": "#cdedae",
         "heading": "Customer Favorites",
         "subheading": "Discover expert advice, style inspiration, and product updates on our blog.",
-        "heading_size": "medium",
-        "subheading_size": "medium",
-        "heading_spacing": 20,
+        "heading_size": "small",
+        "subheading_size": "small",
+        "heading_spacing": 45,
         "use_prev_next": true,
         "use_dots_mobile": true,
         "items_desktop": 3,
