@@ -43,45 +43,31 @@
                  }
                }
              }'>
-              <div class="swiper-wrapper">
-             {%- for collection_handle in section.settings.selected_collections -%}
-               {%- assign collection = collections[collection_handle] -%}
-               {%- if collection != blank -%}
-                <div class="swiper-slide">
-                <div class="wg-cls style-abs2 hover-img">
-                                    <a href="{{ collection.url }}" class="image-wrap relative">
-                    <div class="image img-style">
-                        {%- if collection.image -%}
-                        <img src="{{ collection.image | img_url: '400x' }}"
-                                data-src="{{ collection.image | img_url: '400x' }}" 
-                                alt="{{ collection.title | escape }}"
-                                class="lazyload"
-                                loading="lazy"
-                                width="400"
-                                height="400">
-                        {%- else -%}
-                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                        {%- endif -%}
+            <div class="swiper-wrapper">
+                {%- for collection in section.settings.selected_collections limit: section.settings.collections_limit -%}
+                    <div class="swiper-slide">
+                        <div class="wg-cls style-abs2 hover-img">
+                            <a href="{{ collection.url }}" class="image-wrap relative">
+                                <div class="image img-style">
+                                    {%- if collection.image -%}
+                                        <img src="{{ collection.image | img_url: '400x400', crop: 'center' }}"
+                                            data-src="{{ collection.image | img_url: '400x400', crop: 'center' }}" 
+                                            alt="{{ collection.title | escape }}"
+                                            class="lazyload" width="400" height="400">
+                                    {%- endif -%}
+                                </div>
+                                <div class="cls-btn text-center">
+                                    <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text | default: 'View all' }}</button>
+                                </div>
+                                <span class="tf-overlay"></span>
+                            </a>
+                            <div class="cls-content text-center">
+                                <a href="{{ collection.url }}" class="text-type text-xl-2 fw-medium link">{{ collection.title }}</a>
+                                <span class="count-item body-text-2 text-main">{{ collection.all_products_count }} {{ section.settings.item_text | default: 'items' }}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="cls-btn text-center">
-                        <button class="tf-btn btn-white hover-dark">
-                        {{ section.settings.button_text }}
-                        </button>
-                    </div>
-                    <span class="tf-overlay"></span>
-                    </a>
-                    <div class="cls-content text-center">
-                    <a href="{{ collection.url }}" class="text-type text-xl-2 fw-medium link">
-                        {{ collection.title }}
-                    </a>
-                    <span class="count-item body-text-2 text-main">
-                        {{ collection.products_count }} {{ section.settings.item_text }}
-                    </span>
-                    </div>
-                </div>
-                         </div>
-               {%- endif -%}
-             {%- endfor -%}
+                {%- endfor -%}
             </div>
           
           {%- if section.settings.show_pagination -%}
