@@ -26,7 +26,7 @@
         "max_products_per_page": 8,
         "default_layout_type": "grid",
         "default_grid_layout": "tf-col-4",
-        "pagination_type": "load_more",
+        "pagination_type": "pagination",
         "filter_layout": "default",
         "show_on_sale": true,
         "on_sale_limit": 3,
@@ -48,6 +48,7 @@
     "collection_description": {
       "type": "collection-description",
       "settings": {
+        "color_scheme": "",
         "width": "container",
         "show_collection_description": true,
         "fallback_text": "Our collection brings you a unique blend of classic sophistication and the latest fashion trends. Whether you're looking for versatile daywear, stylish work attire, or statement pieces for special occasions, this collection has it all. Each garment is thoughtfully crafted with attention to detail, using high-quality fabrics to ensure lasting comfort and a flawless fit.",
