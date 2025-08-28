@@ -85,7 +85,7 @@
         </div>
         
         <div class="list-product-btn">
-            <a data-bs-toggle="offcanvas" class="tf-btn btn-main-product animate-btn product-cart-button" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">Add To cart</a>
+            <a data-bs-toggle="offcanvas" class="tf-btn btn-main-product animate-btn product-cart-button" data-product-id="{{ product.id }}" data-product-handle="{{ product.handle }}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">{{ 'snippets.product-card.add_to_cart' | t }}</a>
             <div class="wishlist">            
                 <a class="box-icon hover-tooltip" data-product-id="{{ product.id }}"
                     data-product-handle="{{ product.handle }}">

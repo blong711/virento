@@ -670,7 +670,8 @@
       "follow_on_tiktok": "Follow on TikTok",
       "browse_compare": "Browse Compare",
       "buy_on_amazon": "Buy on Amazon",
-      "size_guide_no_content": "No size guide content found. Please select a page in the theme settings."
+      "size_guide_no_content": "No size guide content found. Please select a page in the theme settings.",
+      "out_of_stock": "Out of Stock"
     },
     "footer": {
       "payment": "Payment methods",
