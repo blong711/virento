@@ -51,13 +51,13 @@
                 </fieldset>
                 
                 {% if form.posted_successfully? %}
-                    <div class="alert alert-success mb_15">
+                    <div class="alert alert-success mt_20">
                         {{ 'general.ask_question.success_message' | t }}
                     </div>
                 {% endif %}
                 
                 {% if form.errors %}
-                    <div class="alert alert-danger mb_15">
+                    <div class="alert alert-danger mt_20">
                         {{ 'general.ask_question.error_message' | t }}
                         <ul>
                             {% for field in form.errors %}
