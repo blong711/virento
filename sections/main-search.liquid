@@ -150,7 +150,7 @@
                 {% if search_results.size > 0 %}
                     {% for product in search_results %}
                         {% if product.object_type == 'product' %}
-                            {% render 'product-card', product: product %}
+                            {% render 'product-card', product: product, show_progress_sale: false %}
                         {% endif %}
                     {% endfor %}
                     

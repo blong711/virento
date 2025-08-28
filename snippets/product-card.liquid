@@ -31,7 +31,7 @@
 
 
 {% if card_style == 'style-1' %}
-<div class="card-product grid style-space color-{{ card_color_scheme }}"
+<div class="card-product grid style-space color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
      data-availability="{{ product.available | default: false }}"
      data-brand="{{ product.vendor | handleize }}"
      data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
@@ -63,6 +63,7 @@
                 <span class="on-sale-item">{{ save_percentage }}% Off</span>
             </div>
         {% endif %}
+        {% if product.available %}
         <ul class="list-product-btn">
             {% if cart_button_style == 'icon' %}
                 {% render 'product-cart-button', product: product, card_style: card_style %}
@@ -71,6 +72,7 @@
             {% render 'product-quickview-button', product: product, card_style: card_style %}
             {% render 'product-compare-button', product: product, card_style: card_style %}
         </ul>
+        {% endif %}
     </div>
     <div class="card-product-info text-{{ card_text_alignment }}">
         <a href="{{ product.url }}"
@@ -137,7 +139,7 @@
     </div>
 </div>
 {% elsif card_style == 'style-small' %}
-<div class="card-product style-small color-{{ card_color_scheme }}"
+<div class="card-product style-small color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
      data-availability="{{ product.available | default: false }}"
      data-brand="{{ product.vendor | handleize }}"
      data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
@@ -169,6 +171,7 @@
                 <span class="on-sale-item">{{ save_percentage }}% Off</span>
             </div>
         {% endif %}
+        {% if product.available %}
         <ul class="list-product-btn">
             {% if cart_button_style == 'icon' %}
                 {% render 'product-cart-button', product: product, card_style: card_style %}
@@ -177,6 +180,7 @@
             {% render 'product-quickview-button', product: product, card_style: card_style %}
             {% render 'product-compare-button', product: product, card_style: card_style %}
         </ul>
+        {% endif %}
     </div>
     <div class="card-product-info text-{{ card_text_alignment }}">
         <a href="{{ product.url }}"
@@ -210,7 +214,7 @@
     </div>
 </div>
 {% else %}
-<div class="card-product grid style-2 style-border-2 color-{{ card_color_scheme }}"
+<div class="card-product grid style-2 style-border-2 color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
      data-availability="{{ product.available | default: false }}"
      data-brand="{{ product.vendor | handleize }}"
      data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
@@ -242,6 +246,7 @@
                 <span class="on-sale-item">{{ save_percentage }}% Off</span>
             </div>
         {% endif %}
+        {% if product.available %}
         <ul class="list-product-btn">
             {% if cart_button_style == 'icon' %}
                 {% render 'product-cart-button', product: product, card_style: card_style %}
@@ -250,6 +255,7 @@
             {% render 'product-quickview-button', product: product, card_style: card_style %}
             {% render 'product-compare-button', product: product, card_style: card_style %}
         </ul>
+        {% endif %}
     </div>
     <div class="card-product-info text-{{ card_text_alignment }}">
         <a href="{{ product.url }}"
