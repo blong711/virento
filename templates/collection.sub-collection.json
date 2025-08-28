@@ -9,9 +9,26 @@
  */
 {
   "sections": {
+    "page_breadcrumb": {
+      "type": "page-breadcrumb",
+      "settings": {
+        "background_image": "shopify://shop_images/page-title_1.jpg",
+        "show_description": true,
+        "custom_description": "",
+        "description_truncate_length": 120
+      }
+    },
     "sub_collection": {
       "type": "sub-collection",
       "settings": {
+        "selected_collections": [
+          "bakery",
+          "beverages",
+          "cables",
+          "chargers",
+          "dairy",
+          "earphones"
+        ],
         "collections_limit": 6,
         "slides_per_view_mobile": 1,
         "slides_per_view_tablet": 2,
@@ -24,15 +41,6 @@
         "button_text": "View all",
         "item_text": "items",
         "fallback_title": "Collection"
-      }
-    },
-    "page_breadcrumb": {
-      "type": "page-breadcrumb",
-      "settings": {
-        "background_image": "shopify://shop_images/page-title_1.jpg",
-        "show_description": true,
-        "custom_description": "",
-        "description_truncate_length": 120
       }
     },
     "main_collection": {
