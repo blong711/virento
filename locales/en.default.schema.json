@@ -6998,7 +6998,7 @@
         },
         "heading_spacing": { "label": "Distance between heading and content" },
         "slider_group": { "content": "Slider settings" },
-        "use_prev_next": { "label": "Use prev/next button" },
+
         "use_dots_mobile": { "label": "Use dots on mobile" },
         "items_desktop": { "label": "Items per row (Desktop)" },
         "items_tablet": { "label": "Items per row (Tablet)" },
