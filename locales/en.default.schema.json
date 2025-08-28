@@ -481,6 +481,12 @@
             "banner_media": {
               "content": "Banner Media"
             },
+            "tag":{
+              "label": "Baner tag"
+            },
+            "hover_image": {
+              "label": "Enable Hover Image",
+            },
             "image": {
               "label": "Banner Image"
             },
@@ -6468,6 +6474,14 @@
         "price_settings": {
           "content": "Price settings"
         },
+        "discount_style": {
+          "label": "Discount Display Style",
+          "options": {
+            "badge": "Badge",
+            "text": "Text"
+          },
+          "default": "badge"
+        },
         "show_price": {
           "label": "Show price"
         },
@@ -6488,6 +6502,9 @@
         },
         "title_size": {
           "label": "Title Size"
+        },
+        "subtitle_size": {
+          "label": "Subtitle Size"
         },
         "content_size": {
           "label": "Content Size"
@@ -6516,6 +6533,10 @@
           "default_2": "Yoghurt Pouch Blueberry 140g",
           "default_3": "Eat Fresh, Live Well"
         },
+        "subtitle": {
+          "label": "Subtitle",
+          "default": "Fresh and Organic"
+        },
         "content": {
           "label": "Content",
           "default": "Discover farm-fresh, organic veggies at our store. Locally sourced, quality guaranteed—perfect for your healthy meals!"
@@ -6537,7 +6558,10 @@
           "name": "Sale Item 2"
         },
         "discover_item": {
-          "name": "Discover Item"
+          "name": "Discover Item",
+          "price_size": {
+            "label": "Price Size",
+          }
         }
       },
       "presets": {
