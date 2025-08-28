@@ -1512,8 +1512,8 @@
               "info": "Enter the exact menu item title to connect this mega menu"
             },
             "content_page": {
-              "label": "Content Page",
-              "info": "Select a page to display its content in the mega menu"
+              "label": "Metafield Page",
+              "info": "Select a page to display its metafield in the mega menu"
             }
           }
         },
