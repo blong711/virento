@@ -395,7 +395,7 @@ input[type='color'] {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-  font-size: 14px;
+  font-size: 14px !important;
   line-height: 20px;
   border-radius: 6px;
   padding: 14px 20px;
