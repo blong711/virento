@@ -134,7 +134,7 @@
             "content": "<p>I bought the Watch Ultra, and it's been incredible. The performance and design are unmatched!<br/></p>",
             "author_name": "James T.",
             "author_image": "shopify://shop_images/author-mega-elec1.jpg",
-            "product": ""
+            "product": "jbl_everest300_white_001_dvhamaster"
           }
         },
         "testimonial_item_wbcrGe": {
@@ -163,9 +163,10 @@
           "type": "testimonial_item",
           "settings": {
             "rating": 5,
-            "heading": "Great product!",
-            "content": "<p>I really love this product. It exceeded my expectations!</p>",
-            "author_name": "John Doe",
+            "heading": "Top-Notch Smartwatch!",
+            "content": "<p>I bought the Watch Ultra, and it's been incredible. The performance and design are unmatched!</p>",
+            "author_name": "James T.",
+            "author_image": "shopify://shop_images/author-mega-elec1.jpg",
             "product": ""
           }
         }
