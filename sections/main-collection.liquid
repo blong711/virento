@@ -43,13 +43,8 @@
             <div class="row">
                 <div class="col-xl-9">
         {% endif %}
-        
-        {% comment %} Horizontal Filter Layout {% endcomment %}
-        {% if filter_layout == 'horizontal' %}
-            {% render 'horizontal-filters', collection: collection, show_availability_filter: section.settings.show_availability_filter, show_price_filter: section.settings.show_price_filter, show_color_filter: section.settings.show_color_filter, show_brand_filter: section.settings.show_brand_filter %}
-        {% endif %}
-        
-        <div class="tf-shop-control">
+                
+        <div class="tf-shop-control {% if filter_layout == 'horizontal' %}mb1{% endif %}">
             <div class="tf-group-filter">
                 {% if filter_layout == 'left_sidebar' or filter_layout == 'right_sidebar' %}
                     <button id="filterShop" class="tf-btn-filter d-flex d-xl-none">
@@ -114,7 +109,9 @@
                 </li>
             </ul>
         </div>
-        
+        {% if filter_layout == 'horizontal' %}
+            {% render 'horizontal-filters', collection: collection, show_availability_filter: section.settings.show_availability_filter, show_price_filter: section.settings.show_price_filter, show_color_filter: section.settings.show_color_filter, show_brand_filter: section.settings.show_brand_filter %}
+        {% endif %}
         <div class="wrapper-control-shop">
             <div class="meta-filter-shop">
                 <div id="product-count-grid" class="count-text">
