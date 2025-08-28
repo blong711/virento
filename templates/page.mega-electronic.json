@@ -141,9 +141,10 @@
           "type": "testimonial_item",
           "settings": {
             "rating": 5,
-            "heading": "Great product!",
-            "content": "<p>I really love this product. It exceeded my expectations!</p>",
-            "author_name": "John Doe",
+            "heading": "Amazing Quality with AirPods Pro",
+            "content": "<p>These AirPods Pro have excellent sound qualityand noise cancellation.Couldn't be happier!</p>",
+            "author_name": "Vineta P.",
+            "author_image": "shopify://shop_images/author-mega-elec2.jpg",
             "product": ""
           }
         },
@@ -151,9 +152,10 @@
           "type": "testimonial_item",
           "settings": {
             "rating": 5,
-            "heading": "Great product!",
-            "content": "<p>I really love this product. It exceeded my expectations!</p>",
-            "author_name": "John Doe",
+            "heading": "Perfect Laptop for Work",
+            "content": "<p>The MacBook Air M2 I ordered is a game changer. Super fast and lightweight—perfect for my needs!<br/></p>",
+            "author_name": "Michael R.",
+            "author_image": "shopify://shop_images/author-mega-elec3.jpg",
             "product": ""
           }
         },
