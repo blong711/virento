@@ -1357,7 +1357,7 @@
         "text_size_medium": "Medium",
         "text_size_large": "Large",
         "payment_svg_list": "Payment SVG List",
-        "payment_svg_list_info": "Enter payment types separated by commas (e.g., visa,master,paypal). Leave blank to show all enabled payment types.",
+        "payment_svg_list_info": "Enter payment types separated by commas (e.g., visa,master,paypal).",
         "svg_height": "SVG Size",
         "footer_bottom": "Footer Bottom",
         "show_copyright": "Show copyright"
@@ -2600,7 +2600,8 @@
               "default": "Guarantee Safe Checkout:"
             },
             "svg_list": {
-              "label": "SVG list"
+              "label": "SVG list",
+              "info": "Enter payment icon names separated by commas (e.g., visa, mastercard, paypal). Review the [list of available values](https://github.com/activemerchant/payment_icons/tree/master/app/assets/images/payment_icons) and copy the name of each icon that you need from that list, without the .svg extension.",
             }
           }
         },
