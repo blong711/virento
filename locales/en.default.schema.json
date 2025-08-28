@@ -7029,5 +7029,51 @@
         "category": "Custom"
       }
     },
+    "sub-collection": {
+      "name": "Sub Collection",
+      "settings": {
+        "color_scheme": {
+          "label": "t:sections.all.colors.label"
+        },
+        "width": {
+          "label": "t:sections.all.width.label"
+        },
+        "selected_collections": {
+          "label": "Collections"
+        },
+        "collections_limit": {
+          "label": "Number of collections to show"
+        },
+        "slides_per_view_mobile": {
+          "label": "Slides per view (mobile)"
+        },
+        "slides_per_view_tablet": {
+          "label": "Slides per view (tablet)"
+        },
+        "slides_per_view_desktop": {
+          "label": "Slides per view (desktop)"
+        },
+        "space_between": {
+          "label": "Space between slides"
+        },
+        "show_navigation": {
+          "label": "Show navigation arrows"
+        },
+        "show_pagination": {
+          "label": "Show pagination dots on mobile"
+        },
+        "button_text": {
+          "label": "Button text",
+          "default": "View all"
+        },
+        "item_text": {
+          "label": "Item count text",
+          "default": "items"
+        }
+      },
+      "presets": {
+        "name": "Sub Collection"
+      }
+    }
   }
 }

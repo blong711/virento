@@ -63,13 +63,13 @@
                                     {%- endif -%}
                                 </div>
                                 <div class="cls-btn text-center">
-                                    <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text | default: 'View all' }}</button>
+                                    <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text }}</button>
                                 </div>
                                 <span class="tf-overlay"></span>
                             </a>
                             <div class="cls-content text-center">
                                 <a href="{{ collection.url }}" class="text-type text-xl-2 fw-medium link">{{ collection.title }}</a>
-                                <span class="count-item body-text-2 text-main">{{ collection.all_products_count }} {{ section.settings.item_text | default: 'items' }}</span>
+                                <span class="count-item body-text-2 text-main">{{ collection.all_products_count }} {{ section.settings.item_text }}</span>
                             </div>
                         </div>
                     </div>
@@ -92,20 +92,20 @@
 
 {% schema %}
 {
-  "name": "Sub Collection",
+  "name": "t:sections.sub-collection.name",
   "tag": "section",
   "class": "section",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
+      "label": "t:sections.sub-collection.settings.color_scheme.label",
       "default": "scheme-1"
     },
     {
       "type": "select",
       "id": "width",
-      "label": "t:sections.all.width.label",
+      "label": "t:sections.sub-collection.settings.width.label",
       "options": [
         {
           "value": "container",
@@ -121,7 +121,7 @@
     {
       "type": "collection_list",
       "id": "selected_collections",
-      "label": "Collections"
+      "label": "t:sections.sub-collection.settings.selected_collections.label"
     },
     {
       "type": "range",
@@ -130,7 +130,7 @@
       "max": 12,
       "step": 2,
       "default": 6,
-      "label": "Number of collections to show"
+      "label": "t:sections.sub-collection.settings.collections_limit.label"
     },
     {
       "type": "range",
@@ -139,7 +139,7 @@
       "max": 3,
       "step": 1,
       "default": 1,
-      "label": "Slides per view (mobile)"
+      "label": "t:sections.sub-collection.settings.slides_per_view_mobile.label"
     },
     {
       "type": "range",
@@ -148,7 +148,7 @@
       "max": 4,
       "step": 1,
       "default": 2,
-      "label": "Slides per view (tablet)"
+      "label": "t:sections.sub-collection.settings.slides_per_view_tablet.label"
     },
     {
       "type": "range",
@@ -157,7 +157,7 @@
       "max": 6,
       "step": 1,
       "default": 4,
-      "label": "Slides per view (desktop)"
+      "label": "t:sections.sub-collection.settings.slides_per_view_desktop.label"
     },
     {
       "type": "range",
@@ -166,30 +166,30 @@
       "max": 40,
       "step": 4,
       "default": 12,
-      "label": "Space between slides"
+      "label": "t:sections.sub-collection.settings.space_between.label"
     },
     {
       "type": "checkbox",
       "id": "show_navigation",
-      "label": "Show navigation arrows",
+      "label": "t:sections.sub-collection.settings.show_navigation.label",
       "default": true
     },
     {
       "type": "checkbox",
       "id": "show_pagination",
-      "label": "Show pagination dots on mobile",
+      "label": "t:sections.sub-collection.settings.show_pagination.label",
       "default": true
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button text",
+      "label": "t:sections.sub-collection.settings.button_text.label",
       "default": "View all"
     },
     {
       "type": "text",
       "id": "item_text",
-      "label": "Item count text",
+      "label": "t:sections.sub-collection.settings.item_text.label",
       "default": "items"
     },
     {
@@ -230,7 +230,7 @@
   ],
   "presets": [
     {
-      "name": "Sub Collection"
+      "name": "t:sections.sub-collection.name"
     }
   ]
 }
