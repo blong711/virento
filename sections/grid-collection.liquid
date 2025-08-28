@@ -29,11 +29,17 @@
                   {%- if block.settings.sale_text != blank -%}
                     <div class="">
                       {%- if block.settings.sale_text_size == 'small' -%}
-                        <p class="text-sm">{{ block.settings.sale_text }}</p>
+                        <p class="text-sm {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
+                          {{ block.settings.sale_text }}
+                        </p>
                       {%- elsif block.settings.sale_text_size == 'medium' -%}
-                        <p class="text-md">{{ block.settings.sale_text }}</p>
+                        <p class="text-md {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
+                          {{ block.settings.sale_text }}
+                        </p>
                       {%- elsif block.settings.sale_text_size == 'large' -%}
-                        <p class="text-lg">{{ block.settings.sale_text }}</p>
+                        <p class="text-lg {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
+                          {{ block.settings.sale_text }}
+                        </p>
                       {%- endif -%}
                     </div>
                   {%- endif -%}
@@ -54,6 +60,17 @@
                           block.settings.title
                           | replace: '<p>', '<p style="font-size: 32px; line-height: 38px; font-weight: 500;">'
                         }}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.subtitle != blank -%}
+                    <div>
+                      {%- if block.settings.subtitle_size == 'small' -%}
+                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-sm">' }}
+                      {%- elsif block.settings.subtitle_size == 'medium' -%}
+                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-md">' }}
+                      {%- elsif block.settings.subtitle_size == 'large' -%}
+                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-lg">' }}
                       {%- endif -%}
                     </div>
                   {%- endif -%}
@@ -89,13 +106,21 @@
               <div class="content">
                 <div class="box-title">
                   {%- if block.settings.sale_text != blank -%}
-                    {%- if block.settings.sale_text_size == 'small' -%}
-                      <p class="text-sm">{{ block.settings.sale_text }}</p>
-                    {%- elsif block.settings.sale_text_size == 'medium' -%}
-                      <p class="text-md">{{ block.settings.sale_text }}</p>
-                    {%- elsif block.settings.sale_text_size == 'large' -%}
-                      <p class="text-lg">{{ block.settings.sale_text }}</p>
-                    {%- endif -%}
+                    <div class="">
+                      {%- if block.settings.sale_text_size == 'small' -%}
+                        <p class="text-sm {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
+                          {{ block.settings.sale_text }}
+                        </p>
+                      {%- elsif block.settings.sale_text_size == 'medium' -%}
+                        <p class="text-md {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
+                          {{ block.settings.sale_text }}
+                        </p>
+                      {%- elsif block.settings.sale_text_size == 'large' -%}
+                        <p class="text-lg {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
+                          {{ block.settings.sale_text }}
+                        </p>
+                      {%- endif -%}
+                    </div>
                   {%- endif -%}
                   {%- if block.settings.title != blank -%}
                     <div>
@@ -114,6 +139,17 @@
                           block.settings.title
                           | replace: '<p>', '<p style="font-size: 32px; line-height: 38px; font-weight: 500;">'
                         }}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.subtitle != blank -%}
+                    <div>
+                      {%- if block.settings.subtitle_size == 'small' -%}
+                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-sm">' }}
+                      {%- elsif block.settings.subtitle_size == 'medium' -%}
+                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-md">' }}
+                      {%- elsif block.settings.subtitle_size == 'large' -%}
+                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-lg">' }}
                       {%- endif -%}
                     </div>
                   {%- endif -%}
@@ -148,20 +184,20 @@
               </div>
               <div class="content">
                 <div class="box-title">
-                  <div class="box-offer mb_4">
+                  <div class=" box-offer mb_4">
                     {%- if block.settings.offer_text != blank -%}
-                      <p class="offer text-xs fw-semibold">
+                      <p class="{% if block.settings.discount_style == 'badge' %}offer{% endif %} text-xs fw-semibold">
                         {{- block.settings.offer_text -}}
                       </p>
                     {%- endif -%}
                   </div>
                   {%- if block.settings.title != blank -%}
                     {%- if block.settings.title_size == 'small' -%}
-                      <h4>{{ block.settings.title }}</h4>
+                      {{ block.settings.title | replace: '<p>', '<h4>' | replace: '</p>', '</h4>' }}
                     {%- elsif block.settings.title_size == 'medium' -%}
-                      <h3>{{ block.settings.title }}</h3>
+                      {{ block.settings.title | replace: '<p>', '<h3>' | replace: '</p>', '</h3>' }}
                     {%- elsif block.settings.title_size == 'large' -%}
-                      <h2>{{ block.settings.title }}</h2>
+                      {{ block.settings.title | replace: '<p>', '<h2>' | replace: '</p>', '</h2>' }}
                     {%- endif -%}
                   {%- endif -%}
                   {%- if block.settings.content != blank -%}
@@ -180,9 +216,19 @@
                       {%- if block.settings.price_prefix != blank -%}
                         {{ block.settings.price_prefix }}
                       {%- endif -%}
-                      <span class="display-md" style="color: rgb(var(--color-foreground2)) !important;">
-                        {{- block.settings.price -}}
-                      </span>
+                      {% if block.settings.price_size == 'small' %}
+                        <span class="display-sm" style="color: rgb(var(--color-foreground2)) !important;">
+                          {{- block.settings.price -}}
+                        </span>
+                      {% elsif block.settings.price_size == 'medium' %}
+                        <span class="display-md" style="color: rgb(var(--color-foreground2)) !important;">
+                          {{- block.settings.price -}}
+                        </span>
+                      {% elsif block.settings.price_size == 'large' %}
+                        <span class="display-lg" style="color: rgb(var(--color-foreground2)) !important;">
+                          {{- block.settings.price -}}
+                        </span>
+                      {% endif %}
                     </p>
                   {%- endif -%}
                 </div>
@@ -324,10 +370,26 @@
           "default": "t:sections.grid_collection.settings.sale_text.default"
         },
         {
+          "type": "select",
+          "id": "discount_style",
+          "label": "t:sections.grid_collection.settings.discount_style.label",
+          "options": [
+            { "value": "badge", "label": "t:sections.grid_collection.settings.discount_style.options.badge" },
+            { "value": "text", "label": "t:sections.grid_collection.settings.discount_style.options.text" }
+          ],
+          "default": "badge"
+        },
+        {
           "type": "richtext",
           "id": "title",
           "label": "t:sections.grid_collection.settings.title.label",
           "default": "t:sections.grid_collection.settings.title.default_1"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "t:sections.grid_collection.settings.subtitle.label",
+          "default": "t:sections.grid_collection.settings.subtitle.default"
         },
         {
           "type": "text",
@@ -365,6 +427,17 @@
             { "value": "large", "label": "t:sections.common.size.large" }
           ],
           "default": "medium"
+        },
+        {
+          "type": "select",
+          "id": "subtitle_size",
+          "label": "t:sections.grid_collection.settings.subtitle_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "small"
         }
       ]
     },
@@ -389,14 +462,28 @@
           "label": "t:sections.grid_collection.settings.sale_text.label",
           "default": "t:sections.grid_collection.settings.sale_text.default_2"
         },
-
+        {
+          "type": "select",
+          "id": "discount_style",
+          "label": "t:sections.grid_collection.settings.discount_style.label",
+          "options": [
+            { "value": "badge", "label": "t:sections.grid_collection.settings.discount_style.options.badge" },
+            { "value": "text", "label": "t:sections.grid_collection.settings.discount_style.options.text" }
+          ],
+          "default": "badge"
+        },
         {
           "type": "richtext",
           "id": "title",
           "label": "t:sections.grid_collection.settings.title.label",
           "default": "t:sections.grid_collection.settings.title.default_2"
         },
-
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "t:sections.grid_collection.settings.subtitle.label",
+          "default": "t:sections.grid_collection.settings.subtitle.default"
+        },
         {
           "type": "text",
           "id": "button_label",
@@ -433,6 +520,17 @@
             { "value": "large", "label": "t:sections.common.size.large" }
           ],
           "default": "medium"
+        },
+        {
+          "type": "select",
+          "id": "subtitle_size",
+          "label": "t:sections.grid_collection.settings.subtitle_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "small"
         }
       ]
     },
@@ -458,7 +556,17 @@
           "default": "APPLE"
         },
         {
-          "type": "text",
+          "type": "select",
+          "id": "discount_style",
+          "label": "t:sections.grid_collection.settings.discount_style.label",
+          "options": [
+            { "value": "badge", "label": "t:sections.grid_collection.settings.discount_style.options.badge" },
+            { "value": "text", "label": "t:sections.grid_collection.settings.discount_style.options.text" }
+          ],
+          "default": "badge"
+        },
+        {
+          "type": "richtext",
           "id": "title",
           "label": "t:sections.grid_collection.settings.title.label",
           "default": "t:sections.grid_collection.settings.title.default_3"
@@ -529,6 +637,17 @@
           "id": "price",
           "label": "t:sections.grid_collection.settings.price.label",
           "default": "$1,200"
+        },
+        {
+          "type": "select",
+          "id": "price_size",
+          "label": "t:sections.grid_collection.blocks.discover_item.price_size.label",
+          "options": [
+            { "value": "small", "label": "t:sections.common.size.small" },
+            { "value": "medium", "label": "t:sections.common.size.medium" },
+            { "value": "large", "label": "t:sections.common.size.large" }
+          ],
+          "default": "medium"
         }
       ]
     }
@@ -558,7 +677,7 @@
         {
           "type": "discover_item",
           "settings": {
-            "title": "Eat Fresh, Live Well",
+            "title": "<p>Eat Fresh, Live Well</p>",
             "content": "<p>Discover farm-fresh, organic veggies at our store. Locally sourced, quality guaranteed—perfect for your healthy meals!</p>",
             "button_label": "Discover Now",
             "button_link": "/collections/all"

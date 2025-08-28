@@ -37,7 +37,7 @@
           {% case block.type %}
             {% when 'banner' %}
               <div class="swiper-slide" {{ block.shopify_attributes }}>
-                <div class="banner-shop style-bottom style-lg-bottom hover-img color-{{ block.settings.color_scheme }} gradient">
+                <div class="banner-shop style-bottom style-lg-bottom {% if block.settings.hover_image %}hover-img{% endif %} color-{{ block.settings.color_scheme }} gradient">
                   <a href="{{ block.settings.link }}" class="img-style d-block">
                     {% if block.settings.image %}
                       {% if block.settings.image_mobile != blank %}
@@ -64,9 +64,11 @@
                   </a>
                   <div class="content {{ block.settings.text_alignment }} wow fadeInUp">
                     <div class="box-title">
-                      <div class="new-badge-wrapper {{ block.settings.text_alignment }}">
-                        <p class="new text-xs fw-semibold">NEW IN</p>
-                      </div>
+                      {% if block.settings.baner_tag != blank %}
+                        <div class="new-badge-wrapper {{ block.settings.text_alignment }}">
+                          <p class="new text-xs fw-semibold">{{ block.settings.baner_tag }}</p>
+                        </div>
+                      {% endif %}
                       <{{ block.settings.title_tag }} class="{{ block.settings.title_weight }}">
                         <a href="{{ block.settings.link }}" class="title link">
                           {{ block.settings.title }}
@@ -312,8 +314,19 @@
           "info": "t:sections.offer_banner.blocks.banner.settings.image_mobile.info"
         },
         {
+          "type": "checkbox",
+          "id": "hover_image",
+          "label": "t:sections.offer_banner.blocks.banner.settings.hover_image.label"
+        },
+        {
           "type": "header",
           "content": "t:sections.offer_banner.blocks.banner.settings.banner_content.content"
+        },
+        {
+          "type": "text",
+          "id": "baner_tag",
+          "label": "t:sections.offer_banner.blocks.banner.settings.tag.label",
+          "default": "NEW IN"
         },
         {
           "type": "text",
