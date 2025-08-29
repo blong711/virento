@@ -74,7 +74,7 @@
         "width": "boxed",
         "color_scheme": "scheme-1",
         "padding_top": 30,
-        "padding_bottom": 60,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75,
         "reverse_layout": true
       }
@@ -82,8 +82,12 @@
     "featured_products_list_JKT7V3": {
       "type": "featured-products-list",
       "settings": {
+        "color_scheme": "",
+        "width": "container",
         "title": "Hot Deals",
+        "title_tag": "h4",
         "description": "Explore our most popular pieces that customers can't get enough of",
+        "description_size": "text-md",
         "show_countdown": true,
         "countdown_timer": 46556,
         "countdown_labels": "Days,Hours,Mins,Secs",
@@ -92,7 +96,123 @@
         "products_to_show": 8,
         "columns_desktop": 4,
         "columns_tablet": 3,
-        "columns_mobile": 2
+        "columns_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "offer_banner_pxpMeh": {
+      "type": "offer-banner",
+      "blocks": {
+        "banner_BeNpPq": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/mega-electric1.jpg",
+            "hover_image": false,
+            "baner_tag": "",
+            "title": "Innovative Performance",
+            "title_tag": "h4",
+            "title_weight": "fw-medium",
+            "subtitle": "Top-tier products built for reliability.",
+            "subtitle_size": "small",
+            "text_alignment": "text-center",
+            "color_scheme": "scheme-2",
+            "link": "shopify://collections",
+            "button_label": "Explore Now"
+          }
+        },
+        "banner_7KPcCj": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/mega-electric2.jpg",
+            "hover_image": false,
+            "baner_tag": "",
+            "title": "Upgrade Your Tech",
+            "title_tag": "h4",
+            "title_weight": "fw-medium",
+            "subtitle": "Exclusive deals on the latest electronics.",
+            "subtitle_size": "small",
+            "text_alignment": "text-center",
+            "color_scheme": "scheme-2",
+            "link": "shopify://collections",
+            "button_label": "Explore Now"
+          }
+        }
+      },
+      "block_order": [
+        "banner_BeNpPq",
+        "banner_7KPcCj"
+      ],
+      "name": "Offer Banner",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "width": "container",
+        "show_arrows": false,
+        "show_dots": true,
+        "slides_per_view_desktop": 2,
+        "space_between_desktop": 24,
+        "item_height_desktop": 400,
+        "slides_per_view_tablet": 1,
+        "space_between_tablet": 12,
+        "item_height_tablet": 350,
+        "slides_per_view_mobile": 1,
+        "space_between_mobile": 12,
+        "item_height_mobile": 300,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_mobile_rate": 75
+      }
+    },
+    "featured_products_tab_pQT7UE": {
+      "type": "featured-products-tab",
+      "blocks": {
+        "tab_QxRyaJ": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "New Arrivals",
+            "collection": "cables",
+            "products": []
+          }
+        },
+        "tab_kVMirR": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Featured",
+            "collection": "chargers",
+            "products": []
+          }
+        },
+        "tab_ryV39j": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Trending",
+            "collection": "headphones",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "tab_QxRyaJ",
+        "tab_kVMirR",
+        "tab_ryV39j"
+      ],
+      "name": "Featured Products Tab",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title": "Just For You",
+        "title_tag": "h4",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
+        "show_nav": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
       }
     },
     "offer_banner_d4NYLb": {
@@ -134,8 +254,33 @@
         "slides_per_view_mobile": 1,
         "space_between_mobile": 12,
         "item_height_mobile": 300,
-        "padding_top": 120,
-        "padding_bottom": 120,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
+    },
+    "featured_product_carousel_9qY3Bx": {
+      "type": "featured-product-carousel",
+      "name": "t:sections.featured-product-carousel.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title_alignment": "center",
+        "title": "Top Picks This Month",
+        "title_tag": "h4",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
+        "featured_collection": "phones",
+        "product_list": [],
+        "products_to_show": 6,
+        "show_navigation": false,
+        "navigation_style": "boxed",
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     },
@@ -208,8 +353,108 @@
         "items_desktop": "3",
         "items_tablet": "3",
         "items_mobile": "1",
-        "padding_top": 40,
-        "padding_bottom": 40,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "blog_carousel_EFr99J": {
+      "type": "blog-carousel",
+      "name": "Blog Carousel",
+      "settings": {
+        "heading": "Latest Tips & Trends",
+        "description": "Discover expert advice, style inspiration, and product updates on our blog.",
+        "layout_style": "layout1",
+        "width": "boxed",
+        "color_scheme": "",
+        "blog": "lifestyle",
+        "posts_to_show": 6,
+        "show_tags": true,
+        "show_excerpt": true,
+        "show_author": true,
+        "show_date": true,
+        "show_comments": true,
+        "show_read_more": true,
+        "slides_mobile": 1,
+        "slides_tablet": 2,
+        "slides_desktop": 3,
+        "space_between": 24,
+        "animation_speed": 800,
+        "show_navigation": true,
+        "show_pagination": true,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
+    },
+    "icon_box_AQYkXN": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_YwHYWM": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "FREE SHIPPING",
+            "description": ""
+          }
+        },
+        "icon_box_z6QK7h": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-gift",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "GIFT PACKAGE",
+            "description": ""
+          }
+        },
+        "icon_box_ApqNag": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "FREE RETURNS",
+            "description": ""
+          }
+        },
+        "icon_box_gr3g47": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "PREMIUM SUPPORT",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_YwHYWM",
+        "icon_box_z6QK7h",
+        "icon_box_ApqNag",
+        "icon_box_gr3g47"
+      ],
+      "name": "t:sections.icon-box.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "icon_position_center": false,
+        "line_top": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "icon_style": "default",
+        "show_border": true,
+        "padding_top": 32,
+        "padding_bottom": 32,
         "padding_mobile_rate": 75
       }
     }
@@ -217,7 +462,12 @@
   "order": [
     "grid_collection_JKT7V3",
     "featured_products_list_JKT7V3",
+    "offer_banner_pxpMeh",
+    "featured_products_tab_pQT7UE",
     "offer_banner_d4NYLb",
-    "testimonial_FzYjjR"
+    "featured_product_carousel_9qY3Bx",
+    "testimonial_FzYjjR",
+    "blog_carousel_EFr99J",
+    "icon_box_AQYkXN"
   ]
 }
