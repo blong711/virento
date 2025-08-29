@@ -20,6 +20,19 @@
     },
     "main": {
       "type": "main-collection-list",
+      "blocks": {
+        "collection_item_pCJYxm": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "dairy",
+            "collection_title": "",
+            "collection_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_pCJYxm"
+      ],
       "settings": {
         "width": "boxed",
         "color_scheme": "scheme-3177a2bd-c147-4630-8df4-ed34a0c93962",
