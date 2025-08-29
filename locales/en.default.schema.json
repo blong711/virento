@@ -6865,6 +6865,7 @@
     },
     "main_collection": {
       "name": "Main Collection",
+      "name1": "Main Collection Style 1",
       "settings": {
         "max_products_per_page": {
           "label": "Products per page",
