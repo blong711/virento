@@ -111,9 +111,9 @@
             src="{{ section.settings.image | image_url: width: 1200 }}"
             width="{{ section.settings.image.width | default: 1200 }}"
             height="{{ section.settings.image.height | default: 600 }}"
-            loading="lazy"
             alt="{{ section.settings.image.alt | escape }}"
-            class="lazyload"
+            fetchpriority="high"
+            preload
           >
         </picture>
       {%- else -%}
@@ -133,9 +133,9 @@
           src="{{ section.settings.image | image_url: width: 1200 }}"
           width="{{ section.settings.image.width | default: 1200 }}"
           height="{{ section.settings.image.height | default: 600 }}"
-          loading="lazy"
           alt="{{ section.settings.image.alt | escape }}"
-          class="lazyload"
+          fetchpriority="high"
+          preload
         >
       {%- endif -%}
     {%- else -%}

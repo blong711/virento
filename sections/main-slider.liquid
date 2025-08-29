@@ -517,7 +517,7 @@
                                     <div class="slider-wrap">
                                         <div class="image">
                                                                                             {% if block.settings.image %}
-                                                {% assign image_class = 'lazyload' %}
+                                                {% assign image_class = '' %}
                                                 {% if section.settings.height == 'fill' or section.settings.height == 'fixed' or section.settings.mobile_height == 'fill' %}
                                                     {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
                                                 {% endif %}
@@ -526,22 +526,22 @@
                                                 {% assign mobile_image_class = image_class | append: ' d-md-none' %}
                                                 
                                                 {{ block.settings.image | image_url: width: 1920 | image_tag: 
-                                                    loading: 'lazy',
                                                     class: desktop_image_class,
-                                                    alt: block.settings.heading
+                                                    alt: block.settings.heading,
+                                                    fetchpriority: "high"
                                                 }}
 
                                                 {% if block.settings.mobile_image %}
                                                     {{ block.settings.mobile_image | image_url: width: 767 | image_tag: 
-                                                        loading: 'lazy',
                                                         class: mobile_image_class,
-                                                        alt: block.settings.heading
+                                                        alt: block.settings.heading,
+                                                        fetchpriority: "high"
                                                     }}
                                                 {% else %}
                                                     {{ block.settings.image | image_url: width: 767 | image_tag: 
-                                                        loading: 'lazy',
                                                         class: mobile_image_class,
-                                                        alt: block.settings.heading
+                                                        alt: block.settings.heading,
+                                                        fetchpriority: "high"
                                                     }}
                                                 {% endif %}
                                             {% endif %}
