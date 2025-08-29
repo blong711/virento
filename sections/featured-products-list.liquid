@@ -4,19 +4,41 @@
 {% endcomment %}
 
 {%- liquid
-  case section.settings.columns_desktop
+  assign mobile_cols = section.settings.columns_mobile | default: 2
+  assign tablet_cols = section.settings.columns_tablet | default: 3
+  assign desktop_cols = section.settings.columns_desktop | default: 4
+  
+  assign grid_class = 'tf-grid-layout'
+  
+  case mobile_cols
+    when 1
+      assign grid_class = grid_class | append: ' tf-col-1'
     when 2
-      assign grid_class = 'tf-grid-layout tf-col-2'
+      assign grid_class = grid_class | append: ' tf-col-2'
     when 3
-      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3'
+      assign grid_class = grid_class | append: ' tf-col-3'
+  endcase
+  
+  case tablet_cols
+    when 2
+      assign grid_class = grid_class | append: ' md-col-2'
+    when 3
+      assign grid_class = grid_class | append: ' md-col-3'
     when 4
-      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3 xl-col-4'
+      assign grid_class = grid_class | append: ' md-col-4'
+  endcase
+  
+  case desktop_cols
+    when 2
+      assign grid_class = grid_class | append: ' lg-col-2'
+    when 3
+      assign grid_class = grid_class | append: ' lg-col-3'
+    when 4
+      assign grid_class = grid_class | append: ' lg-col-4'
     when 5
-      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3 xl-col-5'
+      assign grid_class = grid_class | append: ' xl-col-5'
     when 6
-      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3 xl-col-6'
-    else
-      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3 xl-col-4'
+      assign grid_class = grid_class | append: ' xl-col-6'
   endcase
 -%}
 
@@ -43,8 +65,7 @@
       <div class="{{ grid_class }}">
         {%- if section.settings.selected_products != blank -%}
           {%- comment -%} Display manually selected products {%- endcomment -%}
-          {%- for product_handle in section.settings.selected_products -%}
-            {%- assign product = all_products[product_handle] -%}
+          {%- for product in section.settings.selected_products -%}
             {%- if product != blank -%}
               {% render 'product-card',
                 product: product,
