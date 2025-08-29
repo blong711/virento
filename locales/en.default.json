@@ -431,6 +431,7 @@
         "category": "Account"
       }
     },
+
     "blog_post": {
       "name": "Blog post",
       "settings": {
@@ -671,7 +672,8 @@
       "browse_compare": "Browse Compare",
       "buy_on_amazon": "Buy on Amazon",
       "size_guide_no_content": "No size guide content found. Please select a page in the theme settings.",
-      "out_of_stock": "Out of Stock"
+      "out_of_stock": "Out of Stock",
+      "pre_order": "Pre Order"
     },
     "footer": {
       "payment": "Payment methods",

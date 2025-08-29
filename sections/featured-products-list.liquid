@@ -1,0 +1,228 @@
+{% comment %}
+  Featured Products List Section
+  Renders a grid of featured products using the product-card snippet
+{% endcomment %}
+
+{%- liquid
+  assign section_id = section.id
+  assign section_title = section.settings.title
+  assign section_description = section.settings.description
+  assign show_countdown = section.settings.show_countdown
+  assign countdown_timer = section.settings.countdown_timer
+  assign countdown_labels = section.settings.countdown_labels
+  assign products_to_show = section.settings.products_to_show
+  assign columns_desktop = section.settings.columns_desktop
+  assign columns_tablet = section.settings.columns_tablet
+  assign columns_mobile = section.settings.columns_mobile
+  assign card_style = section.settings.card_style
+  assign card_text_alignment = section.settings.card_text_alignment
+  assign show_progress_sale = section.settings.show_progress_sale
+  assign cart_button_style = section.settings.cart_button_style
+-%}
+
+{%- liquid
+  case columns_desktop
+    when 2
+      assign grid_class = 'tf-grid-layout tf-col-2'
+    when 3
+      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3'
+    when 4
+      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3 xl-col-4'
+    when 5
+      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3 xl-col-5'
+    when 6
+      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3 xl-col-6'
+    else
+      assign grid_class = 'tf-grid-layout tf-col-2 lg-col-3 xl-col-4'
+  endcase
+-%}
+
+<section id="FeaturedProducts-{{ section_id }}" class="featured-products-list">
+  <div class="flat-title style-between">
+    <div class="box-title">
+      <h4 class="title">{{ section_title }}</h4>
+      {% if section_description != blank %}
+        <p class="desc text-main text-md">{{ section_description }}</p>
+      {% endif %}
+    </div>
+    
+    {% if show_countdown %}
+      <div class="wg-countdown-2">
+        <span class="js-countdown" 
+              data-timer="{{ countdown_timer }}" 
+              data-labels="{{ countdown_labels }}"></span>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="tab-content">
+    <div class="tab-pane fade active show" role="tabpanel">
+      <div class="{{ grid_class }}">
+        {%- if section.settings.collection != blank -%}
+          {%- assign collection = collections[section.settings.collection] -%}
+          {%- for product in collection.products limit: products_to_show -%}
+            {% render 'product-card',
+              product: product,
+            %}
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Fallback to all products if no collection is selected {%- endcomment -%}
+          {%- for product in collections.all.products limit: products_to_show -%}
+            {% render 'product-card',
+              product: product,
+            %}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products List",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Hot Deals"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section Description",
+      "default": "Explore our most popular pieces that customers can't get enough of"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show Countdown Timer",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "countdown_timer",
+      "label": "Countdown Timer (seconds)",
+      "default": 46556
+    },
+    {
+      "type": "text",
+      "id": "countdown_labels",
+      "label": "Countdown Labels",
+      "default": "Days,Hours,Mins,Secs"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select a collection to display products from"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "default": 12,
+      "label": "Number of products to show"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Columns on desktop"
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Columns on tablet"
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "label": "Columns on mobile"
+    },
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Product Card Style",
+      "options": [
+        {
+          "value": "style-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style-2",
+          "label": "Style 2"
+        },
+        {
+          "value": "style-small",
+          "label": "Small Style"
+        }
+      ],
+      "default": "style-2"
+    },
+    {
+      "type": "select",
+      "id": "card_text_alignment",
+      "label": "Card Text Alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_sale",
+      "label": "Show Inventory Progress",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "cart_button_style",
+      "label": "Cart Button Style",
+      "options": [
+        {
+          "value": "icon",
+          "label": "Icon Only"
+        },
+        {
+          "value": "button",
+          "label": "Button"
+        }
+      ],
+      "default": "icon"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products List"
+    }
+  ]
+}
+{% endschema %}

@@ -312,29 +312,31 @@
                             <span class="stock out-of-stock">{{ block.settings.out_of_stock_text }}</span>
                           {% endif %}
                         </div>
-                      {% when 'stock_count' %}
-                        {% assign inventory_quantity = product.variants.first.inventory_quantity %}
-                        {% if product.variants.first.inventory_policy == 'continue' %}
-                          {% assign max_inventory = 1000 %}
-                        {% else %}
-                          {% assign max_inventory = inventory_quantity | plus: 100 %}
-                        {% endif %}
-                        {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
-                        {% if inventory_percentage < block.settings.stock_threshold %}
-                          <div class="product-info-progress-sale" {{ block.shopify_attributes }}>
-                            <div class="title-hurry-up">
-                              <span class="text-primary fw-medium">{{ block.settings.stock_count_text }}</span>
-                              {% if block.settings.show_inventory_count %}
-                                {{ 'products.product.stock.only' | t }} <span class="count">{{ inventory_quantity }}</span> {{ 'products.product.stock.items_left' | t }}
-                              {% endif %}
-                            </div>
-                            {% if block.settings.show_progress_bar %}
-                              <div class="progress-sold">
-                                <div class="value" style="width: {{ inventory_percentage }}%;" data-progress="{{ inventory_percentage }}"></div>
+                        {% when 'stock_count' %}
+                          {% assign inventory_quantity = product.variants.first.inventory_quantity %}
+                          {% if inventory_quantity > 0 %}
+                            {% if product.variants.first.inventory_policy == 'continue' %}
+                              {% assign max_inventory = 1000 %}
+                            {% else %}
+                              {% assign max_inventory = inventory_quantity | plus: 100 %}
+                            {% endif %}
+                            {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
+                            {% if inventory_percentage < block.settings.stock_threshold %}
+                              <div class="product-info-progress-sale" {{ block.shopify_attributes }}>
+                                <div class="title-hurry-up">
+                                  <span class="text-primary fw-medium">{{ block.settings.stock_count_text }}</span>
+                                  {% if block.settings.show_inventory_count %}
+                                    {{ 'products.product.stock.only' | t }} <span class="count">{{ inventory_quantity }}</span> {{ 'products.product.stock.items_left' | t }}
+                                  {% endif %}
+                                </div>
+                                {% if block.settings.show_progress_bar %}
+                                  <div class="progress-sold">
+                                    <div class="value" style="width: {{ inventory_percentage }}%;" data-progress="{{ inventory_percentage }}"></div>
+                                  </div>
+                                {% endif %}
                               </div>
                             {% endif %}
-                          </div>
-                        {% endif %}
+                          {% endif %}
                     {% endcase %}
                   {% endfor %}
                                 <!-- Countdown Timer Block -->
@@ -1131,10 +1133,35 @@
   
   // Set initial variant based on pick mode
   {% if variant_picker_block and variant_picker_block.settings.pick_mode == 'first_available' %}
-    window.initialVariant = {{ product.selected_or_first_available_variant | json }};
+    {% assign initial_variant = product.selected_or_first_available_variant %}
   {% else %}
-    window.initialVariant = {{ product.selected_variant | default: product.selected_or_first_available_variant | json }};
+    {% assign initial_variant = product.selected_variant | default: product.selected_or_first_available_variant %}
   {% endif %}
+  
+  // Create initial variant object with pre-order information
+  window.initialVariant = {
+    "id": {{ initial_variant.id | json }},
+    "title": {{ initial_variant.title | json }},
+    "option1": {{ initial_variant.option1 | json }},
+    "option2": {{ initial_variant.option2 | json }},
+    "option3": {{ initial_variant.option3 | json }},
+    "available": {{ initial_variant.available | json }},
+    "price": {{ initial_variant.price | json }},
+    "compare_at_price": {{ initial_variant.compare_at_price | json }},
+    "inventory_quantity": {{ initial_variant.inventory_quantity | json }},
+    "inventory_policy": {{ initial_variant.inventory_policy | json }},
+    "isPreOrder": {% if initial_variant.available and initial_variant.inventory_policy == 'continue' and initial_variant.inventory_quantity <= 0 %}true{% else %}false{% endif %}
+  };
+  
+  // Set product availability for products without variants
+  window.productAvailable = {{ product.available | json }};
+  
+  // Set pre-order status for products without variants
+  {% assign is_pre_order = false %}
+  {% if product.available and product.variants.first.inventory_policy == 'continue' and product.variants.first.inventory_quantity <= 0 %}
+    {% assign is_pre_order = true %}
+  {% endif %}
+  window.isPreOrder = {{ is_pre_order | json }};
   
   window.enableVideoAutoplay = {{ section.settings.enable_video_autoplay | json }};
   window.enableImageZoom = {{ section.settings.enable_image_zoom | json }};
@@ -1146,7 +1173,9 @@
     colorNotAvailable: {{ 'sections.product.color_not_available' | t | json }},
     sizeNotAvailable: {{ 'sections.product.size_not_available' | t | json }},
     variantError: {{ 'sections.product.variant_error' | t | json }},
-    addToCart: {{ 'sections.product.add_to_cart' | t | json }}
+    addToCart: {{ 'sections.product.add_to_cart' | t | json }},
+    outOfStock: {{ 'sections.product.out_of_stock' | t | json }},
+    preOrder: {{ 'sections.product.pre_order' | t | json }}
   };
   window.selectedOptions = {
     {% for option in product.options_with_values %}

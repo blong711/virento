@@ -24,11 +24,64 @@ document.addEventListener('DOMContentLoaded', function() {
           btn.classList.remove('active');
         });
       }
+    } else {
+      // Handle products without variants - update button state based on product availability
+      updateButtonStateForProductWithoutVariants();
     }
   };
   
   // Call initialization after a short delay to ensure DOM is fully ready
   setTimeout(initializeButtonStates, 100);
+  
+  // Function to update button state for products without variants
+  function updateButtonStateForProductWithoutVariants() {
+    // Check if product is available by looking at the product availability data
+    // This will be set from the Liquid template
+    const productAvailable = window.productAvailable || false;
+    const isPreOrder = window.isPreOrder || false;
+    
+    // Update all main add to cart buttons
+    const mainAddToCartBtns = document.querySelectorAll('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button):not([data-product-handle])');
+    mainAddToCartBtns.forEach(addToCartBtn => {
+      if (productAvailable === false) {
+        addToCartBtn.textContent = window.translations?.outOfStock || 'Out of Stock';
+        addToCartBtn.classList.add('disabled', 'btn-out-stock');
+        addToCartBtn.style.pointerEvents = 'none';
+        addToCartBtn.style.opacity = '0.6';
+      } else if (isPreOrder) {
+        addToCartBtn.textContent = window.translations?.preOrder || 'Pre Order';
+        addToCartBtn.classList.remove('disabled', 'btn-out-stock');
+        addToCartBtn.style.pointerEvents = 'auto';
+        addToCartBtn.style.opacity = '1';
+      } else {
+        addToCartBtn.textContent = window.translations?.addToCart || 'Add to Cart';
+        addToCartBtn.classList.remove('disabled', 'btn-out-stock');
+        addToCartBtn.style.pointerEvents = 'auto';
+        addToCartBtn.style.opacity = '1';
+      }
+    });
+    
+    // Update sticky button if it exists
+    const stickyAddToCartBtn = document.querySelector('.tf-sticky-btn-atc .product-cart-button');
+    if (stickyAddToCartBtn) {
+      if (productAvailable === false) {
+        stickyAddToCartBtn.textContent = window.translations?.outOfStock || 'Out of Stock';
+        stickyAddToCartBtn.classList.add('disabled', 'btn-out-stock');
+        stickyAddToCartBtn.style.pointerEvents = 'none';
+        stickyAddToCartBtn.style.opacity = '0.6';
+      } else if (isPreOrder) {
+        stickyAddToCartBtn.textContent = window.translations?.preOrder || 'Pre Order';
+        stickyAddToCartBtn.classList.remove('disabled', 'btn-out-stock');
+        stickyAddToCartBtn.style.pointerEvents = 'auto';
+        stickyAddToCartBtn.style.opacity = '1';
+      } else {
+        stickyAddToCartBtn.textContent = window.translations?.addToCart || 'Add to Cart';
+        stickyAddToCartBtn.classList.remove('disabled', 'btn-out-stock');
+        stickyAddToCartBtn.style.pointerEvents = 'auto';
+        stickyAddToCartBtn.style.opacity = '1';
+      }
+    }
+  }
   
   // Video Consent Handling
   // Handle video consent
@@ -403,7 +456,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (!variant || typeof variant !== 'object') continue;
           
           const matchesColor = variant.option1 && variant.option1.toLowerCase() === color.toLowerCase();
-          if (matchesColor && variant.available) {
+          if (matchesColor && (variant.available || variant.isPreOrder)) {
             return variant;
           }
         }
@@ -471,9 +524,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Find if this option has any available variants
         const hasAvailableVariant = window.productVariants.some(variant => {
           if (optionType === 'color' && variant.option1 && variant.option1.toLowerCase() === optionValue.toLowerCase()) {
-            return variant.available;
+            return variant.available || variant.isPreOrder;
           } else if (optionType === 'size' && variant.option2 && variant.option2.toLowerCase() === optionValue.toLowerCase()) {
-            return variant.available;
+            return variant.available || variant.isPreOrder;
           }
           return false;
         });
@@ -512,6 +565,11 @@ document.addEventListener('DOMContentLoaded', function() {
           targetButton.classList.add('disabled', 'btn-out-stock');
           targetButton.style.pointerEvents = 'none';
           targetButton.style.opacity = '0.6';
+        } else if (variant.isPreOrder) {
+          targetButton.textContent = window.translations?.preOrder || 'Pre Order';
+          targetButton.classList.remove('disabled', 'btn-out-stock');
+          targetButton.style.pointerEvents = 'auto';
+          targetButton.style.opacity = '1';
         } else {
           targetButton.textContent = window.translations?.addToCart || 'Add to Cart';
           targetButton.classList.remove('disabled', 'btn-out-stock');
@@ -538,6 +596,11 @@ document.addEventListener('DOMContentLoaded', function() {
             addToCartBtn.classList.add('disabled', 'btn-out-stock');
             addToCartBtn.style.pointerEvents = 'none';
             addToCartBtn.style.opacity = '0.6';
+          } else if (variant.isPreOrder) {
+            addToCartBtn.textContent = window.translations?.preOrder || 'Pre Order';
+            addToCartBtn.classList.remove('disabled', 'btn-out-stock');
+            addToCartBtn.style.pointerEvents = 'auto';
+            addToCartBtn.style.opacity = '1';
           } else {
             addToCartBtn.textContent = window.translations?.addToCart || 'Add to Cart';
             addToCartBtn.classList.remove('disabled', 'btn-out-stock');
@@ -567,6 +630,11 @@ document.addEventListener('DOMContentLoaded', function() {
             stickyAddToCartBtn.classList.add('disabled', 'btn-out-stock');
             stickyAddToCartBtn.style.pointerEvents = 'none';
             stickyAddToCartBtn.style.opacity = '0.6';
+          } else if (variant.isPreOrder) {
+            stickyAddToCartBtn.textContent = window.translations?.preOrder || 'Pre Order';
+            stickyAddToCartBtn.classList.remove('disabled', 'btn-out-stock');
+            stickyAddToCartBtn.style.pointerEvents = 'auto';
+            stickyAddToCartBtn.style.opacity = '1';
           } else {
             stickyAddToCartBtn.textContent = window.translations?.addToCart || 'Add to Cart';
             stickyAddToCartBtn.classList.remove('disabled', 'btn-out-stock');
