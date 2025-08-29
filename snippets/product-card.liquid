@@ -90,7 +90,8 @@
             {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
             <div class="product-progress-sale">
                 <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                    aria-valuemax="100">
+                    aria-valuemax="100" aria-valuenow="{{ inventory_percentage }}" 
+                    aria-label="Inventory progress: {{ inventory_quantity }} items available out of 100">
                     <div class="progress-bar bg-primary" style="width: {{ inventory_percentage }}%"></div>
                 </div>
                 <div class="box-quantity d-flex justify-content-between">
@@ -273,7 +274,8 @@
             {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
             <div class="product-progress-sale">
                 <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                    aria-valuemax="100">
+                    aria-valuemax="100" aria-valuenow="{{ inventory_percentage }}"
+                    aria-label="Inventory progress: {{ inventory_quantity }} items available out of 100">
                     <div class="progress-bar bg-purple" style="width: {{ inventory_percentage }}%"></div>
                 </div>
                 <div class="box-quantity d-flex justify-content-between">

@@ -6,8 +6,9 @@
 <li class="compare">
     <a href="#compare" class="hover-tooltip box-icon{% if card_style == 'style-1' or card_style == 'style-small' %} tooltip-left{% endif %}"
         data-product-id="{{ product.id }}"
-        data-product-handle="{{ product.handle }}">
-        <span class="icon icon-compare"></span>
+        data-product-handle="{{ product.handle }}"
+        aria-label="Add {{ product.title }} to compare">
+        <span class="icon icon-compare" aria-hidden="true"></span>
         <span class="tooltip">{{ 'snippets.product-card.add_to_compare' | t }}</span>
     </a>
 </li>
