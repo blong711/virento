@@ -19,7 +19,7 @@
 <div class="offcanvas offcanvas-start canvas-sidebar canvas-filter" id="filterShop">
     <div class="canvas-wrapper">
         <div class="canvas-header">
-            <span class="title">{{ section.main_collection.filter | t }}</span>
+            <span class="title">{{ 'sections.main_collection.filter' | t }}</span>
             <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="canvas-body">
@@ -28,7 +28,7 @@
                 <div class="widget-facet">
                     <div class="facet-title text-xl fw-medium" data-bs-target="#collections"
                         data-bs-toggle="collapse" aria-expanded="true" aria-controls="collections">
-                        <span>{{ section.main_collection.collections | t }}</span>
+                        <span>{{ 'sections.main_collection.collections' | t }}</span>
                         <span class="icon icon-arrow-up"></span>
                     </div>
                     <div id="collections" class="collapse show">
@@ -52,7 +52,7 @@
                     <div class="facet-title text-xl fw-medium" data-bs-target="#availability"
                         role="button" data-bs-toggle="collapse" aria-expanded="true"
                         aria-controls="availability">
-                        <span>{{ section.main_collection.availability | t }}</span>
+                        <span>{{ 'sections.main_collection.availability' | t }}</span>
                         <span class="icon icon-arrow-up"></span>
                     </div>
                     <div id="availability" class="collapse show">
@@ -61,7 +61,7 @@
                                 <input type="radio" name="availability" class="tf-check"
                                     id="inStock" value="in_stock">
                                 <label for="inStock" class="label">
-                                    <span>{{ section.main_collection.in_stock | t }}</span>&nbsp;
+                                    <span>{{ 'sections.main_collection.in_stock' | t }}</span>&nbsp;
                                     <span class="count">({{ search.results | where: "object_type", "product" | where: "available", true | size }})</span>
                                 </label>
                             </li>
@@ -69,7 +69,7 @@
                                 <input type="radio" name="availability" class="tf-check"
                                     id="outStock" value="out_of_stock">
                                 <label for="outStock" class="label">
-                                    <span>{{ section.main_collection.out_of_stock | t }}</span>&nbsp;
+                                    <span>{{ 'sections.main_collection.out_of_stock' | t }}</span>&nbsp;
                                     <span class="count">({{ search.results | where: "object_type", "product" | where: "available", false | size }})</span>
                                 </label>
                             </li>
@@ -83,18 +83,18 @@
                 <div class="widget-facet">
                     <div class="facet-title text-xl fw-medium" data-bs-target="#price" role="button"
                         data-bs-toggle="collapse" aria-expanded="true" aria-controls="price">
-                        <span>{{ section.main_collection.price | t }}</span>
+                        <span>{{ 'sections.main_collection.price' | t }}</span>
                         <span class="icon icon-arrow-up"></span>
                     </div>
                     <div id="price" class="collapse show">
                         <div class="collapse-body widget-price filter-price">
-                            <span class="reset-price">{{ section.main_collection.reset | t }}</span>
+                            <span class="reset-price">{{ 'sections.main_collection.reset' | t }}</span>
                             <div class="price-val-range" id="price-value-range" 
                                 data-min="{{ search.price_min | divided_by: 100.0 | round: 0 }}" 
                                 data-max="{{ search.price_max | divided_by: 100.0 | round: 0 }}">
                             </div>
                             <div class="box-value-price">
-                                <span class="text-sm">{{ section.main_collection.price | t }}:</span>
+                                <span class="text-sm">{{ 'sections.main_collection.price' | t }}:</span>
                                 <div class="price-box">
                                     <div class="price-val" id="price-min-value" data-currency="{{ shop.currency_symbol }}">
                                         {{ search.price_min | money_without_currency }}
@@ -131,7 +131,7 @@
                 <div class="widget-facet">
                     <div class="facet-title text-xl fw-medium" data-bs-target="#color" role="button"
                         data-bs-toggle="collapse" aria-expanded="true" aria-controls="color">
-                        <span>{{ section.main_collection.color | t }}</span>
+                        <span>{{ 'sections.main_collection.color' | t }}</span>
                         <span class="icon icon-arrow-up"></span>
                     </div>
                     <div id="color" class="collapse show">
@@ -170,7 +170,7 @@
             <div class="widget-facet">
                 <div class="facet-title text-xl fw-medium" data-bs-target="#size" role="button"
                     data-bs-toggle="collapse" aria-expanded="true" aria-controls="size">
-                    <span>{{ section.main_collection.size | t }}</span>
+                    <span>{{ 'sections.main_collection.size' | t }}</span>
                     <span class="icon icon-arrow-up"></span>
                 </div>
                 <div id="size" class="collapse show">
@@ -206,7 +206,7 @@
                 <div class="widget-facet">
                     <div class="facet-title text-xl fw-medium" data-bs-target="#brand" role="button"
                         data-bs-toggle="collapse" aria-expanded="true" aria-controls="brand">
-                        <span>{{ section.main_collection.brand | t }}</span>
+                        <span>{{ 'sections.main_collection.brand' | t }}</span>
                         <span class="icon icon-arrow-up"></span>
                     </div>
                     <div id="brand" class="collapse show">
@@ -232,7 +232,7 @@
                 {% if sale_products.size > 0 %}
                 <div class="widget-facet">
                     <div class="facet-title text-xl fw-medium">
-                        <span class="shop-sale-text">{{ section.main_collection.on_sale | t }}</span>
+                        <span class="shop-sale-text">{{ 'sections.main_collection.on_sale' | t }}</span>
                     </div>
                     <ul class="collapse-body list-recent">
                         {% assign sale_count = 0 %}
@@ -255,7 +255,7 @@
                                                 <span class="old-price">{{ product.compare_at_price | money }}</span>
                                             </div>
                                             {% if product.options_with_values.size > 0 %}
-                                                <p class="text-sm">{{ product.options_with_values.first.values.size }} {{ section.main_collection.options_available | t }}</p>
+                                                <p class="text-sm">{{ product.options_with_values.first.values.size }} {{ 'sections.main_collection.options_available' | t }}</p>
                                             {% endif %}
                                         </div>
                                     </div>
