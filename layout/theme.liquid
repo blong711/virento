@@ -66,10 +66,6 @@
       >
     {% endif %}
 
-    {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
-      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
-
     <script>
       if (Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
