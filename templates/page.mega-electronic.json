@@ -82,8 +82,12 @@
     "featured_products_list_JKT7V3": {
       "type": "featured-products-list",
       "settings": {
+        "color_scheme": "",
+        "width": "container",
         "title": "Hot Deals",
+        "title_tag": "h4",
         "description": "Explore our most popular pieces that customers can't get enough of",
+        "description_size": "text-md",
         "show_countdown": true,
         "countdown_timer": 46556,
         "countdown_labels": "Days,Hours,Mins,Secs",
@@ -92,7 +96,72 @@
         "products_to_show": 8,
         "columns_desktop": 4,
         "columns_tablet": 3,
-        "columns_mobile": 2
+        "columns_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "offer_banner_pxpMeh": {
+      "type": "offer-banner",
+      "blocks": {
+        "banner_BeNpPq": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/mega-electric1.jpg",
+            "hover_image": false,
+            "baner_tag": "",
+            "title": "Innovative Performance",
+            "title_tag": "h4",
+            "title_weight": "fw-medium",
+            "subtitle": "Top-tier products built for reliability.",
+            "subtitle_size": "small",
+            "text_alignment": "text-center",
+            "color_scheme": "scheme-2",
+            "link": "shopify://collections",
+            "button_label": "Explore Now"
+          }
+        },
+        "banner_7KPcCj": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/mega-electric2.jpg",
+            "hover_image": false,
+            "baner_tag": "",
+            "title": "Upgrade Your <br>Tech",
+            "title_tag": "h4",
+            "title_weight": "fw-medium",
+            "subtitle": "Exclusive deals on the latest electronics.",
+            "subtitle_size": "small",
+            "text_alignment": "text-center",
+            "color_scheme": "scheme-2",
+            "link": "shopify://collections",
+            "button_label": "Explore Now"
+          }
+        }
+      },
+      "block_order": [
+        "banner_BeNpPq",
+        "banner_7KPcCj"
+      ],
+      "name": "Offer Banner",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "width": "container",
+        "show_arrows": false,
+        "show_dots": true,
+        "slides_per_view_desktop": 2,
+        "space_between_desktop": 24,
+        "item_height_desktop": 400,
+        "slides_per_view_tablet": 1,
+        "space_between_tablet": 12,
+        "item_height_tablet": 350,
+        "slides_per_view_mobile": 1,
+        "space_between_mobile": 12,
+        "item_height_mobile": 300,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
       }
     },
     "offer_banner_d4NYLb": {
@@ -217,6 +286,7 @@
   "order": [
     "grid_collection_JKT7V3",
     "featured_products_list_JKT7V3",
+    "offer_banner_pxpMeh",
     "offer_banner_d4NYLb",
     "testimonial_FzYjjR"
   ]
