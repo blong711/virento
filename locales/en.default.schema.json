@@ -7092,17 +7092,17 @@
         "title_tag": {
           "label": "Title tag size",
           "options": {
-            "small": { "label": "Small" },
-            "medium": { "label": "Medium" },
-            "large": { "label": "Large" }
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
           }
         },
         "description_size": {
           "label": "Description text size",
           "options": {
-            "small": { "label": "Small" },
-            "medium": { "label": "Medium" },
-            "large": { "label": "Large" }
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
           }
         },
         "show_countdown": {
