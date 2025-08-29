@@ -4,7 +4,7 @@
 {% endcomment %}
 {% assign card_style = card_style | default: settings.card_style | default: 'style-2' %}
 <li>
-    <a
+    <div
         class="hover-tooltip box-icon product-cart-button{% if card_style == 'style-1' or card_style == 'style-small' %} tooltip-left{% endif %}"
         data-product-id="{{ product.id }}"
         data-product-handle="{{ product.handle }}"
@@ -12,5 +12,5 @@
         aria-label="Add {{ product.title }} to cart">
         <span class="icon icon-cart2" aria-hidden="true"></span>
         <span class="tooltip">{{ 'snippets.product-card.add_to_cart' | t }}</span>
-    </a>
+    </div>
 </li>

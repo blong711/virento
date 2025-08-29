@@ -4,7 +4,7 @@
 {% endcomment %}
 <li>
 {% assign card_style = card_style | default: settings.card_style | default: 'style-2' %}
-    <a href="#" 
+    <div 
        class="hover-tooltip box-icon quickview btn-quickview{% if card_style == 'style-1' or card_style == 'style-small' %} tooltip-left{% endif %}" 
        data-product-id="{{ product.id }}"
        data-product-handle="{{ product.handle }}"
@@ -19,5 +19,5 @@
        aria-label="Quick view of {{ product.title }}">
         <span class="icon icon-view" aria-hidden="true"></span>
         <span class="tooltip">{{ 'snippets.product-card.quick_view' | t }}</span>
-    </a>
+    </div>
 </li>
