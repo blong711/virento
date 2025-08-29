@@ -15875,6 +15875,11 @@ button.animate-btn::after,
   color: var(--white) !important;
   text-align: center;
   margin-bottom: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .sb-banner .banner-content {
   position: absolute;
