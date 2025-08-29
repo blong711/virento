@@ -27,7 +27,7 @@
         "default_layout_type": "grid",
         "default_grid_layout": "tf-col-4",
         "pagination_type": "pagination",
-        "filter_layout": "default",
+        "filter_layout": "horizontal",
         "show_on_sale": true,
         "on_sale_limit": 3,
         "show_collection_banner": true,
