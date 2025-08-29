@@ -79,6 +79,11 @@
         "reverse_layout": true
       }
     },
+    "featured_products_list_JKT7V3": {
+      "type": "featured-products-list",
+      "settings": {
+      }
+    },
     "offer_banner_d4NYLb": {
       "type": "offer-banner",
       "blocks": {
@@ -200,6 +205,7 @@
   },
   "order": [
     "grid_collection_JKT7V3",
+    "featured_products_list_JKT7V3",
     "offer_banner_d4NYLb",
     "testimonial_FzYjjR"
   ]

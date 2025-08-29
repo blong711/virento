@@ -4,24 +4,7 @@
 {% endcomment %}
 
 {%- liquid
-  assign section_id = section.id
-  assign section_title = section.settings.title
-  assign section_description = section.settings.description
-  assign show_countdown = section.settings.show_countdown
-  assign countdown_timer = section.settings.countdown_timer
-  assign countdown_labels = section.settings.countdown_labels
-  assign products_to_show = section.settings.products_to_show
-  assign columns_desktop = section.settings.columns_desktop
-  assign columns_tablet = section.settings.columns_tablet
-  assign columns_mobile = section.settings.columns_mobile
-  assign card_style = section.settings.card_style
-  assign card_text_alignment = section.settings.card_text_alignment
-  assign show_progress_sale = section.settings.show_progress_sale
-  assign cart_button_style = section.settings.cart_button_style
--%}
-
-{%- liquid
-  case columns_desktop
+  case section.settings.columns_desktop
     when 2
       assign grid_class = 'tf-grid-layout tf-col-2'
     when 3
@@ -37,20 +20,20 @@
   endcase
 -%}
 
-<section id="FeaturedProducts-{{ section_id }}" class="featured-products-list">
+<section id="FeaturedProducts-{{ section.id }}" class="featured-products-list">
   <div class="flat-title style-between">
     <div class="box-title">
-      <h4 class="title">{{ section_title }}</h4>
-      {% if section_description != blank %}
-        <p class="desc text-main text-md">{{ section_description }}</p>
+      <h4 class="title">{{ section.settings.title }}</h4>
+      {% if section.settings.description != blank %}
+        <p class="desc text-main text-md">{{ section.settings.description }}</p>
       {% endif %}
     </div>
     
-    {% if show_countdown %}
+    {% if section.settings.show_countdown %}
       <div class="wg-countdown-2">
         <span class="js-countdown" 
-              data-timer="{{ countdown_timer }}" 
-              data-labels="{{ countdown_labels }}"></span>
+              data-timer="{{ section.settings.countdown_timer }}" 
+              data-labels="{{ section.settings.countdown_labels }}"></span>
       </div>
     {% endif %}
   </div>
@@ -58,16 +41,27 @@
   <div class="tab-content">
     <div class="tab-pane fade active show" role="tabpanel">
       <div class="{{ grid_class }}">
-        {%- if section.settings.collection != blank -%}
+        {%- if section.settings.selected_products != blank -%}
+          {%- comment -%} Display manually selected products {%- endcomment -%}
+          {%- for product_handle in section.settings.selected_products -%}
+            {%- assign product = all_products[product_handle] -%}
+            {%- if product != blank -%}
+              {% render 'product-card',
+                product: product,
+              %}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- elsif section.settings.collection != blank -%}
+          {%- comment -%} Fallback to collection products if no products are manually selected {%- endcomment -%}
           {%- assign collection = collections[section.settings.collection] -%}
-          {%- for product in collection.products limit: products_to_show -%}
+          {%- for product in collection.products limit: section.settings.products_to_show -%}
             {% render 'product-card',
               product: product,
             %}
           {%- endfor -%}
         {%- else -%}
-          {%- comment -%} Fallback to all products if no collection is selected {%- endcomment -%}
-          {%- for product in collections.all.products limit: products_to_show -%}
+          {%- comment -%} Final fallback to all products if no collection is selected {%- endcomment -%}
+          {%- for product in collections.all.products limit: section.settings.products_to_show -%}
             {% render 'product-card',
               product: product,
             %}
@@ -97,6 +91,12 @@
       "default": "Explore our most popular pieces that customers can't get enough of"
     },
     {
+      "type": "product_list",
+      "id": "selected_products",
+      "label": "Select Products",
+      "info": "Choose specific products to display. If none selected, will show products from the selected collection."
+    },
+    {
       "type": "checkbox",
       "id": "show_countdown",
       "label": "Show Countdown Timer",
@@ -118,7 +118,7 @@
       "type": "collection",
       "id": "collection",
       "label": "Collection",
-      "info": "Select a collection to display products from"
+      "info": "Select a collection to display products from (used as fallback if no products are manually selected)"
     },
     {
       "type": "range",
