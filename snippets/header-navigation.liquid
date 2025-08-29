@@ -312,6 +312,41 @@
           {% break %}
         {% endif %}
       {% endfor %}
+
+      <!-- Fallback: Show dropdown with same structure as mega menus but without extra content -->
+      {% assign has_mega_menu = false %}
+      {% for block in section.blocks %}
+        {% assign menu_match = block.settings.menu_item_match | strip | downcase %}
+        {% assign link_match = link.title | strip | downcase %}
+        {% if menu_match == link_match and menu_match != blank %}
+          {% assign has_mega_menu = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
+      {% unless has_mega_menu %}
+        {% if link.links.size > 0 %}
+          <!-- Use the same structure as mega_shop but without collections -->
+          <div class="sub-menu mega-menu" style="grid-template-columns: 1fr !important; max-width: 600px; padding: 32px 60px;">
+            <div class="wrapper-sub-menu">
+              {% for child in link.links %}
+                <div class="mega-menu-item">
+                  <div class="menu-heading">{{ child.title }}</div>
+                  {% if child.links != blank %}
+                    <ul class="menu-list">
+                      {% for grandchild in child.links %}
+                        <li>
+                          <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endunless %}
     </li>
   {% endfor %}
 </ul>
