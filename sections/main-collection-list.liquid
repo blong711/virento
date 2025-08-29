@@ -79,7 +79,8 @@
               collection: collection,
               content_position: content_position,
               enable_uppercase: enable_uppercase,
-              image_ratio: image_ratio
+              image_ratio: image_ratio,
+              button_text: section.settings.button_text
             -%}
           {%- endfor -%}
         {%- elsif collection_display == 'selected' -%}
@@ -88,7 +89,8 @@
               collection: collection,
               content_position: content_position,
               enable_uppercase: enable_uppercase,
-              image_ratio: image_ratio
+              image_ratio: image_ratio,
+              button_text: section.settings.button_text
             -%}
           {%- endfor -%}
         {%- endif -%}
@@ -331,6 +333,12 @@
         }
       ],
       "default": "adapt_image"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "t:sections.main_collection_list.settings.button_text.label",
+      "default": "t:sections.main_collection_list.settings.button_text.default"
     },
     {
       "type": "header",

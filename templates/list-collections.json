@@ -19,7 +19,7 @@
       }
     },
     "main": {
-      "type": "main-colection-list",
+      "type": "main-collection-list",
       "blocks": {
         "collection_item_Fcjjd9": {
           "type": "collection_item",

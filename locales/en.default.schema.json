@@ -6451,6 +6451,10 @@
             "landscape": "Landscape"
           }
         },
+        "button_text": {
+          "label": "Button text",
+          "default": "View all",
+        },
         "collection_layout": {
           "content": "Collection layout"
         },
