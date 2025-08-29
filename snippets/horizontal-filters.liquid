@@ -7,10 +7,10 @@
 {% assign full_collection = collections[collection.handle] %}
 
 {% comment %} Set default values for settings if not provided {% endcomment %}
-{% assign show_availability_filter = show_availability_filter | default: true %}
-{% assign show_price_filter = show_price_filter | default: true %}
-{% assign show_color_filter = show_color_filter | default: true %}
-{% assign show_brand_filter = show_brand_filter | default: true %}
+{% if show_availability_filter == nil %}{% assign show_availability_filter = true %}{% endif %}
+{% if show_price_filter == nil %}{% assign show_price_filter = true %}{% endif %}
+{% if show_color_filter == nil %}{% assign show_color_filter = true %}{% endif %}
+{% if show_brand_filter == nil %}{% assign show_brand_filter = true %}{% endif %}
 
 <div class="tf-filter-dropdown">
     <span class="title-filter">{{ 'sections.main_collection.filter' | t }}:</span>
