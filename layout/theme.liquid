@@ -32,17 +32,30 @@
 
     {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
 
-    {{ 'animate.css' | asset_url | stylesheet_tag }}
-    {{ 'drift-basic.min.css' | asset_url | stylesheet_tag }}
-    {{ 'image-compare-viewer.min.css' | asset_url | stylesheet_tag }}
-
-    {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
-    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {%- comment -%} Critical CSS - load immediately for above-the-fold content {%- endcomment -%}
     {{ 'style.css' | asset_url | stylesheet_tag }}
-    {{ 'font-icons.css' | asset_url | stylesheet_tag }}
-    {{ 'custom-select.css' | asset_url | stylesheet_tag }}
     {{ 'fonts.css' | asset_url | stylesheet_tag }}
-    {{ 'product-card-styles.css' | asset_url | stylesheet_tag }}
+    {{ 'font-icons.css' | asset_url | stylesheet_tag }}
+
+    {%- comment -%} Non-critical CSS - defer loading to avoid render blocking {%- endcomment -%}
+    <link rel="preload" href="{{ 'animate.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ 'drift-basic.min.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ 'image-compare-viewer.min.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ 'photoswipe.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ 'swiper-bundle.min.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ 'custom-select.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ 'product-card-styles.css' | asset_url }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+    {%- comment -%} Fallback for browsers without JavaScript {%- endcomment -%}
+    <noscript>
+      <link rel="stylesheet" href="{{ 'animate.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'drift-basic.min.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'photoswipe.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'custom-select.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'product-card-styles.css' | asset_url }}">
+    </noscript>
 
     {% render 'css-variables' %}
 
@@ -63,7 +76,15 @@
       <link
         href="https://fonts.googleapis.com/css2?family={{ settings.body_font_family | split: ',' | first | replace: '"', '' | replace: ' ', '+' }}:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
+        media="print"
+        onload="this.media='all'"
       >
+      <noscript>
+        <link
+          href="https://fonts.googleapis.com/css2?family={{ settings.body_font_family | split: ',' | first | replace: '"', '' | replace: ' ', '+' }}:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        >
+      </noscript>
     {% endif %}
 
     <script>
