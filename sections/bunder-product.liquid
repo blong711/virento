@@ -51,7 +51,9 @@
         <div class="bundle-wrap">
           <div class="flat-title mb-0 wow fadeInUp">
             {% if section.settings.bundle_heading != blank %}
-              <h4 class="title">{{ section.settings.bundle_heading }}</h4>
+              <h4 class="title" style="color: rgb(var(--color-foreground2));">
+                {{- section.settings.bundle_heading -}}
+              </h4>
             {% endif %}
             {% if section.settings.bundle_subheading != blank %}
               <p class="desc text-md">
@@ -94,7 +96,7 @@
                       show_quick_add: true,
                       show_quick_view: true,
                       show_progress_sale: false,
-                      card_style: 'style-small'                   
+                      card_style: 'style-small'
                     %}
                   </div>
                 {% else %}
@@ -210,7 +212,7 @@
       "type": "header",
       "content": "t:sections.bundle_product.settings.bundle_header.content"
     },
- 
+
     {
       "type": "text",
       "id": "bundle_heading",

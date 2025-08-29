@@ -74,6 +74,13 @@
           },
           {
             "type": "color",
+            "id": "text3",
+            "label": "Third text",
+            "info": "Choose a color close to the primary text.",
+            "default": "#8f6dff"
+          },
+          {
+            "type": "color",
             "id": "text_hover",
             "label": "Text Hover Color",
             "default": "#666666"

@@ -241,111 +241,130 @@
 {% endschema %}
 
 <section class="flat-spacing color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
-    <div class="{{ section.settings.width }}">
-        <div class="flat-title style-between wow fadeInUp">
-            <div class="box-title">
-                <{{ section.settings.heading_tag }} class="title">{{ section.settings.title }}</{{ section.settings.heading_tag }}>
-                <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground2));">{{ section.settings.subtitle }}</p>
-            </div>
-            {% for block in section.blocks %}
-              {% if block.type == 'countdown' %}
-                <div class="wg-countdown-2" {{ block.shopify_attributes }}>
-                  {%- capture countdown_date -%}
+  <div class="{{ section.settings.width }}">
+    <div class="flat-title style-between wow fadeInUp">
+      <div class="box-title">
+        <{{ section.settings.heading_tag }} class="title" style="color: rgb(var(--color-foreground2));">
+          {{- section.settings.title -}}
+        </{{ section.settings.heading_tag }}>
+        <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground), 0.7);">
+          {{ section.settings.subtitle }}
+        </p>
+      </div>
+      {% for block in section.blocks %}
+        {% if block.type == 'countdown' %}
+          <div class="wg-countdown-2" {{ block.shopify_attributes }}>
+            {%- capture countdown_date -%}
                     {{ block.settings.year }}-{{ block.settings.month | prepend: '00' | slice: -2, 2 }}-{{ block.settings.day | prepend: '00' | slice: -2, 2 }} {{ block.settings.hour | prepend: '00' | slice: -2, 2 }}:{{ block.settings.minute | prepend: '00' | slice: -2, 2 }}:00
                   {%- endcapture -%}
-                  <span class="js-countdown" 
-                    data-countdown="{{ countdown_date }}"
-                    data-labels="Days,Hours,Mins,Secs">
-                  </span>
-                </div>
-              {% endif %}
-            {% endfor %}
-        </div>
-        <div class="hover-sw-nav">
-            {%- assign show_nav = section.settings.show_navigation -%}
-            {%- assign show_dots = section.settings.show_mobile_dots -%}
-            {%- assign slides_mobile = section.settings.products_per_row_mobile -%}
-            {%- assign slides_tablet = section.settings.products_per_row_tablet -%}
-            {%- assign slides_desktop = section.settings.products_per_row_desktop -%}
-
-            <div dir="ltr" class="swiper tf-swiper" data-swiper='{
-                    "slidesPerView": {{ slides_mobile }},
-                    "spaceBetween": 12,
-                    "speed": 800,
-                    "observer": true,
-                    "observeParents": true,
-                    "slidesPerGroup": {{ slides_mobile }},
-                    "navigation": {
-                        "clickable": true,
-                        "nextEl": ".nav-next-deal",
-                        "prevEl": ".nav-prev-deal",
-                        "enabled": {{ show_nav }}
-                    },
-                    "pagination": { 
-                        "el": ".sw-pagination-deal", 
-                        "clickable": true,
-                        "enabled": {{ show_dots }}
-                    },
-                    "breakpoints": {
-                        "768": { 
-                            "slidesPerView": {{ slides_tablet }}, 
-                            "spaceBetween": 12, 
-                            "slidesPerGroup": {{ slides_tablet }}
-                        },
-                        "1200": { 
-                            "slidesPerView": {{ slides_desktop }}, 
-                            "spaceBetween": 24, 
-                            "slidesPerGroup": {{ slides_desktop }}
-                        }
-                    }
-                }'>
-                <div class="swiper-wrapper wow fadeInUp">
-                    {% assign products = '' %}
-                    {% if section.settings.product_list != blank %}
-                        {% assign products = section.settings.product_list %}
-                    {% elsif section.settings.collection != blank %}
-                        {% assign products = section.settings.collection.products %}
-                    {% endif %}
-
-                    {% if products != blank %}
-                        {% for product in products limit: section.settings.products_to_show %}
-                    <div class="swiper-slide">
-                                {% render 'product-card', product: product %}
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        {% for i in (1..6) %}
-                    <div class="swiper-slide">
-                        <div class="card-product style-2 style-border-2">
-                                    <div class="placeholder-image aspect-ratio" style="--aspect-ratio: 1;">
-                                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-                {% if section.settings.show_mobile_dots %}
-                <div class="d-flex d-xl-none sw-dot-default sw-pagination-deal justify-content-center"></div>
-                {% endif %}
-            </div>
-            {% if section.settings.show_navigation %}
-            <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-deal"></div>
-            <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-deal"></div>
-            {% endif %}
-        </div>
+            <span
+              class="js-countdown"
+              data-countdown="{{ countdown_date }}"
+              data-labels="Days,Hours,Mins,Secs"
+            >
+            </span>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
+    <div class="hover-sw-nav">
+      {%- assign show_nav = section.settings.show_navigation -%}
+      {%- assign show_dots = section.settings.show_mobile_dots -%}
+      {%- assign slides_mobile = section.settings.products_per_row_mobile -%}
+      {%- assign slides_tablet = section.settings.products_per_row_tablet -%}
+      {%- assign slides_desktop = section.settings.products_per_row_desktop -%}
+
+      <div
+        dir="ltr"
+        class="swiper tf-swiper"
+        data-swiper='
+          {
+              "slidesPerView": {{ slides_mobile }},
+              "spaceBetween": 12,
+              "speed": 800,
+              "observer": true,
+              "observeParents": true,
+              "slidesPerGroup": {{ slides_mobile }},
+              "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-deal",
+                  "prevEl": ".nav-prev-deal",
+                  "enabled": {{ show_nav }}
+              },
+              "pagination": {
+                  "el": ".sw-pagination-deal",
+                  "clickable": true,
+                  "enabled": {{ show_dots }}
+              },
+              "breakpoints": {
+                  "768": {
+                      "slidesPerView": {{ slides_tablet }},
+                      "spaceBetween": 12,
+                      "slidesPerGroup": {{ slides_tablet }}
+                  },
+                  "1200": {
+                      "slidesPerView": {{ slides_desktop }},
+                      "spaceBetween": 24,
+                      "slidesPerGroup": {{ slides_desktop }}
+                  }
+              }
+          }
+        '
+      >
+        <div class="swiper-wrapper wow fadeInUp">
+          {% assign products = '' %}
+          {% if section.settings.product_list != blank %}
+            {% assign products = section.settings.product_list %}
+          {% elsif section.settings.collection != blank %}
+            {% assign products = section.settings.collection.products %}
+          {% endif %}
+
+          {% if products != blank %}
+            {% for product in products limit: section.settings.products_to_show %}
+              <div class="swiper-slide">
+                {% render 'product-card', product: product %}
+              </div>
+            {% endfor %}
+          {% else %}
+            {% for i in (1..6) %}
+              <div class="swiper-slide">
+                <div class="card-product style-2 style-border-2">
+                  <div class="placeholder-image aspect-ratio" style="--aspect-ratio: 1;">
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        {% if section.settings.show_mobile_dots %}
+          <div class="d-flex d-xl-none sw-dot-default sw-pagination-deal justify-content-center"></div>
+        {% endif %}
+      </div>
+      {% if section.settings.show_navigation %}
+        <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-deal"></div>
+        <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-deal"></div>
+      {% endif %}
+    </div>
+  </div>
 </section>
 {% style %}
+  .wg-countdown-2 {
+    background-color: rgb(var(--color-background2));
+  }
+  .wg-countdown-2 .countdown__value {
+    color: rgb(var(--color-foreground3)) ;
+  }
+
     .section-{{ section.id }}-padding {
         padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
         padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
       }
-    
+
       @media screen and (min-width: 750px) {
         .section-{{ section.id }}-padding {
           padding-top: {{ section.settings.padding_top }}px;
           padding-bottom: {{ section.settings.padding_bottom }}px;
         }
       }
-    {% endstyle %}
+{% endstyle %}
