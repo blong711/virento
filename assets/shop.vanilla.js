@@ -1654,3 +1654,78 @@ function updateProductCountVisibility() {
         productCountList.style.display = 'none';
     }
 }
+
+// Function to update collection data from theme settings
+function updateCollectionDataFromSettings() {
+    // Try to get current theme settings from multiple sources
+    let sectionSettings = null;
+    
+    // Method 1: Try to get from Shopify's section settings
+    if (window.theme?.sections?.main_collection?.settings) {
+        sectionSettings = window.theme.sections.main_collection.settings;
+    }
+    // Method 2: Try to get from data attributes if available
+    else if (document.querySelector('[data-section-settings]')) {
+        try {
+            const settingsElement = document.querySelector('[data-section-settings]');
+            sectionSettings = JSON.parse(settingsElement.dataset.sectionSettings);
+        } catch (e) {
+            console.log('Could not parse section settings from data attributes');
+        }
+    }
+    // Method 3: Try to get from meta tags
+    else if (document.querySelector('meta[name="default-layout-type"]')) {
+        sectionSettings = {
+            default_layout_type: document.querySelector('meta[name="default-layout-type"]').content,
+            default_grid_layout: document.querySelector('meta[name="default-grid-layout"]')?.content || 'tf-col-4',
+            max_products_per_page: parseInt(document.querySelector('meta[name="max-products-per-page"]')?.content || '8')
+        };
+    }
+    
+    if (sectionSettings) {
+        // Update the collection data with current theme settings
+        if (window.collectionData) {
+            const oldLayoutType = window.collectionData.defaultLayoutType;
+            const oldGridLayout = window.collectionData.defaultGridLayout;
+            
+            window.collectionData.defaultLayoutType = sectionSettings.default_layout_type || 'grid';
+            window.collectionData.defaultGridLayout = sectionSettings.default_grid_layout || 'tf-col-4';
+            window.collectionData.maxProductsPerPage = sectionSettings.max_products_per_page || 8;
+            
+            // Only re-initialize if the layout type actually changed
+            if (oldLayoutType !== window.collectionData.defaultLayoutType || 
+                oldGridLayout !== window.collectionData.defaultGridLayout) {
+                console.log('Theme settings updated, refreshing layout...');
+                initLayoutSwitching();
+            }
+        }
+    }
+}
+
+// Listen for Shopify section updates (when theme customizer changes are made)
+if (window.Shopify && window.Shopify.designMode) {
+    document.addEventListener('shopify:section:load', function(event) {
+        if (event.target.classList.contains('section-main-collection')) {
+            // Section was updated, refresh the layout
+            setTimeout(() => {
+                updateCollectionDataFromSettings();
+            }, 100);
+        }
+    });
+    
+    document.addEventListener('shopify:section:select', function(event) {
+        if (event.target.classList.contains('section-main-collection')) {
+            // Section was selected in theme customizer
+            updateCollectionDataFromSettings();
+        }
+    });
+}
+
+// Fallback: Periodically check for theme setting changes (every 5 seconds)
+// This helps catch changes made in the admin that don't trigger customizer events
+setInterval(() => {
+    // Only check if we're not in the theme customizer
+    if (!window.Shopify || !window.Shopify.designMode) {
+        updateCollectionDataFromSettings();
+    }
+}, 5000);
