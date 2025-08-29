@@ -48,6 +48,8 @@
             {%- if product != blank -%}
               {% render 'product-card',
                 product: product,
+                show_progress_sale: false,
+                show_color_swatches: true
               %}
             {%- endif -%}
           {%- endfor -%}
@@ -57,13 +59,8 @@
           {%- for product in collection.products limit: section.settings.products_to_show -%}
             {% render 'product-card',
               product: product,
-            %}
-          {%- endfor -%}
-        {%- else -%}
-          {%- comment -%} Final fallback to all products if no collection is selected {%- endcomment -%}
-          {%- for product in collections.all.products limit: section.settings.products_to_show -%}
-            {% render 'product-card',
-              product: product,
+              show_progress_sale: false,
+              show_color_swatches: true
             %}
           {%- endfor -%}
         {%- endif -%}
@@ -91,12 +88,6 @@
       "default": "Explore our most popular pieces that customers can't get enough of"
     },
     {
-      "type": "product_list",
-      "id": "selected_products",
-      "label": "Select Products",
-      "info": "Choose specific products to display. If none selected, will show products from the selected collection."
-    },
-    {
       "type": "checkbox",
       "id": "show_countdown",
       "label": "Show Countdown Timer",
@@ -117,8 +108,13 @@
     {
       "type": "collection",
       "id": "collection",
-      "label": "Collection",
-      "info": "Select a collection to display products from (used as fallback if no products are manually selected)"
+      "label": "Collection"
+    },
+    {
+      "type": "product_list",
+      "id": "selected_products",
+      "label": "Select Products",
+      "info": "Choose specific products to display. If none selected, will show products from the selected collection."
     },
     {
       "type": "range",
@@ -155,68 +151,6 @@
       "step": 1,
       "default": 2,
       "label": "Columns on mobile"
-    },
-    {
-      "type": "select",
-      "id": "card_style",
-      "label": "Product Card Style",
-      "options": [
-        {
-          "value": "style-1",
-          "label": "Style 1"
-        },
-        {
-          "value": "style-2",
-          "label": "Style 2"
-        },
-        {
-          "value": "style-small",
-          "label": "Small Style"
-        }
-      ],
-      "default": "style-2"
-    },
-    {
-      "type": "select",
-      "id": "card_text_alignment",
-      "label": "Card Text Alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
-      ],
-      "default": "center"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_progress_sale",
-      "label": "Show Inventory Progress",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "cart_button_style",
-      "label": "Cart Button Style",
-      "options": [
-        {
-          "value": "icon",
-          "label": "Icon Only"
-        },
-        {
-          "value": "button",
-          "label": "Button"
-        }
-      ],
-      "default": "icon"
     }
   ],
   "presets": [
