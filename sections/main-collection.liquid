@@ -25,6 +25,7 @@
                 <div class="col-xl-3">
                     {% render 'collection-sidebar-filters', 
                         collection: collection,
+                        color_scheme: section.settings.color_scheme,
                         show_on_sale: section.settings.show_on_sale,
                         on_sale_limit: section.settings.on_sale_limit,
                         show_collection_banner: section.settings.show_collection_banner,
@@ -110,7 +111,7 @@
             </ul>
         </div>
         {% if filter_layout == 'horizontal' %}
-            {% render 'horizontal-filters', collection: collection, show_availability_filter: section.settings.show_availability_filter, show_price_filter: section.settings.show_price_filter, show_color_filter: section.settings.show_color_filter, show_brand_filter: section.settings.show_brand_filter %}
+            {% render 'horizontal-filters', collection: collection, color_scheme: section.settings.color_scheme, show_availability_filter: section.settings.show_availability_filter, show_price_filter: section.settings.show_price_filter, show_color_filter: section.settings.show_color_filter, show_brand_filter: section.settings.show_brand_filter %}
         {% endif %}
         <div class="wrapper-control-shop">
             <div class="meta-filter-shop">
@@ -337,6 +338,7 @@
             <div class="col-xl-3">
                 {% render 'collection-sidebar-filters', 
                     collection: collection,
+                    color_scheme: section.settings.color_scheme,
                     show_on_sale: section.settings.show_on_sale,
                     on_sale_limit: section.settings.on_sale_limit,
                     show_collection_banner: section.settings.show_collection_banner,
@@ -359,6 +361,7 @@
 {% if filter_layout == 'default' %}
     {% render 'collection-filters', 
         collection: collection,
+        color_scheme: section.settings.color_scheme,
         show_on_sale: section.settings.show_on_sale,
         on_sale_limit: section.settings.on_sale_limit,
         show_collection_banner: section.settings.show_collection_banner,

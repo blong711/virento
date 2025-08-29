@@ -1,12 +1,15 @@
 {% comment %}
   Filter Widgets Snippet
   Common filter widgets used by collection filters
-  Usage: {% render 'filter-widgets', full_collection: full_collection, collections: collections, show_availability_filter: show_availability_filter, show_price_filter: show_price_filter, show_color_filter: show_color_filter, show_brand_filter: show_brand_filter, show_on_sale: show_on_sale, on_sale_limit: on_sale_limit, show_collection_banner: show_collection_banner, collection_banner_title: collection_banner_title, collection_banner_button_text: collection_banner_button_text, collection_banner_button_url: collection_banner_button_url, collection_banner_image: collection_banner_image %}
+  Usage: {% render 'filter-widgets', full_collection: full_collection, collections: collections, color_scheme: color_scheme, show_availability_filter: show_availability_filter, show_price_filter: show_price_filter, show_color_filter: show_color_filter, show_brand_filter: show_brand_filter, show_on_sale: show_on_sale, on_sale_limit: on_sale_limit, show_collection_banner: show_collection_banner, collection_banner_title: collection_banner_title, collection_banner_button_text: collection_banner_button_text, collection_banner_button_url: collection_banner_button_url, collection_banner_image: collection_banner_image %}
 {% endcomment %}
+
+{% comment %} Set default color scheme if not provided {% endcomment %}
+{% if color_scheme == nil %}{% assign color_scheme = 'scheme-1' %}{% endif %}
 
 {% comment %} Collections Filter {% endcomment %}
 {% if collections.size > 0 %}
-<div class="widget-facet">
+<div class="widget-facet color-{{ color_scheme }}">
     <div class="facet-title text-xl fw-medium" data-bs-target="#collections"
         data-bs-toggle="collapse" aria-expanded="true" aria-controls="collections">
         <span>{{ 'sections.main_collection.collections' | t }}</span>
@@ -29,7 +32,7 @@
 
 {% comment %} Availability Filter {% endcomment %}
 {% if show_availability_filter %}
-    <div class="widget-facet">
+    <div class="widget-facet color-{{ color_scheme }}">
         <div class="facet-title text-xl fw-medium" data-bs-target="#availability"
             role="button" data-bs-toggle="collapse" aria-expanded="true"
             aria-controls="availability">
@@ -61,7 +64,7 @@
 
 {% comment %} Price Filter {% endcomment %}
 {% if show_price_filter %}
-    <div class="widget-facet">
+    <div class="widget-facet color-{{ color_scheme }}">
         <div class="facet-title text-xl fw-medium" data-bs-target="#price" role="button"
             data-bs-toggle="collapse" aria-expanded="true" aria-controls="price">
             <span>{{ 'sections.main_collection.price' | t }}</span>
@@ -107,7 +110,7 @@
 {% endfor %}
 {% assign colors_array = all_colors | split: ',' %}
 {% if colors_array.size > 0 and all_colors != '' %}
-    <div class="widget-facet">
+    <div class="widget-facet color-{{ color_scheme }}">
         <div class="facet-title text-xl fw-medium" data-bs-target="#color" role="button"
             data-bs-toggle="collapse" aria-expanded="true" aria-controls="color">
             <span>{{ 'sections.main_collection.color' | t }}</span>
@@ -144,7 +147,7 @@
 {% endfor %}
 {% assign sizes_array = all_sizes | split: ',' %}
 {% if sizes_array.size > 0 and all_sizes != '' %}
-<div class="widget-facet">
+<div class="widget-facet color-{{ color_scheme }}">
     <div class="facet-title text-xl fw-medium" data-bs-target="#size" role="button"
         data-bs-toggle="collapse" aria-expanded="true" aria-controls="size">
         <span>{{ 'sections.main_collection.size' | t }}</span>
@@ -178,7 +181,7 @@
 {% if show_brand_filter %}
 {% assign vendors = full_collection.products | map: 'vendor' | uniq %}
 {% if vendors.size > 0 %}
-    <div class="widget-facet">
+    <div class="widget-facet color-{{ color_scheme }}">
         <div class="facet-title text-xl fw-medium" data-bs-target="#brand" role="button"
             data-bs-toggle="collapse" aria-expanded="true" aria-controls="brand">
             <span>{{ 'sections.main_collection.brand' | t }}</span>
@@ -205,7 +208,7 @@
 {% if show_on_sale %}
     {% assign sale_products = full_collection.products | where: 'compare_at_price' %}
     {% if sale_products.size > 0 %}
-    <div class="widget-facet">
+    <div class="widget-facet color-{{ color_scheme }}">
         <div class="facet-title text-xl fw-medium">
             <span class="shop-sale-text">{{ 'sections.main_collection.on_sale' | t }}</span>
         </div>
@@ -242,7 +245,7 @@
 
 {% comment %} Collection Banner {% endcomment %}
 {% if show_collection_banner %}
-    <div class="widget-facet">
+    <div class="widget-facet color-{{ color_scheme }}">
         <div class="sb-banner hover-img">
             <div class="image img-style">
                 {% if collection_banner_image %}
