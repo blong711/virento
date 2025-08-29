@@ -3,7 +3,7 @@
   class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
 >
   <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
-    <div class="grid-cls grid-vegetable{% if section.settings.reverse_layout %} grid-cls-v4-reverse  {% else %} grid-cls-v4 {% endif %}">
+    <div class="grid-cls {% if section.settings.reverse_layout %} grid-cls-v3 grid-mega  {% else %} grid-vegetable grid-cls-v4 {% endif %}">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'sale_item1' -%}
@@ -166,7 +166,7 @@
 
           {%- when 'discover_item' -%}
             <div
-              class="{% if section.settings.reverse_layout %} item1  {% else %} item3 {% endif %}  s-cls style-absolute abs-left-center type-large hover-img color-{{ block.settings.color_scheme }}"
+              class="{% if section.settings.reverse_layout %} item1  {% else %} item3 {% endif %} s-cls style-absolute abs-left-center type-large hover-img color-{{ block.settings.color_scheme }}"
               {{ block.shopify_attributes }}
             >
               <div class="image img-style">
@@ -249,19 +249,6 @@
 <!-- Grid Collection -->
 
 <style>
-  .grid-cls-v4-reverse {
-    grid-template-columns: 1fr;
-  }
-
-  .grid-cls-v4-reverse {
-    grid-template-areas:'aa bb' 'cc cc' ;
-    grid-template-columns: 1fr 1fr;
-  }
-  .grid-cls-v4-reverse {
-    grid-template-areas: 'cc cc aa' 'cc cc bb';
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
   .s-cls .offer {
      background-color: rgb(var(--color-background2));
      color: rgb(var(--color-foreground2));
