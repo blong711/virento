@@ -138,7 +138,7 @@
             <div class="tf-list-layout wrapper-shop" id="listLayout" style="display: none;">
                 {% if collection.products.size > 0 %}
                     {% for product in collection.products %}
-                        {% render 'product-card-list', product: product, card_style: 'style-1' %}
+                        {% render 'product-card-list', product: product %}
                     {% endfor %}
                     
                     {% comment %} Pagination or Load More {% endcomment %}
@@ -235,7 +235,7 @@
             <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }}" id="gridLayout">
                 {% if collection.products.size > 0 %}
                     {% for product in collection.products %}
-                        {% render 'product-card', product: product, show_progress_sale: false %}
+                        {% render 'product-card', product: product, show_progress_sale: false, card_style: 'style-1' %}
                     {% endfor %}
                     
                     {% comment %} Pagination or Load More {% endcomment %}
