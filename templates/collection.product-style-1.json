@@ -19,7 +19,7 @@
       }
     },
     "main_collection": {
-      "type": "main-collection",
+      "type": "main-collection-style1",
       "settings": {
         "color_scheme": "",
         "width": "container",
