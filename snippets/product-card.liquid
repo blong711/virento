@@ -109,13 +109,13 @@
         
         {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
         {% if cart_button_style == 'button' %}
-            <a href="#" 
+            <div
                class="tf-btn btn-out-line-primary product-cart-button"
                data-product-id="{{ product.id }}"
                data-product-handle="{{ product.handle }}"
                data-variant-id="{{ product.selected_or_first_available_variant.id }}">
                 {{ 'snippets.product-card.add_to_cart' | t }}
-            </a>
+            </div>
         {% endif %}
         
         {% comment %} Hidden size and color options for filtering {% endcomment %}
@@ -292,13 +292,13 @@
         
         {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
         {% if cart_button_style == 'button' %}
-            <a href="#" 
+            <div
                class="tf-btn btn-out-line-primary product-cart-button"
                data-product-id="{{ product.id }}"
                data-product-handle="{{ product.handle }}"
                data-variant-id="{{ product.selected_or_first_available_variant.id }}">
                 {{ 'snippets.product-card.add_to_cart' | t }}
-            </a>
+            </div>
         {% endif %}
         
         {% comment %} Dynamic color swatches based on product variants {% endcomment %}
