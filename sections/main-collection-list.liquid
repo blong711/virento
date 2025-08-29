@@ -69,6 +69,8 @@
   }
 </style>
 
+
+
 {%- paginate collections by max_items -%}
   <section class="collection-list-{{ section.id }} color-{{ section.settings.color_scheme }}">
     <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
@@ -83,19 +85,6 @@
               button_text: section.settings.button_text
             -%}
           {%- endfor -%}
-          
-          {%- comment -%} Add collection_item blocks as last items {%- endcomment -%}
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'collection_item' and block.settings.collection != blank -%}
-              {%- render 'collection-item',
-                collection: block.settings.collection,
-                content_position: content_position,
-                enable_uppercase: enable_uppercase,
-                image_ratio: image_ratio,
-                button_text: section.settings.button_text
-              -%}
-            {%- endif -%}
-          {%- endfor -%}
         {%- elsif collection_display == 'selected' -%}
           {%- for collection in collections -%}
             {%- render 'collection-item',
@@ -106,20 +95,20 @@
               button_text: section.settings.button_text
             -%}
           {%- endfor -%}
-          
-          {%- comment -%} Add collection_item blocks as last items {%- endcomment -%}
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'collection_item' and block.settings.collection != blank -%}
-              {%- render 'collection-item',
-                collection: block.settings.collection,
-                content_position: content_position,
-                enable_uppercase: enable_uppercase,
-                image_ratio: image_ratio,
-                button_text: section.settings.button_text
-              -%}
-            {%- endif -%}
-          {%- endfor -%}
         {%- endif -%}
+
+        {%- comment -%} Add collection_item blocks as last items within pagination {%- endcomment -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'collection_item' and block.settings.collection != blank -%}
+            {%- render 'collection-item',
+              collection: block.settings.collection,
+              content_position: content_position,
+              enable_uppercase: enable_uppercase,
+              image_ratio: image_ratio,
+              button_text: section.settings.button_text
+            -%}
+          {%- endif -%}
+        {%- endfor -%}
 
         {%- if pagination_type != 'none' and paginate.pages > 1 -%}
           <!-- Pagination -->
