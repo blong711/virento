@@ -82,6 +82,20 @@
     "featured_products_list_JKT7V3": {
       "type": "featured-products-list",
       "settings": {
+        "title": "Hot Deals",
+        "description": "Explore our most popular pieces that customers can't get enough of",
+        "show_countdown": true,
+        "countdown_timer": 46556,
+        "countdown_labels": "Days,Hours,Mins,Secs",
+        "collection": "phones",
+        "selected_products": [
+          "apple-iphone-16-promax",
+          "apple-magsafe-charger"
+        ],
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "columns_tablet": 3,
+        "columns_mobile": 2
       }
     },
     "offer_banner_d4NYLb": {
