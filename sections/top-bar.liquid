@@ -199,11 +199,11 @@
             {%- for block in section.blocks -%}
               {%- if block.type == 'language_selector' and section.settings.show_language_selector -%}
                 <div class="tf-languages" {{ block.shopify_attributes }}>
-                  {%- form 'localization', id: 'LanguageForm', class: 'localization-form' -%}
+                  {%- form 'localization', id: 'TopBarLanguageForm', class: 'localization-form' -%}
                     <div class="no-js-hidden">
                       <select
                         name="locale_code"
-                        id="language-selector"
+                        id="language-selector-topbar"
                         class="image-select center style-default type-languages"
                         aria-labelledby="LanguageLabel"
                       >
@@ -224,11 +224,11 @@
                 </div>
               {%- elsif block.type == 'currency_selector' and section.settings.show_currency_selector -%}
                 <div class="tf-currencies" {{ block.shopify_attributes }}>
-                  {%- form 'localization', id: 'CurrencyForm', class: 'localization-form' -%}
+                  {%- form 'localization', id: 'TopBarCurrencyForm', class: 'localization-form' -%}
                     <div class="no-js-hidden">
                       <select
                         name="country_code"
-                        id="currency-selector"
+                        id="currency-selector-topbar"
                         class="image-select center style-default type-currencies"
                         aria-labelledby="CurrencyLabel"
                       >

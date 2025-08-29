@@ -133,13 +133,13 @@
             <div class="bottom-bar-language">
                 {% if section.settings.show_currency_selector %}
                 <div class="tf-currencies">
-                    {% render 'currency-selector' %}
+                    {% render 'currency-selector', form_id: 'MobileCurrencyForm' %}
                 </div>
                 {% endif %}
                 
                 {% if section.settings.show_language_selector %}
                 <div class="tf-languages">
-                    {% render 'language-selector' %}
+                    {% render 'language-selector', form_id: 'MobileLanguageForm' %}
                 </div>
                 {% endif %}
             </div>

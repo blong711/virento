@@ -1,13 +1,16 @@
 {% comment %}
   Currency Selector Snippet
   Renders currency selector dropdown
+  Accepts: form_id - unique identifier for the form to avoid duplicate IDs
 {% endcomment %}
 
-{%- form 'localization', id: 'CurrencyForm', class: 'localization-form' -%}
+{%- assign form_id = form_id | default: 'CurrencyForm' -%}
+
+{%- form 'localization', id: form_id, class: 'localization-form' -%}
   <div class="no-js-hidden">
     <select
       name="country_code"
-      id="currency-selector"
+      id="currency-selector-{{ form_id | handleize }}"
       class="image-select center style-default type-currencies"
       aria-labelledby="CurrencyLabel"
     >

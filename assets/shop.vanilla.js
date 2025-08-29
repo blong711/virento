@@ -1044,7 +1044,8 @@ function initLayoutSwitching() {
 
         if (isListActive) {
             gridLayout.style.display = 'none';
-            document.getElementById('listLayout').style.display = '';
+            const listLayout = document.getElementById('listLayout');
+            if (listLayout) listLayout.style.display = '';
             document.querySelector('.wrapper-control-shop')?.classList.add('listLayout-wrapper');
             document.querySelector('.wrapper-control-shop')?.classList.remove('gridLayout-wrapper');
             return;
@@ -1076,7 +1077,8 @@ function initLayoutSwitching() {
                 setGridLayout('tf-col-4');
             }
         } else {
-            document.getElementById('listLayout').style.display = 'none';
+            const listLayout = document.getElementById('listLayout');
+            if (listLayout) listLayout.style.display = 'none';
             gridLayout.style.display = '';
             document.querySelector('.wrapper-control-shop')?.classList.add('gridLayout-wrapper');
             document.querySelector('.wrapper-control-shop')?.classList.remove('listLayout-wrapper');
@@ -1101,19 +1103,25 @@ function initLayoutSwitching() {
                 }
                 
                 if (isListActive) {
-                    document.getElementById('gridLayout').style.display = 'none';
-                    document.getElementById('listLayout').style.display = '';
+                    const gridLayout = document.getElementById('gridLayout');
+                    const listLayout = document.getElementById('listLayout');
+                    if (gridLayout) gridLayout.style.display = 'none';
+                    if (listLayout) listLayout.style.display = '';
                 } else {
-                    document.getElementById('listLayout').style.display = 'none';
-                    document.getElementById('gridLayout').style.display = '';
+                    const gridLayout = document.getElementById('gridLayout');
+                    const listLayout = document.getElementById('listLayout');
+                    if (listLayout) listLayout.style.display = 'none';
+                    if (gridLayout) gridLayout.style.display = '';
                 }
             }, 500);
 
             if (layout === 'list') {
                 isListActive = true;
                 userSelectedLayout = null;
-                document.getElementById('gridLayout').style.display = 'none';
-                document.getElementById('listLayout').style.display = '';
+                const gridLayout = document.getElementById('gridLayout');
+                const listLayout = document.getElementById('listLayout');
+                if (gridLayout) gridLayout.style.display = 'none';
+                if (listLayout) listLayout.style.display = '';
                 document.querySelector('.wrapper-control-shop')?.classList.add('listLayout-wrapper');
                 document.querySelector('.wrapper-control-shop')?.classList.remove('gridLayout-wrapper');
                 
@@ -1131,8 +1139,12 @@ function initLayoutSwitching() {
     if (window.collectionData && window.collectionData.defaultLayoutType === 'list') {
         // Start with list layout
         isListActive = true;
-        document.getElementById('gridLayout').style.display = 'none';
-        document.getElementById('listLayout').style.display = '';
+        const gridLayout = document.getElementById('gridLayout');
+        const listLayout = document.getElementById('listLayout');
+        
+        if (gridLayout) gridLayout.style.display = 'none';
+        if (listLayout) listLayout.style.display = '';
+        
         document.querySelector('.wrapper-control-shop')?.classList.add('listLayout-wrapper');
         document.querySelector('.wrapper-control-shop')?.classList.remove('gridLayout-wrapper');
         
@@ -1144,8 +1156,11 @@ function initLayoutSwitching() {
     } else {
         // Start with grid layout (default)
         isListActive = false;
-        document.getElementById('listLayout').style.display = 'none';
-        document.getElementById('gridLayout').style.display = '';
+        const gridLayout = document.getElementById('gridLayout');
+        const listLayout = document.getElementById('listLayout');
+        
+        if (listLayout) listLayout.style.display = 'none';
+        if (gridLayout) gridLayout.style.display = '';
         
         // Ensure wrapper classes are set correctly for grid layout
         const wrapper = document.querySelector('.wrapper-control-shop');

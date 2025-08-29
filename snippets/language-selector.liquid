@@ -1,13 +1,16 @@
 {% comment %}
   Language Selector Snippet
   Renders language selector dropdown
+  Accepts: form_id - unique identifier for the form to avoid duplicate IDs
 {% endcomment %}
 
-{%- form 'localization', id: 'LanguageForm', class: 'localization-form' -%}
+{%- assign form_id = form_id | default: 'LanguageForm' -%}
+
+{%- form 'localization', id: form_id, class: 'localization-form' -%}
   <div class="no-js-hidden">
     <select
       name="locale_code"
-      id="language-selector"
+      id="language-selector-{{ form_id | handleize }}"
       class="image-select center style-default type-languages"
       aria-labelledby="LanguageLabel"
     >
