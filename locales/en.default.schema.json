@@ -7077,6 +7077,64 @@
       "presets": {
         "name": "Sub Collection"
       }
+    },
+    "featured-products-list": {
+      "name": "Featured Products List",
+      "settings": {
+        "title": {
+          "label": "Section Title",
+          "default": "Hot Deals"
+        },
+        "description": {
+          "label": "Section Description",
+          "default": "Explore our most popular pieces that customers can't get enough of"
+        },
+        "title_tag": {
+          "label": "Title tag size",
+          "options": {
+            "small": { "label": "Small" },
+            "medium": { "label": "Medium" },
+            "large": { "label": "Large" }
+          }
+        },
+        "description_size": {
+          "label": "Description text size",
+          "options": {
+            "small": { "label": "Small" },
+            "medium": { "label": "Medium" },
+            "large": { "label": "Large" }
+          }
+        },
+        "show_countdown": {
+          "label": "Show Countdown Timer",
+        },
+        "countdown_timer": {
+          "label": "Countdown Timer (seconds)",
+        },
+        "countdown_labels": {
+          "label": "Countdown Labels",
+          "default": "Days,Hours,Mins,Secs"
+        },
+        "collection": {
+          "label": "Collection"
+        },
+        "selected_products": {
+          "label": "Select Products",
+          "info": "Choose specific products to display. If none selected, will show products from the selected collection."
+        },
+        "products_to_show": {
+          "label": "Number of products to show"
+        },
+        "columns_desktop": {
+          "label": "Columns on desktop"
+        },
+        "columns_tablet": {
+          "label": "Columns on tablet"
+        },
+        "columns_mobile": {
+          "label": "Columns on mobile"
+        }
+      }
     }
   }
 }
