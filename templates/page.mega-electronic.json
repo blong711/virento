@@ -74,7 +74,7 @@
         "width": "boxed",
         "color_scheme": "scheme-1",
         "padding_top": 30,
-        "padding_bottom": 60,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75,
         "reverse_layout": true
       }
@@ -128,7 +128,7 @@
             "image": "shopify://shop_images/mega-electric2.jpg",
             "hover_image": false,
             "baner_tag": "",
-            "title": "Upgrade Your <br>Tech",
+            "title": "Upgrade Your Tech",
             "title_tag": "h4",
             "title_weight": "fw-medium",
             "subtitle": "Exclusive deals on the latest electronics.",
@@ -159,6 +159,57 @@
         "slides_per_view_mobile": 1,
         "space_between_mobile": 12,
         "item_height_mobile": 300,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "padding_mobile_rate": 75
+      }
+    },
+    "featured_products_tab_pQT7UE": {
+      "type": "featured-products-tab",
+      "blocks": {
+        "tab_QxRyaJ": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "New Arrivals",
+            "collection": "cables",
+            "products": []
+          }
+        },
+        "tab_kVMirR": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Featured",
+            "collection": "chargers",
+            "products": []
+          }
+        },
+        "tab_ryV39j": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Trending",
+            "collection": "headphones",
+            "products": []
+          }
+        }
+      },
+      "block_order": [
+        "tab_QxRyaJ",
+        "tab_kVMirR",
+        "tab_ryV39j"
+      ],
+      "name": "Featured Products Tab",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title": "Just For You",
+        "title_tag": "h4",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
+        "show_nav": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
@@ -203,8 +254,33 @@
         "slides_per_view_mobile": 1,
         "space_between_mobile": 12,
         "item_height_mobile": 300,
-        "padding_top": 120,
-        "padding_bottom": 120,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
+    },
+    "featured_product_carousel_9qY3Bx": {
+      "type": "featured-product-carousel",
+      "name": "t:sections.featured-product-carousel.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title_alignment": "center",
+        "title": "Top Picks This Month",
+        "title_tag": "h4",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
+        "featured_collection": "phones",
+        "product_list": [],
+        "products_to_show": 6,
+        "show_navigation": false,
+        "navigation_style": "boxed",
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     },
@@ -287,7 +363,9 @@
     "grid_collection_JKT7V3",
     "featured_products_list_JKT7V3",
     "offer_banner_pxpMeh",
+    "featured_products_tab_pQT7UE",
     "offer_banner_d4NYLb",
+    "featured_product_carousel_9qY3Bx",
     "testimonial_FzYjjR"
   ]
 }
