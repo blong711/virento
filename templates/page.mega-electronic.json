@@ -88,7 +88,11 @@
         "countdown_timer": 46556,
         "countdown_labels": "Days,Hours,Mins,Secs",
         "collection": "phones",
-        "selected_products": [],
+        "selected_products": [
+          "apple-iphone-16-promax",
+          "apple-magsafe-charger",
+          "apple-smart-keyboard"
+        ],
         "products_to_show": 8,
         "columns_desktop": 4,
         "columns_tablet": 3,
