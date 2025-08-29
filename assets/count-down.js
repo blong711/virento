@@ -4,13 +4,6 @@ class CountDown {
     this.labels = this.element.getAttribute('data-labels') ? this.element.getAttribute('data-labels').split(',') : [];
     this.intervalId = null;
 
-    console.log('CountDown constructor called with:', {
-      element: this.element,
-      labels: this.labels,
-      timer: this.element.getAttribute('data-timer'),
-      countdown: this.element.getAttribute('data-countdown')
-    });
-
     // Initialize countdown
     this.setVisibleLabels();
     this.createCountDown();
@@ -22,7 +15,6 @@ class CountDown {
     this.secs = this.element.querySelector('.js-countdown__value--3');
 
     this.endTime = this.getEndTime();
-    console.log('End time calculated:', this.endTime);
     this.initCountDown();
   }
 
@@ -121,54 +113,9 @@ class CountDown {
   emitEndEvent() {
     this.element.dispatchEvent(new CustomEvent('countDownFinished'));
   }
-
-  destroy() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
-  }
 }
 
 // Initialize countdowns when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  initializeCountdowns();
+  document.querySelectorAll('.js-countdown').forEach((element) => new CountDown(element));
 });
-
-// Re-initialize countdowns when Shopify theme customizer updates sections
-document.addEventListener('shopify:section:load', () => {
-  initializeCountdowns();
-});
-
-document.addEventListener('shopify:section:reorder', () => {
-  initializeCountdowns();
-});
-
-document.addEventListener('shopify:section:select', () => {
-  initializeCountdowns();
-});
-
-// Function to initialize all countdowns
-function initializeCountdowns() {
-  console.log('Initializing countdowns...');
-  
-  // Clean up existing countdowns to prevent memory leaks
-  document.querySelectorAll('.js-countdown').forEach((element) => {
-    if (element.countdownInstance) {
-      element.countdownInstance.destroy();
-    }
-  });
-  
-  // Initialize new countdowns
-  const countdownElements = document.querySelectorAll('.js-countdown');
-  console.log(`Found ${countdownElements.length} countdown elements`);
-  
-  countdownElements.forEach((element, index) => {
-    console.log(`Initializing countdown ${index + 1}:`, {
-      timer: element.getAttribute('data-timer'),
-      countdown: element.getAttribute('data-countdown'),
-      labels: element.getAttribute('data-labels')
-    });
-    element.countdownInstance = new CountDown(element);
-  });
-}
