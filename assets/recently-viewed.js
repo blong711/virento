@@ -177,7 +177,7 @@ class RecentlyViewedProducts {
         return `
             <ul class="list-product-btn">
                 <li>
-                    <a data-bs-toggle="offcanvas"
+                    <a
                          class="hover-tooltip box-icon product-cart-button"
                          data-product-id="${product.id}"
                          data-product-handle="${product.handle}"
