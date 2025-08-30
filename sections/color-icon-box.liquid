@@ -78,9 +78,10 @@
           "touchStartPreventDefault": false,
           {% if section.settings.mobile_dots %}"pagination": { "el": ".sw-pagination-iconbox", "clickable": true },{% endif %}
           "breakpoints": {
-            "575": { "slidesPerView": {{ section.settings.cols_mobile }}, "spaceBetween": 12 },
-            "768": { "slidesPerView": {{ section.settings.cols_tablet }}, "spaceBetween": 24 },
-            "1200": { "slidesPerView": {{ section.settings.cols_desktop }}, "spaceBetween": 34 }
+            "0": { "slidesPerView": {{ section.settings.cols_mobile | plus: 0 }}, "spaceBetween": 12 },
+            "576": { "slidesPerView": {{ section.settings.cols_mobile | plus: 0 }}, "spaceBetween": 12 },
+            "768": { "slidesPerView": {{ section.settings.cols_tablet | plus: 0 }}, "spaceBetween": 24 },
+            "1200": { "slidesPerView": {{ section.settings.cols_desktop | plus: 0 }}, "spaceBetween": 34 }
           }
         }
       '
@@ -272,31 +273,64 @@
       "default": "none"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "cols_desktop",
       "label": "t:sections.color-icon-box.settings.cols_desktop.label",
-      "min": 1,
-      "max": 4,
-      "step": 1,
-      "default": 3
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "3"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "cols_tablet",
       "label": "t:sections.color-icon-box.settings.cols_tablet.label",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "default": 2
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "2"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "cols_mobile",
       "label": "t:sections.color-icon-box.settings.cols_mobile.label",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "default": 1
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
     },
     {
       "type": "checkbox",
