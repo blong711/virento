@@ -623,7 +623,7 @@
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
+        "products_per_row_mobile": 1,
         "icon_style": "default",
         "show_border": true,
         "padding_top": 52,
