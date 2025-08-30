@@ -87,7 +87,7 @@
 
           {%- when 'sale_item2' -%}
             <div
-              class="{% if section.settings.reverse_layout %} item3  {% else %} item2 {% endif %} s-cls style-absolute hover-img abs-left-center color-{{ block.settings.color_scheme }}"
+              class="item2 s-cls style-absolute hover-img abs-left-center color-{{ block.settings.color_scheme }}"
               {{ block.shopify_attributes }}
             >
               <div class="image img-style">
@@ -166,7 +166,7 @@
 
           {%- when 'discover_item' -%}
             <div
-              class="{% if section.settings.reverse_layout %} item2  {% else %} item3 {% endif %} s-cls style-absolute abs-left-center type-large hover-img color-{{ block.settings.color_scheme }}"
+              class="{% if section.settings.reverse_layout %} item1  {% else %} item3 {% endif %} s-cls style-absolute abs-left-center type-large hover-img color-{{ block.settings.color_scheme }}"
               {{ block.shopify_attributes }}
             >
               <div class="image img-style">
