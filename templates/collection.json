@@ -26,6 +26,7 @@
         "max_products_per_page": 8,
         "default_layout_type": "grid",
         "default_grid_layout": "tf-col-4",
+        "mobile_grid_layout": "tf-col-3",
         "pagination_type": "pagination",
         "filter_layout": "default",
         "show_on_sale": true,
