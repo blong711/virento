@@ -259,10 +259,12 @@
                 <p class="title">
                     {{ collection_banner_title | replace: ' ', '<br>' }}
                 </p>
+                {% if collection_banner_button_text != blank %}
                 <a href="{% if collection_banner_button_url != blank %}{{ collection_banner_button_url }}{% else %}{{ collection.url }}{% endif %}" 
                    class="tf-btn btn-white hover-primary">
                     {{ collection_banner_button_text }}
                 </a>
+                {% endif %}
             </div>
         </div>
     </div>
