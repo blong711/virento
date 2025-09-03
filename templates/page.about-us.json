@@ -102,8 +102,8 @@
         "spacing_heading_content": 32,
         "image": "shopify://shop_images/about-2.jpg",
         "padding_top": 120,
-        "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_bottom": 120,
+        "padding_mobile_rate": 50
       }
     },
     "heading_with_text_horizontal_wHExHM": {
