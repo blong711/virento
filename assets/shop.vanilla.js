@@ -314,6 +314,9 @@ function updateLayoutFromSettings() {
             const defaultLayoutBtn = document.querySelector(`.tf-view-layout-switch[data-value-layout="${newDefaultGridLayout}"]`);
             if (defaultLayoutBtn) defaultLayoutBtn.classList.add('active');
         }
+        
+        // Call updateLayoutDisplay to ensure responsive behavior is applied
+        updateLayoutDisplay();
     }
     
     // Update product count visibility
