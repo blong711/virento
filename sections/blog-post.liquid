@@ -1,6 +1,5 @@
 <article
-  class="s-blog-single line-bottom-container section-article-post color-{{ section.settings.color_scheme }}"
-  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+  class="s-blog-single line-bottom-container section-article-post section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
   data-section-id="{{ section.id }}"
   data-section-type="blog-post"
 >
@@ -269,14 +268,15 @@
 </article>
 
 {%- style -%}
-  @media screen and (max-width: 749px) {
-    .section-article-post {
-      padding-top: calc(
-        {{section.settings.padding_top}}px * {{section.settings.padding_mobile_rate | divided_by: 100}}
-      ) !important;
-      padding-bottom: calc(
-        {{section.settings.padding_bottom}}px * {{section.settings.padding_mobile_rate | divided_by: 100}}
-      ) !important;
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
 
