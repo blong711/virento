@@ -100,7 +100,7 @@
         "countdown_zyY8KX"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-b470b3c9-ba4c-4e2c-ae67-60449ba9f43f",
         "width": "container",
         "title": "Hot Deals",
         "heading_tag": "h4",
@@ -123,7 +123,7 @@
         "products_to_show": 6,
         "padding_top": 100,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 60
       }
     },
     "offer_banner": {
@@ -280,7 +280,7 @@
         "items_per_row_mobile": 2,
         "padding_top": 100,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 60
       }
     },
     "tag_products": {
@@ -447,7 +447,7 @@
         "items_per_row_mobile": 2,
         "padding_top": 100,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 60
       }
     },
     "featured_products_tab": {
@@ -514,7 +514,7 @@
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
         "padding_top": 0,
-        "padding_bottom": 100,
+        "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
     },
@@ -534,9 +534,9 @@
         "content_position": "center-left",
         "content_alignment": "center",
         "content_width": 478,
-        "padding_top": 0,
+        "padding_top": 100,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 60
       }
     },
     "featured_product_carousel": {
@@ -637,7 +637,7 @@
         "show_border": true,
         "padding_top": 44,
         "padding_bottom": 44,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 60
       }
     }
   },
