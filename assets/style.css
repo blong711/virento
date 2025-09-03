@@ -19124,16 +19124,20 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .sidebar-account-wrap .my-account-nav-item:hover {
   background-color: var(--primary-4);
 }
+
+.sidebar-account-wrap .my-account-nav-item:hover:last-child {
+  border-radius: 0 0 4px 4px;
+}
 .sidebar-account-wrap .my-account-nav-item.active {
   color: var(--primary);
   background-color: var(--primary-4);
 }
 
 .sidebar-account-wrap .my-account-nav-item.active:first-child {
-  border-radius: 4px 4px 0 0;
+  border-radius: 0 0 4px 4px;
 }
 .sidebar-account-wrap .my-account-nav-item.active:last-child {
-  border-radius: 0 0 4px 4px;
+  border-radius: 4px 4px 0 0;
 }
 .sidebar-account-wrap li:not(:first-child) {
   border-top: 1px solid var(--line);
