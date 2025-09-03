@@ -328,25 +328,60 @@
 
       {% unless has_mega_menu %}
         {% if link.links.size > 0 %}
-          <!-- Use the same structure as mega_shop but without collections -->
-          <div class="sub-menu mega-menu mega-shop" style="grid-template-columns: 1fr !important; max-width: 600px; padding: 32px 60px;">
-            <div class="wrapper-sub-menu">
-              {% for child in link.links %}
-                <div class="mega-menu-item">
-                  <div class="menu-heading">{{ child.title }}</div>
-                  {% if child.links != blank %}
-                    <ul class="menu-list">
-                      {% for grandchild in child.links %}
-                        <li>
-                          <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                </div>
+          {% comment %} Check if any child has grandchildren {% endcomment %}
+          {% assign has_grandchildren = false %}
+          {% for child in link.links %}
+            {% if child.links.size > 0 %}
+              {% assign has_grandchildren = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          
+          {% if has_grandchildren %}
+            <!-- Use the same structure as mega_shop but without collections -->
+            <div class="sub-menu mega-menu mega-shop" style="grid-template-columns: 1fr !important; max-width: 600px; padding: 32px 60px;">
+              <div class="wrapper-sub-menu">
+                {% for child in link.links %}
+                  <div class="mega-menu-item">
+                    <div class="menu-heading">{{ child.title }}</div>
+                    {% if child.links != blank %}
+                      <ul class="menu-list">
+                        {% for grandchild in child.links %}
+                          <li>
+                            <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          {% else %}
+            <!-- Use the same structure as mega_pages but without banner -->
+            <div class="sub-menu sub-menu-style-2 no-banner">
+              {% assign total_items = link.links.size %}
+              {% assign items_per_list = 8 %}
+              {% assign number_of_lists = total_items | divided_by: items_per_list %}
+              {% assign remainder = total_items | modulo: items_per_list %}
+              {% if remainder > 0 %}
+                {% assign number_of_lists = number_of_lists | plus: 1 %}
+              {% endif %}
+
+              {% for list_index in (1..number_of_lists) %}
+                {% assign start_index = list_index | minus: 1 | times: items_per_list %}
+                {% if start_index < total_items %}
+                  <ul class="menu-list">
+                    {% for child in link.links offset: start_index limit: items_per_list %}
+                      <li>
+                        <a href="{{ child.url }}" class="menu-link-text link">{{ child.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
               {% endfor %}
             </div>
-          </div>
+          {% endif %}
         {% endif %}
       {% endunless %}
     </li>
