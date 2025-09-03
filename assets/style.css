@@ -19078,7 +19078,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
  ------------------------------------------------------------------------------ */
 /*--------- Abstracts variable ---------- */
 .main-content-account {
-  max-width: 1244px;
+  /* max-width: 1244px; */
   width: 100%;
   margin: 0 auto;
 }
