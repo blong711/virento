@@ -133,8 +133,8 @@
           "type": "banner",
           "settings": {
             "image": "shopify://shop_images/elt-1.jpg",
-            "hover_image": false,
-            "baner_tag": "NEW IN",
+            "hover_image": true,
+            "baner_tag": "",
             "title": "Best-Selling Accessories",
             "title_tag": "h4",
             "title_weight": "fw-medium",
@@ -150,8 +150,8 @@
           "type": "banner",
           "settings": {
             "image": "shopify://shop_images/elt-2.jpg",
-            "hover_image": false,
-            "baner_tag": "NEW IN",
+            "hover_image": true,
+            "baner_tag": "",
             "title": "New Arrivals, Hot Tech",
             "title_tag": "h4",
             "title_weight": "fw-medium",
