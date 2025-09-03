@@ -932,6 +932,9 @@
     "wishlist": {
       "no_product_added": "No product were added to the wishlist.",
       "back_to_shopping": "Back to Shopping"
+    },
+    "blog-sidebar": {
+      "title": "SIDEBAR"
     }
   },
    "orders": {
