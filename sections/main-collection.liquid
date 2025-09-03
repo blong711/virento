@@ -139,7 +139,7 @@
             <div class="tf-list-layout wrapper-shop" id="listLayout" style="display: none;">
                 {% if collection.products.size > 0 %}
                     {% for product in collection.products %}
-                        {% render 'product-card-list', product: product %}
+                        {% render 'product-card-list', product: product, cart_style: section.settings.cart_style %}
                     {% endfor %}
                     
                     {% comment %} Pagination or Load More {% endcomment %}
@@ -236,7 +236,7 @@
             <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }}" id="gridLayout">
                 {% if collection.products.size > 0 %}
                     {% for product in collection.products %}
-                        {% render 'product-card', product: product, show_progress_sale: false %}
+                        {% render 'product-card', product: product, show_progress_sale: false, cart_style: section.settings.cart_style %}
                     {% endfor %}
                     
                     {% comment %} Pagination or Load More {% endcomment %}
@@ -620,6 +620,20 @@
             "label": "t:sections.main_collection.settings.show_brand_filter.label",
             "default": true,
             "info": "t:sections.main_collection.settings.show_brand_filter.info"
+        },
+        {
+            "type": "header",
+            "content": "t:sections.main_collection.settings.cart_style.header"
+        },
+        {
+            "type": "select",
+            "id": "cart_style",
+            "label": "t:sections.main_collection.settings.cart_style.label",
+            "options": [
+                { "value": "style-1", "label": "t:sections.main_collection.settings.cart_style_options.style-1" },
+                { "value": "style-2", "label": "t:sections.main_collection.settings.cart_style_options.style-2" }
+            ],
+            "default": "style-1"
         },
         {
             "type": "header",
