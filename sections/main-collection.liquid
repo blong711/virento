@@ -114,7 +114,7 @@
             {% render 'horizontal-filters', collection: collection, color_scheme: section.settings.color_scheme, show_availability_filter: section.settings.show_availability_filter, show_price_filter: section.settings.show_price_filter, show_color_filter: section.settings.show_color_filter, show_brand_filter: section.settings.show_brand_filter %}
         {% endif %}
         <div class="wrapper-control-shop">
-            <div class="meta-filter-shop">
+            <div class="meta-filter-shop" style="display: none;">
                 <div id="product-count-grid" class="count-text">
                     {% if total_products > 0 %}
                         <span class="count">{{ total_products }}</span> {{ 'sections.main_collection.products_found' | t }}
