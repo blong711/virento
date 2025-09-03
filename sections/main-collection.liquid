@@ -389,6 +389,11 @@
     }
 }
 
+{% comment %} Canvas Body Background Color from Color Scheme {% endcomment %}
+.section-{{ section.id }}-padding .canvas-body {
+    background-color: rgb(var(--color-background)) !important;
+}
+
 {% comment %} Sidebar Layout Styles {% endcomment %}
 {% if filter_layout == 'left_sidebar' or filter_layout == 'right_sidebar' %}
 .section-{{ section.id }}-padding .canvas-sidebar {
