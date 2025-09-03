@@ -15,17 +15,7 @@
     margin-top: {{ section.settings.spacing_heading_content }}px;
   }
 
-  /* Fix color scheme inheritance for all text elements */
-  .color-{{ section.settings.color_scheme }} .flat-title-2 h2,
-  .color-{{ section.settings.color_scheme }} .flat-title-2 p,
-  .color-{{ section.settings.color_scheme }} .list-esd h6,
-  .color-{{ section.settings.color_scheme }} .list-esd p {
-    color: rgba(var(--color-foreground), 0.9) !important;
-  }
 
-  .color-{{ section.settings.color_scheme }} .flat-title-2 .text-main {
-    color: rgba(var(--color-foreground), 0.75) !important;
-  }
 {%- endstyle -%}
 
 <section class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">

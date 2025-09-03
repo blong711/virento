@@ -39,16 +39,6 @@
     }
   }
 
-  /* Fix color scheme inheritance for text elements */
-  .color-{{ section.settings.color_scheme }} .term-title {
-    color: rgba(var(--color-foreground), 0.9) !important;
-  }
-
-  .color-{{ section.settings.color_scheme }} .term-text,
-  .color-{{ section.settings.color_scheme }} .term-text p {
-    color: rgba(var(--color-foreground), 0.75) !important;
-  }
-
   .color-{{ section.settings.color_scheme }} .term-text a {
     color: rgb(var(--color-button)) !important;
     text-decoration: underline;
