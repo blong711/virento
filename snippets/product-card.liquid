@@ -98,11 +98,11 @@
                 </div>
                 <div class="box-quantity d-flex justify-content-between">
                     <p class="text-sold text-sm">
-                        Sold:
+                        {{ 'snippets.product-card.sold' | t }}:
                         <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
                     </p>
                     <p class="text-avaiable text-sm">
-                        Available:
+                        {{ 'snippets.product-card.available' | t }}:
                         <span class="fw-medium">{{ inventory_quantity }}</span>
                     </p>
                 </div>
