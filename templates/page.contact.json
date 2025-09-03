@@ -21,11 +21,17 @@
     "map_with_text": {
       "type": "map-with-text",
       "settings": {
+        "color_scheme": "",
         "width": "full",
+        "heading": "",
+        "heading_align": "left",
+        "heading_size": "medium",
+        "subtitle": "",
+        "subtitle_size": "medium",
         "map": "",
         "padding_top": 64,
-        "padding_bottom": 92,
-        "padding_mobile_ratio": 75
+        "padding_bottom": 100,
+        "padding_mobile_ratio": 80
       }
     },
     "contact_form_with_text": {
