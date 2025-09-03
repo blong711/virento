@@ -83,24 +83,34 @@
               <div id="reset-form-block" style="display:none;">
                 <h2 class="display-sm fw-medium mb-4">{{ 'sections.main_login.reset_password' | t }}</h2>
                 <p class="body-text mb-5">{{ 'sections.main_login.reset_description' | t }}</p>
-                {%- form 'recover_customer_password' -%}
+                                  {%- form 'recover_customer_password' -%}
+                  {%- comment -%} Hide password reset errors to prevent confusion {%- endcomment -%}
                   {%- if form.errors -%}
-                    <div class="form-message error">
-                      <ul class="error-list">
-                        {%- for field in form.errors -%}
-                          <li>
-                            {%- if field == 'form' -%}
-                              {{ form.errors.messages[field] }}
-                            {%- else -%}
-                              <a href="#{{ field }}">
-                                {{ form.errors.translated_fields[field] | capitalize }}
-                                {{ form.errors.messages[field] }}
-                              </a>
-                            {%- endif -%}
-                          </li>
-                        {%- endfor -%}
-                      </ul>
-                    </div>
+                    {%- comment -%} Only show non-form errors (like email validation) {%- endcomment -%}
+                    {%- assign has_non_form_errors = false -%}
+                    {%- for field in form.errors -%}
+                      {%- unless field == 'form' -%}
+                        {%- assign has_non_form_errors = true -%}
+                        {%- break -%}
+                      {%- endunless -%}
+                    {%- endfor -%}
+                    
+                    {%- if has_non_form_errors -%}
+                      <div class="form-message error">
+                        <ul class="error-list">
+                          {%- for field in form.errors -%}
+                            {%- unless field == 'form' -%}
+                              <li>
+                                <a href="#{{ field }}">
+                                  {{ form.errors.translated_fields[field] | capitalize }}
+                                  {{ form.errors.messages[field] }}
+                                </a>
+                              </li>
+                            {%- endunless -%}
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    {%- endif -%}
                   {%- endif -%}
                   {%- if form.posted_successfully? -%}
                     <div class="form-message success">
