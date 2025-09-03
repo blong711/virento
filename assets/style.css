@@ -20746,6 +20746,16 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
     padding: 30px 15px;
   }
 }
+/* Mobile grid layouts (below 576px) */
+@media (max-width: 575px) {
+  .tf-grid-layout.tf-col-2-mobile {
+    grid-template-columns: 1fr 1fr;
+  }
+  .tf-grid-layout.tf-col-3-mobile {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (min-width: 576px) {
   .tf-grid-layout.sm-col-2 {
     grid-template-columns: 1fr 1fr;

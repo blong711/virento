@@ -6971,6 +6971,13 @@
           "tf-col-3": "3 Columns",
           "tf-col-4": "4 Columns"
         },
+        "mobile_grid_layout": {
+          "label": "Mobile grid layout"
+        },
+        "mobile_grid_layout_options": {
+          "tf-col-2": "2 Columns",
+          "tf-col-3": "3 Columns"
+        },
         "pagination_type": {
           "label": "Pagination type"
         },
