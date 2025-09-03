@@ -302,10 +302,6 @@ function updateLayoutFromSettings() {
         if (listLayout) listLayout.style.display = 'none';
         if (gridLayout) {
             gridLayout.style.display = '';
-            // Apply the default grid layout class
-            if (newDefaultGridLayout) {
-                gridLayout.className = `wrapper-shop tf-grid-layout ${newDefaultGridLayout}`;
-            }
         }
         
         // Update active state for layout buttons
@@ -314,6 +310,9 @@ function updateLayoutFromSettings() {
             const defaultLayoutBtn = document.querySelector(`.tf-view-layout-switch[data-value-layout="${newDefaultGridLayout}"]`);
             if (defaultLayoutBtn) defaultLayoutBtn.classList.add('active');
         }
+        
+        // Call updateLayoutDisplay to ensure responsive behavior is applied
+        updateLayoutDisplay();
     }
     
     // Update product count visibility
@@ -1263,15 +1262,18 @@ function initLayoutSwitching() {
             return;
         }
 
-        if (userSelectedLayout) {
+        // Check for user selected layout or default grid layout from settings
+        const selectedLayout = userSelectedLayout || (window.collectionData && window.collectionData.defaultGridLayout);
+        
+        if (selectedLayout) {
             if (windowWidth <= 767) {
                 setGridLayout('tf-col-2');
-            } else if (windowWidth <= 1200 && userSelectedLayout !== 'tf-col-2') {
+            } else if (windowWidth <= 1200 && selectedLayout !== 'tf-col-2') {
                 setGridLayout('tf-col-3');
-            } else if (windowWidth <= 1400 && ['tf-col-5', 'tf-col-6', 'tf-col-7'].includes(userSelectedLayout)) {
+            } else if (windowWidth <= 1400 && ['tf-col-5', 'tf-col-6', 'tf-col-7'].includes(selectedLayout)) {
                 setGridLayout('tf-col-4');
             } else {
-                setGridLayout(userSelectedLayout);
+                setGridLayout(selectedLayout);
             }
             return;
         }
