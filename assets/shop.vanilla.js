@@ -52,12 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Listen for theme customizer events
         document.addEventListener('shopify:section:load', () => {
             setTimeout(() => {
+                // Reinitialize price slider if it exists
+                reinitializePriceSlider();
                 updateProductCountVisibility();
             }, 100);
         });
         
         document.addEventListener('shopify:section:reorder', () => {
             setTimeout(() => {
+                // Reinitialize price slider if it exists
+                reinitializePriceSlider();
                 updateProductCountVisibility();
             }, 100);
         });
@@ -67,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('resize', () => {
             clearTimeout(customizerResizeTimeout);
             customizerResizeTimeout = setTimeout(() => {
+                // Reinitialize price slider if it exists
+                reinitializePriceSlider();
                 updateProductCountVisibility();
             }, 200);
         });
@@ -109,6 +115,74 @@ function initPriceRange() {
         maxValueDisplay.textContent = currency + maxPrice;
     }
 
+    priceSlider.noUiSlider.on('change', (values, handle) => {
+        const displays = [minValueDisplay, maxValueDisplay];
+        const currency = displays[handle].dataset.currency || '$';
+        displays[handle].textContent = currency + values[handle];
+        
+        // Update global filters
+        filters.minPrice = parseInt(values[0], 10);
+        filters.maxPrice = parseInt(values[1], 10);
+        
+        // Apply filters after user stops dragging (debounced)
+        clearTimeout(priceSlider.debounceTimer);
+        priceSlider.debounceTimer = setTimeout(() => {
+            applyServerSideFilters();
+        }, 500);
+    });
+    
+    // Update display values during drag
+    priceSlider.noUiSlider.on('update', (values, handle) => {
+        const displays = [minValueDisplay, maxValueDisplay];
+        const currency = displays[handle].dataset.currency || '$';
+        displays[handle].textContent = currency + values[handle];
+    });
+}
+
+// Function to reinitialize price slider (useful for theme customizer changes)
+function reinitializePriceSlider() {
+    const priceSlider = document.getElementById('price-value-range');
+    if (!priceSlider) return;
+
+    // Destroy existing slider if it exists
+    if (priceSlider.noUiSlider) {
+        priceSlider.noUiSlider.destroy();
+    }
+
+    // Get fresh values from dataset
+    const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
+    const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
+
+    // Update global filters with fresh values
+    filters.minPrice = minPrice;
+    filters.maxPrice = maxPrice;
+
+    // Create new slider instance
+    noUiSlider.create(priceSlider, {
+        start: [minPrice, maxPrice],
+        connect: true,
+        step: 1,
+        range: {
+            'min': minPrice,
+            'max': maxPrice
+        },
+        format: {
+            from: value => parseInt(value, 10),
+            to: value => parseInt(value, 10)
+        }
+    });
+
+    const minValueDisplay = document.getElementById('price-min-value');
+    const maxValueDisplay = document.getElementById('price-max-value');
+    
+    // Update display with fresh values and currency symbol
+    if (minValueDisplay && maxValueDisplay) {
+        const currency = minValueDisplay.dataset.currency || '$';
+        minValueDisplay.textContent = currency + minPrice;
+        maxValueDisplay.textContent = currency + maxPrice;
+    }
+
+    // Reattach event listeners
     priceSlider.noUiSlider.on('change', (values, handle) => {
         const displays = [minValueDisplay, maxValueDisplay];
         const currency = displays[handle].dataset.currency || '$';
@@ -1678,6 +1752,15 @@ function hasActiveFilters() {
         const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
         const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
         if (parseInt(currentValues[0]) > minPrice || parseInt(currentValues[1]) < maxPrice) {
+            return true;
+        }
+    } else if (priceSlider) {
+        // Fallback: check if price slider exists but noUiSlider is not initialized
+        // This can happen during theme customizer changes
+        const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
+        const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
+        // If the global filters object has different values than the dataset, consider it active
+        if (filters.minPrice > minPrice || filters.maxPrice < maxPrice) {
             return true;
         }
     }
