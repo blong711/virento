@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 // Reinitialize price slider if it exists
                 reinitializePriceSlider();
+                // Update layout based on current settings
+                updateLayoutFromSettings();
                 updateProductCountVisibility();
             }, 100);
         });
@@ -62,9 +64,55 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 // Reinitialize price slider if it exists
                 reinitializePriceSlider();
+                // Update layout based on current settings
+                updateLayoutFromSettings();
                 updateProductCountVisibility();
             }, 100);
         });
+        
+        // Listen for section setting changes
+        document.addEventListener('shopify:section:select', () => {
+            setTimeout(() => {
+                // Update layout based on current settings when section is selected
+                updateLayoutFromSettings();
+            }, 100);
+        });
+        
+        // Watch for changes in the collectionData script tag
+        const collectionDataScript = document.querySelector('script');
+        if (collectionDataScript && collectionDataScript.textContent.includes('collectionData')) {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                        // Check if the script content has changed
+                        if (mutation.target.textContent && mutation.target.textContent.includes('collectionData')) {
+                            // Parse the new collectionData
+                            try {
+                                const scriptContent = mutation.target.textContent;
+                                const match = scriptContent.match(/window\.collectionData\s*=\s*({[^}]+})/);
+                                if (match) {
+                                    const newCollectionData = JSON.parse(match[1]);
+                                    window.collectionData = newCollectionData;
+                                    
+                                    // Update layout based on new settings
+                                    setTimeout(() => {
+                                        updateLayoutFromSettings();
+                                    }, 50);
+                                }
+                            } catch (e) {
+                                // Ignore parsing errors
+                            }
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(collectionDataScript, {
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+        }
         
         // Also listen for window resize events in theme customizer
         let customizerResizeTimeout;
@@ -73,6 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
             customizerResizeTimeout = setTimeout(() => {
                 // Reinitialize price slider if it exists
                 reinitializePriceSlider();
+                // Update layout based on current settings
+                updateLayoutFromSettings();
                 updateProductCountVisibility();
             }, 200);
         });
@@ -205,6 +255,69 @@ function reinitializePriceSlider() {
         const currency = displays[handle].dataset.currency || '$';
         displays[handle].textContent = currency + values[handle];
     });
+}
+
+// Function to update layout based on current theme settings
+function updateLayoutFromSettings() {
+    // Check if collectionData is available and has been updated
+    if (!window.collectionData) return;
+    
+    const newDefaultLayoutType = window.collectionData.defaultLayoutType;
+    const newDefaultGridLayout = window.collectionData.defaultGridLayout;
+    
+    // Update global layout state
+    if (newDefaultLayoutType === 'list') {
+        isListActive = true;
+    } else {
+        isListActive = false;
+    }
+    
+    // Update wrapper classes
+    const wrapper = document.querySelector('.wrapper-control-shop');
+    if (wrapper) {
+        if (isListActive) {
+            wrapper.classList.add('listLayout-wrapper');
+            wrapper.classList.remove('gridLayout-wrapper');
+        } else {
+            wrapper.classList.add('gridLayout-wrapper');
+            wrapper.classList.remove('listLayout-wrapper');
+        }
+    }
+    
+    // Update layout display
+    const gridLayout = document.getElementById('gridLayout');
+    const listLayout = document.getElementById('listLayout');
+    
+    if (isListActive) {
+        // Show list layout, hide grid layout
+        if (gridLayout) gridLayout.style.display = 'none';
+        if (listLayout) listLayout.style.display = '';
+        
+        // Update active state for layout buttons
+        document.querySelectorAll('.tf-view-layout-switch').forEach(btn => btn.classList.remove('active'));
+        const listLayoutBtn = document.querySelector('.tf-view-layout-switch[data-value-layout="list"]');
+        if (listLayoutBtn) listLayoutBtn.classList.add('active');
+    } else {
+        // Show grid layout, hide list layout
+        if (listLayout) listLayout.style.display = 'none';
+        if (gridLayout) {
+            gridLayout.style.display = '';
+            // Apply the default grid layout class
+            if (newDefaultGridLayout) {
+                gridLayout.className = `wrapper-shop tf-grid-layout ${newDefaultGridLayout}`;
+            }
+        }
+        
+        // Update active state for layout buttons
+        document.querySelectorAll('.tf-view-layout-switch').forEach(btn => btn.classList.remove('active'));
+        if (newDefaultGridLayout) {
+            const defaultLayoutBtn = document.querySelector(`.tf-view-layout-switch[data-value-layout="${newDefaultGridLayout}"]`);
+            if (defaultLayoutBtn) defaultLayoutBtn.classList.add('active');
+        }
+    }
+    
+    // Update product count visibility
+    updateProductCountVisibility();
 }
 
 // Product Filtering System
