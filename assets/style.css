@@ -2617,7 +2617,8 @@ a:hover {
 }
 
 .logo-header img {
-  width: var(--logo-width);
+  /* width: var(--logo-width); */
+  width: 128px;
 }
 
 .header-medium .header-bottom .menu-item {
@@ -7370,9 +7371,6 @@ a:hover {
   margin-top: 13px;
 }
 
-.logo-header img {
-  width: var(--logo-width);
-}
 
 .header-medium .header-bottom .menu-item {
   padding: 20px 0px;
