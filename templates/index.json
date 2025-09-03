@@ -266,7 +266,7 @@
         "category_wxghTp"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-b470b3c9-ba4c-4e2c-ae67-60449ba9f43f",
         "width": "container",
         "title_alignment": "start",
         "title": "Shop by Categories",
@@ -521,13 +521,13 @@
     "collection_banner": {
       "type": "collection-banner",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-b470b3c9-ba4c-4e2c-ae67-60449ba9f43f",
         "width": "container",
         "banner_image": "shopify://shop_images/electric-access.jpg",
         "title": "Limited Time Deals",
-        "title_font_size": "display-md",
+        "title_font_size": "display-sm",
         "title_font_weight": "fw-medium",
-        "subtitle": "Shop the latest activewear designed for maximum comfort and style.",
+        "subtitle": "Grab the latest charging solutions at unbeatable prices. Hurry, offers end soon!",
         "subtitle_font_size": "text-md",
         "button_label": "Shop Now",
         "button_link": "/collections/all",
