@@ -157,7 +157,7 @@
                               {%- endif -%}
                             </div>
                             <p class="entry_name title-ellipsis">
-                              {{ 'sections.blog-carousel.post_by' | t }}
+                              {% comment %} {{ 'sections.blog-carousel.post_by' | t }} {% endcomment %}
                               <span class="fw-medium">{{ article.author | default: 'sections.blog-carousel.admin' | t }}</span>
                             </p>
                           </li>
