@@ -138,7 +138,7 @@ class RecentlyViewedProducts {
                     --card-corner-radius: ${cardSettings.cornerRadius};
                     --card-image-padding: ${cardSettings.imagePadding};
                  ">
-                <div class="card-product-wrapper asp-ratio-0">
+                <div class="card-product-wrapper asp-ratio-${cardSettings.imageRatio}">
                     <a href="${product.url}" class="product-img">
                         <img class="img-product lazyload"
                             width="460" height="460"
@@ -389,7 +389,8 @@ class RecentlyViewedProducts {
             colorScheme: 'scheme-2',
             borderThickness: '0px',
             borderOpacity: '0',
-            cornerRadius: '0px'
+            cornerRadius: '0px',
+            imageRatio: 'adapt'
         };
 
         // Get settings from window.themeSettings if available
@@ -401,7 +402,8 @@ class RecentlyViewedProducts {
                 colorScheme: window.themeSettings.cardSettings.colorScheme || defaultSettings.colorScheme,
                 borderThickness: window.themeSettings.cardSettings.borderThickness || defaultSettings.borderThickness,
                 borderOpacity: window.themeSettings.cardSettings.borderOpacity || defaultSettings.borderOpacity,
-                cornerRadius: window.themeSettings.cardSettings.cornerRadius || defaultSettings.cornerRadius
+                cornerRadius: window.themeSettings.cardSettings.cornerRadius || defaultSettings.cornerRadius,
+                imageRatio: window.themeSettings.cardSettings.imageRatio || defaultSettings.imageRatio
             };
         }
 
