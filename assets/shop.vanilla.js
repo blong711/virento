@@ -56,8 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 reinitializePriceSlider();
                 // Update layout based on current settings
                 updateLayoutFromSettings();
-                // Ensure responsive layout is applied in customizer
-                updateLayoutDisplay();
                 updateProductCountVisibility();
             }, 100);
         });
@@ -68,8 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 reinitializePriceSlider();
                 // Update layout based on current settings
                 updateLayoutFromSettings();
-                // Ensure responsive layout is applied in customizer
-                updateLayoutDisplay();
                 updateProductCountVisibility();
             }, 100);
         });
@@ -79,8 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 // Update layout based on current settings when section is selected
                 updateLayoutFromSettings();
-                // Ensure responsive layout is applied in customizer
-                updateLayoutDisplay();
             }, 100);
         });
         
@@ -103,8 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                     // Update layout based on new settings
                                     setTimeout(() => {
                                         updateLayoutFromSettings();
-                                        // Ensure responsive layout is applied in customizer
-                                        updateLayoutDisplay();
                                     }, 50);
                                 }
                             } catch (e) {
@@ -131,8 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 reinitializePriceSlider();
                 // Update layout based on current settings
                 updateLayoutFromSettings();
-                // Ensure responsive layout is applied in customizer
-                updateLayoutDisplay();
                 updateProductCountVisibility();
             }, 200);
         });
