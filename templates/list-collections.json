@@ -17,45 +17,9 @@
         "custom_description": "",
         "description_truncate_length": 120
       }
-    },
-    "main": {
-      "type": "main-collection-list",
-      "blocks": {
-        "collection_item_pCJYxm": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "dairy",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_item_pCJYxm"
-      ],
-      "settings": {
-        "width": "boxed",
-        "color_scheme": "scheme-3177a2bd-c147-4630-8df4-ed34a0c93962",
-        "collection_display": "all",
-        "collection_list": [],
-        "max_items_to_show": 6,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "padding_mobile_rate": 75,
-        "items_per_row_desktop": 3,
-        "items_per_row_tablet": 2,
-        "items_per_row_mobile": 1,
-        "enable_uppercase": false,
-        "content_position": "center",
-        "image_ratio": "adapt_image",
-        "button_text": "View all",
-        "pagination_type": "numbers",
-        "pagination_position": "center"
-      }
     }
   },
   "order": [
-    "page_breadcrumb",
-    "main"
+    "page_breadcrumb"
   ]
 }
