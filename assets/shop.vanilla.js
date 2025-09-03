@@ -1644,6 +1644,20 @@ function setGridLayout(layoutClass) {
     updateProductCountVisibility();
 }
 
+// Helper function to check if any filters are currently applied
+function hasActiveFilters() {
+    const priceSlider = document.getElementById('price-value-range');
+    if (priceSlider) {
+        const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
+        const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
+        if (filters.minPrice > minPrice || filters.maxPrice < maxPrice) {
+            return true;
+        }
+    }
+    
+    return !!(filters.size || filters.color || filters.availability || filters.brands || filters.sale);
+}
+
 // Function to ensure product count elements are properly shown/hidden based on current layout
 function updateProductCountVisibility() {
     const wrapper = document.querySelector('.wrapper-control-shop');
@@ -1651,6 +1665,13 @@ function updateProductCountVisibility() {
     const productCountList = document.getElementById('product-count-list');
     
     if (!wrapper || !productCountGrid || !productCountList) return;
+    
+    // Only show product count elements if filters are applied
+    if (!hasActiveFilters()) {
+        productCountGrid.style.display = 'none';
+        productCountList.style.display = 'none';
+        return;
+    }
     
     // Check if we're in list or grid layout mode
     if (wrapper.classList.contains('listLayout-wrapper')) {
