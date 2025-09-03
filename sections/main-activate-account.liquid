@@ -1,15 +1,13 @@
-<!-- sections/main-active-account.liquid -->
-{{ 'hdt-customer.css' | asset_url | stylesheet_tag }}
+<!-- sections/main-activate-account.liquid -->
 
 <div
-  timeline
-  hdt-reveal="slide-in"
-  class="hdt-main-active-account hdt-section-spacing hdt-s-gradient"
-  color-scheme="{{ section.settings.color_scheme }}"
+  class="
+    activate-account-section section-spacing flat-spacing-13  color-{{ section.settings.color_scheme }}
+    section-{{ section.id }}-padding
+  "
 >
-  <div class="hdt-container lg:hdt-container hdt-px-15">
-    <div class="hdt-customer">
-      <div class="hdt-active-account">
+  <div class="{{ section.settings.width }}">
+    <div class="activate-account-form">
         <svg style="display: none">
           <symbol id="icon-error" viewBox="0 0 13 13" style="color:rgb(var(--color-error-text));">
             <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
@@ -18,18 +16,18 @@
             <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="currentColor" stroke-width="0.7">
           </symbol>
         </svg>
-        <h3 class="hdt-text-center hdt-text-10xl hdt-font-normal">{{ 'customer.reset_password.title' | t }}</h3>
-        <p class="hdt-text-center">{{ 'customer.reset_password.subtext' | t }}</p>
+        <h3 class="display-sm fw-medium mb-5">{{ 'customer.reset_password.title' | t }}</h3>
+        <p class="body-text mb-5">{{ 'customer.reset_password.subtext' | t }}</p>
         {%- form 'activate_customer_password' -%}
           {%- if form.errors -%}
-            <div class="hdt-form__message hdt-form-message--error">
-              <h2 class="hdt-form__message-title hdt-text-4xl hdt-font-normal hdt-flex hdt-align-center">
+            <div class="form-message error">
+              <h2 class="form-message-title">
                 <svg aria-hidden="true" focusable="false" role="presentation">
                   <use href="#icon-error" />
                 </svg>
                 {{ 'templates.contact.form.error_heading' | t }}
               </h2>
-              <ul class="hdt-form-message--list">
+              <ul class="error-list">
                 {%- for field in form.errors -%}
                   <li>
                     {%- if field == 'form' -%}
@@ -45,9 +43,9 @@
               </ul>
             </div>
           {%- endif -%}
-          <div class="hdt-field hdt-relative">
+          <div class="form-field">
             <input
-              class="hdt-input"
+              class="form-input"
               type="password"
               name="customer[password]"
               id="password-{{ section.id }}"
@@ -57,12 +55,9 @@
               {% endif %}
               placeholder="{{ 'customer.activate_account.password' | t }}"
             >
-            <label class="hdt-absolute hdt-top-0 hdt-pe-none hdt-flex hdt-align-center" for="password-{{ section.id }}">
-              {{- 'customer.activate_account.password' | t -}}
-            </label>
           </div>
           {%- if form.errors contains 'password' -%}
-            <span class="hdt-form__message hdt-flex hdt-align-center">
+            <span class="form-message error">
               <svg aria-hidden="true" focusable="false">
                 <use href="#icon-error" />
               </svg>
@@ -70,9 +65,9 @@
               {{ form.errors.messages.password }}
             </span>
           {%- endif -%}
-          <div class="hdt-field hdt-relative">
+          <div class="form-field">
             <input
-              class="hdt-input"
+              class="form-input"
               type="password"
               name="customer[password_confirmation]"
               id="password_confirmation-{{ section.id }}"
@@ -82,15 +77,9 @@
               {% endif %}
               placeholder="{{ 'customer.activate_account.password_confirm' | t }}"
             >
-            <label
-              class="hdt-absolute hdt-top-0 hdt-pe-none hdt-flex hdt-align-center"
-              for="password_confirmation-{{ section.id }}"
-            >
-              {{- 'customer.activate_account.password_confirm' | t -}}
-            </label>
           </div>
           {%- if form.errors contains 'password_confirmation' -%}
-            <span class="hdt-form__message hdt-flex hdt-align-center">
+            <span class="form-message error">
               <svg aria-hidden="true" focusable="false">
                 <use href="#icon-error" />
               </svg>
@@ -98,31 +87,146 @@
               {{ form.errors.messages.password_confirmation }}
             </span>
           {%- endif -%}
-          <div class="hdt-field hdt-row-grid hdt-grid-cols-1 lg:hdt-grid-cols-2">
-            <button class="hdt-inline-flex hdt-align-center hdt-justify-center hdt-relative hdt-btn hdt-oh hdt-btn-solid hdt-font-semibold">
-              <span class="hdt-truncate">{{ 'customer.activate_account.submit' | t }}</span>
+          <div class="form-field">
+            <button class="btn tf-btn" type="submit">
+              {{ 'customer.activate_account.submit' | t }}
             </button>
+          </div>
+          <div class="form-field">
             <button
               name="decline"
-              class="hdt-inline-flex hdt-align-center hdt-justify-center hdt-relative hdt-btn hdt-oh hdt-btn-solid hdt-font-semibold"
+              class="btn tf-btn"
             >
-              <span class="hdt-truncate">{{ 'customer.activate_account.cancel' | t }}</span>
+              {{ 'customer.activate_account.cancel' | t }}
             </button>
           </div>
         {%- endform -%}
-      </div>
     </div>
   </div>
 </div>
-{%- style -%}#shopify-section-{{section.id}}{--section-pt:{{section.settings.padding_top}}px;--section-pb:{{section.settings.padding_bottom}}px;--section-prate:{{section.settings.padding_rate}}}{%- endstyle -%}
+{%- style -%}
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate }} / 100);
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate }} / 100);
+    }
+  }
+  #shopify-section-{{section.id}} {
+    --section-pt: {{section.settings.padding_top}}px;
+    --section-pb: {{section.settings.padding_bottom}}px;
+    --section-prate: {{section.settings.padding_rate}};
+  }
+
+  .activate-account-section {
+    background: var(--gradient-background);
+  }
+
+  .activate-account-form {
+    max-width: 100%;
+  }
+
+  .form-field {
+    margin-bottom: 1rem;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: #000;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+
+  .form-message {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-message.error {
+    background: #ffeaea;
+    color: #d32f2f;
+  }
+
+  .error-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+  }
+
+  .error-list li {
+    margin-bottom: 0.25rem;
+  }
+
+  .error-list a {
+    color: #222;
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+  }
+
+  @media screen and (max-width: 749px) {
+    .container {
+      max-width: 100%;
+    }
+  }
+{%- endstyle -%}
 {% schema %}
 {
   "name": "t:sections.main-activate-account",
+  "class": "section",
   "settings": [
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:sections.all.colors.label"
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.all.width.label",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.width.options.boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.all.width.options.full_width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.main_login.padding"
     },
     {
       "type": "range",
@@ -132,7 +236,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "default": 40
     },
     {
       "type": "range",
@@ -142,17 +246,17 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "default": 52
     },
     {
       "type": "range",
-      "id": "padding_rate",
-      "min": 0,
-      "max": 100,
+      "id": "padding_mobile_rate",
+      "min": 50,
+      "max": 150,
       "step": 1,
       "unit": "%",
-      "label": "t:sections.all.padding.padding_rate",
-      "default": 75
+      "label": "t:sections.all.padding.padding_mobile_rate.label",
+      "default": 100
     }
   ]
 }
