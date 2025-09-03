@@ -534,9 +534,9 @@
         "content_position": "center-left",
         "content_alignment": "center",
         "content_width": 478,
-        "padding_top": 0,
+        "padding_top": 100,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 60
       }
     },
     "featured_product_carousel": {
@@ -566,7 +566,7 @@
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
         "padding_top": 0,
-        "padding_bottom": 100,
+        "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
     },
