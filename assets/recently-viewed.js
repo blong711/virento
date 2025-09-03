@@ -131,7 +131,7 @@ class RecentlyViewedProducts {
         const cardSettings = this.getCardSettings();
         
         return `
-            <div class="card-product ${cardSettings.style} style-border-2" 
+            <div class="card-product ${cardSettings.style} style-border-2 color-${cardSettings.colorScheme}" 
                  style="
                     --card-border-thickness: ${cardSettings.borderThickness};
                     --card-border-opacity: ${cardSettings.borderOpacity};
