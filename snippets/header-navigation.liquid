@@ -233,7 +233,7 @@
                     </ul>
                   {% endif %}
                 {% endfor %}
-                {% if block.settings.banner_image != blank and block.settings.banner_title != blank %}
+                {% if block.settings.banner_image != blank %}
                   <div class="banner hover-img">
                     {% assign block = section.blocks | where: 'type', 'mega_pages' | first %}
                     {% if block and block.settings.banner_image != blank %}
