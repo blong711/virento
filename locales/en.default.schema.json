@@ -1360,7 +1360,8 @@
         "payment_svg_list_info": "Enter payment types separated by commas (e.g., visa,master,paypal).",
         "svg_height": "SVG Size",
         "footer_bottom": "Footer Bottom",
-        "show_copyright": "Show copyright"
+        "show_copyright": "Show copyright",
+        "payment_svg_list_paragraph": "Review the [list of available values](https://github.com/activemerchant/payment_icons/tree/master/app/assets/images/payment_icons) and copy the name of each icon that you need from that list, without the .svg extension."
       },
       "blocks": {
         "contact_info": {
@@ -4236,7 +4237,8 @@
           "name": "Heading",
           "settings": {
             "title": {
-              "label": "Heading"
+              "label": "Heading",
+              "default": "Contact Us"
             }
           }
         },
@@ -4244,7 +4246,8 @@
           "name": "Subheading",
           "settings": {
             "subheading": {
-              "label": "Subheading"
+              "label": "Subheading",
+              "default": "Have a question? Please contact us using the customer support channels below."
             }
           }
         },
@@ -4289,19 +4292,23 @@
           "name": "Contact Information",
           "settings": {
             "address": {
-              "label": "Address"
+              "label": "Address",
+              "default": "15 Yarran st, Punchbowl, NSW, Australia"
             },
             "address_url": {
               "label": "Address URL (Google Maps link)"
             },
             "phone": {
-              "label": "Phone Number"
+              "label": "Phone Number",
+              "default": "+1 234 567"
             },
             "email": {
-              "label": "Email Address"
+              "label": "Email Address",
+              "default": "contact@vince.com"
             },
             "hours": {
-              "label": "Business Hours"
+              "label": "Business Hours",
+              "default": "8am - 7pm, Mon - Sat"
             }
           }
         }
@@ -4453,10 +4460,12 @@
           "name": "Text Item",
           "settings": {
             "title": {
-              "label": "Title"
+              "label": "Title",
+              "default": "Section Title"
             },
             "content": {
-              "label": "Content"
+              "label": "Content",
+              "default": "<p>Content goes here...</p>"
             }
           }
         }
@@ -6032,7 +6041,24 @@
       "name": "Featured Countdown",
       "blocks": {
         "countdown": {
-          "name": "Countdown Timer"
+          "name": "Countdown Timer",
+          "settings": {
+            "year": {
+              "label": "Year",
+            },
+            "month": {
+              "label": "Month",
+            },
+            "day": {
+              "label": "Day",
+            },
+            "hour": {
+              "label": "Hour(24-hour format)",
+            },
+            "minute": {
+              "label": "Minute",
+            }
+          }
         }
       },
       "settings": {
@@ -6050,7 +6076,12 @@
           "default": "Hot Deals"
         },
         "heading_tag": {
-          "label": "Title Size"
+          "label": "Title Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
         },
         "subtitle": {
           "content": "Subtitle"
@@ -6060,7 +6091,12 @@
           "default": "Explore our most popular pieces that customers can't get enough of"
         },
         "subtitle_size": {
-          "label": "Subtitle Size"
+          "label": "Subtitle Size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
         },
         "collection": {
           "label": "Collection"
@@ -6538,7 +6574,8 @@
           "label": "Price"
         },
         "offer_text": {
-          "label": "Offer text"
+          "label": "Offer text",
+          "default": "APPLE"
         },
         "heading_size": {
           "label": "Heading Size"
@@ -7199,6 +7236,30 @@
       "comment": "comment",
       "comments": "comments",
       "admin": "Admin"
+    },
+    "collection-description": {
+      "name": "Collection Description",
+      "width": "Width",
+      "boxed": "Boxed",
+      "full_width": "Full width",
+      "show_collection_description": "Show collection description",
+      "fallback_text": "Fallback text (shown if collection has no description)",
+      "fallback_text_default": "Our collection brings you a unique blend of classic sophistication and the latest fashion trends. Whether you're looking for versatile daywear, stylish work attire, or statement pieces for special occasions, this collection has it all. Each garment is thoughtfully crafted with attention to detail, using high-quality fabrics to ensure lasting comfort and a flawless fit.",
+      "text_alignment": "Text alignment",
+      "left": "Left",
+      "center": "Center",
+      "right": "Right",
+      "show_extra_links": "Show extra links row",
+      "links_prefix_text": "Prefix text before links",
+      "links_prefix_text_default": "Looking for more? Don't miss out on our other exciting collections for",
+      "and_text": "Connector text between links",
+      "and_text_default": "and",
+      "collection_1": "Collection 1",
+      "collection_2": "Collection 2",
+      "padding": "Padding",
+      "padding_top": "Padding top",
+      "padding_bottom": "Padding bottom",
+      "mobile_padding_rate": "Mobile padding rate"
     }
   }
 }

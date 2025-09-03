@@ -28,7 +28,7 @@
 
 {% schema %}
 {
-  "name": "Collection Description",
+  "name": "t:sections.collection-description.name",
   "settings": [
     {
       "type": "color_scheme",
@@ -39,67 +39,67 @@
     {
       "type": "select",
       "id": "width",
-      "label": "Width",
+      "label": "t:sections.collection-description.width",
       "options": [
-        { "value": "container", "label": "Boxed" },
-        { "value": "container-full", "label": "Full width" }
+        { "value": "container", "label": "t:sections.collection-description.boxed" },
+        { "value": "container-full", "label": "t:sections.collection-description.full_width" }
       ],
       "default": "container"
     },
     {
       "type": "checkbox",
       "id": "show_collection_description",
-      "label": "Show collection description",
+      "label": "t:sections.collection-description.show_collection_description",
       "default": true
     },
     {
       "type": "textarea",
       "id": "fallback_text",
-      "label": "Fallback text (shown if collection has no description)",
-      "default": "Our collection brings you a unique blend of classic sophistication and the latest fashion trends. Whether you're looking for versatile daywear, stylish work attire, or statement pieces for special occasions, this collection has it all. Each garment is thoughtfully crafted with attention to detail, using high-quality fabrics to ensure lasting comfort and a flawless fit."
+      "label": "t:sections.collection-description.fallback_text",
+      "default": "t:sections.collection-description.fallback_text_default"
     },
     {
       "type": "select",
       "id": "text_alignment",
-      "label": "Text alignment",
+      "label": "t:sections.collection-description.text_alignment",
       "options": [
-        { "value": "start", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "end", "label": "Right" }
+        { "value": "start", "label": "t:sections.collection-description.left" },
+        { "value": "center", "label": "t:sections.collection-description.center" },
+        { "value": "end", "label": "t:sections.collection-description.right" }
       ],
       "default": "center"
     },
     {
       "type": "checkbox",
       "id": "show_extra_links",
-      "label": "Show extra links row",
+      "label": "t:sections.collection-description.show_extra_links",
       "default": true
     },
     {
       "type": "text",
       "id": "links_prefix_text",
-      "label": "Prefix text before links",
-      "default": "Looking for more? Don't miss out on our other exciting collections for"
+      "label": "t:sections.collection-description.links_prefix_text",
+      "default": "t:sections.collection-description.links_prefix_text_default"
     },
     {
       "type": "text",
       "id": "and_text",
-      "label": "Connector text between links",
-      "default": "and"
+      "label": "t:sections.collection-description.and_text",
+      "default": "t:sections.collection-description.and_text_default"
     },
     {
       "type": "collection",
       "id": "collection1_link_url",
-      "label": "Collection 1"
+      "label": "t:sections.collection-description.collection_1"
     },
     {
       "type": "collection",
       "id": "collection2_link_url",
-      "label": "Collection 2"
+      "label": "t:sections.collection-description.collection_2"
     },
     {
       "type": "header",
-      "content": "Padding"
+      "content": "t:sections.collection-description.padding"
     },
     {
       "type": "range",
@@ -108,7 +108,7 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "label": "Padding top",
+      "label": "t:sections.collection-description.padding_top",
       "default": 0
     },
     {
@@ -118,7 +118,7 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "label": "Padding bottom",
+      "label": "t:sections.collection-description.padding_bottom",
       "default": 0
     },
     {
@@ -128,12 +128,12 @@
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "Mobile padding rate",
+      "label": "t:sections.collection-description.mobile_padding_rate",
       "default": 75
     }
   ],
   "presets": [
-    { "name": "Collection Description", "category": "Collection" }
+    { "name": "t:sections.collection-description.name", "category": "Collection" }
   ]
 }
 {% endschema %}
