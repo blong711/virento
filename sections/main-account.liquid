@@ -264,7 +264,7 @@
                     {{ 'sections.account.or_have_a_look_to' | t }}
                   {% endif %}
                   {% if section.settings.show_wishlist %}
-                    <a href="{{ routes.account_wishlist_url }}" class="text-primary text-decoration-underline">
+                    <a href="{{ routes.search_url }}/?view=wishlist" class="text-primary text-decoration-underline">
                       {{- 'customer.account.your_wishlist' | t -}}</a
                     >.
                   {% endif -%}
