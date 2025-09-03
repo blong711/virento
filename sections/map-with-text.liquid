@@ -20,7 +20,7 @@
   class="s-contact section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
 >
   <div class="{% if section.settings.width == 'boxed' %} container{% else %} container-full{% endif %}">
-    {% if section.settings.heading != blank and section.settings.subtitle != blank%}
+    {% if section.settings.heading != blank or section.settings.subtitle != blank%}
       <div class="flat-title wow fadeInUp" style="text-align: {{ section.settings.heading_align }};">
         {% if section.settings.heading != blank %}
           {% if section.settings.heading_size == 'small' %}
