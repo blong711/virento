@@ -482,7 +482,8 @@
               "content": "Banner Media"
             },
             "tag":{
-              "label": "Baner tag"
+              "label": "Baner tag",
+              "default": "NEW IN"
             },
             "hover_image": {
               "label": "Enable Hover Image",
@@ -522,7 +523,8 @@
               }
             },
             "title": {
-              "label": "Title"
+              "label": "Title",
+              "default": "Banner Title"
             },
             "title_tag": {
               "label": "Title Size",
@@ -550,7 +552,8 @@
               "label": "Banner Link"
             },
             "button_label": {
-              "label": "Button Label"
+              "label": "Button Label",
+              "default": "Shop Now"
             },
             "text_alignment": {
               "label": "Text Alignment",
@@ -2962,13 +2965,13 @@
       }
     },
     "main-register": {
-      "name": "Registration"
+      "name": "Register"
     },
     "main-reset-password": {
       "name": "Password reset"
     },
     "main-search": {
-      "name": "Search results",
+      "name": "Search",
       "settings": {
         "columns_desktop": {
           "label": "Columns"
@@ -3721,6 +3724,24 @@
         "padding_mobile_rate": {
           "label": "Mobile Padding Rate",
           "info": "Percentage of desktop padding to use on mobile devices"
+        },
+        "block_visibility_settings": {
+          "content": "Block visibility settings"
+        },
+        "border_settings": {
+          "content": "Border settings"
+        },
+        "show_border_bottom": {
+          "label": "Show border bottom"
+        },
+        "show_social_icons": {
+          "label": "Show social icons"
+        },
+        "show_language_selector": {
+          "label": "Show language selector"
+        },
+        "show_currency_selector": {
+          "label": "Show currency selector"
         }
       },
       "blocks": {
@@ -5616,20 +5637,24 @@
         "title": {
           "name": "Title",
           "settings": {
-            "title": "Title"
+            "title": "Title",
+            "title_default": "Sign up to our Newsletter"
           }
         },
         "description": {
           "name": "Description",
           "settings": {
-            "description": "Description"
+            "description": "Description",
+            "description_default": "Be the first to get the latest news about trends, promotions, and much more!"
           }
         },
         "newsletter_form": {
           "name": "Newsletter Form",
           "settings": {
             "email_placeholder": "Email Placeholder",
-            "button_text": "Button Text"
+            "button_text": "Button Text",
+            "email_placeholder_default": "Your email address",
+            "button_text_default": "Send"
           }
         },
         "info_text": {
@@ -5637,7 +5662,9 @@
           "settings": {
             "info_text": "Info Text",
             "link_url": "Link URL",
-            "link_text": "Link Text"
+            "link_text": "Link Text",
+            "info_text_default": "Will be used in accordance with our",
+            "link_text_default": "Privacy Policy"
           }
         },
         "social_icons": {

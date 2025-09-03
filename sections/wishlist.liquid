@@ -44,8 +44,8 @@
 
           {% if products_count <= 0 %}
             <div class="tf-wishlist-empty text-center">
-              <p class="text-md text-noti mb-4">No product were added to the wishlist.</p>
-              <a href="{{ routes.root_url }}" class="tf-btn animate-btn btn-back-shop">Back to Shopping</a>
+              <p class="text-md text-noti mb-4">{{ 'sections.wishlist.no_product_added' | t }}</p>
+              <a href="{{ routes.root_url }}" class="tf-btn animate-btn btn-back-shop">{{ 'sections.wishlist.back_to_shopping' | t }}</a>
             </div>
           {% endif %}
         {%- else -%}
@@ -63,21 +63,13 @@
 
             {% if search.results.size <= 0 %}
               <div class="tf-wishlist-empty text-center">
-                <p class="text-md text-noti mb-4">No product were added to the wishlist.</p>
-                <a href="{{ routes.root_url }}" class="tf-btn animate-btn btn-back-shop">Back to Shopping</a>
+                <p class="text-md text-noti mb-4">{{ 'sections.wishlist.no_product_added' | t }}</p>
+                <a href="{{ routes.root_url }}" class="tf-btn animate-btn btn-back-shop">{{ 'sections.wishlist.back_to_shopping' | t }}</a>
               </div>
             {% endif %}
 
             {%- if paginate.pages > 1 -%}
               <div class="pagination-container">
-                {% comment %} Debug info - remove in production {% endcomment %}
-                {% if settings.enable_debug %}
-                  <p style="font-size: 12px; color: #999; margin-bottom: 1rem;">
-                    Debug: {{ paginate.current_page }} of {{ paginate.pages }} pages, {{ search.results_count }} total
-                    results, {{ section.settings.max_items }} per page
-                  </p>
-                {% endif %}
-
                 <ul class="wg-pagination justify-content-center">
                   {%- if paginate.previous -%}
                     <li>

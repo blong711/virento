@@ -42,7 +42,7 @@
                             <div class="newsletter-success-message" style="display: none;">
                                 <div class="alert alert-success">
                                     <i class="icon icon-check"></i>
-                                    <span>Thank you for subscribing!</span>
+                                    <span>{{ 'sections.newsletter-popup.success' | t }}</span>
                                 </div>
                             </div>
                             {% form 'customer', class: 'form-newsletter' %}
@@ -176,7 +176,7 @@
           "type": "text",
           "id": "title",
           "label": "t:sections.newsletter-popup.blocks.title.settings.title",
-          "default": "Sign up to our Newsletter"
+          "default": "t:sections.newsletter-popup.blocks.title.settings.title_default"
         }
       ]
     },
@@ -189,7 +189,7 @@
           "type": "textarea",
           "id": "description",
           "label": "t:sections.newsletter-popup.blocks.description.settings.description",
-          "default": "Be the first to get the latest news about trends, promotions, and much more!"
+          "default": "t:sections.newsletter-popup.blocks.description.settings.description_default"
         }
       ]
     },
@@ -202,13 +202,13 @@
           "type": "text",
           "id": "email_placeholder",
           "label": "t:sections.newsletter-popup.blocks.newsletter_form.settings.email_placeholder",
-          "default": "Your email address"
+          "default": "t:sections.newsletter-popup.blocks.newsletter_form.settings.email_placeholder_default"
         },
         {
           "type": "text",
           "label": "t:sections.newsletter-popup.blocks.newsletter_form.settings.button_text",
           "id": "button_text",
-          "default": "Send"
+          "default": "t:sections.newsletter-popup.blocks.newsletter_form.settings.button_text_default"
         }
       ]
     },
@@ -221,7 +221,7 @@
           "type": "textarea",
           "id": "info_text",
           "label": "t:sections.newsletter-popup.blocks.info_text.settings.info_text",
-          "default": "Will be used in accordance with our"
+          "default": "t:sections.newsletter-popup.blocks.info_text.settings.info_text_default"
         },
         {
           "type": "url",
@@ -232,7 +232,7 @@
           "type": "text",
           "id": "link_text",
           "label": "t:sections.newsletter-popup.blocks.info_text.settings.link_text",
-          "default": "Privacy Policy"
+          "default": "t:sections.newsletter-popup.blocks.info_text.settings.link_text_default"
         }
       ]
     },

@@ -925,6 +925,13 @@
       "comment": "comment",
       "comments": "comments",
       "admin": "Admin"
+    },
+    "newsletter-popup": {
+      "success": "Thanks for subscribing",
+    },
+    "wishlist": {
+      "no_product_added": "No product were added to the wishlist.",
+      "back_to_shopping": "Back to Shopping"
     }
   },
    "orders": {
