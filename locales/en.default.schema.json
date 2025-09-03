@@ -6963,11 +6963,11 @@
           "label": "Show brand/vendor filter options",
           "info": "Display brand/vendor filter options"
         },
-        "cart_style": {
-          "header": "Cart Style Settings",
-          "label": "Cart style",
+        "card_style": {
+          "header": "Product Card Style Settings",
+          "label": "Card style",
         },
-        "cart_style_options": {
+        "card_style_options": {
           "style-1": "Style 1",
           "style-2": "Style 2"
         }
