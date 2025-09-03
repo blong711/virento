@@ -18,21 +18,9 @@
         "description_truncate_length": 120
       }
     },
-    "main": {
+    "main_collection_list_yHQc3a": {
       "type": "main-collection-list",
-      "blocks": {
-        "collection_item_pCJYxm": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "dairy",
-            "collection_title": "",
-            "collection_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "collection_item_pCJYxm"
-      ],
+      "name": "t:sections.main_collection_list.presets.name",
       "settings": {
         "width": "boxed",
         "color_scheme": "scheme-3177a2bd-c147-4630-8df4-ed34a0c93962",
@@ -56,6 +44,6 @@
   },
   "order": [
     "page_breadcrumb",
-    "main"
+    "main_collection_list_yHQc3a"
   ]
 }
