@@ -230,7 +230,7 @@
     }
 
     // Handle login form submission with validation
-    var loginForm = document.querySelector('#login form');
+    var loginForm = document.querySelector('#main-customer-login');
     if (loginForm) {
       // Add real-time validation feedback
       var emailInput = document.getElementById('CustomerEmail-{{ section.id }}');
@@ -256,72 +256,14 @@
         });
       }
       
+      // Simple form submission handler - just show loading state
       loginForm.addEventListener('submit', function (e) {
-        var email = document.getElementById('CustomerEmail-{{ section.id }}').value.trim();
-        var password = document.getElementById('CustomerPassword-{{ section.id }}').value.trim();
-        var hasError = false;
-        
-        // Remove any existing messages
-        var existingMessages = loginForm.querySelectorAll('.form-message');
-        existingMessages.forEach(function (msg) {
-          msg.remove();
-        });
-        
-        // Check if email is empty
-        if (!email) {
-          var emailError = document.createElement('div');
-          emailError.className = 'form-message error';
-          emailError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.email_missing" | t }}</li></ul>';
-          loginForm.insertBefore(emailError, loginForm.firstChild);
-          hasError = true;
-        } else if (!isValidEmail(email)) {
-          // Check if email format is valid
-          var emailError = document.createElement('div');
-          emailError.className = 'form-message error';
-          emailError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.email_invalid" | t }}</li></ul>';
-          loginForm.insertBefore(emailError, loginForm.firstChild);
-          hasError = true;
-        } else if (!email.includes('@') || !email.includes('.')) {
-          // Additional basic email format check
-          var emailError = document.createElement('div');
-          emailError.className = 'form-message error';
-          emailError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.email_invalid" | t }}</li></ul>';
-          loginForm.insertBefore(emailError, loginForm.firstChild);
-          hasError = true;
-        }
-        
-        // Check if password is empty
-        if (!password) {
-          var passwordError = document.createElement('div');
-          passwordError.className = 'form-message error';
-          passwordError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.password_missing" | t }}</li></ul>';
-          loginForm.insertBefore(passwordError, loginForm.firstChild);
-          hasError = true;
-        } else if (password.length < 6) {
-          // Check if password meets minimum length requirement
-          var passwordError = document.createElement('div');
-          passwordError.className = 'form-message error';
-          passwordError.innerHTML = '<ul class="error-list"><li>{{ "sections.main_login.password_too_short" | t }}</li></ul>';
-          loginForm.insertBefore(passwordError, loginForm.firstChild);
-          hasError = true;
-        }
-        
-        // If there are validation errors, prevent submission
-        if (hasError) {
-          e.preventDefault();
-          return;
-        }
-        
-        // If validation passes, show loading state but allow form to submit naturally
         var submitButton = this.querySelector('button[type="submit"]');
-        var originalButtonText = submitButton.textContent;
-        
-        // Disable submit button and show loading state
-        submitButton.disabled = true;
-        submitButton.textContent = '{{ "sections.main_login.logging_in" | t }}';
-        
-        // Don't prevent default - let the form submit naturally with CAPTCHA
-        // The form will submit with all necessary tokens intact
+        if (submitButton) {
+          submitButton.textContent = '{{ "sections.main_login.logging_in" | t }}';
+          submitButton.disabled = true;
+        }
+        // Don't prevent default - let the form submit naturally
       });
     }
 
