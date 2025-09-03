@@ -15,7 +15,7 @@
         "slide_1": {
           "type": "slide",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-b470b3c9-ba4c-4e2c-ae67-60449ba9f43f",
             "image": "shopify://shop_images/slider-electric-1.jpg",
             "heading": "Elevate Your Fitness Game",
             "heading_size": "display-md",
@@ -30,7 +30,7 @@
         "slide_2": {
           "type": "slide",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-b470b3c9-ba4c-4e2c-ae67-60449ba9f43f",
             "image": "shopify://shop_images/slider-electric-2.jpg",
             "heading": "Flex Your Power",
             "heading_size": "display-md",
@@ -45,7 +45,7 @@
         "slide_3": {
           "type": "slide",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-b470b3c9-ba4c-4e2c-ae67-60449ba9f43f",
             "image": "shopify://shop_images/slider-electric-3.jpg",
             "heading": "Unleash Sound Freedom",
             "heading_size": "display-md",
