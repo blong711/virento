@@ -15140,7 +15140,7 @@ button.animate-btn::after,
   aspect-ratio: 0.7037037037;
   position: relative;
   border-radius: 16px;
-  overflow: hidden;
+  /* overflow: hidden; */
   z-index: 20;
 }
 
