@@ -314,9 +314,6 @@ function updateLayoutFromSettings() {
             const defaultLayoutBtn = document.querySelector(`.tf-view-layout-switch[data-value-layout="${newDefaultGridLayout}"]`);
             if (defaultLayoutBtn) defaultLayoutBtn.classList.add('active');
         }
-        
-        // Call updateLayoutDisplay to ensure responsive behavior is applied
-        updateLayoutDisplay();
     }
     
     // Update product count visibility
@@ -1387,6 +1384,8 @@ function initLayoutSwitching() {
         // Set default grid layout from theme settings
         if (window.collectionData && window.collectionData.defaultGridLayout) {
             setGridLayout(window.collectionData.defaultGridLayout);
+            // Call updateLayoutDisplay to ensure responsive behavior is applied on initial load
+            updateLayoutDisplay();
         } else {
             updateLayoutDisplay();
         }
