@@ -15,7 +15,7 @@
               <div id="login-form-block">
                 <h2 class="display-sm fw-medium mb-5">{{ 'sections.main_login.log_in' | t }}</h2>
                 <div id="login">
-                  {%- form 'customer_login' -%}
+                  {%- form 'customer_login', id: 'main-customer-login' -%}
                     {%- if form.errors -%}
                       <div class="form-message error">
                         <ul class="error-list">
