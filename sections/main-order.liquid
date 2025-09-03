@@ -109,123 +109,125 @@
 }
 {% endschema %}
 
-<div class="main-content-account{% if section.settings.width == 'container-full' %} container-full{% endif %} color-{{ section.settings.color_scheme }}">
-  <!-- sidebar-account -->
-  <div class="btn-sidebar-mb d-lg-none">
-    <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
-      <i class="icon icon-sidebar"></i>
-    </button>
-  </div>
-  <!-- /sidebar-account -->
-
-  <!-- Section-acount -->
-  <section class="s-account flat-spacing-17 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
-    <div class="{{ section.settings.width }}">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="my-account-container">
-            <div class="sidebar-account-wrap sidebar-content-wrap sticky-top d-lg-block d-none">
-              <ul class="my-account-nav">
-                <li>
-                  <a href="{{ routes.account_url }}" class="text-sm link fw-medium my-account-nav-item">
-                    {{- 'sections.account.dashboard' | t -}}
+<div class="color-{{ section.settings.color_scheme }}">
+  <div class="main-content-account{% if section.settings.width == 'container-full' %} container-full{% endif %}">
+    <!-- sidebar-account -->
+    <div class="btn-sidebar-mb d-lg-none">
+      <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
+        <i class="icon icon-sidebar"></i>
+      </button>
+    </div>
+    <!-- /sidebar-account -->
+  
+    <!-- Section-acount -->
+    <section class="s-account flat-spacing-17 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+      <div class="{{ section.settings.width }}">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="my-account-container">
+              <div class="sidebar-account-wrap sidebar-content-wrap sticky-top d-lg-block d-none">
+                <ul class="my-account-nav">
+                  <li>
+                    <a href="{{ routes.account_url }}" class="text-sm link fw-medium my-account-nav-item">
+                      {{- 'sections.account.dashboard' | t -}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/pages/orders" class="text-sm link fw-medium my-account-nav-item active">
+                      {{- 'sections.account.my_orders' | t -}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/search/?view=wishlist" class="text-sm link fw-medium my-account-nav-item">
+                      {{- 'sections.account.my_wishlist' | t -}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/account/addresses" class="text-sm link fw-medium my-account-nav-item">
+                      {{- 'sections.account.addresses' | t -}}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ routes.account_logout_url }}" class="text-sm link fw-medium my-account-nav-item">
+                      {{- 'sections.account.log_out' | t -}}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="my-acount-content account-orders{% if customer.orders.size == 0 %} no-orders{% endif %}">
+                <div class="account-no-orders-wrap">
+                  {% if section.settings.empty_state_image %}
+                    {{
+                      section.settings.empty_state_image
+                      | image_url: width: section.settings.empty_state_image_width
+                      | image_tag: loading: 'lazy', class: 'lazyload'
+                    }}
+                  {% endif %}
+                  <div class="display-sm fw-medium title">{{ section.settings.empty_state_title }}</div>
+                  <div class="text text-sm">{{ section.settings.empty_state_text }}</div>
+                  {% if section.settings.shop_now_text != blank %}
+                  <a href="/collections" class="tf-btn animate-btn d-inline-flex bg-dark-2 justify-content-center">
+                    {{ section.settings.shop_now_text }}
                   </a>
-                </li>
-                <li>
-                  <a href="/pages/orders" class="text-sm link fw-medium my-account-nav-item active">
-                    {{- 'sections.account.my_orders' | t -}}
-                  </a>
-                </li>
-                <li>
-                  <a href="/search/?view=wishlist" class="text-sm link fw-medium my-account-nav-item">
-                    {{- 'sections.account.my_wishlist' | t -}}
-                  </a>
-                </li>
-                <li>
-                  <a href="/account/addresses" class="text-sm link fw-medium my-account-nav-item">
-                    {{- 'sections.account.addresses' | t -}}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ routes.account_logout_url }}" class="text-sm link fw-medium my-account-nav-item">
-                    {{- 'sections.account.log_out' | t -}}
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="my-acount-content account-orders{% if customer.orders.size == 0 %} no-orders{% endif %}">
-              <div class="account-no-orders-wrap">
-                {% if section.settings.empty_state_image %}
-                  {{
-                    section.settings.empty_state_image
-                    | image_url: width: section.settings.empty_state_image_width
-                    | image_tag: loading: 'lazy', class: 'lazyload'
-                  }}
-                {% endif %}
-                <div class="display-sm fw-medium title">{{ section.settings.empty_state_title }}</div>
-                <div class="text text-sm">{{ section.settings.empty_state_text }}</div>
-                {% if section.settings.shop_now_text != blank %}
-                <a href="/collections" class="tf-btn animate-btn d-inline-flex bg-dark-2 justify-content-center">
-                  {{ section.settings.shop_now_text }}
-                </a>
+                  {% endif %}
+                </div>
+                {% if customer.orders.size > 0 %}
+                  <div class="account-orders-wrap">
+                    <h5 class="title">
+                      {{ 'sections.account.order_history' | t }}
+                    </h5>
+                    <div class="wrap-account-order">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th class="text-md fw-medium">{{ 'sections.account.order_id' | t }}</th>
+                            <th class="text-md fw-medium">{{ 'sections.account.date' | t }}</th>
+                            <th class="text-md fw-medium">{{ 'sections.account.status' | t }}</th>
+                            <th class="text-md fw-medium">{{ 'sections.account.total' | t }}</th>
+                            <th class="text-md fw-medium">{{ 'sections.account.action' | t }}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for order in customer.orders %}
+                            <tr class="tf-order-item">
+                              <td class="text-md">#{{ order.name | remove: '#' }}</td>
+                              <td class="text-md">
+                                {{ order.created_at | date: '%d %B %Y' }}
+                              </td>
+                              <td class="text-md text-{{ order.fulfillment_status | handle }}">
+                                {{ order.fulfillment_status | capitalize }}
+                              </td>
+                              <td class="text-md">{{ order.total_price | money }} / {{ order.line_items.size }} items</td>
+                              <td>
+                                <button
+                                  type="button"
+                                  class="view-detail"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#order_detail_{{ order.id }}"
+                                >
+                                  {{ 'sections.account.detail' | t }}
+                                </button>
+                              </td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
                 {% endif %}
               </div>
-              {% if customer.orders.size > 0 %}
-                <div class="account-orders-wrap">
-                  <h5 class="title">
-                    {{ 'sections.account.order_history' | t }}
-                  </h5>
-                  <div class="wrap-account-order">
-                    <table>
-                      <thead>
-                        <tr>
-                          <th class="text-md fw-medium">{{ 'sections.account.order_id' | t }}</th>
-                          <th class="text-md fw-medium">{{ 'sections.account.date' | t }}</th>
-                          <th class="text-md fw-medium">{{ 'sections.account.status' | t }}</th>
-                          <th class="text-md fw-medium">{{ 'sections.account.total' | t }}</th>
-                          <th class="text-md fw-medium">{{ 'sections.account.action' | t }}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for order in customer.orders %}
-                          <tr class="tf-order-item">
-                            <td class="text-md">#{{ order.name | remove: '#' }}</td>
-                            <td class="text-md">
-                              {{ order.created_at | date: '%d %B %Y' }}
-                            </td>
-                            <td class="text-md text-{{ order.fulfillment_status | handle }}">
-                              {{ order.fulfillment_status | capitalize }}
-                            </td>
-                            <td class="text-md">{{ order.total_price | money }} / {{ order.line_items.size }} items</td>
-                            <td>
-                              <button
-                                type="button"
-                                class="view-detail"
-                                data-bs-toggle="modal"
-                                data-bs-target="#order_detail_{{ order.id }}"
-                              >
-                                {{ 'sections.account.detail' | t }}
-                              </button>
-                            </td>
-                          </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              {% endif %}
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- /Account -->
-
-  <!-- Order Detail Modals -->
-  {% for order in customer.orders %}
-    {% render 'order-detail-modal', order: order %}
-  {% endfor %}
+    </section>
+    <!-- /Account -->
+  
+    <!-- Order Detail Modals -->
+    {% for order in customer.orders %}
+      {% render 'order-detail-modal', order: order %}
+    {% endfor %}
+  </div>
 </div>
 {% render 'account-sidebar' %}
 <style>
