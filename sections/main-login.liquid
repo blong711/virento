@@ -257,17 +257,15 @@
       }
       
       loginForm.addEventListener('submit', function (e) {
-        e.preventDefault();
+        var email = document.getElementById('CustomerEmail-{{ section.id }}').value.trim();
+        var password = document.getElementById('CustomerPassword-{{ section.id }}').value.trim();
+        var hasError = false;
         
         // Remove any existing messages
         var existingMessages = loginForm.querySelectorAll('.form-message');
         existingMessages.forEach(function (msg) {
           msg.remove();
         });
-        
-        var email = document.getElementById('CustomerEmail-{{ section.id }}').value.trim();
-        var password = document.getElementById('CustomerPassword-{{ section.id }}').value.trim();
-        var hasError = false;
         
         // Check if email is empty
         if (!email) {
@@ -308,12 +306,13 @@
           hasError = true;
         }
         
-        // If there are validation errors, don't submit
+        // If there are validation errors, prevent submission
         if (hasError) {
+          e.preventDefault();
           return;
         }
         
-        // If validation passes, show loading state and submit the form
+        // If validation passes, show loading state but allow form to submit naturally
         var submitButton = this.querySelector('button[type="submit"]');
         var originalButtonText = submitButton.textContent;
         
@@ -321,8 +320,8 @@
         submitButton.disabled = true;
         submitButton.textContent = '{{ "sections.main_login.logging_in" | t }}';
         
-        // Submit the form
-        this.submit();
+        // Don't prevent default - let the form submit naturally with CAPTCHA
+        // The form will submit with all necessary tokens intact
       });
     }
 
