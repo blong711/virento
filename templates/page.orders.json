@@ -21,15 +21,15 @@
     "main_order": {
       "type": "main-order",
       "settings": {
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-1",
         "width": "container",
         "empty_state_image_width": 400,
         "empty_state_title": "You haven't placed any order yet",
         "empty_state_text": "It's time to make your first order",
         "shop_now_text": "Shop now",
-        "padding_top": 36,
-        "padding_bottom": 32,
-        "padding_mobile_rate": 100
+        "padding_top": 64,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 80
       }
     }
   },

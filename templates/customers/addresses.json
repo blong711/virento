@@ -20,7 +20,13 @@
     },
     "main": {
       "type": "main-addresses",
-      "settings": {}
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "padding_top": 64,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 80
+      }
     }
   },
   "order": [
