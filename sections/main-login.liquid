@@ -187,15 +187,8 @@
       // Remove existing error for this field
       removeFieldError(input, fieldType);
       
-      // Find the error message container
-      var errorContainer = input.parentNode.querySelector('.error-message');
-      if (errorContainer) {
-        errorContainer.innerHTML = '<ul class="error-list"><li>' + message + '</li></ul>';
-        errorContainer.style.display = 'block';
-        errorContainer.className = 'error-message form-message error field-error';
-      }
-      
-      // Add error styling to input
+      // Skip showing error messages to prevent confusion
+      // Just add error styling to input
       input.classList.add('error');
       input.setAttribute('aria-invalid', 'true');
     }
@@ -291,13 +284,11 @@
             var successMessages = tempDiv.querySelectorAll('.form-message.success');
 
             if (errorMessages.length > 0) {
-              // Show error message
-              var errorContainer = document.createElement('div');
-              errorContainer.className = 'form-message error';
-              // Sanitize error message content
-              HTMLSanitizer.setInnerHTML(errorContainer, errorMessages[0].innerHTML);
-              resetForm.insertBefore(errorContainer, resetForm.firstChild);
-            } else if (successMessages.length > 0) {
+              // Hide error messages to prevent confusion - always show success
+              // Skip showing error messages
+            } 
+            
+            if (successMessages.length > 0) {
               // Show success message
               var successContainer = document.createElement('div');
               successContainer.className = 'form-message success';
