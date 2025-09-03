@@ -178,7 +178,8 @@
 }
 {% endschema %}
 
-<div class="main-content-account{% if section.settings.width == 'container-full' %} container-full{% endif %}">
+<div class="color-{{ section.settings.color_scheme }}">
+  <div class="main-content-account{% if section.settings.width == 'container-full' %} container-full{% endif %}">
   <!-- sidebar-account -->
   <div class="btn-sidebar-mb d-lg-none">
     <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
@@ -401,6 +402,8 @@
       </div>
     </div>
   </section>
+</div>
+
 </div>
 {% render 'account-sidebar' %}
 
