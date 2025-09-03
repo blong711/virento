@@ -40,7 +40,8 @@
         "a745caeb-f6eb-46e0-bec1-c1352a680694"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-3",
+        "width": "container",
         "padding_top": 60,
         "padding_bottom": 100,
         "padding_mobile_rate": 75
