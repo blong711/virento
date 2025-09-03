@@ -44,7 +44,7 @@
         "color_scheme": "background-1",
         "padding_top": 120,
         "padding_bottom": 0,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "hero_image": {
@@ -58,7 +58,7 @@
         "image": "shopify://shop_images/about.jpg",
         "border_radius": 16,
         "padding_top": 0,
-        "padding_bottom": 100,
+        "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
     },
@@ -101,7 +101,7 @@
         "subheading_size": "medium",
         "spacing_heading_content": 32,
         "image": "shopify://shop_images/about-2.jpg",
-        "padding_top": 20,
+        "padding_top": 100,
         "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
@@ -197,6 +197,7 @@
         "products_per_row_tablet": 2,
         "products_per_row_mobile": 2,
         "icon_style": "style-border",
+        "show_border": true,
         "padding_top": 0,
         "padding_bottom": 100,
         "padding_mobile_rate": 75
