@@ -4804,6 +4804,19 @@
         "show_border": {
           "label": "Show border"
         }
+      },
+      "blocks": {
+        "brand": {
+          "name": "Brand",
+          "settings": {
+            "brand_image": {
+              "label": "Brand Image"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Brands Carousel"
       }
     },
     "featured-products-tab": {
