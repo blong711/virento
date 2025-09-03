@@ -919,6 +919,13 @@
       "error": "Error:",
       "select_province_state": "Select Province/State"
     },
+    "blog-carousel": {
+      "post_by": "Post by",
+      "read_more": "Read more",
+      "comment": "comment",
+      "comments": "comments",
+      "admin": "Admin"
+    }
   },
    "orders": {
     "modal": {
