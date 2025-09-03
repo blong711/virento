@@ -21,7 +21,7 @@
     "main_order": {
       "type": "main-order",
       "settings": {
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-1",
         "width": "container",
         "empty_state_image_width": 400,
         "empty_state_title": "You haven't placed any order yet",
