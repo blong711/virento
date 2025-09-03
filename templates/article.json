@@ -21,9 +21,9 @@
         "show_prev_next": true,
         "show_comments": true,
         "show_comment_form": true,
-        "padding_top": 48,
-        "padding_bottom": 64,
-        "padding_mobile_rate": 75
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 60
       }
     },
     "blog_carousel_8cHcEq": {
