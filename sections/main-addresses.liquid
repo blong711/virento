@@ -75,485 +75,487 @@
 {% endif %}
 
 <!-- Main Content -->
-<div class="main-content-account{% if section.settings.width == 'container-full' %} container-full{% endif %}">
-  <!-- sidebar-account -->
-  <div class="btn-sidebar-mb d-lg-none">
-    <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
-      <i class="icon icon-sidebar"></i>
-    </button>
-  </div>
-  <!-- /sidebar-account -->
-
-  <!-- Account -->
-  <section class="s-account flat-spacing-25 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
-    <div class="{{ section.settings.width }}">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="my-account-container">
-            <div class="sidebar-account-wrap sidebar-content-wrap sticky-top d-lg-block d-none">
-              <ul class="my-account-nav">
-                <li>
-                  <a
-                    href="{{ routes.account_url }}"
-                    class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/account' %}active{% endif %}"
-                  >
-                    {{ 'sections.main_addresses.nav_dashboard' | t }}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/pages/orders"
-                    class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/orders' %}active{% endif %}"
-                  >
-                    {{ 'sections.main_addresses.nav_my_orders' | t }}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="{{ routes.search_url }}/?view=wishlist"
-                    class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/wishlist' %}active{% endif %}"
-                  >
-                    {{ 'sections.main_addresses.nav_my_wishlist' | t }}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="{{ routes.account_addresses_url }}"
-                    class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/addresses' %}active{% endif %}"
-                  >
-                    {{ 'sections.main_addresses.nav_addresses' | t }}
-                  </a>
-                </li>
-                <li>
-                  <a href="{{ routes.account_logout_url }}" class="text-sm link fw-medium my-account-nav-item">
-                    {{ 'sections.main_addresses.nav_log_out' | t }}
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div class="my-acount-content account-address">
-              <h6 class="title-account">
-                {{ 'sections.main_addresses.your_addresses' | t }} ({{ customer.addresses_count }})
-              </h6>
-              <div class="widget-inner-address">
-                <button class="tf-btn btn-add-address animate-btn" data-form="form-add-address">
-                  {{ 'sections.main_addresses.add_new_address' | t }}
-                </button>
-
-                {% form 'customer_address', customer.new_address %}
-                  <div
-                    class="wd-form-address form-default show-form-address"
-                    id="form-add-address"
-                    style="display: none;"
-                  >
-                    <input type="hidden" name="return_to" value="/account/addresses">
-
-                    {% comment %} Display server-side errors {% endcomment %}
-                    {% if form.errors %}
-                      <div
-                        class="form-errors"
-                        style="background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius: 4px;"
-                      >
-                        <strong>{{ 'sections.main_addresses.please_correct_errors' | t }}</strong>
-                        <ul style="margin: 5px 0 0 20px;">
-                          {% for field in form.errors %}
-                            {% for error in field %}
-                              <li>{{ error }}</li>
-                            {% endfor %}
-                          {% endfor %}
-                        </ul>
-                      </div>
-                    {% endif %}
-
-                    {% comment %} General error message area {% endcomment %}
-                    <div
-                      class="general-error"
-                      id="general-error"
-                      style="display: none; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius: 4px;"
+<div class="color-{{ section.settings.color_scheme }}">
+  <div class="main-content-account{% if section.settings.width == 'container-full' %} container-full{% endif %}">
+    <!-- sidebar-account -->
+    <div class="btn-sidebar-mb d-lg-none">
+      <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
+        <i class="icon icon-sidebar"></i>
+      </button>
+    </div>
+    <!-- /sidebar-account -->
+  
+    <!-- Account -->
+    <section class="s-account flat-spacing-25 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+      <div class="{{ section.settings.width }}">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="my-account-container">
+              <div class="sidebar-account-wrap sidebar-content-wrap sticky-top d-lg-block d-none">
+                <ul class="my-account-nav">
+                  <li>
+                    <a
+                      href="{{ routes.account_url }}"
+                      class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/account' %}active{% endif %}"
                     >
-                      <strong>{{ 'sections.main_addresses.error' | t }}</strong> <span id="general-error-text"></span>
-                    </div>
-                    <div class="cols">
-                      <fieldset>
-                        <label for="AddressFirstNameNew">{{ 'sections.main_addresses.first_name' | t }}</label>
-                        <input
-                          type="text"
-                          id="AddressFirstNameNew"
-                          name="address[first_name]"
-                          value="{{ form.first_name }}"
-                          required
-                        >
-                        <div
-                          class="error-message"
-                          id="error-firstname"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                      <fieldset>
-                        <label for="AddressLastNameNew">{{ 'sections.main_addresses.last_name' | t }}</label>
-                        <input
-                          type="text"
-                          id="AddressLastNameNew"
-                          name="address[last_name]"
-                          value="{{ form.last_name }}"
-                          required
-                        >
-                        <div
-                          class="error-message"
-                          id="error-lastname"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                    </div>
-                    <div class="cols">
-                      <fieldset>
-                        <label for="AddressCompanyNew">{{ 'sections.main_addresses.company' | t }}</label>
-                        <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
-                        <div
-                          class="error-message"
-                          id="error-company"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                    </div>
-                    <div class="cols">
-                      <fieldset>
-                        <label for="Address1New">{{ 'sections.main_addresses.address1' | t }}</label>
-                        <input
-                          type="text"
-                          id="Address1New"
-                          name="address[address1]"
-                          value="{{ form.address1 }}"
-                          required
-                        >
-                        <div
-                          class="error-message"
-                          id="error-address1"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                    </div>
-                    <div class="cols">
-                      <fieldset>
-                        <label for="AddressCityNew">{{ 'sections.main_addresses.city' | t }}</label>
-                        <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" required>
-                        <div
-                          class="error-message"
-                          id="error-city"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                    </div>
-                    <div class="cols">
-                      <fieldset>
-                        <label for="AddressCountryNew">{{ 'sections.main_addresses.country_region' | t }}</label>
-                        <div class="select">
-                          <select
-                            id="AddressCountryNew"
-                            name="address[country]"
-                            data-default="{{ form.country }}"
-                            autocomplete="country"
-                            required
-                          >
-                            {{ all_country_option_tags }}
-                          </select>
-                          <span class="svg-wrapper">
-                            {{- 'icon-caret.svg' | inline_asset_content -}}
-                          </span>
-                        </div>
-                        <div
-                          class="error-message"
-                          id="error-country"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                    </div>
-                    <div class="cols" id="AddressProvinceContainerNew" style="display: none">
-                      <fieldset>
-                        <label for="AddressProvinceNew">{{ 'sections.main_addresses.province' | t }}</label>
-                        <div class="select">
-                          <select
-                            id="AddressProvinceNew"
-                            name="address[province]"
-                            data-default="{{ form.province }}"
-                            autocomplete="address-level1"
-                          >
-                            <option value="">{{ 'sections.main_addresses.select_province_state' | t }}</option>
-                          </select>
-                          <span class="svg-wrapper">
-                            {{- 'icon-caret.svg' | inline_asset_content -}}
-                          </span>
-                        </div>
-                        <div
-                          class="error-message"
-                          id="error-province"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                    </div>
-                    <div class="cols">
-                      <fieldset>
-                        <label for="AddressZipNew">{{ 'sections.main_addresses.postal_zip_code' | t }}</label>
-                        <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" required>
-                        <div
-                          class="error-message"
-                          id="error-zip"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                    </div>
-                    <div class="cols">
-                      <fieldset>
-                        <label for="AddressPhoneNew">{{ 'sections.main_addresses.phone' | t }}</label>
-                        <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
-                        <div
-                          class="error-message"
-                          id="error-phone"
-                          style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
-                        ></div>
-                      </fieldset>
-                    </div>
-                    <div class="tf-cart-checkbox">
-                      <input type="checkbox" name="address[default]" class="tf-check" id="default-address-add">
-                      <label for="default-address-add" class="label">
-                        <span>{{ 'sections.main_addresses.set_as_default' | t }}</span>
-                      </label>
-                    </div>
-                    <div class="box-btn">
-                      <button class="tf-btn animate-btn" type="submit" id="submit-add-address">
-                        {{ 'sections.main_addresses.add' | t }}
-                      </button>
-                      <a href="#" class="tf-btn btn-out-line-dark btn-hide-address">
-                        {{ 'sections.main_addresses.cancel' | t }}
-                      </a>
-                    </div>
-                  </div>
-                {% endform %}
-
-                <ul class="list-account-address tf-grid-layout md-col-2" id="addressesList">
-                  {% for address in customer.addresses %}
-                    <li class="account-address-item" data-address-index="{{ forloop.index0 }}">
-                      <p class="title text-md fw-medium">
-                        {{ address.address1 }}
-                      </p>
-                      <div class="info-detail">
-                        <div class="box-infor">
-                          {% if address.first_name or address.last_name %}
-                            <p class="text-md">
-                              {{ address.first_name }}
-                              {{ address.last_name }}
-                            </p>
-                          {% endif %}
-                          {% if customer.email %}
-                            <p class="text-md">{{ customer.email }}</p>
-                          {% endif %}
-                          {% if address.company %}
-                            <p class="text-md">{{ address.company }}</p>
-                          {% endif %}
-                          {% if address.address1 %}
-                            <p class="text-md">{{ address.address1 }}</p>
-                          {% endif %}
-                          {% if address.city %}
-                            <p class="text-md">{{ address.city }}</p>
-                          {% endif %}
-                          {% if address.country %}
-                            <p class="text-md">{{ address.country }}</p>
-                          {% endif %}
-                          {% if address.zip %}
-                            <p class="text-md">{{ address.zip }}</p>
-                          {% endif %}
-                          {% if address.phone %}
-                            <p class="text-md">{{ address.phone }}</p>
-                          {% endif %}
-                        </div>
-                        <div class="box-btn">
-                          <button
-                            class="tf-btn btn-out-line-dark btn-edit-address"
-                            data-form="form-edit-{{ address.id }}"
-                          >
-                            {{ 'sections.main_addresses.edit' | t }}
-                          </button>
-
-                          <form
-                            className="address-delete-form"
-                            method="post"
-                            action="/account/addresses/{{ address.id }}"
-                          >
-                            <input type="hidden" name="_method" value="delete">
-                            <button type="submit">{{ 'sections.main_addresses.delete' | t }}</button>
-                          </form>
-                        </div>
-                      </div>
-                    </li>
-                  {% endfor %}
+                      {{ 'sections.main_addresses.nav_dashboard' | t }}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/pages/orders"
+                      class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/orders' %}active{% endif %}"
+                    >
+                      {{ 'sections.main_addresses.nav_my_orders' | t }}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="{{ routes.search_url }}/?view=wishlist"
+                      class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/wishlist' %}active{% endif %}"
+                    >
+                      {{ 'sections.main_addresses.nav_my_wishlist' | t }}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="{{ routes.account_addresses_url }}"
+                      class="text-sm link fw-medium my-account-nav-item {% if template == 'customers/addresses' %}active{% endif %}"
+                    >
+                      {{ 'sections.main_addresses.nav_addresses' | t }}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ routes.account_logout_url }}" class="text-sm link fw-medium my-account-nav-item">
+                      {{ 'sections.main_addresses.nav_log_out' | t }}
+                    </a>
+                  </li>
                 </ul>
-
-                {% comment %} Pagination Controls {% endcomment %}
-                <div
-                  class="pagination-container"
-                  id="addressPaginationContainer"
-                  style="display: none; margin-top: 30px; text-align: center;"
-                >
-                  <ul class="wg-pagination" id="addressPagination"></ul>
-                </div>
-
-                {% for address in customer.addresses %}
-                  {% form 'customer_address', address %}
+              </div>
+              <div class="my-acount-content account-address">
+                <h6 class="title-account">
+                  {{ 'sections.main_addresses.your_addresses' | t }} ({{ customer.addresses_count }})
+                </h6>
+                <div class="widget-inner-address">
+                  <button class="tf-btn btn-add-address animate-btn" data-form="form-add-address">
+                    {{ 'sections.main_addresses.add_new_address' | t }}
+                  </button>
+  
+                  {% form 'customer_address', customer.new_address %}
                     <div
-                      class="wd-form-address form-default edit-form-address"
-                      id="form-edit-{{ address.id }}"
+                      class="wd-form-address form-default show-form-address"
+                      id="form-add-address"
                       style="display: none;"
                     >
                       <input type="hidden" name="return_to" value="/account/addresses">
+  
+                      {% comment %} Display server-side errors {% endcomment %}
+                      {% if form.errors %}
+                        <div
+                          class="form-errors"
+                          style="background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius: 4px;"
+                        >
+                          <strong>{{ 'sections.main_addresses.please_correct_errors' | t }}</strong>
+                          <ul style="margin: 5px 0 0 20px;">
+                            {% for field in form.errors %}
+                              {% for error in field %}
+                                <li>{{ error }}</li>
+                              {% endfor %}
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      {% endif %}
+  
+                      {% comment %} General error message area {% endcomment %}
+                      <div
+                        class="general-error"
+                        id="general-error"
+                        style="display: none; background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius: 4px;"
+                      >
+                        <strong>{{ 'sections.main_addresses.error' | t }}</strong> <span id="general-error-text"></span>
+                      </div>
                       <div class="cols">
                         <fieldset>
-                          <label for="AddressFirstName_{{ address.id }}">
-                            {{- 'sections.main_addresses.first_name' | t -}}
-                          </label>
+                          <label for="AddressFirstNameNew">{{ 'sections.main_addresses.first_name' | t }}</label>
                           <input
                             type="text"
-                            id="AddressFirstName_{{ address.id }}"
+                            id="AddressFirstNameNew"
                             name="address[first_name]"
                             value="{{ form.first_name }}"
                             required
                           >
+                          <div
+                            class="error-message"
+                            id="error-firstname"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
                         </fieldset>
                         <fieldset>
-                          <label for="AddressLastName_{{ address.id }}">
-                            {{- 'sections.main_addresses.last_name' | t -}}
-                          </label>
+                          <label for="AddressLastNameNew">{{ 'sections.main_addresses.last_name' | t }}</label>
                           <input
                             type="text"
-                            id="AddressLastName_{{ address.id }}"
+                            id="AddressLastNameNew"
                             name="address[last_name]"
                             value="{{ form.last_name }}"
                             required
                           >
+                          <div
+                            class="error-message"
+                            id="error-lastname"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
                         </fieldset>
                       </div>
                       <div class="cols">
                         <fieldset>
-                          <label for="AddressCompany_{{ address.id }}">
-                            {{- 'sections.main_addresses.company' | t -}}
-                          </label>
-                          <input
-                            type="text"
-                            id="AddressCompany_{{ address.id }}"
-                            name="address[company]"
-                            value="{{ form.company }}"
-                          >
+                          <label for="AddressCompanyNew">{{ 'sections.main_addresses.company' | t }}</label>
+                          <input type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+                          <div
+                            class="error-message"
+                            id="error-company"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
                         </fieldset>
                       </div>
                       <div class="cols">
                         <fieldset>
-                          <label for="Address1_{{ address.id }}">{{ 'sections.main_addresses.address1' | t }}</label>
+                          <label for="Address1New">{{ 'sections.main_addresses.address1' | t }}</label>
                           <input
                             type="text"
-                            id="Address1_{{ address.id }}"
+                            id="Address1New"
                             name="address[address1]"
                             value="{{ form.address1 }}"
                             required
                           >
+                          <div
+                            class="error-message"
+                            id="error-address1"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
                         </fieldset>
                       </div>
                       <div class="cols">
                         <fieldset>
-                          <label for="AddressCity_{{ address.id }}">{{ 'sections.main_addresses.city' | t }}</label>
-                          <input
-                            type="text"
-                            id="AddressCity_{{ address.id }}"
-                            name="address[city]"
-                            value="{{ form.city }}"
-                            required
-                          >
+                          <label for="AddressCityNew">{{ 'sections.main_addresses.city' | t }}</label>
+                          <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" required>
+                          <div
+                            class="error-message"
+                            id="error-city"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
                         </fieldset>
                       </div>
                       <div class="cols">
                         <fieldset>
-                          <label for="AddressCountry_{{ address.id }}">
-                            {{- 'sections.main_addresses.country_region' | t -}}
-                          </label>
-                          <input
-                            type="text"
-                            id="AddressCountry_{{ address.id }}"
-                            name="address[country]"
-                            value="{{ form.country }}"
-                            required
-                          >
+                          <label for="AddressCountryNew">{{ 'sections.main_addresses.country_region' | t }}</label>
+                          <div class="select">
+                            <select
+                              id="AddressCountryNew"
+                              name="address[country]"
+                              data-default="{{ form.country }}"
+                              autocomplete="country"
+                              required
+                            >
+                              {{ all_country_option_tags }}
+                            </select>
+                            <span class="svg-wrapper">
+                              {{- 'icon-caret.svg' | inline_asset_content -}}
+                            </span>
+                          </div>
+                          <div
+                            class="error-message"
+                            id="error-country"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
+                        </fieldset>
+                      </div>
+                      <div class="cols" id="AddressProvinceContainerNew" style="display: none">
+                        <fieldset>
+                          <label for="AddressProvinceNew">{{ 'sections.main_addresses.province' | t }}</label>
+                          <div class="select">
+                            <select
+                              id="AddressProvinceNew"
+                              name="address[province]"
+                              data-default="{{ form.province }}"
+                              autocomplete="address-level1"
+                            >
+                              <option value="">{{ 'sections.main_addresses.select_province_state' | t }}</option>
+                            </select>
+                            <span class="svg-wrapper">
+                              {{- 'icon-caret.svg' | inline_asset_content -}}
+                            </span>
+                          </div>
+                          <div
+                            class="error-message"
+                            id="error-province"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
                         </fieldset>
                       </div>
                       <div class="cols">
                         <fieldset>
-                          <label for="AddressProvince_{{ address.id }}">
-                            {{- 'sections.main_addresses.province' | t -}}
-                          </label>
-                          <input
-                            type="text"
-                            id="AddressProvince_{{ address.id }}"
-                            name="address[province]"
-                            value="{{ form.province }}"
-                            required
-                          >
+                          <label for="AddressZipNew">{{ 'sections.main_addresses.postal_zip_code' | t }}</label>
+                          <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" required>
+                          <div
+                            class="error-message"
+                            id="error-zip"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
                         </fieldset>
                       </div>
                       <div class="cols">
                         <fieldset>
-                          <label for="AddressZip_{{ address.id }}">
-                            {{- 'sections.main_addresses.postal_zip_code' | t -}}
-                          </label>
-                          <input
-                            type="text"
-                            id="AddressZip_{{ address.id }}"
-                            name="address[zip]"
-                            value="{{ form.zip }}"
-                            required
-                          >
-                        </fieldset>
-                      </div>
-                      <div class="cols">
-                        <fieldset>
-                          <label for="AddressPhone_{{ address.id }}">{{ 'sections.main_addresses.phone' | t }}</label>
-                          <input
-                            type="tel"
-                            id="AddressPhone_{{ address.id }}"
-                            name="address[phone]"
-                            value="{{ form.phone }}"
-                          >
+                          <label for="AddressPhoneNew">{{ 'sections.main_addresses.phone' | t }}</label>
+                          <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+                          <div
+                            class="error-message"
+                            id="error-phone"
+                            style="display: none; color: #dc3545; font-size: 12px; margin-top: 5px;"
+                          ></div>
                         </fieldset>
                       </div>
                       <div class="tf-cart-checkbox">
-                        <input
-                          type="checkbox"
-                          name="address[default]"
-                          class="tf-check"
-                          id="default-address-edit-{{ address.id }}"
-                          {% if address.default %}
-                            checked
-                          {% endif %}
-                        >
-                        <label for="default-address-edit-{{ address.id }}" class="label">
+                        <input type="checkbox" name="address[default]" class="tf-check" id="default-address-add">
+                        <label for="default-address-add" class="label">
                           <span>{{ 'sections.main_addresses.set_as_default' | t }}</span>
                         </label>
                       </div>
                       <div class="box-btn">
-                        <button class="tf-btn animate-btn" type="submit">
-                          {{ 'sections.main_addresses.update' | t }}
+                        <button class="tf-btn animate-btn" type="submit" id="submit-add-address">
+                          {{ 'sections.main_addresses.add' | t }}
                         </button>
-                        <a href="#" class="tf-btn btn-out-line-dark btn-hide-edit-address">
+                        <a href="#" class="tf-btn btn-out-line-dark btn-hide-address">
                           {{ 'sections.main_addresses.cancel' | t }}
                         </a>
                       </div>
                     </div>
                   {% endform %}
-                {% endfor %}
+  
+                  <ul class="list-account-address tf-grid-layout md-col-2" id="addressesList">
+                    {% for address in customer.addresses %}
+                      <li class="account-address-item" data-address-index="{{ forloop.index0 }}">
+                        <p class="title text-md fw-medium">
+                          {{ address.address1 }}
+                        </p>
+                        <div class="info-detail">
+                          <div class="box-infor">
+                            {% if address.first_name or address.last_name %}
+                              <p class="text-md">
+                                {{ address.first_name }}
+                                {{ address.last_name }}
+                              </p>
+                            {% endif %}
+                            {% if customer.email %}
+                              <p class="text-md">{{ customer.email }}</p>
+                            {% endif %}
+                            {% if address.company %}
+                              <p class="text-md">{{ address.company }}</p>
+                            {% endif %}
+                            {% if address.address1 %}
+                              <p class="text-md">{{ address.address1 }}</p>
+                            {% endif %}
+                            {% if address.city %}
+                              <p class="text-md">{{ address.city }}</p>
+                            {% endif %}
+                            {% if address.country %}
+                              <p class="text-md">{{ address.country }}</p>
+                            {% endif %}
+                            {% if address.zip %}
+                              <p class="text-md">{{ address.zip }}</p>
+                            {% endif %}
+                            {% if address.phone %}
+                              <p class="text-md">{{ address.phone }}</p>
+                            {% endif %}
+                          </div>
+                          <div class="box-btn">
+                            <button
+                              class="tf-btn btn-out-line-dark btn-edit-address"
+                              data-form="form-edit-{{ address.id }}"
+                            >
+                              {{ 'sections.main_addresses.edit' | t }}
+                            </button>
+  
+                            <form
+                              className="address-delete-form"
+                              method="post"
+                              action="/account/addresses/{{ address.id }}"
+                            >
+                              <input type="hidden" name="_method" value="delete">
+                              <button type="submit">{{ 'sections.main_addresses.delete' | t }}</button>
+                            </form>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
+  
+                  {% comment %} Pagination Controls {% endcomment %}
+                  <div
+                    class="pagination-container"
+                    id="addressPaginationContainer"
+                    style="display: none; margin-top: 30px; text-align: center;"
+                  >
+                    <ul class="wg-pagination" id="addressPagination"></ul>
+                  </div>
+  
+                  {% for address in customer.addresses %}
+                    {% form 'customer_address', address %}
+                      <div
+                        class="wd-form-address form-default edit-form-address"
+                        id="form-edit-{{ address.id }}"
+                        style="display: none;"
+                      >
+                        <input type="hidden" name="return_to" value="/account/addresses">
+                        <div class="cols">
+                          <fieldset>
+                            <label for="AddressFirstName_{{ address.id }}">
+                              {{- 'sections.main_addresses.first_name' | t -}}
+                            </label>
+                            <input
+                              type="text"
+                              id="AddressFirstName_{{ address.id }}"
+                              name="address[first_name]"
+                              value="{{ form.first_name }}"
+                              required
+                            >
+                          </fieldset>
+                          <fieldset>
+                            <label for="AddressLastName_{{ address.id }}">
+                              {{- 'sections.main_addresses.last_name' | t -}}
+                            </label>
+                            <input
+                              type="text"
+                              id="AddressLastName_{{ address.id }}"
+                              name="address[last_name]"
+                              value="{{ form.last_name }}"
+                              required
+                            >
+                          </fieldset>
+                        </div>
+                        <div class="cols">
+                          <fieldset>
+                            <label for="AddressCompany_{{ address.id }}">
+                              {{- 'sections.main_addresses.company' | t -}}
+                            </label>
+                            <input
+                              type="text"
+                              id="AddressCompany_{{ address.id }}"
+                              name="address[company]"
+                              value="{{ form.company }}"
+                            >
+                          </fieldset>
+                        </div>
+                        <div class="cols">
+                          <fieldset>
+                            <label for="Address1_{{ address.id }}">{{ 'sections.main_addresses.address1' | t }}</label>
+                            <input
+                              type="text"
+                              id="Address1_{{ address.id }}"
+                              name="address[address1]"
+                              value="{{ form.address1 }}"
+                              required
+                            >
+                          </fieldset>
+                        </div>
+                        <div class="cols">
+                          <fieldset>
+                            <label for="AddressCity_{{ address.id }}">{{ 'sections.main_addresses.city' | t }}</label>
+                            <input
+                              type="text"
+                              id="AddressCity_{{ address.id }}"
+                              name="address[city]"
+                              value="{{ form.city }}"
+                              required
+                            >
+                          </fieldset>
+                        </div>
+                        <div class="cols">
+                          <fieldset>
+                            <label for="AddressCountry_{{ address.id }}">
+                              {{- 'sections.main_addresses.country_region' | t -}}
+                            </label>
+                            <input
+                              type="text"
+                              id="AddressCountry_{{ address.id }}"
+                              name="address[country]"
+                              value="{{ form.country }}"
+                              required
+                            >
+                          </fieldset>
+                        </div>
+                        <div class="cols">
+                          <fieldset>
+                            <label for="AddressProvince_{{ address.id }}">
+                              {{- 'sections.main_addresses.province' | t -}}
+                            </label>
+                            <input
+                              type="text"
+                              id="AddressProvince_{{ address.id }}"
+                              name="address[province]"
+                              value="{{ form.province }}"
+                              required
+                            >
+                          </fieldset>
+                        </div>
+                        <div class="cols">
+                          <fieldset>
+                            <label for="AddressZip_{{ address.id }}">
+                              {{- 'sections.main_addresses.postal_zip_code' | t -}}
+                            </label>
+                            <input
+                              type="text"
+                              id="AddressZip_{{ address.id }}"
+                              name="address[zip]"
+                              value="{{ form.zip }}"
+                              required
+                            >
+                          </fieldset>
+                        </div>
+                        <div class="cols">
+                          <fieldset>
+                            <label for="AddressPhone_{{ address.id }}">{{ 'sections.main_addresses.phone' | t }}</label>
+                            <input
+                              type="tel"
+                              id="AddressPhone_{{ address.id }}"
+                              name="address[phone]"
+                              value="{{ form.phone }}"
+                            >
+                          </fieldset>
+                        </div>
+                        <div class="tf-cart-checkbox">
+                          <input
+                            type="checkbox"
+                            name="address[default]"
+                            class="tf-check"
+                            id="default-address-edit-{{ address.id }}"
+                            {% if address.default %}
+                              checked
+                            {% endif %}
+                          >
+                          <label for="default-address-edit-{{ address.id }}" class="label">
+                            <span>{{ 'sections.main_addresses.set_as_default' | t }}</span>
+                          </label>
+                        </div>
+                        <div class="box-btn">
+                          <button class="tf-btn animate-btn" type="submit">
+                            {{ 'sections.main_addresses.update' | t }}
+                          </button>
+                          <a href="#" class="tf-btn btn-out-line-dark btn-hide-edit-address">
+                            {{ 'sections.main_addresses.cancel' | t }}
+                          </a>
+                        </div>
+                      </div>
+                    {% endform %}
+                  {% endfor %}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-  <!-- /Account -->
+    </section>
+    <!-- /Account -->
+  </div>
 </div>
 <!-- sidebar account -->
 {% render 'account-sidebar' %}
