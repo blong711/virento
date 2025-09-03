@@ -96,6 +96,24 @@
                     <span class="tooltip">{{ 'snippets.product-card.add_to_wishlist' | t }}</span>
                 </a>
             </div>
+            <div class="quickview">
+                <div 
+                    class="hover-tooltip box-icon quickview btn-quickview{% if card_style == 'style-1' or card_style == 'style-small' %} tooltip-left{% endif %}" 
+                    data-product-id="{{ product.id }}"
+                    data-product-handle="{{ product.handle }}"
+                    data-product-title="{{ product.title | escape }}"
+                    data-product-price="{{ product.price | money }}"
+                    data-product-compare-price="{{ product.compare_at_price | money }}"
+                    data-product-description="{{ product.description | strip_html | truncate: 150 | escape }}"
+                    data-product-url="{{ product.url }}"
+                    data-product-images="{% for image in product.images %}{{ image | image_url: width: 600 }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+                    data-product-variants="{{ product.variants | json | escape }}"
+                    data-product-options="{{ product.options_with_values | json | escape }}"
+                    aria-label="Quick view of {{ product.title }}">
+                            <span class="icon icon-view"></span>
+                            <span class="tooltip">{{ 'snippets.product-card.quick_view' | t }}</span>
+                </div>
+            </div>
             <div class="compare">
                 <a class="box-icon hover-tooltip" data-product-id="{{ product.id }}"
                     data-product-handle="{{ product.handle }}">

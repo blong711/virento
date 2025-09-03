@@ -25029,4 +25029,14 @@ shopify-accelerated-checkout {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-
+@media (max-width: 767px) {
+  .card-product.style-list .list-product-btn .wishlist, 
+  .card-product.style-list .list-product-btn .compare {
+      display: none !important;
+  }
+}
+.card-product.style-list .btn-main-product.product-cart-button {
+  max-width: 331px;
+  width: 100%;
+  text-transform: none;
+}
