@@ -199,8 +199,8 @@
         "icon_style": "style-border",
         "show_border": true,
         "padding_top": 0,
-        "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_bottom": 120,
+        "padding_mobile_rate": 50
       }
     },
     "single_testimonial": {
