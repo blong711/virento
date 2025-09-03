@@ -90,11 +90,10 @@
       ],
       "name": "t:sections.heading-with-text-vertical.presets.default",
       "settings": {
+        "width": "boxed",
         "color_scheme": "",
-        "width": "container",
-        "padding_top": 64,
-        "padding_bottom": 100,
-        "padding_mobile_rate": 80
+        "padding_top": 80,
+        "padding_bottom": 100
       }
     }
   },
