@@ -50,6 +50,22 @@
             "label": "Right"
           },
           "label": "Text alignment"
+        },
+        "image_ratio": {
+          "label": "Image ratio",
+          "info": "Choose how product images are displayed",
+          "options__1": {
+            "label": "Adapt to image"
+          },
+          "options__2": {
+            "label": "Portrait"
+          },
+          "options__3": {
+            "label": "Landscape"
+          },
+          "options__4": {
+            "label": "Square"
+          }
         }
       }
     },
