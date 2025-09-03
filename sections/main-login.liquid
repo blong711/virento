@@ -16,24 +16,7 @@
                 <h2 class="display-sm fw-medium mb-5">{{ 'sections.main_login.log_in' | t }}</h2>
                 <div id="login">
                   {%- form 'customer_login', id: 'main-customer-login' -%}
-                    {%- if form.errors -%}
-                      <div class="form-message error">
-                        <ul class="error-list">
-                          {%- for field in form.errors -%}
-                            <li>
-                              {%- if field == 'form' -%}
-                                {{ form.errors.messages[field] }}
-                              {%- else -%}
-                                <a href="#{{ field }}">
-                                  {{ form.errors.translated_fields[field] | capitalize }}
-                                  {{ form.errors.messages[field] }}
-                                </a>
-                              {%- endif -%}
-                            </li>
-                          {%- endfor -%}
-                        </ul>
-                      </div>
-                    {%- endif -%}
+                    {%- comment -%} Hide all login form errors to prevent confusion {%- endcomment -%}
                     <div class="form-field">
                       <input
                         class="form-input"
