@@ -46,6 +46,31 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         updateProductCountVisibility();
     }, 1000);
+    
+    // Handle theme customizer changes
+    if (window.Shopify && window.Shopify.designMode) {
+        // Listen for theme customizer events
+        document.addEventListener('shopify:section:load', () => {
+            setTimeout(() => {
+                updateProductCountVisibility();
+            }, 100);
+        });
+        
+        document.addEventListener('shopify:section:reorder', () => {
+            setTimeout(() => {
+                updateProductCountVisibility();
+            }, 100);
+        });
+        
+        // Also listen for window resize events in theme customizer
+        let customizerResizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(customizerResizeTimeout);
+            customizerResizeTimeout = setTimeout(() => {
+                updateProductCountVisibility();
+            }, 200);
+        });
+    }
 });
 
 // Price Range Slider
@@ -1646,16 +1671,35 @@ function setGridLayout(layoutClass) {
 
 // Helper function to check if any filters are currently applied
 function hasActiveFilters() {
+    // Check price filter by comparing current slider values with default values
     const priceSlider = document.getElementById('price-value-range');
-    if (priceSlider) {
+    if (priceSlider && priceSlider.noUiSlider) {
+        const currentValues = priceSlider.noUiSlider.get();
         const minPrice = parseInt(priceSlider.dataset.min, 10) || 0;
         const maxPrice = parseInt(priceSlider.dataset.max, 10) || 500;
-        if (filters.minPrice > minPrice || filters.maxPrice < maxPrice) {
+        if (parseInt(currentValues[0]) > minPrice || parseInt(currentValues[1]) < maxPrice) {
             return true;
         }
     }
     
-    return !!(filters.size || filters.color || filters.availability || filters.brands || filters.sale);
+    // Check UI state for other filters
+    const hasActiveSize = document.querySelector('.size-check.active') !== null;
+    const hasActiveColor = document.querySelector('.color-check.active') !== null;
+    const hasActiveAvailability = document.querySelector('input[name="availability"]:checked') !== null;
+    const hasActiveBrand = document.querySelector('input[name="brand"]:checked') !== null;
+    const hasActiveSale = document.querySelector('.shop-sale-text.active') !== null;
+    
+    // Also check URL parameters for server-side filters
+    const urlParams = new URLSearchParams(window.location.search);
+    const hasUrlFilters = urlParams.has('filter.v.option1') || 
+                         urlParams.has('filter.v.option.color') || 
+                         urlParams.has('filter.v.availability') || 
+                         urlParams.has('filter.p.vendor') || 
+                         urlParams.has('filter.v.price.gte') || 
+                         urlParams.has('filter.v.price.lte') || 
+                         urlParams.has('filter.v.compare_at_price.gt');
+    
+    return hasActiveSize || hasActiveColor || hasActiveAvailability || hasActiveBrand || hasActiveSale || hasUrlFilters;
 }
 
 // Function to ensure product count elements are properly shown/hidden based on current layout
