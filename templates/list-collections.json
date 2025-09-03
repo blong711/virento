@@ -32,7 +32,7 @@
         "padding_mobile_rate": 100,
         "items_per_row_desktop": 3,
         "items_per_row_tablet": 2,
-        "items_per_row_mobile": 1,
+        "items_per_row_mobile": 2,
         "enable_uppercase": false,
         "content_position": "center",
         "image_ratio": "adapt_image",
