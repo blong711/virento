@@ -2,7 +2,7 @@
 {
   "name": "t:sections.featured-product-carousel.name",
   "tag": "section",
-  "class": "flat-spacing pt-0",
+  "class": "flat-spacing pt-0 pb-0",
   "settings": [
     {
       "type": "color_scheme",
@@ -231,7 +231,7 @@
   }
 {% endstyle %}
 
-<div class="flat-spacing pt-0 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+<div class="flat-spacing section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
   <div class="{{ section.settings.width }}">
     <div class="flat-title style-between align-items-end wow fadeInUp {% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
       <div class="box-title{% if section.settings.title_alignment == 'center' %} w-100{% endif %}">

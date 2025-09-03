@@ -69,8 +69,6 @@
   }
 </style>
 
-
-
 {%- paginate collections by max_items -%}
   <section class="collection-list-{{ section.id }} color-{{ section.settings.color_scheme }}">
     <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
@@ -96,8 +94,6 @@
             -%}
           {%- endfor -%}
         {%- endif -%}
-
-
 
         {%- if pagination_type != 'none' and paginate.pages > 1 -%}
           <!-- Pagination -->
@@ -145,7 +141,6 @@
 {%- endpaginate -%}
 
 <!-- /Section Collection List -->
-
 
 {% schema %}
 {

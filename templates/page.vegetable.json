@@ -18,11 +18,14 @@
             "color_scheme": "scheme-1",
             "image": "shopify://shop_images/vegetable-1.png",
             "sale_text": "Save up to 20% on",
+            "discount_style": "badge",
             "title": "<p>Dairy Milk </p><p>Chocolate</p>",
+            "subtitle": "<p>Fresh and Organic</p>",
             "button_label": "Shop Now",
             "button_link": "/collections/all",
             "sale_text_size": "small",
-            "title_size": "medium"
+            "title_size": "medium",
+            "subtitle_size": "small"
           }
         },
         "sale_item2_hcTWxH": {
@@ -31,11 +34,14 @@
             "color_scheme": "scheme-43ab2b8f-788a-400c-95a7-99f370cf4cac",
             "image": "shopify://shop_images/vegetable-2.png",
             "sale_text": "Save up to 10% on",
+            "discount_style": "badge",
             "title": "<p>Yoghurt Pouch </p><p>Blueberry 140g</p>",
+            "subtitle": "<p>Fresh and Organic</p>",
             "button_label": "Shop Now",
             "button_link": "/collections/all",
             "sale_text_size": "small",
-            "title_size": "medium"
+            "title_size": "medium",
+            "subtitle_size": "small"
           }
         },
         "discover_item_NaqwVp": {
@@ -44,6 +50,7 @@
             "color_scheme": "scheme-ec567319-3125-4f13-b2d9-cbba35749ffb",
             "image": "shopify://shop_images/vegetable-3.jpg",
             "offer_text": "",
+            "discount_style": "badge",
             "title": "<p>Eat Fresh, Live Well</p>",
             "content": "<p>Discover farm-fresh, organic veggies at our</p><p>store. Locally sourced, quality guaranteed—</p><p>perfect for your healthy meals!</p>",
             "button_label": "Discover Now",
@@ -52,7 +59,8 @@
             "content_size": "medium",
             "show_price": false,
             "price_prefix": "From",
-            "price": "$1,200"
+            "price": "$1,200",
+            "price_size": "medium"
           }
         }
       },
@@ -65,8 +73,8 @@
       "settings": {
         "width": "boxed",
         "color_scheme": "scheme-1",
-        "padding_top": 30,
-        "padding_bottom": 60,
+        "padding_top": 60,
+        "padding_bottom": 0,
         "padding_mobile_rate": 75,
         "reverse_layout": false
       }
@@ -261,9 +269,9 @@
         "icon_gap": "none",
         "heading_uppercase": false,
         "text_gap": "none",
-        "cols_desktop": 3,
-        "cols_tablet": 3,
-        "cols_mobile": 2,
+        "cols_desktop": "3",
+        "cols_tablet": "2",
+        "cols_mobile": "1",
         "mobile_dots": true,
         "padding_top": 100,
         "padding_bottom": 100,
@@ -407,6 +415,8 @@
           "type": "banner",
           "settings": {
             "image": "shopify://shop_images/vegetable-1_557309c3-28be-4406-b4eb-6301ab49ed3a.png",
+            "hover_image": false,
+            "baner_tag": "NEW IN",
             "title": "Fresh Produce Everyday",
             "title_tag": "h5",
             "title_weight": "fw-medium",
@@ -422,6 +432,8 @@
           "type": "banner",
           "settings": {
             "image": "shopify://shop_images/vegetable-2_2036b525-c413-41b4-b1b2-56e75c8b4c8d.png",
+            "hover_image": false,
+            "baner_tag": "NEW IN",
             "title": "Shop Local & Organic",
             "title_tag": "h5",
             "title_weight": "fw-medium",
@@ -611,8 +623,9 @@
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
+        "products_per_row_mobile": 1,
         "icon_style": "default",
+        "show_border": true,
         "padding_top": 52,
         "padding_bottom": 52,
         "padding_mobile_rate": 75

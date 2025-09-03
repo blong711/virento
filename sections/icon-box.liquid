@@ -385,10 +385,16 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
       }
   }
+  @media (max-width: 575px) {
+    .tf-icon-box.style-3 {
+        justify-content: center;
+    }
+  }
+
   #shopify-section-{{ section.id }} .tf-icon-box.style-2 .box-icon {
       width: var(--icon-width);
       height: var(--icon-width);
-      {% if section.settings.show_border %}border: 1px solid var(--line);{% endif %}  
+      {% if section.settings.show_border %}border: 1px solid var(--line);{% endif %}
       border-radius: 50%;
   }
   #shopify-section-{{ section.id }} .tf-icon-box.style-3 .box-icon {
