@@ -367,19 +367,23 @@
                           </div>
                           <div class="banner-btn">
                             {% if block.settings.product %}
+                              {% if block.settings.button_text != blank %}
                               <a
                                 href="{{ block.settings.product.url }}"
                                 class="tf-btn btn-white animate-btn animate-dark"
                               >
                                 {{ block.settings.button_text }}
                               </a>
+                              {% endif %}
                             {% else %}
+                              {% if block.settings.button_text != blank %}
                               <a
                                 href="{{ routes.collections_url }}"
                                 class="tf-btn btn-white animate-btn animate-dark"
                               >
                                 {{ block.settings.button_text }}
                               </a>
+                              {% endif %}
                             {% endif %}
                           </div>
                         </div>
