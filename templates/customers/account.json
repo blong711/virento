@@ -25,7 +25,10 @@
           "type": "free_shipping",
           "settings": {
             "banner_image": "shopify://shop_images/account-1.jpg",
-            "free_shipping_threshold": "300.00"
+            "image_height": 300,
+            "free_shipping_threshold": "300.00",
+            "button_text": "Shop Now",
+            "button_url": "shopify://collections"
           }
         },
         "promo_banner_wkPXNa": {
@@ -34,7 +37,8 @@
             "product": "crop-t-shirt",
             "promo_title": "SUMMER SALE",
             "promo_discount": "50% OFF",
-            "promo_code": "12D34E"
+            "promo_code": "12D34E",
+            "button_text": "Shop Now"
           }
         }
       },
@@ -43,14 +47,14 @@
         "promo_banner_wkPXNa"
       ],
       "settings": {
-        "container_width": "container",
         "color_scheme": "",
+        "width": "container",
         "show_orders": true,
         "show_wishlist": true,
         "show_addresses": true,
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "padding_mobile_rate": 75
+        "padding_top": 64,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 80
       }
     }
   },
