@@ -7005,7 +7005,7 @@
         },
         "collection_banner_image": {
           "label": "Collection banner image",
-          "info": "Recommended size: 300x200px"
+          "info": "Recommended size: 300x400px"
         },
         "collection_banner_title": {
           "label": "Banner title",
