@@ -20,41 +20,43 @@
   class="s-contact section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
 >
   <div class="{% if section.settings.width == 'boxed' %} container{% else %} container-full{% endif %}">
-    <div class="flat-title wow fadeInUp" style="text-align: {{ section.settings.heading_align }};">
-      {% if section.settings.heading != blank %}
-        {% if section.settings.heading_size == 'small' %}
-          <h5
-            class="title"
-            style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
-          >
-            {{ section.settings.heading }}
-          </h5>
-        {% elsif section.settings.heading_size == 'large' %}
-          <h3
-            class="title"
-            style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
-          >
-            {{ section.settings.heading }}
-          </h3>
-        {% else %}
-          <h4
-            class="title"
-            style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
-          >
-            {{ section.settings.heading }}
-          </h4>
+    {% if section.settings.heading != blank and section.settings.subtitle != blank%}
+      <div class="flat-title wow fadeInUp" style="text-align: {{ section.settings.heading_align }};">
+        {% if section.settings.heading != blank %}
+          {% if section.settings.heading_size == 'small' %}
+            <h5
+              class="title"
+              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
+            >
+              {{ section.settings.heading }}
+            </h5>
+          {% elsif section.settings.heading_size == 'large' %}
+            <h3
+              class="title"
+              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
+            >
+              {{ section.settings.heading }}
+            </h3>
+          {% else %}
+            <h4
+              class="title"
+              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
+            >
+              {{ section.settings.heading }}
+            </h4>
+          {% endif %}
         {% endif %}
-      {% endif %}
-      {% if section.settings.subtitle != blank %}
-        {% if section.settings.subtitle_size == 'small' %}
-          <p class="desc text-sm " style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subtitle }}</p>
-        {% elsif section.settings.subtitle_size == 'large' %}
-          <p class="desc text-lg" style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subtitle }}</p>
-        {% else %}
-          <p class="desc text-md" style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subtitle }}</p>
+        {% if section.settings.subtitle != blank %}
+          {% if section.settings.subtitle_size == 'small' %}
+            <p class="desc text-sm " style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subtitle }}</p>
+          {% elsif section.settings.subtitle_size == 'large' %}
+            <p class="desc text-lg" style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subtitle }}</p>
+          {% else %}
+            <p class="desc text-md" style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subtitle }}</p>
+          {% endif %}
         {% endif %}
-      {% endif %}
-    </div>
+      </div>
+    {% endif %}
     <div class="wg-map style-absolute" style="--mobile-ratio: {{ section.settings.padding_mobile_ratio }}%;">
       {% if section.settings.map != blank %}
         {{ section.settings.map }}
