@@ -18,10 +18,16 @@
 
   .register-card {
     border-radius: 6px;
-    max-width: 520px;
     width: 100%;
     padding: 0px 32px 0px 32px;
     margin: 0 auto;
+  }
+
+  .container .register-card {
+    max-width: 520px;
+  }
+  .container-full .register-card {
+    max-width: 720px;
   }
 
   .register-title {
@@ -141,6 +147,7 @@
   "
 >
 <div class="{{ section.settings.width }}">
+  <div class="register-card">
     <div class="register-title">{{ 'sections.main_register.register' | t }}</div>
     <div class="register-desc">{{ 'sections.main_register.register_description' | t }}</div>
     {%- form 'create_customer', novalidate: 'novalidate' -%}
@@ -257,6 +264,7 @@
       </div>
     {%- endform -%}
   </div>
+</div>
 </div>
 
 {% schema %}
