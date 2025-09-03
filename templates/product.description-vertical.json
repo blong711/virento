@@ -104,7 +104,6 @@
             "shipping_label": "Free shipping on",
             "free_shipping_text": "all orders over $150",
             "show_free_shipping": true,
-            "free_shipping_threshold": 150,
             "icon_size": 24
           }
         },
@@ -127,6 +126,7 @@
           "type": "size_guide",
           "settings": {
             "size_guide_text": "Size Guide",
+            "size_guide_source": "page",
             "size_guide_page": ""
           }
         }
@@ -158,7 +158,7 @@
         "show_slider_nav": true,
         "enable_image_zoom": true,
         "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     },
@@ -174,8 +174,7 @@
         "materials_block": {
           "type": "materials",
           "settings": {
-            "title": "Materials & Care",
-            "subtitle": "Materials Care"
+            "title": "Materials & Care"
           }
         },
         "additional_info_block": {
@@ -225,8 +224,8 @@
       "settings": {
         "color_scheme": "",
         "width": "container",
-        "title": "Recently Viewed",
         "show_title": true,
+        "title": "Recently Viewed",
         "products_to_show": 8,
         "slides_per_view_mobile": 2,
         "slides_per_view_tablet": 3,
