@@ -128,12 +128,15 @@ class RecentlyViewedProducts {
 
     // Generate product card HTML
     generateProductCardHTML(product) {
+        const cardSettings = this.getCardSettings();
+        
         return `
-            <div class="card-product style-2 style-border-2" 
+            <div class="card-product ${cardSettings.style} style-border-2" 
                  style="
-                    --card-border-thickness: 1px;
-                    --card-border-opacity: 0.1;
-                    --card-corner-radius: 16px;
+                    --card-border-thickness: ${cardSettings.borderThickness};
+                    --card-border-opacity: ${cardSettings.borderOpacity};
+                    --card-corner-radius: ${cardSettings.cornerRadius};
+                    --card-image-padding: ${cardSettings.imagePadding};
                  ">
                 <div class="card-product-wrapper asp-ratio-0">
                     <a href="${product.url}" class="product-img">
@@ -151,7 +154,7 @@ class RecentlyViewedProducts {
                     ${this.generateSaleBadgeHTML(product)}
                     ${this.generateProductButtonsHTML(product)}
                 </div>
-                <div class="card-product-info text-center">
+                <div class="card-product-info text-${cardSettings.textAlignment}">
                     <a href="${product.url}" class="name-product link fw-medium text-md">${product.title}</a>
                     ${this.generatePriceHTML(product)}
                 </div>
@@ -374,6 +377,35 @@ class RecentlyViewedProducts {
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
+    }
+
+    // Helper method to get card settings from theme settings
+    getCardSettings() {
+        // Default settings as fallback
+        const defaultSettings = {
+            style: 'style-1',
+            imagePadding: '0px',
+            textAlignment: 'center',
+            colorScheme: 'scheme-2',
+            borderThickness: '0px',
+            borderOpacity: '0',
+            cornerRadius: '0px'
+        };
+
+        // Get settings from window.themeSettings if available
+        if (window.themeSettings && window.themeSettings.cardSettings) {
+            return {
+                style: window.themeSettings.cardSettings.style || defaultSettings.style,
+                imagePadding: window.themeSettings.cardSettings.imagePadding || defaultSettings.imagePadding,
+                textAlignment: window.themeSettings.cardSettings.textAlignment || defaultSettings.textAlignment,
+                colorScheme: window.themeSettings.cardSettings.colorScheme || defaultSettings.colorScheme,
+                borderThickness: window.themeSettings.cardSettings.borderThickness || defaultSettings.borderThickness,
+                borderOpacity: window.themeSettings.cardSettings.borderOpacity || defaultSettings.borderOpacity,
+                cornerRadius: window.themeSettings.cardSettings.cornerRadius || defaultSettings.cornerRadius
+            };
+        }
+
+        return defaultSettings;
     }
 }
 

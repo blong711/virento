@@ -151,7 +151,16 @@
 
       window.themeSettings = {
         free_shipping_threshold: '{{ settings.free_shipping_threshold | times: 100 }}',
-        cartType: '{{ settings.cart_type }}', 
+        cartType: '{{ settings.cart_type }}',
+        cardSettings: {
+          style: '{{ settings.card_style }}',
+          imagePadding: '{{ settings.card_image_padding }}px',
+          textAlignment: '{{ settings.card_text_alignment }}',
+          colorScheme: '{{ settings.card_color_scheme }}',
+          borderThickness: '{{ settings.card_border_thickness }}px',
+          borderOpacity: '{{ settings.card_border_opacity | divided_by: 100.0 }}',
+          cornerRadius: '{{ settings.card_corner_radius }}px'
+        }
       };
 
       window.cartStrings = {
