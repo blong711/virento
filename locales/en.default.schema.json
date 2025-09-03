@@ -2195,6 +2195,7 @@
             "image_height": "Image Height",
             "free_shipping_threshold": "Free Shipping Threshold",
             "button_text": "Button Text",
+            "button_text_default": "Shop Now",
             "button_url": "Button URL"
           }
         },
@@ -2206,7 +2207,10 @@
             "promo_discount": "Promo Discount",
             "promo_code": "Promo Code",
             "button_text": "Button Text",
-            "button_url": "Button URL"
+            "button_url": "Button URL",
+            "button_text_default": "Shop Now",
+            "promo_title_default": "SUMMER SALE",
+            "promo_discount_default": "50% OFF"
           }
         }
       },
