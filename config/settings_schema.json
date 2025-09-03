@@ -404,6 +404,31 @@
       },
       {
         "type": "select",
+        "id": "card_image_ratio",
+        "options": [
+          {
+            "value": "adapt",
+            "label": "t:settings_schema.global.settings.image_ratio.options__1.label"
+          },
+          {
+            "value": "portrait",
+            "label": "t:settings_schema.global.settings.image_ratio.options__2.label"
+          },
+          {
+            "value": "landscape",
+            "label": "t:settings_schema.global.settings.image_ratio.options__3.label"
+          },
+          {
+            "value": "square",
+            "label": "t:settings_schema.global.settings.image_ratio.options__4.label"
+          }
+        ],
+        "default": "adapt",
+        "label": "t:settings_schema.global.settings.image_ratio.label",
+        "info": "t:settings_schema.global.settings.image_ratio.info"
+      },
+      {
+        "type": "select",
         "id": "card_text_alignment",
         "options": [
           {

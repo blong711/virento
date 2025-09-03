@@ -4,6 +4,7 @@
     - card_style: The card style (style-1, style-2, style-small)
     - card_color_scheme: Color scheme for the card
     - card_image_padding: Padding around the product image
+    - card_image_ratio: Image aspect ratio (adapt, portrait, landscape, square)
     - card_border_thickness: Border thickness
     - card_border_opacity: Border opacity
     - card_corner_radius: Corner radius
@@ -15,6 +16,7 @@
 {% assign card_style = card_style | default: settings.card_style | default: 'style-2' %}
 {% assign card_color_scheme = card_color_scheme | default: settings.card_color_scheme | default: 'default' %}
 {% assign card_image_padding = card_image_padding | default: settings.card_image_padding | default: 0 %}
+{% assign card_image_ratio = card_image_ratio | default: settings.card_image_ratio | default: 'adapt' %}
 {% assign card_border_thickness = card_border_thickness | default: settings.card_border_thickness | default: 0 %}
 {% assign card_border_opacity = card_border_opacity | default: settings.card_border_opacity | default: 0 %}
 {% assign card_corner_radius = card_corner_radius | default: settings.card_corner_radius | default: 0 %}
@@ -43,7 +45,7 @@
         {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
         {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
      ">
-    <div class="card-product-wrapper asp-ratio-0">
+    <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }}">
         <a href="{{ product.url }}" class="product-img">
             {% if product.featured_image %}
                 <img class="img-product lazyload"
@@ -153,7 +155,7 @@
         {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
         {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
      ">
-    <div class="card-product-wrapper asp-ratio-0 radius-8">
+    <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }} radius-8">
         <a href="{{ product.url }}" class="product-img">
             {% if product.featured_image %}
                 <img class="img-product lazyload"
@@ -230,7 +232,7 @@
         {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
         {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
      ">
-    <div class="card-product-wrapper asp-ratio-0">
+    <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }}">
         <a href="{{ product.url }}" class="product-img">
             {% if product.featured_image %}
                 <img class="img-product lazyload"

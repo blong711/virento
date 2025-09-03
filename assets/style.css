@@ -15143,6 +15143,23 @@ button.animate-btn::after,
   overflow: hidden;
   z-index: 20;
 }
+
+/* Image ratio classes */
+.card-product .card-product-wrapper.asp-ratio-adapt {
+  aspect-ratio: unset;
+}
+
+.card-product .card-product-wrapper.asp-ratio-portrait {
+  aspect-ratio: 3/4;
+}
+
+.card-product .card-product-wrapper.asp-ratio-landscape {
+  aspect-ratio: 4/3;
+}
+
+.card-product .card-product-wrapper.asp-ratio-square {
+  aspect-ratio: 1/1;
+}
 .card-product .card-product-wrapper img {
   display: block;
   height: 100%;
