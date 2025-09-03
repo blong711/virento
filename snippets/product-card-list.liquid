@@ -17,12 +17,14 @@
             {% if product.featured_image %}
                 <img class="img-product lazyload" 
                     data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
-                    alt="{{ product.featured_image.alt | escape }}" width="460" height="460">
+                    src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}" 
+                    alt="{{ product.featured_image.alt | escape }}" width="460" height="460"
+                    loading="lazy">
                 <img class="img-hover lazyload" 
                     data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
-                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}" width="460" height="460">
+                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}" width="460" height="460"
+                    loading="lazy">
             {% endif %}
         </a>
     </div>
@@ -59,8 +61,9 @@
                                         <span class="swatch-value bg-{{ value | handle }}"></span>
                                         <img class="lazyload" 
                                             data-src="{{ variant_for_value.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
-                                            src="{{ variant_for_value.featured_image | image_url: width: 50, height: 50, crop: 'center' }}" 
-                                            alt="{{ variant_for_value.featured_image.alt | escape }}" width="50" height="50">
+                                            src="{{ variant_for_value.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
+                                            alt="{{ variant_for_value.featured_image.alt | escape }}" width="50" height="50"
+                                            loading="lazy">
                                     </li>
                                 {% endif %}
                             {% endfor %}
