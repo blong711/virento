@@ -542,7 +542,7 @@
     "featured_product_carousel": {
       "type": "featured-product-carousel",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-b470b3c9-ba4c-4e2c-ae67-60449ba9f43f",
         "width": "container",
         "title_alignment": "start",
         "title": "Top Picks",
