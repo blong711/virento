@@ -49,13 +49,15 @@
                 <img class="img-product lazyload"
                     width="460" height="460"
                     data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
-                    alt="{{ product.featured_image.alt | escape }}">
+                    src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}" 
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy">
                 <img class="img-hover lazyload"
                     width="460" height="460"
                     data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
-                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}">
+                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
+                    loading="lazy">
             {% endif %}
         </a>
         {% if product.compare_at_price > product.price %}
@@ -157,13 +159,15 @@
                 <img class="img-product lazyload"
                     width="120" height="120"
                     data-src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
-                    src="{{ product.featured_image | image_url: width: 60, height: 60, crop: 'center' }}" 
-                    alt="{{ product.featured_image.alt | escape }}">
+                    src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}" 
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy">
                 <img class="img-hover lazyload"
                     width="120" height="120"
                     data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
-                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 60, height: 60, crop: 'center' }}"
-                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}">
+                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
+                    loading="lazy">
             {% endif %}
         </a>
         {% if product.compare_at_price > product.price %}
@@ -232,13 +236,15 @@
                 <img class="img-product lazyload"
                     width="460" height="460"
                     data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
-                    alt="{{ product.featured_image.alt | escape }}">
+                    src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}" 
+                    alt="{{ product.featured_image.alt | escape }}"
+                    loading="lazy">
                 <img class="img-hover lazyload"
                     width="460" height="460"
                     data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
-                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}">
+                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
+                    loading="lazy">
             {% endif %}
         </a>
         {% if product.compare_at_price > product.price %}
@@ -331,14 +337,16 @@
                                 <img class="lazyload" 
                                      width="460" height="460"
                                      data-src="{{ variant_for_color.image | image_url: width: 460, height: 460, crop: 'center' }}"
-                                     src="{{ variant_for_color.image | image_url: width: 100, height: 100, crop: 'center' }}"
-                                     alt="{{ product.title }} - {{ color_value }}">
+                                     src="{{ variant_for_color.image | image_url: width: 230, height: 230, crop: 'center' }}"
+                                     alt="{{ product.title }} - {{ color_value }}"
+                                     loading="lazy">
                             {% else %}
                                 <img class="lazyload" 
                                      width="460" height="460"
                                      data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                                     src="{{ product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
-                                     alt="{{ product.title }} - {{ color_value }}">
+                                     src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+                                     alt="{{ product.title }} - {{ color_value }}"
+                                     loading="lazy">
                             {% endif %}
                         </li>
                     {% endfor %}
