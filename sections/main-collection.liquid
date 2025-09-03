@@ -234,7 +234,7 @@
             </div>
             
             {% comment %} Grid Layout {% endcomment %}
-            <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }} {{ mobile_grid_layout }}-mobile" id="gridLayout">
+            <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }} {{ mobile_grid_layout }}" id="gridLayout">
                 {% if collection.products.size > 0 %}
                     {% for product in collection.products %}
                         {% render 'product-card', product: product, show_progress_sale: false, card_style: section.settings.card_style %}
@@ -512,10 +512,10 @@
             "id": "mobile_grid_layout",
             "label": "t:sections.main_collection.settings.mobile_grid_layout.label",
             "options": [
-                { "value": "tf-col-2", "label": "t:sections.main_collection.settings.mobile_grid_layout_options.tf-col-2" },
-                { "value": "tf-col-3", "label": "t:sections.main_collection.settings.mobile_grid_layout_options.tf-col-3" }
+                { "value": "tf-col-2-mobile", "label": "t:sections.main_collection.settings.mobile_grid_layout_options.tf-col-2" },
+                { "value": "tf-col-3-mobile", "label": "t:sections.main_collection.settings.mobile_grid_layout_options.tf-col-3" }
             ],
-            "default": "tf-col-2",
+            "default": "tf-col-2-mobile",
             "visible_if": "{{ section.settings.default_layout_type == 'grid' }}"
         },
         {
