@@ -329,10 +329,10 @@
         "settings": {
           "background": "#ffffff",
           "background_gradient": "",
-          "background2": "#f5f5f5",
+          "background2": "#ffffff",
           "text": "#000000",
           "text2": "#000000",
-          "text3": "#8f6dff",
+          "text3": "#ff6f61",
           "text_hover": "#ff6f61",
           "button": "#101828",
           "button_label": "#ffffff",
