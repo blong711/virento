@@ -2,7 +2,6 @@
 {% assign max_products_per_page = section.settings.max_products_per_page | default: 8 %}
 {% assign pagination_type = section.settings.pagination_type | default: 'pagination' %}
 {% assign default_grid_layout = section.settings.default_grid_layout | default: 'tf-col-4' %}
-{% assign mobile_grid_layout = section.settings.mobile_grid_layout | default: 'tf-col-2' %}
 {% assign default_layout_type = section.settings.default_layout_type | default: 'grid' %}
 {% assign filter_layout = section.settings.filter_layout | default: 'default' %}
 {% assign total_products = collection.products.size %}
@@ -234,7 +233,7 @@
             </div>
             
             {% comment %} Grid Layout {% endcomment %}
-            <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }} {{ mobile_grid_layout }}" id="gridLayout">
+            <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }}" id="gridLayout">
                 {% if collection.products.size > 0 %}
                     {% for product in collection.products %}
                         {% render 'product-card', product: product, show_progress_sale: false, card_style: section.settings.card_style %}
@@ -440,7 +439,6 @@
         paginationType: '{{ pagination_type }}',
         maxProductsPerPage: {{ max_products_per_page }},
         defaultGridLayout: '{{ default_grid_layout }}',
-        mobileGridLayout: '{{ mobile_grid_layout }}',
         defaultLayoutType: '{{ default_layout_type }}',
         filterLayout: '{{ filter_layout }}'
     };
@@ -505,17 +503,6 @@
                 { "value": "tf-col-4", "label": "t:sections.main_collection.settings.default_grid_layout_options.tf-col-4" }
             ],
             "default": "tf-col-4",
-            "visible_if": "{{ section.settings.default_layout_type == 'grid' }}"
-        },
-        {
-            "type": "select",
-            "id": "mobile_grid_layout",
-            "label": "t:sections.main_collection.settings.mobile_grid_layout.label",
-            "options": [
-                { "value": "tf-col-2-mobile", "label": "t:sections.main_collection.settings.mobile_grid_layout_options.tf-col-2" },
-                { "value": "tf-col-3-mobile", "label": "t:sections.main_collection.settings.mobile_grid_layout_options.tf-col-3" }
-            ],
-            "default": "tf-col-2-mobile",
             "visible_if": "{{ section.settings.default_layout_type == 'grid' }}"
         },
         {
