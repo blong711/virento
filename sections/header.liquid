@@ -45,7 +45,13 @@
               {{
                 settings.logo
                 | image_url: width: logo_width
-                | image_tag: class: 'logo', width: logo_width, height: 'auto', alt: shop.name
+                | image_tag:
+                  class: 'logo',
+                  width: logo_width,
+                  alt: shop.name,
+                  loading: 'eager',
+                  fetchpriority: 'high',
+                  decoding: 'sync'
               }}
             {% else %}
               <span class="h2">{{ shop.name }}</span>
