@@ -300,30 +300,60 @@
           {%- if section.settings.product_list != blank -%}
             {%- for product in section.settings.product_list -%}
               <div class="swiper-slide">
-                {% render 'product-card',
-                  product: product,
-                  show_vendor: false,
-                  show_rating: true,
-                  show_quick_add: true,
-                  show_quick_view: true,
-                  cart_button_style: 'button',
-                  show_progress_sale: false
-                %}
+                {% comment %} Only first product gets eager loading, others lazy load {% endcomment %}
+                {% if forloop.first %}
+                  {% render 'product-card',
+                    product: product,
+                    show_vendor: false,
+                    show_rating: true,
+                    show_quick_add: true,
+                    show_quick_view: true,
+                    cart_button_style: 'button',
+                    show_progress_sale: false,
+                    loading_priority: 'eager'
+                  %}
+                {% else %}
+                  {% render 'product-card',
+                    product: product,
+                    show_vendor: false,
+                    show_rating: true,
+                    show_quick_add: true,
+                    show_quick_view: true,
+                    cart_button_style: 'button',
+                    show_progress_sale: false,
+                    loading_priority: 'lazy'
+                  %}
+                {% endif %}
               </div>
             {%- endfor -%}
           {%- elsif section.settings.featured_collection != blank -%}
             {%- assign collection = collections[section.settings.featured_collection] -%}
             {%- for product in collection.products limit: section.settings.products_to_show -%}
               <div class="swiper-slide">
-                {% render 'product-card',
-                  product: product,
-                  show_vendor: false,
-                  show_rating: true,
-                  show_quick_add: true,
-                  show_quick_view: true,
-                  cart_button_style: 'button',
-                  show_progress_sale: false
-                %}
+                {% comment %} Only first product gets eager loading, others lazy load {% endcomment %}
+                {% if forloop.first %}
+                  {% render 'product-card',
+                    product: product,
+                    show_vendor: false,
+                    show_rating: true,
+                    show_quick_add: true,
+                    show_quick_view: true,
+                    cart_button_style: 'button',
+                    show_progress_sale: false,
+                    loading_priority: 'eager'
+                  %}
+                {% else %}
+                  {% render 'product-card',
+                    product: product,
+                    show_vendor: false,
+                    show_rating: true,
+                    show_quick_add: true,
+                    show_quick_view: true,
+                    cart_button_style: 'button',
+                    show_progress_sale: false,
+                    loading_priority: 'lazy'
+                  %}
+                {% endif %}
               </div>
             {%- endfor -%}
           {%- endif -%}
