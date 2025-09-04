@@ -1,57 +1,77 @@
 {% comment %} Banner Collection {% endcomment %}
 <section class="s-banner-colection banner-cls-electric-acc style-abs-2 flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-    <div class="{{ section.settings.width }}">
-        <div class="banner-content">
-            <div class="image">
-                {% if section.settings.banner_image %}
-                    {{ section.settings.banner_image | image_url: width: 1920 | image_tag:
-                        loading: 'lazy',
-                        class: 'lazyload effect-paralax desktop-only',
-                        alt: section.settings.banner_image.alt | default: section.settings.title | default: 'Collection banner image' | escape
-                    }}
-                {% else %}
-                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg desktop-only' }}
-                {% endif %}
+  <div class="{{ section.settings.width }}">
+    <div class="banner-content">
+      <div class="image">
+        {% comment %} Define base alt text once {% endcomment %}
+        {% assign base_alt = section.settings.title | default: 'Collection banner' %}
 
-                {% if section.settings.banner_image_mobile %}
-                    {{ section.settings.banner_image_mobile | image_url: width: 767 | image_tag:
-                        loading: 'lazy',
-                        class: 'lazyload effect-paralax mobile-only',
-                        alt: section.settings.banner_image_mobile.alt | default: section.settings.title | default: 'Collection banner image mobile' | escape
-                    }}
-                {% elsif section.settings.banner_image %}
-                    {{ section.settings.banner_image | image_url: width: 767 | image_tag:
-                        loading: 'lazy',
-                        class: 'lazyload effect-paralax mobile-only',
-                        alt: section.settings.banner_image.alt | default: section.settings.title | default: 'Collection banner image mobile' | escape
-                    }}
-                {% else %}
-                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg mobile-only' }}
-                {% endif %}
-            </div>
-            <div class="box-content text-{{ section.settings.content_alignment }}">
-                <div class="box-title-banner">
-                    {% if section.settings.title != blank %}
-                        <p class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }}">
-                            {{ section.settings.title }}
-                        </p>
-                    {% endif %}
-                    {% if section.settings.subtitle != blank %}
-                        <p class="sub {{ section.settings.subtitle_font_size }}" style="color: rgb(var(--color-foreground2));">
-                            {{ section.settings.subtitle }}
-                        </p>
-                    {% endif %}
-                </div>
-                {% if section.settings.button_label != blank %}
-                    <div class="box-btn-banner">
-                        <a href="{{ section.settings.button_link | default: '#' }}" class="tf-btn btn-dark2 animate-btn">
-                            {{ section.settings.button_label }}
-                        </a>
-                    </div>
-                {% endif %}
-            </div>
+        {% comment %} Desktop image {% endcomment %}
+        {% if section.settings.banner_image %}
+          {% assign desktop_alt = section.settings.banner_image.alt
+            | default: base_alt
+            | append: ' - Collection banner image'
+          %}
+          {{
+            section.settings.banner_image
+            | image_url: width: 1920
+            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax desktop-only', alt: desktop_alt
+            | escape
+          }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg desktop-only', alt: '' }}
+        {% endif %}
+
+        {% comment %} Mobile image {% endcomment %}
+        {% if section.settings.banner_image_mobile %}
+          {% assign mobile_alt = section.settings.banner_image_mobile.alt
+            | default: base_alt
+            | append: ' - Collection banner image for mobile'
+          %}
+          {{
+            section.settings.banner_image_mobile
+            | image_url: width: 767
+            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax mobile-only', alt: mobile_alt
+            | escape
+          }}
+        {% elsif section.settings.banner_image %}
+          {% assign mobile_fallback_alt = section.settings.banner_image.alt
+            | default: base_alt
+            | append: ' - Collection banner image for mobile'
+          %}
+          {{
+            section.settings.banner_image
+            | image_url: width: 767
+            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax mobile-only', alt: mobile_fallback_alt
+            | escape
+          }}
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg mobile-only', alt: '' }}
+        {% endif %}
+      </div>
+      <div class="box-content text-{{ section.settings.content_alignment }}">
+        <div class="box-title-banner">
+          {% if section.settings.title != blank %}
+            <p class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }}">
+              {{ section.settings.title }}
+            </p>
+          {% endif %}
+          {% if section.settings.subtitle != blank %}
+            <p class="sub {{ section.settings.subtitle_font_size }}" style="color: rgb(var(--color-foreground2));">
+              {{ section.settings.subtitle }}
+            </p>
+          {% endif %}
         </div>
+        {% if section.settings.button_label != blank %}
+          <div class="box-btn-banner">
+            <a href="{{ section.settings.button_link | default: '#' }}" class="tf-btn btn-dark2 animate-btn">
+              {{ section.settings.button_label }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
     </div>
+  </div>
 </section>
 
 {% schema %}
@@ -230,10 +250,10 @@
       "default": "center-left"
     },
     {
-    "type": "select",
-    "id": "content_alignment",
-    "label": "t:sections.collection-banner.settings.content_alignment",
-    "options": [
+      "type": "select",
+      "id": "content_alignment",
+      "label": "t:sections.collection-banner.settings.content_alignment",
+      "options": [
         {
           "value": "start",
           "label": "t:sections.collection-banner.settings.content_alignment_options.start"
@@ -247,7 +267,7 @@
           "label": "t:sections.collection-banner.settings.content_alignment_options.end"
         }
       ],
-    "default": "center"
+      "default": "center"
     },
     {
       "type": "range",
@@ -305,80 +325,80 @@
 {% endschema %}
 
 {% style %}
-    .section-{{ section.id }}-padding .mobile-only {
-        display: block;
-    }
-    
-    .section-{{ section.id }}-padding .desktop-only {
-        display: none;
-    }
+  .section-{{ section.id }}-padding .mobile-only {
+      display: block;
+  }
 
-    @media screen and (min-width: 768px) {
-        .section-{{ section.id }}-padding .mobile-only {
-            display: none;
-        }
-        
-        .section-{{ section.id }}-padding .desktop-only {
-            display: block;
-        }
-    }
+  .section-{{ section.id }}-padding .desktop-only {
+      display: none;
+  }
 
-    .section-{{ section.id }}-padding {
-        padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
-        padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
-    }
-    
-    @media screen and (min-width: 750px) {
-        .section-{{ section.id }}-padding {
-            padding-top: {{ section.settings.padding_top }}px;
-            padding-bottom: {{ section.settings.padding_bottom }}px;
-        }
-    }
+  @media screen and (min-width: 768px) {
+      .section-{{ section.id }}-padding .mobile-only {
+          display: none;
+      }
 
-    @media (min-width: 768px) {
-        .banner-cls-electric-acc.style-abs-2 .box-content {
-            width: {{ section.settings.content_width }}px;
-            padding: 30px 64px;
-            position: absolute;
-            {% case section.settings.content_position %}
-                {% when 'top-left' %}
-                    top: 64px;
-                    left: 30%;
-                    transform: translateX(-50%);
-                {% when 'top-center' %}
-                    top: 64px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                {% when 'top-right' %}
-                    top: 64px;
-                    right: 64px;
-                    left: 70%;
-                    transform: translateX(-50%);
-                {% when 'center-left' %}
-                    top: 50%;
-                    left: 64px;
-                    transform: translateY(-50%);
-                {% when 'center' %}
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                {% when 'center-right' %}
-                    top: 50%;
-                    left: 50%;
-                    transform: translateY(-50%);
-                {% when 'bottom-left' %}
-                    left: 30%;
-                    top: 40%;
-                    transform: translateX(-50%);
-                {% when 'bottom-center' %}
-                    left: 50%;
-                    top: 40%;
-                    transform: translateX(-50%);
-                {% when 'bottom-right' %}
-                    left: 70%;
-                    top: 40%;
-                    transform: translateX(-50%);
-            {% endcase %}
-        }
-    }
+      .section-{{ section.id }}-padding .desktop-only {
+          display: block;
+      }
+  }
+
+  .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+  }
+
+  @media (min-width: 768px) {
+      .banner-cls-electric-acc.style-abs-2 .box-content {
+          width: {{ section.settings.content_width }}px;
+          padding: 30px 64px;
+          position: absolute;
+          {% case section.settings.content_position %}
+              {% when 'top-left' %}
+                  top: 64px;
+                  left: 30%;
+                  transform: translateX(-50%);
+              {% when 'top-center' %}
+                  top: 64px;
+                  left: 50%;
+                  transform: translateX(-50%);
+              {% when 'top-right' %}
+                  top: 64px;
+                  right: 64px;
+                  left: 70%;
+                  transform: translateX(-50%);
+              {% when 'center-left' %}
+                  top: 50%;
+                  left: 64px;
+                  transform: translateY(-50%);
+              {% when 'center' %}
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+              {% when 'center-right' %}
+                  top: 50%;
+                  left: 50%;
+                  transform: translateY(-50%);
+              {% when 'bottom-left' %}
+                  left: 30%;
+                  top: 40%;
+                  transform: translateX(-50%);
+              {% when 'bottom-center' %}
+                  left: 50%;
+                  top: 40%;
+                  transform: translateX(-50%);
+              {% when 'bottom-right' %}
+                  left: 70%;
+                  top: 40%;
+                  transform: translateX(-50%);
+          {% endcase %}
+      }
+  }
 {% endstyle %}
