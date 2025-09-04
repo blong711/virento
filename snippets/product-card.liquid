@@ -1,16 +1,16 @@
 {% comment %}
-    Accepts:
-    - product: The product object
-    - card_style: The card style (style-1, style-2, style-small)
-    - card_color_scheme: Color scheme for the card
-    - card_image_padding: Padding around the product image
-    - card_image_ratio: Image aspect ratio (adapt, portrait, landscape, square)
-    - card_border_thickness: Border thickness
-    - card_border_opacity: Border opacity
-    - card_corner_radius: Corner radius
-    - card_text_alignment: Text alignment (left, center, right)
-    - should_show_progress: Whether to show inventory progress
-    - cart_button_style: Button style for add to cart (icon, button)
+  Accepts:
+  - product: The product object
+  - card_style: The card style (style-1, style-2, style-small)
+  - card_color_scheme: Color scheme for the card
+  - card_image_padding: Padding around the product image
+  - card_image_ratio: Image aspect ratio (adapt, portrait, landscape, square)
+  - card_border_thickness: Border thickness
+  - card_border_opacity: Border opacity
+  - card_corner_radius: Corner radius
+  - card_text_alignment: Text alignment (left, center, right)
+  - should_show_progress: Whether to show inventory progress
+  - cart_button_style: Button style for add to cart (icon, button)
 {% endcomment %}
 
 {% assign card_style = card_style | default: settings.card_style | default: 'style-2' %}
@@ -24,342 +24,471 @@
 {% assign should_show_progress = should_show_progress | default: false %}
 {% assign cart_button_style = cart_button_style | default: settings.cart_button_style | default: 'icon' %}
 {% assign show_color_swatches = show_color_swatches | default: false %}
+{% assign loading_priority = loading_priority | default: 'lazy' %}
 
 {% comment %} Handle show_progress_sale parameter {% endcomment %}
 {% if show_progress_sale == false or show_progress_sale == 'false' %}
   {% assign should_show_progress = false %}
-{% else %}  
+{% else %}
   {% assign should_show_progress = true %}
 {% endif %}
 
-
 {% if card_style == 'style-1' %}
-<div class="card-product grid style-space color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
-     data-availability="{{ product.available | default: false }}"
-     data-brand="{{ product.vendor | handleize }}"
-     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
-     {% if product.compare_at_price > product.price %}data-sale="true"{% endif %}
-     style="
-        {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
-        {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
-        {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
-        {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
-     ">
+  <div
+    class="card-product grid style-space color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
+    data-availability="{{ product.available | default: false }}"
+    data-brand="{{ product.vendor | handleize }}"
+    data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
+    {% if product.compare_at_price > product.price %}
+      data-sale="true"
+    {% endif %}
+    style="
+      {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
+      {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
+      {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
+      {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+    "
+  >
     <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }}">
-        <a href="{{ product.url }}" class="product-img">
-            {% if product.featured_image %}
-                <img class="img-product lazyload"
-                    width="460" height="460"
-                    data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}" 
-                    alt="{{ product.featured_image.alt | escape }}"
-                    loading="lazy">
-                <img class="img-hover lazyload"
-                    width="460" height="460"
-                    data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
-                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
-                    loading="lazy">
-            {% endif %}
-        </a>
-        {% if product.compare_at_price > product.price %}
-            {% assign save_percentage = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
-            <div class="on-sale-wrap">
-                <span class="on-sale-item">{{ save_percentage }}% Off</span>
-            </div>
+      <a href="{{ product.url }}" class="product-img">
+        {% if product.featured_image %}
+          <img
+            class="img-product lazyload"
+            width="460"
+            height="460"
+            data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+            src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+            alt="{{ product.featured_image.alt | escape }}"
+            loading="{{ loading_priority }}"
+          >
+          <img
+            class="img-hover lazyload"
+            width="460"
+            height="460"
+            data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+            src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+            alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
+            loading="{{ loading_priority }}"
+          >
         {% endif %}
-        {% if product.available %}
+      </a>
+      {% if product.compare_at_price > product.price %}
+        {% assign save_percentage = product.compare_at_price
+          | minus: product.price
+          | times: 100
+          | divided_by: product.compare_at_price
+        %}
+        <div class="on-sale-wrap">
+          <span class="on-sale-item">{{ save_percentage }}% Off</span>
+        </div>
+      {% endif %}
+      {% if product.available %}
         <ul class="list-product-btn">
-            {% if cart_button_style == 'icon' %}
-                {% render 'product-cart-button', product: product, card_style: card_style %}
-            {% endif %}
-            {% render 'product-wishlist-button', product: product, card_style: card_style %}
-            {% render 'product-quickview-button', product: product, card_style: card_style %}
-            {% render 'product-compare-button', product: product, card_style: card_style %}
+          {% if cart_button_style == 'icon' %}
+            {% render 'product-cart-button', product: product, card_style: card_style %}
+          {% endif %}
+          {% render 'product-wishlist-button', product: product, card_style: card_style %}
+          {% render 'product-quickview-button', product: product, card_style: card_style %}
+          {% render 'product-compare-button', product: product, card_style: card_style %}
         </ul>
-        {% endif %}
+      {% endif %}
     </div>
     <div class="card-product-info text-{{ card_text_alignment }}">
-        <a href="{{ product.url }}"
-            class="name-product link fw-medium text-md">{{ product.title }}</a>
-        <p class="price-wrap fw-medium">
-            <span class="price-new text-primary text-xl-2">{% if settings.currency_code_enabled %}{{ product.price | money }} {{ shop.currency }}{% else %}{{ product.price | money }}{% endif %}</span>
-            {% if product.compare_at_price > product.price %}
-                <span class="price-old text-sm old-line">{% if settings.currency_code_enabled %}{{ product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ product.compare_at_price | money }}{% endif %}</span>
-            {% endif %}
-        </p>
-        {% if product.available and product.variants.first.inventory_management == "shopify" and should_show_progress %}
-            {% assign inventory_quantity = product.variants.first.inventory_quantity %}
-            {% assign max_inventory = 100 %}
-            {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
-            <div class="product-progress-sale">
-                <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                    aria-valuemax="100" aria-valuenow="{{ inventory_percentage }}" 
-                    aria-label="Inventory progress: {{ inventory_quantity }} items available out of 100">
-                    <div class="progress-bar bg-primary" style="width: {{ inventory_percentage }}%"></div>
-                </div>
-                <div class="box-quantity d-flex justify-content-between">
-                    <p class="text-sold text-sm">
-                        {{ 'snippets.product-card.sold' | t }}:
-                        <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
-                    </p>
-                    <p class="text-avaiable text-sm">
-                        {{ 'snippets.product-card.available' | t }}:
-                        <span class="fw-medium">{{ inventory_quantity }}</span>
-                    </p>
-                </div>
-            </div>
-        {% endif %}
-        
-        {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
-        {% if cart_button_style == 'button' %}
-            <div
-               class="tf-btn btn-out-line-primary product-cart-button"
-               data-product-id="{{ product.id }}"
-               data-product-handle="{{ product.handle }}"
-               data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                {{ 'snippets.product-card.add_to_cart' | t }}
-            </div>
-        {% endif %}
-        
-        {% comment %} Hidden size and color options for filtering {% endcomment %}
-        <div style="display: none;" class="product-options">
-            {% for option in product.options_with_values %}
-                {% if option.name == 'Size' %}
-                    {% for value in option.values %}
-                        <span class="size-item" data-size="{{ value }}">{{ value }}</span>
-                    {% endfor %}
-                {% elsif option.name == 'Color' %}
-                    {% for value in option.values %}
-                        <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        </div>
-        
-        {% comment %} Sale indicator for filtering {% endcomment %}
+      <a
+        href="{{ product.url }}"
+        class="name-product link fw-medium text-md"
+      >
+        {{- product.title -}}
+      </a>
+      <p class="price-wrap fw-medium">
+        <span class="price-new text-primary text-xl-2">
+          {%- if settings.currency_code_enabled -%}
+            {{- product.price | money }}
+            {{ shop.currency -}}
+          {%- else -%}
+            {{- product.price | money -}}
+          {%- endif -%}
+        </span>
         {% if product.compare_at_price > product.price %}
-            <div style="display: none;" class="on-sale-wrap"></div>
+          <span class="price-old text-sm old-line">
+            {%- if settings.currency_code_enabled -%}
+              {{- product.compare_at_price | money }}
+              {{ shop.currency -}}
+            {%- else -%}
+              {{- product.compare_at_price | money -}}
+            {%- endif -%}
+          </span>
         {% endif %}
+      </p>
+      {% if product.available and product.variants.first.inventory_management == 'shopify' and should_show_progress %}
+        {% assign inventory_quantity = product.variants.first.inventory_quantity %}
+        {% assign max_inventory = 100 %}
+        {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
+        <div class="product-progress-sale">
+          <div
+            class="progress-sold progress"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="{{ inventory_percentage }}"
+            aria-label="Inventory progress: {{ inventory_quantity }} items available out of 100"
+          >
+            <div class="progress-bar bg-primary" style="width: {{ inventory_percentage }}%"></div>
+          </div>
+          <div class="box-quantity d-flex justify-content-between">
+            <p class="text-sold text-sm">
+              {{ 'snippets.product-card.sold' | t }}:
+              <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
+            </p>
+            <p class="text-avaiable text-sm">
+              {{ 'snippets.product-card.available' | t }}:
+              <span class="fw-medium">{{ inventory_quantity }}</span>
+            </p>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
+      {% if cart_button_style == 'button' %}
+        <div
+          class="tf-btn btn-out-line-primary product-cart-button"
+          data-product-id="{{ product.id }}"
+          data-product-handle="{{ product.handle }}"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        >
+          {{ 'snippets.product-card.add_to_cart' | t }}
+        </div>
+      {% endif %}
+
+      {% comment %} Hidden size and color options for filtering {% endcomment %}
+      <div style="display: none;" class="product-options">
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Size' %}
+            {% for value in option.values %}
+              <span class="size-item" data-size="{{ value }}">{{ value }}</span>
+            {% endfor %}
+          {% elsif option.name == 'Color' %}
+            {% for value in option.values %}
+              <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% comment %} Sale indicator for filtering {% endcomment %}
+      {% if product.compare_at_price > product.price %}
+        <div style="display: none;" class="on-sale-wrap"></div>
+      {% endif %}
     </div>
-</div>
+  </div>
 {% elsif card_style == 'style-small' %}
-<div class="card-product style-small color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
-     data-availability="{{ product.available | default: false }}"
-     data-brand="{{ product.vendor | handleize }}"
-     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
-     {% if product.compare_at_price > product.price %}data-sale="true"{% endif %}
-     style="
-        {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
-        {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
-        {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
-        {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
-     ">
+  <div
+    class="card-product style-small color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
+    data-availability="{{ product.available | default: false }}"
+    data-brand="{{ product.vendor | handleize }}"
+    data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
+    {% if product.compare_at_price > product.price %}
+      data-sale="true"
+    {% endif %}
+    style="
+      {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
+      {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
+      {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
+      {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+    "
+  >
     <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }} radius-8">
-        <a href="{{ product.url }}" class="product-img">
-            {% if product.featured_image %}
-                <img class="img-product lazyload"
-                    width="120" height="120"
-                    data-src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
-                    src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}" 
-                    alt="{{ product.featured_image.alt | escape }}"
-                    loading="lazy">
-                <img class="img-hover lazyload"
-                    width="120" height="120"
-                    data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
-                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
-                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
-                    loading="lazy">
-            {% endif %}
-        </a>
-        {% if product.compare_at_price > product.price %}
-            {% assign save_percentage = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
-            <div class="on-sale-wrap">
-                <span class="on-sale-item">{{ save_percentage }}{{ 'snippets.product-card.off' | t }}</span>
-            </div>
+      <a href="{{ product.url }}" class="product-img">
+        {% if product.featured_image %}
+          <img
+            class="img-product lazyload"
+            width="120"
+            height="120"
+            data-src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+            src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+            alt="{{ product.featured_image.alt | escape }}"
+            loading="{{ loading_priority }}"
+          >
+          <img
+            class="img-hover lazyload"
+            width="120"
+            height="120"
+            data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+            src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+            alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
+            loading="{{ loading_priority }}"
+          >
         {% endif %}
-        {% if product.available %}
-        <ul class="list-product-btn">
-            {% if cart_button_style == 'icon' %}
-                {% render 'product-cart-button', product: product, card_style: card_style %}
-            {% endif %}
-            {% render 'product-wishlist-button', product: product, card_style: card_style %}
-            {% render 'product-quickview-button', product: product, card_style: card_style %}
-            {% render 'product-compare-button', product: product, card_style: card_style %}
-        </ul>
-        {% endif %}
-    </div>
-    <div class="card-product-info text-{{ card_text_alignment }}">
-        <a href="{{ product.url }}"
-            class="name-product link fw-medium text-sm">{{ product.title }}</a>
-        <p class="price-wrap fw-medium">
-            <span class="price-new text-primary">{% if settings.currency_code_enabled %}{{ product.price | money }} {{ shop.currency }}{% else %}{{ product.price | money }}{% endif %}</span>
-            {% if product.compare_at_price > product.price %}
-                <span class="price-old text-sm old-line">{% if settings.currency_code_enabled %}{{ product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ product.compare_at_price | money }}{% endif %}</span>
-            {% endif %}
-        </p>
-        
-        {% comment %} Hidden size and color options for filtering {% endcomment %}
-        <div style="display: none;" class="product-options">
-            {% for option in product.options_with_values %}
-                {% if option.name == 'Size' %}
-                    {% for value in option.values %}
-                        <span class="size-item" data-size="{{ value }}">{{ value }}</span>
-                    {% endfor %}
-                {% elsif option.name == 'Color' %}
-                    {% for value in option.values %}
-                        <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
+      </a>
+      {% if product.compare_at_price > product.price %}
+        {% assign save_percentage = product.compare_at_price
+          | minus: product.price
+          | times: 100
+          | divided_by: product.compare_at_price
+        %}
+        <div class="on-sale-wrap">
+          <span class="on-sale-item">
+            {{- save_percentage -}}
+            {{- 'snippets.product-card.off' | t -}}
+          </span>
         </div>
-        
-        {% comment %} Sale indicator for filtering {% endcomment %}
-        {% if product.compare_at_price > product.price %}
-            <div style="display: none;" class="on-sale-wrap"></div>
-        {% endif %}
-    </div>
-</div>
-{% else %}
-<div class="card-product grid style-2 style-border-2 color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
-     data-availability="{{ product.available | default: false }}"
-     data-brand="{{ product.vendor | handleize }}"
-     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
-     {% if product.compare_at_price > product.price %}data-sale="true"{% endif %}
-     style="
-        {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
-        {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
-        {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
-        {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
-     ">
-    <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }}">
-        <a href="{{ product.url }}" class="product-img">
-            {% if product.featured_image %}
-                <img class="img-product lazyload"
-                    width="460" height="460"
-                    data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}" 
-                    alt="{{ product.featured_image.alt | escape }}"
-                    loading="lazy">
-                <img class="img-hover lazyload"
-                    width="460" height="460"
-                    data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
-                    alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
-                    loading="lazy">
-            {% endif %}
-        </a>
-        {% if product.compare_at_price > product.price %}
-            {% assign save_percentage = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
-            <div class="on-sale-wrap">
-                <span class="on-sale-item">{{ save_percentage }}{{ 'snippets.product-card.off' | t }}</span>
-            </div>
-        {% endif %}
-        {% if product.available %}
+      {% endif %}
+      {% if product.available %}
         <ul class="list-product-btn">
-            {% if cart_button_style == 'icon' %}
-                {% render 'product-cart-button', product: product, card_style: card_style %}
-            {% endif %}
-            {% render 'product-wishlist-button', product: product, card_style: card_style %}
-            {% render 'product-quickview-button', product: product, card_style: card_style %}
-            {% render 'product-compare-button', product: product, card_style: card_style %}
+          {% if cart_button_style == 'icon' %}
+            {% render 'product-cart-button', product: product, card_style: card_style %}
+          {% endif %}
+          {% render 'product-wishlist-button', product: product, card_style: card_style %}
+          {% render 'product-quickview-button', product: product, card_style: card_style %}
+          {% render 'product-compare-button', product: product, card_style: card_style %}
         </ul>
-        {% endif %}
+      {% endif %}
     </div>
     <div class="card-product-info text-{{ card_text_alignment }}">
-        <a href="{{ product.url }}"
-            class="name-product link fw-medium text-md">{{ product.title }}</a>
-        <p class="price-wrap fw-medium">
-            <span class="price-new text-xl-2">{% if settings.currency_code_enabled %}{{ product.price | money }} {{ shop.currency }}{% else %}{{ product.price | money }}{% endif %}</span>
-            {% if product.compare_at_price > product.price %}
-                <span class="price-old text-sm old-line">{% if settings.currency_code_enabled %}{{ product.compare_at_price | money }} {{ shop.currency }}{% else %}{{ product.compare_at_price | money }}{% endif %}</span>
-            {% endif %}
-        </p>
-        {% if product.available and product.variants.first.inventory_management == "shopify" and should_show_progress %}
-            {% assign inventory_quantity = product.variants.first.inventory_quantity %}
-            {% assign max_inventory = 100 %}
-            {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
-            <div class="product-progress-sale">
-                <div class="progress-sold progress" role="progressbar" aria-valuemin="0"
-                    aria-valuemax="100" aria-valuenow="{{ inventory_percentage }}"
-                    aria-label="Inventory progress: {{ inventory_quantity }} items available out of 100">
-                    <div class="progress-bar bg-purple" style="width: {{ inventory_percentage }}%"></div>
-                </div>
-                <div class="box-quantity d-flex justify-content-between">
-                    <p class="text-sold text-sm">
-                        {{ 'snippets.product-card.sold' | t }}:
-                        <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
-                    </p>
-                    <p class="text-avaiable text-sm">
-                        {{ 'snippets.product-card.available' | t }}:
-                        <span class="fw-medium">{{ inventory_quantity }}</span>
-                    </p>
-                </div>
-            </div>
-        {% endif %}
-        
-        {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
-        {% if cart_button_style == 'button' %}
-            <div
-               class="tf-btn btn-out-line-primary product-cart-button"
-               data-product-id="{{ product.id }}"
-               data-product-handle="{{ product.handle }}"
-               data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-                {{ 'snippets.product-card.add_to_cart' | t }}
-            </div>
-        {% endif %}
-        
-        {% comment %} Dynamic color swatches based on product variants {% endcomment %}
-        {% if show_color_swatches and product.options_with_values.size > 0 %}
-            {% assign color_option = null %}
-            {% for option in product.options_with_values %}
-                {% if option.name == 'Color' or option.name == 'Colour' or option.name == 'color' or option.name == 'colour' %}
-                    {% assign color_option = option %}
-                    {% break %}
-                {% endif %}
-            {% endfor %}
-            
-            {% if color_option and color_option.values.size > 0 %}
-                <ul class="list-color-product justify-content-center mt-0">
-                    {% for color_value in color_option.values %}
-                        {% assign variant_for_color = null %}
-                        {% for variant in product.variants %}
-                            {% if variant.option1 == color_value or variant.option2 == color_value or variant.option3 == color_value %}
-                                {% assign variant_for_color = variant %}
-                                {% break %}
-                            {% endif %}
-                        {% endfor %}
-                        
-                        <li class="list-color-item color-swatch hover-tooltip tooltip-bot{% if forloop.first %} active{% endif %}" 
-                            data-color="{{ color_value | handleize }}"
-                            data-variant-id="{{ variant_for_color.id | default: product.selected_or_first_available_variant.id }}">
-                            <span class="tooltip color-filter">{{ color_value }}</span>
-                            <span class="swatch-value bg-{{ color_value | handle }}"></span>
-                            {% if variant_for_color and variant_for_color.image %}
-                                <img class="lazyload" 
-                                     width="460" height="460"
-                                     data-src="{{ variant_for_color.image | image_url: width: 460, height: 460, crop: 'center' }}"
-                                     src="{{ variant_for_color.image | image_url: width: 230, height: 230, crop: 'center' }}"
-                                     alt="{{ product.title }} - {{ color_value }}"
-                                     loading="lazy">
-                            {% else %}
-                                <img class="lazyload" 
-                                     width="460" height="460"
-                                     data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                                     src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
-                                     alt="{{ product.title }} - {{ color_value }}"
-                                     loading="lazy">
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endif %}
-        
-        {% comment %} Sale indicator for filtering {% endcomment %}
+      <a
+        href="{{ product.url }}"
+        class="name-product link fw-medium text-sm"
+      >
+        {{- product.title -}}
+      </a>
+      <p class="price-wrap fw-medium">
+        <span class="price-new text-primary">
+          {%- if settings.currency_code_enabled -%}
+            {{- product.price | money }}
+            {{ shop.currency -}}
+          {%- else -%}
+            {{- product.price | money -}}
+          {%- endif -%}
+        </span>
         {% if product.compare_at_price > product.price %}
-            <div style="display: none;" class="on-sale-wrap"></div>
+          <span class="price-old text-sm old-line">
+            {%- if settings.currency_code_enabled -%}
+              {{- product.compare_at_price | money }}
+              {{ shop.currency -}}
+            {%- else -%}
+              {{- product.compare_at_price | money -}}
+            {%- endif -%}
+          </span>
         {% endif %}
+      </p>
+
+      {% comment %} Hidden size and color options for filtering {% endcomment %}
+      <div style="display: none;" class="product-options">
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Size' %}
+            {% for value in option.values %}
+              <span class="size-item" data-size="{{ value }}">{{ value }}</span>
+            {% endfor %}
+          {% elsif option.name == 'Color' %}
+            {% for value in option.values %}
+              <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      {% comment %} Sale indicator for filtering {% endcomment %}
+      {% if product.compare_at_price > product.price %}
+        <div style="display: none;" class="on-sale-wrap"></div>
+      {% endif %}
     </div>
-</div>
+  </div>
+{% else %}
+  <div
+    class="card-product grid style-2 style-border-2 color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
+    data-availability="{{ product.available | default: false }}"
+    data-brand="{{ product.vendor | handleize }}"
+    data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
+    {% if product.compare_at_price > product.price %}
+      data-sale="true"
+    {% endif %}
+    style="
+      {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
+      {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
+      {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
+      {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+    "
+  >
+    <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }}">
+      <a href="{{ product.url }}" class="product-img">
+        {% if product.featured_image %}
+          <img
+            class="img-product lazyload"
+            width="460"
+            height="460"
+            data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+            src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+            alt="{{ product.featured_image.alt | escape }}"
+            loading="{{ loading_priority }}"
+          >
+          <img
+            class="img-hover lazyload"
+            width="460"
+            height="460"
+            data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+            src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+            alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
+            loading="{{ loading_priority }}"
+          >
+        {% endif %}
+      </a>
+      {% if product.compare_at_price > product.price %}
+        {% assign save_percentage = product.compare_at_price
+          | minus: product.price
+          | times: 100
+          | divided_by: product.compare_at_price
+        %}
+        <div class="on-sale-wrap">
+          <span class="on-sale-item">
+            {{- save_percentage -}}
+            {{- 'snippets.product-card.off' | t -}}
+          </span>
+        </div>
+      {% endif %}
+      {% if product.available %}
+        <ul class="list-product-btn">
+          {% if cart_button_style == 'icon' %}
+            {% render 'product-cart-button', product: product, card_style: card_style %}
+          {% endif %}
+          {% render 'product-wishlist-button', product: product, card_style: card_style %}
+          {% render 'product-quickview-button', product: product, card_style: card_style %}
+          {% render 'product-compare-button', product: product, card_style: card_style %}
+        </ul>
+      {% endif %}
+    </div>
+    <div class="card-product-info text-{{ card_text_alignment }}">
+      <a
+        href="{{ product.url }}"
+        class="name-product link fw-medium text-md"
+      >
+        {{- product.title -}}
+      </a>
+      <p class="price-wrap fw-medium">
+        <span class="price-new text-xl-2">
+          {%- if settings.currency_code_enabled -%}
+            {{- product.price | money }}
+            {{ shop.currency -}}
+          {%- else -%}
+            {{- product.price | money -}}
+          {%- endif -%}
+        </span>
+        {% if product.compare_at_price > product.price %}
+          <span class="price-old text-sm old-line">
+            {%- if settings.currency_code_enabled -%}
+              {{- product.compare_at_price | money }}
+              {{ shop.currency -}}
+            {%- else -%}
+              {{- product.compare_at_price | money -}}
+            {%- endif -%}
+          </span>
+        {% endif %}
+      </p>
+      {% if product.available and product.variants.first.inventory_management == 'shopify' and should_show_progress %}
+        {% assign inventory_quantity = product.variants.first.inventory_quantity %}
+        {% assign max_inventory = 100 %}
+        {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
+        <div class="product-progress-sale">
+          <div
+            class="progress-sold progress"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="{{ inventory_percentage }}"
+            aria-label="Inventory progress: {{ inventory_quantity }} items available out of 100"
+          >
+            <div class="progress-bar bg-purple" style="width: {{ inventory_percentage }}%"></div>
+          </div>
+          <div class="box-quantity d-flex justify-content-between">
+            <p class="text-sold text-sm">
+              {{ 'snippets.product-card.sold' | t }}:
+              <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
+            </p>
+            <p class="text-avaiable text-sm">
+              {{ 'snippets.product-card.available' | t }}:
+              <span class="fw-medium">{{ inventory_quantity }}</span>
+            </p>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
+      {% if cart_button_style == 'button' %}
+        <div
+          class="tf-btn btn-out-line-primary product-cart-button"
+          data-product-id="{{ product.id }}"
+          data-product-handle="{{ product.handle }}"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        >
+          {{ 'snippets.product-card.add_to_cart' | t }}
+        </div>
+      {% endif %}
+
+      {% comment %} Dynamic color swatches based on product variants {% endcomment %}
+      {% if show_color_swatches and product.options_with_values.size > 0 %}
+        {% assign color_option = null %}
+        {% for option in product.options_with_values %}
+          {% if option.name == 'Color'
+            or option.name == 'Colour'
+            or option.name == 'color'
+            or option.name == 'colour'
+          %}
+            {% assign color_option = option %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        {% if color_option and color_option.values.size > 0 %}
+          <ul class="list-color-product justify-content-center mt-0">
+            {% for color_value in color_option.values %}
+              {% assign variant_for_color = null %}
+              {% for variant in product.variants %}
+                {% if variant.option1 == color_value
+                  or variant.option2 == color_value
+                  or variant.option3 == color_value
+                %}
+                  {% assign variant_for_color = variant %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+
+              <li
+                class="list-color-item color-swatch hover-tooltip tooltip-bot{% if forloop.first %} active{% endif %}"
+                data-color="{{ color_value | handleize }}"
+                data-variant-id="{{ variant_for_color.id | default: product.selected_or_first_available_variant.id }}"
+              >
+                <span class="tooltip color-filter">{{ color_value }}</span>
+                <span class="swatch-value bg-{{ color_value | handle }}"></span>
+                {% if variant_for_color and variant_for_color.image %}
+                  <img
+                    class="lazyload"
+                    width="460"
+                    height="460"
+                    data-src="{{ variant_for_color.image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ variant_for_color.image | image_url: width: 230, height: 230, crop: 'center' }}"
+                    alt="{{ product.title }} - {{ color_value }}"
+                    loading="{{ loading_priority }}"
+                  >
+                {% else %}
+                  <img
+                    class="lazyload"
+                    width="460"
+                    height="460"
+                    data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+                    alt="{{ product.title }} - {{ color_value }}"
+                    loading="{{ loading_priority }}"
+                  >
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endif %}
+
+      {% comment %} Sale indicator for filtering {% endcomment %}
+      {% if product.compare_at_price > product.price %}
+        <div style="display: none;" class="on-sale-wrap"></div>
+      {% endif %}
+    </div>
+  </div>
 {% endif %}

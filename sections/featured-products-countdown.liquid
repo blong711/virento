@@ -322,7 +322,12 @@
           {% if products != blank %}
             {% for product in products limit: section.settings.products_to_show %}
               <div class="swiper-slide">
-                {% render 'product-card', product: product %}
+                {% comment %} Only first product gets eager loading for LCP, others lazy load {% endcomment %}
+                {% if forloop.first %}
+                  {% render 'product-card', product: product, loading_priority: 'eager' %}
+                {% else %}
+                  {% render 'product-card', product: product %}
+                {% endif %}
               </div>
             {% endfor %}
           {% else %}
