@@ -542,6 +542,7 @@
                             width="400"
                             height="200"
                             fetchpriority="high"
+                            loading="lazy"
                             decoding="sync"
                           >
 
@@ -573,20 +574,32 @@
                           {{
                             block.settings.image
                             | image_url: width: 1920
-                            | image_tag: class: desktop_image_class, alt: block.settings.heading, loading: 'lazy'
+                            | image_tag:
+                              class: desktop_image_class,
+                              alt: block.settings.heading,
+                              loading: 'lazy',
+                              decoding: 'async'
                           }}
 
                           {% if block.settings.mobile_image %}
                             {{
                               block.settings.mobile_image
                               | image_url: width: 767
-                              | image_tag: class: mobile_image_class, alt: block.settings.heading, loading: 'lazy'
+                              | image_tag:
+                                class: mobile_image_class,
+                                alt: block.settings.heading,
+                                loading: 'lazy',
+                                decoding: 'async'
                             }}
                           {% else %}
                             {{
                               block.settings.image
                               | image_url: width: 767
-                              | image_tag: class: mobile_image_class, alt: block.settings.heading, loading: 'lazy'
+                              | image_tag:
+                                class: mobile_image_class,
+                                alt: block.settings.heading,
+                                loading: 'lazy',
+                                decoding: 'async'
                             }}
                           {% endif %}
                         {% endif %}
@@ -861,53 +874,5 @@
         handleMobileHeightModes();
       }, 250);
     });
-  });
-
-  // ULTRA STRICT intersection observer for non-LCP images
-  function initUltraLazyLoading() {
-    if ('IntersectionObserver' in window) {
-      const ultraLazyObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
-              const img = entry.target;
-              if (img.dataset.src) {
-                img.src = img.dataset.src;
-                img.style.opacity = '1';
-                img.classList.remove('js-ultra-lazy');
-                img.removeAttribute('data-src');
-                ultraLazyObserver.unobserve(img);
-              }
-            }
-          });
-        },
-        {
-          rootMargin: '-100px 0px -100px 0px', // Very strict - must be well into viewport
-          threshold: [0.1],
-        }
-      );
-
-      // Only observe ultra lazy images after critical load
-      setTimeout(() => {
-        document.querySelectorAll('.js-ultra-lazy[data-src]').forEach((img) => {
-          ultraLazyObserver.observe(img);
-        });
-      }, 2000);
-    }
-
-    // Emergency fallback - load after 10s if user hasn't scrolled
-    setTimeout(() => {
-      document.querySelectorAll('.js-ultra-lazy[data-src]').forEach((img) => {
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.style.opacity = '1';
-        }
-      });
-    }, 10000);
-  }
-
-  // Start ultra lazy loading after everything else
-  window.addEventListener('load', () => {
-    setTimeout(initUltraLazyLoading, 1000);
   });
 </script>
