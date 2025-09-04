@@ -40,7 +40,34 @@ document.addEventListener('DOMContentLoaded', () => {
   newsletterPopup();
   exitPopup();
   new WOW().init();
+  handleLocalizationSelectors();
 });
+
+/* Localization Selectors
+---------------------------------------------------------------------------*/
+const handleLocalizationSelectors = () => {
+  // Handle language selector
+  const languageSelector = document.getElementById('language-selector-topbar');
+  if (languageSelector) {
+    languageSelector.addEventListener('change', function() {
+      const form = this.closest('form');
+      if (form) {
+        form.submit();
+      }
+    });
+  }
+
+  // Handle currency selector
+  const currencySelector = document.getElementById('currency-selector-topbar');
+  if (currencySelector) {
+    currencySelector.addEventListener('change', function() {
+      const form = this.closest('form');
+      if (form) {
+        form.submit();
+      }
+    });
+  }
+};
 
 /* Custom Select with Images
 ---------------------------------------------------------------------------*/
