@@ -306,14 +306,14 @@
                         {{
                           block.settings.image
                           | image_url: width: 200
-                          | image_tag: class: 'lazyload', alt: block.settings.title
+                          | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                           | default: collection.title
                         }}
                       {% else %}
                         {{
                           collection.image
                           | image_url: width: 200
-                          | image_tag: class: 'lazyload', alt: block.settings.title
+                          | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                           | default: collection.title
                         }}
                       {% endif %}

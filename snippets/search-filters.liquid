@@ -7,290 +7,362 @@
 {% assign show_on_sale = show_on_sale | default: true %}
 {% assign on_sale_limit = on_sale_limit | default: 3 %}
 {% assign show_collection_banner = show_collection_banner | default: true %}
-{% assign collection_banner_title = collection_banner_title | default: "Elevate Your Style" %}
-{% assign collection_banner_button_text = collection_banner_button_text | default: "Shop Now" %}
-{% assign collection_banner_button_url = collection_banner_button_url | default: "" %}
-{% assign collection_banner_image = collection_banner_image | default: "" %}
+{% assign collection_banner_title = collection_banner_title | default: 'Elevate Your Style' %}
+{% assign collection_banner_button_text = collection_banner_button_text | default: 'Shop Now' %}
+{% assign collection_banner_button_url = collection_banner_button_url | default: '' %}
+{% assign collection_banner_image = collection_banner_image | default: '' %}
 {% assign show_availability_filter = show_availability_filter | default: true %}
 {% assign show_price_filter = show_price_filter | default: true %}
 {% assign show_color_filter = show_color_filter | default: true %}
 {% assign show_brand_filter = show_brand_filter | default: true %}
 
 <div class="offcanvas offcanvas-start canvas-sidebar canvas-filter" id="filterShop">
-    <div class="canvas-wrapper">
-        <div class="canvas-header">
-            <span class="title">{{ 'sections.main_collection.filter' | t }}</span>
-            <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="canvas-body">
-            {% comment %} Collections Filter {% endcomment %}
-            {% if collections.size > 0 %}
-                <div class="widget-facet">
-                    <div class="facet-title text-xl fw-medium" data-bs-target="#collections"
-                        data-bs-toggle="collapse" aria-expanded="true" aria-controls="collections">
-                        <span>{{ 'sections.main_collection.collections' | t }}</span>
-                        <span class="icon icon-arrow-up"></span>
-                    </div>
-                    <div id="collections" class="collapse show">
-                        <ul class="collapse-body list-categories current-scrollbar">
-                            {% for collection_item in collections limit: 10 %}
-                                <li class="cate-item">
-                                    <a class="text-sm link" href="{{ collection_item.url }}">
-                                        <span>{{ collection_item.title }}</span>
-                                        <span class="count">({{ collection_item.products_count }})</span>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            {% endif %}
-            
-            {% comment %} Availability Filter {% endcomment %}
-            {% if show_availability_filter %}
-                <div class="widget-facet">
-                    <div class="facet-title text-xl fw-medium" data-bs-target="#availability"
-                        role="button" data-bs-toggle="collapse" aria-expanded="true"
-                        aria-controls="availability">
-                        <span>{{ 'sections.main_collection.availability' | t }}</span>
-                        <span class="icon icon-arrow-up"></span>
-                    </div>
-                    <div id="availability" class="collapse show">
-                        <ul class="collapse-body filter-group-check current-scrollbar">
-                            <li class="list-item">
-                                <input type="radio" name="availability" class="tf-check"
-                                    id="inStock" value="in_stock">
-                                <label for="inStock" class="label">
-                                    <span>{{ 'sections.main_collection.in_stock' | t }}</span>&nbsp;
-                                    <span class="count">({{ search.results | where: "object_type", "product" | where: "available", true | size }})</span>
-                                </label>
-                            </li>
-                            <li class="list-item">
-                                <input type="radio" name="availability" class="tf-check"
-                                    id="outStock" value="out_of_stock">
-                                <label for="outStock" class="label">
-                                    <span>{{ 'sections.main_collection.out_of_stock' | t }}</span>&nbsp;
-                                    <span class="count">({{ search.results | where: "object_type", "product" | where: "available", false | size }})</span>
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            {% endif %}
-            
-            {% comment %} Price Filter {% endcomment %}
-            {% if show_price_filter %}
-                <div class="widget-facet">
-                    <div class="facet-title text-xl fw-medium" data-bs-target="#price" role="button"
-                        data-bs-toggle="collapse" aria-expanded="true" aria-controls="price">
-                        <span>{{ 'sections.main_collection.price' | t }}</span>
-                        <span class="icon icon-arrow-up"></span>
-                    </div>
-                    <div id="price" class="collapse show">
-                        <div class="collapse-body widget-price filter-price">
-                            <span class="reset-price">{{ 'sections.main_collection.reset' | t }}</span>
-                            <div class="price-val-range" id="price-value-range" 
-                                data-min="{{ search.price_min | divided_by: 100.0 | round: 0 }}" 
-                                data-max="{{ search.price_max | divided_by: 100.0 | round: 0 }}">
-                            </div>
-                            <div class="box-value-price">
-                                <span class="text-sm">{{ 'sections.main_collection.price' | t }}:</span>
-                                <div class="price-box">
-                                    <div class="price-val" id="price-min-value" data-currency="{{ shop.currency_symbol }}">
-                                        {{ search.price_min | money_without_currency }}
-                                    </div>
-                                    <span style="margin-top: 3px;">-</span>
-                                    <div class="price-val" id="price-max-value" data-currency="{{ shop.currency_symbol }}">
-                                        {{ search.price_max | money_without_currency }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-            
-            {% comment %} Color Filter {% endcomment %}
-            {% if show_color_filter %}
-            {% assign all_colors = '' %}
-            {% for product in search.results %}
-                {% if product.object_type == 'product' %}
-                    {% for option in product.options_with_values %}
-                        {% if option.name == 'Color' %}
-                            {% for value in option.values %}
-                                {% unless all_colors contains value %}
-                                    {% assign all_colors = all_colors | append: value | append: ',' %}
-                                {% endunless %}
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-            {% assign colors_array = all_colors | split: ',' %}
-            {% if colors_array.size > 0 and all_colors != '' %}
-                <div class="widget-facet">
-                    <div class="facet-title text-xl fw-medium" data-bs-target="#color" role="button"
-                        data-bs-toggle="collapse" aria-expanded="true" aria-controls="color">
-                        <span>{{ 'sections.main_collection.color' | t }}</span>
-                        <span class="icon icon-arrow-up"></span>
-                    </div>
-                    <div id="color" class="collapse show">
-                        <div class="collapse-body filter-color-box flat-check-list">
-                            {% for color in colors_array limit: 10 %}
-                                {% unless color == blank %}
-                                    <div class="check-item color-item color-check">
-                                        <span class="color bg-{{ color | handleize }}"></span>
-                                        <span class="color-text">{{ color }}</span>
-                                    </div>
-                                {% endunless %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-            {% endif %}
-            
-            {% comment %} Size Filter {% endcomment %}
-            {% assign all_sizes = '' %}
-            {% for product in search.results %}
-                {% if product.object_type == 'product' %}
-                    {% for option in product.options_with_values %}
-                        {% if option.name == 'Size' %}
-                            {% for value in option.values %}
-                                {% unless all_sizes contains value %}
-                                    {% assign all_sizes = all_sizes | append: value | append: ',' %}
-                                {% endunless %}
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-            {% assign sizes_array = all_sizes | split: ',' %}
-            {% if sizes_array.size > 0 and all_sizes != '' %}
-            <div class="widget-facet">
-                <div class="facet-title text-xl fw-medium" data-bs-target="#size" role="button"
-                    data-bs-toggle="collapse" aria-expanded="true" aria-controls="size">
-                    <span>{{ 'sections.main_collection.size' | t }}</span>
-                    <span class="icon icon-arrow-up"></span>
-                </div>
-                <div id="size" class="collapse show">
-                    <div class="collapse-body filter-size-box flat-check-list">
-                        {% for size in sizes_array limit: 10 %}
-                            {% unless size == blank %}
-                                {% assign size_count = 0 %}
-                                {% for product in search.results %}
-                                    {% if product.object_type == 'product' %}
-                                        {% for variant in product.variants %}
-                                            {% if variant.option2 == size or variant.option1 == size or variant.option3 == size %}
-                                                {% assign size_count = size_count | plus: 1 %}
-                                                {% break %}
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-                                {% endfor %}
-                                <div class="check-item size-item size-check">
-                                    <span class="size">{{ size }}</span>&nbsp;
-                                    <span class="count">({{ size_count }})</span>
-                                </div>
-                            {% endunless %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-            
-            {% comment %} Brand Filter {% endcomment %}
-            {% if show_brand_filter %}
-            {% assign vendors = search.results | where: "object_type", "product" | map: 'vendor' | uniq %}
-            {% if vendors.size > 0 %}
-                <div class="widget-facet">
-                    <div class="facet-title text-xl fw-medium" data-bs-target="#brand" role="button"
-                        data-bs-toggle="collapse" aria-expanded="true" aria-controls="brand">
-                        <span>{{ 'sections.main_collection.brand' | t }}</span>
-                        <span class="icon icon-arrow-up"></span>
-                    </div>
-                    <div id="brand" class="collapse show">
-                        <ul class="collapse-body filter-group-check current-scrollbar">
-                            {% for vendor in vendors limit: 10 %}
-                                <li class="list-item">
-                                    <input type="radio" name="brand" class="tf-check" id="{{ vendor | handleize }}" value="{{ vendor }}">
-                                    <label for="{{ vendor | handleize }}" class="label">
-                                        <span>{{ vendor }}</span>&nbsp;
-                                        <span class="count">({{ search.results | where: "object_type", "product" | where: 'vendor', vendor | size }})</span>
-                                    </label>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            {% endif %}
-            {% endif %}
-            
-            {% comment %} On Sale Products {% endcomment %}
-            {% if show_on_sale %}
-                {% assign sale_products = search.results | where: "object_type", "product" | where: 'compare_at_price' %}
-                {% if sale_products.size > 0 %}
-                <div class="widget-facet">
-                    <div class="facet-title text-xl fw-medium">
-                        <span class="shop-sale-text">{{ 'sections.main_collection.on_sale' | t }}</span>
-                    </div>
-                    <ul class="collapse-body list-recent">
-                        {% assign sale_count = 0 %}
-                        {% for product in sale_products %}
-                            {% if product.compare_at_price > product.price and sale_count < on_sale_limit %}
-                                {% assign sale_count = sale_count | plus: 1 %}
-                                <li>
-                                    <div class="recent-blog-item">
-                                        <a href="{{ product.url }}" class="img-product">
-                                            <img src="{{ product.featured_image | img_url: '100x' }}" 
-                                                 alt="{{ product.title | escape }}"
-                                                 width="100" height="100">
-                                        </a>
-                                        <div class="content">
-                                            <a href="{{ product.url }}" class="title text-md link fw-medium">
-                                                {{ product.title | truncate: 30 }}
-                                            </a>
-                                            <div class="price text-md fw-medium">
-                                                <span class="new-price">{{ product.price | money }}</span>
-                                                <span class="old-price">{{ product.compare_at_price | money }}</span>
-                                            </div>
-                                            {% if product.options_with_values.size > 0 %}
-                                                <p class="text-sm">{{ product.options_with_values.first.values.size }} {{ 'sections.main_collection.options_available' | t }}</p>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}
-            {% endif %}
-            
-            {% comment %} Collection Banner {% endcomment %}
-            {% if show_collection_banner %}
-                <div class="widget-facet">
-                    <div class="sb-banner hover-img">
-                        <div class="image img-style">
-                            {% if collection_banner_image %}
-                                <img src="{{ collection_banner_image | img_url: '300x200' }}" 
-                                     data-src="{{ collection_banner_image | img_url: '300x200' }}" 
-                                     alt="banner" class="lazyload"
-                                     width="300" height="200">
-                            {% endif %}
-                        </div>
-                        <div class="banner-content">
-                            <p class="title">
-                                {{ collection_banner_title | replace: ' ', '<br>' }}
-                            </p>
-                            <a href="{% if collection_banner_button_url != blank %}{{ collection_banner_button_url }}{% else %}#{% endif %}" 
-                               class="tf-btn btn-white hover-primary">
-                                {{ collection_banner_button_text }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
+  <div class="canvas-wrapper">
+    <div class="canvas-header">
+      <span class="title">{{ 'sections.main_collection.filter' | t }}</span>
+      <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    <div class="canvas-body">
+      {% comment %} Collections Filter {% endcomment %}
+      {% if collections.size > 0 %}
+        <div class="widget-facet">
+          <div
+            class="facet-title text-xl fw-medium"
+            data-bs-target="#collections"
+            data-bs-toggle="collapse"
+            aria-expanded="true"
+            aria-controls="collections"
+          >
+            <span>{{ 'sections.main_collection.collections' | t }}</span>
+            <span class="icon icon-arrow-up"></span>
+          </div>
+          <div id="collections" class="collapse show">
+            <ul class="collapse-body list-categories current-scrollbar">
+              {% for collection_item in collections limit: 10 %}
+                <li class="cate-item">
+                  <a class="text-sm link" href="{{ collection_item.url }}">
+                    <span>{{ collection_item.title }}</span>
+                    <span class="count">({{ collection_item.products_count }})</span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Availability Filter {% endcomment %}
+      {% if show_availability_filter %}
+        <div class="widget-facet">
+          <div
+            class="facet-title text-xl fw-medium"
+            data-bs-target="#availability"
+            role="button"
+            data-bs-toggle="collapse"
+            aria-expanded="true"
+            aria-controls="availability"
+          >
+            <span>{{ 'sections.main_collection.availability' | t }}</span>
+            <span class="icon icon-arrow-up"></span>
+          </div>
+          <div id="availability" class="collapse show">
+            <ul class="collapse-body filter-group-check current-scrollbar">
+              <li class="list-item">
+                <input
+                  type="radio"
+                  name="availability"
+                  class="tf-check"
+                  id="inStock"
+                  value="in_stock"
+                >
+                <label for="inStock" class="label">
+                  <span>{{ 'sections.main_collection.in_stock' | t }}</span>&nbsp;
+                  <span class="count"
+                    >({{ search.results | where: 'object_type', 'product' | where: 'available', true | size }})</span
+                  >
+                </label>
+              </li>
+              <li class="list-item">
+                <input
+                  type="radio"
+                  name="availability"
+                  class="tf-check"
+                  id="outStock"
+                  value="out_of_stock"
+                >
+                <label for="outStock" class="label">
+                  <span>{{ 'sections.main_collection.out_of_stock' | t }}</span>&nbsp;
+                  <span class="count"
+                    >({{ search.results | where: 'object_type', 'product' | where: 'available', false | size }})</span
+                  >
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Price Filter {% endcomment %}
+      {% if show_price_filter %}
+        <div class="widget-facet">
+          <div
+            class="facet-title text-xl fw-medium"
+            data-bs-target="#price"
+            role="button"
+            data-bs-toggle="collapse"
+            aria-expanded="true"
+            aria-controls="price"
+          >
+            <span>{{ 'sections.main_collection.price' | t }}</span>
+            <span class="icon icon-arrow-up"></span>
+          </div>
+          <div id="price" class="collapse show">
+            <div class="collapse-body widget-price filter-price">
+              <span class="reset-price">{{ 'sections.main_collection.reset' | t }}</span>
+              <div
+                class="price-val-range"
+                id="price-value-range"
+                data-min="{{ search.price_min | divided_by: 100.0 | round: 0 }}"
+                data-max="{{ search.price_max | divided_by: 100.0 | round: 0 }}"
+              ></div>
+              <div class="box-value-price">
+                <span class="text-sm">{{ 'sections.main_collection.price' | t }}:</span>
+                <div class="price-box">
+                  <div class="price-val" id="price-min-value" data-currency="{{ shop.currency_symbol }}">
+                    {{ search.price_min | money_without_currency }}
+                  </div>
+                  <span style="margin-top: 3px;">-</span>
+                  <div class="price-val" id="price-max-value" data-currency="{{ shop.currency_symbol }}">
+                    {{ search.price_max | money_without_currency }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Color Filter {% endcomment %}
+      {% if show_color_filter %}
+        {% assign all_colors = '' %}
+        {% for product in search.results %}
+          {% if product.object_type == 'product' %}
+            {% for option in product.options_with_values %}
+              {% if option.name == 'Color' %}
+                {% for value in option.values %}
+                  {% unless all_colors contains value %}
+                    {% assign all_colors = all_colors | append: value | append: ',' %}
+                  {% endunless %}
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        {% assign colors_array = all_colors | split: ',' %}
+        {% if colors_array.size > 0 and all_colors != '' %}
+          <div class="widget-facet">
+            <div
+              class="facet-title text-xl fw-medium"
+              data-bs-target="#color"
+              role="button"
+              data-bs-toggle="collapse"
+              aria-expanded="true"
+              aria-controls="color"
+            >
+              <span>{{ 'sections.main_collection.color' | t }}</span>
+              <span class="icon icon-arrow-up"></span>
+            </div>
+            <div id="color" class="collapse show">
+              <div class="collapse-body filter-color-box flat-check-list">
+                {% for color in colors_array limit: 10 %}
+                  {% unless color == blank %}
+                    <div class="check-item color-item color-check">
+                      <span class="color bg-{{ color | handleize }}"></span>
+                      <span class="color-text">{{ color }}</span>
+                    </div>
+                  {% endunless %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% comment %} Size Filter {% endcomment %}
+      {% assign all_sizes = '' %}
+      {% for product in search.results %}
+        {% if product.object_type == 'product' %}
+          {% for option in product.options_with_values %}
+            {% if option.name == 'Size' %}
+              {% for value in option.values %}
+                {% unless all_sizes contains value %}
+                  {% assign all_sizes = all_sizes | append: value | append: ',' %}
+                {% endunless %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+      {% assign sizes_array = all_sizes | split: ',' %}
+      {% if sizes_array.size > 0 and all_sizes != '' %}
+        <div class="widget-facet">
+          <div
+            class="facet-title text-xl fw-medium"
+            data-bs-target="#size"
+            role="button"
+            data-bs-toggle="collapse"
+            aria-expanded="true"
+            aria-controls="size"
+          >
+            <span>{{ 'sections.main_collection.size' | t }}</span>
+            <span class="icon icon-arrow-up"></span>
+          </div>
+          <div id="size" class="collapse show">
+            <div class="collapse-body filter-size-box flat-check-list">
+              {% for size in sizes_array limit: 10 %}
+                {% unless size == blank %}
+                  {% assign size_count = 0 %}
+                  {% for product in search.results %}
+                    {% if product.object_type == 'product' %}
+                      {% for variant in product.variants %}
+                        {% if variant.option2 == size or variant.option1 == size or variant.option3 == size %}
+                          {% assign size_count = size_count | plus: 1 %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+                  <div class="check-item size-item size-check">
+                    <span class="size">{{ size }}</span>&nbsp;
+                    <span class="count">({{ size_count }})</span>
+                  </div>
+                {% endunless %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {% comment %} Brand Filter {% endcomment %}
+      {% if show_brand_filter %}
+        {% assign vendors = search.results | where: 'object_type', 'product' | map: 'vendor' | uniq %}
+        {% if vendors.size > 0 %}
+          <div class="widget-facet">
+            <div
+              class="facet-title text-xl fw-medium"
+              data-bs-target="#brand"
+              role="button"
+              data-bs-toggle="collapse"
+              aria-expanded="true"
+              aria-controls="brand"
+            >
+              <span>{{ 'sections.main_collection.brand' | t }}</span>
+              <span class="icon icon-arrow-up"></span>
+            </div>
+            <div id="brand" class="collapse show">
+              <ul class="collapse-body filter-group-check current-scrollbar">
+                {% for vendor in vendors limit: 10 %}
+                  <li class="list-item">
+                    <input
+                      type="radio"
+                      name="brand"
+                      class="tf-check"
+                      id="{{ vendor | handleize }}"
+                      value="{{ vendor }}"
+                    >
+                    <label for="{{ vendor | handleize }}" class="label">
+                      <span>{{ vendor }}</span>&nbsp;
+                      <span class="count"
+                        >({{ search.results | where: 'object_type', 'product' | where: 'vendor', vendor | size }})</span
+                      >
+                    </label>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% comment %} On Sale Products {% endcomment %}
+      {% if show_on_sale %}
+        {% assign sale_products = search.results | where: 'object_type', 'product' | where: 'compare_at_price' %}
+        {% if sale_products.size > 0 %}
+          <div class="widget-facet">
+            <div class="facet-title text-xl fw-medium">
+              <span class="shop-sale-text">{{ 'sections.main_collection.on_sale' | t }}</span>
+            </div>
+            <ul class="collapse-body list-recent">
+              {% assign sale_count = 0 %}
+              {% for product in sale_products %}
+                {% if product.compare_at_price > product.price and sale_count < on_sale_limit %}
+                  {% assign sale_count = sale_count | plus: 1 %}
+                  <li>
+                    <div class="recent-blog-item">
+                      <a href="{{ product.url }}" class="img-product">
+                        <img
+                          src="{{ product.featured_image | img_url: '100x' }}"
+                          alt="{{ product.title | escape }}"
+                          width="100"
+                          height="100"
+                        >
+                      </a>
+                      <div class="content">
+                        <a href="{{ product.url }}" class="title text-md link fw-medium">
+                          {{ product.title | truncate: 30 }}
+                        </a>
+                        <div class="price text-md fw-medium">
+                          <span class="new-price">{{ product.price | money }}</span>
+                          <span class="old-price">{{ product.compare_at_price | money }}</span>
+                        </div>
+                        {% if product.options_with_values.size > 0 %}
+                          <p class="text-sm">
+                            {{ product.options_with_values.first.values.size }}
+                            {{ 'sections.main_collection.options_available' | t }}
+                          </p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% comment %} Collection Banner {% endcomment %}
+      {% if show_collection_banner %}
+        <div class="widget-facet">
+          <div class="sb-banner hover-img">
+            <div class="image img-style">
+              {% if collection_banner_image %}
+                <img
+                  src="{{ collection_banner_image | img_url: '300x200' }}"
+                  data-src="{{ collection_banner_image | img_url: '300x200' }}"
+                  alt="banner"
+                  class="lazyload"
+                  width="300"
+                  height="200"
+                  loading="lazy"
+                  decoding="async"
+                >
+              {% endif %}
+            </div>
+            <div class="banner-content">
+              <p class="title">
+                {{ collection_banner_title | replace: ' ', '<br>' }}
+              </p>
+              <a
+                href="{% if collection_banner_button_url != blank %}{{ collection_banner_button_url }}{% else %}#{% endif %}"
+                class="tf-btn btn-white hover-primary"
+              >
+                {{ collection_banner_button_text }}
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
 </div>
