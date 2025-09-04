@@ -52,6 +52,39 @@
   width: 220px
 }
 
+/* Snippet selectors - open upward */
+.bottom-bar-language .custom-select-options {
+  top: auto !important;
+  bottom: 100% !important;
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+}
+
+/* Adjust arrow position for upward dropdowns */
+.bottom-bar-language .custom-select-options:before {
+  top: auto !important;
+  bottom: -10px !important;
+  border-top: 10px solid #fff !important;
+  border-bottom: none !important;
+}
+
+.bottom-bar-language .custom-select-options:after {
+  top: auto !important;
+  bottom: -11px !important;
+  border-top: 11px solid rgba(0,0,0,0.1) !important;
+  border-bottom: none !important;
+}
+
+/* Ensure proper z-index for snippet dropdowns */
+.bottom-bar-language .custom-select-container {
+  position: relative;
+  z-index: 10;
+}
+
+.bottom-bar-language .custom-select-options {
+  z-index: 1001;
+}
+
 .custom-select-options:before {
   content: '';
   position: absolute;
