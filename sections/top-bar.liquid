@@ -207,12 +207,11 @@
                         class="image-select center style-default type-languages"
                         aria-labelledby="LanguageLabel"
                       >
+                        {%- assign current_language = localization.language.iso_code -%}
                         {%- for language in localization.available_languages -%}
                           <option
                             value="{{ language.iso_code }}"
-                            {% if language.iso_code == localization.language.iso_code %}
-                              selected
-                            {% endif %}
+                            {% if language.iso_code == current_language %}selected{% endif %}
                           >
                             {{ language.endonym_name }}
                           </option>
@@ -232,16 +231,14 @@
                         class="image-select center style-default type-currencies"
                         aria-labelledby="CurrencyLabel"
                       >
+                        {%- assign current_country = localization.country.iso_code -%}
                         {%- for country in localization.available_countries -%}
                           <option
                             value="{{ country.iso_code }}"
-                            {% if country.iso_code == localization.country.iso_code %}
-                              selected
-                            {% endif %}
+                            {% if country.iso_code == current_country %}selected{% endif %}
                             data-thumbnail="{{ 'country/' | append: country.iso_code | downcase | append: '.png' | asset_url }}"
                           >
-                            {{ country.name }} ({{ country.currency.iso_code }}
-                            {{ country.currency.symbol }})
+                            {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
                           </option>
                         {%- endfor -%}
                       </select>

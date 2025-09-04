@@ -37,3 +37,142 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ og_title | escape }}">
 <meta name="twitter:description" content="{{ og_description | escape }}">
+
+{%- comment -%} Enhanced Structured Data Markup {%- endcomment -%}
+{%- if request.page_type == 'product' -%}
+  {%- liquid
+    assign product_availability = 'https://schema.org/InStock'
+    unless product.available
+      assign product_availability = 'https://schema.org/OutOfStock'
+    endunless
+    
+    assign product_condition = 'https://schema.org/NewCondition'
+    if product.tags contains 'used' or product.tags contains 'refurbished'
+      assign product_condition = 'https://schema.org/UsedCondition'
+    endif
+    
+    assign product_brand = product.vendor | default: shop.name
+    assign product_sku = product.selected_or_first_available_variant.sku | default: product.id
+    assign product_gtin = product.selected_or_first_available_variant.barcode
+    assign product_mpn = product.selected_or_first_available_variant.sku
+  -%}
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "description": {{ product.description | strip_html | truncate: 160 | json }},
+    "url": "{{ shop.url }}{{ product.url }}",
+    "image": [
+      {% for media in product.media limit: 10 %}
+        {% if media.media_type == 'image' %}
+          "{{ media | image_url: width: 1200 }}"{% unless forloop.last %},{% endunless %}
+        {% endif %}
+      {% endfor %}
+    ],
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product_brand | json }}
+    },
+    "sku": {{ product_sku | json }},
+    {% if product_gtin != blank %}
+    "gtin": {{ product_gtin | json }},
+    {% endif %}
+    {% if product_mpn != blank %}
+    "mpn": {{ product_mpn | json }},
+    {% endif %}
+    "offers": {
+      "@type": "Offer",
+      "url": "{{ shop.url }}{{ product.url }}",
+      "priceCurrency": {{ cart.currency.iso_code | json }},
+      "price": "{{ product.price | money_without_currency | strip_html }}",
+      "availability": "{{ product_availability }}",
+      "itemCondition": "{{ product_condition }}",
+      "seller": {
+        "@type": "Organization",
+        "name": {{ shop.name | json }}
+      }
+      {% if product.compare_at_price > product.price %}
+      ,"priceValidUntil": "{{ 'now' | date: '%Y-%m-%d' | date: '%s' | plus: 2592000 | date: '%Y-%m-%d' }}"
+      {% endif %}
+    },
+    "category": {{ product.type | json }},
+    {% if product.tags.size > 0 %}
+    "keywords": {{ product.tags | join: ', ' | json }},
+    {% endif %}
+    "manufacturer": {
+      "@type": "Organization",
+      "name": {{ product_brand | json }}
+    }
+    {%- comment -%} Add aggregate rating if reviews are available {%- endcomment -%}
+    {%- if product.metafields.reviews.rating.value != blank -%}
+    ,"aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": {{ product.metafields.reviews.rating.value }},
+      "reviewCount": {{ product.metafields.reviews.rating_count.value | default: 1 }},
+      "bestRating": 5,
+      "worstRating": 1
+    }
+    {%- endif -%}
+    {%- comment -%} Add individual reviews if available {%- endcomment -%}
+    {%- if product.metafields.reviews.reviews.value != blank -%}
+    ,"review": [
+      {% for review in product.metafields.reviews.reviews.value limit: 5 %}
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": {{ review.author | default: 'Anonymous' | json }}
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": {{ review.rating | default: 5 }},
+            "bestRating": 5,
+            "worstRating": 1
+          },
+          "reviewBody": {{ review.content | default: '' | json }},
+          "datePublished": "{{ review.created_at | date: '%Y-%m-%d' }}"
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ]
+    {%- endif -%}
+  }
+  </script>
+{%- endif -%}
+
+{%- comment -%} BreadcrumbList structured data for all pages {%- endcomment -%}
+{%- unless request.page_type == 'index' -%}
+  {%- liquid
+    assign breadcrumb_position = 1
+    assign breadcrumb_items = ''
+    
+    assign breadcrumb_items = breadcrumb_items | append: '{"@type": "ListItem", "position": ' | append: breadcrumb_position | append: ', "name": "Home", "item": "' | append: shop.url | append: '"}'
+    assign breadcrumb_position = breadcrumb_position | plus: 1
+    
+    if request.page_type == 'product'
+      if product.collections.size > 0
+        assign primary_collection = product.collections.first
+        assign breadcrumb_items = breadcrumb_items | append: ',{"@type": "ListItem", "position": ' | append: breadcrumb_position | append: ', "name": "' | append: primary_collection.title | append: '", "item": "' | append: shop.url | append: primary_collection.url | append: '"}'
+        assign breadcrumb_position = breadcrumb_position | plus: 1
+      endif
+      assign breadcrumb_items = breadcrumb_items | append: ',{"@type": "ListItem", "position": ' | append: breadcrumb_position | append: ', "name": "' | append: product.title | append: '", "item": "' | append: shop.url | append: product.url | append: '"}'
+    elsif request.page_type == 'collection'
+      assign breadcrumb_items = breadcrumb_items | append: ',{"@type": "ListItem", "position": ' | append: breadcrumb_position | append: ', "name": "' | append: collection.title | append: '", "item": "' | append: shop.url | append: collection.url | append: '"}'
+    elsif request.page_type == 'article'
+      assign breadcrumb_items = breadcrumb_items | append: ',{"@type": "ListItem", "position": ' | append: breadcrumb_position | append: ', "name": "' | append: blog.title | append: '", "item": "' | append: shop.url | append: blog.url | append: '"}'
+      assign breadcrumb_position = breadcrumb_position | plus: 1
+      assign breadcrumb_items = breadcrumb_items | append: ',{"@type": "ListItem", "position": ' | append: breadcrumb_position | append: ', "name": "' | append: article.title | append: '", "item": "' | append: shop.url | append: article.url | append: '"}'
+    elsif request.page_type == 'page'
+      assign breadcrumb_items = breadcrumb_items | append: ',{"@type": "ListItem", "position": ' | append: breadcrumb_position | append: ', "name": "' | append: page.title | append: '", "item": "' | append: shop.url | append: page.url | append: '"}'
+    endif
+  -%}
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{{ breadcrumb_items }}]
+  }
+  </script>
+{%- endunless -%}

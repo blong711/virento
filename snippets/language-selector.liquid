@@ -14,12 +14,11 @@
       class="image-select center style-default type-languages"
       aria-labelledby="LanguageLabel"
     >
+      {%- assign current_language = localization.language.iso_code -%}
       {%- for language in localization.available_languages -%}
         <option
           value="{{ language.iso_code }}"
-          {% if language.iso_code == localization.language.iso_code %}
-            selected
-          {% endif %}
+          {% if language.iso_code == current_language %}selected{% endif %}
         >
           {{ language.endonym_name }}
         </option>
