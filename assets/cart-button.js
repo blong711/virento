@@ -241,7 +241,7 @@ if (!customElements.get('product-cart-button')) {
           }
         } catch (error) {
           console.error('Error adding product to cart:', error);
-          this.handleAddError(button, originalText, 'Network error');
+          this.handleAddError(button, originalText, window.translations?.cart_button?.network_error || 'Network error');
         } finally {
           button.style.pointerEvents = 'auto';
           this.removeSpinner(button, originalHTML);
@@ -272,7 +272,7 @@ if (!customElements.get('product-cart-button')) {
           }
 
           if (validProducts.length === 0) {
-            this.handleAddError(button, originalText, 'No valid products to add');
+            this.handleAddError(button, originalText, window.translations?.cart_button?.no_valid_products || 'No valid products to add');
             return;
           }
 
@@ -284,7 +284,7 @@ if (!customElements.get('product-cart-button')) {
 
           // Show progress for multiple products
           if (validProducts.length > 1) {
-            this.setButtonText(button, `Adding ${validProducts.length} products...`);
+            this.setButtonText(button, `${window.translations?.cart_button?.adding_products || 'Adding'} ${validProducts.length} ${window.translations?.cart_button?.products_added || 'products...'}`);
           }
 
           // Add products sequentially to avoid conflicts
@@ -293,7 +293,7 @@ if (!customElements.get('product-cart-button')) {
             
             // Update progress for multiple products
             if (validProducts.length > 1) {
-              this.setButtonText(button, `Adding ${i + 1} of ${validProducts.length}...`);
+              this.setButtonText(button, `${window.translations?.cart_button?.adding_products || 'Adding'} ${i + 1} ${window.translations?.cart_button?.adding_progress || 'of'} ${validProducts.length}...`);
             }
 
             try {
@@ -308,7 +308,7 @@ if (!customElements.get('product-cart-button')) {
               }
             } catch (error) {
               errorCount++;
-              errors.push(`${product.variantId}: Network error`);
+              errors.push(`${product.variantId}: ${window.translations?.cart_button?.network_error || 'Network error'}`);
             }
 
             // Small delay between requests to avoid overwhelming the server
@@ -323,7 +323,7 @@ if (!customElements.get('product-cart-button')) {
             this.handleMultipleProductsSuccess(button, originalText, successCount, lastSuccessfulVariantId, lastCartData);
           } else if (successCount > 0) {
             // Some products added successfully - use cart data from last successful response
-            const message = `${successCount} added, ${errorCount} failed`;
+            const message = `${successCount} ${window.translations?.cart_button?.added_failed || 'added, failed'}`;
             this.setButtonText(button, message);
             setTimeout(() => {
               this.setButtonText(button, originalText);
@@ -333,7 +333,7 @@ if (!customElements.get('product-cart-button')) {
             this.handleMultipleProductsSuccess(button, originalText, successCount, lastSuccessfulVariantId, lastCartData);
             
             // Log detailed errors for debugging
-            console.warn('Some products failed to add:', errors);
+            console.warn(window.translations?.cart_button?.some_products_failed || 'Some products failed to add:', errors);
           } else {
             // All products failed
             this.handleAddError(button, originalText, errors.join(', '));
@@ -341,7 +341,7 @@ if (!customElements.get('product-cart-button')) {
 
         } catch (error) {
           console.error('Error adding multiple products:', error);
-          this.handleAddError(button, originalText, 'Bulk add failed');
+          this.handleAddError(button, originalText, window.translations?.cart_button?.bulk_add_failed || 'Bulk add failed');
         } finally {
           button.style.pointerEvents = 'auto';
           this.removeSpinner(button, originalHTML);
@@ -387,7 +387,7 @@ if (!customElements.get('product-cart-button')) {
         if (data.status) {
           return {
             success: false,
-            error: data.errors || data.description || data.message || 'Unknown error'
+            error: data.errors || data.description || data.message || (window.translations?.cart_button?.unknown_error || 'Unknown error')
           };
         }
 
@@ -401,7 +401,7 @@ if (!customElements.get('product-cart-button')) {
 
       handleAddSuccess(button, originalText, cartData, variantId, count = 1) {
         const cartType = (window.themeSettings?.cartType || 'drawer').trim();
-        const successText = count > 1 ? `${count} products added!` : 'Added!';
+        const successText = count > 1 ? `${count} ${window.translations?.cart_button?.products_added || 'products added!'}` : (window.translations?.cart_button?.added || 'Added!');
         
         // Show success feedback
         this.setButtonText(button, successText);
@@ -432,7 +432,7 @@ if (!customElements.get('product-cart-button')) {
 
       handleMultipleProductsSuccess(button, originalText, count, lastSuccessfulVariantId, cartData) {
         const cartType = (window.themeSettings?.cartType || 'drawer').trim();
-        const successText = `${count} products added!`;
+        const successText = `${count} ${window.translations?.cart_button?.products_added || 'products added!'}`;
         
         // Show success feedback
         this.setButtonText(button, successText);
@@ -475,7 +475,7 @@ if (!customElements.get('product-cart-button')) {
           message: error,
         });
         
-        this.setButtonText(button, 'Error');
+        this.setButtonText(button, window.translations?.cart_button?.error || 'Error');
         setTimeout(() => {
           this.setButtonText(button, originalText);
         }, 2000);
@@ -676,7 +676,7 @@ if (!customElements.get('product-cart-button')) {
         const selectedProducts = this.getSelectedProducts();
         
         if (selectedProducts.length === 0) {
-          this.setButtonText(button, 'No products selected');
+          this.setButtonText(button, window.translations?.cart_button?.no_products_selected || 'No products selected');
           setTimeout(() => {
             this.setButtonText(button, this.getButtonText(button));
           }, 2000);
@@ -685,7 +685,7 @@ if (!customElements.get('product-cart-button')) {
 
         // Show confirmation for bulk add
         if (selectedProducts.length > 5) {
-          const confirmed = confirm(`Add ${selectedProducts.length} products to cart?`);
+          const confirmed = confirm(`${window.translations?.cart_button?.add_products_confirm || 'Add'} ${selectedProducts.length} ${window.translations?.cart_button?.products_added || 'products to cart?'}`);
           if (!confirmed) {
             return;
           }
@@ -699,13 +699,13 @@ if (!customElements.get('product-cart-button')) {
       handleProductListAdd(button, productListSelector = '.product-list, .products-grid') {
         const productList = document.querySelector(productListSelector);
         if (!productList) {
-          this.setButtonText(button, 'No product list found');
+          this.setButtonText(button, window.translations?.cart_button?.no_product_list_found || 'No product list found');
           return;
         }
 
         const products = this.getProductsFromList(productList);
         if (products.length === 0) {
-          this.setButtonText(button, window.ShopifyTranslations?.cart?.no_products_found || 'No products found');
+          this.setButtonText(button, window.translations?.cart_button?.no_products_found || 'No products found');
           return;
         }
 
@@ -741,7 +741,7 @@ if (!customElements.get('product-cart-button')) {
         });
 
         if (products.length === 0) {
-          this.setButtonText(button, window.ShopifyTranslations?.cart?.no_valid_products || 'No valid products');
+          this.setButtonText(button, window.translations?.cart_button?.no_valid_products_short || 'No valid products');
           return;
         }
 
@@ -752,7 +752,7 @@ if (!customElements.get('product-cart-button')) {
       handleFormBasedAdd(button, formSelector) {
         const form = document.querySelector(formSelector);
         if (!form) {
-          this.setButtonText(button, window.ShopifyTranslations?.cart?.form_not_found || 'Form not found');
+          this.setButtonText(button, window.translations?.cart_button?.form_not_found || 'Form not found');
           return;
         }
 
@@ -772,7 +772,7 @@ if (!customElements.get('product-cart-button')) {
         });
 
         if (products.length === 0) {
-          this.setButtonText(button, window.ShopifyTranslations?.cart?.no_products_in_form || 'No products in form');
+          this.setButtonText(button, window.translations?.cart_button?.no_products_in_form || 'No products in form');
           return;
         }
 
@@ -853,12 +853,12 @@ if (!customElements.get('product-cart-button')) {
 
         products.forEach(product => {
           if (!product.variantId) {
-            errors.push('Missing variant ID for product');
+            errors.push(window.translations?.cart_button?.missing_variant_id || 'Missing variant ID for product');
             return;
           }
           
           if (!product.quantity || product.quantity < 1) {
-            errors.push(`Invalid quantity for variant ${product.variantId}`);
+            errors.push(`${window.translations?.cart_button?.invalid_quantity || 'Invalid quantity for variant'} ${product.variantId}`);
             return;
           }
 

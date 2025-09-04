@@ -217,8 +217,9 @@
 
     // Check if this is a gift wrap item before removing
     const itemElement = document.querySelector(`[data-item-key="${itemKey}"]`);
+    const giftWrapText = window.translations?.cart_main?.gift_wrap || 'gift wrap';
     const isGiftWrap = itemElement && itemElement.querySelector('.name') && 
-                       itemElement.querySelector('.name').textContent.toLowerCase().includes('gift wrap');
+                       itemElement.querySelector('.name').textContent.toLowerCase().includes(giftWrapText);
 
     const formData = new FormData();
     formData.append('id', itemKey);
@@ -268,7 +269,7 @@
   addGiftWrap() {
     const giftWrapProductId = document.querySelector('input[name="gift_wrap_product_id"]');
     if (!giftWrapProductId || !giftWrapProductId.value) {
-      console.error('No gift wrap product ID found');
+      console.error(window.translations?.cart_main?.no_gift_wrap_product_id || 'No gift wrap product ID found');
       return;
     }
 
@@ -283,7 +284,7 @@
     .then(response => response.json())
     .then(result => {
       if (result.status) {
-        console.error('Error adding gift wrap:', result.description);
+        console.error((window.translations?.cart_main?.error_adding_gift_wrap || 'Error adding gift wrap:') + ' ' + result.description);
         // Uncheck the checkbox if there was an error
         const checkbox = document.querySelector('#checkGift');
         if (checkbox) checkbox.checked = false;
@@ -293,7 +294,7 @@
       }
     })
     .catch(error => {
-      console.error('Error adding gift wrap:', error);
+      console.error((window.translations?.cart_main?.error_adding_gift_wrap || 'Error adding gift wrap:') + ' ' + error);
       // Uncheck the checkbox if there was an error
       const checkbox = document.querySelector('#checkGift');
       if (checkbox) checkbox.checked = false;
@@ -308,9 +309,10 @@
     const cartItems = document.querySelectorAll('.tf-cart-item');
     let giftWrapRemoved = false;
     
+    const giftWrapText = window.translations?.cart_main?.gift_wrap || 'gift wrap';
     cartItems.forEach(item => {
       const productTitle = item.querySelector('.name');
-      if (productTitle && productTitle.textContent.toLowerCase().includes('gift wrap')) {
+      if (productTitle && productTitle.textContent.toLowerCase().includes(giftWrapText)) {
         const itemKey = this.getItemKey(item);
         if (itemKey) {
           // Use the existing removeCartItem method which already handles comprehensive updates
@@ -339,7 +341,7 @@
 
   applyDiscount(discountCode) {
     if (!discountCode) {
-      alert('Please enter a discount code.');
+      alert(window.translations?.cart_main?.please_enter_discount || 'Please enter a discount code.');
       return;
     }
 
@@ -349,7 +351,7 @@
     // Show loading state
     const applyButton = document.querySelector('.box-ip-discount .tf-btn');
     const originalText = applyButton.textContent;
-    applyButton.textContent = 'Applying...';
+    applyButton.textContent = window.translations?.cart_main?.applying || 'Applying...';
     applyButton.disabled = true;
 
     fetch('/cart/update.js', {
@@ -380,7 +382,7 @@
       if (hasDiscountApplied && (isNewDiscount || discountCodeExists)) {
         // Successfully applied discount
         this.updateCartDisplay(cart);
-        alert('Discount code applied successfully!');
+        alert(window.translations?.cart_main?.discount_applied_success || 'Discount code applied successfully!');
         
         // Clear the input
         const discountInput = document.querySelector('.box-ip-discount input[name="discount"]');
@@ -394,17 +396,17 @@
       } else {
         // Check if there's an error message in the response
         if (cart.errors && cart.errors.discount) {
-          alert('Discount code error: ' + cart.errors.discount);
+          alert((window.translations?.cart_main?.discount_error || 'Discount code error:') + ' ' + cart.errors.discount);
         } else if (cart.errors && cart.errors.discount_code) {
-          alert('Discount code error: ' + cart.errors.discount_code);
+          alert((window.translations?.cart_main?.discount_error || 'Discount code error:') + ' ' + cart.errors.discount_code);
         } else {
-          alert('Invalid discount code. Please try again.');
+          alert(window.translations?.cart_main?.invalid_discount || 'Invalid discount code. Please try again.');
         }
       }
     })
     .catch(error => {
       console.error('Error applying discount:', error);
-      alert('Error applying discount. Please try again.');
+      alert(window.translations?.cart_main?.error_applying_discount || 'Error applying discount. Please try again.');
     })
     .finally(() => {
       // Reset button state
@@ -454,7 +456,7 @@
     
     // If cart was empty and now has items, we need to restore the full cart structure
     if (wasEmpty && nowHasItems) {
-      console.log('Cart transitioned from empty to non-empty - restoring full structure');
+      console.log(window.translations?.cart_main?.cart_transitioned_empty || 'Cart transitioned from empty to non-empty - restoring full structure');
       
       // Try to fetch the complete cart page content to restore proper structure
       this.refreshCartPageContent();
@@ -816,7 +818,9 @@
         // Update variant title visibility/text
         const variantEl = itemElement.querySelector('.variant-title, .variant, .variants');
         if (variantEl) {
-          if (cartItem.variant_title && cartItem.variant_title !== 'Default Title' && !(cartItem.product_title || '').toLowerCase().includes('gift wrap')) {
+          const defaultTitle = window.translations?.cart_main?.default_title || 'Default Title';
+          const giftWrapText = window.translations?.cart_main?.gift_wrap || 'gift wrap';
+          if (cartItem.variant_title && cartItem.variant_title !== defaultTitle && !(cartItem.product_title || '').toLowerCase().includes(giftWrapText)) {
             variantEl.textContent = cartItem.variant_title;
             variantEl.style.display = 'block';
           } else {
@@ -1033,9 +1037,10 @@
     const cartItems = document.querySelectorAll('.tf-cart-item');
     let hasGiftWrap = false;
     
+    const giftWrapText = window.translations?.cart_main?.gift_wrap || 'gift wrap';
     cartItems.forEach(item => {
       const productTitle = item.querySelector('.name');
-      if (productTitle && productTitle.textContent.toLowerCase().includes('gift wrap')) {
+      if (productTitle && productTitle.textContent.toLowerCase().includes(giftWrapText)) {
         hasGiftWrap = true;
       }
     });
@@ -1051,7 +1056,7 @@
     // Instead of trying to create elements, let's trigger a full cart refresh
     // This ensures we get the complete cart page structure from Shopify
     
-    console.log('Creating cart item element - triggering full cart refresh for proper structure');
+    console.log(window.translations?.cart_main?.creating_cart_item || 'Creating cart item element - triggering full cart refresh for proper structure');
     
     // Force a complete cart refresh to get the proper table structure
     this.forceCartRefresh();
@@ -1062,7 +1067,7 @@
 
   // Refresh cart page content to get proper structure
   refreshCartPageContent() {
-    console.log('Refreshing cart page content for proper structure');
+    console.log(window.translations?.cart_main?.refreshing_cart_content || 'Refreshing cart page content for proper structure');
     
     // Fetch the updated cart page content
     fetch(window.location.href)
@@ -1082,9 +1087,9 @@
           // Re-initialize cart functionality
           this.reinitAfterUpdate();
           
-          console.log('Cart page content refreshed successfully');
+          console.log(window.translations?.cart_main?.cart_content_refreshed || 'Cart page content refreshed successfully');
         } else {
-          console.warn('Could not find cart section for refresh');
+          console.warn(window.translations?.cart_main?.could_not_find_cart_section || 'Could not find cart section for refresh');
         }
       })
       .catch(error => {
@@ -1096,7 +1101,7 @@
 
   // Alternative method: refresh specific cart sections
   refreshCartSections() {
-    console.log('Refreshing cart sections for proper structure');
+    console.log(window.translations?.cart_main?.refreshing_cart_sections || 'Refreshing cart sections for proper structure');
     
     // Try to refresh the main cart section
     fetch('/?sections=main-cart')
@@ -1130,9 +1135,9 @@
           // Re-initialize functionality
           this.reinitAfterUpdate();
           
-          console.log('Cart sections refreshed successfully');
+          console.log(window.translations?.cart_main?.cart_sections_refreshed || 'Cart sections refreshed successfully');
         } else {
-          console.warn('No main-cart section found in response');
+          console.warn(window.translations?.cart_main?.no_main_cart_section || 'No main-cart section found in response');
         }
       })
       .catch(error => {
@@ -1218,14 +1223,14 @@
     const zip = zipInput ? zipInput.value : '';
     
     if (!country || !province || !zip) {
-      alert('Please fill in all shipping fields.');
+      alert(window.translations?.cart_main?.please_fill_shipping || 'Please fill in all shipping fields.');
       return;
     }
 
     // Show loading state
     const submitButton = shippingForm.querySelector('[data-shipping-calculator-submit]');
     const originalText = submitButton.textContent;
-    submitButton.textContent = 'Calculating...';
+    submitButton.textContent = window.translations?.cart_main?.calculating || 'Calculating...';
     submitButton.disabled = true;
 
     const formData = new FormData();
@@ -1244,7 +1249,7 @@
     })
     .catch(error => {
       console.error('Error calculating shipping:', error);
-      alert('Error calculating shipping rates. Please try again.');
+      alert(window.translations?.cart_main?.error_calculating_shipping || 'Error calculating shipping rates. Please try again.');
     })
     .finally(() => {
       // Reset button state
@@ -1260,7 +1265,7 @@
     const list = container.querySelector('.shipping-rates__list');
 
     if (rates && rates.length > 0) {
-      heading.textContent = 'Available Shipping Rates:';
+      heading.textContent = window.translations?.cart_main?.available_shipping_rates || 'Available Shipping Rates:';
       list.innerHTML = '';
 
       rates.forEach(rate => {
@@ -1275,7 +1280,7 @@
 
       container.style.display = 'block';
     } else {
-      heading.textContent = 'No shipping rates available for this location.';
+      heading.textContent = window.translations?.cart_main?.no_shipping_rates || 'No shipping rates available for this location.';
       list.innerHTML = '';
       container.style.display = 'block';
     }

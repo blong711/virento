@@ -384,7 +384,7 @@ function initProductFilters() {
     // Availability filter
     document.querySelectorAll('input[name="availability"]').forEach(input => {
         input.addEventListener('change', function() {
-            filters.availability = this.id === 'inStock' ? 'In stock' : 'Out of stock';
+            filters.availability = this.id === 'inStock' ? (window.translations?.shop?.in_stock || 'In stock') : (window.translations?.shop?.out_of_stock || 'Out of stock');
             applyServerSideFilters();
             updateMetaFilter();
         });
@@ -592,7 +592,7 @@ function fetchFilteredProducts(filterUrl) {
         };
         
         xhr.onerror = function() {
-            handleFilterError(new Error('Network error occurred'), filterUrl);
+            handleFilterError(new Error(window.translations?.shop?.network_error || 'Network error occurred'), filterUrl);
             showFilterLoadingState(false);
         };
         
@@ -799,7 +799,7 @@ function buildFilterURL() {
     }
     
     if (filters.availability) {
-        if (filters.availability === 'In stock') {
+        if (filters.availability === (window.translations?.shop?.in_stock || 'In stock')) {
             searchParams.set('filter.v.availability', '1');
         } else {
             searchParams.set('filter.v.availability', '0');
@@ -853,7 +853,7 @@ function updateProductCount(count) {
     // Update any product count displays
     const countElements = document.querySelectorAll('#product-count-grid, #product-count-list, .product-count, .total-products');
     countElements.forEach(el => {
-        if (el.textContent.includes('Products found') || el.textContent.includes('products')) {
+        if (el.textContent.includes(window.translations?.shop?.products_found || 'Products found') || el.textContent.includes(window.translations?.shop?.products || 'products')) {
             // Update the span with class 'count' specifically
             const countSpan = el.querySelector('.count');
             if (countSpan) {
@@ -897,9 +897,9 @@ function showNoProductsMessage() {
     const noProductsMessage = `
         <div class="no-products-found">
             <div class="no-products-content">
-                <h3>No products found</h3>
-                <p>Try adjusting your filters or search criteria.</p>
-                <button class="btn-reset-filters" onclick="resetAllFilters()">Reset All Filters</button>
+                <h3>${window.translations?.shop?.no_products_found || 'No products found'}</h3>
+                <p>${window.translations?.shop?.try_adjusting_filters || 'Try adjusting your filters or search criteria.'}</p>
+                <button class="btn-reset-filters" onclick="resetAllFilters()">${window.translations?.shop?.reset_all_filters || 'Reset All Filters'}</button>
             </div>
         </div>
     `;
@@ -990,10 +990,10 @@ function initializeFiltersFromURL() {
     const availabilityFilter = urlParams.get('filter.v.availability');
     if (availabilityFilter) {
         if (availabilityFilter === '1') {
-            filters.availability = 'In stock';
+            filters.availability = window.translations?.shop?.in_stock || 'In stock';
             document.getElementById('inStock').checked = true;
         } else if (availabilityFilter === '0') {
-            filters.availability = 'Out of stock';
+            filters.availability = window.translations?.shop?.out_of_stock || 'Out of stock';
             document.getElementById('outStock').checked = true;
         }
     }
@@ -1052,10 +1052,10 @@ function updateMetaFilter() {
     const tags = [];
 
     if (filters.availability) {
-        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="availability"></span> Availability: ${filters.availability}</span>`);
+        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="availability"></span> ${window.translations?.shop?.availability || 'Availability'}: ${filters.availability}</span>`);
     }
     if (filters.brands) {
-        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="brands"></span> Brand: ${filters.brands}</span>`);
+        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="brands"></span> ${window.translations?.shop?.brand || 'Brand'}: ${filters.brands}</span>`);
     }
     
     const priceSlider = document.getElementById('price-value-range');
@@ -1066,18 +1066,18 @@ function updateMetaFilter() {
             // Ensure price values are in dollars, not cents
             const displayMinPrice = typeof filters.minPrice === 'number' ? filters.minPrice : 0;
             const displayMaxPrice = typeof filters.maxPrice === 'number' ? filters.maxPrice : 500;
-            tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="price"></span> Price: $${displayMinPrice} - $${displayMaxPrice}</span>`);
+            tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="price"></span> ${window.translations?.shop?.price || 'Price'}: $${displayMinPrice} - $${displayMaxPrice}</span>`);
         }
     }
     
     if (filters.color) {
-        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="color"></span> Color: ${filters.color}</span>`);
+        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="color"></span> ${window.translations?.shop?.color || 'Color'}: ${filters.color}</span>`);
     }
     if (filters.size) {
-        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="size"></span> Size: ${filters.size}</span>`);
+        tags.push(`<span class="filter-tag"><span class="remove-tag icon-close" data-filter="size"></span> ${window.translations?.shop?.size || 'Size'}: ${filters.size}</span>`);
     }
     if (filters.sale) {
-        tags.push(`<span class="filter-tag on-sale">On Sale <span class="remove-tag icon-close" data-filter="sale"></span></span>`);
+        tags.push(`<span class="filter-tag on-sale">${window.translations?.shop?.on_sale || 'On Sale'} <span class="remove-tag icon-close" data-filter="sale"></span></span>`);
     }
 
     appliedFilters.innerHTML = tags.join('');
@@ -1719,7 +1719,7 @@ function handleLoadMore(layout) {
     
     // Show loading state
     button.classList.add('loading');
-    button.querySelector('.text').textContent = 'Loading...';
+    button.querySelector('.text').textContent = window.translations?.shop?.loading || 'Loading...';
     
     // Simulate loading (in real implementation, this would be an AJAX call)
     setTimeout(() => {
@@ -1730,7 +1730,7 @@ function handleLoadMore(layout) {
         if (endIndex >= totalProducts) {
             button.style.display = 'none';
         } else {
-            button.querySelector('.text').textContent = 'Load more';
+            button.querySelector('.text').textContent = window.translations?.shop?.load_more || 'Load more';
         }
         
         button.classList.remove('loading');

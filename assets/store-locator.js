@@ -82,7 +82,7 @@
       <div class="map-loading" style="height: 400px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
         <div style="text-align: center;">
           <div style="border: 3px solid #f3f3f3; border-top: 3px solid #007bff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
-          <p style="color: #666; margin: 0;">Loading map...</p>
+          <p style="color: #666; margin: 0;">${window.translations?.store_locator?.loading_map || 'Loading map...'}</p>
         </div>
       </div>
       <style>
@@ -97,7 +97,7 @@
   StoreLocator.prototype.showNoMapMessage = function () {
     this.mapContainer.innerHTML = `
       <div class="placeholder-map" style="height: 400px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
-        <p style="color: #666; font-size: 16px;">No map available for this store</p>
+        <p style="color: #666; font-size: 16px;">${window.translations?.store_locator?.no_map_available || 'No map available for this store'}</p>
       </div>
     `;
   };

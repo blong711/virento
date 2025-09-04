@@ -99,11 +99,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Required fields validation
     const requiredFields = [
-      { id: 'AddressFirstNameNew', errorId: 'error-firstname', name: 'First Name' },
-      { id: 'AddressLastNameNew', errorId: 'error-lastname', name: 'Last Name' },
-      { id: 'Address1New', errorId: 'error-address1', name: 'Address' },
-      { id: 'AddressCityNew', errorId: 'error-city', name: 'City' },
-      { id: 'AddressCountryNew', errorId: 'error-country', name: 'Country' },
+      { id: 'AddressFirstNameNew', errorId: 'error-firstname', name: window.translations?.addresses?.first_name || 'First Name' },
+      { id: 'AddressLastNameNew', errorId: 'error-lastname', name: window.translations?.addresses?.last_name || 'Last Name' },
+      { id: 'Address1New', errorId: 'error-address1', name: window.translations?.addresses?.address || 'Address' },
+      { id: 'AddressCityNew', errorId: 'error-city', name: window.translations?.addresses?.city || 'City' },
+      { id: 'AddressCountryNew', errorId: 'error-country', name: window.translations?.addresses?.country || 'Country' },
     ];
 
     requiredFields.forEach(function (field) {
@@ -111,7 +111,13 @@ document.addEventListener('DOMContentLoaded', function () {
       const errorDiv = document.getElementById(field.errorId);
 
       if (!input.value.trim()) {
-        showError(field.errorId, field.name + ' is required');
+        const errorMessage = field.id === 'AddressFirstNameNew' ? (window.translations?.addresses?.first_name_required || field.name + ' is required') :
+                            field.id === 'AddressLastNameNew' ? (window.translations?.addresses?.last_name_required || field.name + ' is required') :
+                            field.id === 'Address1New' ? (window.translations?.addresses?.address_required || field.name + ' is required') :
+                            field.id === 'AddressCityNew' ? (window.translations?.addresses?.city_required || field.name + ' is required') :
+                            field.id === 'AddressCountryNew' ? (window.translations?.addresses?.country_required || field.name + ' is required') :
+                            field.name + ' is required';
+        showError(field.errorId, errorMessage);
         isValid = false;
         errorCount++;
       } else {
@@ -126,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (phoneInput.value.trim()) {
       const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
       if (!phoneRegex.test(phoneInput.value.trim().replace(/[\s\-\(\)]/g, ''))) {
-        showError('error-phone', 'Please enter a valid phone number');
+        showError('error-phone', window.translations?.addresses?.phone_invalid || 'Please enter a valid phone number');
         isValid = false;
         errorCount++;
       } else {
@@ -138,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const zipInput = document.getElementById('AddressZipNew');
 
     if (!zipInput.value.trim()) {
-      showError('error-zip', 'Postal code is required');
+      showError('error-zip', window.translations?.addresses?.postal_code_required || 'Postal code is required');
       isValid = false;
       errorCount++;
     } else {
@@ -147,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const isZipValid = zipRegex.test(zipValue);
 
       if (!isZipValid) {
-        showError('error-zip', 'Postal code must contain only numbers');
+        showError('error-zip', window.translations?.addresses?.postal_code_invalid || 'Postal code must contain only numbers');
         isValid = false;
         errorCount++;
       } else {
@@ -157,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Show general error message if there are multiple errors
     if (!isValid && errorCount > 1) {
-      showGeneralError('Please correct the errors highlighted below before submitting.');
+      showGeneralError(window.translations?.addresses?.correct_errors || 'Please correct the errors highlighted below before submitting.');
     }
 
     return isValid;
@@ -242,7 +248,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const errorId = 'error-' + fieldName.toLowerCase();
 
       if (!this.value.trim()) {
-        showError(errorId, this.previousElementSibling.textContent + ' is required');
+        const errorMessage = fieldName === 'FirstName' ? (window.translations?.addresses?.first_name_required || this.previousElementSibling.textContent + ' is required') :
+                            fieldName === 'LastName' ? (window.translations?.addresses?.last_name_required || this.previousElementSibling.textContent + ' is required') :
+                            fieldName === '1' ? (window.translations?.addresses?.address_required || this.previousElementSibling.textContent + ' is required') :
+                            fieldName === 'City' ? (window.translations?.addresses?.city_required || this.previousElementSibling.textContent + ' is required') :
+                            this.previousElementSibling.textContent + ' is required';
+        showError(errorId, errorMessage);
       } else {
         hideError(errorId);
       }
@@ -285,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
     countrySelect.addEventListener('change', function () {
       const errorId = 'error-country';
       if (!this.value) {
-        showError(errorId, 'Country is required');
+        showError(errorId, window.translations?.addresses?.country_required || 'Country is required');
       } else {
         hideError(errorId);
       }

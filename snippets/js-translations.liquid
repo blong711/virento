@@ -1,0 +1,203 @@
+<script>
+  window.shopUrl = '{{ request.origin }}';
+  window.routes = {
+    cart_add_url: '{{ routes.cart_add_url }}',
+    cart_change_url: '{{ routes.cart_change_url }}',
+    cart_update_url: '{{ routes.cart_update_url }}',
+    cart_url: '{{ routes.cart_url }}',
+    checkout_url: '{{ routes.checkout_url }}',
+    predictive_search_url: '{{ routes.predictive_search_url }}',
+  };
+
+  window.themeSettings = {
+    free_shipping_threshold: '{{ settings.free_shipping_threshold | times: 100 }}',
+    cartType: '{{ settings.cart_type }}',
+    cardSettings: {
+      style: '{{ settings.card_style }}',
+      imagePadding: '{{ settings.card_image_padding }}px',
+      textAlignment: '{{ settings.card_text_alignment }}',
+      colorScheme: '{{ settings.card_color_scheme }}',
+      borderThickness: '{{ settings.card_border_thickness }}px',
+      borderOpacity: '{{ settings.card_border_opacity | divided_by: 100.0 }}',
+      cornerRadius: '{{ settings.card_corner_radius }}px',
+      imageRatio: '{{ settings.card_image_ratio }}',
+    }
+  };
+
+  window.cartStrings = {
+    error: `{{ 'sections.cart.cart_error' | t }}`,
+    quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`,
+  };
+
+  window.variantStrings = {
+    addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+    soldOut: `{{ 'products.product.sold_out' | t }}`,
+    unavailable: `{{ 'products.product.unavailable' | t }}`,
+    unavailable_with_option: `{{ 'products.product.value_unavailable' | t: option_value: '[value]' }}`,
+  };
+
+  window.quickOrderListStrings = {
+    itemsAdded: `{{ 'sections.quick_order_list.items_added.other' | t: quantity: '[quantity]' }}`,
+    itemAdded: `{{ 'sections.quick_order_list.items_added.one' | t: quantity: '[quantity]' }}`,
+    itemsRemoved: `{{ 'sections.quick_order_list.items_removed.other' | t: quantity: '[quantity]' }}`,
+    itemRemoved: `{{ 'sections.quick_order_list.items_removed.one' | t: quantity: '[quantity]' }}`,
+    viewCart: `{{- 'sections.quick_order_list.view_cart' | t -}}`,
+    each: `{{- 'sections.quick_order_list.each' | t: money: '[money]' }}`,
+    min_error: `{{- 'sections.quick_order_list.min_error' | t: min: '[min]' }}`,
+    max_error: `{{- 'sections.quick_order_list.max_error' | t: max: '[max]' }}`,
+    step_error: `{{- 'sections.quick_order_list.step_error' | t: step: '[step]' }}`,
+  };
+
+  window.accessibilityStrings = {
+    imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+    shareSuccess: `{{ 'general.share.success_message' | t }}`,
+    pauseSlideshow: `{{ 'sections.slideshow.pause_slideshow' | t }}`,
+    playSlideshow: `{{ 'sections.slideshow.play_slideshow' | t }}`,
+    recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
+    recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
+    countrySelectorSearchCount: `{{ 'localization.country_results_count' | t: count: '[count]' }}`,
+  };
+  
+  window.ShopifyTranslations = {
+    quickview: {
+      add_to_cart: `{{ 'quickview.add_to_cart' | t }}`,
+      buy_it_now: `{{ 'quickview.buy_it_now' | t }}`,
+      more_payment_options: `{{ 'quickview.more_payment_options' | t }}`,
+      view_full_details: `{{ 'quickview.view_full_details' | t }}`,
+    },
+    search: {
+      searching: `{{ 'general.search.searching' | t }}`,
+      no_products_found: `{{ 'general.search.no_products_found' | t }}`,
+      search_failed: `{{ 'general.search.search_failed' | t }}`,
+      product_image: `{{ 'general.search.product_image' | t }}`,
+    },
+    cart: {
+      no_products_found: `{{ 'general.cart.no_products_found' | t }}`,
+      no_valid_products: `{{ 'general.cart.no_valid_products' | t }}`,
+      form_not_found: `{{ 'general.cart.form_not_found' | t }}`,
+      no_products_in_form: `{{ 'general.cart.no_products_in_form' | t }}`,
+      free_shipping_qualified: `{{ 'general.cart.free_shipping_qualified_html' | t }}`,
+      free_shipping_remaining: `{{ 'general.cart.free_shipping_remaining_html' | t }}`,
+    },
+    cart_drawer: {
+      applying: `{{ 'cart_drawer.applying' | t }}`,
+      calculating: `{{ 'cart_drawer.calculating' | t }}`,
+      adding: `{{ 'cart_drawer.adding' | t }}`,
+      please_enter_discount: `{{ 'cart_drawer.please_enter_discount' | t }}`,
+      discount_applied: `{{ 'cart_drawer.discount_applied' | t }}`,
+      invalid_discount: `{{ 'cart_drawer.invalid_discount' | t }}`,
+      error_applying_discount: `{{ 'cart_drawer.error_applying_discount' | t }}`,
+      error_updating_note: `{{ 'cart_drawer.error_updating_note' | t }}`,
+      please_fill_shipping: `{{ 'cart_drawer.please_fill_shipping' | t }}`,
+      error_calculating_shipping: `{{ 'cart_drawer.error_calculating_shipping' | t }}`,
+      error_adding_product: `{{ 'cart_drawer.error_adding_product' | t }}`,
+      error_adding_gift_wrap: `{{ 'cart_drawer.error_adding_gift_wrap' | t }}`,
+      available_shipping_rates: `{{ 'cart_drawer.available_shipping_rates' | t }}`,
+      no_shipping_rates: `{{ 'cart_drawer.no_shipping_rates' | t }}`,
+      select_province_state: `{{ 'cart_drawer.select_province_state' | t }}`,
+    },
+    compare: {
+      add_to_compare: `{{ 'products.product.add_to_compare' | t }}`,
+      browse_compare: `{{ 'products.product.browse_compare' | t }}`,
+      remove_from_compare: `{{ 'products.product.remove_from_compare' | t }}`,
+      no_products_added: `{{ 'products.product.no_products_added' | t }}`,
+    },
+    wishlist: {
+      add_to_wishlist: `{{ 'products.product.add_to_wishlist' | t }}`,
+      browse_wishlist: `{{ 'products.product.browse_wishlist' | t }}`,
+      remove_from_wishlist: `{{ 'products.product.remove_from_wishlist' | t }}`,
+    },
+    common: {
+      loading: `{{ 'general.loading' | t }}`,
+      back_to_shopping: `{{ 'general.continue_shopping' | t }}`,
+      search_our_store: `{{ 'general.search.search_our_store' | t }}`,
+    },
+    addresses: {
+      first_name: `{{ 'customer.addresses.first_name' | t }}`,
+      last_name: `{{ 'customer.addresses.last_name' | t }}`,
+      address: `{{ 'customer.addresses.address1' | t }}`,
+      city: `{{ 'customer.addresses.city' | t }}`,
+      country: `{{ 'customer.addresses.country' | t }}`,
+      phone: `{{ 'customer.addresses.phone' | t }}`,
+      postal_code: `{{ 'customer.addresses.zip' | t }}`,
+      first_name_required: `{{ 'addresses.first_name_required' | t }}`,
+      last_name_required: `{{ 'addresses.last_name_required' | t }}`,
+      address_required: `{{ 'addresses.address_required' | t }}`,
+      city_required: `{{ 'addresses.city_required' | t }}`,
+      country_required: `{{ 'addresses.country_required' | t }}`,
+      postal_code_required: `{{ 'addresses.postal_code_required' | t }}`,
+      phone_invalid: `{{ 'addresses.phone_invalid' | t }}`,
+      postal_code_invalid: `{{ 'addresses.postal_code_invalid' | t }}`,
+      correct_errors: `{{ 'addresses.correct_errors' | t }}`
+    },
+    cart_button: {
+      network_error: `{{ 'cart_button.network_error' | t }}`,
+      no_valid_products: `{{ 'cart_button.no_valid_products' | t }}`,
+      bulk_add_failed: `{{ 'cart_button.bulk_add_failed' | t }}`,
+      unknown_error: `{{ 'cart_button.unknown_error' | t }}`,
+      error: `{{ 'cart_button.error' | t }}`,
+      no_products_selected: `{{ 'cart_button.no_products_selected' | t }}`,
+      no_product_list_found: `{{ 'cart_button.no_product_list_found' | t }}`,
+      no_products_found: `{{ 'cart_button.no_products_found' | t }}`,
+      no_valid_products_short: `{{ 'cart_button.no_valid_products_short' | t }}`,
+      form_not_found: `{{ 'cart_button.form_not_found' | t }}`,
+      no_products_in_form: `{{ 'cart_button.no_products_in_form' | t }}`,
+      missing_variant_id: `{{ 'cart_button.missing_variant_id' | t }}`,
+      invalid_quantity: `{{ 'cart_button.invalid_quantity' | t }}`,
+      adding_products: `{{ 'cart_button.adding_products' | t }}`,
+      adding_progress: `{{ 'cart_button.adding_progress' | t }}`,
+      products_added: `{{ 'cart_button.products_added' | t }}`,
+      added: `{{ 'cart_button.added' | t }}`,
+      added_failed: `{{ 'cart_button.added_failed' | t }}`,
+      add_products_confirm: `{{ 'cart_button.add_products_confirm' | t }}`,
+      some_products_failed: `{{ 'cart_button.some_products_failed' | t }}`
+    },
+    cart_main: {
+      please_enter_discount: `{{ 'cart_main.please_enter_discount' | t }}`,
+      applying: `{{ 'cart_main.applying' | t }}`,
+      discount_applied_success: `{{ 'cart_main.discount_applied_success' | t }}`,
+      discount_error: `{{ 'cart_main.discount_error' | t }}`,
+      invalid_discount: `{{ 'cart_main.invalid_discount' | t }}`,
+      error_applying_discount: `{{ 'cart_main.error_applying_discount' | t }}`,
+      calculating: `{{ 'cart_main.calculating' | t }}`,
+      error_calculating_shipping: `{{ 'cart_main.error_calculating_shipping' | t }}`,
+      available_shipping_rates: `{{ 'cart_main.available_shipping_rates' | t }}`,
+      no_shipping_rates: `{{ 'cart_main.no_shipping_rates' | t }}`,
+      please_fill_shipping: `{{ 'cart_main.please_fill_shipping' | t }}`,
+      gift_wrap: `{{ 'cart_main.gift_wrap' | t }}`,
+      default_title: `{{ 'cart_main.default_title' | t }}`,
+      no_gift_wrap_product_id: `{{ 'cart_main.no_gift_wrap_product_id' | t }}`,
+      error_adding_gift_wrap: `{{ 'cart_main.error_adding_gift_wrap' | t }}`,
+      cart_transitioned_empty: `{{ 'cart_main.cart_transitioned_empty' | t }}`,
+      creating_cart_item: `{{ 'cart_main.creating_cart_item' | t }}`,
+      refreshing_cart_content: `{{ 'cart_main.refreshing_cart_content' | t }}`,
+      cart_content_refreshed: `{{ 'cart_main.cart_content_refreshed' | t }}`,
+      could_not_find_cart_section: `{{ 'cart_main.could_not_find_cart_section' | t }}`,
+      refreshing_cart_sections: `{{ 'cart_main.refreshing_cart_sections' | t }}`,
+      cart_sections_refreshed: `{{ 'cart_main.cart_sections_refreshed' | t }}`,
+      no_main_cart_section: `{{ 'cart_main.no_main_cart_section' | t }}`
+    },
+    shop: {
+      in_stock: `{{ 'shop.in_stock' | t }}`,
+      out_of_stock: `{{ 'shop.out_of_stock' | t }}`,
+      network_error: `{{ 'shop.network_error' | t }}`,
+      products_found: `{{ 'shop.products_found' | t }}`,
+      products: `{{ 'shop.products' | t }}`,
+      no_products_found: `{{ 'shop.no_products_found' | t }}`,
+      try_adjusting_filters: `{{ 'shop.try_adjusting_filters' | t }}`,
+      reset_all_filters: `{{ 'shop.reset_all_filters' | t }}`,
+      loading: `{{ 'shop.loading' | t }}`,
+      load_more: `{{ 'shop.load_more' | t }}`,
+      availability: `{{ 'shop.availability' | t }}`,
+      brand: `{{ 'shop.brand' | t }}`,
+      price: `{{ 'shop.price' | t }}`,
+      color: `{{ 'shop.color' | t }}`,
+      size: `{{ 'shop.size' | t }}`,
+      on_sale: `{{ 'shop.on_sale' | t }}`
+    },
+    store_locator: {
+      loading_map: `{{ 'store_locator.loading_map' | t }}`,
+      no_map_available: `{{ 'store_locator.no_map_available' | t }}`
+    }
+  };
+</script>
