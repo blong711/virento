@@ -204,8 +204,8 @@
             class="img-product lazyload"
             width="120"
             height="120"
-            data-src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
-            src="{{ product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+            data-src="{{ product.featured_image | image_url: width: 200, height: 200, crop: 'center' }}"
+            src="{{ product.featured_image | image_url: width: 200, height: 200, crop: 'center' }}"
             alt="{{ product.featured_image.alt | escape }}"
             loading="{{ loading_priority }}"
           >
@@ -213,8 +213,8 @@
             class="img-hover lazyload"
             width="120"
             height="120"
-            data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
-            src="{{ product.images[1] | default: product.featured_image | image_url: width: 120, height: 120, crop: 'center' }}"
+            data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 200, height: 200, crop: 'center' }}"
+            src="{{ product.images[1] | default: product.featured_image | image_url: width: 200, height: 200, crop: 'center' }}"
             alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
             loading="{{ loading_priority }}"
           >
