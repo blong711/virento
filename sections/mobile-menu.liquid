@@ -12,7 +12,7 @@
                 {% if section.settings.show_search %}
                 <form class="form-search" action="{{ routes.search_url }}" method="get">
                     <input type="text" placeholder="{{ section.settings.search_placeholder }}" class="" name="q" tabindex="0" value="{{ search.terms | escape }}" aria-required="true" required="">
-                    <button type="submit"><i class="icon icon-search"></i></button>
+                    <button type="submit" aria-label="Search"><i class="icon icon-search" aria-hidden="true"></i></button>
                 </form>
                 {% endif %}
 
