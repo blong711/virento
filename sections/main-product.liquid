@@ -344,7 +344,8 @@
                     {% case block.type %}
                       {% when 'countdown_timer' %}
                         {% assign end_date = product.metafields.countdown.end_date | date: '%Y-%m-%d %H:%M:%S' %}
-                        {% if end_date != blank %}
+                        {% assign current_date = 'now' | date: '%Y-%m-%d %H:%M:%S' %}
+                        {% if end_date != blank and end_date > current_date %}
                           <div class="product-info-countdown" {{ block.shopify_attributes }}>
                             <div class="countdown-title">
                               <svg class="tf-ani-tada" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
