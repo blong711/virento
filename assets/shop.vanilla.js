@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 reinitializePriceSlider();
                 // Update layout based on current settings
                 updateLayoutFromSettings();
+                // Force mobile layout after settings update
+                enforceMobileLayout();
                 updateProductCountVisibility();
             }, 100);
         });
@@ -66,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 reinitializePriceSlider();
                 // Update layout based on current settings
                 updateLayoutFromSettings();
+                // Force mobile layout after settings update
+                enforceMobileLayout();
                 updateProductCountVisibility();
             }, 100);
         });
@@ -75,6 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 // Update layout based on current settings when section is selected
                 updateLayoutFromSettings();
+                // Force mobile layout after settings update
+                enforceMobileLayout();
             }, 100);
         });
         
@@ -97,6 +103,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                     // Update layout based on new settings
                                     setTimeout(() => {
                                         updateLayoutFromSettings();
+                                        // Force mobile layout after settings update
+                                        enforceMobileLayout();
                                     }, 50);
                                 }
                             } catch (e) {
@@ -123,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 reinitializePriceSlider();
                 // Update layout based on current settings
                 updateLayoutFromSettings();
+                // Force mobile layout after settings update
+                enforceMobileLayout();
                 updateProductCountVisibility();
             }, 200);
         });
@@ -312,10 +322,7 @@ function updateLayoutFromSettings() {
         }
         
         // Call updateLayoutDisplay to ensure responsive behavior is applied
-        // Only call updateLayoutDisplay if not on mobile to prevent overriding mobile layout
-        if (!isMobileDevice()) {
-            updateLayoutDisplay();
-        }
+        updateLayoutDisplay();
     }
     
     // Update product count visibility
@@ -335,38 +342,6 @@ const filters = {
 
 // Global layout state
 let isListActive = false;
-
-// Better mobile detection function
-function isMobileDevice() {
-    // Check if we're in theme customizer mobile preview
-    if (window.Shopify && window.Shopify.designMode) {
-        // In theme customizer, check if the preview is in mobile mode
-        // This can be detected by checking if the body has mobile-specific classes
-        // or by checking the actual preview container width
-        const previewContainer = document.querySelector('.shopify-section-group-header-group') || 
-                                document.querySelector('.shopify-section-group') ||
-                                document.body;
-        
-        if (previewContainer) {
-            const computedStyle = window.getComputedStyle(previewContainer);
-            const maxWidth = computedStyle.maxWidth;
-            const width = previewContainer.offsetWidth;
-            
-            // If the container is constrained to mobile width, we're in mobile preview
-            if (maxWidth && (maxWidth.includes('375px') || maxWidth.includes('414px') || maxWidth.includes('480px'))) {
-                return true;
-            }
-            
-            // If the actual width is mobile-sized
-            if (width <= 480) {
-                return true;
-            }
-        }
-    }
-    
-    // Fallback to window width check
-    return window.innerWidth <= 767;
-}
 
 // Initialize filters with price slider values
 function initializeFilters() {
@@ -1177,13 +1152,7 @@ function initSortFunctionality() {
                 document.getElementById('listLayout').style.display = '';
             } else {
                 isListActive = false;
-                // Only set grid layout directly if not on mobile
-                if (!isMobileDevice()) {
-                    setGridLayout(layout);
-                } else {
-                    // On mobile, just call updateLayoutDisplay which will handle mobile layout
-                    updateLayoutDisplay();
-                }
+                setGridLayout(layout);
             }
         });
     });
@@ -1303,19 +1272,13 @@ function initLayoutSwitching() {
             return;
         }
 
-        // On mobile, always use 2 columns regardless of selected layout
-        if (isMobileDevice()) {
-            if (!currentLayout.includes('tf-col-2')) {
-                setGridLayout('tf-col-2');
-            }
-            return; // Exit early on mobile to prevent further layout changes
-        }
-
         // Check for user selected layout or default grid layout from settings
         const selectedLayout = userSelectedLayout || (window.collectionData && window.collectionData.defaultGridLayout);
         
         if (selectedLayout) {
-            if (windowWidth <= 1200 && selectedLayout !== 'tf-col-2') {
+            if (windowWidth <= 767) {
+                setGridLayout('tf-col-2');
+            } else if (windowWidth <= 1200 && selectedLayout !== 'tf-col-2') {
                 setGridLayout('tf-col-3');
             } else if (windowWidth <= 1400 && ['tf-col-5', 'tf-col-6', 'tf-col-7'].includes(selectedLayout)) {
                 setGridLayout('tf-col-4');
@@ -1325,7 +1288,11 @@ function initLayoutSwitching() {
             return;
         }
 
-        if (windowWidth <= 1200) {
+        if (windowWidth <= 767) {
+            if (!currentLayout.includes('tf-col-2')) {
+                setGridLayout('tf-col-2');
+            }
+        } else if (windowWidth <= 1200) {
             if (!currentLayout.includes('tf-col-3')) {
                 setGridLayout('tf-col-3');
             }
@@ -1387,13 +1354,7 @@ function initLayoutSwitching() {
             } else {
                 isListActive = false;
                 userSelectedLayout = layout;
-                // Only set grid layout directly if not on mobile
-                if (!isMobileDevice()) {
-                    setGridLayout(layout);
-                } else {
-                    // On mobile, just call updateLayoutDisplay which will handle mobile layout
-                    updateLayoutDisplay();
-                }
+                setGridLayout(layout);
             }
         });
     });
@@ -1434,10 +1395,7 @@ function initLayoutSwitching() {
         
         // Set default grid layout from theme settings
         if (window.collectionData && window.collectionData.defaultGridLayout) {
-            // Only set grid layout directly if not on mobile
-            if (!isMobileDevice()) {
-                setGridLayout(window.collectionData.defaultGridLayout);
-            }
+            setGridLayout(window.collectionData.defaultGridLayout);
             // Call updateLayoutDisplay to ensure responsive behavior is applied on initial load
             updateLayoutDisplay();
         } else {
@@ -1460,7 +1418,11 @@ function initLayoutSwitching() {
         }
     }
 
-    window.addEventListener('resize', updateLayoutDisplay);
+    window.addEventListener('resize', () => {
+        updateLayoutDisplay();
+        // Force mobile layout on resize
+        enforceMobileLayout();
+    });
     
     // Ensure product count visibility is correct on initial load
     updateProductCountVisibility();
@@ -1895,7 +1857,12 @@ function setGridLayout(layoutClass) {
     if (listLayout) listLayout.style.display = 'none';
     if (gridLayout) {
         gridLayout.style.display = '';
-        gridLayout.className = `wrapper-shop tf-grid-layout ${layoutClass}`;
+        
+        // Force mobile to always use 2 columns regardless of layoutClass
+        const isMobile = window.innerWidth <= 767;
+        const finalLayoutClass = isMobile ? 'tf-col-2' : layoutClass;
+        
+        gridLayout.className = `wrapper-shop tf-grid-layout ${finalLayoutClass}`;
     }
     
     if (wrapper) {
@@ -1903,13 +1870,27 @@ function setGridLayout(layoutClass) {
         wrapper.classList.remove('listLayout-wrapper');
     }
     
-    // Update active state
+    // Update active state - use original layoutClass for button highlighting
     document.querySelectorAll('.tf-view-layout-switch').forEach(btn => btn.classList.remove('active'));
     const activeBtn = document.querySelector(`.tf-view-layout-switch[data-value-layout="${layoutClass}"]`);
     if (activeBtn) activeBtn.classList.add('active');
     
     // Ensure product count elements are properly shown/hidden
     updateProductCountVisibility();
+}
+
+// Function to enforce mobile layout (2 columns) when on mobile
+function enforceMobileLayout() {
+    if (window.innerWidth <= 767) {
+        const gridLayout = document.getElementById('gridLayout');
+        if (gridLayout && !isListActive) {
+            // Force 2 columns on mobile
+            gridLayout.className = gridLayout.className.replace(/tf-col-\d+/, 'tf-col-2');
+            if (!gridLayout.className.includes('tf-col-2')) {
+                gridLayout.className += ' tf-col-2';
+            }
+        }
+    }
 }
 
 // Helper function to check if any filters are currently applied
