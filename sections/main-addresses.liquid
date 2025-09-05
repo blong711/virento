@@ -378,7 +378,7 @@
                             <form
                               className="address-delete-form"
                               method="post"
-                              action="/account/addresses/{{ address.id }}"
+                              action="{{ routes.account_addresses_url }}/{{ address.id }}"
                             >
                               <input type="hidden" name="_method" value="delete">
                               <button type="submit">{{ 'sections.main_addresses.delete' | t }}</button>
