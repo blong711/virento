@@ -13,74 +13,168 @@
 </style>
 
 {%- if section.settings.selected_collections != blank -%}
-  <div class="flat-spacing-4 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}" id="sub-collection-{{ section.id }}">
+  <div
+    class="flat-spacing-4 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
+    id="sub-collection-{{ section.id }}"
+  >
     <div class="{{ section.settings.width }}">
       <div class="fl-control-sw pos1">
-        <div dir="ltr" class="swiper tf-swiper hover-sw-nav wow fadeInUp" 
-             data-swiper='{
-               "slidesPerView": {{ section.settings.slides_per_view_mobile }},
-               "spaceBetween": {{ section.settings.space_between }},
-               "speed": 800,
-               "observer": true,
-               "observeParents": true,
-               "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
-               {%- if section.settings.show_navigation -%}
-               "navigation": {
-                 "clickable": true,
-                 "nextEl": ".nav-next-cls",
-                 "prevEl": ".nav-prev-cls"
-               },
-               {%- endif -%}
-               {%- if section.settings.show_pagination -%}
-               "pagination": { 
-                 "el": ".sw-pagination-cls", 
-                 "clickable": true 
-               },
-               {%- endif -%}
-               "breakpoints": {
-                 "768": { 
-                   "slidesPerView": {{ section.settings.slides_per_view_tablet }}, 
-                   "spaceBetween": 24, 
-                   "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
-                 },
-                 "1200": { 
-                   "slidesPerView": {{ section.settings.slides_per_view_desktop }}, 
-                   "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
-                 }
-               }
-             }'>
-            <div class="swiper-wrapper">
-                {%- for collection in section.settings.selected_collections limit: section.settings.collections_limit -%}
-                    <div class="swiper-slide">
-                        <div class="wg-cls style-abs2 hover-img">
-                            <a href="{{ collection.url }}" class="image-wrap relative">
-                                <div class="image img-style">
-                                    {%- if collection.image -%}
-                                        <img src="{{ collection.image | img_url: '400x400', crop: 'center' }}"
-                                            data-src="{{ collection.image | img_url: '400x400', crop: 'center' }}" 
-                                            alt="{{ collection.title | escape }}"
-                                            class="lazyload" width="400" height="400">
-                                    {%- endif -%}
-                                </div>
-                                <div class="cls-btn text-center">
-                                    <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text }}</button>
-                                </div>
-                                <span class="tf-overlay"></span>
-                            </a>
-                            <div class="cls-content text-center">
-                                <a href="{{ collection.url }}" class="text-type text-xl-2 fw-medium link">{{ collection.title }}</a>
-                                <span class="count-item body-text-2 text-main">{{ collection.all_products_count }} {{ section.settings.item_text }}</span>
-                            </div>
-                        </div>
+        <div
+          dir="ltr"
+          class="swiper tf-swiper hover-sw-nav wow fadeInUp"
+          data-swiper='
+            {
+              "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+              "spaceBetween": {{ section.settings.space_between }},
+              "speed": 800,
+              "observer": true,
+              "observeParents": true,
+              "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
+              {%- if section.settings.show_navigation -%}
+              "navigation": {
+                "clickable": true,
+                "nextEl": ".nav-next-cls",
+                "prevEl": ".nav-prev-cls"
+              },
+              {%- endif -%}
+              {%- if section.settings.show_pagination -%}
+              "pagination": {
+                "el": ".sw-pagination-cls",
+                "clickable": true
+              },
+              {%- endif -%}
+              "breakpoints": {
+                "768": {
+                  "slidesPerView": {{ section.settings.slides_per_view_tablet }},
+                  "spaceBetween": 24,
+                  "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+                },
+                "1200": {
+                  "slidesPerView": {{ section.settings.slides_per_view_desktop }},
+                  "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+                }
+              }
+            }
+          '
+        >
+          <div class="swiper-wrapper">
+            {%- for collection in section.settings.selected_collections limit: section.settings.collections_limit -%}
+              <div class="swiper-slide">
+                <div class="wg-cls style-abs2 hover-img">
+                  <a href="{{ collection.url }}" class="image-wrap relative">
+                    <div class="image img-style">
+                      {%- if collection.image -%}
+                        <img
+                          src="{{ collection.image | img_url: '400x400', crop: 'center' }}"
+                          data-src="{{ collection.image | img_url: '400x400', crop: 'center' }}"
+                          alt="{{ collection.title | escape }}"
+                          class="lazyload"
+                          width="400"
+                          height="400"
+                        >
+                      {%- endif -%}
                     </div>
-                {%- endfor -%}
-            </div>
-          
+                    <div class="cls-btn text-center">
+                      <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text }}</button>
+                    </div>
+                    <span class="tf-overlay"></span>
+                  </a>
+                  <div class="cls-content text-center">
+                    <a href="{{ collection.url }}" class="text-type text-xl-2 fw-medium link">{{ collection.title }}</a>
+                    <span class="count-item body-text-2 text-main">
+                      {{- collection.all_products_count }}
+                      {{ section.settings.item_text -}}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
           {%- if section.settings.show_pagination -%}
             <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
           {%- endif -%}
         </div>
-        
+
+        {%- if section.settings.show_navigation -%}
+          <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
+          <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+{%- else -%}
+  <div
+    class="flat-spacing-4 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
+    id="sub-collection-{{ section.id }}"
+  >
+    <div class="{{ section.settings.width }}">
+      <div class="fl-control-sw pos1">
+        <div
+          dir="ltr"
+          class="swiper tf-swiper hover-sw-nav wow fadeInUp"
+          data-swiper='
+            {
+              "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+              "spaceBetween": {{ section.settings.space_between }},
+              "speed": 800,
+              "observer": true,
+              "observeParents": true,
+              "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
+              {%- if section.settings.show_navigation -%}
+              "navigation": {
+                "clickable": true,
+                "nextEl": ".nav-next-cls",
+                "prevEl": ".nav-prev-cls"
+              },
+              {%- endif -%}
+              {%- if section.settings.show_pagination -%}
+              "pagination": {
+                "el": ".sw-pagination-cls",
+                "clickable": true
+              },
+              {%- endif -%}
+              "breakpoints": {
+                "768": {
+                  "slidesPerView": {{ section.settings.slides_per_view_tablet }},
+                  "spaceBetween": 24,
+                  "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+                },
+                "1200": {
+                  "slidesPerView": {{ section.settings.slides_per_view_desktop }},
+                  "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+                }
+              }
+            }
+          '
+        >
+          <div class="swiper-wrapper">
+            {%- for i in (1..5) -%}
+              <div class="swiper-slide">
+                <div class="wg-cls style-abs2 hover-img">
+                  <a href="#" class="image-wrap relative">
+                    <div class="image img-style">
+                      {{ 'collection-' | append: i | placeholder_svg_tag }}
+                    </div>
+                    <div class="cls-btn text-center">
+                      <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text }}</button>
+                    </div>
+                    <span class="tf-overlay"></span>
+                  </a>
+                  <div class="cls-content text-center">
+                    <a href="#" class="text-type text-xl-2 fw-medium link">Collection {{ i }}</a>
+                    <span class="count-item body-text-2 text-main">0 {{ section.settings.item_text }}</span>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          {%- if section.settings.show_pagination -%}
+            <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+          {%- endif -%}
+        </div>
+
         {%- if section.settings.show_navigation -%}
           <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
           <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
