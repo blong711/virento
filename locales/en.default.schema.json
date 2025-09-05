@@ -7328,7 +7328,10 @@
       "read_more": "Read more",
       "comment": "comment",
       "comments": "comments",
-      "admin": "Admin"
+      "admin": "Admin",
+      "presets": {
+        "category": "Blog"
+      }
     },
     "collection-description": {
       "name": "Collection Description",
