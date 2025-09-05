@@ -4698,7 +4698,9 @@
         }
       },
       "presets": {
-        "name": "Categories Slider"
+        "name": "Categories Slider",
+        "category": "Slider"
+
       }
     },
     "tag-products-carousel": {
