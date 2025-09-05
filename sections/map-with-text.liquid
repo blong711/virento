@@ -107,13 +107,15 @@
                 </li>
               </ul>
               <div class="bot">
+                {% if block.settings.button_text != blank and block.settings.button_url != blank %}
                 <a
                   href="{{ block.settings.button_url }}"
                   class="tf-btn btn-line"
                 >
                   <span class="text-sm">{{ block.settings.button_text }}</span>
-                  <i class="icon-arrow-top-left fs-8"></i>
-                </a>
+                    <i class="icon-arrow-top-left fs-8"></i>
+                  </a>
+                {% endif %}
               </div>
             </div>
         {% endcase %}
