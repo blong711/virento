@@ -1262,13 +1262,13 @@ function initLayoutSwitching() {
             return;
         }
 
-        // Force mobile to always use tf-col-2 regardless of user settings
+        // Force mobile to always use tf-col-2 - ignore user settings
         if (windowWidth <= 767) {
             setGridLayout('tf-col-2');
             return;
         }
 
-        // Check for user selected layout or default grid layout from settings
+        // Check for user selected layout or default grid layout from settings (desktop only)
         const selectedLayout = userSelectedLayout || (window.collectionData && window.collectionData.defaultGridLayout);
         
         if (selectedLayout) {
