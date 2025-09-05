@@ -12,7 +12,7 @@
     "main": {
       "type": "main-search",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-3",
         "width": "container",
         "max_products_per_page": 12,
         "default_layout_type": "grid",
