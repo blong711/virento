@@ -19,7 +19,7 @@
         "default_grid_layout": "tf-col-4",
         "show_on_sale": true,
         "on_sale_limit": 3,
-        "show_collection_banner": false,
+        "show_collection_banner": true,
         "collection_banner_image": "shopify://shop_images/sb-banner_1.jpg",
         "collection_banner_title": "Elevate Your Style",
         "collection_banner_button_text": "Shop Now",
