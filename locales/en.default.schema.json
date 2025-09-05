@@ -4877,7 +4877,8 @@
         }
       },
       "presets": {
-        "name": "Brands Carousel"
+        "name": "Brands Carousel",
+         "category": "Banner"
       }
     },
     "featured-products-tab": {
