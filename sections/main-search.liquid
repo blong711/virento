@@ -69,16 +69,16 @@
             </ul>
         </div>
         
-        <div class="wrapper-control-shop">
+        <div class="wrapper-control-shop {% if default_layout_type == 'list' %}listLayout-wrapper{% else %}gridLayout-wrapper{% endif %}">
             <div class="meta-filter-shop">
-                <div id="product-count-grid" class="count-text">
+                <div id="product-count-grid" class="count-text" style="display: {% if default_layout_type == 'grid' %}block{% else %}none{% endif %};">
                     {% if total_products > 0 %}
                         <span class="count">{{ total_products }}</span> {{ 'sections.main_collection.products_found' | t }}
                     {% else %}
                         {{ 'sections.main_collection.no_products_found' | t }}
                     {% endif %}
                 </div>
-                <div id="product-count-list" class="count-text">
+                <div id="product-count-list" class="count-text" style="display: {% if default_layout_type == 'list' %}block{% else %}none{% endif %};">
                     {% if total_products > 0 %}
                         <span class="count">{{ total_products }}</span> {{ 'sections.main_collection.products_found' | t }}
                     {% else %}

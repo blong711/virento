@@ -17834,6 +17834,12 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   display: none;
 }
 
+/* Show appropriate product count based on layout when JavaScript is not available */
+.gridLayout-wrapper #product-count-grid,
+.listLayout-wrapper #product-count-list {
+  display: block !important;
+}
+
 /* Show the appropriate one when wrapper classes are applied */
 .gridLayout-wrapper #product-count-grid,
 .listLayout-wrapper #product-count-list {
