@@ -6008,7 +6008,8 @@
         }
       },
       "presets": {
-        "name": "Product Description"
+        "name": "Product Description",
+        "category": "Product"
       }
     },
     "product-breadcrumb": {
@@ -6026,6 +6027,10 @@
         "go_back_url": {
           "label": "Go back URL"
         }
+      },
+      "presets": {
+        "name": "Product Breadcrumb",
+        "category": "Product"
       }
     },
     "related-products": {
