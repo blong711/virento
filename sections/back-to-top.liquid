@@ -1,5 +1,4 @@
 {%- liquid
-  assign section_id = 'back-to-top-' | append: section.id
   assign hidden_mobile = section.settings.hidden_mobile
   assign enable_progress = section.settings.enable_progress
 -%}
@@ -57,7 +56,7 @@
   "presets": [
     {
       "name": "t:sections.back-to-top.name",
-      "category": "System Group",
+      "category": "System Group"
     }
   ]
 }
