@@ -283,9 +283,11 @@
                   {% endfor %}
                 </ul>
                 {% if block %}
-                  {% if block.settings.recent_posts_title != blank and block.settings.blog != blank %}
+                  {% if block.settings.blog != blank %}
                     <div class="wrapper-sub-blog">
+                      {% if block.settings.recent_posts_title != blank %}
                       <div class="menu-heading">{{ block.settings.recent_posts_title }}</div>
+                      {% endif %}
                       <ul class="list-recent-blog">
                         {% for post in blogs[block.settings.blog].articles limit: block.settings.posts_to_show %}
                           <li class="item">
