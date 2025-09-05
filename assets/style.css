@@ -25097,13 +25097,16 @@ shopify-accelerated-checkout {
       height: auto;
   }
   .card-product.style-list .card-product-wrapper.asp-ratio-portrait {
-      aspect-ratio: 3/4;
+      width: 120px;
+      height: 160px;
   }
   .card-product.style-list .card-product-wrapper.asp-ratio-landscape {
-      aspect-ratio: 4/3;
+      width: 120px;
+      height: 90px;
   }
   .card-product.style-list .card-product-wrapper.asp-ratio-square {
-      aspect-ratio: 1/1;
+      width: 120px;
+      height:120px;
   }
   .card-product.style-list .product-img {
       width: 100%;
