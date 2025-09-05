@@ -7266,6 +7266,10 @@
         "columns_mobile": {
           "label": "Columns on mobile"
         }
+      },
+      "presets": {
+        "name": "Featured Products List",
+        "category": "Product"
       }
     },
     "blog-carousel": {
