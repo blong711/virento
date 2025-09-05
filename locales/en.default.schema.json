@@ -3787,6 +3787,10 @@
         "currency_selector": {
           "name": "Currency Selector"
         }
+      },
+      "presets": {
+        "name": "Top Bar",
+        "category": "Header"
       }
     },
     "collapsible_content": {
