@@ -16,6 +16,7 @@
 {% if show_price_filter == nil %}{% assign show_price_filter = true %}{% endif %}
 {% if show_color_filter == nil %}{% assign show_color_filter = true %}{% endif %}
 {% if show_brand_filter == nil %}{% assign show_brand_filter = true %}{% endif %}
+{% if show_size_filter == nil %}{% assign show_size_filter = true %}{% endif %}
 
 <div class="offcanvas offcanvas-start canvas-sidebar canvas-filter color-{{ color_scheme }}" id="filterShop">
   <div class="canvas-wrapper">
@@ -190,6 +191,7 @@
       {% endif %}
 
       {% comment %} Size Filter {% endcomment %}
+      {% if show_size_filter %}
       {% assign all_sizes = '' %}
       {% for product in search.results %}
         {% if product.object_type == 'product' %}
@@ -240,8 +242,9 @@
                 {% endunless %}
               {% endfor %}
             </div>
+            </div>
           </div>
-        </div>
+        {% endif %}
       {% endif %}
 
       {% comment %} Brand Filter {% endcomment %}

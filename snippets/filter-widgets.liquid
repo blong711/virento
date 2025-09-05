@@ -1,7 +1,7 @@
 {% comment %}
   Filter Widgets Snippet
   Common filter widgets used by collection filters
-  Usage: {% render 'filter-widgets', full_collection: full_collection, collections: collections, color_scheme: color_scheme, show_availability_filter: show_availability_filter, show_price_filter: show_price_filter, show_color_filter: show_color_filter, show_brand_filter: show_brand_filter, show_on_sale: show_on_sale, on_sale_limit: on_sale_limit, show_collection_banner: show_collection_banner, collection_banner_title: collection_banner_title, collection_banner_button_text: collection_banner_button_text, collection_banner_button_url: collection_banner_button_url, collection_banner_image: collection_banner_image %}
+  Usage: {% render 'filter-widgets', full_collection: full_collection, collections: collections, color_scheme: color_scheme, show_availability_filter: show_availability_filter, show_price_filter: show_price_filter, show_color_filter: show_color_filter, show_brand_filter: show_brand_filter, show_on_sale: show_on_sale, on_sale_limit: on_sale_limit, show_collection_banner: show_collection_banner, collection_banner_title: collection_banner_title, collection_banner_button_text: collection_banner_button_text, collection_banner_button_url: collection_banner_button_url, collection_banner_image: collection_banner_image, show_size_filter: show_size_filter %}
 {% endcomment %}
 
 {% comment %} Set default color scheme if not provided {% endcomment %}
@@ -133,6 +133,7 @@
 {% endif %}
 
 {% comment %} Size Filter {% endcomment %}
+ {% if show_size_filter %}
 {% assign all_sizes = '' %}
 {% for product in full_collection.products %}
     {% for option in product.options_with_values %}
@@ -175,6 +176,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 {% endif %}
 
 {% comment %} Brand Filter {% endcomment %}

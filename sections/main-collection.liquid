@@ -349,7 +349,8 @@
                     show_availability_filter: section.settings.show_availability_filter,
                     show_price_filter: section.settings.show_price_filter,
                     show_color_filter: section.settings.show_color_filter,
-                    show_brand_filter: section.settings.show_brand_filter
+                    show_brand_filter: section.settings.show_brand_filter,
+                    show_size_filter: section.settings.show_size_filter
                 %}
             </div>
         </div>
@@ -372,7 +373,8 @@
         show_availability_filter: section.settings.show_availability_filter,
         show_price_filter: section.settings.show_price_filter,
         show_color_filter: section.settings.show_color_filter,
-        show_brand_filter: section.settings.show_brand_filter
+        show_brand_filter: section.settings.show_brand_filter,
+        show_size_filter: section.settings.show_size_filter
     %}
 {% endif %}
 
@@ -473,16 +475,16 @@
             ],
             "default": "container"
         },
-        {
-            "type": "range",
-            "id": "max_products_per_page",
-            "label": "t:sections.main_collection.settings.max_products_per_page.label",
-            "min": 4,
-            "max": 48,
-            "step": 4,
-            "default": 8,
-            "info": "t:sections.main_collection.settings.max_products_per_page.info"
-        },
+            {
+                "type": "range",
+                "id": "max_products_per_page",
+                "label": "t:sections.main_collection.settings.max_products_per_page.label",
+                "min": 4,
+                "max": 48,
+                "step": 4,
+                "default": 8,
+                "info": "t:sections.main_collection.settings.max_products_per_page.info"
+            },
         {
             "type": "select",
             "id": "default_layout_type",

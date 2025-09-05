@@ -19,6 +19,7 @@
 {% if show_price_filter == nil %}{% assign show_price_filter = true %}{% endif %}
 {% if show_color_filter == nil %}{% assign show_color_filter = true %}{% endif %}
 {% if show_brand_filter == nil %}{% assign show_brand_filter = true %}{% endif %}
+{% if show_size_filter == nil %}{% assign show_size_filter = true %}{% endif %}
 
 <div class="canvas-sidebar sidebar-filter canvas-filter left color-{{ color_scheme }}">
     <div class="canvas-wrapper">
@@ -42,7 +43,8 @@
                 collection_banner_title: collection_banner_title,
                 collection_banner_button_text: collection_banner_button_text,
                 collection_banner_button_url: collection_banner_button_url,
-                collection_banner_image: collection_banner_image %}
+                collection_banner_image: collection_banner_image,
+                show_size_filter: show_size_filter %}
 
         </div>
     </div>
