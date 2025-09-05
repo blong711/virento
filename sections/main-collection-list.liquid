@@ -94,13 +94,6 @@
             -%}
           {%- endfor -%}
         {%- endif -%}
-
-        {% if collections == blank %}
-          {%- for i in (1..6) -%}
-            {%- render 'collection-item'-%}
-          {% endfor %}
-        {% endif %}
-
         {%- if pagination_type != 'none' and paginate.pages > 1 -%}
           <!-- Pagination -->
           {%- if pagination_type == 'numbers' -%}
