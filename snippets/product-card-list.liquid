@@ -3,16 +3,18 @@
     Accepts:
     - product: The product object
     - show_progress_sale: Boolean to show/hide progress sale (default: true)
+    - card_image_ratio: Image aspect ratio (adapt, portrait, landscape, square)
 {% endcomment %}
 
 {% comment %} Handle show_progress_sale parameter {% endcomment %}
+{% assign card_image_ratio = card_image_ratio | default: settings.card_image_ratio | default: 'adapt' %}
 
 <div class="card-product style-list" 
      data-availability="{{ product.available | default: false }}"
      data-brand="{{ product.vendor | handleize }}"
      data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
      {% if product.compare_at_price > product.price %}data-sale="true"{% endif %}>
-    <div class="card-product-wrapper">
+    <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }}">
         <a href="{{ product.url }}" class="product-img">
             {% if product.featured_image %}
                 <img class="img-product lazyload" 
