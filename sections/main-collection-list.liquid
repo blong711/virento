@@ -95,6 +95,11 @@
           {%- endfor -%}
         {%- endif -%}
 
+        {% if collections == blank %}
+          {%- render 'collection-item'
+            -%}
+        {% endif %}
+
         {%- if pagination_type != 'none' and paginate.pages > 1 -%}
           <!-- Pagination -->
           {%- if pagination_type == 'numbers' -%}
