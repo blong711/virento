@@ -1109,7 +1109,8 @@
         }
       },
       "presets": {
-        "name": "Blog posts"
+        "name": "Blog posts",
+        "categoty": "Blog"
       }
     },
     "featured-collection": {
