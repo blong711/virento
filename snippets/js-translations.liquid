@@ -12,6 +12,8 @@
   window.themeSettings = {
     free_shipping_threshold: '{{ settings.free_shipping_threshold | times: 100 }}',
     cartType: '{{ settings.cart_type }}',
+    currency_code_enabled: {{ settings.currency_code_enabled | json }},
+    currency_code: '{{ shop.currency }}',
     cardSettings: {
       style: '{{ settings.card_style }}',
       imagePadding: '{{ settings.card_image_padding }}px',

@@ -238,11 +238,40 @@ class RecentlyViewedProducts {
         return price;
     }
 
+    // Helper method to check if currency code is enabled
+    isCurrencyCodeEnabled() {
+        // Check if theme settings are available and currency code is enabled
+        if (window.themeSettings && window.themeSettings.currency_code_enabled !== undefined) {
+            return window.themeSettings.currency_code_enabled;
+        }
+        // Fallback: default to false if no theme settings available
+        return false;
+    }
+
+    // Helper method to get currency code
+    getCurrencyCode() {
+        // Get currency from theme settings
+        if (window.themeSettings && window.themeSettings.currency_code) {
+            return window.themeSettings.currency_code;
+        }
+        // Fallback to USD if theme settings not available
+        return 'USD';
+    }
+
+    // Helper method to format price with currency
+    formatPriceWithCurrency(price) {
+        const formattedPrice = this.formatPrice(price);
+        if (this.isCurrencyCodeEnabled()) {
+            return `${formattedPrice} ${this.getCurrencyCode()}`;
+        }
+        return `$${formattedPrice}`;
+    }
+
     // Helper method to format price for quickview (matching snippet's | money filter)
     formatPriceForQuickview(price) {
         if (typeof price === 'number') {
             // Format as currency string like Shopify's money filter
-            return `$${(price / 100).toFixed(2)}`;
+            return this.formatPriceWithCurrency(price);
         }
         return price;
     }
@@ -254,9 +283,9 @@ class RecentlyViewedProducts {
         
         return `
             <p class="price-wrap fw-medium">
-                <span class="price-new text-xl-2">$${this.formatPrice(price)}</span>
+                <span class="price-new text-xl-2">${this.formatPriceWithCurrency(price)}</span>
                 ${comparePrice && comparePrice > price ? 
-                    `<span class="price-old text-sm old-line">$${this.formatPrice(comparePrice)}</span>` : ''}
+                    `<span class="price-old text-sm old-line">${this.formatPriceWithCurrency(comparePrice)}</span>` : ''}
             </p>
         `;
     }
