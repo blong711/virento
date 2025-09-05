@@ -349,7 +349,24 @@
               class="sub-menu mega-menu mega-shop"
               style="grid-template-columns: 1fr !important; max-width: 600px; padding: 32px 60px;"
             >
-              <div class="wrapper-sub-menu">
+              {% if link.links.size > 1 %}
+                <div class="wrapper-sub-menu">
+                  {% for child in link.links %}
+                    <div class="mega-menu-item">
+                      <div class="menu-heading">{{ child.title }}</div>
+                      {% if child.links != blank %}
+                        <ul class="menu-list">
+                          {% for grandchild in child.links %}
+                            <li>
+                              <a href="{{ grandchild.url }}" class="menu-link-text link">{{ grandchild.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </div>
+                  {% endfor %}
+                </div>
+              {% else %}
                 {% for child in link.links %}
                   <div class="mega-menu-item">
                     <div class="menu-heading">{{ child.title }}</div>
@@ -364,7 +381,7 @@
                     {% endif %}
                   </div>
                 {% endfor %}
-              </div>
+              {% endif %}
             </div>
           {% else %}
             <!-- Use the same structure as mega_pages but without banner -->
