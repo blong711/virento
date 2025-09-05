@@ -2983,7 +2983,7 @@
       "presets": {
         "product": {
           "name": "Product",
-          "category": "Product Page"
+          "category": "Product"
         }
       }
     },
@@ -3787,6 +3787,10 @@
         "currency_selector": {
           "name": "Currency Selector"
         }
+      },
+      "presets": {
+        "name": "Top Bar",
+        "category": "Header"
       }
     },
     "collapsible_content": {
@@ -4953,6 +4957,10 @@
             }
           }
         }
+      },
+      "presets": {
+        "name": "Featured Products Tab",
+        "category": "Product"
       }
     },
     "featured-product-carousel": {
@@ -6000,7 +6008,8 @@
         }
       },
       "presets": {
-        "name": "Product Description"
+        "name": "Product Description",
+        "category": "Product"
       }
     },
     "product-breadcrumb": {
@@ -6018,6 +6027,10 @@
         "go_back_url": {
           "label": "Go back URL"
         }
+      },
+      "presets": {
+        "name": "Product Breadcrumb",
+        "category": "Product"
       }
     },
     "related-products": {
@@ -7258,6 +7271,10 @@
         "columns_mobile": {
           "label": "Columns on mobile"
         }
+      },
+      "presets": {
+        "name": "Featured Products List",
+        "category": "Product"
       }
     },
     "blog-carousel": {
