@@ -1366,6 +1366,14 @@ video {
   background: var(--gradient-2);
 }
 
+.bg-clear {
+  background-color: transparent !important;
+  border: 1px solid var(--line) !important;
+}
+
+.bg-navy {
+  background-color: #000080 !important;
+}
 a {
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
