@@ -313,7 +313,7 @@ function updateLayoutFromSettings() {
         
         // Call updateLayoutDisplay to ensure responsive behavior is applied
         // Only call updateLayoutDisplay if not on mobile to prevent overriding mobile layout
-        if (window.innerWidth > 767) {
+        if (!isMobileDevice()) {
             updateLayoutDisplay();
         }
     }
@@ -335,6 +335,38 @@ const filters = {
 
 // Global layout state
 let isListActive = false;
+
+// Better mobile detection function
+function isMobileDevice() {
+    // Check if we're in theme customizer mobile preview
+    if (window.Shopify && window.Shopify.designMode) {
+        // In theme customizer, check if the preview is in mobile mode
+        // This can be detected by checking if the body has mobile-specific classes
+        // or by checking the actual preview container width
+        const previewContainer = document.querySelector('.shopify-section-group-header-group') || 
+                                document.querySelector('.shopify-section-group') ||
+                                document.body;
+        
+        if (previewContainer) {
+            const computedStyle = window.getComputedStyle(previewContainer);
+            const maxWidth = computedStyle.maxWidth;
+            const width = previewContainer.offsetWidth;
+            
+            // If the container is constrained to mobile width, we're in mobile preview
+            if (maxWidth && (maxWidth.includes('375px') || maxWidth.includes('414px') || maxWidth.includes('480px'))) {
+                return true;
+            }
+            
+            // If the actual width is mobile-sized
+            if (width <= 480) {
+                return true;
+            }
+        }
+    }
+    
+    // Fallback to window width check
+    return window.innerWidth <= 767;
+}
 
 // Initialize filters with price slider values
 function initializeFilters() {
@@ -1146,7 +1178,7 @@ function initSortFunctionality() {
             } else {
                 isListActive = false;
                 // Only set grid layout directly if not on mobile
-                if (window.innerWidth > 767) {
+                if (!isMobileDevice()) {
                     setGridLayout(layout);
                 } else {
                     // On mobile, just call updateLayoutDisplay which will handle mobile layout
@@ -1272,7 +1304,7 @@ function initLayoutSwitching() {
         }
 
         // On mobile, always use 2 columns regardless of selected layout
-        if (windowWidth <= 767) {
+        if (isMobileDevice()) {
             if (!currentLayout.includes('tf-col-2')) {
                 setGridLayout('tf-col-2');
             }
@@ -1356,7 +1388,7 @@ function initLayoutSwitching() {
                 isListActive = false;
                 userSelectedLayout = layout;
                 // Only set grid layout directly if not on mobile
-                if (window.innerWidth > 767) {
+                if (!isMobileDevice()) {
                     setGridLayout(layout);
                 } else {
                     // On mobile, just call updateLayoutDisplay which will handle mobile layout
@@ -1403,7 +1435,7 @@ function initLayoutSwitching() {
         // Set default grid layout from theme settings
         if (window.collectionData && window.collectionData.defaultGridLayout) {
             // Only set grid layout directly if not on mobile
-            if (window.innerWidth > 767) {
+            if (!isMobileDevice()) {
                 setGridLayout(window.collectionData.defaultGridLayout);
             }
             // Call updateLayoutDisplay to ensure responsive behavior is applied on initial load
