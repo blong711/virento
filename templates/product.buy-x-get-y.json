@@ -162,7 +162,7 @@
         "show_slider_nav": true,
         "enable_image_zoom": true,
         "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     },
