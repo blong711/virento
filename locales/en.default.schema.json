@@ -7010,7 +7010,7 @@
           "list": "List"
         },
         "default_grid_layout": {
-          "label": "Grid layout"
+          "label": "Grid layout(Desktop)"
         },
         "default_grid_layout_options": {
           "tf-col-2": "2 Columns",
