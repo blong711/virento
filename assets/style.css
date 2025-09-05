@@ -22262,9 +22262,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   .card-product.style-list {
     gap: 24px;
   }
-  .card-product.style-list .card-product-wrapper {
+  /* .card-product.style-list .card-product-wrapper {
     aspect-ratio: 1/1.42;
-  }
+  } */
   .card-product.style-list .card-product-info {
     gap: 24px;
   }
