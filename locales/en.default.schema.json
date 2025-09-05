@@ -6043,6 +6043,10 @@
         "products_to_show": {
           "label": "Products to show"
         }
+      },
+      "presets": {
+        "name": "Related Products",
+        "category": "Product"
       }
     },
     "wishlist": {
