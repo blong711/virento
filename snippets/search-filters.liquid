@@ -77,9 +77,9 @@
                 >
                 <label for="inStock" class="label">
                   <span>{{ 'sections.main_collection.in_stock' | t }}</span>&nbsp;
-                  <span class="count"
+                  {% comment %} <span class="count"
                     >({{ search.results | where: 'object_type', 'product' | where: 'available', true | size }})</span
-                  >
+                  > {% endcomment %}
                 </label>
               </li>
               <li class="list-item">
@@ -92,9 +92,9 @@
                 >
                 <label for="outStock" class="label">
                   <span>{{ 'sections.main_collection.out_of_stock' | t }}</span>&nbsp;
-                  <span class="count"
+                  {% comment %} <span class="count"
                     >({{ search.results | where: 'object_type', 'product' | where: 'available', false | size }})</span
-                  >
+                  > {% endcomment %}
                 </label>
               </li>
             </ul>
@@ -234,7 +234,7 @@
                   {% endfor %}
                   <div class="check-item size-item size-check">
                     <span class="size">{{ size }}</span>&nbsp;
-                    <span class="count">({{ size_count }})</span>
+                    {% comment %} <span class="count">({{ size_count }})</span> {% endcomment %}
                   </div>
                 {% endunless %}
               {% endfor %}
@@ -272,9 +272,9 @@
                     >
                     <label for="{{ vendor | handleize }}" class="label">
                       <span>{{ vendor }}</span>&nbsp;
-                      <span class="count"
+                      {% comment %} <span class="count"
                         >({{ search.results | where: 'object_type', 'product' | where: 'vendor', vendor | size }})</span
-                      >
+                      > {% endcomment %}
                     </label>
                   </li>
                 {% endfor %}
