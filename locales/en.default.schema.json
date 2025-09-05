@@ -725,7 +725,8 @@
         }
       },
       "presets": {
-        "name": "Main Slider"
+        "name": "Main Slider",
+        "category": "Slider"
       }
     },
     "all": {
@@ -4698,7 +4699,9 @@
         }
       },
       "presets": {
-        "name": "Categories Slider"
+        "name": "Categories Slider",
+        "category": "Slider"
+
       }
     },
     "tag-products-carousel": {
@@ -6111,6 +6114,10 @@
         "show_pagination": {
           "label": "Show Pagination Dots(Mobile)"
         }
+      },
+       "presets": {
+        "name": "Recently Viewed",
+        "category": "Product",
       }
     },
     "featured-products-countdown": {
@@ -6492,6 +6499,10 @@
             }
           }
         }
+      },
+       "presets": {
+        "name": "Main Cart",
+        "category": "Cart",
       }
     },
     "main_collection_list": {
