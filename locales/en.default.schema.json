@@ -5085,7 +5085,8 @@
         }
       },
       "presets": {
-        "default": "Store Locator"
+        "default": "Store Locator",
+        "category": "Contact"
       }
     },
     "icon-box": {
