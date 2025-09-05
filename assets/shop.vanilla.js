@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.Shopify && window.Shopify.designMode) {
         // Listen for theme customizer events
         document.addEventListener('shopify:section:load', () => {
+            // Force mobile layout immediately
+            forceMobileLayoutImmediate();
+            
             setTimeout(() => {
                 // Reinitialize price slider if it exists
                 reinitializePriceSlider();
@@ -63,6 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         document.addEventListener('shopify:section:reorder', () => {
+            // Force mobile layout immediately
+            forceMobileLayoutImmediate();
+            
             setTimeout(() => {
                 // Reinitialize price slider if it exists
                 reinitializePriceSlider();
@@ -76,6 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Listen for section setting changes
         document.addEventListener('shopify:section:select', () => {
+            // Force mobile layout immediately
+            forceMobileLayoutImmediate();
+            
             setTimeout(() => {
                 // Update layout based on current settings when section is selected
                 updateLayoutFromSettings();
@@ -99,6 +108,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (match) {
                                     const newCollectionData = JSON.parse(match[1]);
                                     window.collectionData = newCollectionData;
+                                    
+                                    // Force mobile layout immediately
+                                    forceMobileLayoutImmediate();
                                     
                                     // Update layout based on new settings
                                     setTimeout(() => {
@@ -125,6 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Also listen for window resize events in theme customizer
         let customizerResizeTimeout;
         window.addEventListener('resize', () => {
+            // Force mobile layout immediately on resize
+            forceMobileLayoutImmediate();
+            
             clearTimeout(customizerResizeTimeout);
             customizerResizeTimeout = setTimeout(() => {
                 // Reinitialize price slider if it exists
@@ -323,6 +338,8 @@ function updateLayoutFromSettings() {
         
         // Call updateLayoutDisplay to ensure responsive behavior is applied
         updateLayoutDisplay();
+        // Force mobile layout immediately after settings update
+        forceMobileLayoutImmediate();
     }
     
     // Update product count visibility
@@ -1153,6 +1170,8 @@ function initSortFunctionality() {
             } else {
                 isListActive = false;
                 setGridLayout(layout);
+                // Force mobile layout immediately after layout change
+                forceMobileLayoutImmediate();
             }
         });
     });
@@ -1355,6 +1374,8 @@ function initLayoutSwitching() {
                 isListActive = false;
                 userSelectedLayout = layout;
                 setGridLayout(layout);
+                // Force mobile layout immediately after layout change
+                forceMobileLayoutImmediate();
             }
         });
     });
@@ -1401,6 +1422,9 @@ function initLayoutSwitching() {
         } else {
             updateLayoutDisplay();
         }
+        
+        // Force mobile layout immediately after initial setup
+        forceMobileLayoutImmediate();
         
         // Set active state for default grid layout button
         if (window.collectionData && window.collectionData.defaultGridLayout) {
@@ -1879,16 +1903,27 @@ function setGridLayout(layoutClass) {
     updateProductCountVisibility();
 }
 
-// Function to enforce mobile layout (2 columns) when on mobile
+// Function to enforce mobile layout (2 columns) when on mobile - IMMEDIATE
 function enforceMobileLayout() {
     if (window.innerWidth <= 767) {
         const gridLayout = document.getElementById('gridLayout');
         if (gridLayout && !isListActive) {
-            // Force 2 columns on mobile
+            // Force 2 columns on mobile immediately
             gridLayout.className = gridLayout.className.replace(/tf-col-\d+/, 'tf-col-2');
             if (!gridLayout.className.includes('tf-col-2')) {
                 gridLayout.className += ' tf-col-2';
             }
+        }
+    }
+}
+
+// Function to force mobile layout immediately without any delays
+function forceMobileLayoutImmediate() {
+    if (window.innerWidth <= 767) {
+        const gridLayout = document.getElementById('gridLayout');
+        if (gridLayout && !isListActive) {
+            // Immediately force 2 columns on mobile
+            gridLayout.className = `wrapper-shop tf-grid-layout tf-col-2`;
         }
     }
 }
