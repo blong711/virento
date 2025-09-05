@@ -96,8 +96,9 @@
         {%- endif -%}
 
         {% if collections == blank %}
-          {%- render 'collection-item'
-            -%}
+          {%- for i in (1..5) -%}
+            {%- render 'collection-item'-%}
+          {% endfor %}
         {% endif %}
 
         {%- if pagination_type != 'none' and paginate.pages > 1 -%}
