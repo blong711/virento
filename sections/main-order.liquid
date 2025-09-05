@@ -197,7 +197,15 @@
                               <td class="text-md text-{{ order.fulfillment_status | handle }}">
                                 {{ order.fulfillment_status | capitalize }}
                               </td>
-                              <td class="text-md">{{ order.total_price | money }} / {{ order.line_items.size }} items</td>
+                              <td class="text-md">
+                                {%- if settings.currency_code_enabled -%}
+                                  {{- order.total_price | money }}
+                                  {{ shop.currency -}}
+                                {%- else -%}
+                                  {{- order.total_price | money -}}
+                                {%- endif -%}
+                                / {{ order.line_items.size }} items
+                              </td>
                               <td>
                                 <button
                                   type="button"

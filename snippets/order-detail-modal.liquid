@@ -60,10 +60,20 @@
                                         {{ line_item.quantity }}
                                     </div>
                                     <div class="item" data-title="{{ 'orders.modal.price' | t }}">
-                                        {{ line_item.final_price | money }}
+                                        {%- if settings.currency_code_enabled -%}
+                                            {{- line_item.final_price | money }}
+                                            {{ shop.currency -}}
+                                        {%- else -%}
+                                            {{- line_item.final_price | money -}}
+                                        {%- endif -%}
                                     </div>
                                     <div class="item" data-title="{{ 'orders.modal.total' | t }}">
-                                        {{ line_item.final_line_price | money }}
+                                        {%- if settings.currency_code_enabled -%}
+                                            {{- line_item.final_line_price | money }}
+                                            {{ shop.currency -}}
+                                        {%- else -%}
+                                            {{- line_item.final_line_price | money -}}
+                                        {%- endif -%}
                                     </div>
                                 </div>
                             {% endfor %}
@@ -75,7 +85,12 @@
                                     {{ 'orders.modal.subtotal' | t }}:
                                 </div>
                                 <div class="item subtotal-price">
-                                    {{ order.subtotal_price | money }} {{ shop.currency }}
+                                    {%- if settings.currency_code_enabled -%}
+                                        {{- order.subtotal_price | money }}
+                                        {{ shop.currency -}}
+                                    {%- else -%}
+                                        {{- order.subtotal_price | money -}}
+                                    {%- endif -%}
                                 </div>
                             </div>
                             
@@ -87,7 +102,12 @@
                                         {{ 'orders.modal.tax' | t }}:
                                     </div>
                                     <div class="item tax-price">
-                                        {{ order.total_tax | money }} {{ shop.currency }}
+                                        {%- if settings.currency_code_enabled -%}
+                                            {{- order.total_tax | money }}
+                                            {{ shop.currency -}}
+                                        {%- else -%}
+                                            {{- order.total_tax | money -}}
+                                        {%- endif -%}
                                     </div>
                                 </div>
                             {% endif %}
@@ -100,7 +120,12 @@
                                         {{ 'orders.modal.shipping' | t }}:
                                     </div>
                                     <div class="item shipping-price">
-                                        {{ order.total_shipping_price_set.shop_money | money }} {{ shop.currency }}
+                                        {%- if settings.currency_code_enabled -%}
+                                            {{- order.total_shipping_price_set.shop_money | money }}
+                                            {{ shop.currency -}}
+                                        {%- else -%}
+                                            {{- order.total_shipping_price_set.shop_money | money -}}
+                                        {%- endif -%}
                                     </div>
                                 </div>
                             {% endif %}

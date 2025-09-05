@@ -43,9 +43,23 @@
       {{- product.title -}}
     </a>
     <p class="price-wrap fw-medium">
-      <span class="price-new text-primary text-xl-2">{{ product.price | money }}</span>
+      <span class="price-new text-primary text-xl-2">
+        {%- if settings.currency_code_enabled -%}
+          {{- product.price | money }}
+          {{ shop.currency -}}
+        {%- else -%}
+          {{- product.price | money -}}
+        {%- endif -%}
+      </span>
       {% if product.compare_at_price > product.price %}
-        <span class="price-old text-sm old-line">{{ product.compare_at_price | money }}</span>
+        <span class="price-old text-sm old-line">
+          {%- if settings.currency_code_enabled -%}
+            {{- product.compare_at_price | money }}
+            {{ shop.currency -}}
+          {%- else -%}
+            {{- product.compare_at_price | money -}}
+          {%- endif -%}
+        </span>
       {% endif %}
     </p>
   </div>
