@@ -11551,7 +11551,7 @@ button.animate-btn::after,
 }
 
 .canvas-body {
-  background-color: var(--white);
+  /* background-color: var(--white); */
   padding: 15px 20px;
   overscroll-behavior-y: contain;
   overflow-y: auto;
