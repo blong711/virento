@@ -4212,7 +4212,7 @@
       "presets": {
         "default": {
           "name": "Image with text",
-          "category": "Text"
+          "category": "Image"
         }
       }
     },
