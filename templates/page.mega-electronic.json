@@ -349,6 +349,7 @@
         "heading_size": "small",
         "subheading_size": "small",
         "heading_spacing": 45,
+        "show_nav": false,
         "use_dots_mobile": true,
         "items_desktop": "3",
         "items_tablet": "3",
