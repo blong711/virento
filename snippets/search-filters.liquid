@@ -354,9 +354,9 @@
               <p class="title">
                 {{ collection_banner_title | replace: ' ', '<br>' }}
               </p>
-              {% if collection_banner_button_text != blank or collection_banner_button_url != blank %}
-              <a
-                href="{% if collection_banner_button_url != blank %}{{ collection_banner_button_url }}{% else %}#{% endif %}"
+              {% if collection_banner_button_text != blank and collection_banner_button_url != blank %}
+                <a
+                href="{{ collection_banner_button_url }}"
                 class="tf-btn btn-white hover-primary"
                 >
                   {{ collection_banner_button_text }}
