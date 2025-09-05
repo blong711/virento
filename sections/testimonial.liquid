@@ -296,7 +296,7 @@
       "type": "checkbox",
       "id": "show_nav",
       "label": "t:sections.testimonial.settings.show_nav.label",
-      "default": true
+      "default": false
     },
     {
       "type": "checkbox",
@@ -419,7 +419,18 @@
   "presets": [
     {
       "name": "t:sections.testimonial.presets.name",
-      "category": "t:sections.testimonial.presets.category"
+      "category": "t:sections.testimonial.presets.category",
+      "blocks": [
+        {
+          "type": "testimonial_item",
+        },
+        {
+          "type": "testimonial_item",
+        },
+        {
+          "type": "testimonial_item",
+        }
+      ]
     }
   ]
 }
