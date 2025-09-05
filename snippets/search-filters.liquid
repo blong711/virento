@@ -305,7 +305,7 @@
                     <div class="recent-blog-item">
                       <a href="{{ product.url }}" class="img-product">
                         <img
-                          src="{{ product.featured_image | img_url: '100x' }}"
+                          src="{{ product.featured_image | image_url: width: 100 }}"
                           alt="{{ product.title | escape }}"
                           width="100"
                           height="100"
@@ -342,8 +342,8 @@
             <div class="image img-style">
               {% if collection_banner_image %}
                 <img
-                  src="{{ collection_banner_image | img_url: '300x200' }}"
-                  data-src="{{ collection_banner_image | img_url: '300x200' }}"
+                  src="{{ collection_banner_image | image_url: width: 300, height: 400 }}"
+                  data-src="{{ collection_banner_image | image_url: width: 300, height: 400 }}"
                   alt="banner"
                   class="lazyload"
                   width="300"
