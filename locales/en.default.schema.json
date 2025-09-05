@@ -5357,7 +5357,8 @@
         }
       },
       "presets": {
-        "name": "Blog Section"
+        "name": "Blog Section",
+        "category": "Blog"
       }
     },
     "blog_content": {
