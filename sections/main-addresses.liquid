@@ -65,7 +65,7 @@
 {% comment %} Pagination variables {% endcomment %}
 {% assign addresses_per_page = 2 %}
 {% assign total_addresses = customer.addresses_count %}
-{% assign total_pages = total_addresses | divided_by: addresses_per_page | ceil %}
+{% comment %} {% assign total_pages = total_addresses | divided_by: addresses_per_page | ceil %} {% endcomment %}
 {% assign current_page = request.query_string | split: 'page=' | last | default: 1 %}
 {% assign current_page = current_page | plus: 0 %}
 {% assign start_index = current_page | minus: 1 | times: addresses_per_page %}
