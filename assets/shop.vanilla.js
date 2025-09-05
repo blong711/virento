@@ -312,7 +312,10 @@ function updateLayoutFromSettings() {
         }
         
         // Call updateLayoutDisplay to ensure responsive behavior is applied
-        updateLayoutDisplay();
+        // Only call updateLayoutDisplay if not on mobile to prevent overriding mobile layout
+        if (window.innerWidth > 767) {
+            updateLayoutDisplay();
+        }
     }
     
     // Update product count visibility
@@ -1142,7 +1145,13 @@ function initSortFunctionality() {
                 document.getElementById('listLayout').style.display = '';
             } else {
                 isListActive = false;
-                setGridLayout(layout);
+                // Only set grid layout directly if not on mobile
+                if (window.innerWidth > 767) {
+                    setGridLayout(layout);
+                } else {
+                    // On mobile, just call updateLayoutDisplay which will handle mobile layout
+                    updateLayoutDisplay();
+                }
             }
         });
     });
@@ -1346,7 +1355,13 @@ function initLayoutSwitching() {
             } else {
                 isListActive = false;
                 userSelectedLayout = layout;
-                setGridLayout(layout);
+                // Only set grid layout directly if not on mobile
+                if (window.innerWidth > 767) {
+                    setGridLayout(layout);
+                } else {
+                    // On mobile, just call updateLayoutDisplay which will handle mobile layout
+                    updateLayoutDisplay();
+                }
             }
         });
     });
@@ -1387,7 +1402,10 @@ function initLayoutSwitching() {
         
         // Set default grid layout from theme settings
         if (window.collectionData && window.collectionData.defaultGridLayout) {
-            setGridLayout(window.collectionData.defaultGridLayout);
+            // Only set grid layout directly if not on mobile
+            if (window.innerWidth > 767) {
+                setGridLayout(window.collectionData.defaultGridLayout);
+            }
             // Call updateLayoutDisplay to ensure responsive behavior is applied on initial load
             updateLayoutDisplay();
         } else {
