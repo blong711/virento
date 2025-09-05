@@ -5485,7 +5485,8 @@
         }
       },
       "presets": {
-        "name": "Blog Categories Slider"
+        "name": "Blog Categories Slider",
+        "category": "Blog"
       }
     },
     "back-to-top": {
