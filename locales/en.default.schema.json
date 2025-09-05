@@ -1109,7 +1109,8 @@
         }
       },
       "presets": {
-        "name": "Blog posts"
+        "name": "Blog posts",
+        "categoty": "Blog"
       }
     },
     "featured-collection": {
@@ -6620,7 +6621,8 @@
         }
       },
       "presets": {
-        "name": "Main Collection List"
+        "name": "Main Collection List",
+        "category": "Collection",
       }
     },
     "grid_collection": {
@@ -6721,7 +6723,8 @@
         }
       },
       "presets": {
-        "name": "Grid Collection"
+        "name": "Grid Collection",
+        "category": "Collection",
       }
     },
     "color-icon-box": {
@@ -7011,7 +7014,7 @@
           "list": "List"
         },
         "default_grid_layout": {
-          "label": "Grid layout(Desktop)"
+          "label": "Grid layout"
         },
         "default_grid_layout_options": {
           "tf-col-2": "2 Columns",
