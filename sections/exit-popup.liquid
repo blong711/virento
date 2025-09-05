@@ -125,12 +125,31 @@
                           </a>
                           <p class="price-wrap text-sm fw-medium">
                             {%- if product.compare_at_price > product.price -%}
-                              <span class="new-price text-primary">{{ product.price | money }}</span>
+                              <span class="new-price text-primary">
+                                {%- if settings.currency_code_enabled -%}
+                                  {{- product.price | money }}
+                                  {{ shop.currency -}}
+                                {%- else -%}
+                                  {{- product.price | money -}}
+                                {%- endif -%}
+                              </span>
                               <span class="old-price text-decoration-line-through text-dark-1">
-                                {{ product.compare_at_price | money }}
+                                {%- if settings.currency_code_enabled -%}
+                                  {{- product.compare_at_price | money }}
+                                  {{ shop.currency -}}
+                                {%- else -%}
+                                  {{- product.compare_at_price | money -}}
+                                {%- endif -%}
                               </span>
                             {%- else -%}
-                              <span class="new-price text-primary">{{ product.price | money }}</span>
+                              <span class="new-price text-primary">
+                                {%- if settings.currency_code_enabled -%}
+                                  {{- product.price | money }}
+                                  {{ shop.currency -}}
+                                {%- else -%}
+                                  {{- product.price | money -}}
+                                {%- endif -%}
+                              </span>
                             {%- endif -%}
                           </p>
                           <a
