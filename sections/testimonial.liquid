@@ -93,6 +93,11 @@
             "pagination": { "el": ".sw-pagination-testimonial", "clickable": true },
             {% endif %}
             "breakpoints": {
+              "575": {
+                "slidesPerView": {{ section.settings.items_mobile }},
+                "spaceBetween": 12,
+                "slidesPerGroup": {{ section.settings.items_mobile }}
+              },
               "768": {
                 "slidesPerView": {{ section.settings.items_tablet }},
                 "spaceBetween": 12,
