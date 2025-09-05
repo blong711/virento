@@ -16,7 +16,7 @@
           width="460"
           height="460"
           data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-          src="{{ product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
+          src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
           alt="{{ product.featured_image.alt | escape }}"
         >
         <img
@@ -24,7 +24,7 @@
           width="460"
           height="460"
           data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-          src="{{ product.images[1] | default: product.featured_image | image_url: width: 100, height: 100, crop: 'center' }}"
+          src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
           alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
         >
       {% endif %}
