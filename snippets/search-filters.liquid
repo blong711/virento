@@ -4,19 +4,20 @@
 {% endcomment %}
 
 {% comment %} Set default values for settings if not provided {% endcomment %}
-{% assign show_on_sale = show_on_sale | default: true %}
-{% assign on_sale_limit = on_sale_limit | default: 3 %}
-{% assign show_collection_banner = show_collection_banner | default: true %}
-{% assign collection_banner_title = collection_banner_title | default: 'Elevate Your Style' %}
-{% assign collection_banner_button_text = collection_banner_button_text | default: 'Shop Now' %}
-{% assign collection_banner_button_url = collection_banner_button_url | default: '' %}
-{% assign collection_banner_image = collection_banner_image | default: '' %}
-{% assign show_availability_filter = show_availability_filter | default: true %}
-{% assign show_price_filter = show_price_filter | default: true %}
-{% assign show_color_filter = show_color_filter | default: true %}
-{% assign show_brand_filter = show_brand_filter | default: true %}
+{% if color_scheme == nil %}{% assign color_scheme = 'scheme-1' %}{% endif %}
+{% if show_on_sale == nil %}{% assign show_on_sale = true %}{% endif %}
+{% if on_sale_limit == nil %}{% assign on_sale_limit = 3 %}{% endif %}
+{% if show_collection_banner == nil %}{% assign show_collection_banner = true %}{% endif %}
+{% if collection_banner_title == nil %}{% assign collection_banner_title = "Elevate Your Style" %}{% endif %}
+{% if collection_banner_button_text == nil %}{% assign collection_banner_button_text = "Shop Now" %}{% endif %}
+{% if collection_banner_button_url == nil %}{% assign collection_banner_button_url = "" %}{% endif %}
+{% if collection_banner_image == nil %}{% assign collection_banner_image = "" %}{% endif %}
+{% if show_availability_filter == nil %}{% assign show_availability_filter = true %}{% endif %}
+{% if show_price_filter == nil %}{% assign show_price_filter = true %}{% endif %}
+{% if show_color_filter == nil %}{% assign show_color_filter = true %}{% endif %}
+{% if show_brand_filter == nil %}{% assign show_brand_filter = true %}{% endif %}
 
-<div class="offcanvas offcanvas-start canvas-sidebar canvas-filter" id="filterShop">
+<div class="offcanvas offcanvas-start canvas-sidebar canvas-filter color-{{ color_scheme }}" id="filterShop">
   <div class="canvas-wrapper">
     <div class="canvas-header">
       <span class="title">{{ 'sections.main_collection.filter' | t }}</span>
