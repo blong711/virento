@@ -13,8 +13,48 @@
 {% if show_color_filter == nil %}{% assign show_color_filter = true %}{% endif %}
 {% if show_brand_filter == nil %}{% assign show_brand_filter = true %}{% endif %}
 
+{% comment %} Check if any filters are available {% endcomment %}
+{% assign has_filters = false %}
+{% if show_availability_filter %}{% assign has_filters = true %}{% endif %}
+{% if show_price_filter %}{% assign has_filters = true %}{% endif %}
+{% if show_color_filter %}
+    {% assign all_colors = '' %}
+    {% for product in full_collection.products %}
+        {% for option in product.options_with_values %}
+            {% if option.name == 'Color' %}
+                {% for value in option.values %}
+                    {% unless all_colors contains value %}
+                        {% assign all_colors = all_colors | append: value | append: ',' %}
+                    {% endunless %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    {% assign colors_array = all_colors | split: ',' %}
+    {% if colors_array.size > 0 and all_colors != '' %}{% assign has_filters = true %}{% endif %}
+{% endif %}
+{% if show_brand_filter %}
+    {% assign all_sizes = '' %}
+    {% for product in full_collection.products %}
+        {% for option in product.options_with_values %}
+            {% if option.name == 'Size' %}
+                {% for value in option.values %}
+                    {% unless all_sizes contains value %}
+                        {% assign all_sizes = all_sizes | append: value | append: ',' %}
+                    {% endunless %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    {% assign sizes_array = all_sizes | split: ',' %}
+    {% if sizes_array.size > 0 and all_sizes != '' %}{% assign has_filters = true %}{% endif %}
+{% endif %}
+{% if show_brand_filter %}{% assign has_filters = true %}{% endif %}
+
 <div class="tf-filter-dropdown color-{{ color_scheme }}">
-    <span class="title-filter">{{ 'sections.main_collection.filter' | t }}:</span>
+    {% if has_filters %}
+        <span class="title-filter">{{ 'sections.main_collection.filter' | t }}:</span>
+    {% endif %}
     <div class="meta-dropdown-filter">
         {% if show_availability_filter %}
             <div class="dropdown dropdown-filter">
@@ -76,21 +116,6 @@
         {% endif %}
         
         {% if show_color_filter %}
-            {% comment %} Get dynamic colors from products {% endcomment %}
-            {% assign all_colors = '' %}
-            {% for product in full_collection.products %}
-                {% for option in product.options_with_values %}
-                    {% if option.name == 'Color' %}
-                        {% for value in option.values %}
-                            {% unless all_colors contains value %}
-                                {% assign all_colors = all_colors | append: value | append: ',' %}
-                            {% endunless %}
-                        {% endfor %}
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            {% assign colors_array = all_colors | split: ',' %}
-            
             {% if colors_array.size > 0 and all_colors != '' %}
                 <div class="dropdown dropdown-filter">
                     <div class="dropdown-toggle" id="color" data-bs-toggle="dropdown" aria-expanded="false"
@@ -115,21 +140,6 @@
         {% endif %}
         
         {% if show_brand_filter %}
-            {% comment %} Get dynamic sizes from products {% endcomment %}
-            {% assign all_sizes = '' %}
-            {% for product in full_collection.products %}
-                {% for option in product.options_with_values %}
-                    {% if option.name == 'Size' %}
-                        {% for value in option.values %}
-                            {% unless all_sizes contains value %}
-                                {% assign all_sizes = all_sizes | append: value | append: ',' %}
-                            {% endunless %}
-                        {% endfor %}
-                    {% endif %}
-                {% endfor %}
-            {% endfor %}
-            {% assign sizes_array = all_sizes | split: ',' %}
-            
             {% if sizes_array.size > 0 and all_sizes != '' %}
                 <div class="dropdown dropdown-filter">
                     <div class="dropdown-toggle" id="size" data-bs-toggle="dropdown" aria-expanded="false"
