@@ -191,7 +191,6 @@
     "mobile-menu": {
       "type": "mobile-menu",
       "settings": {
-        "main_menu": "main-menu",
         "show_search": true,
         "search_placeholder": "Search product",
         "show_wishlist": true,
