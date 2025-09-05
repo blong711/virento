@@ -494,7 +494,7 @@
         "max": 40,
         "step": 2,
         "unit": "px",
-        "label": "t:settings_schema.cards.settings.media_corner_radius.label",
+        "label": "t:settings_schema.global.settings.media_corner_radius.label",
         "default": 0
       },
     ]
