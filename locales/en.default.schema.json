@@ -6114,6 +6114,10 @@
         "show_pagination": {
           "label": "Show Pagination Dots(Mobile)"
         }
+      },
+       "presets": {
+        "name": "Recently Viewed",
+        "category": "Product",
       }
     },
     "featured-products-countdown": {
