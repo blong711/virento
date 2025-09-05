@@ -163,7 +163,14 @@
                         </div>
                         <div class="box-price">
                           <a href="{{ product.url }}" class="link name-item text-md fw-medium">{{ product.title }}</a>
-                          <p class="price text-md fw-medium">{{ product.price | money }}</p>
+                          <div class="price-container">
+                            {% if product.compare_at_price > product.price %}
+                              <span class="price text-primary text-md fw-medium">{{ product.price | money }}</span>
+                              <span class="compare-price text-decoration-line-through text-dark-1 text-md fw-medium">{{ product.compare_at_price | money }}</span>
+                            {% else %}
+                              <p class="price text-md fw-medium">{{ product.price | money }}</p>
+                            {% endif %}
+                          </div>
                         </div>
                       </div>
                       <div class="box-btn d-none d-md-block">
