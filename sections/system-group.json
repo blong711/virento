@@ -73,10 +73,6 @@
         "color_scheme": "scheme-1"
       }
     },
-    "mobile-toolbar": {
-      "type": "mobile-toolbar",
-      "settings": {}
-    },
     "cookies-popup": {
       "type": "cookies-popup",
       "settings": {
@@ -213,7 +209,6 @@
   "order": [
     "cart-drawer",
     "back-to-top",
-    "mobile-toolbar",
     "cookies-popup",
     "newsletter-popup",
     "exit-popup",
