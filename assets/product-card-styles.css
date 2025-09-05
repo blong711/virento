@@ -11,6 +11,7 @@
   
   /* Corner radius */
   --card-corner-radius: 0px;
+  --card-media-corner-radius: 0px;
   
   /* Apply dynamic styles */
   border-radius: var(--card-corner-radius);
@@ -24,6 +25,12 @@
 /* Apply image padding if set */
 .card-product[style*="--card-image-padding"] .card-product-wrapper {
   padding: var(--card-image-padding);
+}
+
+/* Apply media corner radius if set */
+.card-product[style*="--card-media-corner-radius"] .product-img {
+  border-radius: var(--card-media-corner-radius);
+  overflow: hidden;
 }
 
 /* Style 1 specific overrides */

@@ -23,6 +23,9 @@
         "corner_radius": {
           "label": "Corner radius"
         },
+        "media_corner_radius": {
+          "label": "Media corner radius"
+        },
         "horizontal_offset": {
           "label": "Horizontal offset"
         },

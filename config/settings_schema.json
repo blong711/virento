@@ -487,6 +487,16 @@
         "label": "t:settings_schema.global.settings.corner_radius.label",
         "default": 0
       },
+      {
+        "type": "range",
+        "id": "card_media_corner_radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "unit": "px",
+        "label": "t:settings_schema.cards.settings.media_corner_radius.label",
+        "default": 0
+      },
     ]
   },
   {

@@ -15482,7 +15482,7 @@ button.animate-btn::after,
   padding-bottom: 20px;
 }
 .card-product.style-border-2 .product-img {
-  border-radius: 16px;
+  border-radius: var(--card-media-corner-radius, 16px);
   overflow: hidden;
 }
 .card-product.style-border-2 .card-product-info {

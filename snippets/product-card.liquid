@@ -20,6 +20,7 @@
 {% assign card_border_thickness = card_border_thickness | default: settings.card_border_thickness | default: 0 %}
 {% assign card_border_opacity = card_border_opacity | default: settings.card_border_opacity | default: 0 %}
 {% assign card_corner_radius = card_corner_radius | default: settings.card_corner_radius | default: 0 %}
+{% assign card_media_corner_radius = card_media_corner_radius | default: settings.card_media_corner_radius | default: 0 %}
 {% assign card_text_alignment = card_text_alignment | default: settings.card_text_alignment | default: 'center' %}
 {% assign should_show_progress = should_show_progress | default: false %}
 {% assign cart_button_style = cart_button_style | default: settings.cart_button_style | default: 'icon' %}
@@ -47,6 +48,7 @@
       {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
       {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
       {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+      {% if card_media_corner_radius > 0 %}--card-media-corner-radius: {{ card_media_corner_radius }}px;{% endif %}
     "
   >
     <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }}">
@@ -195,6 +197,7 @@
       {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
       {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
       {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+      {% if card_media_corner_radius > 0 %}--card-media-corner-radius: {{ card_media_corner_radius }}px;{% endif %}
     "
   >
     <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }} radius-8">
@@ -307,6 +310,7 @@
       {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
       {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
       {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
+      {% if card_media_corner_radius > 0 %}--card-media-corner-radius: {{ card_media_corner_radius }}px;{% endif %}
     "
   >
     <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }}">

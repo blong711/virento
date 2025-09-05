@@ -137,6 +137,7 @@ class RecentlyViewedProducts {
                     --card-border-opacity: ${cardSettings.borderOpacity};
                     --card-corner-radius: ${cardSettings.cornerRadius};
                     --card-image-padding: ${cardSettings.imagePadding};
+                    --card-media-corner-radius: ${cardSettings.mediaCornerRadius};
                  ">
                 <div class="card-product-wrapper asp-ratio-${cardSettings.imageRatio}">
                     <a href="${product.url}" class="product-img">
@@ -390,6 +391,7 @@ class RecentlyViewedProducts {
             borderThickness: '0px',
             borderOpacity: '0',
             cornerRadius: '0px',
+            mediaCornerRadius: '0px',
             imageRatio: 'adapt'
         };
 
@@ -403,6 +405,7 @@ class RecentlyViewedProducts {
                 borderThickness: window.themeSettings.cardSettings.borderThickness || defaultSettings.borderThickness,
                 borderOpacity: window.themeSettings.cardSettings.borderOpacity || defaultSettings.borderOpacity,
                 cornerRadius: window.themeSettings.cardSettings.cornerRadius || defaultSettings.cornerRadius,
+                mediaCornerRadius: window.themeSettings.cardSettings.mediaCornerRadius || defaultSettings.mediaCornerRadius,
                 imageRatio: window.themeSettings.cardSettings.imageRatio || defaultSettings.imageRatio
             };
         }
