@@ -7200,7 +7200,7 @@
       },
       "presets": {
         "name": "Testimonial",
-        "category": "Custom"
+        "category": "testimonial"
       }
     },
     "sub-collection": {
