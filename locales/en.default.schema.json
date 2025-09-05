@@ -4808,7 +4808,7 @@
       }
     },
     "brands": {
-      "name": "Brands",
+      "name": "Brands Carousel",
       "settings": {
         "width": {
           "label": "Width",
