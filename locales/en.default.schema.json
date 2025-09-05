@@ -4877,8 +4877,11 @@
             "brand_image": {
               "label": "Brand Image"
             },
-             "brand_link": {
+            "brand_link": {
               "label": "Brand Link"
+            },
+            "brand_name": {
+              "label": "Brand name"
             }
           }
         }
