@@ -595,6 +595,10 @@
             }
           }
         }
+      },
+      "presets": {
+        "name": "Offer Banner",
+        "category": "Banner"
       }
     },
     "main_slider": {
