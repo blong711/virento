@@ -2,10 +2,10 @@
 {% assign max_products_per_page = section.settings.max_products_per_page | default: 8 %}
 {% assign default_grid_layout = section.settings.default_grid_layout | default: 'tf-col-4' %}
 {% assign default_layout_type = section.settings.default_layout_type | default: 'grid' %}
-{% assign search_results = search.results %}
 {% assign total_products = search.results_count %}
 
 {% paginate search.results by max_products_per_page %}
+{% assign search_results = search.results %}
 
 <section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding" data-total-products="{{ total_products }}">
     <div class="{{ section.settings.width }}">

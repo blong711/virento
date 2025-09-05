@@ -534,40 +534,38 @@
 
                         {% comment %} Only ONE image gets high priority for LCP, others get lazy loading {% endcomment %}
                         {% if forloop.first %}
-                          {% comment %} ONLY LCP image loads immediately {% endcomment %}
+                          {% comment %} ONLY LCP image loads immediately with high quality {% endcomment %}
                           <img
                             class="{{ desktop_image_class }}"
-                            src="{{ block.settings.image | image_url: width: 400 }}"
+                            src="{{ block.settings.image | image_url: width: 1920 }}"
                             alt="{{ block.settings.heading }}"
-                            width="400"
-                            height="200"
+                            width="1920"
+                            height="1080"
                             fetchpriority="high"
-                            loading="lazy"
+                            loading="eager"
                             decoding="sync"
                           >
 
-                          {% comment %} ALL other images - delayed via JavaScript {% endcomment %}
+                          {% comment %} Mobile image loads immediately for first slide {% endcomment %}
                           {% if block.settings.mobile_image %}
                             <img
-                              class="{{ mobile_image_class }} js-ultra-lazy"
-                              data-src="{{ block.settings.mobile_image | image_url: width: 300 }}"
+                              class="{{ mobile_image_class }}"
+                              src="{{ block.settings.mobile_image | image_url: width: 767 }}"
                               alt="{{ block.settings.heading }}"
-                              width="300"
-                              height="150"
-                              style="background: #f5f5f5; opacity: 0; transition: opacity 0.5s;"
-                              loading="lazy"
-                              decoding="async"
+                              width="767"
+                              height="400"
+                              loading="eager"
+                              decoding="sync"
                             >
                           {% else %}
                             <img
-                              class="{{ mobile_image_class }} js-ultra-lazy"
-                              data-src="{{ block.settings.image | image_url: width: 300 }}"
+                              class="{{ mobile_image_class }}"
+                              src="{{ block.settings.image | image_url: width: 767 }}"
                               alt="{{ block.settings.heading }}"
-                              width="300"
-                              height="150"
-                              style="background: #f5f5f5; opacity: 0; transition: opacity 0.5s;"
-                              loading="lazy"
-                              decoding="async"
+                              width="767"
+                              height="400"
+                              loading="eager"
+                              decoding="sync"
                             >
                           {% endif %}
                         {% else %}
