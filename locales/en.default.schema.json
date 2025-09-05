@@ -4876,6 +4876,9 @@
           "settings": {
             "brand_image": {
               "label": "Brand Image"
+            },
+             "brand_link": {
+              "label": "Brand Link"
             }
           }
         }
