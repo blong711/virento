@@ -4250,7 +4250,7 @@
       "presets": {
         "default": {
           "name": "Single testimonial",
-          "category": "Text"
+          "category": "testimonial"
         }
       }
     },
