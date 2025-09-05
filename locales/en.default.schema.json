@@ -5357,7 +5357,8 @@
         }
       },
       "presets": {
-        "name": "Blog Section"
+        "name": "Blog Section",
+        "category": "Blog"
       }
     },
     "blog_content": {
@@ -5485,7 +5486,8 @@
         }
       },
       "presets": {
-        "name": "Blog Categories Slider"
+        "name": "Blog Categories Slider",
+        "category": "Blog"
       }
     },
     "back-to-top": {
@@ -7328,7 +7330,10 @@
       "read_more": "Read more",
       "comment": "comment",
       "comments": "comments",
-      "admin": "Admin"
+      "admin": "Admin",
+      "presets": {
+        "category": "Blog"
+      }
     },
     "collection-description": {
       "name": "Collection Description",
