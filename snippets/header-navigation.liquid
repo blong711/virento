@@ -349,7 +349,13 @@
               class="sub-menu mega-menu mega-shop"
               style="grid-template-columns: 1fr !important; max-width: 600px; padding: 32px 60px;"
             >
+              {% comment %} Check if we need wrapper-sub-menu: only when there are more than 1 child {% endcomment %}
+              {% assign needs_wrapper = false %}
               {% if link.links.size > 1 %}
+                {% assign needs_wrapper = true %}
+              {% endif %}
+
+              {% if needs_wrapper %}
                 <div class="wrapper-sub-menu">
                   {% for child in link.links %}
                     <div class="mega-menu-item">
