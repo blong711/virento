@@ -725,7 +725,8 @@
         }
       },
       "presets": {
-        "name": "Main Slider"
+        "name": "Main Slider",
+        "category": "Slider"
       }
     },
     "all": {
