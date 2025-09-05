@@ -83,6 +83,12 @@
             "observer": true,
             "observeParents": true,
             "slidesPerGroup": {{ section.settings.items_mobile }},
+            "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-testimonial",
+                  "prevEl": ".nav-prev-testimonial",
+                  "enabled": {{ section.settings.show_nav | json }}
+              },
             {% if section.settings.use_dots_mobile %}
             "pagination": { "el": ".sw-pagination-testimonial", "clickable": true },
             {% endif %}
@@ -173,7 +179,13 @@
           {% endif %}
         {%- endfor -%}
       </div>
+      {% if section.settings.use_dots_mobile %}
       <div class="d-flex d-xl-none sw-dot-default sw-pagination-testimonial justify-content-center"></div>
+      {% endif %}
+      {% if section.settings.show_nav %}
+        <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-testimonial"></div>
+        <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-testimonial"></div>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -268,7 +280,12 @@
       "type": "header",
       "content": "t:sections.testimonial.settings.slider_group.content"
     },
-
+    {
+      "type": "checkbox",
+      "id": "show_nav",
+      "label": "t:sections.testimonial.settings.show_nav.label",
+      "default": true
+    },
     {
       "type": "checkbox",
       "id": "use_dots_mobile",
