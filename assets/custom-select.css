@@ -32,7 +32,7 @@
 .custom-select-options {
   background: #fff !important;
   border-radius: 8px !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
   margin-top: 20px !important;
   min-width: 100px !important;
   padding: 8px 0 !important;
@@ -49,7 +49,7 @@
 
 /* Currency selector specific width */
 .tf-currencies .custom-select-options {
-  width: 220px
+  width: 220px;
 }
 
 /* Snippet selectors - open upward */
@@ -71,7 +71,7 @@
 .bottom-bar-language .custom-select-options:after {
   top: auto !important;
   bottom: -11px !important;
-  border-top: 11px solid rgba(0,0,0,0.1) !important;
+  border-top: 11px solid rgba(0, 0, 0, 0.1) !important;
   border-bottom: none !important;
 }
 
@@ -103,13 +103,24 @@
   left: 50%;
   transform: translateX(-50%);
   top: -11px;
-  border-bottom: 11px solid rgba(0,0,0,0.1);
+  border-bottom: 11px solid rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
 
 .custom-select-container.open .custom-select-options {
   opacity: 1;
   visibility: visible;
+}
+
+@media screen and (max-width: 1024px) {
+  .custom-select-container.open .custom-select-options {
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 1000;
+  }
 }
 
 .custom-select-option {
@@ -137,8 +148,8 @@
 }
 
 .custom-select-arrow:after {
-  content: "\e95a";
-  font-family: "icomoon";
+  content: '\e95a';
+  font-family: 'icomoon';
   font-size: 10px;
   color: var(--dark);
   position: absolute;
