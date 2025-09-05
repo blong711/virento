@@ -6620,7 +6620,8 @@
         }
       },
       "presets": {
-        "name": "Main Collection List"
+        "name": "Main Collection List",
+        "category": "Collection",
       }
     },
     "grid_collection": {
