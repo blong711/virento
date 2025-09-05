@@ -1262,17 +1262,13 @@ function initLayoutSwitching() {
             return;
         }
 
-        // Force mobile to always use tf-col-2 - ignore user settings
-        if (windowWidth <= 767) {
-            setGridLayout('tf-col-2');
-            return;
-        }
-
-        // Check for user selected layout or default grid layout from settings (desktop only)
+        // Check for user selected layout or default grid layout from settings
         const selectedLayout = userSelectedLayout || (window.collectionData && window.collectionData.defaultGridLayout);
         
         if (selectedLayout) {
-            if (windowWidth <= 1200 && selectedLayout !== 'tf-col-2') {
+            if (windowWidth <= 767) {
+                setGridLayout('tf-col-2');
+            } else if (windowWidth <= 1200 && selectedLayout !== 'tf-col-2') {
                 setGridLayout('tf-col-3');
             } else if (windowWidth <= 1400 && ['tf-col-5', 'tf-col-6', 'tf-col-7'].includes(selectedLayout)) {
                 setGridLayout('tf-col-4');
@@ -1282,7 +1278,11 @@ function initLayoutSwitching() {
             return;
         }
 
-        if (windowWidth <= 1200) {
+        if (windowWidth <= 767) {
+            if (!currentLayout.includes('tf-col-2')) {
+                setGridLayout('tf-col-2');
+            }
+        } else if (windowWidth <= 1200) {
             if (!currentLayout.includes('tf-col-3')) {
                 setGridLayout('tf-col-3');
             }
