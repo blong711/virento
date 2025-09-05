@@ -4957,6 +4957,10 @@
             }
           }
         }
+      },
+      "presets": {
+        "name": "Featured Products Tab",
+        "category": "Product"
       }
     },
     "featured-product-carousel": {
