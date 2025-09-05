@@ -7218,7 +7218,8 @@
         }
       },
       "presets": {
-        "name": "Sub Collection"
+        "name": "Sub Collection",
+         "category": "Collection"
       }
     },
     "featured-products-list": {
