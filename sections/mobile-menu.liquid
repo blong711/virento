@@ -11,6 +11,7 @@
                 <!-- Search Form -->
                 {% if section.settings.show_search %}
                 <form class="form-search" action="{{ routes.search_url }}" method="get">
+                    <input type="hidden" name="type" value="product">
                     <input type="text" placeholder="{{ section.settings.search_placeholder }}" class="" name="q" tabindex="0" value="{{ search.terms | escape }}" aria-required="true" required="">
                     <button type="submit" aria-label="Search"><i class="icon icon-search" aria-hidden="true"></i></button>
                 </form>
