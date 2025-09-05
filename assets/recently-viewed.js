@@ -178,11 +178,14 @@ class RecentlyViewedProducts {
 
     // Generate product buttons HTML
     generateProductButtonsHTML(product) {
+        const cardSettings = this.getCardSettings();
+        const tooltipClass = (cardSettings.style === 'style-1' || cardSettings.style === 'style-small') ? 'hover-tooltip tooltip-left' : 'hover-tooltip';
+        
         return `
             <ul class="list-product-btn">
                 <li>
                     <a
-                         class="hover-tooltip box-icon product-cart-button"
+                         class="${tooltipClass} box-icon product-cart-button"
                          data-product-id="${product.id}"
                          data-product-handle="${product.handle}"
                          data-variant-id="${this.getVariantId(product)}">
@@ -191,7 +194,7 @@ class RecentlyViewedProducts {
                     </a>
                 </li>
                 <li class="wishlist">
-                    <a href="#" class="hover-tooltip box-icon"
+                    <a href="#" class="${tooltipClass} box-icon"
                         data-product-id="${product.id}"
                         data-product-handle="${product.handle}">
                         <span class="icon icon-heart2"></span>
@@ -200,7 +203,7 @@ class RecentlyViewedProducts {
                 </li>
                 <li>
                     <a href="#" 
-                    class="hover-tooltip box-icon quickview btn-quickview" 
+                    class="${tooltipClass} box-icon quickview btn-quickview" 
                     data-product-id="${product.id}"
                     data-product-handle="${product.handle}"
                     data-product-title="${product.title || ''}"
@@ -216,7 +219,7 @@ class RecentlyViewedProducts {
                     </a>
                 </li>
                 <li class="compare">
-                    <a href="#compare" class="hover-tooltip box-icon"
+                    <a href="#compare" class="${tooltipClass} box-icon"
                         data-product-id="${product.id}"
                         data-product-handle="${product.handle}">
                         <span class="icon icon-compare"></span>
