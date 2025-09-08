@@ -52,13 +52,21 @@
         {% endif %}
       </div>
       
-      {% if section.settings.show_countdown %}
-        <div class="wg-countdown-2">
-          <span class="js-countdown" 
-                data-timer="{{ section.settings.countdown_timer }}" 
-                data-labels="{{ section.settings.countdown_labels }}"></span>
-        </div>
-      {% endif %}
+      {% for block in section.blocks %}
+        {% if block.type == 'countdown' %}
+          <div class="wg-countdown-2" {{ block.shopify_attributes }}>
+            {%- capture countdown_date -%}
+                    {{ block.settings.year }}-{{ block.settings.month | prepend: '00' | slice: -2, 2 }}-{{ block.settings.day | prepend: '00' | slice: -2, 2 }} {{ block.settings.hour | prepend: '00' | slice: -2, 2 }}:{{ block.settings.minute | prepend: '00' | slice: -2, 2 }}:00
+                  {%- endcapture -%}
+            <span
+              class="js-countdown"
+              data-countdown="{{ countdown_date }}"
+              data-labels="Days,Hours,Mins,Secs"
+            >
+            </span>
+          </div>
+        {% endif %}
+      {% endfor %}
     </div>
   
     <div class="tab-content">
@@ -111,6 +119,57 @@
   "name": "t:sections.featured-products-list.name",
   "tag": "section",
   "class": "section",
+  "blocks": [
+    {
+      "type": "countdown",
+      "name": "t:sections.featured-products-countdown.blocks.countdown.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "number",
+          "id": "year",
+          "label": "t:sections.featured-products-countdown.blocks.countdown.settings.year.label",
+          "default": 2024
+        },
+        {
+          "type": "range",
+          "id": "month",
+          "label": "t:sections.featured-products-countdown.blocks.countdown.settings.month.label",
+          "min": 1,
+          "max": 12,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "range",
+          "id": "day",
+          "label": "t:sections.featured-products-countdown.blocks.countdown.settings.day.label",
+          "min": 1,
+          "max": 31,
+          "step": 1,
+          "default": 31
+        },
+        {
+          "type": "range",
+          "id": "hour",
+          "label": "t:sections.featured-products-countdown.blocks.countdown.settings.hour.label",
+          "min": 0,
+          "max": 23,
+          "step": 1,
+          "default": 23
+        },
+        {
+          "type": "range",
+          "id": "minute",
+          "label": "t:sections.featured-products-countdown.blocks.countdown.settings.minute.label",
+          "min": 0,
+          "max": 59,
+          "step": 1,
+          "default": 59
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "color_scheme",
@@ -185,24 +244,6 @@
             }
         ],
         "default": "text-md"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_countdown",
-      "label": "t:sections.featured-products-list.settings.show_countdown.label",
-      "default": true
-    },
-    {
-      "type": "number",
-      "id": "countdown_timer",
-      "label": "t:sections.featured-products-list.settings.countdown_timer.label",
-      "default": 46556
-    },
-    {
-      "type": "text",
-      "id": "countdown_labels",
-      "label": "t:sections.featured-products-list.settings.countdown_labels.label",
-      "default": "t:sections.featured-products-list.settings.countdown_labels.default"
     },
     {
       "type": "collection",
