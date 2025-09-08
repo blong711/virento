@@ -15139,6 +15139,8 @@ button.animate-btn::after,
   font-size: 16px;
   line-height: 19.2px;
   color: var(--dark);
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .card-product .price-wrap .price-new {
   margin-right: 4px;
@@ -15298,6 +15300,8 @@ button.animate-btn::after,
 }
 .card-product .list-color-product {
   margin-top: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .card-product.style-list {
   display: flex;
