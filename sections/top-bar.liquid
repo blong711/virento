@@ -3,6 +3,26 @@
   "name": "t:sections.top_bar.name",
   "settings": [
     {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.top_bar.settings.width.label",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.top_bar.settings.width.options.boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.top_bar.settings.width.options.full_width"
+        },
+        {
+          "value": "",
+          "label": "t:sections.top_bar.settings.width.options.full_width_no_padding"
+        }
+      ],
+      "default": "container"
+    },
+    {
       "type": "header",
       "content": "t:sections.top_bar.settings.block_visibility_settings.content"
     },
@@ -98,7 +118,7 @@
 <div
   class="tf-topbar color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}"
 >
-  <div class="container">
+  <div class="{{ section.settings.width }}">
     <div class="topbar-wraper">
       {%- for block in section.blocks -%}
         {%- case block.type -%}

@@ -3775,6 +3775,20 @@
     "top_bar": {
       "name": "Top Bar",
       "settings": {
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": {
+              "label": "Boxed"
+            },
+            "full": {
+              "label": "Full width"
+            },
+            "full_width_no_padding": {
+              "label": "Full width no padding"
+            }
+          }
+        },
         "padding_mobile_rate": {
           "label": "Mobile Padding Rate",
           "info": "Percentage of desktop padding to use on mobile devices"
