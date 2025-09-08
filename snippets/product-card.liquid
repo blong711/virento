@@ -103,7 +103,7 @@
         {{- product.title -}}
       </a>
       <p class="price-wrap fw-medium">
-        <span class="price-new text-primary text-xl-2">
+        <span class="price-new text-primary {% if cart_button_style != 'button' %} text-xl-2{% endif %}"">
           {%- if settings.currency_code_enabled -%}
             {{- product.price | money }}
             {{ shop.currency -}}
@@ -112,7 +112,7 @@
           {%- endif -%}
         </span>
         {% if product.compare_at_price > product.price %}
-          <span class="price-old text-sm old-line">
+          <span class="price-old old-line{% if cart_button_style != 'button' %} text-sm{% endif %}">
             {%- if settings.currency_code_enabled -%}
               {{- product.compare_at_price | money }}
               {{ shop.currency -}}
@@ -368,7 +368,7 @@
         {{- product.title -}}
       </a>
       <p class="price-wrap fw-medium">
-        <span class="price-new text-xl-2">
+        <span class="price-new {% if cart_button_style != 'button' %} text-xl-2{% endif %}">
           {%- if settings.currency_code_enabled -%}
             {{- product.price | money }}
             {{ shop.currency -}}
@@ -377,7 +377,7 @@
           {%- endif -%}
         </span>
         {% if product.compare_at_price > product.price %}
-          <span class="price-old text-sm old-line">
+          <span class="price-old old-line{% if cart_button_style != 'button' %} text-sm{% endif %}">
             {%- if settings.currency_code_enabled -%}
               {{- product.compare_at_price | money }}
               {{ shop.currency -}}
