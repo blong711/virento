@@ -92,6 +92,16 @@
       "default": "text-md"
     },
     {
+      "type": "range",
+      "id": "image_size_px",
+      "min": 80,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "label": "Image size (px)",
+      "default": 200
+    },
+    {
       "type": "header",
       "content": "t:sections.categories.settings.slider_settings.content"
     },
@@ -306,14 +316,14 @@
                       {% if block.settings.image %}
                         {{
                           block.settings.image
-                          | image_url: width: 200
+                          | image_url: width: section.settings.image_size_px
                           | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                           | default: collection.title
                         }}
                       {% else %}
                         {{
                           collection.image
-                          | image_url: width: 200
+                          | image_url: width: section.settings.image_size_px
                           | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                           | default: collection.title
                         }}
