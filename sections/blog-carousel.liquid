@@ -9,6 +9,13 @@
   assign slides_per_view_tablet = section.settings.slides_tablet | default: 2
   assign slides_per_view_desktop = section.settings.slides_desktop | default: 3
   assign space_between = section.settings.space_between | default: 24
+  
+  # Check if navigation buttons should be hidden
+  assign total_posts = blog_posts.size
+  assign show_navigation_buttons = true
+  if total_posts <= slides_per_view_desktop
+    assign show_navigation_buttons = false
+  endif
 -%}
 
 {%- style -%}
@@ -66,7 +73,7 @@
               "observer": true,
               "observeParents": true,
               "slidesPerGroup": 1,
-              {% if section.settings.show_navigation -%}
+              {% if section.settings.show_navigation and show_navigation_buttons -%}
               "navigation": {
                   "clickable": true,
                   "nextEl": ".nav-next-blog-{{ section.id }}",
@@ -227,7 +234,7 @@
           <div class="d-flex d-xl-none sw-dot-default sw-pagination-blog-{{ section.id }} justify-content-center"></div>
         {%- endif -%}
       </div>
-      {%- if section.settings.show_navigation -%}
+      {%- if section.settings.show_navigation and show_navigation_buttons -%}
         <div
           class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-blog-{{ section.id }}"
           style="
