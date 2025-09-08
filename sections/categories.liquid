@@ -310,7 +310,7 @@
               {% assign collection = block.settings.collection %}
               {% if collection != blank %}
                 <div class="swiper-slide">
-                  <div class="wg-cls style-circle hover-img">
+                  <div class="wg-cls style-circle hover-img" style="width: {{ section.settings.image_size_px }}px; height: {{ section.settings.image_size_px }}px;">
                     {% assign link = block.settings.link | default: collection.url %}
                     <a href="{{ link }}" class="image img-style d-block bg-surface" style="width: {{ section.settings.image_size_px }}px; height: {{ section.settings.image_size_px }}px;">
                       {% if block.settings.image %}
