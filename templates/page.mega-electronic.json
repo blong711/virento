@@ -81,6 +81,21 @@
     },
     "featured_products_list_JKT7V3": {
       "type": "featured-products-list",
+      "blocks": {
+        "countdown_aNjKne": {
+          "type": "countdown",
+          "settings": {
+            "year": 2025,
+            "month": 12,
+            "day": 31,
+            "hour": 23,
+            "minute": 59
+          }
+        }
+      },
+      "block_order": [
+        "countdown_aNjKne"
+      ],
       "settings": {
         "color_scheme": "",
         "width": "container",
@@ -88,9 +103,6 @@
         "title_tag": "h4",
         "description": "Explore our most popular pieces that customers can't get enough of",
         "description_size": "text-md",
-        "show_countdown": true,
-        "countdown_timer": 46556,
-        "countdown_labels": "Days,Hours,Mins,Secs",
         "collection": "phones",
         "selected_products": [],
         "products_to_show": 8,
