@@ -313,7 +313,7 @@
     <div class="{% if section.settings.icon_position_center == false %}mw-1 m-auto wow fadeInUp{% endif %}">
       <div
       dir="ltr"
-      class="swiper tf-swiper"
+      class="swiper tf-swiper {% if section.settings.icon_position_center == false %}tf-sw-iconbox-row{% endif %}"
       data-swiper='
         {
             "slidesPerView": {{ section.settings.products_per_row_mobile }},

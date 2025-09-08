@@ -25120,3 +25120,14 @@ shopify-accelerated-checkout {
 .container-full .article-content .entry_image img {
   width: 100%;
 }
+@media (min-width: 1200px) {
+  .tf-sw-iconbox-row .swiper-slide:not(:last-child) .tf-icon-box::after {
+      position: absolute;
+      content: "";
+      right: 0;
+      width: 1px;
+      top: 9px;
+      bottom: 9px;
+      background-color: var(--line);
+  }
+}
