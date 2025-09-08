@@ -442,7 +442,7 @@
         {% endfor %}
 
         {% if color_option and color_option.values.size > 0 %}
-          <ul class="list-color-product justify-content-center mt-0">
+          <ul class="list-color-product justify-content-{{ card_text_alignment }} mt-0">
             {% for color_value in color_option.values %}
               {% assign variant_for_color = null %}
               {% for variant in product.variants %}
