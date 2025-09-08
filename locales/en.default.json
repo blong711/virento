@@ -14,6 +14,10 @@
     }
   },
   "general": {
+    "meta": {
+      "tag": "Tagged",
+      "page": "Page"
+    },
     "contact": {
       "address_label": "Address",
       "email_label": "Email",
