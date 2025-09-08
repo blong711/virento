@@ -85,10 +85,9 @@
             '
           >
             <div class="swiper-wrapper">
-              {% for block in section.blocks %}
-                {% assign product = block.settings.bundle_product %}
+              {% for product in section.settings.bundle_products %}
                 {% if product != blank %}
-                  <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  <div class="swiper-slide">
                     {% render 'product-card',
                       product: product,
                       show_vendor: false,
@@ -238,6 +237,12 @@
       "default": "t:sections.bundle_product.settings.bundle_btn_label.default"
     },
     {
+      "type": "product_list",
+      "id": "bundle_products",
+      "label": "t:sections.bundle_product.settings.bundle_products.label",
+      "limit": 12
+    },
+    {
       "type": "header",
       "content": "t:sections.bundle_product.settings.padding_header.content"
     },
@@ -272,37 +277,10 @@
       "default": 50
     }
   ],
-  "blocks": [
-    {
-      "type": "bundle_item",
-      "name": "t:sections.bundle_product.blocks.bundle_item.name",
-      "settings": [
-        {
-          "type": "product",
-          "id": "bundle_product",
-          "label": "t:sections.bundle_product.blocks.bundle_item.settings.bundle_product.label"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
       "name": "t:sections.bundle_product.presets.name",
-      "category": "t:sections.bundle_product.presets.category",
-      "blocks": [
-        {
-          "type": "bundle_item"
-        },
-        {
-          "type": "bundle_item"
-        },
-        {
-          "type": "bundle_item"
-        },
-        {
-          "type": "bundle_item"
-        }
-      ]
+      "category": "t:sections.bundle_product.presets.category"
     }
   ]
 }
