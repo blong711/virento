@@ -1,470 +1,685 @@
 <div class="color-{{ section.settings.color_scheme }}">
   <div class="section-{{ section.id }}-padding">
-  <div class="color-{{ section.settings.color_scheme }}" style="padding-bottom: 80px;" 
-     data-currency-enabled="{% if settings.currency_code_enabled %}true{% else %}false{% endif %}"
-     data-currency-code="{{ shop.currency }}"
-     data-free-shipping-threshold="{{ settings.free_shipping_threshold | times: 100 }}">
-    <div class="{{ section.settings.width }}">
+    <div
+      class="color-{{ section.settings.color_scheme }}"
+      style="padding-bottom: 80px;"
+      data-currency-enabled="{% if settings.currency_code_enabled %}true{% else %}false{% endif %}"
+      data-currency-code="{{ shop.currency }}"
+      data-free-shipping-threshold="{{ settings.free_shipping_threshold | times: 100 }}"
+    >
+      <div class="{{ section.settings.width }}">
         <div class="row justify-content-center">
-            <div class="col-xl-4 col-sm-8">
-                {% if cart.item_count > 0 %}
-                    {% for block in section.blocks %}
-                        {% case block.type %}
-                            {% when 'free_shipping_progress' %}
-                                <div class="tf-cart-head text-center" {{ block.shopify_attributes }}>
-                                    {% assign cart_total = cart.total_price %}
-                                    {% assign free_shipping_threshold = settings.free_shipping_threshold | times: 100 %}
-                                    {% assign remaining_for_free_shipping = free_shipping_threshold | minus: cart_total %}
-                                    {% assign progress_percentage = cart_total | times: 100.0 | divided_by: free_shipping_threshold | at_most: 100 %}
-                                    
-                                    {% if cart_total >= free_shipping_threshold %}
-                                        <p class="text-xl-3 title text-dark-4">{{ block.settings.qualified_message }} <span class="fw-medium">{{ block.settings.free_shipping_text }}</span></p>
-                                    {% else %}
-                                        <p class="text-xl-3 title text-dark-4">{{ block.settings.spend_message }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ remaining_for_free_shipping | money }} {{ shop.currency }}{% else %}{{ remaining_for_free_shipping | money }}{% endif %}</span> {{ block.settings.more_message }}
-                                            <span class="fw-medium">{{ block.settings.free_shipping_text }}</span>
-                                        </p>
-                                    {% endif %}
-                                    
-                                    <div class="progress-sold tf-progress-ship">
-                                        <div class="value" style="width: {{ progress_percentage }}%;" data-progress="{{ progress_percentage }}">
-                                            <i class="icon icon-car"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                        {% endcase %}
-                    {% endfor %}
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
+          <div class="col-xl-4 col-sm-8">
+            {% if cart.item_count > 0 %}
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'free_shipping_progress' %}
+                    <div class="tf-cart-head text-center" {{ block.shopify_attributes }}>
+                      {% assign cart_total = cart.total_price %}
+                      {% assign free_shipping_threshold = settings.free_shipping_threshold | times: 100 %}
+                      {% assign remaining_for_free_shipping = free_shipping_threshold | minus: cart_total %}
+                      {% assign progress_percentage = cart_total
+                        | times: 100.0
+                        | divided_by: free_shipping_threshold
+                        | at_most: 100
+                      %}
 
-<!-- Cart Section -->
-<div class="color-{{ section.settings.color_scheme }}">
-    <div class="{{ section.settings.width }}">
+                      {% if cart_total >= free_shipping_threshold %}
+                        <p class="text-xl-3 title text-dark-4">
+                          {{ block.settings.qualified_message }}
+                          <span class="fw-medium">{{ block.settings.free_shipping_text }}</span>
+                        </p>
+                      {% else %}
+                        <p class="text-xl-3 title text-dark-4">
+                          {{ block.settings.spend_message }}
+                          <span class="fw-medium">
+                            {%- if settings.currency_code_enabled -%}
+                              {{- remaining_for_free_shipping | money }}
+                              {{ shop.currency -}}
+                            {%- else -%}
+                              {{- remaining_for_free_shipping | money -}}
+                            {%- endif -%}
+                          </span>
+                          {{ block.settings.more_message }}
+                          <span class="fw-medium">{{ block.settings.free_shipping_text }}</span>
+                        </p>
+                      {% endif %}
+
+                      <div class="progress-sold tf-progress-ship">
+                        <div
+                          class="value"
+                          style="width: {{ progress_percentage }}%;"
+                          data-progress="{{ progress_percentage }}"
+                        >
+                          <i class="icon icon-car"></i>
+                        </div>
+                      </div>
+                    </div>
+                {% endcase %}
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="color-{{ section.settings.color_scheme }}">
+      <div class="{{ section.settings.width }}">
         <div class="row">
-            <div class="col-xl-8">
-                <div class="tf-page-cart-main">
-                    {% if cart.item_count > 0 %}
-                        {% for block in section.blocks %}
-                            {% case block.type %}
-                                {% when 'cart_items_table' %}
-                                    <form action="/cart" method="post" class="form-cart" {{ block.shopify_attributes }}>
-                                        <table class="table-page-cart">
-                                            <thead>
-                                                <tr>
-                                                    <th>{{ block.settings.product_column_header }}</th>
-                                                    <th>{{ block.settings.price_column_header }}</th>
-                                                    <th>{{ block.settings.quantity_column_header }}</th>
-                                                    <th>{{ block.settings.total_column_header }}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for item in cart.items %}
-                                                    <tr class="tf-cart-item file-delete" data-item-key="{{ item.key }}">
-                                                        <td class="tf-cart-item_product">
-                                                            <a href="{{ item.url }}" class="img-box">
-                                                                <img src="{{ item.image | img_url: '150x150', crop: 'center' }}" alt="{{ item.title | escape }}" width="150" height="150">
-                                                            </a>
-                                                            <div class="cart-info">
-                                                                <a href="{{ item.url }}" class="name text-md link fw-medium">{{ item.product.title }}</a>
-                                                                {% if item.variant.title != 'Default Title' %}
-                                                                    <div class="variants">{{ item.variant.title }}</div>
-                                                                {% endif %}
-                                                                {% if item.variant.title == 'Default Title' %}
-                                                                  <div class="variants"></div>
-                                                              {% endif %}
-                                                                <span class="remove-cart link remove" data-item-key="{{ item.key }}">{{ block.settings.remove_text }}</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="tf-cart-item_price text-center" data-cart-title="Price">
-                                                            {% if item.original_price != item.final_price %}
-                                                                <span class="cart-price price-on-sale text-md fw-medium">{% if settings.currency_code_enabled %}{{ item.final_price | money }} {{ shop.currency }}{% else %}{{ item.final_price | money }}{% endif %}</span>
-                                                                <span class="cart-price original-price text-sm text-muted"><s>{% if settings.currency_code_enabled %}{{ item.original_price | money }} {{ shop.currency }}{% else %}{{ item.original_price | money }}{% endif %}</s></span>
-                                                            {% else %}
-                                                                <span class="cart-price text-md fw-medium">{% if settings.currency_code_enabled %}{{ item.final_price | money }} {{ shop.currency }}{% else %}{{ item.final_price | money }}{% endif %}</span>
-                                                            {% endif %}
-                                                        </td>
-                                                        <td class="tf-cart-item_quantity" data-cart-title="Quantity">
-                                                            <div class="wg-quantity">
-                                                                <span class="btn-quantity btn-decrease" data-item-key="{{ item.key }}">-</span>
-                                                                <input class="quantity-product" type="text" name="updates[]" value="{{ item.quantity }}" min="1" data-item-key="{{ item.key }}">
-                                                                <span class="btn-quantity btn-increase" data-item-key="{{ item.key }}">+</span>
-                                                            </div>
-                                                        </td>
-                                                        <td class="tf-cart-item_total text-center" data-cart-title="Total">
-                                                            <div class="cart-total total-price text-md fw-medium">{% if settings.currency_code_enabled %}{{ item.final_line_price | money }} {{ shop.currency }}{% else %}{{ item.final_line_price | money }}{% endif %}</div>
-                                                        </td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </form>
-                                
-                                {% when 'gift_wrap' %}
-                                    {% if block.settings.show_gift_wrap %}
-                                        <div class="check-gift" {{ block.shopify_attributes }}>
-                                            <input type="checkbox" class="tf-check" id="checkGift" name="attributes[Gift Wrap]">
-                                            <label for="checkGift" class="label text-dark-4">
-                                                {%- if settings.gift_wrap_product != blank -%}
-                                                    {%- assign gift_wrap_product = all_products[settings.gift_wrap_product] -%}
-                                                    {%- if gift_wrap_product != blank -%}
-                                                        {{ block.settings.label_text }} <span class="fw-medium">{% if settings.currency_code_enabled %}{{ gift_wrap_product.price | money }} {{ shop.currency }}{% else %}{{ gift_wrap_product.price | money }}{% endif %}.</span> {{ block.settings.optional_text }}
-                                                        <input type="hidden" name="gift_wrap_product_id" value="{{ gift_wrap_product.selected_or_first_available_variant.id }}">
-                                                    {%- else -%}
-                                                        {{ block.settings.label_text }} <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text }}
-                                                    {%- endif -%}
-                                                {%- else -%}
-                                                    {{ block.settings.label_text }} <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text }}
-                                                {%- endif -%}
-                                            </label>
-                                        </div>
+          <div class="col-xl-8">
+            <div class="tf-page-cart-main">
+              {% if cart.item_count > 0 %}
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                    {% when 'cart_items_table' %}
+                      <form
+                        action="{{ routes.cart_url }}"
+                        method="post"
+                        class="form-cart"
+                        {{ block.shopify_attributes }}
+                      >
+                        <table class="table-page-cart">
+                          <thead>
+                            <tr>
+                              <th>{{ block.settings.product_column_header }}</th>
+                              <th>{{ block.settings.price_column_header }}</th>
+                              <th>{{ block.settings.quantity_column_header }}</th>
+                              <th>{{ block.settings.total_column_header }}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for item in cart.items %}
+                              <tr class="tf-cart-item file-delete" data-item-key="{{ item.key }}">
+                                <td class="tf-cart-item_product">
+                                  <a href="{{ item.url }}" class="img-box">
+                                    <img
+                                      src="{{ item.image | image_url: width: 150, height: 150, crop: 'center' }}"
+                                      alt="{{ item.title | escape }}"
+                                      width="150"
+                                      height="150"
+                                    >
+                                  </a>
+                                  <div class="cart-info">
+                                    <a href="{{ item.url }}" class="name text-md link fw-medium">
+                                      {{- item.product.title -}}
+                                    </a>
+                                    {% if item.variant.title != 'Default Title' %}
+                                      <div class="variants">{{ item.variant.title }}</div>
                                     {% endif %}
-                                
-                                {% when 'discount_code' %}
-                                    <div class="box-ip-discount" {{ block.shopify_attributes }}>
-                                        <input type="text" placeholder="{{ block.settings.placeholder_text }}" name="discount">
-                                        {% if block.settings.button_text != blank %}
-                                            <button type="button" class="tf-btn radius-6 btn-out-line-dark-2">{{ block.settings.button_text }}</button>
-                                        {% endif %}
-                                    </div>
-                                
-                                {% when 'cart_note' %}
-                                    <div class="cart-note" {{ block.shopify_attributes }}>
-                                        <label for="note" class="text-md fw-medium">{{ block.settings.label_text }}</label>
-                                        <textarea id="note" name="note" placeholder="{{ block.settings.placeholder_text }}">{{ cart.note }}</textarea>
-                                    </div>
-                                
+                                    {% if item.variant.title == 'Default Title' %}
+                                      <div class="variants"></div>
+                                    {% endif %}
+                                    <span class="remove-cart link remove" data-item-key="{{ item.key }}">
+                                      {{- block.settings.remove_text -}}
+                                    </span>
+                                  </div>
+                                </td>
+                                <td class="tf-cart-item_price text-center" data-cart-title="Price">
+                                  {% if item.original_price != item.final_price %}
+                                    <span class="cart-price price-on-sale text-md fw-medium">
+                                      {%- if settings.currency_code_enabled -%}
+                                        {{- item.final_price | money }}
+                                        {{ shop.currency -}}
+                                      {%- else -%}
+                                        {{- item.final_price | money -}}
+                                      {%- endif -%}
+                                    </span>
+                                    <span class="cart-price original-price text-sm text-muted"
+                                      ><s>
+                                        {%- if settings.currency_code_enabled -%}
+                                          {{- item.original_price | money }}
+                                          {{ shop.currency -}}
+                                        {%- else -%}
+                                          {{- item.original_price | money -}}
+                                        {%- endif -%}
+                                      </s></span
+                                    >
+                                  {% else %}
+                                    <span class="cart-price text-md fw-medium">
+                                      {%- if settings.currency_code_enabled -%}
+                                        {{- item.final_price | money }}
+                                        {{ shop.currency -}}
+                                      {%- else -%}
+                                        {{- item.final_price | money -}}
+                                      {%- endif -%}
+                                    </span>
+                                  {% endif %}
+                                </td>
+                                <td class="tf-cart-item_quantity" data-cart-title="Quantity">
+                                  <div class="wg-quantity">
+                                    <span class="btn-quantity btn-decrease" data-item-key="{{ item.key }}">-</span>
+                                    <input
+                                      class="quantity-product"
+                                      type="text"
+                                      name="updates[]"
+                                      value="{{ item.quantity }}"
+                                      min="1"
+                                      data-item-key="{{ item.key }}"
+                                    >
+                                    <span class="btn-quantity btn-increase" data-item-key="{{ item.key }}">+</span>
+                                  </div>
+                                </td>
+                                <td class="tf-cart-item_total text-center" data-cart-title="Total">
+                                  <div class="cart-total total-price text-md fw-medium">
+                                    {% if settings.currency_code_enabled -%}
+                                      {{- item.final_line_price | money }}
+                                      {{ shop.currency -}}
+                                    {%- else -%}
+                                      {{- item.final_line_price | money -}}
+                                    {%- endif %}
+                                  </div>
+                                </td>
+                              </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </form>
 
-                                {% when 'features_slider' %}
-                                    <div class="fl-iconbox wow fadeInUp" {{ block.shopify_attributes }}>
-                                        <div dir="ltr" class="swiper tf-swiper sw-auto" data-swiper='{
-                                            "slidesPerView": 1,
-                                            "spaceBetween": 12,
-                                            "speed": 800,
-                                            "observer": true,
-                                            "observeParents": true,
-                                            "slidesPerGroup": 1,
-                                            "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
-                                            "breakpoints": {
-                                                "575": { "slidesPerView": 2, "spaceBetween": 12, "slidesPerGroup": 2}, 
-                                                "768": { "slidesPerView": 3, "spaceBetween": 24, "slidesPerGroup": 3},
-                                                "1200": { "slidesPerView": "auto", "spaceBetween": 24}
-                                            }
-                                        }'>
-                                            <div class="swiper-wrapper">
-                                                {% if block.settings.feature_1_icon != blank or block.settings.feature_2_icon != blank or block.settings.feature_3_icon != blank or block.settings.feature_4_icon != blank %}
-                                                    {% if block.settings.feature_1_icon != blank %}
-                                                        <div class="swiper-slide" style="margin-right: 24px;" >
-                                                            <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
-                                                                <div class="box-icon">
-                                                                    <i class="icon icon-{{ block.settings.feature_1_icon }}"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.feature_1_title }}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if block.settings.feature_2_icon != blank %}
-                                                        <div class="swiper-slide" style="margin-right: 24px;">
-                                                            <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
-                                                                <div class="box-icon">
-                                                                    <i class="icon icon-{{ block.settings.feature_2_icon }}"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.feature_2_title }}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if block.settings.feature_3_icon != blank %}
-                                                        <div class="swiper-slide" style="margin-right: 24px;">
-                                                            <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
-                                                                <div class="box-icon">
-                                                                    <i class="icon icon-{{ block.settings.feature_3_icon }}"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.feature_3_title }}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if block.settings.feature_4_icon != blank %}
-                                                        <div class="swiper-slide" style="margin-right: 24px;">
-                                                            <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
-                                                                <div class="box-icon">
-                                                                    <i class="icon icon-{{ block.settings.feature_4_icon }}"></i>
-                                                                </div>
-                                                                <div class="content">
-                                                                    <div class="title text-uppercase">{{ block.settings.feature_4_title }}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% endif %}
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                        <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
+                    {% when 'gift_wrap' %}
+                      {% if block.settings.show_gift_wrap %}
+                        <div class="check-gift" {{ block.shopify_attributes }}>
+                          <input type="checkbox" class="tf-check" id="checkGift" name="attributes[Gift Wrap]">
+                          <label for="checkGift" class="label text-dark-4">
+                            {%- if settings.gift_wrap_product != blank -%}
+                              {%- assign gift_wrap_product = all_products[settings.gift_wrap_product] -%}
+                              {%- if gift_wrap_product != blank -%}
+                                {{ block.settings.label_text }}
+                                <span class="fw-medium">
+                                  {%- if settings.currency_code_enabled -%}
+                                    {{- gift_wrap_product.price | money }}
+                                    {{ shop.currency -}}
+                                  {%- else -%}
+                                    {{- gift_wrap_product.price | money -}}
+                                  {%- endif -%}
+                                  .</span
+                                >
+                                {{ block.settings.optional_text }}
+                                <input
+                                  type="hidden"
+                                  name="gift_wrap_product_id"
+                                  value="{{ gift_wrap_product.selected_or_first_available_variant.id }}"
+                                >
+                              {%- else -%}
+                                {{ block.settings.label_text }}
+                                <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text }}
+                              {%- endif -%}
+                            {%- else -%}
+                              {{ block.settings.label_text }}
+                              <span class="fw-medium">$10.00.</span> {{ block.settings.optional_text }}
+                            {%- endif -%}
+                          </label>
+                        </div>
+                      {% endif %}
+
+                    {% when 'discount_code' %}
+                      <div class="box-ip-discount" {{ block.shopify_attributes }}>
+                        <input type="text" placeholder="{{ block.settings.placeholder_text }}" name="discount">
+                        {% if block.settings.button_text != blank %}
+                          <button type="button" class="tf-btn radius-6 btn-out-line-dark-2">
+                            {{ block.settings.button_text }}
+                          </button>
+                        {% endif %}
+                      </div>
+
+                    {% when 'cart_note' %}
+                      <div class="cart-note" {{ block.shopify_attributes }}>
+                        <label for="note" class="text-md fw-medium">{{ block.settings.label_text }}</label>
+                        <textarea
+                          id="note"
+                          name="note"
+                          placeholder="{{ block.settings.placeholder_text }}"
+                        >{{ cart.note }}</textarea>
+                      </div>
+
+                    {% when 'features_slider' %}
+                      <div class="fl-iconbox wow fadeInUp" {{ block.shopify_attributes }}>
+                        <div
+                          dir="ltr"
+                          class="swiper tf-swiper sw-auto"
+                          data-swiper='
+                            {
+                                "slidesPerView": 1,
+                                "spaceBetween": 12,
+                                "speed": 800,
+                                "observer": true,
+                                "observeParents": true,
+                                "slidesPerGroup": 1,
+                                "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
+                                "breakpoints": {
+                                    "575": { "slidesPerView": 2, "spaceBetween": 12, "slidesPerGroup": 2},
+                                    "768": { "slidesPerView": 3, "spaceBetween": 24, "slidesPerGroup": 3},
+                                    "1200": { "slidesPerView": "auto", "spaceBetween": 24}
+                                }
+                            }
+                          '
+                        >
+                          <div class="swiper-wrapper">
+                            {% if block.settings.feature_1_icon != blank
+                              or block.settings.feature_2_icon != blank
+                              or block.settings.feature_3_icon != blank
+                              or block.settings.feature_4_icon != blank
+                            %}
+                              {% if block.settings.feature_1_icon != blank %}
+                                <div class="swiper-slide" style="margin-right: 24px;">
+                                  <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                    <div class="box-icon">
+                                      <i class="icon icon-{{ block.settings.feature_1_icon }}"></i>
                                     </div>
-                            {% endcase %}
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-            
-            <!-- Empty cart message - always rendered but controlled by JavaScript -->
-            <div class="col-12" {% if cart.item_count > 0 %}style="display: none;"{% endif %}>
-                <div class="d-flex justify-content-center">
-                    {% for block in section.blocks %}
-                        {% case block.type %}
-                            {% when 'empty_cart' %}
-                                <div class="empty-cart text-center" {{ block.shopify_attributes }}>
-                                    <h3>{{ block.settings.empty_cart_title }}</h3>
-                                    <p>{{ block.settings.empty_cart_message }}</p>
-                                    {% if settings.empty_cart_link != blank and block.settings.continue_shopping_text != blank %}
-                                    <a href="{{ settings.empty_cart_link }}" class="tf-btn btn-dark2 animate-btn">{{ block.settings.continue_shopping_text }}</a>
-                                    {% endif %}
+                                    <div class="content">
+                                      <div class="title text-uppercase">{{ block.settings.feature_1_title }}</div>
+                                    </div>
+                                  </div>
                                 </div>
-                        {% endcase %}
-                    {% endfor %}
-                </div>
-            </div>
-            
-            <!-- Cart sidebar - only shown when cart has items -->
-            <div class="col-xl-4">
-                <div class="tf-page-cart-sidebar">
-                    {% if cart.item_count > 0 %}
-                        {% for block in section.blocks %}
-                            {% case block.type %}
-                                {% when 'shipping_estimator' %}
-                                    <div class="cart-box shipping-cart-box" {{ block.shopify_attributes }}>
-                                        <div class="text-lg title fw-medium">{{ block.settings.title | default: 'Shipping estimates' }}</div>
-                                        <form class="shipping-calculator-form" data-shipping-calculator>
-                                            <div class="field">
-                                                <label for="shipping-country-main" class="text-sm">{{ block.settings.country_label }}</label>
-                                                <div class="tf-select">
-                                                    <select class="w-100" id="shipping-country-main" name="shipping_address[country]" data-shipping-country>
-                                                        {{ all_country_option_tags }}
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="field" id="shipping-province-field-main" style="display: none;">
-                                                <label for="shipping-province-main" class="text-sm">{{ block.settings.state_label }}</label>
-                                                <div class="tf-select">
-                                                    <select id="shipping-province-main" name="shipping_address[province]" data-shipping-province></select>
-                                                </div>
-                                            </div>
-                                            <div class="field">
-                                                <label for="shipping-zip-main" class="text-sm">{{ block.settings.zipcode_label }}</label>
-                                                <input type="text" 
-                                                       id="shipping-zip-main" 
-                                                       name="shipping_address[zip]" 
-                                                       value="{{ cart.shipping_address.zip }}"
-                                                       data-shipping-zip>
-                                            </div>
-                                            <div id="shipping-rates-main" class="shipping-rates" style="display: none;" data-shipping-rates>
-                                                <p class="shipping-rates__heading"></p>
-                                                <ul class="shipping-rates__list"></ul>
-                                            </div>
-                                            {% if block.settings.button_text != blank %}
-                                                <button type="submit" class="tf-btn btn-dark2 animate-btn w-100" data-shipping-calculator-submit>{{ block.settings.button_text }}</button>
-                                            {% endif %}
-                                        </form>
+                              {% endif %}
+                              {% if block.settings.feature_2_icon != blank %}
+                                <div class="swiper-slide" style="margin-right: 24px;">
+                                  <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                    <div class="box-icon">
+                                      <i class="icon icon-{{ block.settings.feature_2_icon }}"></i>
                                     </div>
-                                
-                                {% when 'cart_summary' %}
-                                    <form action="/cart" method="post" class="cart-box checkout-cart-box" {{ block.shopify_attributes }}>
-                                        <div class="cart-head">
-                                            <div class="total-discount text-xl fw-medium">
-                                                <span>{{ block.settings.subtotal_label }}</span>
-                                                <span class="total">{{ cart.total_price | money }} {{ shop.currency }}</span>
-                                            </div>
-                                            
-                                            {% comment %} {% if cart.total_discounts > 0 %}
-                                                <div class="discounts text-sm text-success">
-                                                    <span>{{ block.settings.discounts_label | default: 'Discounts:' }}</span>
-                                                    <span>-{{ cart.total_discounts | money }} {{ shop.currency }}</span>
-                                                </div>
-                                            {% endif %} {% endcomment %}
-                                            
-                                            <p class="text-sm text-dark-4">{{ block.settings.tax_message }}</p>
-                                        </div>
-                                        
-                                        {% if block.settings.show_terms_checkbox %}
-                                            <div class="check-agree">
-                                                <input type="checkbox" class="tf-check" id="check-agree" required>
-                                                <label for="check-agree" class="label text-dark-4">{{ block.settings.terms_text }} <a href="{{ block.settings.terms_url }}" class="text-dark-4 fw-medium text-underline link">{{ block.settings.terms_link_text }}</a></label>
-                                            </div>
-                                        {% endif %}
-                                        
-                                        <div class="checkout-btn">
-                                            {% if block.settings.checkout_button_text != blank %}
-                                                <button type="submit" name="checkout" class="tf-btn btn-dark2 animate-btn w-100">{{ block.settings.checkout_button_text }}</button>
-                                            {% endif %}
-                                        </div>
-                                        
-                                        {% if block.settings.show_payment_icons %}
-                                            <div class="cart-imgtrust">
-                                                <p class="text-center text-sm text-dark-1">{{ block.settings.payment_methods_title }}</p>
-                                                <div class="cart-list-social">
-                                                    {% if block.settings.payment_svg_list != blank %}
-                                                        {% assign payment_icons = block.settings.payment_svg_list | split: ',' %}
-                                                        {% for icon in payment_icons %}
-                                                            {% assign icon_name = icon | strip %}
-                                                            <div class="payment-card">
-                                                                <img src="{{ icon_name | payment_type_img_url }}" alt="{{ icon_name }}" width="100" height="100">
-                                                            </div>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    </form>
-                                
-                                {% when 'testimonials' %}
-                                    <div class="cart-box testimonial-cart-box" {{ block.shopify_attributes }}>
-                                        <div dir="ltr" class="swiper tf-swiper" data-swiper='{
-                                            "slidesPerView": 1,
-                                            "spaceBetween": 12,
-                                            "speed": 800,
-                                            "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
-                                            "navigation": {
-                                                "clickable": true,
-                                                "nextEl": ".nav-next-tes",
-                                                "prevEl": ".nav-prev-tes"
-                                            }
-                                        }'>
-                                            <div class="swiper-wrapper">
-                                                {% if block.settings.testimonial_1_content != blank or block.settings.testimonial_2_content != blank or block.settings.testimonial_3_content != blank %}
-                                                    {% if block.settings.testimonial_1_content != blank %}
-                                                        <div class="swiper-slide">
-                                                            <div class="box-testimonial-main">
-                                                                <span class="quote icon-quote5"></span>
-                                                                <div class="content">
-                                                                    <div class="list-star-default">
-                                                                        {% for i in (1..5) %}
-                                                                            <i class="icon-star"></i>
-                                                                        {% endfor %}
-                                                                    </div>
-                                                                    <p class="text-review text-md text-main">{{ block.settings.testimonial_1_content }}</p>
-                                                                    <div class="box-author">
-                                                                        <div class="img">
-                                                                            {% if block.settings.testimonial_1_image != blank %}
-                                                                                <img src="{{ block.settings.testimonial_1_image | img_url: '50x50', crop: 'center' }}" alt="{{ block.settings.testimonial_1_author }}" width="50" height="50">
-                                                                            {% else %}
-                                                                                <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                                                                    <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
-                                                                                </div>
-                                                                            {% endif %}
-                                                                        </div>
-                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_1_author }}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if block.settings.testimonial_2_content != blank %}
-                                                        <div class="swiper-slide">
-                                                            <div class="box-testimonial-main">
-                                                                <span class="quote icon-quote5"></span>
-                                                                <div class="content">
-                                                                    <div class="list-star-default">
-                                                                        {% for i in (1..5) %}
-                                                                            <i class="icon-star"></i>
-                                                                        {% endfor %}
-                                                                    </div>
-                                                                    <p class="text-review text-md text-main">{{ block.settings.testimonial_2_content }}</p>
-                                                                    <div class="box-author">
-                                                                        <div class="img">
-                                                                            {% if block.settings.testimonial_2_image != blank %}
-                                                                                <img src="{{ block.settings.testimonial_2_image | img_url: '50x50', crop: 'center' }}" alt="{{ block.settings.testimonial_2_author }}" width="50" height="50">
-                                                                            {% else %}
-                                                                                <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                                                                    <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
-                                                                                </div>
-                                                                            {% endif %}
-                                                                        </div>
-                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_2_author }}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% endif %}
-                                                    {% if block.settings.testimonial_3_content != blank %}
-                                                        <div class="swiper-slide">
-                                                            <div class="box-testimonial-main">
-                                                                <span class="quote icon-quote5"></span>
-                                                                <div class="content">
-                                                                    <div class="list-star-default">
-                                                                        {% for i in (1..5) %}
-                                                                            <i class="icon-star"></i>
-                                                                        {% endfor %}
-                                                                    </div>
-                                                                    <p class="text-review text-md text-main">{{ block.settings.testimonial_3_content }}</p>
-                                                                    <div class="box-author">
-                                                                        <div class="img">
-                                                                            {% if block.settings.testimonial_3_image != blank %}
-                                                                                <img src="{{ block.settings.testimonial_3_image | img_url: '50x50', crop: 'center' }}" alt="{{ block.settings.testimonial_3_author }}" width="50" height="50">
-                                                                            {% else %}
-                                                                                <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                                                                    <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
-                                                                                </div>
-                                                                            {% endif %}
-                                                                        </div>
-                                                                        <span class="name text-sm fw-medium">{{ block.settings.testimonial_3_author }}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    {% endif %}
-                                                {% else %}
-                                                    <!-- Fallback to default testimonials if no custom ones are set -->
-                                                    <div class="swiper-slide">
-                                                        <div class="box-testimonial-main">
-                                                            <span class="quote icon-quote5"></span>
-                                                            <div class="content">
-                                                                <div class="list-star-default">
-                                                                    {% for i in (1..5) %}
-                                                                        <i class="icon-star"></i>
-                                                                    {% endfor %}
-                                                                </div>
-                                                                <p class="text-review text-md text-main">Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.</p>
-                                                                <div class="box-author">
-                                                                    <div class="img">
-                                                                        <div class="avatar-placeholder" style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                                                            <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                    <span class="name text-sm fw-medium">Happy Customer</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-                                            <div class="box-nav-swiper">
-                                                <div class="swiper-button-prev nav-swiper nav-prev-tes"></div>
-                                                <div class="swiper-button-next nav-swiper nav-next-tes"></div>
-                                            </div>
-                                        </div>
+                                    <div class="content">
+                                      <div class="title text-uppercase">{{ block.settings.feature_2_title }}</div>
                                     </div>
-                            {% endcase %}
-                        {% endfor %}
-                    {% endif %}
-                </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                              {% if block.settings.feature_3_icon != blank %}
+                                <div class="swiper-slide" style="margin-right: 24px;">
+                                  <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                    <div class="box-icon">
+                                      <i class="icon icon-{{ block.settings.feature_3_icon }}"></i>
+                                    </div>
+                                    <div class="content">
+                                      <div class="title text-uppercase">{{ block.settings.feature_3_title }}</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                              {% if block.settings.feature_4_icon != blank %}
+                                <div class="swiper-slide" style="margin-right: 24px;">
+                                  <div class="tf-icon-box justify-content-center justify-content-sm-start style-3">
+                                    <div class="box-icon">
+                                      <i class="icon icon-{{ block.settings.feature_4_icon }}"></i>
+                                    </div>
+                                    <div class="content">
+                                      <div class="title text-uppercase">{{ block.settings.feature_4_title }}</div>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                            {% endif %}
+                          </div>
+                        </div>
+                        <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
+                      </div>
+                  {% endcase %}
+                {% endfor %}
+              {% endif %}
             </div>
+          </div>
+
+          <!-- Empty cart message - always rendered but controlled by JavaScript -->
+          <div
+            class="col-12"
+            {% if cart.item_count > 0 %}
+              style="display: none;"
+            {% endif %}
+          >
+            <div class="d-flex justify-content-center">
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'empty_cart' %}
+                    <div class="empty-cart text-center" {{ block.shopify_attributes }}>
+                      <h3>{{ block.settings.empty_cart_title }}</h3>
+                      <p>{{ block.settings.empty_cart_message }}</p>
+                      {% if settings.empty_cart_link != blank and block.settings.continue_shopping_text != blank %}
+                        <a href="{{ settings.empty_cart_link }}" class="tf-btn btn-dark2 animate-btn">
+                          {{- block.settings.continue_shopping_text -}}
+                        </a>
+                      {% endif %}
+                    </div>
+                {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Cart sidebar - only shown when cart has items -->
+          <div class="col-xl-4">
+            <div class="tf-page-cart-sidebar">
+              {% if cart.item_count > 0 %}
+                {% for block in section.blocks %}
+                  {% case block.type %}
+                    {% when 'shipping_estimator' %}
+                      <div class="cart-box shipping-cart-box" {{ block.shopify_attributes }}>
+                        <div class="text-lg title fw-medium">
+                          {{ block.settings.title | default: 'Shipping estimates' }}
+                        </div>
+                        <form class="shipping-calculator-form" data-shipping-calculator>
+                          <div class="field">
+                            <label for="shipping-country-main" class="text-sm">
+                              {{- block.settings.country_label -}}
+                            </label>
+                            <div class="tf-select">
+                              <select
+                                class="w-100"
+                                id="shipping-country-main"
+                                name="shipping_address[country]"
+                                data-shipping-country
+                              >
+                                {{ all_country_option_tags }}
+                              </select>
+                            </div>
+                          </div>
+                          <div class="field" id="shipping-province-field-main" style="display: none;">
+                            <label for="shipping-province-main" class="text-sm">{{ block.settings.state_label }}</label>
+                            <div class="tf-select">
+                              <select
+                                id="shipping-province-main"
+                                name="shipping_address[province]"
+                                data-shipping-province
+                              ></select>
+                            </div>
+                          </div>
+                          <div class="field">
+                            <label for="shipping-zip-main" class="text-sm">{{ block.settings.zipcode_label }}</label>
+                            <input
+                              type="text"
+                              id="shipping-zip-main"
+                              name="shipping_address[zip]"
+                              value="{{ cart.shipping_address.zip }}"
+                              data-shipping-zip
+                            >
+                          </div>
+                          <div
+                            id="shipping-rates-main"
+                            class="shipping-rates"
+                            style="display: none;"
+                            data-shipping-rates
+                          >
+                            <p class="shipping-rates__heading"></p>
+                            <ul class="shipping-rates__list"></ul>
+                          </div>
+                          {% if block.settings.button_text != blank %}
+                            <button
+                              type="submit"
+                              class="tf-btn btn-dark2 animate-btn w-100"
+                              data-shipping-calculator-submit
+                            >
+                              {{ block.settings.button_text }}
+                            </button>
+                          {% endif %}
+                        </form>
+                      </div>
+
+                    {% when 'cart_summary' %}
+                      <form
+                        action="{{ routes.cart_url }}"
+                        method="post"
+                        class="cart-box checkout-cart-box"
+                        {{ block.shopify_attributes }}
+                      >
+                        <div class="cart-head">
+                          <div class="total-discount text-xl fw-medium">
+                            <span>{{ block.settings.subtotal_label }}</span>
+                            <span class="total">
+                              {{- cart.total_price | money }}
+                              {{ shop.currency -}}
+                            </span>
+                          </div>
+
+                          {% comment %}
+                            {% if cart.total_discounts > 0 %}
+                                <div class="discounts text-sm text-success">
+                                    <span>{{ block.settings.discounts_label | default: 'Discounts:' }}</span>
+                                    <span>-{{ cart.total_discounts | money }} {{ shop.currency }}</span>
+                                </div>
+                            {% endif %}
+                          {% endcomment %}
+
+                          <p class="text-sm text-dark-4">{{ block.settings.tax_message }}</p>
+                        </div>
+
+                        {% if block.settings.show_terms_checkbox %}
+                          <div class="check-agree">
+                            <input type="checkbox" class="tf-check" id="check-agree" required>
+                            <label for="check-agree" class="label text-dark-4">
+                              {{- block.settings.terms_text }}
+                              <a
+                                href="{{ block.settings.terms_url }}"
+                                class="text-dark-4 fw-medium text-underline link"
+                              >
+                                {{- block.settings.terms_link_text -}}
+                              </a></label
+                            >
+                          </div>
+                        {% endif %}
+
+                        <div class="checkout-btn">
+                          {% if block.settings.checkout_button_text != blank %}
+                            <button type="submit" name="checkout" class="tf-btn btn-dark2 animate-btn w-100">
+                              {{ block.settings.checkout_button_text }}
+                            </button>
+                          {% endif %}
+                        </div>
+
+                        {% if block.settings.show_payment_icons %}
+                          <div class="cart-imgtrust">
+                            <p class="text-center text-sm text-dark-1">{{ block.settings.payment_methods_title }}</p>
+                            <div class="cart-list-social">
+                              {% if block.settings.payment_svg_list != blank %}
+                                {% assign payment_icons = block.settings.payment_svg_list | split: ',' %}
+                                {% for icon in payment_icons %}
+                                  {% assign icon_name = icon | strip %}
+                                  <div class="payment-card">
+                                    <img
+                                      src="{{ icon_name | payment_type_img_url }}"
+                                      alt="{{ icon_name }}"
+                                      width="100"
+                                      height="100"
+                                    >
+                                  </div>
+                                {% endfor %}
+                              {% endif %}
+                            </div>
+                          </div>
+                        {% endif %}
+                      </form>
+
+                    {% when 'testimonials' %}
+                      <div class="cart-box testimonial-cart-box" {{ block.shopify_attributes }}>
+                        <div
+                          dir="ltr"
+                          class="swiper tf-swiper"
+                          data-swiper='
+                            {
+                                "slidesPerView": 1,
+                                "spaceBetween": 12,
+                                "speed": 800,
+                                "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
+                                "navigation": {
+                                    "clickable": true,
+                                    "nextEl": ".nav-next-tes",
+                                    "prevEl": ".nav-prev-tes"
+                                }
+                            }
+                          '
+                        >
+                          <div class="swiper-wrapper">
+                            {% if block.settings.testimonial_1_content != blank
+                              or block.settings.testimonial_2_content != blank
+                              or block.settings.testimonial_3_content != blank
+                            %}
+                              {% if block.settings.testimonial_1_content != blank %}
+                                <div class="swiper-slide">
+                                  <div class="box-testimonial-main">
+                                    <span class="quote icon-quote5"></span>
+                                    <div class="content">
+                                      <div class="list-star-default">
+                                        {% for i in (1..5) %}
+                                          <i class="icon-star"></i>
+                                        {% endfor %}
+                                      </div>
+                                      <p class="text-review text-md text-main">
+                                        {{ block.settings.testimonial_1_content }}
+                                      </p>
+                                      <div class="box-author">
+                                        <div class="img">
+                                          {% if block.settings.testimonial_1_image != blank %}
+                                            <img
+                                              src="{{ block.settings.testimonial_1_image | image_url: width: 50, height: 50, crop: 'center' }}"
+                                              alt="{{ block.settings.testimonial_1_author }}"
+                                              width="50"
+                                              height="50"
+                                            >
+                                          {% else %}
+                                            <div
+                                              class="avatar-placeholder"
+                                              style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
+                                            >
+                                              <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
+                                            </div>
+                                          {% endif %}
+                                        </div>
+                                        <span class="name text-sm fw-medium">
+                                          {{- block.settings.testimonial_1_author -}}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                              {% if block.settings.testimonial_2_content != blank %}
+                                <div class="swiper-slide">
+                                  <div class="box-testimonial-main">
+                                    <span class="quote icon-quote5"></span>
+                                    <div class="content">
+                                      <div class="list-star-default">
+                                        {% for i in (1..5) %}
+                                          <i class="icon-star"></i>
+                                        {% endfor %}
+                                      </div>
+                                      <p class="text-review text-md text-main">
+                                        {{ block.settings.testimonial_2_content }}
+                                      </p>
+                                      <div class="box-author">
+                                        <div class="img">
+                                          {% if block.settings.testimonial_2_image != blank %}
+                                            <img
+                                              src="{{ block.settings.testimonial_2_image | image_url: width: 50, height: 50, crop: 'center' }}"
+                                              alt="{{ block.settings.testimonial_2_author }}"
+                                              width="50"
+                                              height="50"
+                                            >
+                                          {% else %}
+                                            <div
+                                              class="avatar-placeholder"
+                                              style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
+                                            >
+                                              <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
+                                            </div>
+                                          {% endif %}
+                                        </div>
+                                        <span class="name text-sm fw-medium">
+                                          {{- block.settings.testimonial_2_author -}}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                              {% if block.settings.testimonial_3_content != blank %}
+                                <div class="swiper-slide">
+                                  <div class="box-testimonial-main">
+                                    <span class="quote icon-quote5"></span>
+                                    <div class="content">
+                                      <div class="list-star-default">
+                                        {% for i in (1..5) %}
+                                          <i class="icon-star"></i>
+                                        {% endfor %}
+                                      </div>
+                                      <p class="text-review text-md text-main">
+                                        {{ block.settings.testimonial_3_content }}
+                                      </p>
+                                      <div class="box-author">
+                                        <div class="img">
+                                          {% if block.settings.testimonial_3_image != blank %}
+                                            <img
+                                              src="{{ block.settings.testimonial_3_image | image_url: width: 50, height: 50, crop: 'center' }}"
+                                              alt="{{ block.settings.testimonial_3_author }}"
+                                              width="50"
+                                              height="50"
+                                            >
+                                          {% else %}
+                                            <div
+                                              class="avatar-placeholder"
+                                              style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
+                                            >
+                                              <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
+                                            </div>
+                                          {% endif %}
+                                        </div>
+                                        <span class="name text-sm fw-medium">
+                                          {{- block.settings.testimonial_3_author -}}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              {% endif %}
+                            {% else %}
+                              <!-- Fallback to default testimonials if no custom ones are set -->
+                              <div class="swiper-slide">
+                                <div class="box-testimonial-main">
+                                  <span class="quote icon-quote5"></span>
+                                  <div class="content">
+                                    <div class="list-star-default">
+                                      {% for i in (1..5) %}
+                                        <i class="icon-star"></i>
+                                      {% endfor %}
+                                    </div>
+                                    <p class="text-review text-md text-main">
+                                      Stylish, comfortable, and perfect for any occasion! My new favorite fashion
+                                      destination.
+                                    </p>
+                                    <div class="box-author">
+                                      <div class="img">
+                                        <div
+                                          class="avatar-placeholder"
+                                          style="width: 50px; height: 50px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center;"
+                                        >
+                                          <i class="icon icon-user" style="font-size: 24px; color: #999;"></i>
+                                        </div>
+                                      </div>
+                                      <span class="name text-sm fw-medium">Happy Customer</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endif %}
+                          </div>
+                          <div class="box-nav-swiper">
+                            <div class="swiper-button-prev nav-swiper nav-prev-tes"></div>
+                            <div class="swiper-button-next nav-swiper nav-next-tes"></div>
+                          </div>
+                        </div>
+                      </div>
+                  {% endcase %}
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
+  </div>
 </div>
 {% style %}
   .section-{{ section.id }}-padding {
       padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
       padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
     }
-  
+
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -706,107 +921,107 @@
           "label": "t:sections.main-cart.blocks.features_slider.settings.feature_1_icon.label",
           "default": "shipping",
           "options": [
-            {"value": "menu", "label": "Menu"},
-            {"value": "fill-check-circle", "label": "Check Circle"},
-            {"value": "arrow1-left", "label": "Arrow Left"},
-            {"value": "arrow-right", "label": "Arrow Right"},
-            {"value": "arrow-top-left", "label": "Arrow Top Left"},
-            {"value": "arrow-down", "label": "Arrow Down"},
-            {"value": "arrow-up", "label": "Arrow Up"},
-            {"value": "fashion-body", "label": "Fashion Body"},
-            {"value": "precision", "label": "Precision"},
-            {"value": "elegance", "label": "Elegance"},
-            {"value": "fb3", "label": "Facebook 3"},
-            {"value": "x2", "label": "X 2"},
-            {"value": "tiktok", "label": "TikTok"},
-            {"value": "heart3", "label": "Heart 3"},
-            {"value": "order", "label": "Order"},
-            {"value": "quote5", "label": "Quote 5"},
-            {"value": "minus", "label": "Minus"},
-            {"value": "plus", "label": "Plus"},
-            {"value": "location", "label": "Location"},
-            {"value": "shipped", "label": "Shipped"},
-            {"value": "confirm", "label": "Confirm"},
-            {"value": "plus2", "label": "Plus 2"},
-            {"value": "fire2", "label": "Fire 2"},
-            {"value": "sidebar", "label": "Sidebar"},
-            {"value": "video", "label": "Video"},
-            {"value": "car2", "label": "Car 2"},
-            {"value": "compare3", "label": "Compare 3"},
-            {"value": "check", "label": "Check"},
-            {"value": "eye", "label": "Eye"},
-            {"value": "copy", "label": "Copy"},
-            {"value": "share", "label": "Share"},
-            {"value": "ask", "label": "Ask"},
-            {"value": "compare2", "label": "Compare 2"},
-            {"value": "car", "label": "Car"},
-            {"value": "coupon", "label": "Coupon"},
-            {"value": "note", "label": "Note"},
-            {"value": "gift2", "label": "Gift 2"},
-            {"value": "pen", "label": "Pen"},
-            {"value": "close", "label": "Close"},
-            {"value": "mail", "label": "Mail"},
-            {"value": "youtube", "label": "YouTube"},
-            {"value": "instagram", "label": "Instagram"},
-            {"value": "fb2", "label": "Facebook 2"},
-            {"value": "x", "label": "X"},
-            {"value": "support2", "label": "Support 2"},
-            {"value": "shipping3", "label": "Shipping 3"},
-            {"value": "return3", "label": "Return 3"},
-            {"value": "customer", "label": "Customer"},
-            {"value": "return2", "label": "Return 2"},
-            {"value": "shipping2", "label": "Shipping 2"},
-            {"value": "leaf", "label": "Leaf"},
-            {"value": "clock", "label": "Clock"},
-            {"value": "pinterest", "label": "Pinterest"},
-            {"value": "head-phone", "label": "Head Phone"},
-            {"value": "categories", "label": "Categories"},
-            {"value": "quote4", "label": "Quote 4"},
-            {"value": "sun", "label": "Sun"},
-            {"value": "designs", "label": "Designs"},
-            {"value": "fit", "label": "Fit"},
-            {"value": "protection", "label": "Protection"},
-            {"value": "quality", "label": "Quality"},
-            {"value": "arr-right3", "label": "Arrow Right 3"},
-            {"value": "quote3", "label": "Quote 3"},
-            {"value": "quote", "label": "Quote"},
-            {"value": "quote2", "label": "Quote 2"},
-            {"value": "flash-star", "label": "Flash Star"},
-            {"value": "dot", "label": "Dot"},
-            {"value": "fb", "label": "Facebook"},
-            {"value": "verifi", "label": "Verify"},
-            {"value": "compare", "label": "Compare"},
-            {"value": "heart2", "label": "Heart 2"},
-            {"value": "view", "label": "View"},
-            {"value": "cart2", "label": "Cart 2"},
-            {"value": "arr-down", "label": "Arrow Down"},
-            {"value": "star", "label": "Star"},
-            {"value": "arr-left", "label": "Arrow Left"},
-            {"value": "arr-right2", "label": "Arrow Right 2"},
-            {"value": "arr-right", "label": "Arrow Right"},
-            {"value": "cart", "label": "Cart"},
-            {"value": "phone", "label": "Phone"},
-            {"value": "heart", "label": "Heart"},
-            {"value": "user", "label": "User"},
-            {"value": "linkedin", "label": "LinkedIn"},
-            {"value": "search", "label": "Search"},
-            {"value": "gift", "label": "Gift"},
-            {"value": "twitter", "label": "Twitter"},
-            {"value": "return", "label": "Return"},
-            {"value": "support", "label": "Support"},
-            {"value": "shipping", "label": "Shipping"},
-            {"value": "snapchat", "label": "Snapchat"},
-            {"value": "categories1", "label": "Categories 1"},
-            {"value": "arrow1-right", "label": "Arrow 1 Right"},
-            {"value": "arrow1-top-left", "label": "Arrow 1 Top Left"},
-            {"value": "filter", "label": "Filter"},
-            {"value": "btn3d", "label": "Button 3D"},
-            {"value": "payment", "label": "Payment"},
-            {"value": "diamond", "label": "Diamond"},
-            {"value": "trash", "label": "Trash"},
-            {"value": "clock2", "label": "Clock 2"},
-            {"value": "whatsapp", "label": "WhatsApp"},
-            {"value": "shop", "label": "Shop"}
+            { "value": "menu", "label": "Menu" },
+            { "value": "fill-check-circle", "label": "Check Circle" },
+            { "value": "arrow1-left", "label": "Arrow Left" },
+            { "value": "arrow-right", "label": "Arrow Right" },
+            { "value": "arrow-top-left", "label": "Arrow Top Left" },
+            { "value": "arrow-down", "label": "Arrow Down" },
+            { "value": "arrow-up", "label": "Arrow Up" },
+            { "value": "fashion-body", "label": "Fashion Body" },
+            { "value": "precision", "label": "Precision" },
+            { "value": "elegance", "label": "Elegance" },
+            { "value": "fb3", "label": "Facebook 3" },
+            { "value": "x2", "label": "X 2" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "heart3", "label": "Heart 3" },
+            { "value": "order", "label": "Order" },
+            { "value": "quote5", "label": "Quote 5" },
+            { "value": "minus", "label": "Minus" },
+            { "value": "plus", "label": "Plus" },
+            { "value": "location", "label": "Location" },
+            { "value": "shipped", "label": "Shipped" },
+            { "value": "confirm", "label": "Confirm" },
+            { "value": "plus2", "label": "Plus 2" },
+            { "value": "fire2", "label": "Fire 2" },
+            { "value": "sidebar", "label": "Sidebar" },
+            { "value": "video", "label": "Video" },
+            { "value": "car2", "label": "Car 2" },
+            { "value": "compare3", "label": "Compare 3" },
+            { "value": "check", "label": "Check" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "copy", "label": "Copy" },
+            { "value": "share", "label": "Share" },
+            { "value": "ask", "label": "Ask" },
+            { "value": "compare2", "label": "Compare 2" },
+            { "value": "car", "label": "Car" },
+            { "value": "coupon", "label": "Coupon" },
+            { "value": "note", "label": "Note" },
+            { "value": "gift2", "label": "Gift 2" },
+            { "value": "pen", "label": "Pen" },
+            { "value": "close", "label": "Close" },
+            { "value": "mail", "label": "Mail" },
+            { "value": "youtube", "label": "YouTube" },
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "fb2", "label": "Facebook 2" },
+            { "value": "x", "label": "X" },
+            { "value": "support2", "label": "Support 2" },
+            { "value": "shipping3", "label": "Shipping 3" },
+            { "value": "return3", "label": "Return 3" },
+            { "value": "customer", "label": "Customer" },
+            { "value": "return2", "label": "Return 2" },
+            { "value": "shipping2", "label": "Shipping 2" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "pinterest", "label": "Pinterest" },
+            { "value": "head-phone", "label": "Head Phone" },
+            { "value": "categories", "label": "Categories" },
+            { "value": "quote4", "label": "Quote 4" },
+            { "value": "sun", "label": "Sun" },
+            { "value": "designs", "label": "Designs" },
+            { "value": "fit", "label": "Fit" },
+            { "value": "protection", "label": "Protection" },
+            { "value": "quality", "label": "Quality" },
+            { "value": "arr-right3", "label": "Arrow Right 3" },
+            { "value": "quote3", "label": "Quote 3" },
+            { "value": "quote", "label": "Quote" },
+            { "value": "quote2", "label": "Quote 2" },
+            { "value": "flash-star", "label": "Flash Star" },
+            { "value": "dot", "label": "Dot" },
+            { "value": "fb", "label": "Facebook" },
+            { "value": "verifi", "label": "Verify" },
+            { "value": "compare", "label": "Compare" },
+            { "value": "heart2", "label": "Heart 2" },
+            { "value": "view", "label": "View" },
+            { "value": "cart2", "label": "Cart 2" },
+            { "value": "arr-down", "label": "Arrow Down" },
+            { "value": "star", "label": "Star" },
+            { "value": "arr-left", "label": "Arrow Left" },
+            { "value": "arr-right2", "label": "Arrow Right 2" },
+            { "value": "arr-right", "label": "Arrow Right" },
+            { "value": "cart", "label": "Cart" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "user", "label": "User" },
+            { "value": "linkedin", "label": "LinkedIn" },
+            { "value": "search", "label": "Search" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "twitter", "label": "Twitter" },
+            { "value": "return", "label": "Return" },
+            { "value": "support", "label": "Support" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "snapchat", "label": "Snapchat" },
+            { "value": "categories1", "label": "Categories 1" },
+            { "value": "arrow1-right", "label": "Arrow 1 Right" },
+            { "value": "arrow1-top-left", "label": "Arrow 1 Top Left" },
+            { "value": "filter", "label": "Filter" },
+            { "value": "btn3d", "label": "Button 3D" },
+            { "value": "payment", "label": "Payment" },
+            { "value": "diamond", "label": "Diamond" },
+            { "value": "trash", "label": "Trash" },
+            { "value": "clock2", "label": "Clock 2" },
+            { "value": "whatsapp", "label": "WhatsApp" },
+            { "value": "shop", "label": "Shop" }
           ]
         },
         {
@@ -821,107 +1036,107 @@
           "label": "t:sections.main-cart.blocks.features_slider.settings.feature_2_icon.label",
           "default": "gift",
           "options": [
-            {"value": "menu", "label": "Menu"},
-            {"value": "fill-check-circle", "label": "Check Circle"},
-            {"value": "arrow1-left", "label": "Arrow Left"},
-            {"value": "arrow-right", "label": "Arrow Right"},
-            {"value": "arrow-top-left", "label": "Arrow Top Left"},
-            {"value": "arrow-down", "label": "Arrow Down"},
-            {"value": "arrow-up", "label": "Arrow Up"},
-            {"value": "fashion-body", "label": "Fashion Body"},
-            {"value": "precision", "label": "Precision"},
-            {"value": "elegance", "label": "Elegance"},
-            {"value": "fb3", "label": "Facebook 3"},
-            {"value": "x2", "label": "X 2"},
-            {"value": "tiktok", "label": "TikTok"},
-            {"value": "heart3", "label": "Heart 3"},
-            {"value": "order", "label": "Order"},
-            {"value": "quote5", "label": "Quote 5"},
-            {"value": "minus", "label": "Minus"},
-            {"value": "plus", "label": "Plus"},
-            {"value": "location", "label": "Location"},
-            {"value": "shipped", "label": "Shipped"},
-            {"value": "confirm", "label": "Confirm"},
-            {"value": "plus2", "label": "Plus 2"},
-            {"value": "fire2", "label": "Fire 2"},
-            {"value": "sidebar", "label": "Sidebar"},
-            {"value": "video", "label": "Video"},
-            {"value": "car2", "label": "Car 2"},
-            {"value": "compare3", "label": "Compare 3"},
-            {"value": "check", "label": "Check"},
-            {"value": "eye", "label": "Eye"},
-            {"value": "copy", "label": "Copy"},
-            {"value": "share", "label": "Share"},
-            {"value": "ask", "label": "Ask"},
-            {"value": "compare2", "label": "Compare 2"},
-            {"value": "car", "label": "Car"},
-            {"value": "coupon", "label": "Coupon"},
-            {"value": "note", "label": "Note"},
-            {"value": "gift2", "label": "Gift 2"},
-            {"value": "pen", "label": "Pen"},
-            {"value": "close", "label": "Close"},
-            {"value": "mail", "label": "Mail"},
-            {"value": "youtube", "label": "YouTube"},
-            {"value": "instagram", "label": "Instagram"},
-            {"value": "fb2", "label": "Facebook 2"},
-            {"value": "x", "label": "X"},
-            {"value": "support2", "label": "Support 2"},
-            {"value": "shipping3", "label": "Shipping 3"},
-            {"value": "return3", "label": "Return 3"},
-            {"value": "customer", "label": "Customer"},
-            {"value": "return2", "label": "Return 2"},
-            {"value": "shipping2", "label": "Shipping 2"},
-            {"value": "leaf", "label": "Leaf"},
-            {"value": "clock", "label": "Clock"},
-            {"value": "pinterest", "label": "Pinterest"},
-            {"value": "head-phone", "label": "Head Phone"},
-            {"value": "categories", "label": "Categories"},
-            {"value": "quote4", "label": "Quote 4"},
-            {"value": "sun", "label": "Sun"},
-            {"value": "designs", "label": "Designs"},
-            {"value": "fit", "label": "Fit"},
-            {"value": "protection", "label": "Protection"},
-            {"value": "quality", "label": "Quality"},
-            {"value": "arr-right3", "label": "Arrow Right 3"},
-            {"value": "quote3", "label": "Quote 3"},
-            {"value": "quote", "label": "Quote"},
-            {"value": "quote2", "label": "Quote 2"},
-            {"value": "flash-star", "label": "Flash Star"},
-            {"value": "dot", "label": "Dot"},
-            {"value": "fb", "label": "Facebook"},
-            {"value": "verifi", "label": "Verify"},
-            {"value": "compare", "label": "Compare"},
-            {"value": "heart2", "label": "Heart 2"},
-            {"value": "view", "label": "View"},
-            {"value": "cart2", "label": "Cart 2"},
-            {"value": "arr-down", "label": "Arrow Down"},
-            {"value": "star", "label": "Star"},
-            {"value": "arr-left", "label": "Arrow Left"},
-            {"value": "arr-right2", "label": "Arrow Right 2"},
-            {"value": "arr-right", "label": "Arrow Right"},
-            {"value": "cart", "label": "Cart"},
-            {"value": "phone", "label": "Phone"},
-            {"value": "heart", "label": "Heart"},
-            {"value": "user", "label": "User"},
-            {"value": "linkedin", "label": "LinkedIn"},
-            {"value": "search", "label": "Search"},
-            {"value": "gift", "label": "Gift"},
-            {"value": "twitter", "label": "Twitter"},
-            {"value": "return", "label": "Return"},
-            {"value": "support", "label": "Support"},
-            {"value": "shipping", "label": "Shipping"},
-            {"value": "snapchat", "label": "Snapchat"},
-            {"value": "categories1", "label": "Categories 1"},
-            {"value": "arrow1-right", "label": "Arrow 1 Right"},
-            {"value": "arrow1-top-left", "label": "Arrow 1 Top Left"},
-            {"value": "filter", "label": "Filter"},
-            {"value": "btn3d", "label": "Button 3D"},
-            {"value": "payment", "label": "Payment"},
-            {"value": "diamond", "label": "Diamond"},
-            {"value": "trash", "label": "Trash"},
-            {"value": "clock2", "label": "Clock 2"},
-            {"value": "whatsapp", "label": "WhatsApp"},
-            {"value": "shop", "label": "Shop"}
+            { "value": "menu", "label": "Menu" },
+            { "value": "fill-check-circle", "label": "Check Circle" },
+            { "value": "arrow1-left", "label": "Arrow Left" },
+            { "value": "arrow-right", "label": "Arrow Right" },
+            { "value": "arrow-top-left", "label": "Arrow Top Left" },
+            { "value": "arrow-down", "label": "Arrow Down" },
+            { "value": "arrow-up", "label": "Arrow Up" },
+            { "value": "fashion-body", "label": "Fashion Body" },
+            { "value": "precision", "label": "Precision" },
+            { "value": "elegance", "label": "Elegance" },
+            { "value": "fb3", "label": "Facebook 3" },
+            { "value": "x2", "label": "X 2" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "heart3", "label": "Heart 3" },
+            { "value": "order", "label": "Order" },
+            { "value": "quote5", "label": "Quote 5" },
+            { "value": "minus", "label": "Minus" },
+            { "value": "plus", "label": "Plus" },
+            { "value": "location", "label": "Location" },
+            { "value": "shipped", "label": "Shipped" },
+            { "value": "confirm", "label": "Confirm" },
+            { "value": "plus2", "label": "Plus 2" },
+            { "value": "fire2", "label": "Fire 2" },
+            { "value": "sidebar", "label": "Sidebar" },
+            { "value": "video", "label": "Video" },
+            { "value": "car2", "label": "Car 2" },
+            { "value": "compare3", "label": "Compare 3" },
+            { "value": "check", "label": "Check" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "copy", "label": "Copy" },
+            { "value": "share", "label": "Share" },
+            { "value": "ask", "label": "Ask" },
+            { "value": "compare2", "label": "Compare 2" },
+            { "value": "car", "label": "Car" },
+            { "value": "coupon", "label": "Coupon" },
+            { "value": "note", "label": "Note" },
+            { "value": "gift2", "label": "Gift 2" },
+            { "value": "pen", "label": "Pen" },
+            { "value": "close", "label": "Close" },
+            { "value": "mail", "label": "Mail" },
+            { "value": "youtube", "label": "YouTube" },
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "fb2", "label": "Facebook 2" },
+            { "value": "x", "label": "X" },
+            { "value": "support2", "label": "Support 2" },
+            { "value": "shipping3", "label": "Shipping 3" },
+            { "value": "return3", "label": "Return 3" },
+            { "value": "customer", "label": "Customer" },
+            { "value": "return2", "label": "Return 2" },
+            { "value": "shipping2", "label": "Shipping 2" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "pinterest", "label": "Pinterest" },
+            { "value": "head-phone", "label": "Head Phone" },
+            { "value": "categories", "label": "Categories" },
+            { "value": "quote4", "label": "Quote 4" },
+            { "value": "sun", "label": "Sun" },
+            { "value": "designs", "label": "Designs" },
+            { "value": "fit", "label": "Fit" },
+            { "value": "protection", "label": "Protection" },
+            { "value": "quality", "label": "Quality" },
+            { "value": "arr-right3", "label": "Arrow Right 3" },
+            { "value": "quote3", "label": "Quote 3" },
+            { "value": "quote", "label": "Quote" },
+            { "value": "quote2", "label": "Quote 2" },
+            { "value": "flash-star", "label": "Flash Star" },
+            { "value": "dot", "label": "Dot" },
+            { "value": "fb", "label": "Facebook" },
+            { "value": "verifi", "label": "Verify" },
+            { "value": "compare", "label": "Compare" },
+            { "value": "heart2", "label": "Heart 2" },
+            { "value": "view", "label": "View" },
+            { "value": "cart2", "label": "Cart 2" },
+            { "value": "arr-down", "label": "Arrow Down" },
+            { "value": "star", "label": "Star" },
+            { "value": "arr-left", "label": "Arrow Left" },
+            { "value": "arr-right2", "label": "Arrow Right 2" },
+            { "value": "arr-right", "label": "Arrow Right" },
+            { "value": "cart", "label": "Cart" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "user", "label": "User" },
+            { "value": "linkedin", "label": "LinkedIn" },
+            { "value": "search", "label": "Search" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "twitter", "label": "Twitter" },
+            { "value": "return", "label": "Return" },
+            { "value": "support", "label": "Support" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "snapchat", "label": "Snapchat" },
+            { "value": "categories1", "label": "Categories 1" },
+            { "value": "arrow1-right", "label": "Arrow 1 Right" },
+            { "value": "arrow1-top-left", "label": "Arrow 1 Top Left" },
+            { "value": "filter", "label": "Filter" },
+            { "value": "btn3d", "label": "Button 3D" },
+            { "value": "payment", "label": "Payment" },
+            { "value": "diamond", "label": "Diamond" },
+            { "value": "trash", "label": "Trash" },
+            { "value": "clock2", "label": "Clock 2" },
+            { "value": "whatsapp", "label": "WhatsApp" },
+            { "value": "shop", "label": "Shop" }
           ]
         },
         {
@@ -936,107 +1151,107 @@
           "label": "t:sections.main-cart.blocks.features_slider.settings.feature_3_icon.label",
           "default": "return",
           "options": [
-            {"value": "menu", "label": "Menu"},
-            {"value": "fill-check-circle", "label": "Check Circle"},
-            {"value": "arrow1-left", "label": "Arrow Left"},
-            {"value": "arrow-right", "label": "Arrow Right"},
-            {"value": "arrow-top-left", "label": "Arrow Top Left"},
-            {"value": "arrow-down", "label": "Arrow Down"},
-            {"value": "arrow-up", "label": "Arrow Up"},
-            {"value": "fashion-body", "label": "Fashion Body"},
-            {"value": "precision", "label": "Precision"},
-            {"value": "elegance", "label": "Elegance"},
-            {"value": "fb3", "label": "Facebook 3"},
-            {"value": "x2", "label": "X 2"},
-            {"value": "tiktok", "label": "TikTok"},
-            {"value": "heart3", "label": "Heart 3"},
-            {"value": "order", "label": "Order"},
-            {"value": "quote5", "label": "Quote 5"},
-            {"value": "minus", "label": "Minus"},
-            {"value": "plus", "label": "Plus"},
-            {"value": "location", "label": "Location"},
-            {"value": "shipped", "label": "Shipped"},
-            {"value": "confirm", "label": "Confirm"},
-            {"value": "plus2", "label": "Plus 2"},
-            {"value": "fire2", "label": "Fire 2"},
-            {"value": "sidebar", "label": "Sidebar"},
-            {"value": "video", "label": "Video"},
-            {"value": "car2", "label": "Car 2"},
-            {"value": "compare3", "label": "Compare 3"},
-            {"value": "check", "label": "Check"},
-            {"value": "eye", "label": "Eye"},
-            {"value": "copy", "label": "Copy"},
-            {"value": "share", "label": "Share"},
-            {"value": "ask", "label": "Ask"},
-            {"value": "compare2", "label": "Compare 2"},
-            {"value": "car", "label": "Car"},
-            {"value": "coupon", "label": "Coupon"},
-            {"value": "note", "label": "Note"},
-            {"value": "gift2", "label": "Gift 2"},
-            {"value": "pen", "label": "Pen"},
-            {"value": "close", "label": "Close"},
-            {"value": "mail", "label": "Mail"},
-            {"value": "youtube", "label": "YouTube"},
-            {"value": "instagram", "label": "Instagram"},
-            {"value": "fb2", "label": "Facebook 2"},
-            {"value": "x", "label": "X"},
-            {"value": "support2", "label": "Support 2"},
-            {"value": "shipping3", "label": "Shipping 3"},
-            {"value": "return3", "label": "Return 3"},
-            {"value": "customer", "label": "Customer"},
-            {"value": "return2", "label": "Return 2"},
-            {"value": "shipping2", "label": "Shipping 2"},
-            {"value": "leaf", "label": "Leaf"},
-            {"value": "clock", "label": "Clock"},
-            {"value": "pinterest", "label": "Pinterest"},
-            {"value": "head-phone", "label": "Head Phone"},
-            {"value": "categories", "label": "Categories"},
-            {"value": "quote4", "label": "Quote 4"},
-            {"value": "sun", "label": "Sun"},
-            {"value": "designs", "label": "Designs"},
-            {"value": "fit", "label": "Fit"},
-            {"value": "protection", "label": "Protection"},
-            {"value": "quality", "label": "Quality"},
-            {"value": "arr-right3", "label": "Arrow Right 3"},
-            {"value": "quote3", "label": "Quote 3"},
-            {"value": "quote", "label": "Quote"},
-            {"value": "quote2", "label": "Quote 2"},
-            {"value": "flash-star", "label": "Flash Star"},
-            {"value": "dot", "label": "Dot"},
-            {"value": "fb", "label": "Facebook"},
-            {"value": "verifi", "label": "Verify"},
-            {"value": "compare", "label": "Compare"},
-            {"value": "heart2", "label": "Heart 2"},
-            {"value": "view", "label": "View"},
-            {"value": "cart2", "label": "Cart 2"},
-            {"value": "arr-down", "label": "Arrow Down"},
-            {"value": "star", "label": "Star"},
-            {"value": "arr-left", "label": "Arrow Left"},
-            {"value": "arr-right2", "label": "Arrow Right 2"},
-            {"value": "arr-right", "label": "Arrow Right"},
-            {"value": "cart", "label": "Cart"},
-            {"value": "phone", "label": "Phone"},
-            {"value": "heart", "label": "Heart"},
-            {"value": "user", "label": "User"},
-            {"value": "linkedin", "label": "LinkedIn"},
-            {"value": "search", "label": "Search"},
-            {"value": "gift", "label": "Gift"},
-            {"value": "twitter", "label": "Twitter"},
-            {"value": "return", "label": "Return"},
-            {"value": "support", "label": "Support"},
-            {"value": "shipping", "label": "Shipping"},
-            {"value": "snapchat", "label": "Snapchat"},
-            {"value": "categories1", "label": "Categories 1"},
-            {"value": "arrow1-right", "label": "Arrow 1 Right"},
-            {"value": "arrow1-top-left", "label": "Arrow 1 Top Left"},
-            {"value": "filter", "label": "Filter"},
-            {"value": "btn3d", "label": "Button 3D"},
-            {"value": "payment", "label": "Payment"},
-            {"value": "diamond", "label": "Diamond"},
-            {"value": "trash", "label": "Trash"},
-            {"value": "clock2", "label": "Clock 2"},
-            {"value": "whatsapp", "label": "WhatsApp"},
-            {"value": "shop", "label": "Shop"}
+            { "value": "menu", "label": "Menu" },
+            { "value": "fill-check-circle", "label": "Check Circle" },
+            { "value": "arrow1-left", "label": "Arrow Left" },
+            { "value": "arrow-right", "label": "Arrow Right" },
+            { "value": "arrow-top-left", "label": "Arrow Top Left" },
+            { "value": "arrow-down", "label": "Arrow Down" },
+            { "value": "arrow-up", "label": "Arrow Up" },
+            { "value": "fashion-body", "label": "Fashion Body" },
+            { "value": "precision", "label": "Precision" },
+            { "value": "elegance", "label": "Elegance" },
+            { "value": "fb3", "label": "Facebook 3" },
+            { "value": "x2", "label": "X 2" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "heart3", "label": "Heart 3" },
+            { "value": "order", "label": "Order" },
+            { "value": "quote5", "label": "Quote 5" },
+            { "value": "minus", "label": "Minus" },
+            { "value": "plus", "label": "Plus" },
+            { "value": "location", "label": "Location" },
+            { "value": "shipped", "label": "Shipped" },
+            { "value": "confirm", "label": "Confirm" },
+            { "value": "plus2", "label": "Plus 2" },
+            { "value": "fire2", "label": "Fire 2" },
+            { "value": "sidebar", "label": "Sidebar" },
+            { "value": "video", "label": "Video" },
+            { "value": "car2", "label": "Car 2" },
+            { "value": "compare3", "label": "Compare 3" },
+            { "value": "check", "label": "Check" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "copy", "label": "Copy" },
+            { "value": "share", "label": "Share" },
+            { "value": "ask", "label": "Ask" },
+            { "value": "compare2", "label": "Compare 2" },
+            { "value": "car", "label": "Car" },
+            { "value": "coupon", "label": "Coupon" },
+            { "value": "note", "label": "Note" },
+            { "value": "gift2", "label": "Gift 2" },
+            { "value": "pen", "label": "Pen" },
+            { "value": "close", "label": "Close" },
+            { "value": "mail", "label": "Mail" },
+            { "value": "youtube", "label": "YouTube" },
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "fb2", "label": "Facebook 2" },
+            { "value": "x", "label": "X" },
+            { "value": "support2", "label": "Support 2" },
+            { "value": "shipping3", "label": "Shipping 3" },
+            { "value": "return3", "label": "Return 3" },
+            { "value": "customer", "label": "Customer" },
+            { "value": "return2", "label": "Return 2" },
+            { "value": "shipping2", "label": "Shipping 2" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "pinterest", "label": "Pinterest" },
+            { "value": "head-phone", "label": "Head Phone" },
+            { "value": "categories", "label": "Categories" },
+            { "value": "quote4", "label": "Quote 4" },
+            { "value": "sun", "label": "Sun" },
+            { "value": "designs", "label": "Designs" },
+            { "value": "fit", "label": "Fit" },
+            { "value": "protection", "label": "Protection" },
+            { "value": "quality", "label": "Quality" },
+            { "value": "arr-right3", "label": "Arrow Right 3" },
+            { "value": "quote3", "label": "Quote 3" },
+            { "value": "quote", "label": "Quote" },
+            { "value": "quote2", "label": "Quote 2" },
+            { "value": "flash-star", "label": "Flash Star" },
+            { "value": "dot", "label": "Dot" },
+            { "value": "fb", "label": "Facebook" },
+            { "value": "verifi", "label": "Verify" },
+            { "value": "compare", "label": "Compare" },
+            { "value": "heart2", "label": "Heart 2" },
+            { "value": "view", "label": "View" },
+            { "value": "cart2", "label": "Cart 2" },
+            { "value": "arr-down", "label": "Arrow Down" },
+            { "value": "star", "label": "Star" },
+            { "value": "arr-left", "label": "Arrow Left" },
+            { "value": "arr-right2", "label": "Arrow Right 2" },
+            { "value": "arr-right", "label": "Arrow Right" },
+            { "value": "cart", "label": "Cart" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "user", "label": "User" },
+            { "value": "linkedin", "label": "LinkedIn" },
+            { "value": "search", "label": "Search" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "twitter", "label": "Twitter" },
+            { "value": "return", "label": "Return" },
+            { "value": "support", "label": "Support" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "snapchat", "label": "Snapchat" },
+            { "value": "categories1", "label": "Categories 1" },
+            { "value": "arrow1-right", "label": "Arrow 1 Right" },
+            { "value": "arrow1-top-left", "label": "Arrow 1 Top Left" },
+            { "value": "filter", "label": "Filter" },
+            { "value": "btn3d", "label": "Button 3D" },
+            { "value": "payment", "label": "Payment" },
+            { "value": "diamond", "label": "Diamond" },
+            { "value": "trash", "label": "Trash" },
+            { "value": "clock2", "label": "Clock 2" },
+            { "value": "whatsapp", "label": "WhatsApp" },
+            { "value": "shop", "label": "Shop" }
           ]
         },
         {
@@ -1051,107 +1266,107 @@
           "label": "t:sections.main-cart.blocks.features_slider.settings.feature_4_icon.label",
           "default": "support",
           "options": [
-            {"value": "menu", "label": "Menu"},
-            {"value": "fill-check-circle", "label": "Check Circle"},
-            {"value": "arrow1-left", "label": "Arrow Left"},
-            {"value": "arrow-right", "label": "Arrow Right"},
-            {"value": "arrow-top-left", "label": "Arrow Top Left"},
-            {"value": "arrow-down", "label": "Arrow Down"},
-            {"value": "arrow-up", "label": "Arrow Up"},
-            {"value": "fashion-body", "label": "Fashion Body"},
-            {"value": "precision", "label": "Precision"},
-            {"value": "elegance", "label": "Elegance"},
-            {"value": "fb3", "label": "Facebook 3"},
-            {"value": "x2", "label": "X 2"},
-            {"value": "tiktok", "label": "TikTok"},
-            {"value": "heart3", "label": "Heart 3"},
-            {"value": "order", "label": "Order"},
-            {"value": "quote5", "label": "Quote 5"},
-            {"value": "minus", "label": "Minus"},
-            {"value": "plus", "label": "Plus"},
-            {"value": "location", "label": "Location"},
-            {"value": "shipped", "label": "Shipped"},
-            {"value": "confirm", "label": "Confirm"},
-            {"value": "plus2", "label": "Plus 2"},
-            {"value": "fire2", "label": "Fire 2"},
-            {"value": "sidebar", "label": "Sidebar"},
-            {"value": "video", "label": "Video"},
-            {"value": "car2", "label": "Car 2"},
-            {"value": "compare3", "label": "Compare 3"},
-            {"value": "check", "label": "Check"},
-            {"value": "eye", "label": "Eye"},
-            {"value": "copy", "label": "Copy"},
-            {"value": "share", "label": "Share"},
-            {"value": "ask", "label": "Ask"},
-            {"value": "compare2", "label": "Compare 2"},
-            {"value": "car", "label": "Car"},
-            {"value": "coupon", "label": "Coupon"},
-            {"value": "note", "label": "Note"},
-            {"value": "gift2", "label": "Gift 2"},
-            {"value": "pen", "label": "Pen"},
-            {"value": "close", "label": "Close"},
-            {"value": "mail", "label": "Mail"},
-            {"value": "youtube", "label": "YouTube"},
-            {"value": "instagram", "label": "Instagram"},
-            {"value": "fb2", "label": "Facebook 2"},
-            {"value": "x", "label": "X"},
-            {"value": "support2", "label": "Support 2"},
-            {"value": "shipping3", "label": "Shipping 3"},
-            {"value": "return3", "label": "Return 3"},
-            {"value": "customer", "label": "Customer"},
-            {"value": "return2", "label": "Return 2"},
-            {"value": "shipping2", "label": "Shipping 2"},
-            {"value": "leaf", "label": "Leaf"},
-            {"value": "clock", "label": "Clock"},
-            {"value": "pinterest", "label": "Pinterest"},
-            {"value": "head-phone", "label": "Head Phone"},
-            {"value": "categories", "label": "Categories"},
-            {"value": "quote4", "label": "Quote 4"},
-            {"value": "sun", "label": "Sun"},
-            {"value": "designs", "label": "Designs"},
-            {"value": "fit", "label": "Fit"},
-            {"value": "protection", "label": "Protection"},
-            {"value": "quality", "label": "Quality"},
-            {"value": "arr-right3", "label": "Arrow Right 3"},
-            {"value": "quote3", "label": "Quote 3"},
-            {"value": "quote", "label": "Quote"},
-            {"value": "quote2", "label": "Quote 2"},
-            {"value": "flash-star", "label": "Flash Star"},
-            {"value": "dot", "label": "Dot"},
-            {"value": "fb", "label": "Facebook"},
-            {"value": "verifi", "label": "Verify"},
-            {"value": "compare", "label": "Compare"},
-            {"value": "heart2", "label": "Heart 2"},
-            {"value": "view", "label": "View"},
-            {"value": "cart2", "label": "Cart 2"},
-            {"value": "arr-down", "label": "Arrow Down"},
-            {"value": "star", "label": "Star"},
-            {"value": "arr-left", "label": "Arrow Left"},
-            {"value": "arr-right2", "label": "Arrow Right 2"},
-            {"value": "arr-right", "label": "Arrow Right"},
-            {"value": "cart", "label": "Cart"},
-            {"value": "phone", "label": "Phone"},
-            {"value": "heart", "label": "Heart"},
-            {"value": "user", "label": "User"},
-            {"value": "linkedin", "label": "LinkedIn"},
-            {"value": "search", "label": "Search"},
-            {"value": "gift", "label": "Gift"},
-            {"value": "twitter", "label": "Twitter"},
-            {"value": "return", "label": "Return"},
-            {"value": "support", "label": "Support"},
-            {"value": "shipping", "label": "Shipping"},
-            {"value": "snapchat", "label": "Snapchat"},
-            {"value": "categories1", "label": "Categories 1"},
-            {"value": "arrow1-right", "label": "Arrow 1 Right"},
-            {"value": "arrow1-top-left", "label": "Arrow 1 Top Left"},
-            {"value": "filter", "label": "Filter"},
-            {"value": "btn3d", "label": "Button 3D"},
-            {"value": "payment", "label": "Payment"},
-            {"value": "diamond", "label": "Diamond"},
-            {"value": "trash", "label": "Trash"},
-            {"value": "clock2", "label": "Clock 2"},
-            {"value": "whatsapp", "label": "WhatsApp"},
-            {"value": "shop", "label": "Shop"}
+            { "value": "menu", "label": "Menu" },
+            { "value": "fill-check-circle", "label": "Check Circle" },
+            { "value": "arrow1-left", "label": "Arrow Left" },
+            { "value": "arrow-right", "label": "Arrow Right" },
+            { "value": "arrow-top-left", "label": "Arrow Top Left" },
+            { "value": "arrow-down", "label": "Arrow Down" },
+            { "value": "arrow-up", "label": "Arrow Up" },
+            { "value": "fashion-body", "label": "Fashion Body" },
+            { "value": "precision", "label": "Precision" },
+            { "value": "elegance", "label": "Elegance" },
+            { "value": "fb3", "label": "Facebook 3" },
+            { "value": "x2", "label": "X 2" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "heart3", "label": "Heart 3" },
+            { "value": "order", "label": "Order" },
+            { "value": "quote5", "label": "Quote 5" },
+            { "value": "minus", "label": "Minus" },
+            { "value": "plus", "label": "Plus" },
+            { "value": "location", "label": "Location" },
+            { "value": "shipped", "label": "Shipped" },
+            { "value": "confirm", "label": "Confirm" },
+            { "value": "plus2", "label": "Plus 2" },
+            { "value": "fire2", "label": "Fire 2" },
+            { "value": "sidebar", "label": "Sidebar" },
+            { "value": "video", "label": "Video" },
+            { "value": "car2", "label": "Car 2" },
+            { "value": "compare3", "label": "Compare 3" },
+            { "value": "check", "label": "Check" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "copy", "label": "Copy" },
+            { "value": "share", "label": "Share" },
+            { "value": "ask", "label": "Ask" },
+            { "value": "compare2", "label": "Compare 2" },
+            { "value": "car", "label": "Car" },
+            { "value": "coupon", "label": "Coupon" },
+            { "value": "note", "label": "Note" },
+            { "value": "gift2", "label": "Gift 2" },
+            { "value": "pen", "label": "Pen" },
+            { "value": "close", "label": "Close" },
+            { "value": "mail", "label": "Mail" },
+            { "value": "youtube", "label": "YouTube" },
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "fb2", "label": "Facebook 2" },
+            { "value": "x", "label": "X" },
+            { "value": "support2", "label": "Support 2" },
+            { "value": "shipping3", "label": "Shipping 3" },
+            { "value": "return3", "label": "Return 3" },
+            { "value": "customer", "label": "Customer" },
+            { "value": "return2", "label": "Return 2" },
+            { "value": "shipping2", "label": "Shipping 2" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "pinterest", "label": "Pinterest" },
+            { "value": "head-phone", "label": "Head Phone" },
+            { "value": "categories", "label": "Categories" },
+            { "value": "quote4", "label": "Quote 4" },
+            { "value": "sun", "label": "Sun" },
+            { "value": "designs", "label": "Designs" },
+            { "value": "fit", "label": "Fit" },
+            { "value": "protection", "label": "Protection" },
+            { "value": "quality", "label": "Quality" },
+            { "value": "arr-right3", "label": "Arrow Right 3" },
+            { "value": "quote3", "label": "Quote 3" },
+            { "value": "quote", "label": "Quote" },
+            { "value": "quote2", "label": "Quote 2" },
+            { "value": "flash-star", "label": "Flash Star" },
+            { "value": "dot", "label": "Dot" },
+            { "value": "fb", "label": "Facebook" },
+            { "value": "verifi", "label": "Verify" },
+            { "value": "compare", "label": "Compare" },
+            { "value": "heart2", "label": "Heart 2" },
+            { "value": "view", "label": "View" },
+            { "value": "cart2", "label": "Cart 2" },
+            { "value": "arr-down", "label": "Arrow Down" },
+            { "value": "star", "label": "Star" },
+            { "value": "arr-left", "label": "Arrow Left" },
+            { "value": "arr-right2", "label": "Arrow Right 2" },
+            { "value": "arr-right", "label": "Arrow Right" },
+            { "value": "cart", "label": "Cart" },
+            { "value": "phone", "label": "Phone" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "user", "label": "User" },
+            { "value": "linkedin", "label": "LinkedIn" },
+            { "value": "search", "label": "Search" },
+            { "value": "gift", "label": "Gift" },
+            { "value": "twitter", "label": "Twitter" },
+            { "value": "return", "label": "Return" },
+            { "value": "support", "label": "Support" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "snapchat", "label": "Snapchat" },
+            { "value": "categories1", "label": "Categories 1" },
+            { "value": "arrow1-right", "label": "Arrow 1 Right" },
+            { "value": "arrow1-top-left", "label": "Arrow 1 Top Left" },
+            { "value": "filter", "label": "Filter" },
+            { "value": "btn3d", "label": "Button 3D" },
+            { "value": "payment", "label": "Payment" },
+            { "value": "diamond", "label": "Diamond" },
+            { "value": "trash", "label": "Trash" },
+            { "value": "clock2", "label": "Clock 2" },
+            { "value": "whatsapp", "label": "WhatsApp" },
+            { "value": "shop", "label": "Shop" }
           ]
         },
         {
