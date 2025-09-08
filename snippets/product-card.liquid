@@ -124,7 +124,7 @@
       </p>
       {% if product.available and product.variants.first.inventory_management == 'shopify' and should_show_progress %}
         {% assign inventory_quantity = product.variants.first.inventory_quantity %}
-        {% assign max_inventory = 100 %}
+        {% assign max_inventory = 1000 %}
         {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
         <div class="product-progress-sale">
           <div
@@ -140,7 +140,7 @@
           <div class="box-quantity d-flex justify-content-between">
             <p class="text-sold text-sm">
               {{ 'snippets.product-card.sold' | t }}:
-              <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
+              <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity }}</span>
             </p>
             <p class="text-avaiable text-sm">
               {{ 'snippets.product-card.available' | t }}:
@@ -389,7 +389,7 @@
       </p>
       {% if product.available and product.variants.first.inventory_management == 'shopify' and should_show_progress %}
         {% assign inventory_quantity = product.variants.first.inventory_quantity %}
-        {% assign max_inventory = 100 %}
+        {% assign max_inventory = 1000 %}
         {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
         <div class="product-progress-sale">
           <div
@@ -405,7 +405,7 @@
           <div class="box-quantity d-flex justify-content-between">
             <p class="text-sold text-sm">
               {{ 'snippets.product-card.sold' | t }}:
-              <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity | at_least: 0 }}</span>
+              <span class="fw-medium text-primary">{{ max_inventory | minus: inventory_quantity }}</span>
             </p>
             <p class="text-avaiable text-sm">
               {{ 'snippets.product-card.available' | t }}:
