@@ -113,7 +113,7 @@
             {% if section.settings.show_cart %}
               <li class="nav-cart">
                 {% if layout_type == 'layout_2' or layout_type == 'layout_3' %}
-                  <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Shopping cart">
+                  <a href="#shoppingCart" class="nav-icon-item value-box" data-bs-toggle="offcanvas" aria-label="Shopping cart">
                     <i class="icon icon-cart" aria-hidden="true"></i>
                     <span class="text d-none d-xl-block">{{ cart.total_price | money }}</span>
                   </a>
