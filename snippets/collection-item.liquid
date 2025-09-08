@@ -6,7 +6,7 @@
   assign image_ratio = section.settings.image_ratio
   assign enable_uppercase = section.settings.enable_uppercase
   assign content_position = section.settings.content_position
-  assign button_text = button_text | default: 'View all'
+  assign button_text = button_text
 
   case image_ratio
     when 'adapt_image'
@@ -42,7 +42,9 @@
       {%- endif -%}
     </div>
     <div class="cls-btn text-center">
+      {% if button_text != blank %}
       <button class="tf-btn">{{ button_text }}</button>
+      {% endif %}
     </div>
     <span class="tf-overlay"></span>
   </a>
