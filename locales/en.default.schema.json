@@ -4672,6 +4672,9 @@
             "full_width": "Full Width"
           }
         },
+        "image_size_px": {
+          "label": "Image Size"
+        },
         "title_alignment": {
           "label": "Heading Alignment",
           "options": {
