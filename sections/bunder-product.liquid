@@ -144,6 +144,23 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Button text and hover styling */
+  .section-{{ section.id }}-padding .tf-btn.btn-line-dark {
+    color: rgb(var(--color-foreground));
+  }
+
+  .section-{{ section.id }}-padding .tf-btn.btn-line-dark::after {
+    background-color: rgb(var(--color-foreground));
+  }
+
+  .section-{{ section.id }}-padding .tf-btn.btn-line-dark:hover {
+    color: rgb(var(--color-text-hover));
+  }
+
+  .section-{{ section.id }}-padding .tf-btn.btn-line-dark:hover::after {
+    background-color: rgb(var(--color-text-hover));
+  }
 {%- endstyle -%}
 
 {% schema %}
