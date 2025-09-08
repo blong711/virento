@@ -55,6 +55,12 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "capitalize_text",
+      "label": "t:sections.top_bar.settings.capitalize_text.label",
+      "default": false
     }
   ],
   "blocks": [
@@ -112,7 +118,7 @@
 {% endschema %}
 
 <div
-  class="tf-topbar color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}"
+  class="tf-topbar color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}{% if section.settings.capitalize_text %} marquee-topbar{% endif %}"
 >
   <div class="{{ section.settings.width }}">
     <div class="topbar-wraper">

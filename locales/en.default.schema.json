@@ -3789,6 +3789,9 @@
             }
           }
         },
+        "capitalize_text": {
+          "label": "Capitalize announcement text"
+        },
         "padding_mobile_rate": {
           "label": "Mobile Padding Rate",
           "info": "Percentage of desktop padding to use on mobile devices"
