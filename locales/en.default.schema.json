@@ -6917,6 +6917,9 @@
         "color_scheme": {
           "label": "Color Scheme"
         },
+        "bundle_products": {
+          "label": "Bundle products",
+        },
         "banner_header": {
           "content": "Banner settings",
         },
