@@ -312,19 +312,19 @@
                 <div class="swiper-slide">
                   <div class="wg-cls style-circle hover-img" style="width: {{ section.settings.image_size_px }}px; height: {{ section.settings.image_size_px }}px;">
                     {% assign link = block.settings.link | default: collection.url %}
-                    <a href="{{ link }}" class="image img-style d-block bg-surface" style="width: {{ section.settings.image_size_px }}px; height: {{ section.settings.image_size_px }}px;">
+                    <a href="{{ link }}" class="image img-style d-block bg-surface">
                       {% if block.settings.image %}
                         {{
                           block.settings.image
-                          | image_url: width: section.settings.image_size_px, height: section.settings.image_size_px, crop: 'center'
-                          | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async', width: section.settings.image_size_px, height: section.settings.image_size_px, style: 'width: ' | append: section.settings.image_size_px | append: 'px; height: ' | append: section.settings.image_size_px | append: 'px;'
+                          | image_url: width: section.settings.image_size_px
+                          | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                           | default: collection.title
                         }}
                       {% else %}
                         {{
                           collection.image
-                          | image_url: width: section.settings.image_size_px, height: section.settings.image_size_px, crop: 'center'
-                          | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async', width: section.settings.image_size_px, height: section.settings.image_size_px, style: 'width: ' | append: section.settings.image_size_px | append: 'px; height: ' | append: section.settings.image_size_px | append: 'px;'
+                          | image_url: width: section.settings.image_size_px
+                          | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                           | default: collection.title
                         }}
                       {% endif %}
