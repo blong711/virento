@@ -7343,7 +7343,7 @@
       "space_between_slides": "Space Between Slides",
       "animation_speed": "Animation Speed",
       "show_navigation_arrows": "Show Navigation Arrows",
-      "show_pagination_dots": "Show Pagination Dots",
+      "show_pagination_dots": "Show Pagination Dots On Mobile",
       "post_by": "Post by",
       "read_more": "Read more",
       "comment": "comment",
