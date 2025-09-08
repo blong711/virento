@@ -25117,3 +25117,6 @@ shopify-accelerated-checkout {
       max-width: calc(100% - 130px);
   }
 }
+.container-full .article-content .entry_image img {
+  width: 100%;
+}
