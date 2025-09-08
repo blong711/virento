@@ -197,7 +197,7 @@
           {% if section.settings.phone_number %}
             <div class="box-phone">
               <div class="box-icon">
-                <i class="icon icon-head-phone" aria-hidden="true"></i>
+                <i class="icon icon-head-phone" aria-hidden="true" style="color: rgb(var(--color-foreground2)) !important;"></i>
               </div>
               <a href="tel:{{ section.settings.phone_number }}" class="text-xl fw-medium">
                 {{ section.settings.phone_display | default: section.settings.phone_number }}
