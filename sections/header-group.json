@@ -40,11 +40,13 @@
         "currency_selector_TcTzBp"
       ],
       "settings": {
+        "width": "container",
         "show_social_icons": true,
         "show_language_selector": true,
         "show_currency_selector": true,
         "show_border_bottom": true,
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-1",
+        "capitalize_text": false
       }
     },
     "header": {
@@ -109,7 +111,7 @@
         "mega_blog_MJU78y"
       ],
       "settings": {
-        "layout_type": "electric",
+        "layout_type": "layout_2",
         "sticky_header": "on_scroll_up",
         "menu_item_spacing": 38,
         "color_scheme": "scheme-731d8c26-e8bd-4d5b-b15f-96ab5ec0e52b",
