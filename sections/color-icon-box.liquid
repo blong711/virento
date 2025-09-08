@@ -42,17 +42,17 @@
 >
   <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
     {% if section.settings.heading != blank %}
-      <div class="flat-title" style="text-align: {{ section.settings.heading_align }} !important;">
+      <div class="flat-title" style="text-align: {{ section.settings.heading_align }} !important; margin-bottom: {{ section.settings.heading_mb }}px;">
         {% if section.settings.heading_size == 'small' %}
-          <h5 class="title" style="margin-bottom: {{ section.settings.heading_mb }}px;">
+          <h5 class="title">
             {{ section.settings.heading }}
           </h5>
         {% elsif section.settings.heading_size == 'large' %}
-          <h3 class="title" style="margin-bottom: {{ section.settings.heading_mb }}px;">
+          <h3 class="title">
             {{ section.settings.heading }}
           </h3>
         {% else %}
-          <h4 class="title" style="margin-bottom: {{ section.settings.heading_mb }}px;">
+          <h4 class="title">
             {{ section.settings.heading }}
           </h4>
         {% endif %}
