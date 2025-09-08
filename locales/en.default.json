@@ -217,7 +217,7 @@
     "no_map_available": "No map available for this store"
   },
   "newsletter": {
-    "label": "Email",
+    "label": "Email address",
     "success": "Thanks for subscribing",
     "button_label": "Subscribe"
   },
