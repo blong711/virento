@@ -57,8 +57,9 @@
         "heading_size": "large",
         "heading_weight": "medium",
         "text_size": "medium",
+        "show_copyright": true,
         "payment_svg_list": "visa,paypal,master,american_express,diners_club",
-        "svg_height": 40
+        "svg_height": 25
       }
     }
   },
