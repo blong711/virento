@@ -62,12 +62,13 @@
         {% comment %}theme-check-enable AssetPreload{% endcomment %}
       {%- endunless -%}
     {% else %}
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      {% comment %} theme-check-disable RemoteAsset {% endcomment %}
       <link
         href="https://fonts.googleapis.com/css2?family={{ settings.body_font_family | split: ',' | first | replace: '"', '' | replace: ' ', '+' }}:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
       >
+
+      {% comment %} theme-check-enable RemoteAsset {% endcomment %}
     {% endif %}
 
     <script>
@@ -77,13 +78,14 @@
     </script>
 
     <!-- Core JS -->
-
+    {% comment %} theme-check-disable RemoteAsset {% endcomment %}
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
       defer="defer"
     ></script>
+    {% comment %} theme-check-enable RemoteAsset {% endcomment %}
 
     <!-- UI Enhancement JS -->
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
