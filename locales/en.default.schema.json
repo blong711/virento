@@ -9,6 +9,35 @@
  */
 {
   "settings_schema": {
+    "theme_active": {
+      "name": "Theme active",
+      "settings": {
+        "welcome_message": {
+          "content": "Start your business journey with GraviTech"
+        },
+        "purchase_code": {
+          "label": "Purchase code"
+        },
+        "purchase_code_help": {
+          "content": "[Where is my purchase code](https://support.the4.co/articles/where-is-my-purchase-code)"
+        },
+        "demo_import_help": {
+          "content": "[How to import demo with one click](https://support.the4.co/articles/import-demo#1-one-click-demo-import-with-ecomrise)"
+        },
+        "buy_license": {
+          "content": "[Buy a new license](https://bit.ly/3lST9WX)"
+        },
+        "ecomposer_offer": {
+          "content": "[Get EComposer Page Builder for Free (only The4 users)](https://ecomposer.app/referral?ref=The4)"
+        },
+        "update_guide": {
+          "content": "[How to update with in 3 minutes](https://support.the4.co/articles/update-the-theme)"
+        },
+        "description": {
+          "content": "Use Kalles and explore all the tools and services you need to start, run, and grow your business. We know that Kalles will make your life easier by improving your workflow. With the tools that Kalles gives you, you will realize your true design potential without the need to know any coding. We would be glad if you help us to improve our theme, installation process or documentation."
+        }
+      }
+    },
     "global": {
       "settings": {
         "header__border": {

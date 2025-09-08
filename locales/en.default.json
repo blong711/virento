@@ -1277,6 +1277,20 @@
       "off": "% Off",
       "sold": "Sold",
       "available": "Available"
+    },
+    "var_adm": {
+      "welcome_message": "Welcome to {{ Name }} 🎉",
+      "follow_steps": "Follow these simple steps to activate your theme & get started:",
+      "step1_title": "Step 1: Activate theme",
+      "step1_instruction1": "Go to \"Theme Settings\" > \"Theme Activate\"",
+      "step1_instruction2": "Enter your theme purchase code (license code) and save it",
+      "see_guide": "See detailed guide here",
+      "step2_title": "Step 2: Import theme demos in a click",
+      "step2_instruction": "Simply install EcomRise (FREE) to import demos and update the latest theme versions in the future, with just a single click. (Otherwise, you will need to import demos using JSON codes, which is much more complex & time-taking)",
+      "recommended_app": "Recommended app",
+      "ecomposer_description": "EComposer Page Builder - an advanced design tool for your website (drag-drop editor, 300+ pre-made templates, 20+ boost sales add-ons)",
+      "special_offer": "Special offer: Install EComposer HERE. Then open chatbox icon in EComposer and leave a message with subject \"{{ Name }}+EComposer\" to upgrade EComposer Standard Plan for Free 6 months (Save $114)",
+      "install_ecomposer": "Install EComposer"
     }
   }
 }

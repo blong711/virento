@@ -8,6 +8,44 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "t:settings_schema.theme_active.name",
+    "settings": [ 
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.theme_active.settings.welcome_message.content"
+      },
+      {
+        "type": "text",
+        "id": "purchase_code",
+        "label": "t:settings_schema.theme_active.settings.purchase_code.label"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.theme_active.settings.purchase_code_help.content"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.theme_active.settings.demo_import_help.content"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.theme_active.settings.buy_license.content"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.theme_active.settings.ecomposer_offer.content"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.theme_active.settings.update_guide.content"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.theme_active.settings.description.content"
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.logo.name",
     "settings": [
       {
