@@ -273,6 +273,7 @@
         "title_tag": "h4",
         "subtitle": "",
         "subtitle_size": "text-md",
+        "image_size_px": 220,
         "show_arrows": true,
         "show_mobile_dots": true,
         "items_per_row_desktop": 6,
