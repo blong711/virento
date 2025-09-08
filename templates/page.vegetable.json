@@ -472,38 +472,6 @@
     },
     "bunder_product_G4r6DK": {
       "type": "bunder-product",
-      "blocks": {
-        "bundle_item_3WX9AB": {
-          "type": "bundle_item",
-          "settings": {
-            "bundle_product": "beef-scotch-fillet-steak-1kg"
-          }
-        },
-        "bundle_item_xmexcX": {
-          "type": "bundle_item",
-          "settings": {
-            "bundle_product": "superfries-shoestring"
-          }
-        },
-        "bundle_item_CDyzr6": {
-          "type": "bundle_item",
-          "settings": {
-            "bundle_product": "garlic-head-each"
-          }
-        },
-        "bundle_item_rk3ehV": {
-          "type": "bundle_item",
-          "settings": {
-            "bundle_product": "beef-scotch-fillet-steak-1kg"
-          }
-        }
-      },
-      "block_order": [
-        "bundle_item_3WX9AB",
-        "bundle_item_xmexcX",
-        "bundle_item_CDyzr6",
-        "bundle_item_rk3ehV"
-      ],
       "name": "t:sections.bundle_product.presets.name",
       "settings": {
         "width": "boxed",
@@ -518,6 +486,12 @@
         "bundle_subheading": "Let us inspire you! Discover delicious recipe ideas for every meal.",
         "bundle_note": "*All these portions are made enough for 4 people",
         "bundle_btn_label": "Add Bundle to Cart",
+        "bundle_products": [
+          "beef-scotch-fillet-steak-1kg",
+          "superfries-shoestring",
+          "garlic-head-each",
+          "extra-lean-beef-mince-500g"
+        ],
         "padding_top": 0,
         "padding_bottom": 120,
         "padding_rate_mobile": 50
