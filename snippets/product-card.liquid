@@ -103,7 +103,7 @@
         {{- product.title -}}
       </a>
       <p class="price-wrap fw-medium">
-        <span class="price-new text-primary {% if cart_button_style != 'button' %} text-xl-2{% endif %}"">
+        <span class="price-new text-primary {% if cart_button_style != 'button' %} text-xl-2{% endif %}">
           {%- if settings.currency_code_enabled -%}
             {{- product.price | money }}
             {{ shop.currency -}}
