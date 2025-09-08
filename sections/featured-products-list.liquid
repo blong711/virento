@@ -74,7 +74,7 @@
         <div class="{{ grid_class }}">
           {%- if section.settings.selected_products != blank -%}
             {%- comment -%} Display manually selected products {%- endcomment -%}
-            {%- for product in section.settings.selected_products -%}
+            {%- for product in section.settings.selected_products limit: section.settings.products_to_show -%}
               {%- if product != blank -%}
                 {% render 'product-card',
                   product: product,
