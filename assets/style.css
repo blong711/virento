@@ -2419,7 +2419,7 @@ a:hover {
   padding: 22px 0px;
 }
 .header-default .header-bottom .item-link::after {
-  height: 64px;
+  height: 80px;
 }
 .header-default .box-phone {
   display: flex;
