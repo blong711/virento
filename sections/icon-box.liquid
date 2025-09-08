@@ -310,7 +310,8 @@
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
-    <div
+    <div class="{% if section.settings.icon_position_center == false %}mw-1 m-auto wow fadeInUp{% endif %}">
+      <div
       dir="ltr"
       class="swiper tf-swiper"
       data-swiper='
@@ -371,6 +372,7 @@
       {% if section.settings.show_dots_mobile %}
         <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
       {% endif %}
+    </div>
     </div>
   </div>
 </div>
