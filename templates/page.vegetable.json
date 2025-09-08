@@ -259,13 +259,13 @@
       "name": "Color Icon Box",
       "settings": {
         "width": "boxed",
-        "color_scheme": "",
+        "color_scheme": "scheme-3",
         "heading": "Why Shop With Us?",
         "heading_align": "center",
         "heading_size": "medium",
         "subtitle": "",
         "subtitle_size": "medium",
-        "heading_mb": 0,
+        "heading_mb": 48,
         "icon_gap": "none",
         "heading_uppercase": false,
         "text_gap": "none",
@@ -557,7 +557,7 @@
         "map": "",
         "padding_top": 60,
         "padding_bottom": 0,
-        "padding_mobile_ratio": 75
+        "padding_mobile_rate": 75
       }
     },
     "icon_box_UihXfc": {
