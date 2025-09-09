@@ -252,13 +252,13 @@
                         </div>
                       </div>
                       {%- if form.errors -%}
-                        <small class="newsletter-form__message form__message--error mt-2">
+                        <small class="newsletter-form__message form__message--error" style="margin-top: 12px; display: block;">
                           {{ form.errors.translated_fields.email | capitalize }}
                           {{ form.errors.messages.email }}
                         </small>
                       {%- endif -%}
                       {%- if form.posted_successfully? -%}
-                        <small class="newsletter-form__message form__message--success mt-2">
+                        <small class="newsletter-form__message form__message--success" style="margin-top: 12px; display: block;">
                           {{ 'newsletter.success' | t }}
                         </small>
                       {%- endif -%}
