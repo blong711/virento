@@ -82,6 +82,9 @@
         %}
         <div class="on-sale-wrap">
           <span class="on-sale-item">{{ save_percentage }}% Off</span>
+          {% if product.tags contains 'trending' %}
+          <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
+          {% endif %}
         </div>
       {% endif %}
       {% if product.available %}
@@ -227,6 +230,9 @@
             {{- save_percentage -}}
             {{- 'snippets.product-card.off' | t -}}
           </span>
+          {% if product.tags contains 'trending' %}
+          <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
+          {% endif %}
         </div>
       {% endif %}
       {% if product.available %}
@@ -340,6 +346,9 @@
             {{- save_percentage -}}
             {{- 'snippets.product-card.off' | t -}}
           </span>
+          {% if product.tags contains 'trending' %}
+          <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
+          {% endif %}
         </div>
       {% endif %}
       {% if product.available %}
