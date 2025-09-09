@@ -64,11 +64,11 @@
       {% endif %}
       {% if section.settings.subheading != blank %}
         {% if section.settings.subheading_size == 'small' %}
-          <p class="desc text-sm">{{ section.settings.subheading }}</p>
+          <p class="desc text-sm" style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subheading }}</p>
         {% elsif section.settings.subheading_size == 'large' %}
-          <p class="desc text-lg">{{ section.settings.subheading }}</p>
+          <p class="desc text-lg" style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subheading }}</p>
         {% else %}
-          <p class="desc text-md">{{ section.settings.subheading }}</p>
+          <p class="desc text-md" style="color: rgb(var(--color-foreground), 0.7);">{{ section.settings.subheading }}</p>
         {% endif %}
       {% endif %}
     </div>
