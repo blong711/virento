@@ -36,7 +36,7 @@
 
 {% if card_style == 'style-1' %}
   <div
-    class="card-product grid style-space color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
+    class="card-product grid {% if cart_button_style == 'button' %}style-space-2{% else %}style-space{% endif %}{% unless product.available %} out-of-stock{% endunless %}"
     data-availability="{{ product.available | default: false }}"
     data-brand="{{ product.vendor | handleize }}"
     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
@@ -298,7 +298,7 @@
   </div>
 {% else %}
   <div
-    class="card-product grid style-2 style-border-2 color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
+    class="card-product grid {% if cart_button_style == 'button' %}style-space-2{% endif %} style-2 style-border-2 color-{{ card_color_scheme }}{% unless product.available %} out-of-stock{% endunless %}"
     data-availability="{{ product.available | default: false }}"
     data-brand="{{ product.vendor | handleize }}"
     data-price="{{ product.price | divided_by: 100.0 | round: 2 }}"
