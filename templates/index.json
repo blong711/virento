@@ -142,7 +142,7 @@
             "subtitle_size": "medium",
             "text_alignment": "text-center",
             "color_scheme": "scheme-2",
-            "link": "/collections/watches",
+            "link": "shopify://collections/phones",
             "button_label": "Shop Now"
           }
         },
@@ -159,7 +159,7 @@
             "subtitle_size": "medium",
             "text_alignment": "text-center",
             "color_scheme": "scheme-2",
-            "link": "/collections/audio",
+            "link": "shopify://collections/headphones",
             "button_label": "Shop Now"
           }
         }
@@ -514,6 +514,7 @@
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
+        "cart_button_style": "icon",
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
