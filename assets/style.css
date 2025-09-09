@@ -12906,6 +12906,16 @@ button.animate-btn::after,
   color: var(--white);
   border: transparent;
 }
+.tf-social-icon.style-large .social-youtube:hover {
+  background: var(--youtube-cl);
+  color: var(--white);
+  border: transparent;
+}
+.tf-social-icon.style-large .social-tiktok:hover {
+  background: var(--tiktok-cl);
+  color: var(--white);
+  border: transparent;
+}
 .tf-social-icon.style-default {
   gap: 20px;
 }
