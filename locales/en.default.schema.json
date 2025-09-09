@@ -530,6 +530,14 @@
         "banner": {
           "name": "Banner",
           "settings": {
+            "content_vertical_alignment": {
+              "label": "Content vertical position",
+              "options": {
+                "top": "Top",
+                "center": "Center",
+                "bottom": "Bottom"
+              }
+            },
             "banner_media": {
               "content": "Banner Media"
             },
