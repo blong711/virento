@@ -2120,78 +2120,12 @@ const predictiveSearch = () => {
     `;
   };
 
-  // Create suggestion products item (for hover suggestions)
-  const createSuggestionItem = (product) => {
-    const imageUrl = product.featured_image?.url || product.image || '';
-    const imageAlt =
-      product.featured_image?.alt ||
-      product.title ||
-      window.ShopifyTranslations?.search?.product_image ||
-      'Product image';
-
-    if (!imageUrl) return '';
-
-    // Check if prices should be shown
-    const showPrices = document.querySelector('meta[name="predictive-search-show-price"]')?.content !== 'false';
-
-    return `
-      <li>
-        <a class="search-result-item suggestion-item" href="${product.url}">
-          <div class="img-box">
-            <img src="${imageUrl}" alt="${imageAlt}">
-          </div>
-          <div class="box-content">
-            <p class="title link">${product.title}</p>
-            ${
-              showPrices
-                ? `<div class="price">
-              ${formatPrice(product.price, product.compare_at_price_max || product.compare_at_price_min)}
-            </div>`
-                : ''
-            }
-          </div>
-        </a>
-      </li>
-    `;
-  };
-
-  // Show suggestion products (for hover)
-  const showSuggestionProducts = () => {
-    // Get suggestion products from global variable (set by Liquid)
-    const suggestionProducts = window.suggestionProducts || [];
-    
-    if (suggestionProducts.length === 0) {
-      return;
-    }
-
-    // Insert container into DOM if not already there
-    if (!searchResults.parentNode) {
-      searchForm.parentNode.insertBefore(searchResults, searchForm.nextSibling);
-    }
-
-    // Create suggestion products HTML
-    const suggestionHTML = suggestionProducts
-      .map((product) => createSuggestionItem(product))
-      .filter((html) => html)
-      .join('');
-
-    if (suggestionHTML) {
-      searchSuggestions.innerHTML = suggestionHTML;
-      searchResults.style.display = 'block';
-    }
-  };
-
-  // Hide search results
-  const hideSearchResults = () => {
-    if (searchResults.parentNode) {
-      searchResults.style.display = 'none';
-    }
-  };
-
   // Perform search
   const performSearch = async (query) => {
     if (!query || query.length < 2) {
-      hideSearchResults();
+      if (searchResults.parentNode) {
+        searchResults.style.display = 'none';
+      }
       return;
     }
     if (isSearching) return;
@@ -2244,34 +2178,20 @@ const predictiveSearch = () => {
   // Event listeners
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.trim();
+    
+    // Hide static suggestion products when user types
+    const staticSuggestions = document.querySelector('.search-suggests-results:not(#search-results)');
+    if (staticSuggestions) {
+      staticSuggestions.style.display = query.length > 0 ? 'none' : 'block';
+    }
+    
     if (query.length >= 2) {
       debouncedSearch(query);
     } else {
-      hideSearchResults();
-    }
-  });
-
-  // Show suggestions on focus/hover when input is empty
-  searchInput.addEventListener('focus', (e) => {
-    const query = e.target.value.trim();
-    if (!query) {
-      showSuggestionProducts();
-    }
-  });
-
-  // Show suggestions on mouseenter when input is empty
-  searchInput.addEventListener('mouseenter', (e) => {
-    const query = e.target.value.trim();
-    if (!query) {
-      showSuggestionProducts();
-    }
-  });
-
-  // Hide suggestions when mouse leaves the search area
-  searchForm.addEventListener('mouseleave', () => {
-    const query = searchInput.value.trim();
-    if (!query) {
-      hideSearchResults();
+      // Hide search results when query is too short
+      if (searchResults.parentNode) {
+        searchResults.style.display = 'none';
+      }
     }
   });
 
@@ -2281,5 +2201,16 @@ const predictiveSearch = () => {
     if (!query) {
       e.preventDefault();
     }
+  });
+
+  // Show static suggestions when input is cleared
+  searchInput.addEventListener('blur', () => {
+    setTimeout(() => {
+      const query = searchInput.value.trim();
+      const staticSuggestions = document.querySelector('.search-suggests-results:not(#search-results)');
+      if (staticSuggestions && query.length === 0) {
+        staticSuggestions.style.display = 'block';
+      }
+    }, 150);
   });
 };

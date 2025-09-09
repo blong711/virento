@@ -78,31 +78,44 @@
                   <i class="icon icon-search" aria-hidden="true"></i>
                 </button>
               </form>
+              <!-- Search Suggestions -->
+              {% if settings.suggestion_products != blank %}
+                <div class="search-suggests-results">
+                  <div class="search-suggests-results-inner">
+                    <ul>
+                      {% for suggestion_product in settings.suggestion_products limit: 5 %}
+                        {% if suggestion_product and suggestion_product.available %}
+                          <li>
+                            <a class="search-result-item" href="{{ suggestion_product.url }}">
+                              <div class="img-box">
+                                {% if suggestion_product.featured_image %}
+                                  <img class="lazyload"
+                                    data-src="{{ suggestion_product.featured_image | image_url: width: 60 }}"
+                                    src="{{ suggestion_product.featured_image | image_url: width: 60 }}"
+                                    alt="{{ suggestion_product.title }}" width="60" height="60">
+                                {% endif %}
+                              </div>
+                              <div class="box-content">
+                                <p class="title link">{{ suggestion_product.title }}</p>
+                                <div class="price">
+                                  {% if suggestion_product.compare_at_price > suggestion_product.price %}
+                                    <span class="new-price">{{ suggestion_product.price | money }}</span>
+                                    <span class="old-price old-line">{{ suggestion_product.compare_at_price | money }}</span>
+                                  {% else %}
+                                    <span class="new-price">{{ suggestion_product.price | money }}</span>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              {% endif %}
             </div>
           </div>
-          
-          <!-- Suggestion Products Data -->
-          {% if settings.suggestion_products.size > 0 %}
-            <script>
-              window.suggestionProducts = [
-                {% for product in settings.suggestion_products %}
-                  {
-                    id: {{ product.id }},
-                    title: {{ product.title | json }},
-                    url: {{ product.url | json }},
-                    price: {{ product.price | json }},
-                    compare_at_price_max: {{ product.compare_at_price_max | json }},
-                    compare_at_price_min: {{ product.compare_at_price_min | json }},
-                    featured_image: {
-                      url: {{ product.featured_image | img_url: '100x100' | json }},
-                      alt: {{ product.featured_image.alt | json }}
-                    },
-                    image: {{ product.featured_image | img_url: '100x100' | json }}
-                  }{% unless forloop.last %},{% endunless %}
-                {% endfor %}
-              ];
-            </script>
-          {% endif %}
         {% endif %}
 
         <!-- Header Icons -->
@@ -307,6 +320,35 @@
   .header-default .box-phone .box-icon,
   .bg-light-purple-11 {
     background-color: rgba(var(--color-background2)) !important;
+  }
+
+  /* Search Suggestions Enhancements */
+  .tf-form-search .search-suggests-results-inner .search-result-item {
+    transition: background-color 0.2s ease;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 0 -8px;
+  }
+
+  .tf-form-search .search-suggests-results-inner .search-result-item:hover {
+    background-color: rgba(var(--color-primary), 0.05);
+  }
+
+  .tf-form-search .search-suggests-results-inner .search-result-item .title {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .tf-form-search .search-suggests-results-inner .search-result-item .img-box {
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .tf-form-search .search-suggests-results-inner .search-result-item .img-box img {
+    object-fit: cover;
+    height: 60px;
   }
 {%- endstyle %}
 
