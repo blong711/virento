@@ -134,7 +134,7 @@
         "show_wishlist": true,
         "show_cart": true,
         "help_text": "Need Help?",
-        "help_url": "",
+        "help_url": "shopify://pages/contact-us",
         "phone_number": "+1 123 456 789",
         "call_text": "Call Us Now"
       }
