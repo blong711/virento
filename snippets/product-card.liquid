@@ -192,15 +192,8 @@
     {% if product.compare_at_price > product.price %}
       data-sale="true"
     {% endif %}
-    style="
-      {% if card_image_padding > 0 %}--card-image-padding: {{ card_image_padding }}px;{% endif %}
-      {% if card_border_thickness > 0 %}--card-border-thickness: {{ card_border_thickness }}px;{% endif %}
-      {% if card_border_opacity > 0 %}--card-border-opacity: {{ card_border_opacity | divided_by: 100.0 }};{% endif %}
-      {% if card_corner_radius > 0 %}--card-corner-radius: {{ card_corner_radius }}px;{% endif %}
-      {% if card_media_corner_radius > 0 %}--card-media-corner-radius: {{ card_media_corner_radius }}px;{% endif %}
-    "
   >
-    <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }} radius-8">
+    <div class="card-product-wrapper asp-ratio-{{ card_image_ratio }} radius-8 line">
       <a href="{{ product.url }}" class="product-img">
         {% if product.featured_image %}
           <img
@@ -250,7 +243,7 @@
     <div class="card-product-info text-{{ card_text_alignment }}">
       <a
         href="{{ product.url }}"
-        class="name-product link fw-medium text-sm"
+        class="name-product link fw-medium text-md"
       >
         {{- product.title -}}
       </a>

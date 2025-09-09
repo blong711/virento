@@ -25145,3 +25145,7 @@ shopify-accelerated-checkout {
 .product-cart-button {
   cursor: pointer
 }
+.card-product.style-small .name-product {
+  padding-left: 0px;
+  padding-right: 0px;
+}
