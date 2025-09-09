@@ -23,7 +23,7 @@
             "description": "Stay ahead with the all-new Apple Watch Series 12—track your workouts, monitor health stats, and enjoy seamless connectivity.",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
-            "button_link": "/collections/watches",
+            "button_link": "shopify://collections/smart-watches",
             "button_text": "Explore More"
           }
         },
@@ -38,7 +38,7 @@
             "description": "The Lenovo Flex 5i 2-in-1 offers versatility, power, and precision in one sleek design.",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
-            "button_link": "/collections/laptops",
+            "button_link": "shopify://collections/keyboards",
             "button_text": "Explore More"
           }
         },
@@ -53,7 +53,7 @@
             "description": "Experience immersive sound while staying aware of your surroundings with JBL's open-ear headphone design.",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
-            "button_link": "/collections/audio",
+            "button_link": "shopify://collections/earphones",
             "button_text": "Explore More"
           }
         }
