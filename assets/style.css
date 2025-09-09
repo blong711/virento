@@ -22972,7 +22972,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
     display: flex;
   }
   .xl-pb-70 {
-    padding-bottom: 85px;
+    padding-bottom: 65px;
   }
   .offcanvas-search.type-search-product .wrapper-shop {
     grid-template-columns: repeat(3, 1fr);
