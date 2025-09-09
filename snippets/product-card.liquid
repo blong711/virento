@@ -153,7 +153,7 @@
       {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
       {% if cart_button_style == 'button' %}
         <div
-          class="tf-btn btn-out-line-primary product-cart-button"
+          class="tf-btn product-cart-button"
           data-product-id="{{ product.id }}"
           data-product-handle="{{ product.handle }}"
           data-variant-id="{{ product.selected_or_first_available_variant.id }}"
@@ -418,7 +418,7 @@
       {% comment %} Add to Cart Button (when cart_button_style is 'button') {% endcomment %}
       {% if cart_button_style == 'button' %}
         <div
-          class="tf-btn btn-out-line-primary product-cart-button"
+          class="tf-btn product-cart-button"
           data-product-id="{{ product.id }}"
           data-product-handle="{{ product.handle }}"
           data-variant-id="{{ product.selected_or_first_available_variant.id }}"

@@ -25142,3 +25142,6 @@ shopify-accelerated-checkout {
   padding-right: 0px;
   align-content: center;
 }
+.product-cart-button {
+  cursor: pointer
+}
