@@ -113,8 +113,12 @@ const selectImages = () => {
         const thumbnail = option.getAttribute('data-thumbnail');
 
         optionElement.innerHTML = `
-          <div class="custom-select-option-content">
-            ${thumbnail ? `<img class=\"option-image\" src=\"${thumbnail}\" alt=\"\" width=\"16\" height=\"16\" loading=\"lazy\">` : ''}
+          <div class="custom-select-option-content" style="display: flex;">
+            ${
+              thumbnail
+                ? `<img class=\"option-image\" src=\"${thumbnail}\" alt=\"\" width=\"16\" height=\"16\" loading=\"lazy\">`
+                : ''
+            }
             <span class="option-text">${option.text}</span>
           </div>
         `;
@@ -136,7 +140,11 @@ const selectImages = () => {
 
       this.selectedDisplay.innerHTML = `
         <div class="custom-select-selected-content">
-          ${imgURL ? `<img class=\"selected-image\" src=\"${imgURL}\" alt=\"\" width=\"16\" height=\"16\" loading=\"lazy\">` : ''}
+          ${
+            imgURL
+              ? `<img class=\"selected-image\" src=\"${imgURL}\" alt=\"\" width=\"16\" height=\"16\" loading=\"lazy\">`
+              : ''
+          }
           <span class="selected-text">${selectedOption.text}</span>
         </div>
         <span class="custom-select-arrow"></span>
@@ -2182,13 +2190,13 @@ const predictiveSearch = () => {
   // Event listeners
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.trim();
-    
+
     // Hide static suggestion products when user types
     const staticSuggestions = document.querySelector('.search-suggests-results:not(#search-results)');
     if (staticSuggestions) {
       staticSuggestions.style.display = query.length > 0 ? 'none' : 'block';
     }
-    
+
     if (query.length >= 2) {
       debouncedSearch(query);
     } else {

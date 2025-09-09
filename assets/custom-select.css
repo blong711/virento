@@ -166,7 +166,7 @@
   object-fit: cover;
   margin-right: 4px;
   margin-bottom: 3px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.08) inset;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
 }
 /* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
