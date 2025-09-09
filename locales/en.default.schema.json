@@ -5004,8 +5004,7 @@
           "options": {
             "icon": "Icon only",
             "button": "Button with text"
-          },
-          "info": "t:sections.featured-products-tab.settings.cart_button_style.info"
+          }
         }
       },
       "blocks": {
