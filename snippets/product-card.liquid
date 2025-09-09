@@ -125,6 +125,10 @@
           </span>
         {% endif %}
       </p>
+      {% assign price_note = product.metafields.custom.price_note %}
+      {% if price_note != blank %}
+      <p class="price-recent-per text-xs">{{ price_note | metafield_text }}</p>
+      {% endif %}
       {% if product.available and product.variants.first.inventory_management == 'shopify' and should_show_progress %}
         {% assign inventory_quantity = product.variants.first.inventory_quantity %}
         {% assign max_inventory = 1000 %}
