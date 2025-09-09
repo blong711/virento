@@ -44,6 +44,11 @@
     "social_pinterest_link": "",
     "predictive_search_enabled": true,
     "predictive_search_show_price": true,
+    "suggestion_products": [
+      "wireless-premium-headphones",
+      "10000mah-power-go-power-bank",
+      "wireless-earbuds-for-playstation-5"
+    ],
     "currency_code_enabled": false,
     "cart_type": "drawer",
     "free_shipping_threshold": 100,
