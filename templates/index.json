@@ -176,7 +176,7 @@
         "slides_per_view_desktop": 2,
         "space_between_desktop": 24,
         "item_height_desktop": 468,
-        "slides_per_view_tablet": 1,
+        "slides_per_view_tablet": 2,
         "space_between_tablet": 12,
         "item_height_tablet": 310,
         "slides_per_view_mobile": 1,
