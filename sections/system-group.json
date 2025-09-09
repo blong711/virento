@@ -29,7 +29,7 @@
           "settings": {
             "checkbox_text": "I agree with the",
             "terms_link_text": "terms and conditions",
-            "terms_url": ""
+            "terms_url": "shopify://pages/terms-conditions"
           }
         },
         "checkout_buttons_w9Mmt6": {
@@ -191,6 +191,7 @@
     "mobile-menu": {
       "type": "mobile-menu",
       "settings": {
+        "color_scheme": "",
         "show_search": true,
         "search_placeholder": "Search product",
         "show_wishlist": true,
