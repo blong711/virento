@@ -8561,10 +8561,10 @@ header.header-bg {
 }
 
 .menu-tab-line {
-  display: flex;
-  gap: 12px;
-  overflow-x: visible;
-  overflow-y: visible;
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 .menu-tab-line .tab-link {
   padding: 4px;
