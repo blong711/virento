@@ -4998,6 +4998,14 @@
         },
         "products_per_row_mobile": {
           "label": "Products per row (Mobile)"
+        },
+        "cart_button_style": {
+          "label": "Cart button style",
+          "options": {
+            "icon": "Icon only",
+            "button": "Button with text"
+          },
+          "info": "t:sections.featured-products-tab.settings.cart_button_style.info"
         }
       },
       "blocks": {

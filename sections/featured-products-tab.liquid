@@ -121,6 +121,23 @@
       "default": 2
     },
     {
+      "type": "select",
+      "id": "cart_button_style",
+      "label": "Cart button style",
+      "options": [
+        {
+          "value": "icon",
+          "label": "t:sections.featured-products-tab.settings.cart_button_style.options.icon"
+        },
+        {
+          "value": "button",
+          "label": "t:sections.featured-products-tab.settings.cart_button_style.options.button"
+        }
+      ],
+      "default": "icon",
+      "info": "t:sections.featured-products-tab.settings.cart_button_style.info"
+    },
+    {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
     },
@@ -318,7 +335,8 @@
                         show_vendor: false,
                         show_rating: true,
                         show_quick_add: true,
-                        show_progress_sale: false
+                        show_progress_sale: false,
+                        cart_button_style: section.settings.cart_button_style
                       %}
                     </div>
                   {%- endfor -%}
