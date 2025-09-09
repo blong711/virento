@@ -599,6 +599,13 @@
         "default": false,
         "label": "t:settings_schema.search_input.settings.predictive_search_show_price.label",
         "info": "t:settings_schema.search_input.settings.predictive_search_show_price.info"
+      },
+      {
+        "type": "product_list",
+        "id": "suggestion_products",
+        "label": "t:settings_schema.search_input.settings.suggestion_products.label",
+        "info": "t:settings_schema.search_input.settings.suggestion_products.info",
+        "limit": 10
       }
     ]
   },

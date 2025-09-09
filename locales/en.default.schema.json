@@ -275,6 +275,10 @@
         "predictive_search_show_price": {
           "label": "Product price",
           "info": "Shown when search suggestions enabled"
+        },
+        "suggestion_products": {
+          "label": "Suggestion products",
+          "info": "Select products to show as suggestions in search"
         }
       }
     },
