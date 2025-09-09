@@ -49,7 +49,7 @@ const handleLocalizationSelectors = () => {
   // Handle language selector
   const languageSelector = document.getElementById('language-selector-topbar');
   if (languageSelector) {
-    languageSelector.addEventListener('change', function() {
+    languageSelector.addEventListener('change', function () {
       const form = this.closest('form');
       if (form) {
         form.submit();
@@ -60,7 +60,7 @@ const handleLocalizationSelectors = () => {
   // Handle currency selector
   const currencySelector = document.getElementById('currency-selector-topbar');
   if (currencySelector) {
-    currencySelector.addEventListener('change', function() {
+    currencySelector.addEventListener('change', function () {
       const form = this.closest('form');
       if (form) {
         form.submit();
@@ -80,57 +80,57 @@ const selectImages = () => {
       this.originalSelect = originalSelect;
       this.customSelect = document.createElement('div');
       this.customSelect.classList.add('custom-select-container');
-      
+
       // Create selected display
       this.selectedDisplay = document.createElement('div');
       this.selectedDisplay.classList.add('custom-select-selected');
-      
+
       // Create options container
       this.optionsContainer = document.createElement('div');
       this.optionsContainer.classList.add('custom-select-options');
-      
+
       // Hide original select
       this.originalSelect.style.display = 'none';
-      
+
       // Insert custom select after original
       this.originalSelect.parentNode.insertBefore(this.customSelect, this.originalSelect.nextSibling);
-      
+
       // Add components to custom select
       this.customSelect.appendChild(this.selectedDisplay);
       this.customSelect.appendChild(this.optionsContainer);
-      
+
       // Initialize
       this.createOptions();
       this.updateSelected();
       this.addEventListeners();
     }
-    
+
     createOptions() {
       Array.from(this.originalSelect.options).forEach((option, index) => {
         const optionElement = document.createElement('div');
         optionElement.classList.add('custom-select-option');
-        
+
         optionElement.innerHTML = `
           <div class="custom-select-option-content">
             <span class="option-text">${option.text}</span>
           </div>
         `;
-        
+
         optionElement.dataset.value = option.value;
         optionElement.dataset.index = index;
-        
+
         if (option.selected) {
           optionElement.classList.add('selected');
         }
-        
+
         this.optionsContainer.appendChild(optionElement);
       });
     }
-    
+
     updateSelected() {
       const selectedOption = this.originalSelect.options[this.originalSelect.selectedIndex];
       const imgURL = selectedOption.getAttribute('data-thumbnail');
-      
+
       this.selectedDisplay.innerHTML = `
         <div class="custom-select-selected-content">
           <span class="selected-text">${selectedOption.text}</span>
@@ -138,54 +138,54 @@ const selectImages = () => {
         <span class="custom-select-arrow"></span>
       `;
     }
-    
+
     addEventListeners() {
       // Toggle options on selected display click
       this.selectedDisplay.addEventListener('click', (e) => {
         e.stopPropagation();
         // Close all other dropdowns first
-        document.querySelectorAll('.custom-select-container.open').forEach(openSelect => {
+        document.querySelectorAll('.custom-select-container.open').forEach((openSelect) => {
           if (openSelect !== this.customSelect) {
             openSelect.classList.remove('open');
           }
         });
         this.customSelect.classList.toggle('open');
       });
-      
+
       // Handle option selection
       this.optionsContainer.addEventListener('click', (e) => {
         const option = e.target.closest('.custom-select-option');
         if (!option) return;
-        
+
         const index = parseInt(option.dataset.index);
         this.originalSelect.selectedIndex = index;
-        
+
         // Update selected option in custom select
-        this.optionsContainer.querySelectorAll('.custom-select-option').forEach(opt => {
+        this.optionsContainer.querySelectorAll('.custom-select-option').forEach((opt) => {
           opt.classList.remove('selected');
         });
         option.classList.add('selected');
-        
+
         this.updateSelected();
         this.customSelect.classList.remove('open');
-        
+
         // Trigger change event on original select
         const event = new Event('change', { bubbles: true });
         this.originalSelect.dispatchEvent(event);
       });
-      
+
       // Close on click outside
       document.addEventListener('click', (e) => {
         if (!this.customSelect.contains(e.target)) {
           this.customSelect.classList.remove('open');
         }
       });
-      
+
       // Handle keyboard navigation
       this.customSelect.addEventListener('keydown', (e) => {
         const options = this.optionsContainer.querySelectorAll('.custom-select-option');
         const currentIndex = this.originalSelect.selectedIndex;
-        
+
         switch (e.key) {
           case 'ArrowUp':
             e.preventDefault();
@@ -215,7 +215,7 @@ const selectImages = () => {
   }
 
   // Initialize custom select for each image-select element
-  imageSelects.forEach(select => {
+  imageSelects.forEach((select) => {
     if (!select.customSelectInitialized) {
       new CustomSelect(select);
       select.customSelectInitialized = true;
@@ -225,7 +225,7 @@ const selectImages = () => {
   // Watch for changes to reinitialize
   const observer = new MutationObserver(() => {
     const newSelects = document.querySelectorAll('.image-select');
-    newSelects.forEach(select => {
+    newSelects.forEach((select) => {
       if (!select.customSelectInitialized) {
         new CustomSelect(select);
         select.customSelectInitialized = true;
@@ -235,7 +235,7 @@ const selectImages = () => {
 
   observer.observe(document.body, {
     childList: true,
-    subtree: true
+    subtree: true,
   });
 };
 
@@ -246,17 +246,17 @@ const variantPicker = () => {
   if (variantPickers.length === 0) return;
 
   // Color variant
-  document.querySelectorAll('.color-btn').forEach(btn => {
+  document.querySelectorAll('.color-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const value = btn.dataset.scroll;
-      document.querySelectorAll('.value-currentColor').forEach(el => {
+      document.querySelectorAll('.value-currentColor').forEach((el) => {
         el.textContent = value;
       });
 
       // Remove active class from all buttons in the same group
       const parentValues = btn.closest('.variant-picker-values');
       if (parentValues) {
-        parentValues.querySelectorAll('.color-btn').forEach(b => {
+        parentValues.querySelectorAll('.color-btn').forEach((b) => {
           b.classList.remove('active');
         });
       }
@@ -265,16 +265,16 @@ const variantPicker = () => {
   });
 
   // Size variant
-  document.querySelectorAll('.size-btn').forEach(btn => {
+  document.querySelectorAll('.size-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       const value = btn.dataset.size;
-      document.querySelectorAll('.value-currentSize').forEach(el => {
+      document.querySelectorAll('.value-currentSize').forEach((el) => {
         el.textContent = value;
       });
 
       const parentValues = btn.closest('.variant-picker-values');
       if (parentValues) {
-        parentValues.querySelectorAll('.size-btn').forEach(b => {
+        parentValues.querySelectorAll('.size-btn').forEach((b) => {
           b.classList.remove('active');
         });
       }
@@ -288,8 +288,8 @@ const variantPicker = () => {
 const customDropdown = () => {
   const updateDropdownClass = () => {
     const dropdowns = document.querySelectorAll('.dropdown-custom');
-    
-    dropdowns.forEach(dropdown => {
+
+    dropdowns.forEach((dropdown) => {
       if (window.innerWidth <= 991) {
         dropdown.classList.add('dropup');
         dropdown.classList.remove('dropend');
@@ -302,7 +302,7 @@ const customDropdown = () => {
 
   // Initial call
   updateDropdownClass();
-  
+
   // Update on window resize
   window.addEventListener('resize', updateDropdownClass);
 };
@@ -341,12 +341,12 @@ const handleProgressBar = () => {
 const totalPriceVariant = () => {
   const updateTotalPrice = (price, scope) => {
     const totalPriceElements = scope.querySelectorAll('.total-price');
-    totalPriceElements.forEach(el => {
+    totalPriceElements.forEach((el) => {
       el.textContent = price;
     });
   };
 
-  document.querySelectorAll('.variant-price').forEach(variant => {
+  document.querySelectorAll('.variant-price').forEach((variant) => {
     variant.addEventListener('change', (e) => {
       const selectedOption = e.target.options[e.target.selectedIndex];
       const price = selectedOption.dataset.price;
@@ -366,7 +366,7 @@ const scrollGridProduct = () => {
     return isHorizontal ? target.scrollLeft : target.scrollTop;
   };
 
-  document.querySelectorAll('.grid-product').forEach(grid => {
+  document.querySelectorAll('.grid-product').forEach((grid) => {
     const scrollContainer = grid.querySelector('.grid-product-content');
     if (!scrollContainer) return;
 
@@ -378,9 +378,7 @@ const scrollGridProduct = () => {
     scrollContainer.addEventListener('mousedown', (e) => {
       isScrolling = true;
       scrollContainer.classList.add('active');
-      startPosition = isHorizontalMode() ? 
-        e.pageX - scrollContainer.offsetLeft :
-        e.pageY - scrollContainer.offsetTop;
+      startPosition = isHorizontalMode() ? e.pageX - scrollContainer.offsetLeft : e.pageY - scrollContainer.offsetTop;
       scrollLeft = scrollContainer.scrollLeft;
       scrollTop = scrollContainer.scrollTop;
     });
@@ -388,10 +386,8 @@ const scrollGridProduct = () => {
     document.addEventListener('mousemove', (e) => {
       if (!isScrolling) return;
       e.preventDefault();
-      
-      const position = isHorizontalMode() ?
-        e.pageX - scrollContainer.offsetLeft :
-        e.pageY - scrollContainer.offsetTop;
+
+      const position = isHorizontalMode() ? e.pageX - scrollContainer.offsetLeft : e.pageY - scrollContainer.offsetTop;
       const walk = position - startPosition;
 
       if (isHorizontalMode()) {
@@ -411,7 +407,7 @@ const scrollGridProduct = () => {
 /* Hover Video
 -------------------------------------------------------------------------*/
 const hoverVideo = () => {
-  document.querySelectorAll('.video-hover').forEach(video => {
+  document.querySelectorAll('.video-hover').forEach((video) => {
     video.addEventListener('mouseover', () => {
       video.play();
     });
@@ -425,7 +421,7 @@ const hoverVideo = () => {
 /* Change Value Dropdown
 -------------------------------------------------------------------------*/
 const changeValueDropdown = () => {
-  document.querySelectorAll('.dropdown-menu .dropdown-item').forEach(item => {
+  document.querySelectorAll('.dropdown-menu .dropdown-item').forEach((item) => {
     item.addEventListener('click', (e) => {
       e.preventDefault();
       const value = item.dataset.value;
@@ -443,7 +439,7 @@ const changeValueDropdown = () => {
 /* Button Loading
 -------------------------------------------------------------------------*/
 const buttonLoading = () => {
-  document.querySelectorAll('.btn-loading').forEach(btn => {
+  document.querySelectorAll('.btn-loading').forEach((btn) => {
     btn.addEventListener('click', () => {
       btn.classList.add('loading');
       setTimeout(() => {
@@ -456,7 +452,7 @@ const buttonLoading = () => {
 /* Item Checkbox
 -------------------------------------------------------------------------*/
 const itemCheckbox = () => {
-  document.querySelectorAll('.item-checkbox').forEach(item => {
+  document.querySelectorAll('.item-checkbox').forEach((item) => {
     const checkbox = item.querySelector('input[type="checkbox"]');
     if (!checkbox) return;
 
@@ -469,16 +465,44 @@ const itemCheckbox = () => {
 /* Handle Footer
 -------------------------------------------------------------------------*/
 const handleFooter = () => {
+  const footerAccordion = () => {
+    const args = { duration: 250 };
+    document.querySelectorAll('.footer-heading-mobile').forEach((heading) => {
+      heading.addEventListener('click', function () {
+        const parent = this.closest('.footer-col-block');
+        const content = this.nextElementSibling;
+
+        parent.classList.toggle('open');
+
+        if (!parent.classList.contains('open')) {
+          // Close accordion
+          content.style.display = 'none';
+        } else {
+          // Open accordion
+          content.style.display = 'block';
+        }
+      });
+    });
+  };
+
   const handleAccordion = () => {
-    if (window.innerWidth <= 991) {
-      document.querySelectorAll('.footer-widget .widget-title').forEach(title => {
-        title.addEventListener('click', () => {
-          const content = title.nextElementSibling;
-          if (content) {
-            content.style.display = 
-              content.style.display === 'none' ? 'block' : 'none';
-          }
-        });
+    if (window.matchMedia('only screen and (max-width: 575px)').matches) {
+      const headings = document.querySelectorAll('.footer-heading-mobile');
+      if (!headings[0]?.hasAttribute('data-accordion-initialized')) {
+        footerAccordion();
+        headings.forEach((h) => h.setAttribute('data-accordion-initialized', 'true'));
+      }
+    } else {
+      // Reset for desktop
+      document.querySelectorAll('.footer-heading-mobile').forEach((heading) => {
+        const parent = heading.closest('.footer-col-block');
+        const content = heading.nextElementSibling;
+
+        parent?.classList.remove('open');
+        if (content) {
+          content.style.display = '';
+        }
+        heading.removeAttribute('data-accordion-initialized');
       });
     }
   };
@@ -486,13 +510,12 @@ const handleFooter = () => {
   handleAccordion();
   window.addEventListener('resize', handleAccordion);
 };
-
 /* Cookie Setting
 -------------------------------------------------------------------------*/
 const cookieSetting = () => {
   const setCookie = (name, value, days) => {
     const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
   };
 
@@ -529,21 +552,49 @@ const cookieSetting = () => {
 
     const cookieConsent = getCookie('cookie_consent');
     const cookieBanner = document.querySelector('.cookie-banner');
-    
+
     if (!cookieConsent && cookieBanner) {
       // Check the banner setting from the section data
       const sectionId = cookieBanner.getAttribute('data-section-id');
       const bannerSetting = cookieBanner.getAttribute('data-show-banner');
-      
+
       // Show banner based on setting
       let shouldShow = true;
-      
+
       if (bannerSetting === 'targeted_regions') {
         // For targeted regions, check if user is in EU/EEA/UK/Switzerland
         // You can enhance this with more sophisticated geolocation
         const userCountry = getCookie('user_country');
         if (userCountry) {
-          const euCountries = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'];
+          const euCountries = [
+            'AT',
+            'BE',
+            'BG',
+            'HR',
+            'CY',
+            'CZ',
+            'DK',
+            'EE',
+            'FI',
+            'FR',
+            'DE',
+            'GR',
+            'HU',
+            'IE',
+            'IT',
+            'LV',
+            'LT',
+            'LU',
+            'MT',
+            'NL',
+            'PL',
+            'PT',
+            'RO',
+            'SK',
+            'SI',
+            'ES',
+            'SE',
+          ];
           const eeaCountries = ['IS', 'LI', 'NO'];
           const otherCountries = ['GB', 'CH'];
           const allTargetedCountries = [...euCountries, ...eeaCountries, ...otherCountries];
@@ -555,10 +606,10 @@ const cookieSetting = () => {
       } else if (bannerSetting === 'all_regions') {
         shouldShow = true;
       }
-      
+
       if (shouldShow) {
         cookieBanner.classList.add('show');
-        
+
         // Add event listener to the accept button
         const acceptButton = cookieBanner.querySelector('#accept-cookie');
         if (acceptButton) {
@@ -574,7 +625,7 @@ const cookieSetting = () => {
 
   // Theme customizer functionality
   if (window.Shopify && window.Shopify.designMode) {
-    document.addEventListener('shopify:section:select', function(event) {
+    document.addEventListener('shopify:section:select', function (event) {
       // Check if the selected section is a cookies-popup section
       if (event.target.id && event.target.id.includes('__cookies-popup')) {
         // Get the cookie banner element and show it
@@ -639,7 +690,7 @@ const goTop = () => {
   goTopBtn.addEventListener('click', () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   });
 };
@@ -648,10 +699,10 @@ const goTop = () => {
 -------------------------------------------------------------------------*/
 const checkClick = () => {
   const checkItems = document.querySelectorAll('.flat-check-list .check-item');
-  checkItems.forEach(item => {
+  checkItems.forEach((item) => {
     item.addEventListener('click', () => {
       const list = item.closest('.flat-check-list');
-      list.querySelectorAll('.check-item').forEach(i => i.classList.remove('active'));
+      list.querySelectorAll('.check-item').forEach((i) => i.classList.remove('active'));
       item.classList.add('active');
     });
   });
@@ -663,10 +714,10 @@ const swatchColor = () => {
   const products = document.querySelectorAll('.card-product');
   if (products.length === 0) return;
 
-  products.forEach(product => {
+  products.forEach((product) => {
     const swatches = product.querySelectorAll('.color-swatch');
-    swatches.forEach(swatch => {
-      ['click', 'mouseover'].forEach(event => {
+    swatches.forEach((swatch) => {
+      ['click', 'mouseover'].forEach((event) => {
         swatch.addEventListener(event, () => {
           const swatchImg = swatch.querySelector('img');
           const imgProduct = product.querySelector('.img-product');
@@ -712,13 +763,13 @@ const clickModalSecond = () => {
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-quickview, .quickview');
     if (!btn) return;
-    
+
     e.preventDefault();
-    
+
     // Safely parse JSON data with error handling
     let variants = [];
     let options = [];
-    
+
     try {
       const variantsAttr = btn.getAttribute('data-product-variants');
       if (variantsAttr) {
@@ -727,7 +778,7 @@ const clickModalSecond = () => {
     } catch (e) {
       console.warn('Failed to parse variants data:', e);
     }
-    
+
     try {
       const optionsAttr = btn.getAttribute('data-product-options');
       if (optionsAttr) {
@@ -736,7 +787,7 @@ const clickModalSecond = () => {
     } catch (e) {
       console.warn('Failed to parse options data:', e);
     }
-    
+
     const productData = {
       id: btn.getAttribute('data-product-id'),
       handle: btn.getAttribute('data-product-handle'),
@@ -747,29 +798,29 @@ const clickModalSecond = () => {
       url: btn.getAttribute('data-product-url'),
       images: btn.getAttribute('data-product-images') ? btn.getAttribute('data-product-images').split(',') : [],
       variants: variants,
-      options: options
+      options: options,
     };
-    
+
     const quickViewModal = new bootstrap.Modal(document.getElementById('quickView'));
     const modalElement = document.getElementById('quickView');
     const mediaWrap = document.querySelector('#quickView .tf-product-media-wrap');
     const infoWrap = document.querySelector('#quickView .tf-product-info-wrap');
-    
+
     // Store product variants data in modal for variant selection
     modalElement.setAttribute('data-product-variants', JSON.stringify(productData.variants));
-    
+
     // Generate HTML content from product data
     const { mediaHTML, infoHTML } = generateQuickviewContent(productData);
     mediaWrap.innerHTML = mediaHTML;
     infoWrap.innerHTML = infoHTML;
-    
+
     quickViewModal.show();
-    
+
     // Initialize swiper after content is loaded
     setTimeout(() => {
       const swiperContainer = document.querySelector('#quickView .tf-single-slide');
       let quickviewSwiper = null;
-      
+
       if (swiperContainer && typeof Swiper !== 'undefined') {
         quickviewSwiper = new Swiper(swiperContainer, {
           slidesPerView: 1,
@@ -782,65 +833,66 @@ const clickModalSecond = () => {
             slideChange: function () {
               // Update variant selection when swiper changes
               updateVariantFromSwiper(this.activeIndex);
-            }
-          }
+            },
+          },
         });
-        
+
         // Store swiper instance in modal for access
         modalElement.setAttribute('data-swiper-instance', 'initialized');
       }
-      
+
       // Reinitialize quantity buttons and variant picker
       buttonQuantity();
       variantPicker();
-      
+
       // Reset quantity to 1 when modal opens
       const quantityInput = modalElement.querySelector('input[name="quantity"]');
       if (quantityInput) {
         quantityInput.value = 1;
-        }
-      
+      }
+
       // Initialize variant selection for quickview
       initializeQuickviewVariants();
     }, 100);
   });
-  
+
   // Function to generate quickview content HTML
   const generateQuickviewContent = (product) => {
     const hasSale = product.comparePrice && product.comparePrice !== product.price;
     const hasVariants = product.options && product.options.length > 0;
-    
+
     let imagesHTML = '';
     if (product.images && product.images.length > 0) {
       // Create a mapping of colors to variants for better matching
       const colorToVariantMap = {};
       if (product.variants && product.variants.length > 0) {
-        product.variants.forEach(variant => {
+        product.variants.forEach((variant) => {
           const color = variant.option1 || variant.option2 || variant.option3 || '';
           if (color) {
             colorToVariantMap[color.toLowerCase()] = variant;
           }
         });
       }
-      
-      imagesHTML = product.images.map((image, index) => {
-        // Try to determine which variant this image belongs to
-        let variantId = '';
-        let variantColor = '';
-        
-        // First, try to match by image position if we have enough variants
-        if (product.variants && product.variants.length > index) {
-          const variant = product.variants[index];
-          variantId = variant.id;
-          variantColor = variant.option1 || variant.option2 || variant.option3 || '';
-        } else if (product.variants && product.variants.length > 0) {
-          // If we don't have enough variants, use the first variant
-          const variant = product.variants[0];
-          variantId = variant.id;
-          variantColor = variant.option1 || variant.option2 || variant.option3 || '';
-        }
-        
-        return `
+
+      imagesHTML = product.images
+        .map((image, index) => {
+          // Try to determine which variant this image belongs to
+          let variantId = '';
+          let variantColor = '';
+
+          // First, try to match by image position if we have enough variants
+          if (product.variants && product.variants.length > index) {
+            const variant = product.variants[index];
+            variantId = variant.id;
+            variantColor = variant.option1 || variant.option2 || variant.option3 || '';
+          } else if (product.variants && product.variants.length > 0) {
+            // If we don't have enough variants, use the first variant
+            const variant = product.variants[0];
+            variantId = variant.id;
+            variantColor = variant.option1 || variant.option2 || variant.option3 || '';
+          }
+
+          return `
           <div class="swiper-slide" 
                data-variant-id="${variantId}"
                data-variant-color="${variantColor.toLowerCase().replace(/\s+/g, '-')}"
@@ -856,29 +908,34 @@ const clickModalSecond = () => {
             </div>
           </div>
         `;
-      }).join('');
+        })
+        .join('');
     }
-    
+
     let variantsHTML = '';
     if (hasVariants) {
-      const colorOption = product.options.find(option => 
-        option.name === 'Color' || option.name === 'Colour'
-      );
-      
+      const colorOption = product.options.find((option) => option.name === 'Color' || option.name === 'Colour');
+
       if (colorOption) {
-        const colorValues = colorOption.values.map((value, index) => `
+        const colorValues = colorOption.values
+          .map(
+            (value, index) => `
           <div class="hover-tooltip color-btn${index === 0 ? ' active' : ''}" 
                data-color="${value.toLowerCase().replace(/\s+/g, '-')}">
             <span class="check-color bg-${value.toLowerCase().replace(/\s+/g, '-')}"></span>
             <span class="tooltip">${value}</span>
           </div>
-        `).join('');
-        
+        `
+          )
+          .join('');
+
         variantsHTML = `
           <div class="tf-product-info-variant">
             <div class="variant-picker-item variant-color">
               <div class="variant-picker-label">
-                ${colorOption.name}:<span class="variant-picker-label-value value-currentColor">${colorOption.selected_value || colorOption.values[0]}</span>
+                ${colorOption.name}:<span class="variant-picker-label-value value-currentColor">${
+          colorOption.selected_value || colorOption.values[0]
+        }</span>
               </div>
               <div class="variant-picker-values">
                 ${colorValues}
@@ -888,7 +945,7 @@ const clickModalSecond = () => {
         `;
       }
     }
-    
+
     const mediaHTML = `
       <div dir="ltr" class="swiper tf-single-slide">
         <div class="swiper-wrapper">
@@ -898,18 +955,22 @@ const clickModalSecond = () => {
         <div class="swiper-button-next nav-swiper arrow-1 nav-next-cls single-slide-next"></div>
       </div>
     `;
-    
+
     const infoHTML = `
       <div class="tf-product-info-inner">
         <div class="tf-product-info-heading">
           <h6 class="product-info-name">${product.title}</h6>
           <div class="product-info-price">
-            ${hasSale ? `
+            ${
+              hasSale
+                ? `
               <h6 class="price-new price-on-sale">${product.price}</h6>
               <h6 class="price-old">${product.comparePrice}</h6>
-            ` : `
+            `
+                : `
               <h6 class="price-new">${product.price}</h6>
-            `}
+            `
+            }
           </div>
           <p class="text">${product.description}</p>
         </div>
@@ -931,61 +992,69 @@ const clickModalSecond = () => {
               ${window.ShopifyTranslations?.quickview?.add_to_cart}
             </a>
           </div>
-          <a href="${product.url}" class="tf-btn w-100 animate-btn paypal btn-primary">${window.ShopifyTranslations?.quickview?.buy_it_now}</a>
-          <a href="/cart" class="more-choose-payment link">${window.ShopifyTranslations?.quickview?.more_payment_options}</a>
+          <a href="${product.url}" class="tf-btn w-100 animate-btn paypal btn-primary">${
+      window.ShopifyTranslations?.quickview?.buy_it_now
+    }</a>
+          <a href="/cart" class="more-choose-payment link">${
+            window.ShopifyTranslations?.quickview?.more_payment_options
+          }</a>
         </div>
-        <a href="${product.url}" class="view-details link">${window.ShopifyTranslations?.quickview?.view_full_details} <i class="icon icon-arrow-right"></i></a>
+        <a href="${product.url}" class="view-details link">${
+      window.ShopifyTranslations?.quickview?.view_full_details
+    } <i class="icon icon-arrow-right"></i></a>
       </div>
     `;
-    
+
     return { mediaHTML, infoHTML };
   };
-  
+
   // Function to update variant selection when swiper changes
   const updateVariantFromSwiper = (activeIndex) => {
     const quickviewModal = document.getElementById('quickView');
     if (!quickviewModal) return;
-    
+
     // Prevent recursive updates
     if (quickviewModal.getAttribute('data-updating-variant') === 'true') return;
-    
+
     const swiperContainer = quickviewModal.querySelector('.tf-single-slide');
     if (!swiperContainer) return;
-    
+
     const activeSlide = swiperContainer.querySelector(`.swiper-slide:nth-child(${activeIndex + 1})`);
     if (!activeSlide) return;
-    
+
     const variantColor = activeSlide.getAttribute('data-variant-color');
     if (!variantColor) return;
-    
+
     // Find the corresponding color button
     const colorButtons = quickviewModal.querySelectorAll('.color-btn');
-    const matchingButton = Array.from(colorButtons).find(button => {
+    const matchingButton = Array.from(colorButtons).find((button) => {
       const buttonColor = button.getAttribute('data-color');
       return buttonColor === variantColor;
     });
-    
+
     if (matchingButton) {
       // Remove active class from all buttons
-      colorButtons.forEach(btn => btn.classList.remove('active'));
+      colorButtons.forEach((btn) => btn.classList.remove('active'));
       // Add active class to matching button
       matchingButton.classList.add('active');
-      
+
       // Update the selected color label
       const colorLabel = quickviewModal.querySelector('.value-currentColor');
       const tooltip = matchingButton.querySelector('.tooltip');
       if (colorLabel && tooltip) {
         colorLabel.textContent = tooltip.textContent;
       }
-      
+
       // Update cart button with selected variant
       const productData = JSON.parse(quickviewModal.getAttribute('data-product-variants') || '[]');
-      const selectedVariant = productData.find(variant => {
-        return variant.option1 === tooltip.textContent || 
-               variant.option2 === tooltip.textContent || 
-               variant.option3 === tooltip.textContent;
+      const selectedVariant = productData.find((variant) => {
+        return (
+          variant.option1 === tooltip.textContent ||
+          variant.option2 === tooltip.textContent ||
+          variant.option3 === tooltip.textContent
+        );
       });
-      
+
       const cartButton = quickviewModal.querySelector('.product-cart-button');
       if (cartButton && selectedVariant) {
         cartButton.setAttribute('data-variant-id', selectedVariant.id);
@@ -997,20 +1066,20 @@ const clickModalSecond = () => {
       if (productData.length > 0) {
         const firstVariant = productData[0];
         const firstColorButton = colorButtons[0];
-        
+
         if (firstColorButton) {
           // Remove active class from all buttons
-          colorButtons.forEach(btn => btn.classList.remove('active'));
+          colorButtons.forEach((btn) => btn.classList.remove('active'));
           // Add active class to first button
           firstColorButton.classList.add('active');
-          
+
           // Update the selected color label
           const colorLabel = quickviewModal.querySelector('.value-currentColor');
           const tooltip = firstColorButton.querySelector('.tooltip');
           if (colorLabel && tooltip) {
             colorLabel.textContent = tooltip.textContent;
           }
-          
+
           // Update cart button with first variant
           const cartButton = quickviewModal.querySelector('.product-cart-button');
           if (cartButton) {
@@ -1019,34 +1088,34 @@ const clickModalSecond = () => {
           }
         }
       }
-      
+
       // Clear the flag after a short delay
       setTimeout(() => {
         quickviewModal.removeAttribute('data-updating-variant');
       }, 100);
     }
   };
-  
+
   // Function to update swiper when variant is selected
   const updateSwiperFromVariant = (selectedColor) => {
     const quickviewModal = document.getElementById('quickView');
     if (!quickviewModal) return;
-    
+
     // Set flag to prevent recursive updates
     quickviewModal.setAttribute('data-updating-variant', 'true');
-    
+
     const swiperContainer = quickviewModal.querySelector('.tf-single-slide');
     if (!swiperContainer) return;
-    
+
     // Find the slide that corresponds to this color
     const slides = swiperContainer.querySelectorAll('.swiper-slide');
     const normalizedColor = selectedColor.toLowerCase().replace(/\s+/g, '-');
-    
-    const targetSlideIndex = Array.from(slides).findIndex(slide => {
+
+    const targetSlideIndex = Array.from(slides).findIndex((slide) => {
       const slideColor = slide.getAttribute('data-variant-color');
       return slideColor === normalizedColor;
     });
-    
+
     if (targetSlideIndex !== -1) {
       // Get the swiper instance and slide to the target slide
       const swiperInstance = swiperContainer.swiper;
@@ -1055,48 +1124,48 @@ const clickModalSecond = () => {
       }
     } else {
       // If no exact match found, try to find a slide with similar color or use the first slide
-      const fallbackIndex = Array.from(slides).findIndex(slide => {
+      const fallbackIndex = Array.from(slides).findIndex((slide) => {
         const slideColor = slide.getAttribute('data-variant-color');
         // Try to find a slide that contains the color name
         return slideColor && slideColor.includes(normalizedColor.split('-')[0]);
       });
-      
+
       if (fallbackIndex !== -1) {
         const swiperInstance = swiperContainer.swiper;
         if (swiperInstance && swiperInstance.slideTo) {
           swiperInstance.slideTo(fallbackIndex);
         }
-              } else if (slides.length > 0) {
-          // If still no match, go to the first slide
-          const swiperInstance = swiperContainer.swiper;
-          if (swiperInstance && swiperInstance.slideTo) {
-            swiperInstance.slideTo(0);
-          }
+      } else if (slides.length > 0) {
+        // If still no match, go to the first slide
+        const swiperInstance = swiperContainer.swiper;
+        if (swiperInstance && swiperInstance.slideTo) {
+          swiperInstance.slideTo(0);
         }
       }
-      
-      // Clear the flag after a short delay
-      setTimeout(() => {
-        quickviewModal.removeAttribute('data-updating-variant');
-      }, 100);
-    };
-  
+    }
+
+    // Clear the flag after a short delay
+    setTimeout(() => {
+      quickviewModal.removeAttribute('data-updating-variant');
+    }, 100);
+  };
+
   // Function to handle variant selection in quickview
   const initializeQuickviewVariants = () => {
     const quickviewModal = document.getElementById('quickView');
     if (!quickviewModal) return;
-    
+
     const colorButtons = quickviewModal.querySelectorAll('.color-btn');
     const cartButton = quickviewModal.querySelector('.product-cart-button');
     const productData = JSON.parse(quickviewModal.getAttribute('data-product-variants') || '[]');
-    
-    colorButtons.forEach(button => {
+
+    colorButtons.forEach((button) => {
       button.addEventListener('click', () => {
         // Remove active class from all buttons
-        colorButtons.forEach(btn => btn.classList.remove('active'));
+        colorButtons.forEach((btn) => btn.classList.remove('active'));
         // Add active class to clicked button
         button.classList.add('active');
-        
+
         // Update the selected color label
         const colorValue = button.getAttribute('data-color');
         const colorLabel = quickviewModal.querySelector('.value-currentColor');
@@ -1104,21 +1173,23 @@ const clickModalSecond = () => {
         if (colorLabel && tooltip) {
           colorLabel.textContent = tooltip.textContent;
         }
-        
+
         // Find the corresponding variant
-        const selectedVariant = productData.find(variant => {
+        const selectedVariant = productData.find((variant) => {
           // Check if variant has the selected color option
-          return variant.option1 === tooltip.textContent || 
-                 variant.option2 === tooltip.textContent || 
-                 variant.option3 === tooltip.textContent;
+          return (
+            variant.option1 === tooltip.textContent ||
+            variant.option2 === tooltip.textContent ||
+            variant.option3 === tooltip.textContent
+          );
         });
-        
+
         // Update cart button with selected variant
         if (cartButton && selectedVariant) {
           cartButton.setAttribute('data-variant-id', selectedVariant.id);
           cartButton.setAttribute('data-selected-variant', selectedVariant.id);
         }
-        
+
         // Update swiper to show corresponding image for this variant
         // Add a small delay to prevent conflicts with swiper's own slideChange event
         setTimeout(() => {
@@ -1128,11 +1199,11 @@ const clickModalSecond = () => {
     });
   };
 
-  document.querySelectorAll('.btn-addtocart').forEach(btn => {
+  document.querySelectorAll('.btn-addtocart').forEach((btn) => {
     btn.addEventListener('click', () => {
       // Check cart type setting
       const cartType = window.themeSettings?.cartType || 'drawer';
-      
+
       if (cartType === 'drawer') {
         const cartModal = new bootstrap.Modal(document.getElementById('shoppingCart'));
         cartModal.show();
@@ -1145,33 +1216,33 @@ const clickModalSecond = () => {
     });
   });
 
-  document.querySelectorAll('.btn-add-gift').forEach(btn => {
+  document.querySelectorAll('.btn-add-gift').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelector('.add-gift')?.classList.add('open');
     });
   });
 
-  document.querySelectorAll('.btn-add-note').forEach(btn => {
+  document.querySelectorAll('.btn-add-note').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelector('.add-note')?.classList.add('open');
     });
   });
 
-  document.querySelectorAll('.btn-coupon').forEach(btn => {
+  document.querySelectorAll('.btn-coupon').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelector('.coupon')?.classList.add('open');
     });
   });
 
-  document.querySelectorAll('.btn-estimate-shipping').forEach(btn => {
+  document.querySelectorAll('.btn-estimate-shipping').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelector('.estimate-shipping')?.classList.add('open');
     });
   });
 
-  document.querySelectorAll('.tf-mini-cart-tool-close').forEach(btn => {
+  document.querySelectorAll('.tf-mini-cart-tool-close').forEach((btn) => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.tf-mini-cart-tool-openable').forEach(tool => {
+      document.querySelectorAll('.tf-mini-cart-tool-openable').forEach((tool) => {
         tool.classList.remove('open');
       });
     });
@@ -1215,24 +1286,24 @@ const estimateShipping = () => {
 
   const validateZipcode = (zipcode, country) => {
     const patterns = {
-      'Australia': /^\d{4}$/,
-      'Austria': /^\d{4}$/,
-      'Belgium': /^\d{4}$/,
-      'Canada': /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/,
+      Australia: /^\d{4}$/,
+      Austria: /^\d{4}$/,
+      Belgium: /^\d{4}$/,
+      Canada: /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/,
       'Czech Republic': /^\d{5}$/,
-      'Denmark': /^\d{4}$/,
-      'Finland': /^\d{5}$/,
-      'France': /^\d{5}$/,
-      'Germany': /^\d{5}$/,
+      Denmark: /^\d{4}$/,
+      Finland: /^\d{5}$/,
+      France: /^\d{5}$/,
+      Germany: /^\d{5}$/,
       'United States': /^\d{5}(-\d{4})?$/,
       'United Kingdom': /^[A-Za-z]{1,2}\d[A-Za-z\d]? \d[A-Za-z]{2}$/,
-      'India': /^\d{6}$/,
-      'Japan': /^\d{3}-\d{4}$/,
-      'Mexico': /^\d{5}$/,
+      India: /^\d{6}$/,
+      Japan: /^\d{3}-\d{4}$/,
+      Mexico: /^\d{5}$/,
       'South Korea': /^\d{5}$/,
-      'Spain': /^\d{5}$/,
-      'Italy': /^\d{5}$/,
-      'Vietnam': /^\d{6}$/
+      Spain: /^\d{5}$/,
+      Italy: /^\d{5}$/,
+      Vietnam: /^\d{6}$/,
     };
 
     return patterns[country] ? patterns[country].test(zipcode) : true;
@@ -1281,7 +1352,7 @@ const headerSticky = () => {
   setInterval(() => {
     if (didScroll) {
       const st = window.pageYOffset || document.documentElement.scrollTop;
-      
+
       if (Math.abs(lastScrollTop - st) <= delta) return;
 
       if (st < headerHeight) {
@@ -1380,16 +1451,16 @@ const newsletterPopup = () => {
   if (form) {
     const emailInput = form.querySelector('input[name="contact[email]"]');
     const submitButton = form.querySelector('.subscribe-button');
-    
+
     // Email validation function
     function isValidEmail(email) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     }
-    
+
     // Real-time validation
     if (emailInput && submitButton) {
-      emailInput.addEventListener('input', function() {
+      emailInput.addEventListener('input', function () {
         const email = this.value.trim();
         if (email && !isValidEmail(email)) {
           this.style.borderColor = '#dc3545';
@@ -1402,38 +1473,38 @@ const newsletterPopup = () => {
         }
       });
     }
-    
+
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      
+
       const formData = new FormData(form);
       const email = formData.get('contact[email]');
-      
+
       // Enhanced validation
       if (!email || !email.trim()) {
         alert('Please enter your email address.');
         emailInput?.focus();
         return;
       }
-      
+
       if (!isValidEmail(email)) {
         alert('Please enter a valid email address.');
         emailInput?.focus();
         return;
       }
-      
+
       // If validation passes, show loading state
       if (submitButton) {
         submitButton.disabled = true;
         submitButton.innerHTML = 'Subscribing...';
       }
-      
+
       // Show success message and hide form
       const successMessage = popup.querySelector('.newsletter-success-message');
       if (successMessage) {
         successMessage.style.display = 'block';
         form.style.display = 'none';
-        
+
         // Hide popup after 3 seconds
         setTimeout(() => {
           const modal = bootstrap.Modal.getInstance(popup);
@@ -1442,7 +1513,7 @@ const newsletterPopup = () => {
           }
         }, 3000);
       }
-      
+
       // Store the close date for "days until next show" functionality
       localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
     });
@@ -1455,29 +1526,29 @@ const newsletterPopup = () => {
   });
 };
 
-  // Theme customizer functionality
-  if (window.Shopify && window.Shopify.designMode) {
-    document.addEventListener('shopify:section:select', function(event) {
-      // Check if the selected section is a newsletter-popup section
-      if (event.target.id && event.target.id.includes('__newsletter-popup')) {
-        // Get the newsletter popup element and show it
-        const newsletterPopup = document.querySelector('.newsletter-popup');
-        if (newsletterPopup) {
-          const modal = new bootstrap.Modal(newsletterPopup);
-          modal.show();
-        }
-      } else {
-        // Hide the newsletter popup when other sections are selected
-        const newsletterPopup = document.querySelector('.newsletter-popup');
-        if (newsletterPopup) {
-          const modal = bootstrap.Modal.getInstance(newsletterPopup);
-          if (modal) {
-            modal.hide();
-          }
+// Theme customizer functionality
+if (window.Shopify && window.Shopify.designMode) {
+  document.addEventListener('shopify:section:select', function (event) {
+    // Check if the selected section is a newsletter-popup section
+    if (event.target.id && event.target.id.includes('__newsletter-popup')) {
+      // Get the newsletter popup element and show it
+      const newsletterPopup = document.querySelector('.newsletter-popup');
+      if (newsletterPopup) {
+        const modal = new bootstrap.Modal(newsletterPopup);
+        modal.show();
+      }
+    } else {
+      // Hide the newsletter popup when other sections are selected
+      const newsletterPopup = document.querySelector('.newsletter-popup');
+      if (newsletterPopup) {
+        const modal = bootstrap.Modal.getInstance(newsletterPopup);
+        if (modal) {
+          modal.hide();
         }
       }
-    });
-  }
+    }
+  });
+}
 
 const exitPopup = () => {
   const popup = document.querySelector('.exit-popup');
@@ -1564,7 +1635,7 @@ const exitPopup = () => {
 
 // Theme customizer functionality for exit popup
 if (window.Shopify && window.Shopify.designMode) {
-  document.addEventListener('shopify:section:select', function(event) {
+  document.addEventListener('shopify:section:select', function (event) {
     // Check if the selected section is an exit-popup section
     if (event.target.id && event.target.id.includes('__exit-popup')) {
       // Get the exit popup element and show it
@@ -1592,12 +1663,12 @@ const efectParalax = () => {
   const parallaxElements = document.querySelectorAll('.effect-paralax');
   if (parallaxElements.length === 0) return;
 
-  parallaxElements.forEach(element => {
+  parallaxElements.forEach((element) => {
     new SimpleParallax(element, {
       delay: 0.5,
       orientation: 'up',
       scale: 1.3,
-      transition: 'cubic-bezier(0.2, 0.8, 1, 1)'
+      transition: 'cubic-bezier(0.2, 0.8, 1, 1)',
     });
   });
 };
@@ -1606,7 +1677,7 @@ const efectParalax = () => {
 -------------------------------------------------------------------------*/
 const handleSidebarFilter = () => {
   // Filter shop button click handlers
-  document.querySelectorAll('#filterShop, .sidebar-btn').forEach(btn => {
+  document.querySelectorAll('#filterShop, .sidebar-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       if (window.innerWidth <= 1200) {
         document.querySelector('.sidebar-filter')?.classList.add('show');
@@ -1616,7 +1687,7 @@ const handleSidebarFilter = () => {
   });
 
   // Close filter handlers
-  document.querySelectorAll('.close-filter, .overlay-filter').forEach(btn => {
+  document.querySelectorAll('.close-filter, .overlay-filter').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelector('.sidebar-filter')?.classList.remove('show');
       document.querySelector('.overlay-filter')?.classList.remove('show');
@@ -1645,14 +1716,14 @@ const bottomSticky = () => {
 -------------------------------------------------------------------------*/
 const wishList = () => {
   // Handle standalone wishlist buttons
-  document.querySelectorAll('.btn-add-wishlist').forEach(btn => {
+  document.querySelectorAll('.btn-add-wishlist').forEach((btn) => {
     btn.addEventListener('click', () => {
       btn.classList.toggle('added-wishlist');
     });
   });
 
   // Handle product card wishlist buttons
-  document.querySelectorAll('.card-product .wishlist').forEach(btn => {
+  document.querySelectorAll('.card-product .wishlist').forEach((btn) => {
     btn.addEventListener('click', () => {
       btn.classList.toggle('addwishlist');
 
@@ -1685,17 +1756,16 @@ const copyText = () => {
     try {
       // Use modern Clipboard API
       await navigator.clipboard.writeText(text.innerText);
-      
+
       // Show success feedback
       const originalText = copyBtn.textContent || copyBtn.innerHTML;
       copyBtn.innerHTML = '<i class="icon-check"></i> Copied!';
       copyBtn.style.pointerEvents = 'none'; // Prevent multiple clicks
-      
+
       setTimeout(() => {
         copyBtn.innerHTML = originalText;
         copyBtn.style.pointerEvents = 'auto'; // Re-enable clicks
       }, 2000);
-      
     } catch (err) {
       // Fallback for older browsers
       try {
@@ -1707,17 +1777,16 @@ const copyText = () => {
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        
+
         // Show success feedback
         const originalText = copyBtn.textContent || copyBtn.innerHTML;
         copyBtn.innerHTML = '<i class="icon-check"></i> Copied!';
         copyBtn.style.pointerEvents = 'none'; // Prevent multiple clicks
-        
+
         setTimeout(() => {
           copyBtn.innerHTML = originalText;
           copyBtn.style.pointerEvents = 'auto'; // Re-enable clicks
         }, 2000);
-        
       } catch (fallbackErr) {
         alert('Failed to copy text. Please copy manually: ' + text.innerText);
       }
@@ -1732,14 +1801,14 @@ const tabSlide = () => {
   if (tabSlides.length === 0) return;
 
   const updateTabSlide = () => {
-    tabSlides.forEach(tabSlide => {
+    tabSlides.forEach((tabSlide) => {
       const activeTab = tabSlide.querySelector('li.active');
       if (!activeTab) return;
 
       const width = activeTab.offsetWidth;
       const left = activeTab.offsetLeft;
       const sideEffect = tabSlide.querySelector('.item-slide-effect');
-      
+
       if (sideEffect) {
         sideEffect.style.width = `${width}px`;
         sideEffect.style.transform = `translateX(${left}px)`;
@@ -1748,19 +1817,19 @@ const tabSlide = () => {
   };
 
   // Handle tab clicks
-  tabSlides.forEach(tabSlide => {
+  tabSlides.forEach((tabSlide) => {
     const tabs = tabSlide.querySelectorAll('li');
-    tabs.forEach(tab => {
+    tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
         // Remove active class from all tabs
-        tabs.forEach(t => t.classList.remove('active'));
+        tabs.forEach((t) => t.classList.remove('active'));
         // Add active class to clicked tab
         tab.classList.add('active');
 
         const width = tab.offsetWidth;
         const left = tab.offsetLeft;
         const sideEffect = tabSlide.querySelector('.item-slide-effect');
-        
+
         if (sideEffect) {
           sideEffect.style.width = `${width}px`;
           sideEffect.style.transform = `translateX(${left}px)`;
@@ -1780,24 +1849,24 @@ const tabSlide = () => {
 -------------------------------------------------------------------------*/
 const clickControl = () => {
   // Add Address
-  document.querySelectorAll('.btn-add-address').forEach(btn => {
+  document.querySelectorAll('.btn-add-address').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelector('.show-form-address')?.classList.toggle('show');
     });
   });
 
-  document.querySelectorAll('.btn-hide-address').forEach(btn => {
+  document.querySelectorAll('.btn-hide-address').forEach((btn) => {
     btn.addEventListener('click', () => {
       document.querySelector('.show-form-address')?.classList.remove('show');
     });
   });
 
   // Delete Address
-  document.querySelectorAll('.btn-delete-address').forEach(btn => {
+  document.querySelectorAll('.btn-delete-address').forEach((btn) => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.account-address-item');
       item?.remove();
-      
+
       if (item?.classList.contains('editing')) {
         const editForm = document.querySelector('.edit-form-address');
         editForm?.classList.toggle('show');
@@ -1806,17 +1875,17 @@ const clickControl = () => {
   });
 
   // Edit Address
-  document.querySelectorAll('.btn-edit-address').forEach(btn => {
+  document.querySelectorAll('.btn-edit-address').forEach((btn) => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.account-address-item');
       const editForm = document.querySelector('.edit-form-address');
-      
+
       if (editForm?.classList.contains('show')) {
         if (item?.classList.contains('editing')) {
           editForm.classList.toggle('show');
           item.classList.remove('editing');
         } else {
-          document.querySelectorAll('.account-address-item').forEach(addr => {
+          document.querySelectorAll('.account-address-item').forEach((addr) => {
             addr.classList.remove('editing');
           });
           item?.classList.add('editing');
@@ -1828,11 +1897,11 @@ const clickControl = () => {
     });
   });
 
-  document.querySelectorAll('.btn-hide-edit-address').forEach(btn => {
+  document.querySelectorAll('.btn-hide-edit-address').forEach((btn) => {
     btn.addEventListener('click', () => {
       const editForm = document.querySelector('.edit-form-address');
       editForm?.classList.remove('show');
-      document.querySelectorAll('.account-address-item').forEach(item => {
+      document.querySelectorAll('.account-address-item').forEach((item) => {
         item.classList.remove('editing');
       });
     });
@@ -1842,19 +1911,22 @@ const clickControl = () => {
 /* Delete Item
 ----------------------------------------------------------------------------*/
 const deleteItem = () => {
-  document.querySelectorAll('.remove').forEach(btn => {
+  document.querySelectorAll('.remove').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       btn.closest('.file-delete')?.remove();
     });
   });
 
-  document.querySelectorAll('.clear-file-delete').forEach(btn => {
+  document.querySelectorAll('.clear-file-delete').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      btn.closest('.list-file-delete')?.querySelectorAll('.file-delete').forEach(item => {
-        item.remove();
-      });
+      btn
+        .closest('.list-file-delete')
+        ?.querySelectorAll('.file-delete')
+        .forEach((item) => {
+          item.remove();
+        });
     });
   });
 };
@@ -1862,7 +1934,7 @@ const deleteItem = () => {
 /* Button Quantity
 ----------------------------------------------------------------------------*/
 const buttonQuantity = () => {
-  document.querySelectorAll('.minus-btn').forEach(btn => {
+  document.querySelectorAll('.minus-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const input = btn.closest('div').querySelector('input');
@@ -1876,7 +1948,7 @@ const buttonQuantity = () => {
   });
 
   // Add input validation for quantity inputs
-  document.querySelectorAll('input[name="quantity"]').forEach(input => {
+  document.querySelectorAll('input[name="quantity"]').forEach((input) => {
     input.addEventListener('change', (e) => {
       let value = parseInt(e.target.value, 10);
       if (isNaN(value) || value < 1) {
@@ -1886,7 +1958,7 @@ const buttonQuantity = () => {
     });
   });
 
-  document.querySelectorAll('.plus-btn').forEach(btn => {
+  document.querySelectorAll('.plus-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
       const input = btn.closest('div').querySelector('input');
@@ -1906,7 +1978,7 @@ const infiniteSlide = () => {
   const slides = document.querySelectorAll('.infiniteslide');
   if (slides.length === 0) return;
 
-  slides.forEach(slide => {
+  slides.forEach((slide) => {
     const style = slide.dataset.style || 'left';
     const clone = parseInt(slide.dataset.clone) || 2;
     const speed = parseInt(slide.dataset.speed) || 100;
@@ -1921,7 +1993,7 @@ const infiniteSlide = () => {
     // Clone the items
     const items = Array.from(slide.children);
     for (let i = 0; i < clone; i++) {
-      items.forEach(item => {
+      items.forEach((item) => {
         const clonedItem = item.cloneNode(true);
         slide.appendChild(clonedItem);
       });
@@ -1959,32 +2031,30 @@ const predictiveSearch = () => {
   // Check if predictive search is enabled
   const predictiveSearchEnabled = document.querySelector('meta[name="predictive-search-enabled"]')?.content !== 'false';
   if (!predictiveSearchEnabled) return;
-  
+
   const searchInput = document.querySelector('.form-search input[name="q"]');
   const searchForm = document.querySelector('.form-search');
-  
+
   if (!searchInput || !searchForm) return;
-  
+
   // Create search results container (but don't insert yet)
   const searchResults = document.createElement('div');
   searchResults.className = 'search-suggests-results';
   searchResults.id = 'search-results';
   searchResults.style.display = 'none';
-  
+
   // Create inner container
   const searchResultsInner = document.createElement('div');
   searchResultsInner.className = 'search-suggests-results-inner';
-  
+
   // Create suggestions list
   const searchSuggestions = document.createElement('ul');
   searchSuggestions.id = 'search-suggestions';
-  
+
   // Assemble the structure
   searchResultsInner.appendChild(searchSuggestions);
   searchResults.appendChild(searchResultsInner);
-  
 
-  
   // Debounce function
   const debounce = (func, wait) => {
     let timeout;
@@ -1997,15 +2067,15 @@ const predictiveSearch = () => {
       timeout = setTimeout(later, wait);
     };
   };
-  
+
   // Search state
   let isSearching = false;
-  
+
   // Format price function
   const formatPrice = (price, comparePrice) => {
     const priceNum = parseFloat(price);
     const comparePriceNum = comparePrice ? parseFloat(comparePrice) : 0;
-    
+
     if (comparePriceNum && comparePriceNum > priceNum) {
       return `
         <span class="new-price">$${priceNum.toFixed(2)}</span>
@@ -2014,17 +2084,21 @@ const predictiveSearch = () => {
     }
     return `<span class="price">$${priceNum.toFixed(2)}</span>`;
   };
-  
+
   // Create search result item
   const createSearchResultItem = (product) => {
     const imageUrl = product.featured_image?.url || product.image || '';
-    const imageAlt = product.featured_image?.alt || product.title || window.ShopifyTranslations?.search?.product_image || 'Product image';
-    
+    const imageAlt =
+      product.featured_image?.alt ||
+      product.title ||
+      window.ShopifyTranslations?.search?.product_image ||
+      'Product image';
+
     if (!imageUrl) return '';
-    
+
     // Check if prices should be shown
     const showPrices = document.querySelector('meta[name="predictive-search-show-price"]')?.content !== 'false';
-    
+
     return `
       <li>
         <a class="search-result-item" href="${product.url}">
@@ -2033,15 +2107,19 @@ const predictiveSearch = () => {
           </div>
           <div class="box-content">
             <p class="title link">${product.title}</p>
-            ${showPrices ? `<div class="price">
+            ${
+              showPrices
+                ? `<div class="price">
               ${formatPrice(product.price, product.compare_at_price_max || product.compare_at_price_min)}
-            </div>` : ''}
+            </div>`
+                : ''
+            }
           </div>
         </a>
       </li>
     `;
   };
-  
+
   // Perform search
   const performSearch = async (query) => {
     if (!query || query.length < 2) {
@@ -2052,41 +2130,51 @@ const predictiveSearch = () => {
     }
     if (isSearching) return;
     isSearching = true;
-    
+
     // Insert container into DOM if not already there
     if (!searchResults.parentNode) {
       searchForm.parentNode.insertBefore(searchResults, searchForm.nextSibling);
     }
-    
+
     try {
-      searchSuggestions.innerHTML = `<li class="search-loading">${window.ShopifyTranslations?.search?.searching || 'Searching...'}</li>`;
+      searchSuggestions.innerHTML = `<li class="search-loading">${
+        window.ShopifyTranslations?.search?.searching || 'Searching...'
+      }</li>`;
       searchResults.style.display = 'block';
-      const response = await fetch(`/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`);
+      const response = await fetch(
+        `/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product&resources[limit]=6`
+      );
       if (!response.ok) {
         throw new Error('Search request failed');
       }
       const data = await response.json();
       const products = data.resources?.results?.products || [];
       if (products.length === 0) {
-        searchSuggestions.innerHTML = `<li class="no-results">${window.ShopifyTranslations?.search?.no_products_found || 'No products found'}</li>`;
+        searchSuggestions.innerHTML = `<li class="no-results">${
+          window.ShopifyTranslations?.search?.no_products_found || 'No products found'
+        }</li>`;
       } else {
         const resultsHTML = products
-          .map(product => createSearchResultItem(product))
-          .filter(html => html)
+          .map((product) => createSearchResultItem(product))
+          .filter((html) => html)
           .join('');
-        searchSuggestions.innerHTML = resultsHTML || `<li class="no-results">${window.ShopifyTranslations?.search?.no_products_found || 'No products found'}</li>`;
+        searchSuggestions.innerHTML =
+          resultsHTML ||
+          `<li class="no-results">${window.ShopifyTranslations?.search?.no_products_found || 'No products found'}</li>`;
       }
     } catch (error) {
       console.error('Search error:', error);
-      searchSuggestions.innerHTML = `<li class="search-error">${window.ShopifyTranslations?.search?.search_failed || 'Search failed. Please try again.'}</li>`;
+      searchSuggestions.innerHTML = `<li class="search-error">${
+        window.ShopifyTranslations?.search?.search_failed || 'Search failed. Please try again.'
+      }</li>`;
     } finally {
       isSearching = false;
     }
   };
-  
+
   // Debounced search
   const debouncedSearch = debounce(performSearch, 300);
-  
+
   // Event listeners
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.trim();
@@ -2094,7 +2182,7 @@ const predictiveSearch = () => {
       debouncedSearch(query);
     }
   });
-  
+
   // Handle form submission
   searchForm.addEventListener('submit', (e) => {
     const query = searchInput.value.trim();
