@@ -25172,3 +25172,12 @@ shopify-accelerated-checkout {
       padding: 24px 48px;
   }
 }
+.card-product .card-product-info .inner-info-product {
+  display: grid;
+  gap: 6px;
+}
+@media (min-width: 1200px) {
+  .card-product .card-product-info .inner-info-product {
+      gap: 10px;
+  }
+}
