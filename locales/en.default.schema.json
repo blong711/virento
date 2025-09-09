@@ -6710,6 +6710,9 @@
         "price_settings": {
           "content": "Price settings"
         },
+        "button_label_size": {
+          "label": "Button label size"
+        },
         "discount_style": {
           "label": "Discount Display Style",
           "options": {
