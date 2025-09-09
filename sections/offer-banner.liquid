@@ -43,18 +43,18 @@
                       {% if block.settings.image_mobile != blank %}
                         {{
                           block.settings.image_mobile
-                          | image_url: width: 800
+                          | image_url: width: 1400
                           | image_tag: loading: 'lazy', class: 'lazyload d-block d-md-none', alt: block.settings.title
                         }}
                         {{
                           block.settings.image
-                          | image_url: width: 800
+                          | image_url: width: 1400
                           | image_tag: loading: 'lazy', class: 'lazyload d-none d-md-block', alt: block.settings.title
                         }}
                       {% else %}
                         {{
                           block.settings.image
-                          | image_url: width: 800
+                          | image_url: width: 1400
                           | image_tag: loading: 'lazy', class: 'lazyload', alt: block.settings.title
                         }}
                       {% endif %}
