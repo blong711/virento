@@ -4624,14 +4624,14 @@ header.header-bg {
   width: 100%;
 }
 .tf-btn.btn-line::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: 2px;
-  left: auto;
-  right: 0;
-  width: 0%;
+  bottom: 0px;
+  left: 0;
+  right: auto;
+  width: 100%;
   height: 1px;
-  background-color: var(--primary);
+  background-color: var(--white);
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
@@ -9369,19 +9369,22 @@ header.header-bg {
   width: 100%;
 }
 .tf-btn.btn-line::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: 2px;
-  left: auto;
-  right: 0;
-  width: 0%;
+  bottom: 0px;
+  left: 0;
+  right: auto;
+  width: 100%;
   height: 1px;
-  background-color: var(--primary);
+  background-color: var(--white);
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+.tf-btn.btn-line:hover::after {
+  background-color: var(--primary);
 }
 .tf-btn.btn-line-dark {
   border: none;
@@ -20394,9 +20397,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 .list-recipe {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 15px;
-  padding: 15px;
+  /* padding: 15px; */
   border-radius: 0px 0px 16px 16px;
 }
 .list-recipe .br--line {
@@ -21965,7 +21968,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   }
   .list-recipe {
     gap: 24px;
-    padding: 22px 15px;
+    /* padding: 22px 15px; */
   }
   .s-banner-bundle .bundle-wrap {
     gap: 40px;
@@ -25148,4 +25151,9 @@ shopify-accelerated-checkout {
 .card-product.style-small .name-product {
   padding-left: 0px;
   padding-right: 0px;
+}
+@media (min-width: 1200px) {
+  .bundle-suppermarket .image-wrap {
+      margin-left: 33px;
+  }
 }
