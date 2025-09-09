@@ -110,8 +110,11 @@ const selectImages = () => {
         const optionElement = document.createElement('div');
         optionElement.classList.add('custom-select-option');
 
+        const thumbnail = option.getAttribute('data-thumbnail');
+
         optionElement.innerHTML = `
           <div class="custom-select-option-content">
+            ${thumbnail ? `<img class=\"option-image\" src=\"${thumbnail}\" alt=\"\" width=\"16\" height=\"16\" loading=\"lazy\">` : ''}
             <span class="option-text">${option.text}</span>
           </div>
         `;
@@ -133,6 +136,7 @@ const selectImages = () => {
 
       this.selectedDisplay.innerHTML = `
         <div class="custom-select-selected-content">
+          ${imgURL ? `<img class=\"selected-image\" src=\"${imgURL}\" alt=\"\" width=\"16\" height=\"16\" loading=\"lazy\">` : ''}
           <span class="selected-text">${selectedOption.text}</span>
         </div>
         <span class="custom-select-arrow"></span>

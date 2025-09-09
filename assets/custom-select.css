@@ -49,7 +49,7 @@
 
 /* Currency selector specific width */
 .tf-currencies .custom-select-options {
-  width: 220px;
+  width: 240px;
 }
 
 /* Snippet selectors - open upward */
@@ -157,7 +157,17 @@
   top: 50%;
   transform: translateY(-50%);
 }
-
+.custom-select-option .option-image,
+.custom-select-selected-content .selected-image {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 4px;
+  margin-bottom: 3px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.08) inset;
+}
 /* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
   .custom-select-selected-content,
