@@ -358,7 +358,7 @@
                   {% if block.settings.description != blank %}
                     <p
                       class="{% if section.settings.icon_style == 'default' %}desc{% else %}text-sm text-main text-line-clamp-4{% endif %}"
-                      style="color: rgb(var(--color-foreground2));"
+                      style="color: rgb(var(--color-foreground2)); max-width: 400px;"
                     >
                       {{ block.settings.description }}
                     </p>
