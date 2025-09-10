@@ -63,7 +63,7 @@
       }
     },
     "image_with_text_about": {
-      "type": "image-with-text",
+      "type": "Image-with-text",
       "blocks": {
         "content_item_1": {
           "type": "content_item",
@@ -188,7 +188,7 @@
       ],
       "name": "t:sections.icon-box.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-5",
         "width": "container",
         "icon_position_center": true,
         "line_top": true,
