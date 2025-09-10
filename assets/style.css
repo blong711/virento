@@ -12255,7 +12255,8 @@ button.animate-btn::after,
   margin-bottom: 45px;
 }
 .modal-compare .tf-compare-inner {
-  /* overflow-x: auto; */
+  overflow-x: auto;
+  overflow-y: clip;
   margin-bottom: 42px;
 }
 .modal-compare .tf-compare-inner::-webkit-scrollbar {
