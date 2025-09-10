@@ -15153,8 +15153,6 @@ button.animate-btn::after,
   font-size: 16px;
   line-height: 19.2px;
   color: var(--dark);
-  padding-left: 10px;
-  padding-right: 10px;
 }
 .card-product .price-wrap .price-new {
   margin-right: 4px;
