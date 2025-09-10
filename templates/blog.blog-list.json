@@ -9,6 +9,15 @@
  */
 {
   "sections": {
+    "page_breadcrumb": {
+      "type": "page-breadcrumb",
+      "settings": {
+        "background_image": "",
+        "show_description": true,
+        "custom_description": "",
+        "description_truncate_length": 120
+      }
+    },
     "blog_sub_collection": {
       "type": "blog-sub-collection",
       "blocks": {
@@ -138,6 +147,7 @@
     }
   },
   "order": [
+    "page_breadcrumb",
     "blog_sub_collection",
     "blog_section"
   ]
