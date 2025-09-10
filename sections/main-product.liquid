@@ -817,7 +817,7 @@
 
                             {% if block.settings.show_more_payment %}
                               <a
-                                href="#"
+                                href="{{ routes.root_url }}checkout"
                                 class="more-choose-payment link buy-it-now"
                                 data-variant-id="{{ product.selected_or_first_available_variant.id }}"
                                 data-quantity="1"
