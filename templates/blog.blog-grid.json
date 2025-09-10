@@ -120,7 +120,7 @@
             "sidebar_banner_image": "shopify://shop_images/sb-banner.jpg",
             "sidebar_banner_title": "Elevate Your Style",
             "sidebar_banner_button_text": "Shop Now",
-            "sidebar_banner_button_link": ""
+            "sidebar_banner_button_link": "shopify://collections"
           }
         }
       },
