@@ -141,6 +141,7 @@
           "type": "size_guide",
           "settings": {
             "size_guide_text": "Size Guide",
+            "size_guide_source": "page",
             "size_guide_page": ""
           }
         }
@@ -163,7 +164,7 @@
         "size_guide_NiAE8e"
       ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-e379edfd-3a7b-4c25-9cc1-a180d15178ce",
         "width": "container",
         "layout": "default",
         "thumbnail_position": "left",
