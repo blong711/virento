@@ -22001,9 +22001,9 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
     display: block;
     left: 0;
   }
-  .grid-vegetable {
+  /* .grid-vegetable {
     margin-top: 12px;
-  }
+  } */
   .s-cls.style-absolute .content {
     bottom: 32px;
     gap: 24px;

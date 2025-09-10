@@ -26,21 +26,21 @@
           {% if section.settings.heading_size == 'small' %}
             <h5
               class="title"
-              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground));"
+              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
             >
               {{ section.settings.heading }}
             </h5>
           {% elsif section.settings.heading_size == 'large' %}
             <h3
               class="title"
-              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground));"
+              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
             >
               {{ section.settings.heading }}
             </h3>
           {% else %}
             <h4
               class="title"
-              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground));"
+              style="margin-bottom: {{ section.settings.heading_mb }}px; color: rgb(var(--color-foreground2));"
             >
               {{ section.settings.heading }}
             </h4>
@@ -48,11 +48,11 @@
         {% endif %}
         {% if section.settings.subtitle != blank %}
           {% if section.settings.subtitle_size == 'small' %}
-            <p class="desc text-sm " style="color: rgb(var(--color-foreground), 0.7); white-space: pre-line;">{{ section.settings.subtitle }}</p>
+            <p class="desc text-sm " style="color: rgb(var(--color-foreground)); white-space: pre-line;">{{ section.settings.subtitle }}</p>
           {% elsif section.settings.subtitle_size == 'large' %}
-            <p class="desc text-lg" style="color: rgb(var(--color-foreground), 0.7); white-space: pre-line;">{{ section.settings.subtitle }}</p>
+            <p class="desc text-lg" style="color: rgb(var(--color-foreground)); white-space: pre-line;">{{ section.settings.subtitle }}</p>
           {% else %}
-            <p class="desc text-md" style="color: rgb(var(--color-foreground), 0.7); white-space: pre-line;">{{ section.settings.subtitle }}</p>
+            <p class="desc text-md" style="color: rgb(var(--color-foreground)); white-space: pre-line;">{{ section.settings.subtitle }}</p>
           {% endif %}
         {% endif %}
       </div>
