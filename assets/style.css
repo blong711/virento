@@ -14003,7 +14003,7 @@ button.animate-btn::after,
   flex-wrap: wrap;
   gap: 12px;
   font-weight: 500;
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
 }
 .tf-product-info-wrap .tf-product-info-heading .product-info-price .price-new {
   color: var(--primary);
