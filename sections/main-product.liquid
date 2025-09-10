@@ -167,7 +167,7 @@
                                   {% endif %}
                                 >
                                   {% for source in media.sources %}
-                                    <source src="{{ source.url | asset_url }}" type="{{ source.mime_type }}">
+                                    <source src="{{ source.url }}" type="{{ source.mime_type }}">
                                   {% endfor %}
                                   {{ 'sections.product.video_not_supported' | t }}
                                 </video>
