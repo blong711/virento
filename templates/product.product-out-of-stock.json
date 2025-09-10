@@ -56,6 +56,13 @@
             "stock_threshold": 50
           }
         },
+        "countdown_timer_K4UDNT": {
+          "type": "countdown_timer",
+          "settings": {
+            "hurry_text": "HURRY UP!",
+            "label": "Sale ends in:"
+          }
+        },
         "variant_picker_CFdTLh": {
           "type": "variant_picker",
           "settings": {
@@ -90,7 +97,7 @@
           "type": "trust_and_payment",
           "settings": {
             "trust_seal_text": "Guarantee Safe Checkout:",
-            "svg_list": "visa,paypal,master,american_express,diners"
+            "svg_list": "visa,paypal,master,american_express,diners_club"
           }
         },
         "delivery_info_ifqrMR": {
@@ -109,6 +116,7 @@
         },
         "fbt_BjrkCe": {
           "type": "fbt",
+          "disabled": true,
           "settings": {
             "fbt_title": "Frequently Bought Together",
             "fbt_source": "manual",
@@ -118,7 +126,7 @@
               "apple-magsafe-charger"
             ],
             "max_products": 3,
-            "fbt_margin_top": 42,
+            "fbt_margin_top": 0,
             "fbt_margin_bottom": 0
           }
         },
@@ -127,7 +135,7 @@
           "settings": {
             "size_guide_text": "Size Guide",
             "size_guide_source": "page",
-            "size_guide_page": ""
+            "size_guide_page": "size-guide"
           }
         }
       },
@@ -137,6 +145,7 @@
         "price_miqWQM",
         "sold_count_FhTTRW",
         "stock_count_HLePWd",
+        "countdown_timer_K4UDNT",
         "variant_picker_CFdTLh",
         "quantity_and_buy_Vc7GaM",
         "extra_links_WWFndr",
@@ -149,7 +158,7 @@
       "settings": {
         "color_scheme": "scheme-2d291039-1404-48e2-8fe5-1e54f84416aa",
         "width": "container",
-        "layout": "stacked",
+        "layout": "default",
         "thumbnail_position": "left",
         "show_sticky_cart": true,
         "enable_video_loop": true,
@@ -222,7 +231,7 @@
     "recently_viewed": {
       "type": "recently-viewed",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "width": "container",
         "show_title": true,
         "title": "Recently Viewed",
