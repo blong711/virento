@@ -22,7 +22,7 @@
         "show_comments": true,
         "show_comment_form": true,
         "padding_top": 100,
-        "padding_bottom": 100,
+        "padding_bottom": 60,
         "padding_mobile_rate": 60
       }
     },

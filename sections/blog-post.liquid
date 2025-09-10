@@ -170,8 +170,8 @@
       <!-- Previous/Next Navigation -->
       {% if section.settings.show_prev_next %}
         <div class="related-post">
-          {% if blog.previous_article %}
             <a href="{{ blog.previous_article.url }}" class="post prev">
+              {% if blog.previous_article %}
               <div class="icon">
                 <i class="icon-arr-left"></i>
               </div>
@@ -179,11 +179,10 @@
                 <p>{{ 'blogs.article.previous_post' | t }}</p>
                 <p class="name-post">{{ blog.previous_article.title }}</p>
               </div>
+            {% endif %}
             </a>
-          {% endif %}
-
-          {% if blog.next_article %}
             <a href="{{ blog.next_article.url }}" class="post next">
+              {% if blog.next_article %}
               <div class="text-wrap-right">
                 <p>{{ 'blogs.article.next_post' | t }}</p>
                 <p class="name-post">{{ blog.next_article.title }}</p>
@@ -191,8 +190,8 @@
               <div class="icon">
                 <i class="icon-arr-right2"></i>
               </div>
+            {% endif %}
             </a>
-          {% endif %}
         </div>
       {% endif %}
     </div>
