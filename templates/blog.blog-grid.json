@@ -84,6 +84,7 @@
         "category_4",
         "category_5"
       ],
+      "disabled": true,
       "settings": {
         "width": "boxed",
         "color_scheme": "",
