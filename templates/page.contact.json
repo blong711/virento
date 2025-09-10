@@ -22,7 +22,7 @@
       "type": "map-with-text",
       "settings": {
         "color_scheme": "",
-        "width": "full",
+        "width": "boxed",
         "heading": "",
         "heading_align": "left",
         "heading_size": "medium",
@@ -31,7 +31,7 @@
         "map": "",
         "padding_top": 64,
         "padding_bottom": 100,
-        "padding_mobile_ratio": 80
+        "padding_mobile_rate": 75
       }
     },
     "contact_form_with_text": {
