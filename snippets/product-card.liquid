@@ -132,17 +132,19 @@
       {% if product.available and product.variants.first.inventory_management == 'shopify' and should_show_progress %}
         {% assign inventory_quantity = product.variants.first.inventory_quantity %}
         {% assign max_inventory = 1000 %}
-        {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
+        {% assign sold_quantity = max_inventory | minus: inventory_quantity %}
+        {% assign total_quantity = sold_quantity | plus: inventory_quantity %}
+        {% assign sold_percentage = sold_quantity | times: 100 | divided_by: total_quantity %}
         <div class="product-progress-sale">
           <div
             class="progress-sold progress"
             role="progressbar"
             aria-valuemin="0"
             aria-valuemax="100"
-            aria-valuenow="{{ inventory_percentage }}"
-            aria-label="Inventory progress: {{ inventory_quantity }} items available out of 100"
+            aria-valuenow="{{ sold_percentage }}"
+            aria-label="Inventory progress: {{ sold_quantity }} items sold out of {{ total_quantity }}"
           >
-            <div class="progress-bar bg-primary" style="width: {{ inventory_percentage }}%"></div>
+            <div class="progress-bar {% if sold_percentage < 60 %}bg-green-3{% else %}bg-primary{% endif %}" style="width: {{ sold_percentage }}%"></div>
           </div>
           <div class="box-quantity d-flex justify-content-between">
             <p class="text-sold text-sm">
@@ -396,17 +398,19 @@
       {% if product.available and product.variants.first.inventory_management == 'shopify' and should_show_progress %}
         {% assign inventory_quantity = product.variants.first.inventory_quantity %}
         {% assign max_inventory = 1000 %}
-        {% assign inventory_percentage = inventory_quantity | times: 100 | divided_by: max_inventory %}
+        {% assign sold_quantity = max_inventory | minus: inventory_quantity %}
+        {% assign total_quantity = sold_quantity | plus: inventory_quantity %}
+        {% assign sold_percentage = sold_quantity | times: 100 | divided_by: total_quantity %}
         <div class="product-progress-sale">
           <div
             class="progress-sold progress"
             role="progressbar"
             aria-valuemin="0"
             aria-valuemax="100"
-            aria-valuenow="{{ inventory_percentage }}"
-            aria-label="Inventory progress: {{ inventory_quantity }} items available out of 100"
+            aria-valuenow="{{ sold_percentage }}"
+            aria-label="Inventory progress: {{ sold_quantity }} items sold out of {{ total_quantity }}"
           >
-            <div class="progress-bar bg-purple" style="width: {{ inventory_percentage }}%"></div>
+            <div class="progress-bar bg-purple" style="width: {{ sold_percentage }}%"></div>
           </div>
           <div class="box-quantity d-flex justify-content-between">
             <p class="text-sold text-sm">
