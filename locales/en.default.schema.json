@@ -4685,8 +4685,7 @@
           }
         },
         "image_size": {
-          "content": "Image Size",
-          "info": "Only available on desktop"
+          "content": "Image Size"
         },
         "image_size_type": {
           "label": "Image Size Type",
@@ -4696,7 +4695,8 @@
           }
         },
         "image_size_px": {
-          "label": "Image Size"
+          "label": "Image Size",
+          "info": "Only available on desktop"
         },
         "title_alignment": {
           "label": "Heading Alignment",
