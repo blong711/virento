@@ -24501,6 +24501,13 @@ shopify-accelerated-checkout {
     margin-right: 14px;
   }
 }
+.tf-product-info-wrap .product-stock {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 4px;
+    gap: 6px;
+}
 .tf-product-info-wrap .product-stock .in-stock {
   background-color: rgba(44, 163, 21, 0.1);
   color: #1d770b;
