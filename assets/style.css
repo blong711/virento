@@ -13969,9 +13969,9 @@ button.animate-btn::after,
     margin-bottom: 8px;
   }
 }
-.tf-product-info-wrap .tf-product-info-heading .product-info-name {
+/* .tf-product-info-wrap .tf-product-info-heading .product-info-name {
   margin-bottom: 12px;
-}
+} */
 .tf-product-info-wrap .tf-product-info-heading .product-info-rate {
   margin-bottom: 10px;
   display: flex;
