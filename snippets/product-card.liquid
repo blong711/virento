@@ -206,7 +206,7 @@
       <a href="{{ product.url }}" class="product-img">
         {% if product.featured_image %}
           <img
-            class="img-product lazyload"
+            class="img-product lazyload radius-8"
             width="120"
             height="120"
             data-src="{{ product.featured_image | image_url: width: 200, height: 200, crop: 'center' }}"
@@ -215,7 +215,7 @@
             loading="{{ loading_priority }}"
           >
           <img
-            class="img-hover lazyload"
+            class="img-hover lazyload radius-8"
             width="120"
             height="120"
             data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 200, height: 200, crop: 'center' }}"
