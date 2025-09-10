@@ -306,7 +306,7 @@
 {% endschema %}
 
 <div
-  class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
+  class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} {% if section.settings.icon_position_center %} flat-wrap-iconbox{% endif %}"
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
@@ -338,7 +338,7 @@
                 {% assign icon_width = block.settings.icon_width | default: 48 %}
                 {% assign icon_width_mobile = block.settings.icon_width_mobile | default: 32 %}
                 <div
-                  class="box-icon"
+                  class="{% if section.settings.icon_position_center == false %}box-icon{% endif %}"
                   style="--icon-width: {{ icon_width }}px; --icon-width-mobile: {{ icon_width_mobile }}px;"
                 >
                   {% if block.settings.custom_svg != blank %}

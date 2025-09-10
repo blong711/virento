@@ -25181,3 +25181,8 @@ shopify-accelerated-checkout {
       gap: 10px;
   }
 }
+@media (min-width: 992px) {
+    .flat-wrap-iconbox .tf-icon-box {
+        gap: 20px;
+    }
+}
