@@ -116,6 +116,7 @@
         },
         "fbt_BjrkCe": {
           "type": "fbt",
+          "disabled": true,
           "settings": {
             "fbt_title": "Frequently Bought Together",
             "fbt_source": "manual",
