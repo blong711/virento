@@ -4685,7 +4685,8 @@
           }
         },
         "image_size": {
-          "content": "Image Size"
+          "content": "Image Size",
+          "info": "Only available on desktop"
         },
         "image_size_type": {
           "label": "Image Size Type",
