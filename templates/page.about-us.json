@@ -63,7 +63,7 @@
       }
     },
     "image_with_text_about": {
-      "type": "Image-with-text",
+      "type": "image-with-text",
       "blocks": {
         "content_item_1": {
           "type": "content_item",
