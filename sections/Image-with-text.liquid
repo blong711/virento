@@ -16,9 +16,11 @@
   }
 
   /* Fix color scheme inheritance for all text elements */
+  .color-{{ section.settings.color_scheme }} .flat-title-2 h2,
   .color-{{ section.settings.color_scheme }} .flat-title-2 p,
+  .color-{{ section.settings.color_scheme }} .list-esd h6,
   .color-{{ section.settings.color_scheme }} .list-esd p {
-    color: rgba(var(--color-foreground), 0.7) !important;
+    color: rgba(var(--color-foreground), 0.9) !important;
   }
 
   .color-{{ section.settings.color_scheme }} .flat-title-2 .text-main {
@@ -42,13 +44,13 @@
       {%- endif -%}
       {%- if section.settings.subheading != blank -%}
         {%- if section.settings.subheading_size == 'small' -%}
-          <p class="text-sm text-main" style="max-width: 800px; margin: 0 auto;">{{ section.settings.subheading }}</p>
+          <p class="text-sm text-main">{{ section.settings.subheading }}</p>
         {%- elsif section.settings.subheading_size == 'medium' -%}
-          <p class="text-md text-main" style="max-width: 800px; margin: 0 auto;">{{ section.settings.subheading }}</p>
+          <p class="text-md text-main">{{ section.settings.subheading }}</p>
         {%- elsif section.settings.subheading_size == 'large' -%}
-          <p class="text-lg text-main" style="max-width: 800px; margin: 0 auto;">{{ section.settings.subheading }}</p>
+          <p class="text-lg text-main">{{ section.settings.subheading }}</p>
         {%- else -%}
-          <p class="text-md text-main" style="max-width: 800px; margin: 0 auto;">{{ section.settings.subheading }}</p>
+          <p class="text-md text-main">{{ section.settings.subheading }}</p>
         {%- endif -%}
       {%- endif -%}
     </div>
