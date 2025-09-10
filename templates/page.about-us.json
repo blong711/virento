@@ -52,7 +52,7 @@
       "settings": {
         "width": "boxed",
         "image_height": "fixed",
-        "fixed_height": 410,
+        "fixed_height": 500,
         "mobile_image_height": "fixed",
         "mobile_fixed_height": 300,
         "image": "shopify://shop_images/about.jpg",
