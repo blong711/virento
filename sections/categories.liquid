@@ -92,6 +92,20 @@
       "default": "text-md"
     },
     {
+      "type": "header",
+      "content": "t:sections.categories.settings.image_size.content"
+    },
+    {
+      "type": "select",
+      "id": "image_size_type",
+      "label": "t:sections.categories.settings.image_size_type.label",
+      "options": [
+        { "value": "auto", "label": "t:sections.categories.settings.image_size_type.options.auto" },
+        { "value": "px", "label": "t:sections.categories.settings.image_size_type.options.px" }
+      ],
+      "default": "auto"
+    },
+    {
       "type": "range",
       "id": "image_size_px",
       "min": 100,
@@ -99,7 +113,9 @@
       "step": 10,
       "unit": "px",
       "label": "t:sections.categories.settings.image_size_px.label",
-      "default": 200
+      "default": 200,
+      "info": "t:sections.categories.settings.image_size_px.info",
+      "visible_if": "{{ section.settings.image_size_type == 'px' }}"
     },
     {
       "type": "header",
@@ -310,20 +326,27 @@
               {% assign collection = block.settings.collection %}
               {% if collection != blank %}
                 <div class="swiper-slide">
-                  <div class="wg-cls style-circle hover-img">
+                  <div class="wg-cls style-circle hover-img ">
                     {% assign link = block.settings.link | default: collection.url %}
-                    <a href="{{ link }}" class="image img-style d-block bg-surface">
+                    <a
+                      href="{{ link }}"
+                      class="image img-style d-block bg-surface {% if section.settings.image_size_type == 'px' %} size-image-px{% endif %}"
+                    >
+                      {% assign image_size = 220 %}
+                      {% if section.settings.image_size_type == 'px' %}
+                        {% assign image_size = section.settings.image_size_px %}
+                      {% endif %}
                       {% if block.settings.image %}
                         {{
                           block.settings.image
-                          | image_url: width: section.settings.image_size_px
+                          | image_url: width: image_size
                           | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                           | default: collection.title
                         }}
                       {% else %}
                         {{
                           collection.image
-                          | image_url: width: section.settings.image_size_px
+                          | image_url: width: image_size
                           | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                           | default: collection.title
                         }}
@@ -365,16 +388,17 @@
     }
   }
 
-  /* Custom image sizing for categories section */
-  .section-{{ section.id }} .wg-cls.style-circle .image {
-    width: {{ section.settings.image_size_px }}px;
-    height: {{ section.settings.image_size_px }}px;
-    margin: 0 auto;
+  @media (min-width: 1200px) {
+    /* Custom image sizing for categories section */
+    .section-{{ section.id }} .wg-cls.style-circle .image.size-image-px {
+      width: {{ section.settings.image_size_px }}px;
+      height: {{ section.settings.image_size_px }}px;
+      margin: 0 auto;
+    }
   }
-
-  .section-{{ section.id }} .wg-cls.style-circle .image img {
+  .section-{{ section.id }} .wg-cls.style-circle .image.size-image-px img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
+      object-fit: cover;
+    }
 {%- endstyle -%}

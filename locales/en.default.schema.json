@@ -4684,8 +4684,19 @@
             "full_width": "Full Width"
           }
         },
+        "image_size": {
+          "content": "Image Size"
+        },
+        "image_size_type": {
+          "label": "Image Size Type",
+          "options": {
+            "auto": "Auto",
+            "px": "Custom (px)"
+          }
+        },
         "image_size_px": {
-          "label": "Image Size"
+          "label": "Image Size",
+          "info": "Only available on desktop"
         },
         "title_alignment": {
           "label": "Heading Alignment",
