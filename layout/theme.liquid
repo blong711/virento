@@ -136,7 +136,7 @@
     {% render 'login-drawer' %}
     {% render 'register-drawer' %}
     {% render 'mobile-toolbar' %}
-  {% comment %} {%- if request.design_mode -%}{%- render 'var_adm' -%}{% endif -%} {% endcomment %}
+  {%- if request.design_mode -%}{%- render 'var_adm' -%}{% endif -%}
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
