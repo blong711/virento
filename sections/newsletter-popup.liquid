@@ -132,7 +132,7 @@
               </p>
 
             {% when 'dont_show_again' %}
-              <div class="dont-show-again" {{ block.shopify_attributes }}>
+              <div class="dont-show-again mb-4" {{ block.shopify_attributes }}>
                 <label class="d-inline-flex align-items-center gap-8">
                   <input
                     type="checkbox"
@@ -141,7 +141,7 @@
                       checked
                     {% endif %}
                   >
-                  <span class="text text-sm text-main">{{ block.settings.checkbox_label }}</span>
+                  <span class="text-sm text-main">{{ block.settings.checkbox_label }}</span>
                 </label>
               </div>
           {% endcase %}
