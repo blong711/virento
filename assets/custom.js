@@ -423,6 +423,40 @@ class CompareLink extends HTMLElement {
 customElements.define('hdt-compare-count', CompareCount);
 customElements.define('hdt-compare-a', CompareLink);
 
+// Simple cache for product data to speed up compare modal rendering
+// Uses localStorage with TTL to persist across page views
+var productDataCache = (function () {
+  const CACHE_KEY = 'gravio:compare:cache';
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    return {};
+  }
+})();
+var PRODUCT_CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000; // 6 hours
+
+function getCachedProduct(productId) {
+  try {
+    const entry = productDataCache[productId];
+    if (!entry) return null;
+    if (Date.now() - (entry.timestamp || 0) > PRODUCT_CACHE_MAX_AGE_MS) return null;
+    return entry.data || null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function setCachedProduct(productId, data) {
+  try {
+    const CACHE_KEY = 'gravio:compare:cache';
+    productDataCache[productId] = { data: data, timestamp: Date.now() };
+    localStorage.setItem(CACHE_KEY, JSON.stringify(productDataCache));
+  } catch (e) {
+    // noop if storage unavailable
+  }
+}
+
 // Handle compare close buttons (remove from compare page)
 function handleCompareCloseButtons() {
   const compareCloseButtons = document.querySelectorAll('.compare-close[data-product-id]');
@@ -746,25 +780,48 @@ function openCompareModalFromButton() {
   }
 }
 
-// Update compare modal content
-function updateCompareModalContent() {
-  const compareList = document.getElementById('compare-list');
-  if (!compareList) return;
+// Populate a compare item element with product data
+function populateCompareItem(compareItem, product) {
+  const titleElement = compareItem.querySelector('.text-title a');
+  const imageElement = compareItem.querySelector('.image img');
+  const priceElement = compareItem.querySelector('.price-wrap');
 
-  // Clear existing content
-  compareList.innerHTML = '';
+  if (titleElement) {
+    titleElement.textContent = product.title;
+    titleElement.href = `/products/${product.handle}`;
+  }
 
-  // Add current compare items
-  arr_compare_list.forEach((item) => {
-    const productId = typeof item === 'object' ? item.id : item;
-    const productHandle = typeof item === 'object' ? item.handle : null;
+  if (imageElement) {
+    const productImage = product.images && product.images.length > 0 ? product.images[0].src : product.image ? product.image.src : null;
+    if (productImage) {
+      imageElement.src = productImage;
+      imageElement.alt = product.title;
+      imageElement.setAttribute('data-src', productImage);
+    }
+  }
 
-    // Create compare item element
-    const compareItem = document.createElement('div');
+  if (priceElement && product.variants && product.variants.length > 0) {
+    const variant = product.variants[0];
+    const price = variant.price;
+    const comparePrice = variant.compare_at_price;
+    if (comparePrice && comparePrice > variant.price) {
+      priceElement.innerHTML = `
+        <span class="new-price text-primary">$${price}</span>
+        <span class="old-price text-decoration-line-through text-dark-1">$${comparePrice}</span>
+      `;
+    } else {
+      priceElement.innerHTML = `<span class="new-price">$${price}</span>`;
+    }
+  }
+}
+
+// Ensure a compare item DOM element exists for a given product id and return it
+function ensureCompareItemElement(compareList, productId) {
+  let compareItem = compareList.querySelector(`.tf-compare-item[data-product-id="${productId}"]`);
+  if (!compareItem) {
+    compareItem = document.createElement('div');
     compareItem.className = 'tf-compare-item file-delete';
     compareItem.setAttribute('data-product-id', productId);
-
-    // Create loading placeholder
     compareItem.innerHTML = `
       <span class="icon-close remove" onclick="removeFromCompare(${productId})"></span>
       <a href="#" class="image">
@@ -783,10 +840,45 @@ function updateCompareModalContent() {
         </p>
       </div>
     `;
-    compareList.appendChild(compareItem);
+  }
+  return compareItem;
+}
 
-    // Fetch product data
-    fetchProductData(productId, compareItem, productHandle);
+// Update compare modal content with diffing and cache usage
+function updateCompareModalContent() {
+  const compareList = document.getElementById('compare-list');
+  if (!compareList) return;
+
+  const nextIds = arr_compare_list.map((it) => (typeof it === 'object' ? String(it.id) : String(it)));
+  const nextIdSet = new Set(nextIds);
+
+  // Remove stale DOM nodes
+  compareList.querySelectorAll('.tf-compare-item').forEach((node) => {
+    const pid = node.getAttribute('data-product-id');
+    if (!nextIdSet.has(String(pid))) {
+      node.remove();
+    }
+  });
+
+  // Render or move nodes in correct order and populate from cache when possible
+  arr_compare_list.forEach((item) => {
+    const productId = typeof item === 'object' ? String(item.id) : String(item);
+    const productHandle = typeof item === 'object' ? item.handle : null;
+
+    const element = ensureCompareItemElement(compareList, productId);
+    // Append (moves if already present) to maintain order
+    compareList.appendChild(element);
+
+    // Use cache immediately if available
+    const cached = getCachedProduct(productId);
+    if (cached) {
+      populateCompareItem(element, cached);
+    }
+
+    // Fetch if no cache or stale
+    if (!cached) {
+      fetchProductData(productId, element, productHandle);
+    }
   });
 }
 
@@ -816,45 +908,9 @@ function fetchProductData(productId, compareItem, productHandle = null) {
     .then((data) => {
       if (data.product) {
         const product = data.product;
-
-        const titleElement = compareItem.querySelector('.text-title a');
-        const imageElement = compareItem.querySelector('.image img');
-        const priceElement = compareItem.querySelector('.price-wrap');
-
-        if (titleElement) {
-          titleElement.textContent = product.title;
-          titleElement.href = `/products/${product.handle}`;
-        }
-
-        if (imageElement) {
-          // Use the first image from the images array or the main image
-          const productImage =
-            product.images && product.images.length > 0
-              ? product.images[0].src
-              : product.image
-              ? product.image.src
-              : null;
-
-          if (productImage) {
-            imageElement.src = productImage;
-            imageElement.alt = product.title;
-            imageElement.setAttribute('data-src', productImage);
-          }
-        }
-
-        if (priceElement && product.variants && product.variants.length > 0) {
-          const variant = product.variants[0];
-          const price = variant.price;
-          const comparePrice = variant.compare_at_price;
-
-          if (comparePrice && comparePrice > variant.price) {
-            priceElement.innerHTML = `
-              <span class="new-price text-primary">$${price}</span>
-              <span class="old-price text-decoration-line-through text-dark-1">$${comparePrice}</span>
-            `;
-          } else {
-            priceElement.innerHTML = `<span class="new-price">$${price}</span>`;
-          }
+        setCachedProduct(String(productId), product);
+        if (compareItem && compareItem.isConnected) {
+          populateCompareItem(compareItem, product);
         }
       }
     })
@@ -876,22 +932,23 @@ function removeFromCompare(productId) {
     // Update all buttons for this product
     updateAllCompareButtons(productId.toString(), 'add');
 
-    // Check if compare list is now empty
+    // Remove the DOM node for this product without full re-render
+    const compareList = document.getElementById('compare-list');
+    if (compareList) {
+      const node = compareList.querySelector(`.tf-compare-item[data-product-id="${productId}"]`);
+      if (node) node.remove();
+    }
+
+    // Close modal if no products left
     if (arr_compare_list.length === 0) {
-      // Close modal if no products left
       const modal = document.getElementById('compare');
       if (modal) {
         const bootstrapModal = bootstrap.Modal.getInstance(modal);
         if (bootstrapModal) {
           bootstrapModal.hide();
         }
-
-        // Clean up modal state
         cleanupModal();
       }
-    } else {
-      // Update modal content if products remain
-      updateCompareModalContent();
     }
 
     // Dispatch custom event
