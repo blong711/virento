@@ -5793,6 +5793,14 @@
         },
         "social_icons": {
           "name": "Social Icons"
+        },
+        "dont_show_again": {
+          "name": "Don't show again",
+          "settings": {
+            "checkbox_label": "Checkbox Label",
+            "checkbox_label_default": "Don't show this again",
+            "default_checked": "Checked by default"
+          }
         }
       }
     },
