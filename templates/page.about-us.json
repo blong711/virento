@@ -15,7 +15,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "text": "Welcome to Vineta",
+            "text": "Welcome to GraviTech",
             "size": "medium"
           }
         },
@@ -29,7 +29,7 @@
         "content": {
           "type": "content",
           "settings": {
-            "text": "At Vineta, we bring you thoughtfully curated collections that blend contemporary\ndesigns with timeless elegance. With over 15 years of experience, we cater to\nfashion enthusiasts who appreciate quality, style, and versatility.",
+            "text": "At GraviTech, we bring you thoughtfully curated collections that blend contemporary\ndesigns with timeless elegance. With over 15 years of experience, we cater to\nfashion enthusiasts who appreciate quality, style, and versatility.",
             "size": "medium"
           }
         }
@@ -69,14 +69,14 @@
           "type": "content_item",
           "settings": {
             "title": "Ethics & Responsibility",
-            "content": "At Vineta, we are dedicated to upholding the highest ethical standards in production. We ensure mindful manufacturing through regular audits, training, and a strong focus on responsible sourcing."
+            "content": "At GraviTech, we are dedicated to upholding the highest ethical standards in production. We ensure mindful manufacturing through regular audits, training, and a strong focus on responsible sourcing."
           }
         },
         "content_item_2": {
           "type": "content_item",
           "settings": {
             "title": "Style Meets Durability",
-            "content": "From classic tailoring to casual staples, our Vineta collections embrace the latest trends while prioritizing comfort and long-lasting quality."
+            "content": "From classic tailoring to casual staples, our GraviTech collections embrace the latest trends while prioritizing comfort and long-lasting quality."
           }
         },
         "content_item_3": {
@@ -95,7 +95,7 @@
       "settings": {
         "width": "boxed",
         "color_scheme": "background-1",
-        "heading": "Why Choose Vineta",
+        "heading": "Why Choose GraviTech",
         "subheading": "Our products are crafted with innovation and an eye for the latest trends. We push the boundaries of traditional fashion, delivering bold, fresh designs that inspire confidence and individuality.",
         "heading_size": "small",
         "subheading_size": "medium",
@@ -155,7 +155,7 @@
             "icon_width": 72,
             "icon_width_mobile": 72,
             "title": "Precision in Every Stitch",
-            "description": "At Vineta, we use only premium materials, ensuring our collections offer superior comfort and lasting durability. Every piece is crafted with care and attention to detail."
+            "description": "At GraviTech, we use only premium materials, ensuring our collections offer superior comfort and lasting durability. Every piece is crafted with care and attention to detail."
           }
         },
         "icon_box_wwRFgw": {
@@ -166,7 +166,7 @@
             "icon_width": 72,
             "icon_width_mobile": 72,
             "title": "Effortless Elegance",
-            "description": "Our designs embrace simplicity at its finest. Vineta’s understated yet refined style captures the essence of modern fashion, making a statement."
+            "description": "Our designs embrace simplicity at its finest. GraviTech’s understated yet refined style captures the essence of modern fashion, making a statement."
           }
         },
         "icon_box_JTwRXY": {
@@ -177,7 +177,7 @@
             "icon_width": 72,
             "icon_width_mobile": 72,
             "title": "Fashion for Every Body",
-            "description": "We celebrate individuality with a diverse range of sizes, offering clothing that fits and flatters every body type. At Vineta, fashion is for everyone."
+            "description": "We celebrate individuality with a diverse range of sizes, offering clothing that fits and flatters every body type. At GraviTech, fashion is for everyone."
           }
         }
       },

@@ -4506,7 +4506,7 @@
             },
             "title": {
               "label": "Title",
-              "default": "Vineta Store"
+              "default": "GraviTech Store"
             },
             "address": {
               "label": "Address",
@@ -4514,7 +4514,7 @@
             },
             "email": {
               "label": "Email",
-              "default": "support@vineta.com"
+              "default": "support@gravitech.com"
             },
             "phone": {
               "label": "Phone",
