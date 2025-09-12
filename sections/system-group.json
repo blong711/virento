@@ -106,6 +106,13 @@
             "button_text": "Send"
           }
         },
+        "dont_show_again_jF7qXX": {
+          "type": "dont_show_again",
+          "settings": {
+            "checkbox_label": "Don't show this again",
+            "default_checked": false
+          }
+        },
         "social_icons_NfJGBk": {
           "type": "social_icons",
           "settings": {}
@@ -123,6 +130,7 @@
         "title_cm4BhJ",
         "description_CaEQjj",
         "newsletter_form_iHPxET",
+        "dont_show_again_jF7qXX",
         "social_icons_NfJGBk",
         "info_text_NH34gX"
       ],
