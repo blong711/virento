@@ -15,19 +15,19 @@
   .flat-title-2.section-{{ section.id }} {
     display: flex !important;
     align-items: flex-start;
-    gap: 2rem;
+    gap: 3rem;
   }
 
   .flat-title-2.section-{{ section.id }} .box-title {
     flex: 0 0 auto;
-    width: 55%;
-    max-width: 55%;
+    width: calc(45% - 1rem);
+    max-width: calc(45% - 1rem);
   }
 
   .flat-title-2.section-{{ section.id }} .box-text {
     flex: 0 0 auto;
-    width: 45%;
-    max-width: 45%;
+    width: calc(55% - 1rem);
+    max-width: calc(55% - 1rem);
   }
 
   @media screen and (max-width: 1199px) {
