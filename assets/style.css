@@ -7962,8 +7962,8 @@ a:hover {
 }
 
 .box-nav-menu .mega-home {
-  max-width: 1381px;
-  max-height: calc(100vh - 100px);
+  max-width: 1440px;
+  max-height: calc(100vh - 70px);
 }
 
 .box-nav-menu .mega-home::-webkit-scrollbar {

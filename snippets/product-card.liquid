@@ -20,7 +20,10 @@
 {% assign card_border_thickness = card_border_thickness | default: settings.card_border_thickness | default: 0 %}
 {% assign card_border_opacity = card_border_opacity | default: settings.card_border_opacity | default: 0 %}
 {% assign card_corner_radius = card_corner_radius | default: settings.card_corner_radius | default: 0 %}
-{% assign card_media_corner_radius = card_media_corner_radius | default: settings.card_media_corner_radius | default: 0 %}
+{% assign card_media_corner_radius = card_media_corner_radius
+  | default: settings.card_media_corner_radius
+  | default: 0
+%}
 {% assign card_text_alignment = card_text_alignment | default: settings.card_text_alignment | default: 'center' %}
 {% assign should_show_progress = should_show_progress | default: false %}
 {% assign cart_button_style = cart_button_style | default: settings.cart_button_style | default: 'icon' %}
@@ -59,7 +62,7 @@
             width="460"
             height="460"
             data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-            src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+            src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
             alt="{{ product.featured_image.alt | escape }}"
             loading="{{ loading_priority }}"
           >
@@ -68,7 +71,7 @@
             width="460"
             height="460"
             data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-            src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+            src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
             alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
             loading="{{ loading_priority }}"
           >
@@ -83,7 +86,7 @@
         <div class="on-sale-wrap">
           <span class="on-sale-item">{{ save_percentage }}% Off</span>
           {% if product.tags contains 'trending' %}
-          <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
+            <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
           {% endif %}
         </div>
       {% endif %}
@@ -127,7 +130,7 @@
       </p>
       {% assign price_note = product.metafields.custom.price_note %}
       {% if price_note != blank %}
-      <p class="price-recent-per text-xs">{{ price_note | metafield_text }}</p>
+        <p class="price-recent-per text-xs">{{ price_note | metafield_text }}</p>
       {% endif %}
       {% if product.available and product.variants.first.inventory_management == 'shopify' and should_show_progress %}
         {% assign inventory_quantity = product.variants.first.inventory_quantity %}
@@ -144,7 +147,10 @@
             aria-valuenow="{{ sold_percentage }}"
             aria-label="Inventory progress: {{ sold_quantity }} items sold out of {{ total_quantity }}"
           >
-            <div class="progress-bar {% if sold_percentage < 60 %}bg-green-3{% else %}bg-primary{% endif %}" style="width: {{ sold_percentage }}%"></div>
+            <div
+              class="progress-bar {% if sold_percentage < 60 %}bg-green-3{% else %}bg-primary{% endif %}"
+              style="width: {{ sold_percentage }}%"
+            ></div>
           </div>
           <div class="box-quantity d-flex justify-content-between">
             <p class="text-sold text-sm">
@@ -237,7 +243,7 @@
             {{- 'snippets.product-card.off' | t -}}
           </span>
           {% if product.tags contains 'trending' %}
-          <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
+            <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
           {% endif %}
         </div>
       {% endif %}
@@ -326,7 +332,7 @@
             width="460"
             height="460"
             data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-            src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+            src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
             alt="{{ product.featured_image.alt | escape }}"
             loading="{{ loading_priority }}"
           >
@@ -335,7 +341,7 @@
             width="460"
             height="460"
             data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-            src="{{ product.images[1] | default: product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+            src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
             alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
             loading="{{ loading_priority }}"
           >
@@ -353,7 +359,7 @@
             {{- 'snippets.product-card.off' | t -}}
           </span>
           {% if product.tags contains 'trending' %}
-          <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
+            <span class="on-sale-item trending">{{ 'snippets.product-card.trending' | t }}</span>
           {% endif %}
         </div>
       {% endif %}
@@ -478,7 +484,7 @@
                     width="460"
                     height="460"
                     data-src="{{ variant_for_color.image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ variant_for_color.image | image_url: width: 230, height: 230, crop: 'center' }}"
+                    src="{{ variant_for_color.image | image_url: width: 460, height: 460, crop: 'center' }}"
                     alt="{{ product.title }} - {{ color_value }}"
                     loading="{{ loading_priority }}"
                   >
@@ -488,7 +494,7 @@
                     width="460"
                     height="460"
                     data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-                    src="{{ product.featured_image | image_url: width: 230, height: 230, crop: 'center' }}"
+                    src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
                     alt="{{ product.title }} - {{ color_value }}"
                     loading="{{ loading_priority }}"
                   >
