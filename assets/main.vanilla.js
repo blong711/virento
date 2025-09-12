@@ -1411,6 +1411,7 @@ const newsletterPopup = () => {
   const pageKey = 'showPopup_' + window.location.pathname;
   const showPopup = sessionStorage.getItem(pageKey);
   const globalPopupKey = 'newsletterPopupHidden';
+  const dontShowAgainCheckbox = popup.querySelector('.dont-show-again-checkbox');
 
   // Check if user has globally hidden the popup
   const globalHidden = localStorage.getItem(globalPopupKey);
@@ -1456,6 +1457,9 @@ const newsletterPopup = () => {
     // Store the close date for "days until next show" functionality
     localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
     sessionStorage.setItem(pageKey, true);
+    if (dontShowAgainCheckbox && dontShowAgainCheckbox.checked) {
+      localStorage.setItem(globalPopupKey, 'true');
+    }
   });
 
   // Handle form submission
@@ -1528,6 +1532,9 @@ const newsletterPopup = () => {
 
       // Store the close date for "days until next show" functionality
       localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
+      if (dontShowAgainCheckbox && dontShowAgainCheckbox.checked) {
+        localStorage.setItem(globalPopupKey, 'true');
+      }
     });
   }
 
@@ -1535,6 +1542,9 @@ const newsletterPopup = () => {
   popup.addEventListener('hidden.bs.modal', () => {
     // Store the close date for "days until next show" functionality
     localStorage.setItem('newsletterPopupLastClose', new Date().toISOString());
+    if (dontShowAgainCheckbox && dontShowAgainCheckbox.checked) {
+      localStorage.setItem(globalPopupKey, 'true');
+    }
   });
 };
 
