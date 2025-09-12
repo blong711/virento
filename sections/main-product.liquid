@@ -814,18 +814,6 @@
                                 {{ form | payment_button }}
                               {% endform %}
                             {% endif %}
-
-                            {% if block.settings.show_more_payment %}
-                              <a
-                                href="{{ routes.root_url }}checkout"
-                                class="more-choose-payment link buy-it-now"
-                                data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                                data-quantity="1"
-                                aria-label="{{ block.settings.more_payment_text }}"
-                              >
-                                {{ block.settings.more_payment_text }}
-                              </a>
-                            {% endif %}
                           </div>
                         {% endif %}
                     {% endcase %}
@@ -2319,13 +2307,6 @@
         {
           "type": "header",
           "content": "t:sections.main-product.blocks.quantity_and_buy.settings.more_payment_options.header"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_more_payment",
-          "label": "t:sections.main-product.blocks.quantity_and_buy.settings.show_more_payment.label",
-          "default": true,
-          "info": "t:sections.main-product.blocks.quantity_and_buy.settings.show_more_payment.info"
         },
         {
           "type": "text",

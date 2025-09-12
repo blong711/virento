@@ -28664,3 +28664,10 @@ shopify-accelerated-checkout {
     gap: 10px;
   }
 }
+
+.shopify-payment-button__more-options {
+  margin-top: 12px;
+  display: block;
+  text-align: center;
+  text-decoration: underline;
+}
