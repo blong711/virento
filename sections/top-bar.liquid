@@ -249,9 +249,11 @@
                         {%- for language in localization.available_languages -%}
                           <option
                             value="{{ language.iso_code }}"
-                            {% if language.iso_code == current_language %}selected{% endif %}
+                            {% if language.iso_code == current_language %}
+                              selected
+                            {% endif %}
                           >
-                            {{ language.endonym_name }}
+                            {{ language.endonym_name | capitalize }}
                           </option>
                         {%- endfor -%}
                       </select>
@@ -273,10 +275,13 @@
                         {%- for country in localization.available_countries -%}
                           <option
                             value="{{ country.iso_code }}"
-                            {% if country.iso_code == current_country %}selected{% endif %}
+                            {% if country.iso_code == current_country %}
+                              selected
+                            {% endif %}
                             data-thumbnail="{{ 'https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/' | append: country.iso_code | downcase | append: '.svg' }}"
                           >
-                            {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                            {{ country.name }} ({{ country.currency.iso_code }}
+                            {{ country.currency.symbol }})
                           </option>
                         {%- endfor -%}
                       </select>

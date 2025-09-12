@@ -6,6 +6,7 @@
   padding: 0 !important;
   min-width: 0 !important;
   min-height: 0 !important;
+  cursor: pointer;
 }
 
 .custom-select-selected {
@@ -157,6 +158,7 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
 .custom-select-option .option-image,
 .custom-select-selected-content .selected-image {
   display: inline-block;
@@ -168,8 +170,10 @@
   margin-bottom: 3px;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
 }
+
 /* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
+
   .custom-select-selected-content,
   .custom-select-selected {
     color: #000000;
