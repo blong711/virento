@@ -25,7 +25,7 @@
                 {% assign selected_page = pages[block.settings.content_page] %}
 
                 {% if selected_page.metafields.home.menu.value %}
-                  <div class="sub-menu mega-menu mega-home start-0">
+                  <div class="sub-menu mega-menu mega-home">
                     <div class="row-demo">
                       {%- for item in selected_page.metafields.home.menu.value limit: 12 -%}
                         {%- assign image = item.image -%}
@@ -286,7 +286,7 @@
                   {% if block.settings.blog != blank %}
                     <div class="wrapper-sub-blog">
                       {% if block.settings.recent_posts_title != blank %}
-                      <div class="menu-heading">{{ block.settings.recent_posts_title }}</div>
+                        <div class="menu-heading">{{ block.settings.recent_posts_title }}</div>
                       {% endif %}
                       <ul class="list-recent-blog">
                         {% for post in blogs[block.settings.blog].articles limit: block.settings.posts_to_show %}
