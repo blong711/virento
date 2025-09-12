@@ -18,9 +18,11 @@
       {%- for language in localization.available_languages -%}
         <option
           value="{{ language.iso_code }}"
-          {% if language.iso_code == current_language %}selected{% endif %}
+          {% if language.iso_code == current_language %}
+            selected
+          {% endif %}
         >
-          {{ language.endonym_name }}
+          {{ language.endonym_name | capitalize }}
         </option>
       {%- endfor -%}
     </select>
