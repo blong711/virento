@@ -132,8 +132,8 @@
           "type": "size_guide",
           "settings": {
             "size_guide_text": "Size Guide",
-            "size_guide_source": "image",
-            "size_guide_page": ""
+            "size_guide_source": "page",
+            "size_guide_page": "size-guide"
           }
         }
       },
