@@ -627,7 +627,7 @@
       "gift_wrap": {
         "title": "Add gift wrap",
         "button_label": "Add gift wrap option",
-        "description_1": "The product will be wrapped carefully. Free is only",
+        "description_1": "The product will be wrapped carefully. Fee is only",
         "description_2": "Do you want a gift wrap?",
         "add": "Add gift wrap",
         "cancel": "Cancel"

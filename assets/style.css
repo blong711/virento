@@ -20448,6 +20448,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
 
 .tf-mini-cart-tool-openable.add-gift .tf-mini-cart-tool-text1 {
   margin-bottom: 127px;
+  line-height: 20px;
 }
 
 .tf-mini-cart-tool-openable.estimate-shipping select {
