@@ -15774,6 +15774,7 @@ button.animate-btn::after,
 .tf-product-info-wrap .product-info-countdown {
   padding: 20px;
   display: inline-block;
+  width: max-content;
   border: 1px solid var(--primary);
   border-radius: 8px;
 }
