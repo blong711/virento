@@ -37,7 +37,12 @@
                            tabindex="2" 
                            value="{{ form.email }}"
                            aria-required="true" 
-                           required>
+                           required
+                           pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                           title="Please enter a valid email address">
+                    <div class="email-error-message text-danger mt-1" style="display: none; font-size: 0.875rem;">
+                        Please enter a valid email address format (e.g., user@example.com)
+                    </div>
                 </fieldset>
                 
                 <fieldset class="">
@@ -76,3 +81,51 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const emailInput = document.querySelector('input[name="contact[email]"]');
+    const emailErrorDiv = document.querySelector('.email-error-message');
+    const form = document.getElementById('ask_question_form');
+    
+    if (emailInput && emailErrorDiv) {
+        // Email validation regex pattern
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            
+            if (email === '') {
+                emailErrorDiv.style.display = 'none';
+                emailInput.classList.remove('is-invalid');
+                return true;
+            }
+            
+            if (!emailPattern.test(email)) {
+                emailErrorDiv.style.display = 'block';
+                emailInput.classList.add('is-invalid');
+                return false;
+            } else {
+                emailErrorDiv.style.display = 'none';
+                emailInput.classList.remove('is-invalid');
+                return true;
+            }
+        }
+        
+        // Validate on input (real-time feedback)
+        emailInput.addEventListener('input', validateEmail);
+        
+        // Validate on blur (when user leaves the field)
+        emailInput.addEventListener('blur', validateEmail);
+        
+        // Prevent form submission if email is invalid
+        form.addEventListener('submit', function(e) {
+            if (!validateEmail()) {
+                e.preventDefault();
+                emailInput.focus();
+                return false;
+            }
+        });
+    }
+});
+</script>
