@@ -897,6 +897,11 @@ if (!customElements.get('product-cart-button')) {
       }
 
       addSpinner(button) {
+        // Store original content and dimensions
+        button.setAttribute('data-original-content', button.innerHTML);
+        button.setAttribute('data-original-width', button.offsetWidth + 'px');
+        button.setAttribute('data-original-height', button.offsetHeight + 'px');
+        
         // Create spinner element
         const spinner = document.createElement('div');
         spinner.className = 'cart-spinner';
@@ -906,22 +911,34 @@ if (!customElements.get('product-cart-button')) {
           </div>
         `;
         
-        // Store original content but don't clear it
-        button.setAttribute('data-original-content', button.innerHTML);
-        
-        // Add spinner without clearing content
+        // Clear button content and add only spinner
+        button.innerHTML = '';
         button.appendChild(spinner);
+        
+        // Maintain original button dimensions
+        button.style.width = button.getAttribute('data-original-width');
+        button.style.height = button.getAttribute('data-original-height');
+        button.style.minWidth = button.getAttribute('data-original-width');
+        button.style.minHeight = button.getAttribute('data-original-height');
         
         // Add loading class
         button.classList.add('loading');
       }
 
       removeSpinner(button, originalHTML) {
-        // Remove spinner only
-        const spinner = button.querySelector('.cart-spinner');
-        if (spinner) {
-          spinner.remove();
+        // Restore original content
+        const originalContent = button.getAttribute('data-original-content');
+        if (originalContent) {
+          button.innerHTML = originalContent;
+        } else if (originalHTML) {
+          button.innerHTML = originalHTML;
         }
+        
+        // Restore original dimensions
+        button.style.width = '';
+        button.style.height = '';
+        button.style.minWidth = '';
+        button.style.minHeight = '';
         
         // Remove loading class
         button.classList.remove('loading');
