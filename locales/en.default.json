@@ -1227,11 +1227,13 @@
       "newsletter_text": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
     },
     "reset_password": {
-      "title": "Reset account password",
-      "subtext": "Enter a new password",
+      "title": "Reset Your Password",
+      "subtext": "Forgot your password? No worries! Enter your registered email to receive a link and securely reset it in just a few steps.",
       "password": "Password",
       "password_confirm": "Confirm password",
-      "submit": "Reset password"
+      "submit": "Reset password",
+      "email": "Enter Your Email*",
+      "cancel": "Cancel"
     }
   },
   "gift_cards": {
