@@ -811,6 +811,9 @@ function buildFilterURL() {
     searchParams.delete('filter.v.compare_at_price.gt');
     searchParams.delete('tag');
     
+    // Clear pagination parameters when applying new filters
+    searchParams.delete('page');
+    
     // Re-add the search query if it exists
     if (searchQuery) {
         searchParams.set('q', searchQuery);
