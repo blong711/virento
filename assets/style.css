@@ -16993,14 +16993,10 @@ button.animate-btn::after,
   display: -webkit-box;
   overflow: hidden;
   text-transform: capitalize;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .card-product .list-color-product {
   margin-top: 2px;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .card-product.style-list {
