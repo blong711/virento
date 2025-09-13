@@ -13,18 +13,18 @@
       {% if product.featured_image %}
         <img
           class="img-product lazyload"
-          width="460"
-          height="460"
-          data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-          src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+          width="342"
+          height="486"
+          data-src="{{ product.featured_image | image_url: width: 342, height: 486, crop: 'center' }}"
+          src="{{ product.featured_image | image_url: width: 342, height: 486, crop: 'center' }}"
           alt="{{ product.featured_image.alt | escape }}"
         >
         <img
           class="img-hover lazyload"
-          width="460"
-          height="460"
-          data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
-          src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+          width="342"
+          height="486"
+          data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 342, height: 486, crop: 'center' }}"
+          src="{{ product.images[1] | default: product.featured_image | image_url: width: 342, height: 486, crop: 'center' }}"
           alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
         >
       {% endif %}
