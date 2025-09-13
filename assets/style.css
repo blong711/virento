@@ -14156,6 +14156,12 @@ button.animate-btn::after,
   border-color: var(--youtube-cl);
 }
 
+.tf-social-icon .social-tiktok:hover {
+  background-color: transparent;
+  color: var(--tiktok-cl);
+  border-color: var(--tiktok-cl);
+}
+
 .tf-social-icon .social-linkedin:hover {
   background-color: transparent;
   color: var(--linked_in-cl);
