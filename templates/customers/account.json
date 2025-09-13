@@ -34,7 +34,7 @@
         "promo_banner_wkPXNa": {
           "type": "promo_banner",
           "settings": {
-            "product": "crop-t-shirt",
+            "button_url": "shopify://collections",
             "promo_title": "SUMMER SALE",
             "promo_discount": "50% OFF",
             "promo_code": "12D34E",
