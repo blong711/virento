@@ -28680,3 +28680,6 @@ shopify-accelerated-checkout {
     height: 46px;
   }
 }
+.card-product .box-icon .icon-check {
+  font-size: 12px
+}
