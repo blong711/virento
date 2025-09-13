@@ -2792,7 +2792,7 @@ a:hover {
 }
 
 .box-nav-menu .mega-home {
-  max-width: 1440px;
+  max-width: 940px;
   max-height: calc(100vh - 70px);
 }
 
@@ -3137,7 +3137,7 @@ a:hover {
 
 .mega-menu .row-demo {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 24px;
   row-gap: 32px;
 }
@@ -7966,7 +7966,7 @@ a:hover {
 }
 
 .box-nav-menu .mega-home {
-  max-width: 1440px;
+  max-width: 940px;
   max-height: calc(100vh - 70px);
 }
 
@@ -8302,7 +8302,7 @@ a:hover {
 
 .mega-menu .row-demo {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 24px;
   row-gap: 32px;
 }
