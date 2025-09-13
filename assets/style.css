@@ -13162,7 +13162,10 @@ button.animate-btn::after,
   line-height: 20px;
   color: #667085;
   margin: 0;
-  overflow-x: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .wrap-code.style-1 .coppyText::-webkit-scrollbar {
