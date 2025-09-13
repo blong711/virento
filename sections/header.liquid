@@ -32,7 +32,13 @@
       <div class="row wrapper-header align-items-center">
         <!-- Mobile Menu Button -->
         <div class="col-md-4 col-3 d-xl-none">
-          <a href="#mobileMenu" class="mobile-menu" data-bs-toggle="offcanvas" aria-controls="mobileMenu" aria-label="Open mobile menu">
+          <a
+            href="#mobileMenu"
+            class="mobile-menu"
+            data-bs-toggle="offcanvas"
+            aria-controls="mobileMenu"
+            aria-label="Open mobile menu"
+          >
             <i class="icon icon-categories1" aria-hidden="true"></i>
           </a>
         </div>
@@ -89,10 +95,14 @@
                             <a class="search-result-item" href="{{ suggestion_product.url }}">
                               <div class="img-box">
                                 {% if suggestion_product.featured_image %}
-                                  <img class="lazyload"
+                                  <img
+                                    class="lazyload"
                                     data-src="{{ suggestion_product.featured_image | image_url: width: 60 }}"
                                     src="{{ suggestion_product.featured_image | image_url: width: 60 }}"
-                                    alt="{{ suggestion_product.title }}" width="60" height="60">
+                                    alt="{{ suggestion_product.title }}"
+                                    width="60"
+                                    height="60"
+                                  >
                                 {% endif %}
                               </div>
                               <div class="box-content">
@@ -100,7 +110,9 @@
                                 <div class="price">
                                   {% if suggestion_product.compare_at_price > suggestion_product.price %}
                                     <span class="new-price">{{ suggestion_product.price | money }}</span>
-                                    <span class="old-price old-line">{{ suggestion_product.compare_at_price | money }}</span>
+                                    <span class="old-price old-line">
+                                      {{- suggestion_product.compare_at_price | money -}}
+                                    </span>
                                   {% else %}
                                     <span class="new-price">{{ suggestion_product.price | money }}</span>
                                   {% endif %}
@@ -149,7 +161,12 @@
             {% if section.settings.show_cart %}
               <li class="nav-cart">
                 {% if layout_type == 'layout_2' or layout_type == 'layout_3' %}
-                  <a href="#shoppingCart" class="nav-icon-item value-box" data-bs-toggle="offcanvas" aria-label="Shopping cart">
+                  <a
+                    href="#shoppingCart"
+                    class="nav-icon-item value-box"
+                    data-bs-toggle="offcanvas"
+                    aria-label="Shopping cart"
+                  >
                     <i class="icon icon-cart" aria-hidden="true"></i>
                     <span class="text d-none d-xl-block">{{ cart.total_price | money }}</span>
                   </a>
@@ -233,7 +250,11 @@
           {% if section.settings.phone_number %}
             <div class="box-phone">
               <div class="box-icon">
-                <i class="icon icon-head-phone" aria-hidden="true" style="color: rgb(var(--color-foreground2)) !important;"></i>
+                <i
+                  class="icon icon-head-phone"
+                  aria-hidden="true"
+                  style="color: rgb(var(--color-foreground2)) !important;"
+                ></i>
               </div>
               <a href="tel:{{ section.settings.phone_number }}" class="text-xl fw-medium">
                 {{ section.settings.phone_display | default: section.settings.phone_number }}
@@ -320,7 +341,7 @@
     color: rgb(var(--color-text-hover)) !important;
   }
 
-  .header-default .box-nav-menu .item-link:hover {
+  .header-default .box-nav-menu .menu-item:hover .item-link {
     color: rgb(var(--color-text-hover)) !important;
   }
 
