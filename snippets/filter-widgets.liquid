@@ -42,7 +42,7 @@
         <div id="availability" class="collapse show">
             <ul class="collapse-body filter-group-check current-scrollbar">
                 <li class="list-item">
-                    <input type="radio" name="availability" class="tf-check"
+                    <input type="checkbox" name="availability" class="tf-check"
                         id="inStock" value="in_stock">
                     <label for="inStock" class="label">
                         <span>{{ 'sections.main_collection.in_stock' | t }}</span>&nbsp;
@@ -50,7 +50,7 @@
                     </label>
                 </li>
                 <li class="list-item">
-                    <input type="radio" name="availability" class="tf-check"
+                    <input type="checkbox" name="availability" class="tf-check"
                         id="outStock" value="out_of_stock">
                     <label for="outStock" class="label">
                         <span>{{ 'sections.main_collection.out_of_stock' | t }}</span>&nbsp;
@@ -193,7 +193,7 @@
             <ul class="collapse-body filter-group-check current-scrollbar">
                 {% for vendor in vendors limit: 10 %}
                     <li class="list-item">
-                        <input type="radio" name="brand" class="tf-check" id="{{ vendor | handleize }}" value="{{ vendor }}">
+                        <input type="checkbox" name="brand" class="tf-check" id="{{ vendor | handleize }}" value="{{ vendor }}">
                         <label for="{{ vendor | handleize }}" class="label">
                             <span>{{ vendor }}</span>&nbsp;
                             <span class="count">({{ full_collection.products | where: 'vendor', vendor | size }})</span>

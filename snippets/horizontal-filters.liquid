@@ -66,14 +66,14 @@
                 <div class="dropdown-menu" aria-labelledby="availability">
                     <ul class="filter-group-check">
                         <li class="list-item">
-                            <input type="radio" name="availability" class="tf-check" id="inStock" value="in_stock">
+                            <input type="checkbox" name="availability" class="tf-check" id="inStock" value="in_stock">
                             <label for="inStock" class="label">
                                 <span>{{ 'sections.main_collection.in_stock' | t }}</span>&nbsp;
                                 <span class="count">({{ full_collection.products | where: "available", true | size }})</span>
                             </label>
                         </li>
                         <li class="list-item">
-                            <input type="radio" name="availability" class="tf-check" id="outStock" value="out_of_stock">
+                            <input type="checkbox" name="availability" class="tf-check" id="outStock" value="out_of_stock">
                             <label for="outStock" class="label">
                                 <span>{{ 'sections.main_collection.out_of_stock' | t }}</span>&nbsp;
                                 <span class="count">({{ full_collection.products | where: "available", false | size }})</span>
@@ -184,7 +184,7 @@
                         {% assign vendors = full_collection.products | map: "vendor" | uniq %}
                         {% for vendor in vendors limit: 10 %}
                             <li class="list-item">
-                                <input type="radio" name="brand" class="tf-check" id="{{ vendor | handleize }}" value="{{ vendor }}">
+                                <input type="checkbox" name="brand" class="tf-check" id="{{ vendor | handleize }}" value="{{ vendor }}">
                                 <label for="{{ vendor | handleize }}" class="label">
                                     <span>{{ vendor }}</span>&nbsp;
                                     <span class="count">({{ full_collection.products | where: "vendor", vendor | size }})</span>

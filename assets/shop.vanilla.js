@@ -381,12 +381,18 @@ function initProductFilters() {
     // Size filter
     document.querySelectorAll('.size-check').forEach(btn => {
         btn.addEventListener('click', function() {
-            // Remove active class from all size buttons
-            document.querySelectorAll('.size-check').forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            filters.size = this.querySelector('.size').textContent.trim();
+            // Toggle active state
+            if (this.classList.contains('active')) {
+                // If already active, deactivate it
+                this.classList.remove('active');
+                filters.size = null;
+            } else {
+                // Remove active class from all size buttons
+                document.querySelectorAll('.size-check').forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                filters.size = this.querySelector('.size').textContent.trim();
+            }
 
             applyServerSideFilters();
             updateMetaFilter();
@@ -396,12 +402,18 @@ function initProductFilters() {
     // Color filter
     document.querySelectorAll('.color-check').forEach(btn => {
         btn.addEventListener('click', function() {
-            // Remove active class from all color buttons
-            document.querySelectorAll('.color-check').forEach(b => b.classList.remove('active'));
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            filters.color = this.querySelector('.color-text').textContent.trim();
+            // Toggle active state
+            if (this.classList.contains('active')) {
+                // If already active, deactivate it
+                this.classList.remove('active');
+                filters.color = null;
+            } else {
+                // Remove active class from all color buttons
+                document.querySelectorAll('.color-check').forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                filters.color = this.querySelector('.color-text').textContent.trim();
+            }
 
             applyServerSideFilters();
             updateMetaFilter();
@@ -411,7 +423,13 @@ function initProductFilters() {
     // Availability filter
     document.querySelectorAll('input[name="availability"]').forEach(input => {
         input.addEventListener('change', function() {
-            filters.availability = this.id === 'inStock' ? (window.translations?.shop?.in_stock || 'In stock') : (window.translations?.shop?.out_of_stock || 'Out of stock');
+            // Get all checked availability filters
+            const checkedAvailability = Array.from(document.querySelectorAll('input[name="availability"]:checked'))
+                .map(input => input.id === 'inStock' ? (window.translations?.shop?.in_stock || 'In stock') : (window.translations?.shop?.out_of_stock || 'Out of stock'));
+            
+            // Set filters.availability to null if no filters are checked, or to the first checked value for single selection
+            filters.availability = checkedAvailability.length > 0 ? checkedAvailability[0] : null;
+            
             applyServerSideFilters();
             updateMetaFilter();
         });
@@ -420,7 +438,13 @@ function initProductFilters() {
     // Brand filter
     document.querySelectorAll('input[name="brand"]').forEach(input => {
         input.addEventListener('change', function() {
-            filters.brands = this.value; // Use value instead of id to get the actual vendor name
+            // Get all checked brand filters
+            const checkedBrands = Array.from(document.querySelectorAll('input[name="brand"]:checked'))
+                .map(input => input.value);
+            
+            // Set filters.brands to null if no filters are checked, or to the first checked value for single selection
+            filters.brands = checkedBrands.length > 0 ? checkedBrands[0] : null;
+            
             applyServerSideFilters();
             updateMetaFilter();
         });

@@ -71,7 +71,7 @@
             <ul class="collapse-body filter-group-check current-scrollbar">
               <li class="list-item">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="availability"
                   class="tf-check"
                   id="inStock"
@@ -86,7 +86,7 @@
               </li>
               <li class="list-item">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="availability"
                   class="tf-check"
                   id="outStock"
@@ -268,7 +268,7 @@
                 {% for vendor in vendors limit: 10 %}
                   <li class="list-item">
                     <input
-                      type="radio"
+                      type="checkbox"
                       name="brand"
                       class="tf-check"
                       id="{{ vendor | handleize }}"
