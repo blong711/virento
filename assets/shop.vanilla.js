@@ -420,7 +420,7 @@ function initProductFilters() {
     // Brand filter
     document.querySelectorAll('input[name="brand"]').forEach(input => {
         input.addEventListener('change', function() {
-            filters.brands = this.id;
+            filters.brands = this.value; // Use value instead of id to get the actual vendor name
             applyServerSideFilters();
             updateMetaFilter();
         });
@@ -1034,7 +1034,7 @@ function initializeFiltersFromURL() {
         filters.brands = brandFilter;
         // Update UI to show active state
         document.querySelectorAll('input[name="brand"]').forEach(input => {
-            if (input.id === brandFilter) {
+            if (input.value === brandFilter) { // Compare with value instead of id
                 input.checked = true;
             }
         });
