@@ -16003,7 +16003,7 @@ button.animate-btn::after,
 }
 
 .wg-quantity.small .quantity-product {
-  font-size: 14px;
+  font-size: 14px !important;
   font-weight: 700;
   line-height: 16.8px;
   letter-spacing: -0.03em;
