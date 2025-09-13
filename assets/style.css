@@ -997,6 +997,10 @@ video {
   background-color: #c0c0c0 !important;
 }
 
+.bg-gray {
+  background-color: #808080 !important;
+}
+
 .bg-rose-gold {
   background-color: #b76e79 !important;
 }
