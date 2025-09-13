@@ -236,7 +236,7 @@
             <div class="wrapper-shop tf-grid-layout {{ default_grid_layout }}" id="gridLayout">
                 {% if collection.products.size > 0 %}
                     {% for product in collection.products %}
-                        {% render 'product-card', product: product, show_progress_sale: false, card_style: section.settings.card_style %}
+                        {% render 'product-card', product: product, show_progress_sale: false, card_style: section.settings.card_style, show_color_swatches: true %}
                     {% endfor %}
                     
                     {% comment %} Pagination or Load More {% endcomment %}
