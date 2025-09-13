@@ -34,7 +34,7 @@
   }
   .collection-list-{{ section.id }} .tf-grid-layout {
     grid-template-columns: repeat(var(--items-per-row-mobile), 1fr);
-    gap: 20px;
+    {% comment %} gap: 20px; {% endcomment %}
   }
   @media (min-width: 768px) {
     .collection-list-{{ section.id }} .tf-grid-layout {
