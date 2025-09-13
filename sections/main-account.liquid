@@ -130,9 +130,9 @@
       "name": "t:sections.main-account.blocks.promo_banner.name",
       "settings": [
         {
-          "type": "product",
-          "id": "product",
-          "label": "t:sections.main-account.blocks.promo_banner.settings.product"
+          "type": "url",
+          "id": "button_url",
+          "label": "t:sections.main-account.blocks.promo_banner.settings.button_url"
         },
         {
           "type": "text",
@@ -278,7 +278,7 @@
                 <ul class="box-check-list flex-sm-nowrap">
                   {% if section.settings.show_orders %}
                     <li>
-                      <a href="{{ routes.account_orders_url }}" class="box-check text-center">
+                      <a href="/pages/orders" class="box-check text-center">
                         <div class="icon">
                           <i class="icon-order"></i>
                           <span class="count-number text-sm text-white fw-medium">{{ customer.orders.size }}</span>
@@ -366,24 +366,13 @@
                             </p>
                           </div>
                           <div class="banner-btn">
-                            {% if block.settings.product %}
-                              {% if block.settings.button_text != blank %}
-                              <a
-                                href="{{ block.settings.product.url }}"
-                                class="tf-btn btn-white animate-btn animate-dark"
-                              >
-                                {{ block.settings.button_text }}
-                              </a>
-                              {% endif %}
-                            {% else %}
-                              {% if block.settings.button_text != blank %}
-                              <a
-                                href="{{ routes.collections_url }}"
-                                class="tf-btn btn-white animate-btn animate-dark"
-                              >
-                                {{ block.settings.button_text }}
-                              </a>
-                              {% endif %}
+                            {% if block.settings.button_url != blank and block.settings.button_text != blank %}
+                            <a
+                              href="{{ block.settings.button_url }}"
+                              class="tf-btn btn-white animate-btn animate-dark"
+                            >
+                              {{ block.settings.button_text }}
+                            </a>
                             {% endif %}
                           </div>
                         </div>

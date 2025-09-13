@@ -2271,7 +2271,6 @@
         "promo_banner": {
           "name": "Promo Banner",
           "settings": {
-            "product": "Product",
             "promo_title": "Promo Title",
             "promo_discount": "Promo Discount",
             "promo_code": "Promo Code",
