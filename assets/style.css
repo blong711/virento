@@ -28683,3 +28683,6 @@ shopify-accelerated-checkout {
 .card-product .box-icon .icon-check {
   font-size: 12px
 }
+.tf-product-info-wrap .tf-product-info-extra-link .product-extra-icon .icon-check {
+  font-size: 16px;
+}
