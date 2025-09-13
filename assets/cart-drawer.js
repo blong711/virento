@@ -1097,6 +1097,10 @@ class CartDrawer extends HTMLElement {
     const complementaryProducts = this.querySelectorAll('[data-complementary-product]');
     if (complementaryProducts.length === 0) return;
 
+    // Get the complementary products section container
+    const complementarySection = this.querySelector('.tf-minicart-recommendations');
+    if (!complementarySection) return;
+
     // Get all cart items
     const cartItems = this.querySelectorAll('[data-cart-item]');
     
@@ -1125,6 +1129,9 @@ class CartDrawer extends HTMLElement {
       }
     });
 
+    // Count how many complementary products are hidden
+    let hiddenCount = 0;
+
     // Hide complementary products that are already in the cart
     complementaryProducts.forEach(complementaryProduct => {
       const productId = complementaryProduct.getAttribute('data-product-id');
@@ -1145,10 +1152,18 @@ class CartDrawer extends HTMLElement {
       
       if (shouldHide) {
         complementaryProduct.style.display = 'none';
+        hiddenCount++;
       } else {
         complementaryProduct.style.display = 'block';
       }
     });
+
+    // Hide the entire complementary products section if all products are added to cart
+    if (hiddenCount === complementaryProducts.length) {
+      complementarySection.style.display = 'none';
+    } else {
+      complementarySection.style.display = 'block';
+    }
   }
 }
 
