@@ -9,7 +9,7 @@
     {%- assign menu_title = link.title | downcase -%}
     <li class="menu-item {% if menu_title == 'pages' or menu_title == 'blog' %} position-relative {% endif %}">
       <a href="{{ link.url }}" class="item-link">
-        {{ link.title }}
+        <span class="title-text">{{ link.title }}</span>
         {% if link.links.size > 0 or menu_title == 'home' %}<i class="icon icon-arr-down"></i>{% endif %}
       </a>
 
@@ -425,6 +425,11 @@
 {% style %}
   .wrapper-sub-blog .list-recent-blog img {
     height: 100%;
+  }
+
+  /* Hover effect specifically for the menu title text */
+  .box-nav-menu .menu-item:hover .item-link .title-text {
+    color: rgb(var(--color-text-hover)) !important;
   }
 
   /* CSS for mega_pages without banner - GraviTech Custom */
