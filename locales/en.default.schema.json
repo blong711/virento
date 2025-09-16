@@ -356,6 +356,56 @@
     }
   },
   "sections": {
+    "main-passwords-header": {
+      "name": "Password header",
+      "settings": {
+        "logo": {
+          "label": "Logo"
+        },
+        "logo_width": {
+          "label": "Logo width"
+        }
+      }
+    },
+    "main_password": {
+      "name": "Main Password",
+      "settings": {
+        "colors": {
+          "content": "Colors",
+          "color_scheme": {
+            "label": "Color scheme"
+          }
+        },
+        "content": {
+          "content": "Content",
+          "logo": {
+            "label": "Logo image"
+          },
+          "heading": {
+            "label": "Heading",
+            "default": "Coming Soon!"
+          },
+          "text": {
+            "label": "Description",
+            "default": "<p>We are about to go public so be sure to root on us and check back in anytime!<br>Can't wait to have you!</p>"
+          }
+        },
+        "email_signup": {
+          "content": "Email Signup",
+          "placeholder": {
+            "label": "Email placeholder",
+            "default": "Enter email address *"
+          },
+          "button_text": {
+            "label": "Button text",
+            "default": "Notify me"
+          }
+        }
+      },
+      "presets": {
+        "name": "Main Password"
+      }
+    },
     "coming_soon": {
       "name": "Coming Soon",
       "settings": {

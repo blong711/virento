@@ -532,7 +532,13 @@
         "category": "Account"
       }
     },
-
+    "newsletter_form": {
+      "email_placeholder": "Enter email address",
+      "submit": "Subscribe",
+      "subscribing": "Subscribing...",
+      "confirmation": "Thanks for subscribing!",
+      "error_exist": "Email already used for another account"
+    },
     "blog_post": {
       "name": "Blog post",
       "settings": {
