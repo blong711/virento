@@ -127,7 +127,7 @@
       "name": "Grid Banner",
       "settings": {
         "color_scheme": "",
-        "width": "container-full",
+        "width": "container",
         "add_top_line": true,
         "three_item_style": "style1",
         "padding_top": 120,
