@@ -5,7 +5,6 @@
   
   if layout_type == 'layout_1'
     assign header_classes = 'header-default header-search header-uppercase header-style-2'
-    assign bottom_classes = 'header-bottom d-none d-xl-block line-bt'
     assign show_header_top = true
     assign show_header_bottom = true
   elsif layout_type == 'layout_2'
@@ -176,61 +175,7 @@
 
   {% if show_header_bottom %}
   <!-- Header Bottom Navigation -->
-  <div class="{{ bottom_classes }}">
-    <div class="container">
-      <div class="wrapper-header-bottom">
-        <!-- Electric Layout: Categories + Navigation on left, Help + Call on right -->
-        <div class="inner-left">
-          {% if show_categories %}
-            <div class="tf-mega-categories{{ categories_style }}">
-              <a href="{{ routes.collections_url }}" class="categories-title" aria-label="Browse all categories">
-                <i class="icon icon-categories" aria-hidden="true"></i>
-                {{ section.settings.categories_title }}
-              </a>
-              {% if section.settings.selected_collections != blank %}
-                <ul class="mega-categories">
-                  {% for collection in section.settings.selected_collections %}
-                    <li>
-                      <a href="{{ collection.url }}" class="cate-item">
-                        {% if collection.image %}
-                          <div class="img">
-                            {{
-                              collection.image
-                              | image_url: width: 50
-                              | image_tag: loading: 'lazy', alt: collection.title
-                            }}
-                          </div>
-                        {% endif %}
-                        <span class="name-cate">{{ collection.title }}</span>
-                      </a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            </div>
-          {% endif %}
-
-          <nav class="box-navigation text-center">
-            {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
-          </nav>
-        </div>
-
-        <div class="inner-right">
-          {% if section.settings.help_text %}
-            <a href="{{ section.settings.help_url | default: '/pages/contact' }}" class="link fw-medium text-md">
-              {{ section.settings.help_text }}
-            </a>
-          {% endif %}
-          {% if section.settings.phone_number %}
-            <a href="tel:{{ section.settings.phone_number }}" class="call-us text-md fw-medium">
-              {{ section.settings.call_text }}
-              <i class="icon icon-arrow1-top-left" aria-hidden="true"></i>
-            </a>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
+  {% render 'header-bottom-layout-1', section: section %}
   {% endif %}
 </header>
 {% endif %}
@@ -310,9 +255,8 @@
       "label": "t:sections.header.settings.layout.label",
       "options": [
         { "value": "layout_1", "label": "t:sections.header.settings.layout_1" },
-        { "value": "layout_2", "label": "Layout 2 (Simple Header)" }
+        { "value": "layout_2", "label": "t:sections.header.settings.layout_2" }
       ],
-      "info": "Layout 2 does not include header-top and header-bottom sections",
       "default": "layout_1"
     },
     {
@@ -359,31 +303,6 @@
     },
     {
       "type": "header",
-      "content": "t:sections.header.settings.categories_menu.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_categories",
-      "label": "t:sections.header.settings.show_categories_menu.label",
-      "default": true,
-      "info": "t:sections.header.settings.show_categories_menu.info"
-    },
-    {
-      "type": "text",
-      "id": "categories_title",
-      "label": "t:sections.header.settings.categories_title.label",
-      "default": "t:sections.header.settings.categories_title.default",
-      "info": "t:sections.header.settings.categories_title.info"
-    },
-    {
-      "type": "collection_list",
-      "id": "selected_collections",
-      "label": "t:sections.header.settings.selected_collections.label",
-      "limit": 20,
-      "info": "t:sections.header.settings.selected_collections.info"
-    },
-    {
-      "type": "header",
       "content": "t:sections.header.settings.search.content"
     },
     {
@@ -419,33 +338,6 @@
       "id": "show_cart",
       "label": "t:sections.header.settings.show_cart.label",
       "default": true
-    },
-    {
-      "type": "header",
-      "content": "t:sections.header.settings.contact_information.content"
-    },
-    {
-      "type": "text",
-      "id": "help_text",
-      "label": "t:sections.header.settings.help_link_text.label",
-      "default": "t:sections.header.settings.help_link_text.default"
-    },
-    {
-      "type": "url",
-      "id": "help_url",
-      "label": "t:sections.header.settings.help_link_url.label"
-    },
-    {
-      "type": "text",
-      "id": "phone_number",
-      "label": "t:sections.header.settings.phone_number.label",
-      "placeholder": "t:sections.header.settings.phone_number.placeholder"
-    },
-    {
-      "type": "text",
-      "id": "call_text",
-      "label": "t:sections.header.settings.call_us_text.label",
-      "default": "t:sections.header.settings.call_us_text.default"
     }
   ],
   "blocks": [
@@ -578,13 +470,10 @@
       "settings": {
         "layout_type": "layout_1",
         "color_scheme": "scheme-731d8c26-e8bd-4d5b-b15f-96ab5ec0e52b",
-        "show_categories": true,
         "show_search": true,
         "show_account": true,
         "show_wishlist": true,
-        "show_cart": true,
-        "help_text": "t:sections.header.settings.help_link_text.default",
-        "call_text": "t:sections.header.settings.call_us_text.default"
+        "show_cart": true
       }
     }
   ]
