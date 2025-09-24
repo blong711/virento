@@ -54,7 +54,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "layout_style": "style-2",
-        "width": "container-full",
+        "width": "",
         "height": "adapt-first",
         "height_fixed": 500,
         "mobile_height": "adapt-first",
