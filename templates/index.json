@@ -98,7 +98,10 @@
         "subtitle_size": "text-md",
         "featured_collection": "",
         "product_list": [
-          "nike-air-force-1-07"
+          "nike-air-force-1-07",
+          "nike-p-6000",
+          "nike-air-max-plus",
+          "nike-victori-one"
         ],
         "products_to_show": 6,
         "show_navigation": false,
