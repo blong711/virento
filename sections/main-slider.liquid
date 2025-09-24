@@ -149,6 +149,22 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "dots_style",
+      "label": "Pagination dots style",
+      "options": [
+        { "value": "style-1", "label": "Style 1" },
+        { "value": "style-2", "label": "Style 2" }
+      ],
+      "default": "style-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_animate",
+      "label": "Enable button animation",
+      "default": true
+    },
+    {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
     },
@@ -501,6 +517,17 @@
     }
   {% endif %}
 
+  /* Style 2 left content background and positioning */
+  .slider-style-2 .box-content-left {
+    background: rgb(var(--color-background));
+    position: absolute;
+    left: 0;
+    right: 50%;
+    top: 0;
+    bottom: 0;
+    display: flex;
+  }
+
   .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
@@ -569,7 +596,7 @@
                             </div>
                             {% if block.settings.button_link %}
                               <div class="box-btn-slider fade-item fade-item-3">
-                                <a href="{{ block.settings.button_link }}" class="tf-btn fw-normal animate-btn font-13 border-0">
+                                <a href="{{ block.settings.button_link }}" class="tf-btn fw-normal {% if section.settings.button_animate %}animate-btn{% endif %} font-13 border-0">
                                   {{ block.settings.button_text }}
                                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M22.354 11.6459C22.4006 11.6923 22.4375 11.7475 22.4627 11.8083C22.4879 11.869 22.5009 11.9341 22.5009 11.9999C22.5009 12.0657 22.4879 12.1308 22.4627 12.1915C22.4375 12.2523 22.4006 12.3075 22.354 12.3539L18.354 16.3539C18.3075 16.4004 18.2523 16.4373 18.1916 16.4624C18.1308 16.4876 18.0657 16.5005 18 16.5005C17.8672 16.5005 17.7399 16.4478 17.646 16.3539C17.5521 16.26 17.4994 16.1327 17.4994 15.9999C17.4994 15.8671 17.5521 15.7398 17.646 15.6459L20.793 12.4999H2C1.86739 12.4999 1.74021 12.4472 1.64645 12.3535C1.55268 12.2597 1.5 12.1325 1.5 11.9999C1.5 11.8673 1.55268 11.7401 1.64645 11.6463C1.74021 11.5526 1.86739 11.4999 2 11.4999H20.793L17.646 8.3539C17.5521 8.26001 17.4994 8.13268 17.4994 7.9999C17.4994 7.86712 17.5521 7.73979 17.646 7.6459C17.7399 7.55201 17.8672 7.49927 18 7.49927C18.1328 7.49927 18.2601 7.55201 18.354 7.6459L22.354 11.6459Z" fill="white"></path>
@@ -711,7 +738,7 @@
                                   <div class="box-btn-slider fade-item fade-item-3">
                                     <a
                                       href="{{ block.settings.button_link }}"
-                                      class="tf-btn animate-btn"
+                                      class="tf-btn {% if section.settings.button_animate %}animate-btn{% endif %}"
                                     >
                                       {{ block.settings.button_text }}
                                     </a>
@@ -740,7 +767,7 @@
           {% if section.settings.show_dots %}
             <div class="wrap-pagination">
               <div class="container">
-                <div class="sw-dots style-dark sw-pagination-slider justify-content-center"></div>
+                <div class="sw-dots {% if section.settings.dots_style == 'style-2' %}style-white{% endif %} sw-pagination-slider justify-content-center"></div>
               </div>
             </div>
           {% endif %}
