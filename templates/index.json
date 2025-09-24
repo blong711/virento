@@ -31,7 +31,7 @@
             "title": "Sneakers",
             "link": "",
             "button_label": "View Collection",
-            "button_style": "primary"
+            "button_style": "link"
           }
         },
         "grid_item_DAWKtU": {
@@ -42,14 +42,26 @@
             "title": "Sandals",
             "link": "",
             "button_label": "View Collection",
-            "button_style": "primary"
+            "button_style": "link"
+          }
+        },
+        "grid_item_yD43xf": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/footwear-4.jpg",
+            "hover_image": true,
+            "title": "Boots",
+            "link": "",
+            "button_label": "View Collection",
+            "button_style": "link"
           }
         }
       },
       "block_order": [
         "item1",
         "grid_item_R74HLH",
-        "grid_item_DAWKtU"
+        "grid_item_DAWKtU",
+        "grid_item_yD43xf"
       ],
       "settings": {
         "color_scheme": "",
