@@ -178,19 +178,66 @@
       {% endif %}
 
       {% comment %} Hidden size and color options for filtering {% endcomment %}
-      <div style="display: none;" class="product-options">
+      {% if show_color_swatches and product.options_with_values.size > 0 %}
+        {% assign color_option = null %}
         {% for option in product.options_with_values %}
-          {% if option.name == 'Size' %}
-            {% for value in option.values %}
-              <span class="size-item" data-size="{{ value }}">{{ value }}</span>
-            {% endfor %}
-          {% elsif option.name == 'Color' %}
-            {% for value in option.values %}
-              <span class="color-swatch" data-color="{{ value }}">{{ value }}</span>
-            {% endfor %}
+          {% if option.name == 'Color'
+            or option.name == 'Colour'
+            or option.name == 'color'
+            or option.name == 'colour'
+          %}
+            {% assign color_option = option %}
+            {% break %}
           {% endif %}
         {% endfor %}
-      </div>
+
+        {% if color_option and color_option.values.size > 0 %}
+          <ul class="list-color-product justify-content-{{ card_text_alignment }} mt-0">
+            {% for color_value in color_option.values %}
+              {% assign variant_for_color = null %}
+              {% for variant in product.variants %}
+                {% if variant.option1 == color_value
+                  or variant.option2 == color_value
+                  or variant.option3 == color_value
+                %}
+                  {% assign variant_for_color = variant %}
+                  {% break %}
+                {% endif %}
+              {% endfor %}
+
+              <li
+                class="list-color-item color-swatch hover-tooltip tooltip-bot{% if forloop.first %} active{% endif %}"
+                data-color="{{ color_value | handleize }}"
+                data-variant-id="{{ variant_for_color.id | default: product.selected_or_first_available_variant.id }}"
+              >
+                <span class="tooltip color-filter">{{ color_value }}</span>
+                <span class="swatch-value bg-{{ color_value | handle }}"></span>
+                {% if variant_for_color and variant_for_color.image %}
+                  <img
+                    class="lazyload"
+                    width="460"
+                    height="460"
+                    data-src="{{ variant_for_color.image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ variant_for_color.image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    alt="{{ product.title }} - {{ color_value }}"
+                    loading="{{ loading_priority }}"
+                  >
+                {% else %}
+                  <img
+                    class="lazyload"
+                    width="460"
+                    height="460"
+                    data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                    alt="{{ product.title }} - {{ color_value }}"
+                    loading="{{ loading_priority }}"
+                  >
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endif %}
 
       {% comment %} Sale indicator for filtering {% endcomment %}
       {% if product.compare_at_price > product.price %}
