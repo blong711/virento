@@ -7699,6 +7699,103 @@
           }
         }
       }
+    },
+    "shop-gram": {
+      "name": "Shop Gram",
+      "settings": {
+        "width": {
+          "label": "Section width",
+          "options": {
+            "boxed": "Boxed",
+            "full": "Full width"
+          }
+        },
+        "heading": {
+          "label": "Heading",
+          "default": "Shop by @Vineta"
+        },
+        "heading_size": {
+          "label": "Heading size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "heading_font": {
+          "label": "Heading font"
+        },
+        "content_align": {
+          "label": "Heading alignment",
+          "options": {
+            "left": "Left",
+            "center": "Center",
+            "right": "Right"
+          }
+        },
+        "heading_spacing": {
+          "label": "Heading bottom spacing"
+        },
+        "slider_settings": {
+          "content": "Slider settings"
+        },
+        "use_dots_mobile": {
+          "label": "Show dots on mobile"
+        },
+        "items_desktop": {
+          "label": "Items per view (desktop)",
+          "options": {
+            "3": "3",
+            "4": "4",
+            "5": "5"
+          }
+        },
+        "items_tablet": {
+          "label": "Items per view (tablet)",
+          "options": {
+            "2": "2",
+            "3": "3",
+            "4": "4"
+          }
+        },
+        "items_mobile": {
+          "label": "Items per view (mobile)",
+          "options": {
+            "1": "1",
+            "2": "2"
+          }
+        },
+        "space_between_desktop": {
+          "label": "Space between (desktop)"
+        },
+        "space_between_tablet": {
+          "label": "Space between (tablet)"
+        },
+        "space_between_mobile": {
+          "label": "Space between (mobile)"
+        }
+      },
+      "blocks": {
+        "gram_item": {
+          "name": "Item",
+          "settings": {
+            "image": {
+              "label": "Image"
+            },
+            "link": {
+              "label": "Link"
+            },
+            "tooltip": {
+              "label": "Tooltip",
+              "default": "View Product"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Shop Gram",
+        "category": "Image"
+      }
     }
   }
 }

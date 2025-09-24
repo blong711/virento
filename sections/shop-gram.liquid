@@ -94,45 +94,45 @@
 
 {% schema %}
 {
-  "name": "Shop Gram",
+  "name": "t:sections.shop-gram.name",
   "settings": [
     {
       "type": "select",
       "id": "width",
-      "label": "Section width",
+      "label": "t:sections.shop-gram.settings.width.label",
       "options": [
-        { "value": "boxed", "label": "Boxed" },
-        { "value": "full", "label": "Full width" }
+        { "value": "boxed", "label": "t:sections.shop-gram.settings.width.options.boxed" },
+        { "value": "full", "label": "t:sections.shop-gram.settings.width.options.full" }
       ],
       "default": "boxed"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
+      "label": "t:sections.all.colors.label",
       "default": "background-1"
     },
     {
       "type": "text",
       "id": "heading",
-      "label": "Heading",
-      "default": "Shop by @Vineta"
+      "label": "t:sections.shop-gram.settings.heading.label",
+      "default": "t:sections.shop-gram.settings.heading.default"
     },
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Heading size",
+      "label": "t:sections.shop-gram.settings.heading_size.label",
       "options": [
-        { "value": "small", "label": "Small" },
-        { "value": "medium", "label": "Medium" },
-        { "value": "large", "label": "Large" }
+        { "value": "small", "label": "t:sections.shop-gram.settings.heading_size.options.small" },
+        { "value": "medium", "label": "t:sections.shop-gram.settings.heading_size.options.medium" },
+        { "value": "large", "label": "t:sections.shop-gram.settings.heading_size.options.large" }
       ],
       "default": "medium"
     },
     {
       "type": "select",
       "id": "heading_font",
-      "label": "Heading font",
+      "label": "t:sections.shop-gram.settings.heading_font.label",
       "options": [
         { "value": "", "label": "Default" },
         { "value": "font-main", "label": "Poppins" },
@@ -155,18 +155,18 @@
     {
       "type": "select",
       "id": "content_align",
-      "label": "Heading alignment",
+      "label": "t:sections.shop-gram.settings.content_align.label",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "left", "label": "t:sections.shop-gram.settings.content_align.options.left" },
+        { "value": "center", "label": "t:sections.shop-gram.settings.content_align.options.center" },
+        { "value": "right", "label": "t:sections.shop-gram.settings.content_align.options.right" }
       ],
       "default": "left"
     },
     {
       "type": "range",
       "id": "heading_spacing",
-      "label": "Heading bottom spacing",
+      "label": "t:sections.shop-gram.settings.heading_spacing.label",
       "min": 0,
       "max": 100,
       "step": 2,
@@ -175,43 +175,43 @@
     },
     {
       "type": "header",
-      "content": "Slider settings"
+      "content": "t:sections.shop-gram.settings.slider_settings.content"
     },
     {
       "type": "checkbox",
       "id": "use_dots_mobile",
-      "label": "Show dots on mobile",
+      "label": "t:sections.shop-gram.settings.use_dots_mobile.label",
       "default": true
     },
     {
       "type": "select",
       "id": "items_desktop",
-      "label": "Items per view (desktop)",
+      "label": "t:sections.shop-gram.settings.items_desktop.label",
       "options": [
-        { "value": "3", "label": "3" },
-        { "value": "4", "label": "4" },
-        { "value": "5", "label": "5" }
+        { "value": "3", "label": "t:sections.shop-gram.settings.items_desktop.options.3" },
+        { "value": "4", "label": "t:sections.shop-gram.settings.items_desktop.options.4" },
+        { "value": "5", "label": "t:sections.shop-gram.settings.items_desktop.options.5" }
       ],
       "default": "5"
     },
     {
       "type": "select",
       "id": "items_tablet",
-      "label": "Items per view (tablet)",
+      "label": "t:sections.shop-gram.settings.items_tablet.label",
       "options": [
-        { "value": "2", "label": "2" },
-        { "value": "3", "label": "3" },
-        { "value": "4", "label": "4" }
+        { "value": "2", "label": "t:sections.shop-gram.settings.items_tablet.options.2" },
+        { "value": "3", "label": "t:sections.shop-gram.settings.items_tablet.options.3" },
+        { "value": "4", "label": "t:sections.shop-gram.settings.items_tablet.options.4" }
       ],
       "default": "3"
     },
     {
       "type": "select",
       "id": "items_mobile",
-      "label": "Items per view (mobile)",
+      "label": "t:sections.shop-gram.settings.items_mobile.label",
       "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
+        { "value": "1", "label": "t:sections.shop-gram.settings.items_mobile.options.1" },
+        { "value": "2", "label": "t:sections.shop-gram.settings.items_mobile.options.2" }
       ],
       "default": "2"
     },
@@ -221,7 +221,7 @@
       "min": 0,
       "max": 50,
       "step": 1,
-      "label": "Space between (desktop)",
+      "label": "t:sections.shop-gram.settings.space_between_desktop.label",
       "default": 10
     },
     {
@@ -230,7 +230,7 @@
       "min": 0,
       "max": 30,
       "step": 1,
-      "label": "Space between (tablet)",
+      "label": "t:sections.shop-gram.settings.space_between_tablet.label",
       "default": 10
     },
     {
@@ -239,12 +239,12 @@
       "min": 0,
       "max": 20,
       "step": 1,
-      "label": "Space between (mobile)",
+      "label": "t:sections.shop-gram.settings.space_between_mobile.label",
       "default": 10
     },
     {
       "type": "header",
-      "content": "Section padding"
+      "content": "t:sections.all.padding.section_padding_heading"
     },
     {
       "type": "range",
@@ -253,7 +253,7 @@
       "max": 120,
       "step": 5,
       "unit": "px",
-      "label": "Padding top",
+      "label": "t:sections.all.padding.padding_top",
       "default": 0
     },
     {
@@ -263,7 +263,7 @@
       "max": 120,
       "step": 5,
       "unit": "px",
-      "label": "Padding bottom",
+      "label": "t:sections.all.padding.padding_bottom",
       "default": 0
     },
     {
@@ -273,25 +273,25 @@
       "max": 100,
       "step": 5,
       "unit": "%",
-      "label": "Mobile padding rate",
+      "label": "t:sections.collection_slider.settings.padding_mobile_rate.label",
       "default": 75
     }
   ],
   "blocks": [
     {
       "type": "gram_item",
-      "name": "Item",
+      "name": "t:sections.shop-gram.blocks.gram_item.name",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "url", "id": "link", "label": "Link" },
-        { "type": "text", "id": "tooltip", "label": "Tooltip", "default": "View Product" }
+        { "type": "image_picker", "id": "image", "label": "t:sections.shop-gram.blocks.gram_item.settings.image.label" },
+        { "type": "url", "id": "link", "label": "t:sections.shop-gram.blocks.gram_item.settings.link.label" },
+        { "type": "text", "id": "tooltip", "label": "t:sections.shop-gram.blocks.gram_item.settings.tooltip.label", "default": "t:sections.shop-gram.blocks.gram_item.settings.tooltip.default" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Shop Gram",
-      "category": "Image"
+      "name": "t:sections.shop-gram.presets.name",
+      "category": "t:sections.shop-gram.presets.category"
     }
   ]
 }
