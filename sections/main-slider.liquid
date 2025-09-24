@@ -10,6 +10,16 @@
     },
     {
       "type": "select",
+      "id": "layout_style",
+      "label": "Layout style",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "style-2", "label": "Style 2" }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "select",
       "id": "width",
       "label": "t:sections.main_slider.settings.width.label",
       "options": [
@@ -251,6 +261,16 @@
           "default": "t:sections.main_slider.blocks.slide.settings.description.default"
         },
         {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading (Style 2)"
+        },
+        {
+          "type": "text",
+          "id": "box_bg_class",
+          "label": "Box background class (Style 2)"
+        },
+        {
           "type": "select",
           "id": "content_alignment",
           "label": "t:sections.main_slider.blocks.slide.settings.content_alignment.label",
@@ -490,7 +510,7 @@
   }
 {% endstyle %}
 
-<section class="tf-slideshow slider-electric-access slider-default color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+<section class="tf-slideshow {% if section.settings.layout_style == 'style-2' %}slider-viewport slider-style-2{% else %}slider-electric-access slider-default{% endif %} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="{{ section.settings.width }}">
     <div class="row">
       <div class="col-lg-12">
@@ -519,123 +539,181 @@
                   class="swiper-slide color-{{ block.settings.color_scheme | default: section.settings.color_scheme }} gradient"
                   {{ block.shopify_attributes }}
                 >
-                  <div class="slider-wrap">
-                    <div class="image">
-                      {% if block.settings.image %}
-                        {% assign image_class = '' %}
-                        {% if section.settings.height == 'fill'
-                          or section.settings.height == 'fixed'
-                          or section.settings.mobile_height == 'fill'
-                        %}
-                          {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
-                        {% endif %}
-
-                        {% assign desktop_image_class = image_class | append: ' d-none d-md-block' %}
-                        {% assign mobile_image_class = image_class | append: ' d-md-none' %}
-
-                        {% comment %} Only ONE image gets high priority for LCP, others get lazy loading {% endcomment %}
-                        {% if forloop.first %}
-                          {% comment %} ONLY LCP image loads immediately with high quality {% endcomment %}
-                          <img
-                            class="{{ desktop_image_class }}"
-                            src="{{ block.settings.image | image_url: width: 1920 }}"
-                            alt="{{ block.settings.heading }}"
-                            width="1920"
-                            height="1080"
-                            fetchpriority="high"
-                            loading="eager"
-                            decoding="sync"
-                          >
-
-                          {% comment %} Mobile image loads immediately for first slide {% endcomment %}
-                          {% if block.settings.mobile_image %}
-                            <img
-                              class="{{ mobile_image_class }}"
-                              src="{{ block.settings.mobile_image | image_url: width: 767 }}"
-                              alt="{{ block.settings.heading }}"
-                              width="767"
-                              height="400"
-                              loading="eager"
-                              decoding="sync"
-                            >
-                          {% else %}
-                            <img
-                              class="{{ mobile_image_class }}"
-                              src="{{ block.settings.image | image_url: width: 767 }}"
-                              alt="{{ block.settings.heading }}"
-                              width="767"
-                              height="400"
-                              loading="eager"
-                              decoding="sync"
-                            >
+                  {% if section.settings.layout_style == 'style-2' %}
+                    <div class="slider-wrap">
+                      <div class="box-content-left {{ block.settings.box_bg_class }}">
+                        <div class="container">
+                          <div class="content-slider text-center">
+                            <div class="box-title-slider">
+                              {% if block.settings.subheading != '' %}
+                                <p class="sub text-md fade-item fade-item-1 font-13 text-uppercase fw-semibold">
+                                  {{ block.settings.subheading }}
+                                </p>
+                              {% endif %}
+                              <h2 class="heading letter-0 fade-item fade-item-2 font-14 {{ block.settings.heading_weight }}">
+                                {{ block.settings.heading }}
+                              </h2>
+                              {% if block.settings.description != '' %}
+                                <p class="sub text-md fade-item fade-item-3 font-13 text-main">
+                                  {{ block.settings.description }}
+                                </p>
+                              {% endif %}
+                            </div>
+                            {% if block.settings.button_link %}
+                              <div class="box-btn-slider fade-item fade-item-3">
+                                <a href="{{ block.settings.button_link }}" class="tf-btn fw-normal animate-btn font-13 border-0">
+                                  {{ block.settings.button_text }}
+                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.354 11.6459C22.4006 11.6923 22.4375 11.7475 22.4627 11.8083C22.4879 11.869 22.5009 11.9341 22.5009 11.9999C22.5009 12.0657 22.4879 12.1308 22.4627 12.1915C22.4375 12.2523 22.4006 12.3075 22.354 12.3539L18.354 16.3539C18.3075 16.4004 18.2523 16.4373 18.1916 16.4624C18.1308 16.4876 18.0657 16.5005 18 16.5005C17.8672 16.5005 17.7399 16.4478 17.646 16.3539C17.5521 16.26 17.4994 16.1327 17.4994 15.9999C17.4994 15.8671 17.5521 15.7398 17.646 15.6459L20.793 12.4999H2C1.86739 12.4999 1.74021 12.4472 1.64645 12.3535C1.55268 12.2597 1.5 12.1325 1.5 11.9999C1.5 11.8673 1.55268 11.7401 1.64645 11.6463C1.74021 11.5526 1.86739 11.4999 2 11.4999H20.793L17.646 8.3539C17.5521 8.26001 17.4994 8.13268 17.4994 7.9999C17.4994 7.86712 17.5521 7.73979 17.646 7.6459C17.7399 7.55201 17.8672 7.49927 18 7.49927C18.1328 7.49927 18.2601 7.55201 18.354 7.6459L22.354 11.6459Z" fill="white"></path>
+                                  </svg>
+                                </a>
+                              </div>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="image">
+                        {% if block.settings.image %}
+                          {% assign image_class = '' %}
+                          {% if section.settings.height == 'fill' or section.settings.height == 'fixed' or section.settings.mobile_height == 'fill' %}
+                            {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
                           {% endif %}
-                        {% else %}
-                          {{
-                            block.settings.image
-                            | image_url: width: 1920
-                            | image_tag:
-                              class: desktop_image_class,
-                              alt: block.settings.heading,
-                              loading: 'lazy',
-                              decoding: 'async'
-                          }}
+                          {% assign desktop_image_class = image_class | append: ' d-none d-md-block' %}
+                          {% assign mobile_image_class = image_class | append: ' d-md-none' %}
+                          {% if forloop.first %}
+                            <img class="{{ desktop_image_class }}" src="{{ block.settings.image | image_url: width: 1920 }}" alt="{{ block.settings.heading }}" width="1920" height="1080" fetchpriority="high" loading="eager" decoding="sync">
+                            {% if block.settings.mobile_image %}
+                              <img class="{{ mobile_image_class }}" src="{{ block.settings.mobile_image | image_url: width: 767 }}" alt="{{ block.settings.heading }}" width="767" height="400" loading="eager" decoding="sync">
+                            {% else %}
+                              <img class="{{ mobile_image_class }}" src="{{ block.settings.image | image_url: width: 767 }}" alt="{{ block.settings.heading }}" width="767" height="400" loading="eager" decoding="sync">
+                            {% endif %}
+                          {% else %}
+                            {{ block.settings.image | image_url: width: 1920 | image_tag: class: desktop_image_class, alt: block.settings.heading, loading: 'lazy', decoding: 'async' }}
+                            {% if block.settings.mobile_image %}
+                              {{ block.settings.mobile_image | image_url: width: 767 | image_tag: class: mobile_image_class, alt: block.settings.heading, loading: 'lazy', decoding: 'async' }}
+                            {% else %}
+                              {{ block.settings.image | image_url: width: 767 | image_tag: class: mobile_image_class, alt: block.settings.heading, loading: 'lazy', decoding: 'async' }}
+                            {% endif %}
+                          {% endif %}
+                        {% endif %}
+                      </div>
+                    </div>
+                  {% else %}
+                    <div class="slider-wrap">
+                      <div class="image">
+                        {% if block.settings.image %}
+                          {% assign image_class = '' %}
+                          {% if section.settings.height == 'fill' or section.settings.height == 'fixed' or section.settings.mobile_height == 'fill' %}
+                            {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
+                          {% endif %}
 
-                          {% if block.settings.mobile_image %}
-                            {{
-                              block.settings.mobile_image
-                              | image_url: width: 767
-                              | image_tag:
-                                class: mobile_image_class,
-                                alt: block.settings.heading,
-                                loading: 'lazy',
-                                decoding: 'async'
-                            }}
+                          {% assign desktop_image_class = image_class | append: ' d-none d-md-block' %}
+                          {% assign mobile_image_class = image_class | append: ' d-md-none' %}
+
+                          {% comment %} Only ONE image gets high priority for LCP, others get lazy loading {% endcomment %}
+                          {% if forloop.first %}
+                            {% comment %} ONLY LCP image loads immediately with high quality {% endcomment %}
+                            <img
+                              class="{{ desktop_image_class }}"
+                              src="{{ block.settings.image | image_url: width: 1920 }}"
+                              alt="{{ block.settings.heading }}"
+                              width="1920"
+                              height="1080"
+                              fetchpriority="high"
+                              loading="eager"
+                              decoding="sync"
+                            >
+
+                            {% comment %} Mobile image loads immediately for first slide {% endcomment %}
+                            {% if block.settings.mobile_image %}
+                              <img
+                                class="{{ mobile_image_class }}"
+                                src="{{ block.settings.mobile_image | image_url: width: 767 }}"
+                                alt="{{ block.settings.heading }}"
+                                width="767"
+                                height="400"
+                                loading="eager"
+                                decoding="sync"
+                              >
+                            {% else %}
+                              <img
+                                class="{{ mobile_image_class }}"
+                                src="{{ block.settings.image | image_url: width: 767 }}"
+                                alt="{{ block.settings.heading }}"
+                                width="767"
+                                height="400"
+                                loading="eager"
+                                decoding="sync"
+                              >
+                            {% endif %}
                           {% else %}
                             {{
                               block.settings.image
-                              | image_url: width: 767
+                              | image_url: width: 1920
                               | image_tag:
-                                class: mobile_image_class,
+                                class: desktop_image_class,
                                 alt: block.settings.heading,
                                 loading: 'lazy',
                                 decoding: 'async'
                             }}
+
+                            {% if block.settings.mobile_image %}
+                              {{
+                                block.settings.mobile_image
+                                | image_url: width: 767
+                                | image_tag:
+                                  class: mobile_image_class,
+                                  alt: block.settings.heading,
+                                  loading: 'lazy',
+                                  decoding: 'async'
+                              }}
+                            {% else %}
+                              {{
+                                block.settings.image
+                                | image_url: width: 767
+                                | image_tag:
+                                  class: mobile_image_class,
+                                  alt: block.settings.heading,
+                                  loading: 'lazy',
+                                  decoding: 'async'
+                              }}
+                            {% endif %}
                           {% endif %}
                         {% endif %}
-                      {% endif %}
-                    </div>
-                    <div class="box-content">
-                      <div class="container">
-                        <div class="row">
-                          <div class="{{ block.settings.content_alignment }}">
-                            <div class="content-slider">
-                              <div class="box-title-slider">
-                                <h4 class="heading {{ block.settings.heading_size }} {{ block.settings.heading_weight }} fade-item fade-item-1">
-                                  {{ block.settings.heading }}
-                                </h4>
-                                <p
-                                  class="sub {{ block.settings.text_size }} fade-item fade-item-2"
-                                  style="color: rgb(var(--color-foreground2));"
-                                >
-                                  {{ block.settings.description }}
-                                </p>
-                              </div>
-                              {% if block.settings.button_link %}
-                                <div class="box-btn-slider fade-item fade-item-3">
-                                  <a
-                                    href="{{ block.settings.button_link }}"
-                                    class="tf-btn animate-btn"
+                      </div>
+                      <div class="box-content">
+                        <div class="container">
+                          <div class="row">
+                            <div class="{{ block.settings.content_alignment }}">
+                              <div class="content-slider">
+                                <div class="box-title-slider">
+                                  <h4 class="heading {{ block.settings.heading_size }} {{ block.settings.heading_weight }} fade-item fade-item-1">
+                                    {{ block.settings.heading }}
+                                  </h4>
+                                  <p
+                                    class="sub {{ block.settings.text_size }} fade-item fade-item-2"
+                                    style="color: rgb(var(--color-foreground2));"
                                   >
-                                    {{ block.settings.button_text }}
-                                  </a>
+                                    {{ block.settings.description }}
+                                  </p>
                                 </div>
-                              {% endif %}
+                                {% if block.settings.button_link %}
+                                  <div class="box-btn-slider fade-item fade-item-3">
+                                    <a
+                                      href="{{ block.settings.button_link }}"
+                                      class="tf-btn animate-btn"
+                                    >
+                                      {{ block.settings.button_text }}
+                                    </a>
+                                  </div>
+                                {% endif %}
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  {% endif %}
                 </div>
               {% endif %}
             {% endfor %}

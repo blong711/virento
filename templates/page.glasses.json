@@ -1,0 +1,67 @@
+{
+  "sections": {
+    "slider": {
+      "type": "main-slider",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "layout_style": "style-2",
+        "width": "container-full",
+        "height": "adapt-first",
+        "height_fixed": 500,
+        "mobile_height": "adapt-first",
+        "mobile_height_fixed": 300,
+        "loop": true,
+        "autoplay_speed": 5,
+        "pause_on_hover": true,
+        "draggable": true,
+        "show_arrows": false,
+        "show_arrows_mobile": false,
+        "show_dots": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      },
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "heading": "Find Your Perfect Frame",
+            "heading_size": "display-md",
+            "heading_weight": "fw-semibold",
+            "description": "Explore our curated collection of eyeglasses and sunglasses — crafted for comfort, clarity, and standout style.",
+            "subheading": "See Clearly. Look Sharp.",
+            "box_bg_class": "bg-yellow-8",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "/collections/all",
+            "button_text": "Shop Now"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "heading": "Elevate Your Everyday",
+            "heading_size": "display-md",
+            "heading_weight": "fw-semibold",
+            "description": "Premium frames and lenses designed to fit your lifestyle.",
+            "subheading": "Style Meets Clarity",
+            "box_bg_class": "bg-yellow-8",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "/collections/all",
+            "button_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2"
+      ]
+    }
+  },
+  "order": [
+    "slider"
+  ]
+}
