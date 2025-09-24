@@ -110,32 +110,16 @@
         "mega_blog_MJU78y"
       ],
       "settings": {
-        "layout_type": "layout_1",
+        "layout_type": "layout_2",
         "sticky_header": "on_scroll_up",
         "menu_item_spacing": 38,
         "color_scheme": "scheme-731d8c26-e8bd-4d5b-b15f-96ab5ec0e52b",
         "main_menu": "main-menu",
-        "show_categories": true,
-        "categories_title": "browse categories",
-        "selected_collections": [
-          "phones",
-          "earphones",
-          "cables",
-          "smart-watches",
-          "chargers",
-          "screen-protectors",
-          "headphones",
-          "keyboards"
-        ],
         "show_search": true,
         "search_placeholder": "Search product",
         "show_account": true,
         "show_wishlist": true,
-        "show_cart": true,
-        "help_text": "Need Help?",
-        "help_url": "shopify://pages/contact-us",
-        "phone_number": "+1 123 456 789",
-        "call_text": "Call Us Now"
+        "show_cart": true
       }
     }
   },
