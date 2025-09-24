@@ -1,0 +1,85 @@
+<header id="header" class="header-default">
+  <div class="container">
+    <div class="row wrapper-header align-items-center">
+      <div class="col-md-4 col-3 d-xl-none">
+        <a
+          href="#mobileMenu"
+          class="mobile-menu"
+          data-bs-toggle="offcanvas"
+          aria-controls="mobileMenu"
+          aria-label="Open mobile menu"
+        >
+          <i class="icon icon-categories1" aria-hidden="true"></i>
+        </a>
+      </div>
+      <div class="col-xl-2 col-md-4 col-6">
+        <a href="{{ routes.root_url }}" class="logo-header">
+          {% if settings.logo != blank %}
+            {% assign logo_width = settings.logo_width %}
+            {{
+              settings.logo
+              | image_url: width: logo_width
+              | image_tag:
+                class: 'logo',
+                width: logo_width,
+                alt: shop.name,
+                loading: 'eager',
+                fetchpriority: 'high',
+                decoding: 'sync'
+            }}
+          {% else %}
+            <span class="h2">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </div>
+      <div class="col-xl-8 d-none d-xl-block">
+        <nav class="box-navigation text-center">
+          {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
+        </nav>
+      </div>
+      <div class="col-xl-2 col-md-4 col-3">
+        <ul class="nav-icon d-flex justify-content-end align-items-center">
+          {% if section.settings.show_search %}
+            <li class="nav-search">
+              <a href="#search" data-bs-toggle="modal" class="nav-icon-item" aria-label="Search">
+                <i class="icon icon-search" aria-hidden="true"></i>
+              </a>
+            </li>
+          {% endif %}
+          
+          {% if section.settings.show_account %}
+            <li class="nav-account">
+              {% if customer %}
+                <a href="{{ routes.account_url }}" class="nav-icon-item" aria-label="Account">
+                  <i class="icon icon-user" aria-hidden="true"></i>
+                </a>
+              {% else %}
+                <a href="#login" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Login">
+                  <i class="icon icon-user" aria-hidden="true"></i>
+                </a>
+              {% endif %}
+            </li>
+          {% endif %}
+
+          {% if section.settings.show_wishlist %}
+            <li class="nav-wishlist">
+              <a href="{{ routes.search_url }}/?view=wishlist" class="nav-icon-item" aria-label="Wishlist">
+                <i class="icon icon-heart" aria-hidden="true"></i>
+                <span class="count-box">0</span>
+              </a>
+            </li>
+          {% endif %}
+
+          {% if section.settings.show_cart %}
+            <li class="nav-cart">
+              <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Shopping cart">
+                <i class="icon icon-cart" aria-hidden="true"></i>
+                <span class="count-box">0</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

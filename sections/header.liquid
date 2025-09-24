@@ -1,20 +1,23 @@
 {% liquid
-  assign layout_type = section.settings.layout_type
   assign show_categories = section.settings.show_categories
   assign categories_style = ''
-  assign header_classes = 'header-default header-search header-uppercase'
-  assign bottom_classes = 'header-bottom d-none d-xl-block line-bt'
-
-  case layout_type
-    when 'layout_1'
-      assign header_classes = header_classes | append: ' header-style-2'
-      assign categories_style = ''
-    when 'layout_2'
-      assign header_classes = header_classes | append: ' header-default'
-      assign show_categories = false
-  endcase
+  assign layout_type = section.settings.layout_type
+  
+  if layout_type == 'layout_1'
+    assign header_classes = 'header-default header-search header-uppercase header-style-2'
+    assign bottom_classes = 'header-bottom d-none d-xl-block line-bt'
+    assign show_header_top = true
+    assign show_header_bottom = true
+  elsif layout_type == 'layout_2'
+    assign header_classes = 'header-default'
+    assign show_header_top = false
+    assign show_header_bottom = false
+  endif
 %}
 
+{% if layout_type == 'layout_2' %}
+  {% render 'header-layout-2', section: section %}
+{% else %}
 <header
   id="header"
   class="{{ header_classes }} color-{{ section.settings.color_scheme }}"
@@ -23,6 +26,7 @@
   <!-- Predictive Search Settings -->
   <meta name="predictive-search-enabled" content="{{ settings.predictive_search_enabled }}">
   <meta name="predictive-search-show-price" content="{{ settings.predictive_search_show_price }}">
+  {% if show_header_top %}
   <!-- Header Top -->
   <div class="header-top line-bt">
     <div class="container">
@@ -157,22 +161,10 @@
 
             {% if section.settings.show_cart %}
               <li class="nav-cart">
-                {% if false %}
-                  <a
-                    href="#shoppingCart"
-                    class="nav-icon-item value-box"
-                    data-bs-toggle="offcanvas"
-                    aria-label="Shopping cart"
-                  >
-                    <i class="icon icon-cart" aria-hidden="true"></i>
-                    <span class="text d-none d-xl-block">{{ cart.total_price | money }}</span>
-                  </a>
-                {% else %}
-                  <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Shopping cart">
-                    <i class="icon icon-cart" aria-hidden="true"></i>
-                    <span class="text d-none d-xl-block">{{ 'general.cart.title' | t }}</span>
-                  </a>
-                {% endif %}
+                <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Shopping cart">
+                  <i class="icon icon-cart" aria-hidden="true"></i>
+                  <span class="text d-none d-xl-block">{{ 'general.cart.title' | t }}</span>
+                </a>
               </li>
             {% endif %}
           </ul>
@@ -180,152 +172,73 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
+  {% if show_header_bottom %}
   <!-- Header Bottom Navigation -->
   <div class="{{ bottom_classes }}">
     <div class="container">
       <div class="wrapper-header-bottom">
-        {% if layout_type == 'layout_2' %}
-          <!-- New layout based on provided HTML -->
-          <div class="row wrapper-header align-items-center">
-            <div class="col-md-4 col-3 d-xl-none">
-              <a href="#mobileMenu" class="mobile-menu" data-bs-toggle="offcanvas" aria-controls="mobileMenu">
-                <i class="icon icon-categories1"></i>
+        <!-- Electric Layout: Categories + Navigation on left, Help + Call on right -->
+        <div class="inner-left">
+          {% if show_categories %}
+            <div class="tf-mega-categories{{ categories_style }}">
+              <a href="{{ routes.collections_url }}" class="categories-title" aria-label="Browse all categories">
+                <i class="icon icon-categories" aria-hidden="true"></i>
+                {{ section.settings.categories_title }}
               </a>
-            </div>
-            <div class="col-xl-2 col-md-4 col-6">
-              <a href="{{ routes.root_url }}" class="logo-header">
-                {% if settings.logo != blank %}
-                  {% assign logo_width = settings.logo_width %}
-                  {{
-                    settings.logo
-                    | image_url: width: logo_width
-                    | image_tag:
-                      class: 'logo',
-                      width: logo_width,
-                      alt: shop.name,
-                      loading: 'eager',
-                      fetchpriority: 'high',
-                      decoding: 'sync'
-                  }}
-                {% else %}
-                  <span class="h2">{{ shop.name }}</span>
-                {% endif %}
-              </a>
-            </div>
-            <div class="col-xl-8 d-none d-xl-block">
-              <nav class="box-navigation text-center">
-                {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
-              </nav>
-            </div>
-            <div class="col-xl-2 col-md-4 col-3">
-              <ul class="nav-icon d-flex justify-content-end align-items-center">
-                {% if section.settings.show_search %}
-                  <li class="nav-search">
-                    <a href="#search" data-bs-toggle="modal" class="nav-icon-item" aria-label="Search">
-                      <i class="icon icon-search" aria-hidden="true"></i>
-                    </a>
-                  </li>
-                {% endif %}
-                
-                {% if section.settings.show_account %}
-                  <li class="nav-account">
-                    {% if customer %}
-                      <a href="{{ routes.account_url }}" class="nav-icon-item" aria-label="Account">
-                        <i class="icon icon-user" aria-hidden="true"></i>
+              {% if section.settings.selected_collections != blank %}
+                <ul class="mega-categories">
+                  {% for collection in section.settings.selected_collections %}
+                    <li>
+                      <a href="{{ collection.url }}" class="cate-item">
+                        {% if collection.image %}
+                          <div class="img">
+                            {{
+                              collection.image
+                              | image_url: width: 50
+                              | image_tag: loading: 'lazy', alt: collection.title
+                            }}
+                          </div>
+                        {% endif %}
+                        <span class="name-cate">{{ collection.title }}</span>
                       </a>
-                    {% else %}
-                      <a href="#login" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Login">
-                        <i class="icon icon-user" aria-hidden="true"></i>
-                      </a>
-                    {% endif %}
-                  </li>
-                {% endif %}
-                
-                {% if section.settings.show_wishlist %}
-                  <li class="nav-wishlist">
-                    <a href="{{ routes.search_url }}/?view=wishlist" class="nav-icon-item" aria-label="Wishlist">
-                      <i class="icon icon-heart" aria-hidden="true"></i>
-                      <span class="count-box">0</span>
-                    </a>
-                  </li>
-                {% endif %}
-                
-                {% if section.settings.show_cart %}
-                  <li class="nav-cart">
-                    <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Shopping cart">
-                      <i class="icon icon-cart" aria-hidden="true"></i>
-                      <span class="count-box">0</span>
-                    </a>
-                  </li>
-                {% endif %}
-              </ul>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
             </div>
-          </div>
+          {% endif %}
 
-        {% else %}
-          <!-- Electric Layout: Categories + Navigation on left, Help + Call on right -->
-          <div class="inner-left">
-            {% if show_categories %}
-              <div class="tf-mega-categories{{ categories_style }}">
-                <a href="{{ routes.collections_url }}" class="categories-title" aria-label="Browse all categories">
-                  <i class="icon icon-categories" aria-hidden="true"></i>
-                  {{ section.settings.categories_title }}
-                </a>
-                {% if section.settings.selected_collections != blank %}
-                  <ul class="mega-categories">
-                    {% for collection in section.settings.selected_collections %}
-                      <li>
-                        <a href="{{ collection.url }}" class="cate-item">
-                          {% if collection.image %}
-                            <div class="img">
-                              {{
-                                collection.image
-                                | image_url: width: 50
-                                | image_tag: loading: 'lazy', alt: collection.title
-                              }}
-                            </div>
-                          {% endif %}
-                          <span class="name-cate">{{ collection.title }}</span>
-                        </a>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
-              </div>
-            {% endif %}
+          <nav class="box-navigation text-center">
+            {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
+          </nav>
+        </div>
 
-            <nav class="box-navigation text-center">
-              {% render 'header-navigation', menu: section.settings.main_menu, section: section %}
-            </nav>
-          </div>
-
-          <div class="inner-right">
-            {% if section.settings.help_text %}
-              <a href="{{ section.settings.help_url | default: '/pages/contact' }}" class="link fw-medium text-md">
-                {{ section.settings.help_text }}
-              </a>
-            {% endif %}
-            {% if section.settings.phone_number %}
-              <a href="tel:{{ section.settings.phone_number }}" class="call-us text-md fw-medium">
-                {{ section.settings.call_text }}
-                <i class="icon icon-arrow1-top-left" aria-hidden="true"></i>
-              </a>
-            {% endif %}
-          </div>
-        {% endif %}
+        <div class="inner-right">
+          {% if section.settings.help_text %}
+            <a href="{{ section.settings.help_url | default: '/pages/contact' }}" class="link fw-medium text-md">
+              {{ section.settings.help_text }}
+            </a>
+          {% endif %}
+          {% if section.settings.phone_number %}
+            <a href="tel:{{ section.settings.phone_number }}" class="call-us text-md fw-medium">
+              {{ section.settings.call_text }}
+              <i class="icon icon-arrow1-top-left" aria-hidden="true"></i>
+            </a>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>
+  {% endif %}
 </header>
+{% endif %}
 
 {%- style %}
-  .wrapper-header-bottom .call-us,
-  .bg-light-purple-11 .box-phone a {
-    color: rgb(var(--color-foreground2)) !important;
-  }
-
+  /* Layout 1 Styles */
   .wrapper-header-bottom .call-us {
+    color: rgb(var(--color-foreground2)) !important;
     border-bottom: 1px solid rgb(var(--color-foreground2)) !important;
   }
 
@@ -347,8 +260,7 @@
   }
 
   .wrapper-header-bottom .tf-mega-categories .categories-title,
-  .header-default .box-phone .box-icon,
-  .bg-light-purple-11 {
+  .header-default .box-phone .box-icon {
     background-color: rgba(var(--color-background2)) !important;
   }
 
@@ -380,13 +292,6 @@
     object-fit: cover;
     height: 60px;
   }
-
-  /* Layout_2: Align only mega-home menu to the left */
-  .bg-light-purple-11 .box-nav-menu .mega-menu.mega-home {
-    left: 0;
-    right: auto;
-    margin-left: 180px;
-  }
 {%- endstyle %}
 
 {% schema %}
@@ -405,8 +310,9 @@
       "label": "t:sections.header.settings.layout.label",
       "options": [
         { "value": "layout_1", "label": "t:sections.header.settings.layout_1" },
-        { "value": "layout_2", "label": "t:sections.header.settings.layout_2" }
+        { "value": "layout_2", "label": "Layout 2 (Simple Header)" }
       ],
+      "info": "Layout 2 does not include header-top and header-bottom sections",
       "default": "layout_1"
     },
     {
