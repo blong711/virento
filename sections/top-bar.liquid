@@ -84,6 +84,38 @@
       "limit": 1
     },
     {
+      "type": "email",
+      "name": "Email",
+      "settings": [
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email Address",
+          "default": "Support@vineta.com"
+        }
+      ],
+      "limit": 1
+    },
+    {
+      "type": "store_location",
+      "name": "Store Location",
+      "settings": [
+        {
+          "type": "text",
+          "id": "store_link",
+          "label": "Store Location Link",
+          "default": "/pages/store-location"
+        },
+        {
+          "type": "text",
+          "id": "store_text",
+          "label": "Store Location Text",
+          "default": "Find a store"
+        }
+      ],
+      "limit": 1
+    },
+    {
       "type": "language_selector",
       "name": "t:sections.top_bar.blocks.language_selector.name",
       "limit": 1
@@ -103,7 +135,13 @@
           "type": "social_icons"
         },
         {
+          "type": "email"
+        },
+        {
           "type": "announcement"
+        },
+        {
+          "type": "store_location"
         },
         {
           "type": "language_selector"
@@ -124,6 +162,10 @@
     <div class="topbar-wraper">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
+          {%- when 'email' -%}
+            <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
+              <a class="mail" href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+            </div>
           {%- when 'social_icons' -%}
             {%- if section.settings.show_social_icons -%}
               <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
@@ -215,6 +257,10 @@
                   {% endfor %}
                 </div>
               </div>
+            </div>
+          {%- when 'store_location' -%}
+            <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.store_link }}" class="store">{{ block.settings.store_text }}</a>
             </div>
         {%- endcase -%}
       {%- endfor -%}
