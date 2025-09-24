@@ -7661,7 +7661,41 @@
         }
       }
     },
-    "collection-slider": {
+    "lookbook-banner": {
+      "name": "Lookbook banner",
+      "presets": {
+        "name": "Lookbook banner",
+        "category": "Image"
+      },
+      "settings": {
+        "title_tag": {
+          "label": "Title size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "banner_image": "Banner image",
+        "subtitle_size": {
+          "label": "Subtitle size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        }
+      },
+      "blocks": {
+        "pin": {
+          "name": "Lookbook pin",
+          "settings": {
+            "product": "Product",
+            "top_pct": "Top position (%)",
+            "left_pct": "Left position (%)"
+          }
+        }
+      }
     }
   }
 }

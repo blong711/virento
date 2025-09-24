@@ -7,7 +7,7 @@
 <section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding" data-section-id="{{ section.id }}">
 	<div class="{{ section.settings.width }}">
 		{% if section.settings.heading != blank or section.settings.subheading != blank %}
-		<div class="flat-title wow fadeInUp{% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
+		<div class="flat-title wow fadeInUp">
 			{% if section.settings.heading != blank %}
 			<{{ section.settings.title_tag }} class="title">{{ section.settings.heading }}</{{ section.settings.title_tag }}>
 			{% endif %}
@@ -114,77 +114,68 @@
 
 {% schema %}
 {
-	"name": "Lookbook banner",
+	"name": "t:sections.lookbook-banner.name",
 	"tag": "section",
 	"class": "section-lookbook-banner",
 	"settings": [
 		{
 			"type": "color_scheme",
 			"id": "color_scheme",
-			"label": "Colors",
+			"label": "t:sections.all.colors.label",
 			"default": "scheme-1"
 		},
 		{
 			"type": "select",
 			"id": "width",
-			"label": "Section width",
+			"label": "t:sections.tag-products-carousel.settings.width.label",
 			"options": [
-				{ "value": "container", "label": "Boxed" },
-				{ "value": "container-full", "label": "Full width" }
+				{ "value": "container", "label": "t:sections.tag-products-carousel.settings.width.options.boxed" },
+				{ "value": "container-full", "label": "t:sections.tag-products-carousel.settings.width.options.full_width" }
 			],
 			"default": "container"
 		},
 		{
 			"type": "text",
 			"id": "heading",
-			"label": "Heading",
+			"label": "t:sections.all.heading",
 			"default": "Inspired by You"
 		},
 		{
 			"type": "select",
-			"id": "title_alignment",
-			"label": "Title alignment",
-			"options": [
-				{ "value": "start", "label": "Default" },
-				{ "value": "center", "label": "Center" }
-			]
-		},
-		{
-			"type": "select",
 			"id": "title_tag",
-			"label": "Title size",
+			"label": "t:sections.lookbook-banner.settings.title_tag.label",
 			"options": [
-				{ "value": "h5", "label": "Small" },
-				{ "value": "h4", "label": "Medium" },
-				{ "value": "h3", "label": "Large" }
+				{ "value": "h5", "label": "t:sections.lookbook-banner.settings.title_tag.options.small" },
+				{ "value": "h4", "label": "t:sections.lookbook-banner.settings.title_tag.options.medium" },
+				{ "value": "h3", "label": "t:sections.lookbook-banner.settings.title_tag.options.large" }
 			],
 			"default": "h4"
 		},
 		{
 			"type": "text",
 			"id": "subheading",
-			"label": "Subheading",
+			"label": "t:sections.all.subheading",
 			"default": "Find everything you need to recreate the look."
 		},
 		{
 			"type": "select",
 			"id": "subtitle_size",
-			"label": "Subtitle size",
+			"label": "t:sections.brands.settings.subtitle_size.label",
 			"options": [
-				{ "value": "text-sm", "label": "Small" },
-				{ "value": "text-md", "label": "Medium" },
-				{ "value": "text-lg", "label": "Large" }
+				{ "value": "text-sm", "label": "t:sections.brands.settings.subtitle_size.options.small" },
+				{ "value": "text-md", "label": "t:sections.brands.settings.subtitle_size.options.medium" },
+				{ "value": "text-lg", "label": "t:sections.brands.settings.subtitle_size.options.large" }
 			],
 			"default": "text-md"
 		},
 		{
 			"type": "image_picker",
 			"id": "banner_image",
-			"label": "Banner image"
+			"label": "t:sections.lookbook-banner.settings.banner_image"
 		},
 		{
 			"type": "header",
-			"content": "Section padding"
+			"content": "t:sections.all.padding.section_padding_heading"
 		},
 		{
 			"type": "range",
@@ -193,7 +184,7 @@
 			"max": 120,
 			"step": 4,
 			"unit": "px",
-			"label": "Padding top",
+			"label": "t:sections.all.padding.padding_top",
 			"default": 0
 		},
 		{
@@ -203,7 +194,7 @@
 			"max": 120,
 			"step": 4,
 			"unit": "px",
-			"label": "Padding bottom",
+			"label": "t:sections.all.padding.padding_bottom",
 			"default": 0
 		},
 		{
@@ -213,25 +204,26 @@
 			"max": 100,
 			"step": 5,
 			"unit": "%",
-			"label": "Mobile padding scale",
-			"default": 75
+			"label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+			"default": 75,
+			"info": "t:sections.top_bar.settings.padding_mobile_rate.info"
 		}
 	],
 	"blocks": [
 		{
 			"type": "pin",
-			"name": "Lookbook pin",
+			"name": "t:sections.lookbook-banner.blocks.pin.name",
 			"limit": 8,
 			"settings": [
 				{
 					"type": "product",
 					"id": "product",
-					"label": "Product"
+					"label": "t:sections.lookbook-banner.blocks.pin.settings.product"
 				},
 				{
 					"type": "range",
 					"id": "top_pct",
-					"label": "Top position (%)",
+					"label": "t:sections.lookbook-banner.blocks.pin.settings.top_pct",
 					"min": 0,
 					"max": 100,
 					"step": 1,
@@ -241,7 +233,7 @@
 				{
 					"type": "range",
 					"id": "left_pct",
-					"label": "Left position (%)",
+					"label": "t:sections.lookbook-banner.blocks.pin.settings.left_pct",
 					"min": 0,
 					"max": 100,
 					"step": 1,
@@ -253,8 +245,8 @@
 	],
 	"presets": [
 		{
-			"name": "Lookbook banner",
-			"category": "Image",
+			"name": "t:sections.lookbook-banner.presets.name",
+			"category": "t:sections.lookbook-banner.presets.category",
 			"blocks": [
 				{ "type": "pin" },
 				{ "type": "pin" }
