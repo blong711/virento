@@ -5192,6 +5192,12 @@
         },
         "products_per_row_mobile": {
           "label": "Products per row on mobile"
+        },
+        "title_font": {
+          "label": "Title font family"
+        },
+        "subtitle_font": {
+          "label": "Subtitle font family"
         }
       }
     },
