@@ -1,5 +1,5 @@
-<section class="section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-  <div class="{% if section.settings.add_spacing %}flat-spacing-{{ section.settings.spacing_value }}{% endif %} {% if section.settings.add_top_line %}line-top{% endif %}">
+<section class="section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
+  <div class="{% if section.settings.add_spacing %}flat-spacing-{{ section.settings.spacing_value }}{% endif %} {% if section.settings.add_top_line %}line-top{% endif %} section-{{ section.id }}-padding">
     <div class="{{ section.settings.width }}">
       <div class="grid-cls grid-cls-v6 wow fadeInUp">
         {% for block in section.blocks %}
