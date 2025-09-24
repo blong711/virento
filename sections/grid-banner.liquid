@@ -1,6 +1,6 @@
 <section class="section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-  <div class="{{ section.settings.width }}">
-    <div class="{% if section.settings.add_spacing %}flat-spacing-{{ section.settings.spacing_value }}{% endif %} {% if section.settings.add_top_line %}line-top{% endif %}">
+  <div class="{% if section.settings.add_spacing %}flat-spacing-{{ section.settings.spacing_value }}{% endif %} {% if section.settings.add_top_line %}line-top{% endif %}">
+    <div class="{{ section.settings.width }}">
       <div class="grid-cls grid-cls-v6 wow fadeInUp">
         {% for block in section.blocks %}
           {% case block.type %}
@@ -25,17 +25,21 @@
                   </div>
                   <div class="box-btn">
                     {% if block.settings.button_style == 'primary' %}
-                      <a href="{{ block.settings.link }}" class="tf-btn btn-white hover-primary">
-                        {{ block.settings.button_label }}
-                        <i class="icon icon-arrow-top-left"></i>
-                      </a>
+                      {% if block.settings.button_label != blank and block.settings.link != blank %}
+                        <a href="{{ block.settings.link }}" class="tf-btn btn-white hover-primary">
+                            {{ block.settings.button_label }}
+                            <i class="icon icon-arrow-top-left"></i>
+                        </a>
+                      {% endif %}
                     {% else %}
-                      <a href="{{ block.settings.link }}" class="d-flex align-items-center text-white text-md fw-medium gap-10 link">
-                        <span class="text-transform-none">
-                          {{ block.settings.button_label }}
-                        </span>
-                        <i class="icon-arrow-top-left fs-8"></i>
-                      </a>
+                      {% if block.settings.button_label != blank and block.settings.link != blank %}
+                        <a href="{{ block.settings.link }}" class="d-flex align-items-center text-white text-md fw-medium gap-10 link">
+                            <span class="text-transform-none">
+                            {{ block.settings.button_label }}
+                            </span>
+                            <i class="icon-arrow-top-left fs-8"></i>
+                        </a>
+                      {% endif %}
                     {% endif %}
                   </div>
                 </div>
@@ -95,15 +99,6 @@
       "id": "add_top_line",
       "label": "Add top line",
       "default": true
-    },
-    {
-      "type": "range",
-      "id": "border_radius",
-      "label": "Border radius",
-      "min": 0,
-      "max": 30,
-      "step": 1,
-      "default": 20,
     },
     {
       "type": "header",
@@ -256,12 +251,5 @@
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
-  }
-
-  /* Item styling */
-  .section-{{ section.id }} .s-cls {
-    position: relative;
-    overflow: hidden;
-    border-radius: {{ section.settings.border_radius }}px;
   }
 {% endstyle %}
