@@ -374,7 +374,7 @@
         "subheading": "Discover expert advice, style inspiration, and product updates on our blog.",
         "heading_size": "medium",
         "subheading_size": "medium",
-        "heading_spacing": 50,
+        "heading_spacing": 48,
         "show_nav": false,
         "use_dots_mobile": true,
         "items_desktop": "3",
