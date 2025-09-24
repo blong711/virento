@@ -276,7 +276,8 @@
           "type": "text",
           "id": "subtitle",
           "label": "t:sections.grid-banner.blocks.grid_item.settings.subtitle",
-          "default": "PROMOTION"
+          "default": "PROMOTION",
+          "visible_if": "{{section.settings.three_item_style == 'style2'}}"
         },
         {
           "type": "select",
@@ -296,7 +297,8 @@
               "label": "t:sections.grid-banner.blocks.grid_item.settings.size_large"
             }
           ],
-          "default": "medium"
+          "default": "medium",
+          "visible_if": "{{section.settings.three_item_style == 'style2'}}"
         },
         {
           "type": "url",
