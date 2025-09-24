@@ -438,10 +438,10 @@
       ],
       "settings": {
         "width": "boxed",
-        "heading_font": "font-7",
         "color_scheme": "",
         "heading": "Shop by @Vineta",
         "heading_size": "large",
+        "heading_font": "font-7",
         "content_align": "center",
         "heading_spacing": 48,
         "use_dots_mobile": true,
@@ -455,6 +455,77 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "icon_box_TkpiQY": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_k99JLF": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "FREE DELIVERY",
+            "description": "Enjoy free delivery on all orders"
+          }
+        },
+        "icon_box_4RzVU6": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-gift",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "GIFT PACKAGE",
+            "description": "Perfectly packaged for gifting"
+          }
+        },
+        "icon_box_wCbCjh": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "EASY RETURNS",
+            "description": "Within 14 days for a return"
+          }
+        },
+        "icon_box_Vx4JVQ": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "24/7 PREMIUM SUPPORT",
+            "description": "Outstanding premium support"
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_k99JLF",
+        "icon_box_4RzVU6",
+        "icon_box_wCbCjh",
+        "icon_box_Vx4JVQ"
+      ],
+      "name": "t:sections.icon-box.preset.name",
+      "settings": {
+        "color_scheme": "scheme-5",
+        "width": "container",
+        "icon_position_center": true,
+        "line_top": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "icon_style": "default",
+        "show_border": true,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -465,6 +536,7 @@
     "collection_slider",
     "lookbook_banner",
     "testimonial_WxMJXj",
-    "shop_gram_u9x1ZK"
+    "shop_gram_u9x1ZK",
+    "icon_box_TkpiQY"
   ]
 }
