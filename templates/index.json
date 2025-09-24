@@ -272,17 +272,38 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
-    }
-    ,
+    },
     "lookbook_banner": {
       "type": "lookbook-banner",
-      "settings": {
-        "heading": "Inspired by You",
-        "subheading": "Find everything you need to recreate the look.",
-        "banner_image": ""
+      "blocks": {
+        "pin_3FWBT9": {
+          "type": "pin",
+          "settings": {
+            "product": "nike-air-force-1-07",
+            "top_pct": 67,
+            "left_pct": 59,
+            "fallback_title": "Product title"
+          }
+        },
+        "pin_wd6YRp": {
+          "type": "pin",
+          "settings": {
+            "product": "nike-p-6000",
+            "top_pct": 79,
+            "left_pct": 34,
+            "fallback_title": "Product title"
+          }
+        }
       },
-      "blocks": {},
-      "block_order": []
+      "block_order": [
+        "pin_3FWBT9",
+        "pin_wd6YRp"
+      ],
+      "settings": {
+        "heading": "",
+        "subheading": "",
+        "banner_image": "shopify://shop_images/footwear_d8bc579c-c773-4466-8d90-83067fbc4a2c.jpg"
+      }
     }
   },
   "order": [
