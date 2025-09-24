@@ -315,7 +315,8 @@
       "type": "text",
       "id": "search_placeholder",
       "label": "t:sections.header.settings.search_placeholder.label",
-      "default": "t:sections.header.settings.search_placeholder.default"
+      "default": "t:sections.header.settings.search_placeholder.default",
+      "visible_if": "{{ section.settings.layout_type == 'layout_1' }}"
     },
     {
       "type": "header",
