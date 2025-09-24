@@ -256,7 +256,9 @@
         "color_scheme": "scheme-1",
         "width": "container",
         "collection_list": [
-          
+          "spring-steps",
+          "summer-soes",
+          "autumn-edge"
         ],
         "show_collection_title": true,
         "show_mobile_dots": true,
