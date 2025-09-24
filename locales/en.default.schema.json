@@ -7540,6 +7540,48 @@
       "padding_top": "Padding top",
       "padding_bottom": "Padding bottom",
       "mobile_padding_rate": "Mobile padding rate"
+    },
+    "grid-banner": {
+      "name": "Grid Banner",
+      "settings": {
+        "color_scheme": "Color scheme",
+        "width": "Width",
+        "width_boxed": "Boxed",
+        "width_full": "Full width",
+        "add_top_line": "Add top line",
+        "three_item_style": "Layout Style",
+        "style1": "Style 1",
+        "style2": "Style 2",
+        "layout_info": "Select layout style when exactly 3 items are added",
+        "padding_section": "Section padding",
+        "padding_top": "Padding top",
+        "padding_bottom": "Padding bottom",
+        "padding_mobile_rate": "Mobile padding rate",
+        "padding_mobile_info": "Adjusts padding for mobile devices as a percentage of desktop padding"
+      },
+      "blocks": {
+        "grid_item": {
+          "name": "Grid Item",
+          "settings": {
+            "media_header": "Media",
+            "image": "Image",
+            "hover_image": "Enable hover effect",
+            "content_header": "Content",
+            "title": "Title",
+            "title_size": "Title Size",
+            "size_small": "Small",
+            "size_medium": "Medium",
+            "size_large": "Large",
+            "subtitle": "Subtitle",
+            "subtitle_size": "Subtitle Size",
+            "link": "Link",
+            "button_label": "Button label",
+            "button_style": "Button style",
+            "button_primary": "Primary button",
+            "button_link": "Text link"
+          }
+        }
+      }
     }
   }
 }
