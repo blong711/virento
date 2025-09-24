@@ -1,5 +1,5 @@
 <section class="section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
-  <div class="{% if section.settings.add_spacing %}flat-spacing-{{ section.settings.spacing_value }}{% endif %} {% if section.settings.add_top_line %}line-top{% endif %} section-{{ section.id }}-padding">
+  <div class="flat-spacing-34 {% if section.settings.add_top_line %}line-top{% endif %} section-{{ section.id }}-padding">
     <div class="{{ section.settings.width }}">
       <div class="grid-cls grid-cls-v6 wow fadeInUp">
         {% for block in section.blocks %}
@@ -78,21 +78,6 @@
         }
       ],
       "default": "container-full"
-    },
-    {
-      "type": "checkbox",
-      "id": "add_spacing",
-      "label": "Add spacing",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "spacing_value",
-      "label": "Spacing value",
-      "min": 10,
-      "max": 50,
-      "step": 2,
-      "default": 34
     },
     {
       "type": "checkbox",
