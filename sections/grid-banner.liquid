@@ -79,7 +79,7 @@
                 {% else %}
                   <div class="content">
                     <div class="box-title">
-                      <div class="text-white display-lg">
+                      <div class="text-white {% case block.settings.title_size %}{% when 'small' %}display-md{% when 'large' %}display-lg{% else %}display-md-2{% endcase %}">
                         {{ block.settings.title }}
                       </div>
                     </div>
@@ -147,6 +147,23 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "three_item_style",
+      "label": "3-Item Layout Style",
+      "options": [
+        {
+          "value": "style1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style2",
+          "label": "Style 2"
+        }
+      ],
+      "default": "style1",
+      "info": "Select layout style when exactly 3 items are added"
+    },
+    {
       "type": "header",
       "content": "Section padding"
     },
@@ -180,23 +197,6 @@
       "label": "Mobile padding rate",
       "default": 75,
       "info": "Adjusts padding for mobile devices as a percentage of desktop padding"
-    },
-    {
-      "type": "select",
-      "id": "three_item_style",
-      "label": "3-Item Layout Style",
-      "options": [
-        {
-          "value": "style1",
-          "label": "Style 1 (Grid v1)"
-        },
-        {
-          "value": "style2",
-          "label": "Style 2 (Grid v3)"
-        }
-      ],
-      "default": "style1",
-      "info": "Select layout style when exactly 3 items are added"
     }
   ],
   "blocks": [
@@ -231,24 +231,6 @@
           "default": "Banner Title"
         },
         {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Button label",
-          "default": "View Collection"
-        },
-        {
-          "type": "text",
-          "id": "subtitle",
-          "label": "Subtitle",
-          "default": "PROMOTION",
-          "info": "Used in Style 2 layout"
-        },
-        {
           "type": "select",
           "id": "title_size",
           "label": "Title Size",
@@ -269,6 +251,13 @@
           "default": "medium"
         },
         {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "PROMOTION",
+          "visible_if": "{{ section.settings.three_item_style == 'style2' }}"
+        },
+        {
           "type": "select",
           "id": "subtitle_size",
           "label": "Subtitle Size",
@@ -286,7 +275,19 @@
               "label": "Large"
             }
           ],
-          "default": "medium"
+          "default": "medium",
+          "visible_if": "{{ section.settings.three_item_style == 'style2' }}"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "View Collection"
         },
         {
           "type": "select",
