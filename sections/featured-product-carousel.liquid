@@ -68,6 +68,74 @@
       "default": "h4"
     },
     {
+      "type": "select",
+      "id": "title_font",
+      "label": "Title font family",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "font-main",
+          "label": "Poppins"
+        },
+        {
+          "value": "font-2",
+          "label": "Albert Sans"
+        },
+        {
+          "value": "font-3",
+          "label": "Playfair Display"
+        },
+        {
+          "value": "font-4",
+          "label": "DM Sans"
+        },
+        {
+          "value": "font-5",
+          "label": "Baloo"
+        },
+        {
+          "value": "font-6",
+          "label": "Be Vietnam Pro"
+        },
+        {
+          "value": "font-7",
+          "label": "Oswald"
+        },
+        {
+          "value": "font-8",
+          "label": "Grandstander"
+        },
+        {
+          "value": "font-9",
+          "label": "Jost"
+        },
+        {
+          "value": "font-10",
+          "label": "Agbalumo"
+        },
+        {
+          "value": "font-11",
+          "label": "Manrope"
+        },
+        {
+          "value": "font-12",
+          "label": "Open Sans"
+        },
+        {
+          "value": "font-13",
+          "label": "Inter"
+        },
+        {
+          "value": "font-14",
+          "label": "Gloock"
+        }
+      ],
+      "default": ""
+    },
+    {
       "type": "text",
       "id": "subtitle",
       "label": "t:sections.featured-product-carousel.settings.subtitle.label",
@@ -92,6 +160,74 @@
         }
       ],
       "default": "text-md"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_font",
+      "label": "Subtitle font family",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "font-main",
+          "label": "Poppins"
+        },
+        {
+          "value": "font-2",
+          "label": "Albert Sans"
+        },
+        {
+          "value": "font-3",
+          "label": "Playfair Display"
+        },
+        {
+          "value": "font-4",
+          "label": "DM Sans"
+        },
+        {
+          "value": "font-5",
+          "label": "Baloo"
+        },
+        {
+          "value": "font-6",
+          "label": "Be Vietnam Pro"
+        },
+        {
+          "value": "font-7",
+          "label": "Oswald"
+        },
+        {
+          "value": "font-8",
+          "label": "Grandstander"
+        },
+        {
+          "value": "font-9",
+          "label": "Jost"
+        },
+        {
+          "value": "font-10",
+          "label": "Agbalumo"
+        },
+        {
+          "value": "font-11",
+          "label": "Manrope"
+        },
+        {
+          "value": "font-12",
+          "label": "Open Sans"
+        },
+        {
+          "value": "font-13",
+          "label": "Inter"
+        },
+        {
+          "value": "font-14",
+          "label": "Gloock"
+        }
+      ],
+      "default": ""
     },
     {
       "type": "collection",
@@ -235,11 +371,11 @@
   <div class="{{ section.settings.width }}">
     <div class="flat-title style-between align-items-end wow fadeInUp {% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
       <div class="box-title{% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
-        <{{ section.settings.title_tag }} class="title" style="color: rgb(var(--color-foreground2));">
+        <{{ section.settings.title_tag }} class="title {{ section.settings.title_font }}" style="color: rgb(var(--color-foreground2));">
           {{- section.settings.title -}}
         </{{ section.settings.title_tag }}>
         {% if section.settings.subtitle != blank %}
-          <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground), 0.7);">
+          <p class="desc {{ section.settings.subtitle_size }} {{ section.settings.subtitle_font }}" style="color: rgb(var(--color-foreground), 0.7);">
             {{ section.settings.subtitle }}
           </p>
         {% endif %}
