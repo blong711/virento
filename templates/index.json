@@ -94,8 +94,10 @@
         "title_alignment": "center",
         "title": "Today’s Picks",
         "title_tag": "h4",
+        "title_font": "font-7",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
+        "subtitle_font": "font-13",
         "featured_collection": "",
         "product_list": [
           "nike-air-force-1-07",
