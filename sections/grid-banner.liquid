@@ -58,11 +58,10 @@
                   {% else %}
                     <div class="content">
                       <div class="box-title">
-                        <p class="text-md {% if block.settings.subtitle_color %}{{ block.settings.subtitle_color }}{% else %}text-white{% endif %} font-13 fw-semibold">{{ block.settings.subtitle }}</p>
-                        {% capture heading_tag %}{% if block.settings.heading_tag %}{{ block.settings.heading_tag }}{% else %}h5{% endif %}{% endcapture %}
-                        <{{ heading_tag }} class="font-7 fw-medium {% if block.settings.title_color %}{{ block.settings.title_color }}{% else %}text-white{% endif %}">
+                        <p class="text-md text-white font-13 fw-semibold">{{ block.settings.subtitle }}</p>
+                        <h5 class="font-7 fw-medium text-white">
                           {{ block.settings.title }}
-                        </{{ heading_tag }}>
+                        </h5>
                       </div>
                       <div class="box-btn">
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
@@ -188,11 +187,11 @@
       "options": [
         {
           "value": "style1",
-          "label": "Style 1"
+          "label": "Style 1 (Grid v1)"
         },
         {
           "value": "style2",
-          "label": "Style 2"
+          "label": "Style 2 (Grid v3)"
         }
       ],
       "default": "style1",
@@ -247,27 +246,6 @@
           "label": "Subtitle",
           "default": "PROMOTION",
           "info": "Used in Style 2 layout"
-        },
-        {
-          "type": "text",
-          "id": "subtitle_color",
-          "label": "Subtitle Color Class",
-          "default": "text-dark-purple-1",
-          "info": "CSS class for subtitle color (e.g., text-dark-purple-1, text-white)"
-        },
-        {
-          "type": "text",
-          "id": "title_color",
-          "label": "Title Color Class",
-          "default": "",
-          "info": "CSS class for title color (e.g., text-white)"
-        },
-        {
-          "type": "text",
-          "id": "heading_tag",
-          "label": "Heading Tag",
-          "default": "h5",
-          "info": "HTML tag for title (h3, h4, h5, etc.)"
         },
         {
           "type": "select",
