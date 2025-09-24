@@ -9,7 +9,58 @@
  */
 {
   "sections": {
+    "grid_banner": {
+      "type": "grid-banner",
+      "blocks": {
+        "item1": {
+          "type": "grid_item",
+          "settings": {
+            "title": "New Arrivals",
+            "button_label": "View Collection",
+            "button_style": "primary"
+          }
+        },
+        "item2": {
+          "type": "grid_item",
+          "settings": {
+            "title": "Sneakers",
+            "button_label": "Explore Now",
+            "button_style": "link"
+          }
+        },
+        "item3": {
+          "type": "grid_item",
+          "settings": {
+            "title": "Sandals",
+            "button_label": "Explore Now",
+            "button_style": "link"
+          }
+        },
+        "item4": {
+          "type": "grid_item",
+          "settings": {
+            "title": "Boots",
+            "button_label": "Explore Now",
+            "button_style": "link"
+          }
+        }
+      },
+      "block_order": [
+        "item1",
+        "item2",
+        "item3",
+        "item4"
+      ],
+      "settings": {
+        "width": "container-full",
+        "add_spacing": true,
+        "spacing_value": 34,
+        "add_top_line": true,
+        "border_radius": 20
+      }
+    }
   },
   "order": [
+    "grid_banner"
   ]
 }
