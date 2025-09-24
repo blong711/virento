@@ -45,7 +45,8 @@
     --color-button: {{ scheme.settings.button.red }},{{ scheme.settings.button.green }},{{ scheme.settings.button.blue }} !important;
     --color-button-text: {{ scheme.settings.button_label.red }},{{ scheme.settings.button_label.green }},{{ scheme.settings.button_label.blue }} !important;
     --color-button-outline: {{ scheme.settings.button_outline.red }},{{ scheme.settings.button_outline.green }},{{ scheme.settings.button_outline.blue }} !important;
-    --color-link: {{ scheme.settings.button_outline.red }},{{ scheme.settings.button_outline.green }},{{ scheme.settings.button_outline.blue }} !important;
+    --color-link: {{ scheme.settings.link.red }},{{ scheme.settings.link.green }},{{ scheme.settings.link.blue }} !important;
+    --color-link-hover: {{ scheme.settings.link_hover.red }},{{ scheme.settings.link_hover.green }},{{ scheme.settings.link_hover.blue }} !important;
     --color-badge-foreground: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }} !important;
     --color-badge-background: {{ scheme.settings.background.red }},{{ scheme.settings.background.green }},{{ scheme.settings.background.blue }} !important;
     --color-badge-border: {{ scheme.settings.text.red }},{{ scheme.settings.text.green }},{{ scheme.settings.text.blue }} !important;
@@ -96,13 +97,13 @@
 
   /* Link styles - only applied to sections with color schemes */
   [class*="color-scheme-"] .link {
-    color: rgb(var(--color-foreground));
+    color: rgb(var(--color-link));
     transition: all 0.2s ease-in-out;
   }
 
   /* Link hover styles - only applied to sections with color schemes */
   [class*="color-scheme-"] .link:hover {
-    color: rgb(var(--color-text-hover)) !important;
+    color: rgb(var(--color-link-hover)) !important;
   }
 
   :root {

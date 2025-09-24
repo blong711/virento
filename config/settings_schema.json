@@ -105,6 +105,18 @@
           },
           {
             "type": "color",
+            "id": "link",
+            "label": "Link Color",
+            "default": "#121212"
+          },
+          {
+            "type": "color",
+            "id": "link_hover",
+            "label": "Link Hover Color",
+            "default": "#ff6f61"
+          },
+          {
+            "type": "color",
             "id": "text2",
             "label": "Secondary text",
             "info": "Choose a color close to the primary text.",
@@ -184,7 +196,7 @@
             "solid": "background",
             "gradient": "background_gradient"
           },
-          "links": "button_outline",
+          "links": "link",
           "icons": "text",
           "primary_button": "button",
           "on_primary_button": "button_label",
