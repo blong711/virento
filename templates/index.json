@@ -15,48 +15,52 @@
         "item1": {
           "type": "grid_item",
           "settings": {
+            "image": "shopify://shop_images/footwear-1.jpg",
+            "hover_image": true,
             "title": "New Arrivals",
+            "link": "",
             "button_label": "View Collection",
             "button_style": "primary"
           }
         },
-        "item2": {
+        "grid_item_R74HLH": {
           "type": "grid_item",
           "settings": {
+            "image": "shopify://shop_images/footwear-2.jpg",
+            "hover_image": true,
             "title": "Sneakers",
-            "button_label": "Explore Now",
-            "button_style": "link"
+            "link": "",
+            "button_label": "View Collection",
+            "button_style": "primary"
           }
         },
-        "item3": {
+        "grid_item_DAWKtU": {
           "type": "grid_item",
           "settings": {
+            "image": "shopify://shop_images/footwear-3.jpg",
+            "hover_image": true,
             "title": "Sandals",
-            "button_label": "Explore Now",
-            "button_style": "link"
-          }
-        },
-        "item4": {
-          "type": "grid_item",
-          "settings": {
-            "title": "Boots",
-            "button_label": "Explore Now",
-            "button_style": "link"
+            "link": "",
+            "button_label": "View Collection",
+            "button_style": "primary"
           }
         }
       },
       "block_order": [
         "item1",
-        "item2",
-        "item3",
-        "item4"
+        "grid_item_R74HLH",
+        "grid_item_DAWKtU"
       ],
       "settings": {
+        "color_scheme": "",
         "width": "container-full",
         "add_spacing": true,
         "spacing_value": 34,
         "add_top_line": true,
-        "border_radius": 20
+        "border_radius": 20,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
       }
     }
   },
