@@ -438,9 +438,10 @@
       ],
       "settings": {
         "width": "boxed",
+        "heading_font": "font-7",
         "color_scheme": "",
         "heading": "Shop by @Vineta",
-        "heading_size": "medium",
+        "heading_size": "large",
         "content_align": "center",
         "heading_spacing": 48,
         "use_dots_mobile": true,
