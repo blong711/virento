@@ -28843,3 +28843,21 @@ shopify-accelerated-checkout {
       gap: 20px;
   }
 }
+.tf-brand.style-2 .brand-item {
+  max-width: unset;
+  height: unset;
+}
+.tf-brand.style-2 {
+  padding: 24px 0;
+  gap: 64px;
+}
+.text-grey-7 {
+  color: #444444 !important;
+}
+.text-clip-2 {
+  background: linear-gradient(0deg, #fff, #fff);
+  background-size: 100% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px #1f1f1f;
+}

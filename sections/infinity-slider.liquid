@@ -1,0 +1,177 @@
+{% schema %}
+{
+  "name": "Infinity Slider",
+  "tag": "section",
+  "class": "flat-spacing pt-0 pb-0",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.all.width.label",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.all.width.options.boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.all.width.options.full_width"
+        }
+      ],
+      "default": "container-full"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "min": 20,
+      "max": 200,
+      "step": 5,
+      "default": 80,
+      "label": "Animation Speed (lower is faster)"
+    },
+    {
+      "type": "range",
+      "id": "clone_count",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 2,
+      "label": "Clone Count"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#7B53FF"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text Content",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "select",
+          "id": "text_class",
+          "label": "Text Style",
+          "options": [
+            {
+              "value": "text-grey-7",
+              "label": "Grey"
+            },
+            {
+              "value": "text-clip-2",
+              "label": "Gradient"
+            }
+          ],
+          "default": "text-grey-7"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Infinity Slider",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "text",
+          "settings": {
+            "text": "Free Shipping",
+            "text_class": "text-grey-7"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "Shop Now, Pay Later",
+            "text_class": "text-clip-2"
+          }
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "Free Returns",
+            "text_class": "text-grey-7"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="">
+  <div class="infiniteslide_wrap">
+    <div class="infiniteslide tf-brand style-2" 
+         data-infiniteslide='{"speed": {{ section.settings.animation_speed }}, "clone": {{ section.settings.clone_count }}, "direction": "left", "pauseonhover": true}'>
+      
+      {% for block in section.blocks %}
+        {% if block.type == 'text' %}
+          <div class="brand-item">
+            <p class="display-2xl fw-semibold {{ block.settings.text_class }}">{{ block.settings.text }}</p>
+          </div>
+          
+          {% unless forloop.last %}
+            <div class="brand-item icon-item">
+              <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M42 18.9H26.04L37.38 7.56L34.44 4.62L23.1 15.96V0H18.9V15.96L7.56 4.62L4.62 7.56L15.96 18.9H0V23.1H15.96L4.62 34.44L7.56 37.38L18.9 26.04V42H23.1V26.04L34.44 37.38L37.38 34.44L26.04 23.1H42V18.9Z" fill="{{ section.settings.icon_color }}"></path>
+              </svg>
+            </div>
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+      
+      {% comment %} No need to manually repeat blocks, the JavaScript will handle cloning {% endcomment %}
+      
+    </div>
+  </div>
+</div>
+

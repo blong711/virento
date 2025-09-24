@@ -9,6 +9,47 @@
  */
 {
   "sections": {
+    "infinity_slider": {
+      "type": "infinity-slider",
+      "blocks": {
+        "text_1": {
+          "type": "text",
+          "settings": {
+            "text": "Free Shipping",
+            "text_class": "text-grey-7"
+          }
+        },
+        "text_2": {
+          "type": "text",
+          "settings": {
+            "text": "Shop Now, Pay Later",
+            "text_class": "text-clip-2"
+          }
+        },
+        "text_3": {
+          "type": "text",
+          "settings": {
+            "text": "Free Returns",
+            "text_class": "text-grey-7"
+          }
+        }
+      },
+      "block_order": [
+        "text_1",
+        "text_2",
+        "text_3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container-full",
+        "animation_speed": 80,
+        "clone_count": 2,
+        "icon_color": "#7B53FF",
+        "padding_top": 24,
+        "padding_bottom": 24,
+        "padding_mobile_rate": 75
+      }
+    },
     "grid_banner": {
       "type": "grid-banner",
       "blocks": {
@@ -118,6 +159,7 @@
   },
   "order": [
     "grid_banner",
-    "featured_product_carousel_UXfDqh"
+    "featured_product_carousel_UXfDqh",
+    "infinity_slider"
   ]
 }
