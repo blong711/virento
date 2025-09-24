@@ -1,0 +1,167 @@
+{% comment %}
+  Lookbook Banner Section
+  - Configurable banner image, title, and subtitle
+  - Lookbook pins as blocks with product selection and pin position (top/left percentages)
+{% endcomment %}
+
+<section class="flat-spacing-3" data-section-id="{{ section.id }}">
+	<div class="container">
+		{% if section.settings.heading != blank or section.settings.subheading != blank %}
+		<div class="flat-title wow fadeInUp">
+			{% if section.settings.heading != blank %}
+			<h4 class="title">{{ section.settings.heading }}</h4>
+			{% endif %}
+			{% if section.settings.subheading != blank %}
+			<p class="desc text-main text-md">{{ section.settings.subheading }}</p>
+			{% endif %}
+		</div>
+		{% endif %}
+
+		<div class="banner-lookbook">
+			{% if section.settings.banner_image != blank %}
+			<img
+				class="img-banner"
+				srcset="
+					{{ section.settings.banner_image | image_url: width: 640 }} 640w,
+					{{ section.settings.banner_image | image_url: width: 960 }} 960w,
+					{{ section.settings.banner_image | image_url: width: 1440 }} 1440w,
+					{{ section.settings.banner_image | image_url: width: 1920 }} 1920w
+				"
+				sizes="(max-width: 768px) 100vw, 1200px"
+				src="{{ section.settings.banner_image | image_url: width: 1440 }}"
+				alt="{{ section.settings.banner_image.alt | default: section.settings.heading | escape }}"
+				loading="lazy"
+				width="1440"
+				height="1440"
+			>
+			{% endif %}
+
+			{% for block in section.blocks %}
+			{% assign pinned_product = block.settings.product %}
+			<div class="lookbook-item" style="position: absolute; top: {{ block.settings.top_pct }}%; left: {{ block.settings.left_pct }}%; transform: translate(-50%, -50%);" {{ block.shopify_attributes }}>
+				<div class="dropdown dropup-center dropdown-custom">
+					<div role="dialog" class="tf-pin-btn" data-bs-toggle="dropdown" aria-expanded="false">
+						<span></span>
+					</div>
+					<div class="dropdown-menu">
+						<div class="loobook-product style-row">
+							<div class="img-style">
+								{% if pinned_product and pinned_product.featured_image %}
+								<img
+									src="{{ pinned_product.featured_image | image_url: width: 320 }}"
+									alt="{{ pinned_product.title | escape }}"
+									loading="lazy"
+									width="320"
+									height="320"
+								>
+								{% else %}
+								<div style="width: 96px; height: 96px; background: #f5f5f5;"></div>
+								{% endif %}
+							</div>
+							<div class="content">
+								<div class="info">
+									{% if pinned_product %}
+									<a href="{{ pinned_product.url }}" class="text-md fw-medium text-line-clamp-1 link">{{ pinned_product.title }}</a>
+									<p class="price-wrap text-md fw-medium">
+										<span class="price-new text-primary">{{ pinned_product.price | money }}</span>
+										{% if pinned_product.compare_at_price > pinned_product.price %}
+										<span class="price-old">{{ pinned_product.compare_at_price | money }}</span>
+										{% endif %}
+									</p>
+									{% else %}
+									<span class="text-md fw-medium">{{ block.settings.fallback_title | default: 'Product' }}</span>
+									{% endif %}
+								</div>
+								{% if pinned_product %}
+								<a href="{{ pinned_product.url }}" class="btn-lookbook hover-tooltip">
+									<i class="icon-view"></i>
+									<span class="tooltip">{{ 'products.product.view_details' | t: default: 'View details' }}</span>
+								</a>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "Lookbook banner",
+	"tag": "section",
+	"class": "section-lookbook-banner",
+	"settings": [
+		{
+			"type": "text",
+			"id": "heading",
+			"label": "Heading",
+			"default": "Inspired by You"
+		},
+		{
+			"type": "text",
+			"id": "subheading",
+			"label": "Subheading",
+			"default": "Find everything you need to recreate the look."
+		},
+		{
+			"type": "image_picker",
+			"id": "banner_image",
+			"label": "Banner image"
+		}
+	],
+	"blocks": [
+		{
+			"type": "pin",
+			"name": "Lookbook pin",
+			"limit": 8,
+			"settings": [
+				{
+					"type": "product",
+					"id": "product",
+					"label": "Product"
+				},
+				{
+					"type": "range",
+					"id": "top_pct",
+					"label": "Top position (%)",
+					"min": 0,
+					"max": 100,
+					"step": 1,
+					"unit": "%",
+					"default": 20
+				},
+				{
+					"type": "range",
+					"id": "left_pct",
+					"label": "Left position (%)",
+					"min": 0,
+					"max": 100,
+					"step": 1,
+					"unit": "%",
+					"default": 30
+				},
+				{
+					"type": "text",
+					"id": "fallback_title",
+					"label": "Fallback title",
+					"default": "Product title"
+				}
+			]
+		}
+	],
+	"presets": [
+		{
+			"name": "Lookbook banner",
+			"category": "Image",
+			"blocks": [
+				{ "type": "pin" },
+				{ "type": "pin" }
+			]
+		}
+	]
+}
+{% endschema %}
+
