@@ -317,37 +317,52 @@
           "type": "testimonial_item",
           "settings": {
             "rating": 5,
-            "heading": "Great product!",
-            "content": "<p>I really love this product. It exceeded my expectations!</p>",
-            "author_name": "John Doe",
-            "product": ""
+            "heading": "Top-Notch Smartwatch!",
+            "content": "<p>I bought the Watch Ultra, and it's been incredible. The performance and design are unmatched!<br/><br/></p>",
+            "author_name": "James T.",
+            "author_image": "shopify://shop_images/author-mega-elec1.jpg",
+            "product": "nike-p-6000"
           }
         },
         "testimonial_item_YKJ8zL": {
           "type": "testimonial_item",
           "settings": {
             "rating": 5,
-            "heading": "Great product!",
-            "content": "<p>I really love this product. It exceeded my expectations!</p>",
-            "author_name": "John Doe",
-            "product": ""
+            "heading": "Amazing Quality with AirPods Pro",
+            "content": "<p>These AirPods Pro have excellent sound quality and noise cancellation. Couldn't be happier!<br/>                                        <br/><br/></p>",
+            "author_name": "Vineta P.",
+            "author_image": "shopify://shop_images/author-mega-elec2.jpg",
+            "product": "nike-victori-one"
           }
         },
         "testimonial_item_C9zfzC": {
           "type": "testimonial_item",
           "settings": {
             "rating": 5,
-            "heading": "Great product!",
-            "content": "<p>I really love this product. It exceeded my expectations!</p>",
-            "author_name": "John Doe",
-            "product": ""
+            "heading": "Perfect Laptop for Work",
+            "content": "<p>The MacBook Air M2 I ordered is a game changer. Super fast and lightweight perfect for my needs!<br/><br/></p>",
+            "author_name": "Michael R.",
+            "author_image": "shopify://shop_images/author-mega-elec3.jpg",
+            "product": "nike-air-max-plus"
+          }
+        },
+        "testimonial_item_QPMg3F": {
+          "type": "testimonial_item",
+          "settings": {
+            "rating": 5,
+            "heading": "Top-Notch Smartwatch!",
+            "content": "<p>I bought the Watch Ultra, and it's been incredible. The performance and design are unmatched!</p>",
+            "author_name": "James T.",
+            "author_image": "shopify://shop_images/author-mega-elec1.jpg",
+            "product": "nike-air-force-1-07"
           }
         }
       },
       "block_order": [
         "testimonial_item_qT4BW7",
         "testimonial_item_YKJ8zL",
-        "testimonial_item_C9zfzC"
+        "testimonial_item_C9zfzC",
+        "testimonial_item_QPMg3F"
       ],
       "name": "t:sections.testimonial.presets.name",
       "settings": {
@@ -359,7 +374,7 @@
         "subheading": "Discover expert advice, style inspiration, and product updates on our blog.",
         "heading_size": "medium",
         "subheading_size": "medium",
-        "heading_spacing": 20,
+        "heading_spacing": 50,
         "show_nav": false,
         "use_dots_mobile": true,
         "items_desktop": "3",
