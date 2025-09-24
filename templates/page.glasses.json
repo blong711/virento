@@ -55,6 +55,10 @@
         "color_scheme": "scheme-1",
         "layout_style": "style-2",
         "width": "",
+        "height": "adapt-first",
+        "height_fixed": 500,
+        "mobile_height": "adapt-first",
+        "mobile_height_fixed": 300,
         "loop": true,
         "autoplay_speed": 5,
         "pause_on_hover": true,
@@ -62,13 +66,78 @@
         "show_arrows": false,
         "show_arrows_mobile": false,
         "show_dots": true,
+        "dots_style": "style-1",
+        "button_animate": true,
         "padding_top": 0,
         "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "grid_banner_Kq3Vea": {
+      "type": "grid-banner",
+      "blocks": {
+        "grid_item_8KAjXA": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/cls-1_1.jpg",
+            "hover_image": true,
+            "title": "Visionary Vibes",
+            "title_size": "medium",
+            "subtitle": "PROMOTION",
+            "subtitle_size": "medium",
+            "link": "shopify://collections",
+            "button_label": "View Collection",
+            "button_style": "primary"
+          }
+        },
+        "grid_item_4T3X3H": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/cls-2_1.jpg",
+            "hover_image": true,
+            "title": "Timeless Optics",
+            "title_size": "medium",
+            "subtitle": "PROMOTION",
+            "subtitle_size": "medium",
+            "link": "shopify://collections",
+            "button_label": "Explore Now",
+            "button_style": "primary"
+          }
+        },
+        "grid_item_P3Mf9t": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/cls-3_1.jpg",
+            "hover_image": true,
+            "title": "Clear Edge Collection",
+            "title_size": "medium",
+            "subtitle": "PROMOTION",
+            "subtitle_size": "medium",
+            "link": "shopify://collections",
+            "button_label": "Explore Now",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "grid_item_8KAjXA",
+        "grid_item_4T3X3H",
+        "grid_item_P3Mf9t"
+      ],
+      "name": "Grid Banner",
+      "settings": {
+        "color_scheme": "",
+        "width": "container-full",
+        "add_top_line": true,
+        "three_item_style": "style1",
+        "padding_top": 120,
+        "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
     }
   },
   "order": [
-    "slider"
+    "slider",
+    "grid_banner_Kq3Vea"
   ]
 }
