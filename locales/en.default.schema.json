@@ -711,6 +711,23 @@
             "fixed": "Fixed height"
           }
         },
+        "layout_style": {
+          "label": "Layout style",
+          "options": {
+            "default": "Style 1",
+            "style-2": "Style 2"
+          }
+        },
+        "button_animate": {
+          "label": "Enable button animation"
+        },
+        "pagination_dots_style": {
+          "label": "Pagination dots style",
+          "options": {
+            "style-1": "Style 1",
+            "style-2": "Style 2"
+          }
+        },
         "height_fixed": {
           "label": "Fixed height",
           "info": "Only applies when height is set to fixed"
