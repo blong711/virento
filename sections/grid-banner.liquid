@@ -1,48 +1,73 @@
 <section class="section-{{ section.id }} color-{{ section.settings.color_scheme }} gradient">
   <div class="flat-spacing-34 {% if section.settings.add_top_line %}line-top{% endif %} section-{{ section.id }}-padding">
     <div class="{{ section.settings.width }}">
-      <div class="grid-cls grid-cls-v6 wow fadeInUp">
+      <div class="grid-cls {% if section.blocks.size == 3 %}grid-cls-v1{% else %}grid-cls-v6{% endif %} wow fadeInUp">
         {% for block in section.blocks %}
           {% case block.type %}
             {% when 'grid_item' %}
-              <div class="item{{ forloop.index }} s-cls radius-{{ section.settings.border_radius }} style-absolute abs-top-center {% if block.settings.hover_image %}hover-img{% endif %}" {{ block.shopify_attributes }}>
-                <div class="image img-style {% if forloop.index == 1 %}h-100{% endif %}">
-                  {% if block.settings.image %}
-                    {{
-                      block.settings.image
-                      | image_url: width: 1400
-                      | image_tag: loading: 'lazy', class: 'lazyload', alt: block.settings.title
-                    }}
-                  {% else %}
-                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {% endif %}
-                </div>
-                <div class="content">
-                  <div class="box-title">
-                    <div class="text-white display-lg">
-                      {{ block.settings.title }}
-                    </div>
-                  </div>
-                  <div class="box-btn">
-                    {% if block.settings.button_style == 'primary' %}
-                      {% if block.settings.button_label != blank and block.settings.link != blank %}
-                        <a href="{{ block.settings.link }}" class="tf-btn btn-white hover-primary">
-                            {{ block.settings.button_label }}
-                            <i class="icon icon-arrow-top-left"></i>
-                        </a>
-                      {% endif %}
+              <div class="item{{ forloop.index }} {% if section.blocks.size == 3 %}wg-cls style-abs{% else %}s-cls radius-{{ section.settings.border_radius }} style-absolute abs-top-center{% endif %} {% if block.settings.hover_image %}hover-img{% endif %}" {{ block.shopify_attributes }}>
+                {% if section.blocks.size == 3 %}
+                  <a href="{{ block.settings.link }}" class="image img-style d-block">
+                    {% if block.settings.image %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 1400
+                        | image_tag: loading: 'lazy', class: 'lazyload', alt: block.settings.title
+                      }}
                     {% else %}
-                      {% if block.settings.button_label != blank and block.settings.link != blank %}
-                        <a href="{{ block.settings.link }}" class="d-flex align-items-center text-white text-md fw-medium gap-10 link">
-                            <span class="text-transform-none">
-                            {{ block.settings.button_label }}
-                            </span>
-                            <i class="icon-arrow-top-left fs-8"></i>
-                        </a>
-                      {% endif %}
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </a>
+                {% else %}
+                  <div class="image img-style {% if forloop.index == 1 %}h-100{% endif %}">
+                    {% if block.settings.image %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 1400
+                        | image_tag: loading: 'lazy', class: 'lazyload', alt: block.settings.title
+                      }}
+                    {% else %}
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
                     {% endif %}
                   </div>
-                </div>
+                {% endif %}
+                {% if section.blocks.size == 3 %}
+                  <div class="cls-btn wow fadeInUp">
+                    <div class="display-md-2 mb_16 text-white font-14">{{ block.settings.title }}</div>
+                    {% if block.settings.button_label != blank and block.settings.link != blank %}
+                      <a href="{{ block.settings.link }}" class="tf-btn btn-cls btn-white animate-btn animate-dark">
+                        {{ block.settings.button_label }}
+                      </a>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="content">
+                    <div class="box-title">
+                      <div class="text-white display-lg">
+                        {{ block.settings.title }}
+                      </div>
+                    </div>
+                    <div class="box-btn">
+                      {% if block.settings.button_style == 'primary' %}
+                        {% if block.settings.button_label != blank and block.settings.link != blank %}
+                          <a href="{{ block.settings.link }}" class="tf-btn btn-white hover-primary">
+                              {{ block.settings.button_label }}
+                              <i class="icon icon-arrow-top-left"></i>
+                          </a>
+                        {% endif %}
+                      {% else %}
+                        {% if block.settings.button_label != blank and block.settings.link != blank %}
+                          <a href="{{ block.settings.link }}" class="d-flex align-items-center text-white text-md fw-medium gap-10 link">
+                              <span class="text-transform-none">
+                              {{ block.settings.button_label }}
+                              </span>
+                              <i class="icon-arrow-top-left fs-8"></i>
+                          </a>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
               </div>
           {% endcase %}
         {% endfor %}
