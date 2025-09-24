@@ -301,13 +301,72 @@
         "color_scheme": "",
         "width": "container",
         "heading": "",
-        "title_alignment": "start",
         "title_tag": "h4",
         "subheading": "",
         "subtitle_size": "text-md",
         "banner_image": "shopify://shop_images/footwear_d8bc579c-c773-4466-8d90-83067fbc4a2c.jpg",
         "padding_top": 0,
         "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
+    },
+    "testimonial_WxMJXj": {
+      "type": "testimonial",
+      "blocks": {
+        "testimonial_item_qT4BW7": {
+          "type": "testimonial_item",
+          "settings": {
+            "rating": 5,
+            "heading": "Great product!",
+            "content": "<p>I really love this product. It exceeded my expectations!</p>",
+            "author_name": "John Doe",
+            "product": ""
+          }
+        },
+        "testimonial_item_YKJ8zL": {
+          "type": "testimonial_item",
+          "settings": {
+            "rating": 5,
+            "heading": "Great product!",
+            "content": "<p>I really love this product. It exceeded my expectations!</p>",
+            "author_name": "John Doe",
+            "product": ""
+          }
+        },
+        "testimonial_item_C9zfzC": {
+          "type": "testimonial_item",
+          "settings": {
+            "rating": 5,
+            "heading": "Great product!",
+            "content": "<p>I really love this product. It exceeded my expectations!</p>",
+            "author_name": "John Doe",
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_item_qT4BW7",
+        "testimonial_item_YKJ8zL",
+        "testimonial_item_C9zfzC"
+      ],
+      "name": "t:sections.testimonial.presets.name",
+      "settings": {
+        "width": "boxed",
+        "content_align": "center",
+        "color_scheme": "",
+        "rating_star_color": "#98ab23",
+        "heading": "Customer Reviews",
+        "subheading": "Discover expert advice, style inspiration, and product updates on our blog.",
+        "heading_size": "medium",
+        "subheading_size": "medium",
+        "heading_spacing": 20,
+        "show_nav": false,
+        "use_dots_mobile": true,
+        "items_desktop": "3",
+        "items_tablet": "2",
+        "items_mobile": "1",
+        "padding_top": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     }
@@ -318,6 +377,7 @@
     "infinity_slider",
     "brands",
     "collection_slider",
-    "lookbook_banner"
+    "lookbook_banner",
+    "testimonial_WxMJXj"
   ]
 }
