@@ -68,15 +68,25 @@
 										<span class="price-old">{{ pinned_product.compare_at_price | money }}</span>
 										{% endif %}
 									</p>
-									{% else %}
-									<span class="text-md fw-medium">{{ block.settings.fallback_title | default: 'Product' }}</span>
 									{% endif %}
 								</div>
 								{% if pinned_product %}
-								<a href="{{ pinned_product.url }}" class="btn-lookbook hover-tooltip">
-									<i class="icon-view"></i>
-									<span class="tooltip">{{ 'products.product.view_details' | t: default: 'View details' }}</span>
-								</a>
+								<div 
+									class="hover-tooltip box-icon quickview btn-quickview btn-lookbook" 
+									data-product-id="{{ pinned_product.id }}"
+									data-product-handle="{{ pinned_product.handle }}"
+									data-product-title="{{ pinned_product.title | escape }}"
+									data-product-price="{{ pinned_product.price | money }}"
+									data-product-compare-price="{{ pinned_product.compare_at_price | money }}"
+									data-product-description="{{ pinned_product.description | strip_html | truncate: 150 | escape }}"
+									data-product-url="{{ pinned_product.url }}"
+									data-product-images="{% for image in pinned_product.images %}{{ image | image_url: width: 600 }}{% unless forloop.last %},{% endunless %}{% endfor %}"
+									data-product-variants="{{ pinned_product.variants | json | escape }}"
+									data-product-options="{{ pinned_product.options_with_values | json | escape }}"
+									aria-label="Quick view of {{ pinned_product.title }}">
+									<i class="icon icon-view" aria-hidden="true"></i>
+									<span class="tooltip">{{ 'snippets.product-card.quick_view' | t }}</span>
+								</div>
 								{% endif %}
 							</div>
 						</div>
@@ -142,12 +152,6 @@
 					"step": 1,
 					"unit": "%",
 					"default": 30
-				},
-				{
-					"type": "text",
-					"id": "fallback_title",
-					"label": "Fallback title",
-					"default": "Product title"
 				}
 			]
 		}

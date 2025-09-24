@@ -18532,12 +18532,12 @@ button.animate-btn::after,
   background-color: #c9c9c9;
 }
 
-.loobook-product::before {
+/* .loobook-product::before {
   content: '';
   position: absolute;
   border-width: 8px;
   border-style: solid;
-}
+} */
 
 .loobook-product.style-row {
   flex-direction: row;
