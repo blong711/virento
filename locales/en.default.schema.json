@@ -7588,6 +7588,25 @@
           }
         }
       }
+    },
+    "infinity-slider": {
+      "name": "Infinity Slider",
+      "settings": {
+        "animation_speed": "Animation Speed",
+        "clone_count": "Clone Count",
+        "icon_color": "Icon Color"
+      },
+      "blocks": {
+        "text_item": {
+          "name": "Text Item",
+          "settings": {
+            "text": "Text",
+            "text_class": "Text Style",
+            "text_class.options.grey": "Grey",
+            "text_class.options.gradient": "Gradient"
+          }
+        }
+      }
     }
   }
 }

@@ -1,15 +1,9 @@
 {% schema %}
 {
-  "name": "Infinity Slider",
+  "name": "t:sections.infinity-slider.name",
   "tag": "section",
   "class": "flat-spacing pt-0 pb-0",
   "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
     {
       "type": "range",
       "id": "animation_speed",
@@ -17,7 +11,7 @@
       "max": 200,
       "step": 5,
       "default": 80,
-      "label": "Animation Speed"
+      "label": "t:sections.infinity-slider.settings.animation_speed"
     },
     {
       "type": "range",
@@ -26,73 +20,38 @@
       "max": 5,
       "step": 1,
       "default": 2,
-      "label": "Clone Count"
+      "label": "t:sections.infinity-slider.settings.clone_count"
     },
     {
       "type": "color",
       "id": "icon_color",
-      "label": "Icon Color",
+      "label": "t:sections.infinity-slider.settings.icon_color",
       "default": "#7B53FF"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "padding_mobile_rate",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
-      "default": 75,
-      "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
     }
   ],
   "blocks": [
     {
       "type": "text",
-      "name": "Text Item",
+      "name": "t:sections.infinity-slider.blocks.text_item.name",
       "settings": [
         {
           "type": "text",
           "id": "text",
-          "label": "Text Content",
+          "label": "t:sections.infinity-slider.blocks.text_item.settings.text",
           "default": "Free Shipping"
         },
         {
           "type": "select",
           "id": "text_class",
-          "label": "Text Style",
+          "label": "t:sections.infinity-slider.blocks.text_item.settings.text_class",
           "options": [
             {
               "value": "text-grey-7",
-              "label": "Grey"
+              "label": "t:sections.infinity-slider.blocks.text_item.settings.text_class.options.grey"
             },
             {
               "value": "text-clip-2",
-              "label": "Gradient"
+              "label": "t:sections.infinity-slider.blocks.text_item.settings.text_class.options.gradient"
             }
           ],
           "default": "text-grey-7"
@@ -202,7 +161,7 @@
   customElements.define('infinity-slider-section', InfinitySliderSection);
 </script>
 
-<infinity-slider-section class="section section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}" data-section-type="infinity-slider">
+<infinity-slider-section class="section" data-section-id="{{ section.id }}" data-section-type="infinity-slider">
   <div class="">
   <div class="infiniteslide_wrap">
     <div class="infiniteslide tf-brand style-2" 
@@ -222,24 +181,8 @@
             </div>
           {% endunless %}
         {% endif %}
-      {% endfor %}
-      
-      {% comment %} No need to manually repeat blocks, the JavaScript will handle cloning {% endcomment %}
-      
+      {% endfor %}      
     </div>
   </div>
 </div>
 </infinity-slider-section>
-{% style %}
-    .section-{{ section.id }}-padding {
-            padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
-            padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
-        }
-
-    @media screen and (min-width: 750px) {
-        .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top }}px;
-        padding-bottom: {{ section.settings.padding_bottom }}px;
-        }
-    }
-{% endstyle %}
