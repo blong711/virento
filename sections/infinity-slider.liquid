@@ -148,7 +148,78 @@
 }
 {% endschema %}
 
-<div class="">
+<script>
+  class InfinitySliderSection extends HTMLElement {
+    constructor() {
+      super();
+      this.infinitySlider = null;
+      this.initializeSlider();
+      
+      // For Shopify theme editor
+      document.addEventListener('shopify:section:load', (event) => {
+        if (event.detail.sectionId === this.dataset.sectionId) {
+          this.initializeSlider();
+        }
+      });
+      
+      document.addEventListener('shopify:section:unload', (event) => {
+        if (event.detail.sectionId === this.dataset.sectionId && this.infinitySlider) {
+          this.infinitySlider.destroy();
+          this.infinitySlider = null;
+        }
+      });
+      
+      document.addEventListener('shopify:section:select', (event) => {
+        if (event.detail.sectionId === this.dataset.sectionId && this.infinitySlider) {
+          this.infinitySlider.resume();
+        }
+      });
+      
+      document.addEventListener('shopify:section:deselect', (event) => {
+        if (event.detail.sectionId === this.dataset.sectionId && this.infinitySlider) {
+          this.infinitySlider.resume();
+        }
+      });
+    }
+    
+    initializeSlider() {
+      // Wait for the DOM to be ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => this.setupSlider());
+      } else {
+        this.setupSlider();
+      }
+    }
+    
+    setupSlider() {
+      // Destroy previous instance if it exists
+      if (this.infinitySlider) {
+        this.infinitySlider.destroy();
+        this.infinitySlider = null;
+      }
+      
+      // Find the slider element
+      const sliderElement = this.querySelector('.infiniteslide');
+      if (!sliderElement) return;
+      
+      // Get options from data attribute
+      const options = JSON.parse(sliderElement.dataset.infiniteslide || '{}');
+      
+      // Create new instance
+      if (typeof InfiniteSlide !== 'undefined') {
+        this.infinitySlider = new InfiniteSlide(sliderElement, options);
+      } else {
+        console.error('InfiniteSlide library not loaded');
+      }
+    }
+  }
+  
+  // Register the custom element
+  customElements.define('infinity-slider-section', InfinitySliderSection);
+</script>
+
+<infinity-slider-section class="section" data-section-id="{{ section.id }}" data-section-type="infinity-slider">
+  <div class="">
   <div class="infiniteslide_wrap">
     <div class="infiniteslide tf-brand style-2" 
          data-infiniteslide='{"speed": {{ section.settings.animation_speed }}, "clone": {{ section.settings.clone_count }}, "direction": "left", "pauseonhover": true}'>
@@ -174,4 +245,5 @@
     </div>
   </div>
 </div>
+</infinity-slider-section>
 
