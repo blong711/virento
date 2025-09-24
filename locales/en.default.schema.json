@@ -822,6 +822,9 @@
     },
     "all": {
       "content": "Content",
+      "heading": "Heading",
+      "subheading": "Subheading",
+      "subtitle": "Subtitle",
       "animation": {
         "content": "Animations",
         "image_behavior": {
