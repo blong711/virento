@@ -519,6 +519,8 @@
           data-slider-id="{{ section.id }}"
           data-height="{{ section.settings.height }}"
           data-mobile-height="{{ section.settings.mobile_height }}"
+          {% if section.settings.layout_style == 'style-2' %}data-effect="fade"{% endif %}
+          {% if section.settings.layout_style == 'style-2' %}data-speed="1000"{% endif %}
           data-preview="1"
           data-tablet="1"
           data-mobile="1"
