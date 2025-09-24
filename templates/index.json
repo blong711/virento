@@ -148,14 +148,9 @@
         "text_3"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
-        "width": "container-full",
         "animation_speed": 80,
         "clone_count": 2,
-        "icon_color": "#7b53ff",
-        "padding_top": 24,
-        "padding_bottom": 24,
-        "padding_mobile_rate": 75
+        "icon_color": "#7b53ff"
       }
     },
     "brands": {
@@ -164,37 +159,65 @@
         "brand_1": {
           "type": "brand",
           "settings": {
-            "brand_name": "Brand 1"
+            "brand_image": "shopify://shop_images/zara.png",
+            "brand_name": "Zara",
+            "brand_link": ""
           }
         },
         "brand_2": {
           "type": "brand",
           "settings": {
-            "brand_name": "Brand 2"
+            "brand_image": "shopify://shop_images/bear.png",
+            "brand_name": "Bear",
+            "brand_link": ""
           }
         },
         "brand_3": {
           "type": "brand",
           "settings": {
-            "brand_name": "Brand 3"
+            "brand_image": "shopify://shop_images/nike.png",
+            "brand_name": "Nike",
+            "brand_link": ""
           }
         },
         "brand_4": {
           "type": "brand",
           "settings": {
-            "brand_name": "Brand 4"
+            "brand_image": "shopify://shop_images/asos.png",
+            "brand_name": "Asos",
+            "brand_link": ""
           }
         },
         "brand_5": {
           "type": "brand",
           "settings": {
-            "brand_name": "Brand 5"
+            "brand_image": "shopify://shop_images/burberry.png",
+            "brand_name": "Burberry",
+            "brand_link": ""
           }
         },
         "brand_6": {
           "type": "brand",
           "settings": {
-            "brand_name": "Brand 6"
+            "brand_image": "shopify://shop_images/forever.png",
+            "brand_name": "Forever 21",
+            "brand_link": ""
+          }
+        },
+        "brand_ymxtaM": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/zara.png",
+            "brand_name": "Zara",
+            "brand_link": ""
+          }
+        },
+        "brand_9xhgQn": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/bear.png",
+            "brand_name": "Bear",
+            "brand_link": ""
           }
         }
       },
@@ -204,16 +227,18 @@
         "brand_3",
         "brand_4",
         "brand_5",
-        "brand_6"
+        "brand_6",
+        "brand_ymxtaM",
+        "brand_9xhgQn"
       ],
       "settings": {
         "color_scheme": "scheme-1",
         "width": "container",
         "show_border": true,
-        "title_alignment": "center",
-        "title": "Our Brands",
+        "title_alignment": "start",
+        "title": "Shop by Brands",
         "title_tag": "h4",
-        "subtitle": "Shop your favorite brands",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
         "show_navigation": true,
         "show_mobile_dots": true,
