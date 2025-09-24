@@ -18,6 +18,9 @@
             "image": "shopify://shop_images/footwear-1.jpg",
             "hover_image": true,
             "title": "New Arrivals",
+            "title_size": "large",
+            "subtitle": "PROMOTION",
+            "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "View Collection",
             "button_style": "primary"
@@ -29,6 +32,9 @@
             "image": "shopify://shop_images/footwear-2.jpg",
             "hover_image": true,
             "title": "Sneakers",
+            "title_size": "large",
+            "subtitle": "PROMOTION",
+            "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Explore Now",
             "button_style": "link"
@@ -40,6 +46,9 @@
             "image": "shopify://shop_images/footwear-3.jpg",
             "hover_image": true,
             "title": "Sandals",
+            "title_size": "large",
+            "subtitle": "PROMOTION",
+            "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Explore Now",
             "button_style": "link"
@@ -51,6 +60,9 @@
             "image": "shopify://shop_images/footwear-4.jpg",
             "hover_image": true,
             "title": "Boots",
+            "title_size": "large",
+            "subtitle": "PROMOTION",
+            "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Explore Now",
             "button_style": "link"
@@ -67,6 +79,7 @@
         "color_scheme": "",
         "width": "container-full",
         "add_top_line": true,
+        "three_item_style": "style1",
         "padding_top": 40,
         "padding_bottom": 120,
         "padding_mobile_rate": 75
