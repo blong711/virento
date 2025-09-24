@@ -3895,6 +3895,28 @@
         },
         "currency_selector": {
           "name": "Currency Selector"
+        },
+        "email": {
+          "name": "Email",
+          "settings": {
+            "email": {
+              "label": "Email Address",
+              "default": "Support@vineta.com"
+            }
+          }
+        },
+        "store_location": {
+          "name": "Store Location",
+          "settings": {
+            "store_link": {
+              "label": "Store Location Link",
+              "default": "/pages/store-location"
+            },
+            "store_text": {
+              "label": "Store Location Text",
+              "default": "Find a store"
+            }
+          }
         }
       },
       "presets": {

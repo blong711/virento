@@ -28696,3 +28696,19 @@ shopify-accelerated-checkout {
 .tf-product-info-wrap .tf-product-info-extra-link .product-extra-icon .icon-check {
   font-size: 16px;
 }
+.tf-topbar.topbar-md .topbar-left, .tf-topbar.topbar-md .topbar-right, .tf-topbar.topbar-md .marquee-child-item, .tf-topbar.topbar-md .mail, .tf-topbar.topbar-md .store {
+  font-size: 12px;
+  line-height: 131%;
+}
+.tf-topbar .mail {
+  text-decoration: underline;
+  font-weight: 600;
+}
+.tf-topbar .store {
+  font-weight: 600;
+}
+@media (min-width: 1200px) {
+  .tf-topbar.topbar-md {
+      height: 40px;
+  }
+}
