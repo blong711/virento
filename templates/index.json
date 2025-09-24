@@ -249,12 +249,34 @@
         "padding_bottom": 80,
         "padding_mobile_rate": 75
       }
+    },
+    "collection_slider": {
+      "type": "collection-slider",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "collection_list": [
+          
+        ],
+        "show_collection_title": true,
+        "show_mobile_dots": true,
+        "slides_per_view_desktop": "3",
+        "slides_per_view_tablet": "3",
+        "slides_per_view_mobile": "2",
+        "space_between_desktop": 24,
+        "space_between_tablet": 12,
+        "space_between_mobile": 12,
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "grid_banner",
     "featured_product_carousel_UXfDqh",
     "infinity_slider",
-    "brands"
+    "brands",
+    "collection_slider"
   ]
 }
