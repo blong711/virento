@@ -11,29 +11,13 @@
       "default": "scheme-1"
     },
     {
-      "type": "select",
-      "id": "width",
-      "label": "t:sections.all.width.label",
-      "options": [
-        {
-          "value": "container",
-          "label": "t:sections.all.width.options.boxed"
-        },
-        {
-          "value": "container-full",
-          "label": "t:sections.all.width.options.full_width"
-        }
-      ],
-      "default": "container-full"
-    },
-    {
       "type": "range",
       "id": "animation_speed",
       "min": 20,
       "max": 200,
       "step": 5,
       "default": 80,
-      "label": "Animation Speed (lower is faster)"
+      "label": "Animation Speed"
     },
     {
       "type": "range",
@@ -218,7 +202,7 @@
   customElements.define('infinity-slider-section', InfinitySliderSection);
 </script>
 
-<infinity-slider-section class="section" data-section-id="{{ section.id }}" data-section-type="infinity-slider">
+<infinity-slider-section class="section section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}" data-section-id="{{ section.id }}" data-section-type="infinity-slider">
   <div class="">
   <div class="infiniteslide_wrap">
     <div class="infiniteslide tf-brand style-2" 
@@ -246,4 +230,16 @@
   </div>
 </div>
 </infinity-slider-section>
+{% style %}
+    .section-{{ section.id }}-padding {
+            padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+            padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+        }
 
+    @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+    }
+{% endstyle %}
