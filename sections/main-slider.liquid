@@ -52,18 +52,19 @@
           "label": "t:sections.main_slider.settings.height.options.fixed"
         }
       ],
-      "default": "adapt-first"
+      "default": "adapt-first",
+      "visible_if": "{{section.settings.layout_style == 'default'}}"
     },
     {
       "type": "range",
       "id": "height_fixed",
       "label": "t:sections.main_slider.settings.height_fixed.label",
-      "min": 400,
-      "max": 800,
-      "step": 4,
+      "min": 100,
+      "max": 1000,
+      "step": 10,
       "unit": "px",
       "default": 500,
-      "visible_if": "{{section.settings.height == 'fixed'}}"
+      "visible_if": "{{section.settings.height == 'fixed' and section.settings.layout_style == 'default'}}"
     },
     {
       "type": "select",
@@ -83,18 +84,19 @@
           "label": "t:sections.main_slider.settings.mobile_height.options.fixed"
         }
       ],
-      "default": "adapt-first"
+      "default": "adapt-first",
+      "visible_if": "{{section.settings.layout_style == 'default'}}"
     },
     {
       "type": "range",
       "id": "mobile_height_fixed",
       "label": "t:sections.main_slider.settings.mobile_height_fixed.label",
-      "min": 400,
+      "min": 100,
       "max": 800,
-      "step": 4,
+      "step": 10,
       "unit": "px",
-      "default": 600,
-      "visible_if": "{{section.settings.mobile_height == 'fixed'}}"
+      "default": 300,
+      "visible_if": "{{section.settings.mobile_height == 'fixed' and section.settings.layout_style == 'default'}}"
     },
     {
       "type": "header",
@@ -345,157 +347,159 @@
 {% endschema %}
 
 {% style %}
-  .slider-height {
-    {% if section.settings.height == 'fixed' %}
-      height: {{ section.settings.height_fixed }}px;
-    {% elsif section.settings.height == 'fill' %}
-      height: 100vh;
-    {% elsif section.settings.height == 'adapt-first' %}
-      height: auto;
-    {% endif %}
-  }
-
-  /* Override CSS constraints for adapt-first to use actual image heights */
-  .slider-height[data-height="adapt-first"] .slider-wrap .image {
-    height: auto !important;
-  }
-
-  .slider-height[data-height="adapt-first"] .slider-wrap img {
-    height: auto !important;
-    width: 100% !important;
-    object-fit: contain !important;
-  }
-
-  .slider-height[data-height="adapt-first"] .swiper-slide {
-    height: auto !important;
-    min-height: auto !important;
-    max-height: none !important;
-  }
-
-  .slider-height[data-height="adapt-first"] .slider-wrap {
-    height: auto !important;
-    min-height: auto !important;
-    max-height: none !important;
-  }
-
-  /* Override Swiper's internal height management */
-  .slider-height[data-height="adapt-first"] .swiper-wrapper {
-    height: auto !important;
-    align-items: stretch !important;
-  }
-
-  .slider-height[data-height="adapt-first"] .swiper {
-    height: auto !important;
-  }
-
-  .slider-height[data-height="adapt-first"] .tf-sw-slideshow {
-    height: auto !important;
-  }
-
-  @media (max-width: 767px) {
+  {% if section.settings.layout_style == 'default' %}
     .slider-height {
-      {% if section.settings.mobile_height == 'fixed' %}
-        height: {{ section.settings.mobile_height_fixed }}px;
-      {% elsif section.settings.mobile_height == 'fill' %}
+      {% if section.settings.height == 'fixed' %}
+        height: {{ section.settings.height_fixed }}px;
+      {% elsif section.settings.height == 'fill' %}
         height: 100vh;
-      {% elsif section.settings.mobile_height == 'adapt-first' %}
-        height: auto !important;
+      {% elsif section.settings.height == 'adapt-first' %}
+        height: auto;
       {% endif %}
     }
 
-    /* Mobile-specific fill and fixed height styles to eliminate blank space */
-    .slider-height[data-mobile-height="fill"] .slider-wrap,
-    .slider-height[data-mobile-height="fixed"] .slider-wrap {
-      height: 100% !important;
-      display: flex !important;
-      flex-direction: column !important;
-    }
-
-    .slider-height[data-mobile-height="fill"] .slider-wrap .image,
-    .slider-height[data-mobile-height="fixed"] .slider-wrap .image {
-      flex: 1 !important;
-      height: auto !important;
-      min-height: 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-
-    .slider-height[data-mobile-height="fill"] .slider-wrap img,
-    .slider-height[data-mobile-height="fixed"] .slider-wrap img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      object-position: center !important;
-    }
-
-    /* Mobile-specific adapt-first styles - more aggressive overrides */
-    .slider-height[data-height="adapt-first"] .slider-wrap .image,
-    .slider-height[data-mobile-height="adapt-first"] .slider-wrap .image {
+    /* Override CSS constraints for adapt-first to use actual image heights */
+    .slider-height[data-height="adapt-first"] .slider-wrap .image {
       height: auto !important;
     }
 
-    .slider-height[data-height="adapt-first"] .slider-wrap img,
-    .slider-height[data-mobile-height="adapt-first"] .slider-wrap img {
+    .slider-height[data-height="adapt-first"] .slider-wrap img {
       height: auto !important;
       width: 100% !important;
       object-fit: contain !important;
     }
 
-    .slider-height[data-height="adapt-first"] .swiper-slide,
-    .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
+    .slider-height[data-height="adapt-first"] .swiper-slide {
       height: auto !important;
       min-height: auto !important;
       max-height: none !important;
     }
 
-    .slider-height[data-height="adapt-first"] .slider-wrap,
-    .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
+    .slider-height[data-height="adapt-first"] .slider-wrap {
       height: auto !important;
       min-height: auto !important;
       max-height: none !important;
     }
 
-    .slider-height[data-height="adapt-first"] .swiper-wrapper,
-    .slider-height[data-mobile-height="adapt-first"] .swiper-wrapper {
+    /* Override Swiper's internal height management */
+    .slider-height[data-height="adapt-first"] .swiper-wrapper {
       height: auto !important;
       align-items: stretch !important;
     }
 
-    .slider-height[data-height="adapt-first"] .swiper,
-    .slider-height[data-mobile-height="adapt-first"] .swiper {
+    .slider-height[data-height="adapt-first"] .swiper {
       height: auto !important;
     }
 
-    .slider-height[data-height="adapt-first"] .tf-sw-slideshow,
-    .slider-height[data-mobile-height="adapt-first"] .tf-sw-slideshow {
+    .slider-height[data-height="adapt-first"] .tf-sw-slideshow {
       height: auto !important;
     }
 
-    /* Additional mobile-specific overrides to ensure height is respected */
-    .slider-height[data-mobile-height="adapt-first"] {
-      height: auto !important;
+    @media (max-width: 767px) {
+      .slider-height {
+        {% if section.settings.mobile_height == 'fixed' %}
+          height: {{ section.settings.mobile_height_fixed }}px;
+        {% elsif section.settings.mobile_height == 'fill' %}
+          height: 100vh;
+        {% elsif section.settings.mobile_height == 'adapt-first' %}
+          height: auto !important;
+        {% endif %}
+      }
+
+      /* Mobile-specific fill and fixed height styles to eliminate blank space */
+      .slider-height[data-mobile-height="fill"] .slider-wrap,
+      .slider-height[data-mobile-height="fixed"] .slider-wrap {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+
+      .slider-height[data-mobile-height="fill"] .slider-wrap .image,
+      .slider-height[data-mobile-height="fixed"] .slider-wrap .image {
+        flex: 1 !important;
+        height: auto !important;
+        min-height: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      .slider-height[data-mobile-height="fill"] .slider-wrap img,
+      .slider-height[data-mobile-height="fixed"] .slider-wrap img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: center !important;
+      }
+
+      /* Mobile-specific adapt-first styles - more aggressive overrides */
+      .slider-height[data-height="adapt-first"] .slider-wrap .image,
+      .slider-height[data-mobile-height="adapt-first"] .slider-wrap .image {
+        height: auto !important;
+      }
+
+      .slider-height[data-height="adapt-first"] .slider-wrap img,
+      .slider-height[data-mobile-height="adapt-first"] .slider-wrap img {
+        height: auto !important;
+        width: 100% !important;
+        object-fit: contain !important;
+      }
+
+      .slider-height[data-height="adapt-first"] .swiper-slide,
+      .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+      }
+
+      .slider-height[data-height="adapt-first"] .slider-wrap,
+      .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
+        height: auto !important;
+        min-height: auto !important;
+        max-height: none !important;
+      }
+
+      .slider-height[data-height="adapt-first"] .swiper-wrapper,
+      .slider-height[data-mobile-height="adapt-first"] .swiper-wrapper {
+        height: auto !important;
+        align-items: stretch !important;
+      }
+
+      .slider-height[data-height="adapt-first"] .swiper,
+      .slider-height[data-mobile-height="adapt-first"] .swiper {
+        height: auto !important;
+      }
+
+      .slider-height[data-height="adapt-first"] .tf-sw-slideshow,
+      .slider-height[data-mobile-height="adapt-first"] .tf-sw-slideshow {
+        height: auto !important;
+      }
+
+      /* Additional mobile-specific overrides to ensure height is respected */
+      .slider-height[data-mobile-height="adapt-first"] {
+        height: auto !important;
+      }
+
+      .slider-height[data-mobile-height="adapt-first"] * {
+        box-sizing: border-box !important;
+      }
+
+      /* Force all slides to have the same height on mobile */
+      .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
+        height: inherit !important;
+        min-height: inherit !important;
+        max-height: inherit !important;
+      }
+
+      .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
+        height: inherit !important;
+        min-height: inherit !important;
+        max-height: inherit !important;
+      }
+
+
     }
-
-    .slider-height[data-mobile-height="adapt-first"] * {
-      box-sizing: border-box !important;
-    }
-
-    /* Force all slides to have the same height on mobile */
-    .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
-      height: inherit !important;
-      min-height: inherit !important;
-      max-height: inherit !important;
-    }
-
-    .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
-      height: inherit !important;
-      min-height: inherit !important;
-      max-height: inherit !important;
-    }
-
-
-  }
+  {% endif %}
 
   .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
@@ -515,10 +519,12 @@
     <div class="row">
       <div class="col-lg-12">
         <div
-          class="swiper tf-sw-slideshow slider-effect-fade slider-height"
+          class="swiper tf-sw-slideshow slider-effect-fade {% if section.settings.layout_style == 'default' %}slider-height{% endif %}"
           data-slider-id="{{ section.id }}"
-          data-height="{{ section.settings.height }}"
-          data-mobile-height="{{ section.settings.mobile_height }}"
+          {% if section.settings.layout_style == 'default' %}
+            data-height="{{ section.settings.height }}"
+            data-mobile-height="{{ section.settings.mobile_height }}"
+          {% endif %}
           {% if section.settings.layout_style == 'style-2' %}data-effect="fade"{% endif %}
           {% if section.settings.layout_style == 'style-2' %}data-speed="1000"{% endif %}
           data-preview="1"
@@ -577,8 +583,10 @@
                       <div class="image">
                         {% if block.settings.image %}
                           {% assign image_class = '' %}
-                          {% if section.settings.height == 'fill' or section.settings.height == 'fixed' or section.settings.mobile_height == 'fill' %}
-                            {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
+                          {% if section.settings.layout_style == 'default' %}
+                            {% if section.settings.height == 'fill' or section.settings.height == 'fixed' or section.settings.mobile_height == 'fill' %}
+                              {% assign image_class = image_class | append: ' w-100 h-100 object-fit-cover' %}
+                            {% endif %}
                           {% endif %}
                           {% assign desktop_image_class = image_class | append: ' d-none d-md-block' %}
                           {% assign mobile_image_class = image_class | append: ' d-md-none' %}
@@ -742,6 +750,7 @@
   </div>
 </section>
 
+{% if section.settings.layout_style == 'default' %}
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const slider = document.querySelector('[data-slider-id="{{ section.id }}"]');
@@ -955,3 +964,4 @@
     });
   });
 </script>
+{% endif %}
