@@ -58,7 +58,7 @@
         "height": "fixed",
         "height_fixed": 436,
         "mobile_height": "adapt-first",
-        "mobile_height_fixed": 300,
+        "mobile_height_fixed": 636,
         "loop": true,
         "autoplay_speed": 5,
         "pause_on_hover": true,
