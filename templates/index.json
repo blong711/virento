@@ -281,8 +281,7 @@
           "settings": {
             "product": "nike-air-force-1-07",
             "top_pct": 67,
-            "left_pct": 59,
-            "fallback_title": "Product title"
+            "left_pct": 59
           }
         },
         "pin_wd6YRp": {
@@ -290,8 +289,7 @@
           "settings": {
             "product": "nike-p-6000",
             "top_pct": 79,
-            "left_pct": 34,
-            "fallback_title": "Product title"
+            "left_pct": 34
           }
         }
       },
@@ -300,9 +298,17 @@
         "pin_wd6YRp"
       ],
       "settings": {
+        "color_scheme": "",
+        "width": "container",
         "heading": "",
+        "title_alignment": "start",
+        "title_tag": "h4",
         "subheading": "",
-        "banner_image": "shopify://shop_images/footwear_d8bc579c-c773-4466-8d90-83067fbc4a2c.jpg"
+        "subtitle_size": "text-md",
+        "banner_image": "shopify://shop_images/footwear_d8bc579c-c773-4466-8d90-83067fbc4a2c.jpg",
+        "padding_top": 0,
+        "padding_bottom": 120,
+        "padding_mobile_rate": 75
       }
     }
   },
