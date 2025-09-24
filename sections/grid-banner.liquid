@@ -48,7 +48,7 @@
                 {% if section.blocks.size == 3 %}
                   {% if section.settings.three_item_style == 'style1' %}
                     <div class="cls-btn wow fadeInUp">
-                      <div class="display-md-2 mb_16 text-white font-14">{{ block.settings.title }}</div>
+                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md{% when 'large' %}display-lg{% else %}display-md-2{% endcase %} mb_16 text-white font-14">{{ block.settings.title }}</div>
                       {% if block.settings.button_label != blank and block.settings.link != blank %}
                         <a href="{{ block.settings.link }}" class="tf-btn btn-cls btn-white animate-btn animate-dark">
                           {{ block.settings.button_label }}
@@ -58,10 +58,11 @@
                   {% else %}
                     <div class="content">
                       <div class="box-title">
-                        <p class="text-md text-white font-13 fw-semibold">{{ block.settings.subtitle }}</p>
-                        <h5 class="font-7 fw-medium text-white">
+                        <p class="{% case block.settings.subtitle_size %}{% when 'small' %}text-sm{% when 'large' %}text-lg{% else %}text-md{% endcase %} text-white font-13 fw-semibold">{{ block.settings.subtitle }}</p>
+                        {% capture heading_tag %}{% case block.settings.title_size %}{% when 'small' %}h5{% when 'large' %}h3{% else %}h4{% endcase %}{% endcapture %}
+                        <{{ heading_tag }} class="font-7 fw-medium text-white">
                           {{ block.settings.title }}
-                        </h5>
+                        </{{ heading_tag }}>
                       </div>
                       <div class="box-btn">
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
@@ -246,6 +247,46 @@
           "label": "Subtitle",
           "default": "PROMOTION",
           "info": "Used in Style 2 layout"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "label": "Title Size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "medium"
+        },
+        {
+          "type": "select",
+          "id": "subtitle_size",
+          "label": "Subtitle Size",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ],
+          "default": "medium"
         },
         {
           "type": "select",
