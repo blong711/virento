@@ -7602,8 +7602,8 @@
           "settings": {
             "text": "Text",
             "text_class": "Text Style",
-            "text_class.options.grey": "Grey",
-            "text_class.options.gradient": "Gradient"
+            "text_class_grey": "Grey",
+            "text_class_gradient": "Gradient"
           }
         }
       }
