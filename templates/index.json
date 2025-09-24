@@ -244,7 +244,7 @@
         "show_mobile_dots": true,
         "items_per_row_desktop": 6,
         "items_per_row_tablet": 4,
-        "items_per_row_mobile": 3,
+        "items_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 120,
         "padding_mobile_rate": 75
@@ -264,12 +264,12 @@
         "show_mobile_dots": true,
         "slides_per_view_desktop": "3",
         "slides_per_view_tablet": "3",
-        "slides_per_view_mobile": "2",
+        "slides_per_view_mobile": "1",
         "space_between_desktop": 24,
         "space_between_tablet": 12,
         "space_between_mobile": 12,
         "padding_top": 0,
-        "padding_bottom": 80,
+        "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
     }
