@@ -14,9 +14,11 @@
     "top-bar": {
       "type": "top-bar",
       "blocks": {
-        "social_icons_bFwjmV": {
-          "type": "social_icons",
-          "settings": {}
+        "email_xtpGUT": {
+          "type": "email",
+          "settings": {
+            "email": "Support@vineta.com"
+          }
         },
         "announcement_b4ry97": {
           "type": "announcement",
@@ -24,20 +26,18 @@
             "messages": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer"
           }
         },
-        "language_selector_p7TkXJ": {
-          "type": "language_selector",
-          "settings": {}
-        },
-        "currency_selector_TcTzBp": {
-          "type": "currency_selector",
-          "settings": {}
+        "store_location_AHkwi6": {
+          "type": "store_location",
+          "settings": {
+            "store_link": "/pages/store-location",
+            "store_text": "Find a store"
+          }
         }
       },
       "block_order": [
-        "social_icons_bFwjmV",
+        "email_xtpGUT",
         "announcement_b4ry97",
-        "language_selector_p7TkXJ",
-        "currency_selector_TcTzBp"
+        "store_location_AHkwi6"
       ],
       "settings": {
         "width": "container",
@@ -88,7 +88,6 @@
           "type": "mega_pages",
           "settings": {
             "menu_item_match": "Pages",
-            "banner_image": "shopify://shop_images/banner-header.jpg",
             "banner_title": "Unveiling the latest gear",
             "banner_url": "shopify://collections"
           }
