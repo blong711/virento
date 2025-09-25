@@ -12,7 +12,7 @@
   }
 
   .section-{{ section.id }} .gallery-item {
-    border-radius: {{ section.settings.border_radius | default: 8 }}px;
+    border-radius: {{ section.settings.border_radius | default: 8 }}px !important;
   }
 {% endstyle %}
 
@@ -178,6 +178,16 @@
       "default": 16
     },
     {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.shop-gram.settings.border_radius.label",
+      "default": 8
+    },
+    {
       "type": "header",
       "content": "t:sections.shop-gram.settings.slider_settings.content"
     },
@@ -245,16 +255,6 @@
       "step": 1,
       "label": "t:sections.shop-gram.settings.space_between_mobile.label",
       "default": 10
-    },
-    {
-      "type": "range",
-      "id": "border_radius",
-      "min": 0,
-      "max": 50,
-      "step": 1,
-      "unit": "px",
-      "label": "t:sections.shop-gram.settings.border_radius.label",
-      "default": 8
     },
     {
       "type": "header",
