@@ -1,5 +1,5 @@
 <section class="flat-spacing section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
-  <div class="wg-404">
+  <div class="wg-404 container">
     {% for block in section.blocks %}
       {% case block.type %}
         {% when 'image' %}
@@ -30,11 +30,11 @@
 
         {% when 'text_2' %}
           {%- if block.settings.size == 'small' -%}
-            {{ block.settings.text | replace: '<p>', '<p class="text-md sub text-main">' }}
+            {{ block.settings.text | replace: '<p>', '<p class="text-md sub text-main text-center">' }}
           {%- elsif block.settings.size == 'medium' -%}
-            {{ block.settings.text | replace: '<p>', '<p class="text-lg sub text-main">' }}
+            {{ block.settings.text | replace: '<p>', '<p class="text-lg sub text-main text-center">' }}
           {%- elsif block.settings.size == 'large' -%}
-            {{ block.settings.text | replace: '<p>', '<p class="text-xl sub text-main">' }}
+            {{ block.settings.text | replace: '<p>', '<p class="text-xl sub text-main text-center">' }}
           {%- endif -%}
 
         {% when 'button' %}
