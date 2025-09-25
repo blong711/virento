@@ -7882,6 +7882,31 @@
         "name": "Split Collection Banner",
         "category": "Collection"
       }
+    },
+    "grid-collection": {
+      "name": "Grid collection",
+      "presets": {
+        "name": "Grid collection",
+        "category": "Collection"
+      },
+      "settings": {
+        "gap_desktop": {
+          "label": "Grid gap"
+        }
+      },
+      "blocks": {
+        "grid_item": {
+          "name": "Grid item",
+          "settings": {
+            "collection": {
+              "label": "Collection"
+            },
+            "show_button": {
+              "label": "Show button"
+            }
+          }
+        }
+      }
     }
   }
 }
