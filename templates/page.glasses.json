@@ -195,7 +195,12 @@
         "subtitle_size": "text-md",
         "subtitle_font": "",
         "featured_collection": "",
-        "product_list": [],
+        "product_list": [
+          "billie",
+          "spencerspencer",
+          "nolan-kids",
+          "eleanor"
+        ],
         "products_to_show": 6,
         "show_navigation": false,
         "navigation_style": "boxed",
