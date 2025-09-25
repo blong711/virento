@@ -94,36 +94,36 @@
     "icon_box_hChFXj": {
       "type": "icon-box",
       "blocks": {
-         "icon_box_pTpYKg": {
-           "type": "icon_box",
-           "settings": {
-             "icon_class": "icon-shipping",
-             "custom_svg": "",
-             "icon_size": 32,
-             "title": "FREE SHIPPING",
-             "description": "Enjoy free shipping on all orders"
-           }
-         },
-         "icon_box_hNNyPK": {
-           "type": "icon_box",
-           "settings": {
-             "icon_class": "icon-return",
-             "custom_svg": "",
-             "icon_size": 32,
-             "title": "FREE RETURNS",
-             "description": "Within 14 days for a return"
-           }
-         },
-         "icon_box_WPRThM": {
-           "type": "icon_box",
-           "settings": {
-             "icon_class": "icon-support",
-             "custom_svg": "",
-             "icon_size": 32,
-             "title": "SUPPORT ONLINE",
-             "description": "Outstanding premium support"
-           }
-         }
+        "icon_box_pTpYKg": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_size": 50,
+            "title": "FREE SHIPPING",
+            "description": "Enjoy free shipping on all orders"
+          }
+        },
+        "icon_box_hNNyPK": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_size": 36,
+            "title": "FREE RETURNS",
+            "description": "Within 14 days for a return"
+          }
+        },
+        "icon_box_WPRThM": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_size": 40,
+            "title": "SUPPORT ONLINE",
+            "description": "Outstanding premium support"
+          }
+        }
       },
       "block_order": [
         "icon_box_pTpYKg",
