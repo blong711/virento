@@ -185,19 +185,22 @@
         "grid_item_1": {
           "type": "grid_item",
           "settings": {
-            "collection": "chairs"
+            "collection": "chairs",
+            "show_button": true
           }
         },
         "grid_item_2": {
           "type": "grid_item",
           "settings": {
-            "collection": "tables"
+            "collection": "tables",
+            "show_button": true
           }
         },
         "grid_item_3": {
           "type": "grid_item",
           "settings": {
-            "collection": "decorations"
+            "collection": "decorations",
+            "show_button": true
           }
         }
       },
@@ -209,8 +212,90 @@
       "settings": {
         "color_scheme": "scheme-1",
         "width": "container",
+        "gap_desktop": 24,
         "padding_top": 0,
         "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "categories_A4YnKF": {
+      "type": "categories",
+      "blocks": {
+        "category_ehz4Mr": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_wU94Vw": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_GdTxpC": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_EcXRwe": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_naLRac": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_CM7pXj": {
+          "type": "category",
+          "settings": {
+            "collection": "",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_ehz4Mr",
+        "category_wU94Vw",
+        "category_GdTxpC",
+        "category_EcXRwe",
+        "category_naLRac",
+        "category_CM7pXj"
+      ],
+      "name": "t:sections.categories.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title_alignment": "center",
+        "title": "Curated Just for You",
+        "title_tag": "h4",
+        "subtitle": "Discover a selection of timeless designs and trends that match your style, all in one place.",
+        "subtitle_size": "text-md",
+        "image_size_type": "auto",
+        "image_size_px": 200,
+        "show_arrows": true,
+        "show_mobile_dots": true,
+        "items_per_row_desktop": 6,
+        "items_per_row_tablet": 4,
+        "items_per_row_mobile": 2,
+        "padding_top": 120,
+        "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
     }
@@ -219,6 +304,7 @@
     "slider",
     "icon_box_hChFXj",
     "featured_product_carousel_r9mPVq",
-    "grid_collection_XxY7aK"
+    "grid_collection_XxY7aK",
+    "categories_A4YnKF"
   ]
 }
