@@ -1475,6 +1475,11 @@
         "text_size_small": "Small",
         "text_size_medium": "Medium",
         "text_size_large": "Large",
+        "footer_layout": "Footer Layout",
+        "footer_layout_1": "Layout 1",
+        "footer_layout_2": "Layout 2",
+        "footer_links": "Footer Links",
+        "footer_links_menu": "Footer Links Menu",
         "payment_svg_list": "Payment SVG List",
         "payment_svg_list_info": "Enter payment types separated by commas (e.g., visa,master,paypal).",
         "svg_height": "SVG Size",
@@ -1490,7 +1495,8 @@
           "phone_label": "Phone Number",
           "email_label": "Email Address",
           "show_map_button": "Show map button",
-          "map_button_text": "Get direction"
+          "map_button_text": "Get direction",
+          "map_button_link": "Map link"
         },
         "newsletter": {
           "title": "Newsletter",

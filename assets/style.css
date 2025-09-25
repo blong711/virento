@@ -1538,6 +1538,14 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.mb_32 {
+    margin-bottom: 32px;
+}
+
+.mb_40 {
+    margin-bottom: 40px;
+}
+
 .mx_40 {
   margin-left: 40px;
   margin-right: 40px;
@@ -7251,6 +7259,10 @@ a:hover {
 
 .gap10 {
   gap: 10px !important;
+}
+
+.gap-48 {
+  gap: 15px 48px !important;
 }
 
 .justify-items-left {

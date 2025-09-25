@@ -785,7 +785,7 @@
     },
     "footer": {
       "payment": "Payment methods",
-      "copyright_html": "Copyright © {{ year }} by <span class=\"fw-medium\">GraviTech</span>. All Rights Reserved.",
+      "copyright_html": "Copyright © {{ year }} by <span class=\"fw-medium\">Virento</span>. All Rights Reserved.",
       "blocks": {
         "contact_info": {
           "title": "Contact Information",
