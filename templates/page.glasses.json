@@ -180,12 +180,40 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "featured_product_carousel_7axr7w": {
+      "type": "featured-product-carousel",
+      "name": "t:sections.featured-product-carousel.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title_alignment": "center",
+        "title": "Our Products",
+        "title_tag": "h4",
+        "title_font": "",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
+        "subtitle_font": "",
+        "featured_collection": "",
+        "product_list": [],
+        "products_to_show": 6,
+        "show_navigation": false,
+        "navigation_style": "boxed",
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "slider",
     "grid_banner_Kq3Vea",
     "collection_slider_TgbDxK",
-    "split_collection_banner_8X9K2L"
+    "split_collection_banner_8X9K2L",
+    "featured_product_carousel_7axr7w"
   ]
 }
