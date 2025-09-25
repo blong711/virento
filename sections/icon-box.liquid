@@ -227,25 +227,13 @@
         },
         {
           "type": "range",
-          "id": "icon_width",
+          "id": "icon_size",
           "min": 20,
           "max": 120,
           "step": 2,
           "unit": "px",
-          "label": "t:sections.icon-box.blocks.icon_box.settings.icon_width.label",
-          "info": "t:sections.icon-box.blocks.icon_box.settings.icon_width.info",
-          "default": 64
-        },
-        {
-          "type": "range",
-          "id": "icon_width_mobile",
-          "min": 16,
-          "max": 80,
-          "step": 2,
-          "unit": "px",
-          "label": "t:sections.icon-box.blocks.icon_box.settings.icon_width_mobile.label",
-          "info": "t:sections.icon-box.blocks.icon_box.settings.icon_width_mobile.info",
-          "default": 64
+          "label": "t:sections.icon-box.blocks.icon_box.settings.icon_size.label",
+          "default": 28
         },
         {
           "type": "text",
@@ -333,11 +321,8 @@
           {% if block.type == 'icon_box' %}
             <div class="swiper-slide" {{ block.shopify_attributes }}>
               <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-lg{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %}">
-                {% assign icon_width = block.settings.icon_width | default: 48 %}
-                {% assign icon_width_mobile = block.settings.icon_width_mobile | default: 32 %}
                 <div
                   class="box-icon"
-                  style="--icon-width: {{ icon_width }}px; --icon-width-mobile: {{ icon_width_mobile }}px;"
                 >
                   {% if block.settings.custom_svg != blank %}
                     <div class="icon">{{ block.settings.custom_svg }}</div>
@@ -392,14 +377,10 @@
   }
 
   #shopify-section-{{ section.id }} .tf-icon-box.style-2 .box-icon {
-      width: var(--icon-width);
-      height: var(--icon-width);
       {% if section.settings.show_border %}border: 1px solid rgb(var(--color-button-outline));{% endif %}
       border-radius: 50%;
   }
   #shopify-section-{{ section.id }} .tf-icon-box.style-3 .box-icon {
-      width: var(--icon-width);
-      height: var(--icon-width);
       flex-shrink: 0;
       {% if section.settings.show_border %}border: 1px solid rgb(var(--color-button-outline));{% endif %}
       border-radius: 50%;
@@ -410,12 +391,13 @@
   }
 
   #shopify-section-{{ section.id }} .tf-icon-box.style-lg .box-icon {
-      width: var(--icon-width);
-      height: var(--icon-width);
       {% if section.settings.show_border %}border: 1px solid rgb(var(--color-button-outline));{% endif %}
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .tf-icon-box .icon {
+    font-size: {{ section.settings.icon_size }}px;
   }
 </style>
