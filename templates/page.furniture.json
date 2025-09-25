@@ -224,7 +224,7 @@
         "category_ehz4Mr": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "new-in",
             "title": "",
             "link": ""
           }
@@ -232,7 +232,7 @@
         "category_wU94Vw": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "lighting",
             "title": "",
             "link": ""
           }
@@ -240,7 +240,7 @@
         "category_GdTxpC": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "table",
             "title": "",
             "link": ""
           }
@@ -248,7 +248,7 @@
         "category_EcXRwe": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "chairs",
             "title": "",
             "link": ""
           }
@@ -256,7 +256,7 @@
         "category_naLRac": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "decor",
             "title": "",
             "link": ""
           }
@@ -264,7 +264,15 @@
         "category_CM7pXj": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "outdoor",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_qYF4QC": {
+          "type": "category",
+          "settings": {
+            "collection": "new-in",
             "title": "",
             "link": ""
           }
@@ -276,7 +284,8 @@
         "category_GdTxpC",
         "category_EcXRwe",
         "category_naLRac",
-        "category_CM7pXj"
+        "category_CM7pXj",
+        "category_qYF4QC"
       ],
       "name": "t:sections.categories.presets.name",
       "settings": {
@@ -287,8 +296,8 @@
         "title_tag": "h4",
         "subtitle": "Discover a selection of timeless designs and trends that match your style, all in one place.",
         "subtitle_size": "text-md",
-        "image_size_type": "auto",
-        "image_size_px": 200,
+        "image_size_type": "px",
+        "image_size_px": 180,
         "show_arrows": true,
         "show_mobile_dots": true,
         "items_per_row_desktop": 6,
