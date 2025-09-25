@@ -282,6 +282,7 @@
         "heading_font": "",
         "content_align": "left",
         "heading_spacing": 48,
+        "border_radius": 0,
         "use_dots_mobile": true,
         "items_desktop": "5",
         "items_tablet": "3",
