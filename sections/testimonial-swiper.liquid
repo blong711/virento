@@ -1,0 +1,204 @@
+{% schema %}
+{
+  "name": "t:sections.testimonial-swiper.name",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.testimonial-swiper.settings.color_scheme.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.testimonial-swiper.settings.width.label",
+      "options": [
+        { "value": "container", "label": "t:sections.testimonial-swiper.settings.width.options.boxed" },
+        { "value": "container-full", "label": "t:sections.testimonial-swiper.settings.width.options.full_width" }
+      ],
+      "default": "container"
+    },
+    { "type": "header", "content": "t:sections.testimonial-swiper.settings.slider_settings.content" },
+    { "type": "checkbox", "id": "show_arrows", "label": "t:sections.testimonial-swiper.settings.show_arrows.label", "default": true },
+    { "type": "checkbox", "id": "show_pagination", "label": "t:sections.testimonial-swiper.settings.show_pagination.label", "default": false },
+    { "type": "range", "id": "space_between", "min": 0, "max": 50, "step": 2, "unit": "px", "label": "t:sections.testimonial-swiper.settings.space_between.label", "default": 12 },
+    { "type": "range", "id": "space_between_tablet", "min": 0, "max": 50, "step": 2, "unit": "px", "label": "t:sections.testimonial-swiper.settings.space_between_tablet.label", "default": 12 },
+    { "type": "range", "id": "space_between_desktop", "min": 0, "max": 50, "step": 2, "unit": "px", "label": "t:sections.testimonial-swiper.settings.space_between_desktop.label", "default": 24 },
+    { "type": "header", "content": "t:sections.testimonial-swiper.settings.section_padding.content" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:sections.testimonial-swiper.settings.padding_top.label", "default": 0 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:sections.testimonial-swiper.settings.padding_bottom.label", "default": 0 },
+    { "type": "range", "id": "padding_mobile_rate", "min": 0, "max": 100, "step": 5, "unit": "%", "label": "t:sections.testimonial-swiper.settings.padding_mobile_rate.label", "default": 75, "info": "t:sections.testimonial-swiper.settings.padding_mobile_rate.info" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "t:sections.testimonial-swiper.blocks.testimonial.name",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "t:sections.testimonial-swiper.blocks.testimonial.settings.image.label" },
+        { "type": "range", "id": "rating", "label": "t:sections.testimonial-swiper.blocks.testimonial.settings.rating.label", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "text", "id": "title", "label": "t:sections.testimonial-swiper.blocks.testimonial.settings.title.label", "default": "Great quality and design" },
+        { "type": "textarea", "id": "review", "label": "t:sections.testimonial-swiper.blocks.testimonial.settings.review.label", "default": "This product transformed my space. Highly recommend!" },
+        { "type": "text", "id": "author", "label": "t:sections.testimonial-swiper.blocks.testimonial.settings.author.label", "default": "John D." },
+        { "type": "url", "id": "product_link", "label": "t:sections.testimonial-swiper.blocks.testimonial.settings.product_link.label" },
+        { "type": "text", "id": "product_label", "label": "t:sections.testimonial-swiper.blocks.testimonial.settings.product_label.label", "default": "View product" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.testimonial-swiper.presets.name",
+      "category": "t:sections.testimonial-swiper.presets.category",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<!-- Testimonial Swiper -->
+<section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
+  <div class="{{ section.settings.width }}">
+    <div class="wrapper-thumbs-tes flat-thumbs-tes">
+      <div class="box-left">
+        <div
+          dir="ltr"
+          class="swiper tf-swiper tf-thumb-tes"
+          data-swiper='
+            {
+              "slidesPerView": 1,
+              "spaceBetween": 0,
+              "speed": 600,
+              "effect": "fade",
+              "watchSlidesProgress": true,
+              "allowTouchMove": false,
+              "observer": true,
+              "observeParents": true
+            }
+          '
+        >
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              {% if block.type == 'testimonial' %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  <div class="img-sw-thumb">
+                    {% if block.settings.image %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 800
+                        | image_tag: class: 'lazyload', alt: block.settings.author, loading: 'lazy', decoding: 'async'
+                      }}
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="box-right">
+        <div
+          dir="ltr"
+          class="swiper tf-swiper tf-tes-main"
+          data-swiper='
+            {
+              "slidesPerView": 1,
+              "spaceBetween": {{ section.settings.space_between }},
+              "speed": 800,
+              "observer": true,
+              "observeParents": true,
+              "effect": "fade",
+              "thumbs": { "swiper": ".section-{{ section.id }} .tf-thumb-tes" },
+              "navigation": {
+                "clickable": true,
+                "nextEl": ".nav-next-tes",
+                "prevEl": ".nav-prev-tes",
+                "hideOnClick": false,
+                "disabledClass": "swiper-button-disabled",
+                "lockClass": "swiper-button-lock"
+              },
+              "pagination": {
+                "el": ".sw-pagination-tes",
+                "clickable": true,
+                "enabled": {{ section.settings.show_pagination | json }}
+              }
+            }
+          '
+        >
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+              {% if block.type == 'testimonial' %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  <div class="box-testimonial-main">
+                    <span class="quote icon-quote"></span>
+                    <div class="content">
+                      <div class="list-star-default">
+                        {% for i in (1..block.settings.rating) %}
+                          <i class="icon-star"></i>
+                        {% endfor %}
+                        {% assign empty_stars = 5 | minus: block.settings.rating %}
+                        {% if empty_stars > 0 %}
+                          {% for i in (1..empty_stars) %}
+                            <i class="icon-star line"></i>
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+                      <div class="title-review">{{ block.settings.title }}</div>
+                      <p class="text-review display-xs">{{ block.settings.review }}</p>
+                      <div class="box-author">
+                        <div class="img d-md-none">
+                          {% if block.settings.image %}
+                            {{
+                              block.settings.image
+                              | image_url: width: 200
+                              | image_tag: alt: block.settings.author, loading: 'lazy', decoding: 'async'
+                            }}
+                          {% endif %}
+                        </div>
+                        <div class="info">
+                          <div class="name text-md fw-medium">{{ block.settings.author }}</div>
+                          {% if block.settings.product_link != blank %}
+                            <a href="{{ block.settings.product_link }}" class="meta link">{{ block.settings.product_label }}</a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="box-nav-swiper">
+            {% if section.settings.show_arrows %}
+              <div class="swiper-button-prev nav-swiper size-30 line-white nav-prev-tes"></div>
+              <div class="swiper-button-next nav-swiper size-30 line-white nav-next-tes"></div>
+            {% endif %}
+          </div>
+          {% if section.settings.show_pagination %}
+            <div class="d-flex d-xl-none sw-dot-default sw-pagination-tes justify-content-center"></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Testimonial Swiper -->
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+
