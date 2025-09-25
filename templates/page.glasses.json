@@ -294,6 +294,77 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "icon_box_TzJwGR": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_hTHVgV": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "FREE DELIVERY",
+            "description": "Enjoy free delivery on all orders"
+          }
+        },
+        "icon_box_6gtxAc": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-gift",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "Gift Package",
+            "description": "Perfectly packaged for gifting"
+          }
+        },
+        "icon_box_jnj3Ek": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "EASY RETURNS",
+            "description": "Within 14 days for a return"
+          }
+        },
+        "icon_box_LTwFNX": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_width": 64,
+            "icon_width_mobile": 64,
+            "title": "Support Online",
+            "description": "Outstanding premium support"
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_hTHVgV",
+        "icon_box_6gtxAc",
+        "icon_box_jnj3Ek",
+        "icon_box_LTwFNX"
+      ],
+      "name": "t:sections.icon-box.preset.name",
+      "settings": {
+        "color_scheme": "scheme-5",
+        "width": "container",
+        "icon_position_center": false,
+        "line_top": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "icon_style": "default",
+        "show_border": true,
+        "padding_top": 44,
+        "padding_bottom": 44,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -302,6 +373,7 @@
     "collection_slider_TgbDxK",
     "split_collection_banner_8X9K2L",
     "featured_product_carousel_7axr7w",
-    "shop_gram_p7JjYi"
+    "shop_gram_p7JjYi",
+    "icon_box_TzJwGR"
   ]
 }
