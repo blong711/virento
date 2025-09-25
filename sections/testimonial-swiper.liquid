@@ -110,7 +110,7 @@
                         {% assign empty_stars = 5 | minus: block.settings.rating %}
                         {% if empty_stars > 0 %}
                           {% for i in (1..empty_stars) %}
-                            <i class="icon-start line"></i>
+                            <i class="icon-start" style="color: #ddd"></i>
                           {% endfor %}
                         {% endif %}
                       </div>
