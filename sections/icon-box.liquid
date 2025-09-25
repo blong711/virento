@@ -306,14 +306,13 @@
 {% endschema %}
 
 <div
-  class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} {% if section.settings.icon_style == 'default' %} flat-wrap-iconbox{% endif %}"
+  class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
-    <div class="{% if section.settings.icon_position_center == false %}mw-1 m-auto wow fadeInUp{% endif %}">
       <div
       dir="ltr"
-      class="swiper tf-swiper {% if section.settings.icon_position_center == false %}tf-sw-iconbox-row{% endif %}"
+      class="swiper tf-swiper"
       data-swiper='
         {
             "slidesPerView": {{ section.settings.products_per_row_mobile }},
@@ -328,8 +327,7 @@
                 "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
             }
         }
-      '
-    >
+      '>
       <div class="swiper-wrapper wow fadeInUp">
         {% for block in section.blocks %}
           {% if block.type == 'icon_box' %}
@@ -372,7 +370,6 @@
       {% if section.settings.show_dots_mobile %}
         <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
       {% endif %}
-    </div>
     </div>
   </div>
 </div>
