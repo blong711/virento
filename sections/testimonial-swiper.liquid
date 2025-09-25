@@ -105,12 +105,12 @@
                     <div class="content">
                       <div class="list-star-default">
                         {% for i in (1..block.settings.rating) %}
-                          <i class="icon-star"></i>
+                          <i class="icon-start"></i>
                         {% endfor %}
                         {% assign empty_stars = 5 | minus: block.settings.rating %}
                         {% if empty_stars > 0 %}
                           {% for i in (1..empty_stars) %}
-                            <i class="icon-star line"></i>
+                            <i class="icon-start line"></i>
                           {% endfor %}
                         {% endif %}
                       </div>
