@@ -161,7 +161,12 @@
         "subtitle_size": "text-md",
         "subtitle_font": "",
         "featured_collection": "",
-        "product_list": [],
+        "product_list": [
+          "nook-nightstand",
+          "talco-coffee-table",
+          "porcini-coffee-table",
+          "three-big-coffee-table"
+        ],
         "products_to_show": 6,
         "show_navigation": false,
         "navigation_style": "boxed",
