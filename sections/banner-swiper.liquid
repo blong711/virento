@@ -1,0 +1,284 @@
+{% schema %}
+{
+  "name": "Banner Swiper",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "Full width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination dots",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 300,
+      "max": 2000,
+      "step": 100,
+      "unit": "ms",
+      "label": "Transition speed",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "space_between",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Space between slides",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "space_between_tablet",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Space between slides (tablet)",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "space_between_desktop",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Space between slides (desktop)",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Mobile padding rate",
+      "default": 75,
+      "info": "Percentage of desktop padding to apply on mobile"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Banner Title"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Banner subtitle text"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Swiper",
+      "category": "Banner",
+      "blocks": [
+        {
+          "type": "banner"
+        },
+        {
+          "type": "banner"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<!-- Banner Swiper -->
+<section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
+  <div class="{{ section.settings.width }}">
+    <div class="fl-control-sw2 pos1">
+      <div
+        dir="ltr"
+        class="swiper tf-swiper"
+        data-swiper='
+          {
+              "slidesPerView": 1,
+              "spaceBetween": {{ section.settings.space_between }},
+              "speed": {{ section.settings.speed }},
+              "observer": true,
+              "observeParents": true,
+              "slidesPerGroup": 1,
+              "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-banner-swiper",
+                  "prevEl": ".nav-prev-banner-swiper",
+                  "hideOnClick": false,
+                  "disabledClass": "swiper-button-disabled",
+                  "lockClass": "swiper-button-lock"
+              },
+              "pagination": {
+                  "el": ".sw-pagination-banner-swiper",
+                  "clickable": true,
+                  "enabled": {{ section.settings.show_pagination | json }}
+              },
+              "breakpoints": {
+                  "768": {
+                      "slidesPerView": 2,
+                      "spaceBetween": {{ section.settings.space_between_tablet }},
+                      "slidesPerGroup": 2
+                  },
+                  "1200": {
+                      "slidesPerView": 2,
+                      "spaceBetween": {{ section.settings.space_between_desktop }},
+                      "slidesPerGroup": 2
+                  }
+              }
+          }
+        '
+      >
+        <div class="swiper-wrapper wow fadeInUp">
+          {% for block in section.blocks %}
+            {% if block.type == 'banner' %}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="wg-cls-2 hover-img">
+                  {% if block.settings.link != blank %}
+                    <a href="{{ block.settings.link }}" class="img-style img-box">
+                  {% else %}
+                    <div class="img-style img-box">
+                  {% endif %}
+                    {% if block.settings.image %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 800
+                        | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
+                      }}
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  {% if block.settings.link != blank %}
+                    </a>
+                  {% else %}
+                    </div>
+                  {% endif %}
+                  <div class="content">
+                    <div class="box-title">
+                      {% if block.settings.link != blank %}
+                        <h6 class="title">
+                          <a href="{{ block.settings.link }}" class="link">{{ block.settings.title }}</a>
+                        </h6>
+                      {% else %}
+                        <h6 class="title">{{ block.settings.title }}</h6>
+                      {% endif %}
+                      <p class="text-md text-main">{{ block.settings.subtitle }}</p>
+                    </div>
+                    {% if block.settings.link != blank and block.settings.button_text != blank %}
+                      <a href="{{ block.settings.link }}" class="tf-btn animate-btn">{{ block.settings.button_text }}</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        {% if section.settings.show_pagination %}
+          <div class="d-flex d-xl-none sw-dot-default sw-pagination-banner-swiper justify-content-center"></div>
+        {% endif %}
+      </div>
+      {% if section.settings.show_arrows %}
+        <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-banner-swiper"></div>
+        <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-banner-swiper"></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+<!-- /Banner Swiper -->
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
