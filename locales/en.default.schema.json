@@ -7932,6 +7932,97 @@
           }
         }
       }
+    },
+    "banner-swiper": {
+      "name": "Banner Swiper",
+      "settings": {
+        "color_scheme": {
+          "label": "Color scheme"
+        },
+        "width": {
+          "label": "Width",
+          "options": {
+            "boxed": "Boxed",
+            "full_width": "Full width"
+          }
+        },
+        "slider_settings": {
+          "content": "Slider Settings"
+        },
+        "show_arrows": {
+          "label": "Show navigation arrows"
+        },
+        "show_pagination": {
+          "label": "Show pagination dots on mobile"
+        },
+        "space_between": {
+          "label": "Space between slides (mobile)"
+        },
+        "space_between_tablet": {
+          "label": "Space between slides (tablet)"
+        },
+        "space_between_desktop": {
+          "label": "Space between slides (desktop)"
+        },
+        "section_padding": {
+          "content": "Section Padding"
+        },
+        "padding_top": {
+          "label": "Padding top"
+        },
+        "padding_bottom": {
+          "label": "Padding bottom"
+        },
+        "padding_mobile_rate": {
+          "label": "Mobile padding rate",
+          "info": "Percentage of desktop padding to apply on mobile"
+        }
+      },
+      "blocks": {
+        "banner": {
+          "name": "Banner Slide",
+          "settings": {
+            "image": {
+              "label": "Banner Image"
+            },
+            "title": {
+              "label": "Title",
+              "default": "Banner Title"
+            },
+            "title_size": {
+              "label": "Title size",
+              "options": {
+                "small": "Small",
+                "medium": "Medium",
+                "large": "Large"
+              }
+            },
+            "subtitle": {
+              "label": "Subtitle",
+              "default": "Banner subtitle text"
+            },
+            "subtitle_size": {
+              "label": "Subtitle size",
+              "options": {
+                "small": "Small",
+                "medium": "Medium",
+                "large": "Large"
+              }
+            },
+            "link": {
+              "label": "Link URL"
+            },
+            "button_text": {
+              "label": "Button Text",
+              "default": "Shop Now"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Banner Swiper",
+        "category": "Banner"
+      }
     }
   }
 }
