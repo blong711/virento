@@ -1,0 +1,186 @@
+{% schema %}
+{
+  "name": "Split Collection Banner",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:sections.collection_slider.settings.width.label",
+      "options": [
+        {
+          "value": "container",
+          "label": "t:sections.collection_slider.settings.width.options.boxed"
+        },
+        {
+          "value": "container-full",
+          "label": "t:sections.collection_slider.settings.width.options.full_width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "header",
+      "content": "Image Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt Text",
+      "default": "Collection Banner"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Fresh Frames, Just In"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "See What's New. Style That Speaks."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover our latest arrivals — from bold statement pieces to minimalist must-haves. Designed to elevate your look and sharpen your vision."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop New Arrival"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.collection_slider.settings.padding_mobile_rate.label",
+      "default": 75,
+      "info": "t:sections.collection_slider.settings.padding_mobile_rate.info"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Split Collection Banner",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="s-banner-colection banner-space-1 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+  <div class="{{ section.settings.width }}">
+    <div class="banner-content tf-grid-layout tf-col-2 hover-img bg-yellow-8 rounded-0">
+      <div class="image img-hv-overlay img-style">
+        {% if section.settings.banner_image != blank %}
+          <img 
+            src="{{ section.settings.banner_image | image_url: width: 800 }}"
+            srcset="
+              {{ section.settings.banner_image | image_url: width: 400 }} 400w,
+              {{ section.settings.banner_image | image_url: width: 600 }} 600w,
+              {{ section.settings.banner_image | image_url: width: 800 }} 800w,
+              {{ section.settings.banner_image | image_url: width: 1200 }} 1200w
+            "
+            sizes="(min-width: 1200px) 50vw, 100vw"
+            alt="{{ section.settings.image_alt | escape }}"
+            width="{{ section.settings.banner_image.width | default: 800 }}"
+            height="{{ section.settings.banner_image.height | default: 600 }}"
+            loading="lazy"
+            class="ls-is-cached lazyloaded"
+          >
+        {% else %}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+      </div>
+      <div class="box-content wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+        <div class="box-title-banner">
+          {% if section.settings.subtitle != blank %}
+            <p class="text-md fw-medium text-uppercase">{{ section.settings.subtitle }}</p>
+          {% endif %}
+          {% if section.settings.title != blank %}
+            <h3 class="title display-lg">
+              {% if section.settings.button_link != blank %}
+                <a href="{{ section.settings.button_link }}" class="link">{{ section.settings.title }}</a>
+              {% else %}
+                {{ section.settings.title }}
+              {% endif %}
+            </h3>
+          {% endif %}
+          {% if section.settings.description != blank %}
+            <p class="sub text-md fw-medium text-main">{{ section.settings.description }}</p>
+          {% endif %}
+        </div>
+        {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+          <div class="box-btn-banner">
+            <a href="{{ section.settings.button_link }}" class="tf-btn btn-line-dark py-6">
+              {{ section.settings.button_text }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

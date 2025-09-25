@@ -66,74 +66,6 @@
       "default": "h4"
     },
     {
-      "type": "select",
-      "id": "title_font",
-      "label": "t:sections.collection_slider.settings.title_font.label",
-      "options": [
-        {
-          "value": "",
-          "label": "Default"
-        },
-        {
-          "value": "font-main",
-          "label": "Poppins"
-        },
-        {
-          "value": "font-2",
-          "label": "Albert Sans"
-        },
-        {
-          "value": "font-3",
-          "label": "Playfair Display"
-        },
-        {
-          "value": "font-4",
-          "label": "DM Sans"
-        },
-        {
-          "value": "font-5",
-          "label": "Baloo"
-        },
-        {
-          "value": "font-6",
-          "label": "Be Vietnam Pro"
-        },
-        {
-          "value": "font-7",
-          "label": "Oswald"
-        },
-        {
-          "value": "font-8",
-          "label": "Grandstander"
-        },
-        {
-          "value": "font-9",
-          "label": "Jost"
-        },
-        {
-          "value": "font-10",
-          "label": "Agbalumo"
-        },
-        {
-          "value": "font-11",
-          "label": "Manrope"
-        },
-        {
-          "value": "font-12",
-          "label": "Open Sans"
-        },
-        {
-          "value": "font-13",
-          "label": "Inter"
-        },
-        {
-          "value": "font-14",
-          "label": "Gloock"
-        }
-      ],
-      "default": ""
-    },
-    {
       "type": "header",
       "content": "t:sections.collection_slider.settings.collection_settings.content"
     },
@@ -308,7 +240,7 @@
   <div class="{{ section.settings.width }}">
     {% if section.settings.title != blank %}
       <div class="flat-title {% if section.settings.title_alignment == 'center' %} text-center{% else %} text-start{% endif %}">
-          <{{ section.settings.title_tag }} class="title {{ section.settings.title_font }}" style="color: rgb(var(--color-foreground2));">
+          <{{ section.settings.title_tag }} class="title" style="color: rgb(var(--color-foreground2));">
             {{- section.settings.title -}}
           </{{ section.settings.title_tag }}>
       </div>

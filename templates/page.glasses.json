@@ -144,7 +144,6 @@
         "title_alignment": "start",
         "title": "Shop frames by lens type",
         "title_tag": "h4",
-        "title_font": "font-14",
         "collection_list": [
           "blue-light",
           "progessives",
@@ -163,11 +162,30 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "split_collection_banner_8X9K2L": {
+      "type": "split-collection-banner",
+      "name": "Split Collection Banner",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "banner_image": "",
+        "image_alt": "Fresh Frames Collection",
+        "subtitle": "Fresh Frames, Just In",
+        "title": "See What's New. Style That Speaks.",
+        "description": "Discover our latest arrivals — from bold statement pieces to minimalist must-haves. Designed to elevate your look and sharpen your vision.",
+        "button_text": "Shop New Arrival",
+        "button_link": "/collections/all",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "slider",
     "grid_banner_Kq3Vea",
-    "collection_slider_TgbDxK"
+    "collection_slider_TgbDxK",
+    "split_collection_banner_8X9K2L"
   ]
 }
