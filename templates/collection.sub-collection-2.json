@@ -12,38 +12,42 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
+        "background_image": "shopify://shop_images/page-title.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
       }
     },
-    "sub_collection": {
+    "sub_collection_zpJDDa": {
       "type": "sub-collection",
+      "name": "t:sections.sub-collection.presets.name",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "",
         "width": "container",
-        "layout_style": "layout_1",
+        "layout_style": "layout_2",
         "selected_collections": [
           "chair",
           "decor",
-          "outdoor",
+          "lighting",
           "new-in",
-          "lighting"
+          "outdoor",
+          "chairs",
+          "decorations"
         ],
         "collections_limit": 6,
         "slides_per_view_mobile": 1,
         "slides_per_view_tablet": 2,
-        "slides_per_view_desktop": 4,
+        "slides_per_view_desktop": 8,
         "space_between": 12,
         "show_navigation": true,
         "show_pagination": true,
         "button_text": "View all",
         "item_text": "items",
-        "show_shop_all": false,
+        "show_shop_all": true,
         "shop_all_text": "Shop All",
-        "shop_all_url": "",
-        "padding_top": 60,
-        "padding_bottom": 0,
+        "shop_all_url": "shopify://collections",
+        "padding_top": 80,
+        "padding_bottom": 80,
         "padding_mobile_rate": 75
       }
     },
@@ -69,9 +73,9 @@
         "show_size_filter": true,
         "show_brand_filter": true,
         "card_style": "style-2",
-        "padding_top": 64,
+        "padding_top": 0,
         "padding_bottom": 80,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 60
       }
     },
     "collection_description": {
@@ -151,7 +155,7 @@
   },
   "order": [
     "page_breadcrumb",
-    "sub_collection",
+    "sub_collection_zpJDDa",
     "main_collection",
     "collection_description",
     "icon_box_rRceTc"
