@@ -22,7 +22,8 @@
             "phone": "(64) 8342 1245",
             "email": "support@example.com",
             "show_map_button": true,
-            "map_button_text": "Get direction"
+            "map_button_text": "Get direction",
+            "map_button_link": ""
           }
         },
         "newsletter_677nVh": {
@@ -54,12 +55,15 @@
         "footer-1"
       ],
       "settings": {
+        "footer_layout": "layout-1",
+        "color_scheme": "",
         "heading_size": "large",
         "heading_weight": "medium",
         "text_size": "medium",
         "show_copyright": true,
         "payment_svg_list": "visa,paypal,master,american_express,diners_club",
-        "svg_height": 25
+        "svg_height": 25,
+        "footer_links": "footer-link"
       }
     }
   },
