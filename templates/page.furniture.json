@@ -151,7 +151,7 @@
       "type": "featured-product-carousel",
       "name": "t:sections.featured-product-carousel.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "width": "container",
         "title_alignment": "center",
         "title": "Top Picks You’ll Love",
@@ -175,42 +175,29 @@
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
         "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
     },
     "grid_collection_XxY7aK": {
       "type": "grid-collection",
-      "settings": {
-        "color_scheme": "",
-        "width": "container",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "padding_mobile_rate": 75
-      },
       "blocks": {
         "grid_item_1": {
           "type": "grid_item",
           "settings": {
-            "title": "Chairs",
-            "image": "",
-            "link": "shopify://collections"
+            "collection": "chairs"
           }
         },
         "grid_item_2": {
           "type": "grid_item",
           "settings": {
-            "title": "Tables",
-            "image": "",
-            "link": "shopify://collections"
+            "collection": "tables"
           }
         },
         "grid_item_3": {
           "type": "grid_item",
           "settings": {
-            "title": "Decorations",
-            "image": "",
-            "link": "shopify://collections"
+            "collection": "decorations"
           }
         }
       },
@@ -218,7 +205,14 @@
         "grid_item_1",
         "grid_item_2",
         "grid_item_3"
-      ]
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
