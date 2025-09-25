@@ -323,6 +323,7 @@
               <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-lg{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %}">
                 <div
                   class="box-icon"
+                  style="--icon-size: {{ block.settings.icon_size | default: 28 }}px;"
                 >
                   {% if block.settings.custom_svg != blank %}
                     <div class="icon">{{ block.settings.custom_svg }}</div>
@@ -397,7 +398,7 @@
       align-items: center;
       justify-content: center;
   }
-  #shopify-section-{{ section.id }} .tf-icon-box .icon {
-    font-size: {{ section.settings.icon_size }}px;
+  #shopify-section-{{ section.id }} .tf-icon-box .box-icon .icon {
+    font-size: var(--icon-size, 28px);
   }
 </style>
