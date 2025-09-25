@@ -341,7 +341,6 @@
         "width": "container",
         "show_arrows": false,
         "show_pagination": true,
-        "speed": 800,
         "space_between": 12,
         "space_between_tablet": 12,
         "space_between_desktop": 24,

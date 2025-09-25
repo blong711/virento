@@ -37,18 +37,8 @@
     {
       "type": "checkbox",
       "id": "show_pagination",
-      "label": "Show pagination dots",
+      "label": "Show pagination dots on mobile",
       "default": true
-    },
-    {
-      "type": "range",
-      "id": "speed",
-      "min": 300,
-      "max": 2000,
-      "step": 100,
-      "unit": "ms",
-      "label": "Transition speed",
-      "default": 800
     },
     {
       "type": "range",
@@ -57,7 +47,7 @@
       "max": 50,
       "step": 2,
       "unit": "px",
-      "label": "Space between slides",
+      "label": "Space between slides (mobile)",
       "default": 12
     },
     {
@@ -148,6 +138,46 @@
           "id": "button_text",
           "label": "Button Text",
           "default": "Shop Now"
+        },
+        {
+          "type": "select",
+          "id": "title_size",
+          "label": "Title size",
+          "options": [
+            {
+            "value": "h6",
+            "label": "Small"
+            },
+            {
+            "value": "h5",
+            "label": "Medium"
+            },
+            {
+            "value": "h4",
+            "label": "Large"
+            }
+          ],
+          "default": "h6"
+        },
+        {
+          "type": "select",
+          "id": "subtitle_size",
+          "label": "Subtitle size",
+          "options": [
+            {
+              "value": "text-sm",
+              "label": "Small"
+            },
+            {
+              "value": "text-md",
+              "label": "Medium"
+            },
+            {
+              "value": "text-lg",
+              "label": "Large"
+            }
+          ],
+          "default": "text-md"
         }
       ]
     }
@@ -180,7 +210,7 @@
           {
               "slidesPerView": 1,
               "spaceBetween": {{ section.settings.space_between }},
-              "speed": {{ section.settings.speed }},
+              "speed": 800,
               "observer": true,
               "observeParents": true,
               "slidesPerGroup": 1,
@@ -239,13 +269,13 @@
                   <div class="content">
                     <div class="box-title">
                       {% if block.settings.link != blank %}
-                        <h6 class="title">
+                        <{{ block.settings.title_size }} class="title">
                           <a href="{{ block.settings.link }}" class="link">{{ block.settings.title }}</a>
-                        </h6>
+                        </{{ block.settings.title_size }}>
                       {% else %}
-                        <h6 class="title">{{ block.settings.title }}</h6>
+                        <{{ block.settings.title_size }} class="title">{{ block.settings.title }}</{{ block.settings.title_size }}>
                       {% endif %}
-                      <p class="text-md text-main">{{ block.settings.subtitle }}</p>
+                      <p class="{{ block.settings.subtitle_size }} text-main">{{ block.settings.subtitle }}</p>
                     </div>
                     {% if block.settings.link != blank and block.settings.button_text != blank %}
                       <a href="{{ block.settings.link }}" class="tf-btn animate-btn">{{ block.settings.button_text }}</a>
