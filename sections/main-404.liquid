@@ -30,11 +30,11 @@
 
         {% when 'text_2' %}
           {%- if block.settings.size == 'small' -%}
-            {{ block.settings.text | replace: '<p>', '<p class="text-md sub text-main">' }}
+            {{ block.settings.text | replace: '<p>', '<p class="text-md sub text-main text-center">' }}
           {%- elsif block.settings.size == 'medium' -%}
-            {{ block.settings.text | replace: '<p>', '<p class="text-lg sub text-main">' }}
+            {{ block.settings.text | replace: '<p>', '<p class="text-lg sub text-main text-center">' }}
           {%- elsif block.settings.size == 'large' -%}
-            {{ block.settings.text | replace: '<p>', '<p class="text-xl sub text-main">' }}
+            {{ block.settings.text | replace: '<p>', '<p class="text-xl sub text-main text-center">' }}
           {%- endif -%}
 
         {% when 'button' %}
