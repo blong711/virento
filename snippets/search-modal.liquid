@@ -1,0 +1,73 @@
+<div class="offcanvas offcanvas-top offcanvas-search" id="search" tabindex="-1" aria-labelledby="search-label">
+    <div class="offcanvas-content">
+        <div class="header">
+            <button class="icon-close icon-close-popup" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="looking-for-wrap">
+                        <div class="heading">What are you looking for?</div>
+                        <form class="form-search">
+                            <fieldset class="text">
+                                <input type="text" placeholder="Search" class="" name="text" tabindex="0" value=""
+                                    aria-required="true" required="">
+                            </fieldset>
+                            <button class="" type="submit">
+                                <i class="icon icon-search"></i>
+                            </button>
+                        </form>
+                        <div class="popular-searches justify-content-md-center">
+                            <div class="text fw-medium">Popular searches:</div>
+                            <ul>
+                                <li><a class="link" href="#">Featured</a></li>
+                                <li><a class="link" href="#">Trendy</a></li>
+                                <li><a class="link" href="#">New</a></li>
+                                <li><a class="link" href="#">Sale</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="featured-product">
+                        <div class="text-xl-2 fw-medium featured-product-heading">Featured product</div>
+                        <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-swiper='{
+                                "slidesPerView": 2,
+                                "spaceBetween": 12,
+                                "speed": 1000,
+                                "observer": true,
+                                "observeParents": true,
+                                "slidesPerGroup": 2,
+                                "pagination": { "el": ".sw-pagination-search", "clickable": true },
+                                "breakpoints": {
+                                "768": { "slidesPerView": 3, "spaceBetween": 12, "slidesPerGroup": 3 },
+                                "1200": { "slidesPerView": 4, "spaceBetween": 24, "slidesPerGroup": 4}
+                                }
+                            }'>
+                            <div class="swiper-wrapper">
+                                {% assign featured_collection = collections['frontpage'] %}
+                                {% if featured_collection == nil or featured_collection.products_count == 0 %}
+                                    {% assign featured_collection = collections['all'] %}
+                                {% endif %}
+                                {% if featured_collection and featured_collection.products_count > 0 %}
+                                    {% for product in featured_collection.products limit: 8 %}
+                                <div class="swiper-slide">
+                                            {% render 'product-card', product: product, show_progress_sale: false %}
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                <div class="swiper-slide">
+                                        <div class="text-sm">No featured products found.</div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div
+                                class="d-flex d-xl-none sw-dot-default sw-pagination-search justify-content-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
