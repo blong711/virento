@@ -19,12 +19,6 @@
       "default": "container"
     },
     {
-      "type": "checkbox",
-      "id": "reverse_layout",
-      "label": "t:sections.grid-collection.settings.reverse_layout.label",
-      "default": false
-    },
-    {
       "type": "range",
       "id": "gap_desktop",
       "min": 0,
@@ -116,24 +110,9 @@
 
 <section class="flat-spacing-3 pt-0 color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="{{ section.settings.width }}">
-    <div class="grid-cls {% if section.settings.reverse_layout %} grid-cls-v3 grid-mega {% else %} grid-vegetable grid-cls-v4 {% endif %}">
-      {% assign blocks_to_render = section.blocks %}
-      {% if section.settings.reverse_layout %}
-        {% assign blocks_to_render = section.blocks | reverse %}
-      {% endif %}
-      {% for block in blocks_to_render %}
-        {% assign current_index = forloop.index %}
-        {% if section.settings.reverse_layout %}
-          {% if current_index == 1 %}
-            {% assign index_class = 'item3' %}
-          {% elsif current_index == 3 %}
-            {% assign index_class = 'item1' %}
-          {% else %}
-            {% assign index_class = current_index | prepend: 'item' %}
-          {% endif %}
-        {% else %}
-          {% assign index_class = current_index | prepend: 'item' %}
-        {% endif %}
+    <div class="grid-cls grid-cls-v1">
+      {% for block in section.blocks %}
+        {% assign index_class = forloop.index | prepend: 'item' %}
         <div class="{{ index_class }} wg-cls style-abs hover-img" {{ block.shopify_attributes }}>
           {% assign collection = block.settings.collection %}
           {% assign link_url = collection.url | default: '#' %}
