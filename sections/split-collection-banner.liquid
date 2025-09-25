@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Split Collection Banner",
+  "name": "t:sections.split-collection-banner.name",
   "settings": [
     {
       "type": "color_scheme",
@@ -11,66 +11,66 @@
     {
       "type": "select",
       "id": "width",
-      "label": "t:sections.collection_slider.settings.width.label",
+      "label": "t:sections.split-collection-banner.settings.width.label",
       "options": [
         {
           "value": "container",
-          "label": "t:sections.collection_slider.settings.width.options.boxed"
+          "label": "t:sections.split-collection-banner.settings.width.options.boxed"
         },
         {
-          "value": "",
-          "label": "t:sections.collection_slider.settings.width.options.full_width"
+          "value": "container-full",
+          "label": "t:sections.split-collection-banner.settings.width.options.full_width"
         }
       ],
       "default": "container"
     },
     {
       "type": "header",
-      "content": "Image Settings"
+      "content": "t:sections.split-collection-banner.settings.image_settings.content"
     },
     {
       "type": "image_picker",
       "id": "banner_image",
-      "label": "Banner Image"
+      "label": "t:sections.split-collection-banner.settings.banner_image.label"
     },
     {
       "type": "text",
       "id": "image_alt",
-      "label": "Image Alt Text",
+      "label": "t:sections.split-collection-banner.settings.image_alt.label",
       "default": "Collection Banner"
     },
     {
       "type": "header",
-      "content": "Content Settings"
+      "content": "t:sections.split-collection-banner.settings.content_settings.content"
     },
     {
       "type": "text",
       "id": "subtitle",
-      "label": "Subtitle",
+      "label": "t:sections.split-collection-banner.settings.subtitle.label",
       "default": "Fresh Frames, Just In"
     },
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "t:sections.split-collection-banner.settings.title.label",
       "default": "See What's New. Style That Speaks."
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Description",
+      "label": "t:sections.split-collection-banner.settings.description.label",
       "default": "Discover our latest arrivals — from bold statement pieces to minimalist must-haves. Designed to elevate your look and sharpen your vision."
     },
     {
       "type": "text",
       "id": "button_text",
-      "label": "Button Text",
+      "label": "t:sections.split-collection-banner.settings.button_text.label",
       "default": "Shop New Arrival"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button Link"
+      "label": "t:sections.split-collection-banner.settings.button_link.label"
     },
     {
       "type": "header",
@@ -110,8 +110,8 @@
   ],
   "presets": [
     {
-      "name": "Split Collection Banner",
-      "category": "Collection"
+      "name": "t:sections.split-collection-banner.presets.name",
+      "category": "t:sections.split-collection-banner.presets.category"
     }
   ]
 }
@@ -163,14 +163,14 @@
           {% if section.settings.title != blank %}
             <h3 class="title display-lg">
               {% if section.settings.button_link != blank %}
-                <a href="{{ section.settings.button_link }}" class="link">{{ section.settings.title }}</a>
+                <a href="{{ section.settings.button_link }}" class="link" style="max-width: 500px">{{ section.settings.title }}</a>
               {% else %}
                 {{ section.settings.title }}
               {% endif %}
             </h3>
           {% endif %}
           {% if section.settings.description != blank %}
-            <p class="sub text-md fw-medium text-main">{{ section.settings.description }}</p>
+            <p class="sub text-md fw-medium text-main" style="max-width: 600px">{{ section.settings.description }}</p>
           {% endif %}
         </div>
         {% if section.settings.button_text != blank and section.settings.button_link != blank %}
