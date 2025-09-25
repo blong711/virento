@@ -355,7 +355,7 @@
         <div class="swiper-wrapper">
           {% for collection in section.settings.collection_list %}
             <div class="swiper-slide">
-              <div class="wg-cls style-abs asp-1 hover-img">
+              <div class="wg-cls style-abs{% unless section.settings.slides_per_view_desktop == '4' %} asp-1{% endunless %} hover-img">
                 <a href="{{ collection.url }}" class="image img-style d-block">
                   {% if collection.image != blank %}
                     <img 
