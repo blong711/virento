@@ -354,7 +354,7 @@
         "color_scheme": "scheme-5",
         "width": "container",
         "icon_position_center": false,
-        "line_top": true,
+        "line_top": false,
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
