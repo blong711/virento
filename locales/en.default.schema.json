@@ -7812,6 +7812,9 @@
         },
         "space_between_mobile": {
           "label": "Space between (mobile)"
+        },
+        "border_radius": {
+          "label": "Border radius"
         }
       },
       "blocks": {

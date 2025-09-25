@@ -10,10 +10,14 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .section-{{ section.id }} .gallery-item {
+    border-radius: {{ section.settings.border_radius | default: 8 }}px;
+  }
 {% endstyle %}
 
 <section class="flat-spacing-8 pt-0 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
+  <div class="{% if section.settings.width == 'boxed' %}container{% endif %}">
     {% if section.settings.heading != blank %}
       <div class="flat-title wow fadeInUp text-{{ section.settings.content_align }}" style="margin-bottom: {{ section.settings.heading_spacing }}px;">
         {% case section.settings.heading_size %}
@@ -241,6 +245,16 @@
       "step": 1,
       "label": "t:sections.shop-gram.settings.space_between_mobile.label",
       "default": 10
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "t:sections.shop-gram.settings.border_radius.label",
+      "default": 8
     },
     {
       "type": "header",
