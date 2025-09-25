@@ -60,23 +60,13 @@
 <!-- Testimonial Swiper -->
 <section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
   <div class="{{ section.settings.width }}">
-    <div class="wrapper-thumbs-tes flat-thumbs-tes">
+    <div class="wrapper-thumbs-tes flat-thumbs-tes" data-effect="fade">
       <div class="box-left">
         <div
           dir="ltr"
-          class="swiper tf-swiper tf-thumb-tes"
-          data-swiper='
-            {
-              "slidesPerView": 1,
-              "spaceBetween": 0,
-              "speed": 600,
-              "effect": "fade",
-              "watchSlidesProgress": true,
-              "allowTouchMove": false,
-              "observer": true,
-              "observeParents": true
-            }
-          '
+          class="swiper tf-thumb-tes"
+          data-space-lg="0"
+          data-space="0"
         >
           <div class="swiper-wrapper">
             {% for block in section.blocks %}
@@ -102,31 +92,9 @@
       <div class="box-right">
         <div
           dir="ltr"
-          class="swiper tf-swiper tf-tes-main"
-          data-swiper='
-            {
-              "slidesPerView": 1,
-              "spaceBetween": {{ section.settings.space_between }},
-              "speed": 800,
-              "observer": true,
-              "observeParents": true,
-              "effect": "fade",
-              "thumbs": { "swiper": ".section-{{ section.id }} .tf-thumb-tes" },
-              "navigation": {
-                "clickable": true,
-                "nextEl": ".nav-next-tes",
-                "prevEl": ".nav-prev-tes",
-                "hideOnClick": false,
-                "disabledClass": "swiper-button-disabled",
-                "lockClass": "swiper-button-lock"
-              },
-              "pagination": {
-                "el": ".sw-pagination-tes",
-                "clickable": true,
-                "enabled": {{ section.settings.show_pagination | json }}
-              }
-            }
-          '
+          class="swiper tf-tes-main"
+          data-space-lg="{{ section.settings.space_between_desktop }}"
+          data-space="{{ section.settings.space_between }}"
         >
           <div class="swiper-wrapper">
             {% for block in section.blocks %}
