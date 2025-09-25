@@ -283,15 +283,15 @@
               {%- endfor -%}
             </ul>
           {%- endif -%}
-          <ul class="d-flex gap-48 flex-wrap">
-            {%- if section.settings.footer_links != blank -%}
+          {%- if section.settings.footer_links != blank -%}
+            <ul class="d-flex gap-48 flex-wrap">
               {%- for link in section.settings.footer_links.links -%}
                 <li>
                   <a class="link font-13 color-footer-link" href="{{ link.url }}">{{ link.title }}</a>
                 </li>
               {%- endfor -%}
-            {%- endif -%}
-          </ul>
+            </ul>
+          {%- endif -%}
         </div>
       </div>
     </div>
