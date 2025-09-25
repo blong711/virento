@@ -134,10 +134,40 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "collection_slider_TgbDxK": {
+      "type": "collection-slider",
+      "name": "t:sections.collection_slider.presets.name",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "title_alignment": "start",
+        "title": "Shop frames by lens type",
+        "title_tag": "h4",
+        "title_font": "font-14",
+        "collection_list": [
+          "blue-light",
+          "progessives",
+          "anti-fatigue",
+          "light-responsive"
+        ],
+        "show_collection_title": true,
+        "show_mobile_dots": true,
+        "slides_per_view_desktop": "4",
+        "slides_per_view_tablet": "3",
+        "slides_per_view_mobile": "2",
+        "space_between_desktop": 24,
+        "space_between_tablet": 12,
+        "space_between_mobile": 12,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "slider",
-    "grid_banner_Kq3Vea"
+    "grid_banner_Kq3Vea",
+    "collection_slider_TgbDxK"
   ]
 }
