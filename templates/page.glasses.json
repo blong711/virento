@@ -286,9 +286,9 @@
         "items_desktop": "5",
         "items_tablet": "3",
         "items_mobile": "2",
-        "space_between_desktop": 10,
-        "space_between_tablet": 10,
-        "space_between_mobile": 10,
+        "space_between_desktop": 0,
+        "space_between_tablet": 0,
+        "space_between_mobile": 0,
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
