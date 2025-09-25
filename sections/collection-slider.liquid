@@ -25,6 +25,115 @@
       "default": "container"
     },
     {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "t:sections.collection_slider.settings.title_alignment.label",
+      "options": [
+        {
+          "value": "start",
+          "label": "t:sections.collection_slider.settings.title_alignment.options.default"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.collection_slider.settings.title_alignment.options.center"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:sections.collection_slider.settings.title.label",
+      "default": "t:sections.collection_slider.settings.title.default"
+    },
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "t:sections.collection_slider.settings.title_tag.label",
+      "options": [
+        {
+          "value": "h5",
+          "label": "t:sections.collection_slider.settings.title_tag.options.small"
+        },
+        {
+          "value": "h4",
+          "label": "t:sections.collection_slider.settings.title_tag.options.medium"
+        },
+        {
+          "value": "h3",
+          "label": "t:sections.collection_slider.settings.title_tag.options.large"
+        }
+      ],
+      "default": "h4"
+    },
+    {
+      "type": "select",
+      "id": "title_font",
+      "label": "t:sections.collection_slider.settings.title_font.label",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "font-main",
+          "label": "Poppins"
+        },
+        {
+          "value": "font-2",
+          "label": "Albert Sans"
+        },
+        {
+          "value": "font-3",
+          "label": "Playfair Display"
+        },
+        {
+          "value": "font-4",
+          "label": "DM Sans"
+        },
+        {
+          "value": "font-5",
+          "label": "Baloo"
+        },
+        {
+          "value": "font-6",
+          "label": "Be Vietnam Pro"
+        },
+        {
+          "value": "font-7",
+          "label": "Oswald"
+        },
+        {
+          "value": "font-8",
+          "label": "Grandstander"
+        },
+        {
+          "value": "font-9",
+          "label": "Jost"
+        },
+        {
+          "value": "font-10",
+          "label": "Agbalumo"
+        },
+        {
+          "value": "font-11",
+          "label": "Manrope"
+        },
+        {
+          "value": "font-12",
+          "label": "Open Sans"
+        },
+        {
+          "value": "font-13",
+          "label": "Inter"
+        },
+        {
+          "value": "font-14",
+          "label": "Gloock"
+        }
+      ],
+      "default": ""
+    },
+    {
       "type": "header",
       "content": "t:sections.collection_slider.settings.collection_settings.content"
     },
@@ -65,6 +174,10 @@
         {
           "value": "3",
           "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
         }
       ],
       "default": "3"
@@ -177,8 +290,31 @@
 }
 {% endschema %}
 
+{% style %}
+  .section-{{ section.id }}-padding {
+          padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+          padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
+      }
+
+  @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+  }
+{% endstyle %}
+
 <section class="flat-spacing-3 pt-0 color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="{{ section.settings.width }}">
+    {% if section.settings.title != blank %}
+      <div class="flat-title style-between align-items-end wow fadeInUp {% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
+        <div class="box-title{% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
+          <{{ section.settings.title_tag }} class="title {{ section.settings.title_font }}" style="color: rgb(var(--color-foreground2));">
+            {{- section.settings.title -}}
+          </{{ section.settings.title_tag }}>
+        </div>
+      </div>
+    {% endif %}
 
     <div class="fl-control-sw2">
       <div 

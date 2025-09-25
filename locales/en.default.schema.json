@@ -5064,6 +5064,28 @@
             "full_width": "Full Width"
           }
         },
+        "title_alignment": {
+          "label": "Title alignment",
+          "options": {
+            "default": "Left",
+            "center": "Center"
+          }
+        },
+        "title": {
+          "label": "Heading",
+          "default": "Collection Slider"
+        },
+        "title_tag": {
+          "label": "Heading size",
+          "options": {
+            "small": "Small",
+            "medium": "Medium",
+            "large": "Large"
+          }
+        },
+        "title_font": {
+          "label": "Heading font"
+        },
         "collection_settings": {
           "content": "Collections"
         },
