@@ -7477,6 +7477,28 @@
     "sub-collection": {
       "name": "Sub Collection",
       "settings": {
+        "layout_style": {
+          "label": "Layout style"
+        },
+        "layout_style_options": {
+          "layout_1": "Layout 1",
+          "layout_2": "Layout 2"
+        },
+        "shop_all_settings": {
+          "label": "Shop all settings"
+        },
+        "show_shop_all": {
+          "label": "Show shop all"
+        },
+        "shop_all_image": {
+          "label": "Shop all image"
+        },
+        "shop_all_text": {
+          "label": "Shop all text"
+        },
+        "shop_all_url": {
+          "label": "Shop all url"
+        },
         "color_scheme": {
           "label": "t:sections.all.colors.label"
         },

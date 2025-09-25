@@ -18,10 +18,98 @@
     id="sub-collection-{{ section.id }}"
   >
     <div class="{{ section.settings.width }}">
-      <div class="fl-control-sw pos1">
+      {%- if section.settings.layout_style == 'layout_1' -%}
+        <!-- Layout 1: Rectangular Style (Original) -->
+        <div class="fl-control-sw pos1">
+          <div
+            dir="ltr"
+            class="swiper tf-swiper hover-sw-nav wow fadeInUp"
+            data-swiper='
+              {
+                "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+                "spaceBetween": {{ section.settings.space_between }},
+                "speed": 800,
+                "observer": true,
+                "observeParents": true,
+                "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
+                {%- if section.settings.show_navigation -%}
+                "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-cls",
+                  "prevEl": ".nav-prev-cls"
+                },
+                {%- endif -%}
+                {%- if section.settings.show_pagination -%}
+                "pagination": {
+                  "el": ".sw-pagination-cls",
+                  "clickable": true
+                },
+                {%- endif -%}
+                "breakpoints": {
+                  "768": {
+                    "slidesPerView": {{ section.settings.slides_per_view_tablet }},
+                    "spaceBetween": 24,
+                    "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+                  },
+                  "1200": {
+                    "slidesPerView": {{ section.settings.slides_per_view_desktop }},
+                    "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+                  }
+                }
+              }
+            '
+          >
+            <div class="swiper-wrapper">
+              {%- for collection in section.settings.selected_collections limit: section.settings.collections_limit -%}
+                <div class="swiper-slide">
+                  <div class="wg-cls style-abs2 hover-img">
+                    <a href="{{ collection.url }}" class="image-wrap relative">
+                      <div class="image img-style">
+                        {%- if collection.image -%}
+                          <img
+                            src="{{ collection.image | image_url: width: 400, height: 400, crop: 'center' }}"
+                            data-src="{{ collection.image | image_url: width: 400, height: 400, crop: 'center' }}"
+                            alt="{{ collection.title | escape }}"
+                            class="lazyload"
+                            width="400"
+                            height="400"
+                          >
+                        {%- endif -%}
+                      </div>
+                      <div class="cls-btn text-center">
+                        <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text }}</button>
+                      </div>
+                      <span class="tf-overlay"></span>
+                    </a>
+                    <div class="cls-content text-center">
+                      <a href="{{ collection.url }}" class="text-type text-xl-2 fw-medium link">
+                        {{- collection.title -}}
+                      </a>
+                      <span class="count-item body-text-2 text-main">
+                        {{- collection.all_products_count }}
+                        {{ section.settings.item_text -}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+
+            {%- if section.settings.show_pagination -%}
+              <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.show_navigation -%}
+            <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
+            <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <!-- Layout 2: Circle Style (From test.html) -->
         <div
           dir="ltr"
-          class="swiper tf-swiper hover-sw-nav wow fadeInUp"
+          class="swiper tf-swiper"
           data-swiper='
             {
               "slidesPerView": {{ section.settings.slides_per_view_mobile }},
@@ -38,69 +126,83 @@
               },
               {%- endif -%}
               {%- if section.settings.show_pagination -%}
-              "pagination": {
-                "el": ".sw-pagination-cls",
-                "clickable": true
-              },
+              "pagination": { "el": ".sw-pagination-cls", "clickable": true },
               {%- endif -%}
               "breakpoints": {
-                "768": {
-                  "slidesPerView": {{ section.settings.slides_per_view_tablet }},
-                  "spaceBetween": 24,
-                  "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
-                },
-                "1200": {
-                  "slidesPerView": {{ section.settings.slides_per_view_desktop }},
-                  "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
-                }
+                "575": { "slidesPerView": 5, "spaceBetween": 12 ,"slidesPerGroup": 3 },
+                "768": { "slidesPerView": {{ section.settings.slides_per_view_tablet }}, "spaceBetween": 24, "slidesPerGroup": 3 },
+                "1200": { "slidesPerView": {{ section.settings.slides_per_view_desktop }}, "spaceBetween": 45, "slidesPerGroup": 3}
               }
             }
           '
         >
           <div class="swiper-wrapper">
-            {%- for collection in section.settings.selected_collections limit: section.settings.collections_limit -%}
+            {%- if section.settings.show_shop_all -%}
+              {%- assign available_collections = section.settings.selected_collections.size -%}
+              {%- assign max_collections = section.settings.collections_limit | minus: 1 -%}
+              {%- if available_collections > max_collections -%}
+                {%- assign display_limit = max_collections -%}
+              {%- else -%}
+                {%- assign display_limit = available_collections -%}
+              {%- endif -%}
+            {%- else -%}
+              {%- assign display_limit = section.settings.collections_limit -%}
+            {%- endif -%}
+
+            {%- for collection in section.settings.selected_collections limit: display_limit -%}
               <div class="swiper-slide">
-                <div class="wg-cls style-abs2 hover-img">
-                  <a href="{{ collection.url }}" class="image-wrap relative">
-                    <div class="image img-style">
-                      {%- if collection.image -%}
-                        <img
-                          src="{{ collection.image | image_url: width: 400, height: 400, crop: 'center' }}"
-                          data-src="{{ collection.image | image_url: width: 400, height: 400, crop: 'center' }}"
-                          alt="{{ collection.title | escape }}"
-                          class="lazyload"
-                          width="400"
-                          height="400"
-                        >
-                      {%- endif -%}
-                    </div>
-                    <div class="cls-btn text-center">
-                      <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text }}</button>
-                    </div>
-                    <span class="tf-overlay"></span>
+                <div class="wg-cls style-circle-md hover-img">
+                  <a href="{{ collection.url }}" class="image img-style d-block">
+                    {%- if collection.image -%}
+                      <img
+                        src="{{ collection.image | image_url: width: 300, height: 300, crop: 'center' }}"
+                        data-src="{{ collection.image | image_url: width: 300, height: 300, crop: 'center' }}"
+                        alt="{{ collection.title | escape }}"
+                        class="lazyload"
+                        width="300"
+                        height="300"
+                      >
+                    {%- endif -%}
                   </a>
                   <div class="cls-content text-center">
-                    <a href="{{ collection.url }}" class="text-type text-xl-2 fw-medium link">{{ collection.title }}</a>
-                    <span class="count-item body-text-2 text-main">
-                      {{- collection.all_products_count }}
-                      {{ section.settings.item_text -}}
-                    </span>
+                    <a href="{{ collection.url }}" class="link text-sm fw-medium">{{ collection.title }}</a>
                   </div>
                 </div>
               </div>
             {%- endfor -%}
-          </div>
 
+            {%- if section.settings.show_shop_all -%}
+              <!-- Shop All Item -->
+              <div class="swiper-slide">
+                <div class="wg-cls style-circle-md hover-img">
+                  <a href="{{ section.settings.shop_all_url }}" class="image img-style d-block shop-all">
+                    {%- if section.settings.shop_all_image -%}
+                      <img
+                        src="{{ section.settings.shop_all_image | image_url: width: 300, height: 300, crop: 'center' }}"
+                        data-src="{{ section.settings.shop_all_image | image_url: width: 300, height: 300, crop: 'center' }}"
+                        alt="{{ section.settings.shop_all_text | escape }}"
+                        class="lazyload"
+                        width="300"
+                        height="300"
+                      >
+                    {%- else -%}
+                      {{ 'collection-2' | placeholder_svg_tag }}
+                    {%- endif -%}
+                  </a>
+                  <div class="cls-content text-center">
+                    <a href="{{ section.settings.shop_all_url }}" class="link text-sm fw-medium">
+                      {{ section.settings.shop_all_text }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
           {%- if section.settings.show_pagination -%}
-            <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+            <span class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></span>
           {%- endif -%}
         </div>
-
-        {%- if section.settings.show_navigation -%}
-          <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
-          <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
-        {%- endif -%}
-      </div>
+      {%- endif -%}
     </div>
   </div>
 {%- else -%}
@@ -109,10 +211,84 @@
     id="sub-collection-{{ section.id }}"
   >
     <div class="{{ section.settings.width }}">
-      <div class="fl-control-sw pos1">
+      {%- if section.settings.layout_style == 'layout_1' -%}
+        <!-- Layout 1: Rectangular Style (Placeholder) -->
+        <div class="fl-control-sw pos1">
+          <div
+            dir="ltr"
+            class="swiper tf-swiper hover-sw-nav wow fadeInUp"
+            data-swiper='
+              {
+                "slidesPerView": {{ section.settings.slides_per_view_mobile }},
+                "spaceBetween": {{ section.settings.space_between }},
+                "speed": 800,
+                "observer": true,
+                "observeParents": true,
+                "slidesPerGroup": {{ section.settings.slides_per_view_mobile }},
+                {%- if section.settings.show_navigation -%}
+                "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-cls",
+                  "prevEl": ".nav-prev-cls"
+                },
+                {%- endif -%}
+                {%- if section.settings.show_pagination -%}
+                "pagination": {
+                  "el": ".sw-pagination-cls",
+                  "clickable": true
+                },
+                {%- endif -%}
+                "breakpoints": {
+                  "768": {
+                    "slidesPerView": {{ section.settings.slides_per_view_tablet }},
+                    "spaceBetween": 24,
+                    "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
+                  },
+                  "1200": {
+                    "slidesPerView": {{ section.settings.slides_per_view_desktop }},
+                    "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
+                  }
+                }
+              }
+            '
+          >
+            <div class="swiper-wrapper">
+              {%- for i in (1..5) -%}
+                <div class="swiper-slide">
+                  <div class="wg-cls style-abs2 hover-img">
+                    <a href="#" class="image-wrap relative">
+                      <div class="image img-style">
+                        {{ 'collection-' | append: i | placeholder_svg_tag }}
+                      </div>
+                      <div class="cls-btn text-center">
+                        <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text }}</button>
+                      </div>
+                      <span class="tf-overlay"></span>
+                    </a>
+                    <div class="cls-content text-center">
+                      <a href="#" class="text-type text-xl-2 fw-medium link">Collection {{ i }}</a>
+                      <span class="count-item body-text-2 text-main">0 {{ section.settings.item_text }}</span>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+
+            {%- if section.settings.show_pagination -%}
+              <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+            {%- endif -%}
+          </div>
+
+          {%- if section.settings.show_navigation -%}
+            <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
+            <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <!-- Layout 2: Circle Style (Placeholder) -->
         <div
           dir="ltr"
-          class="swiper tf-swiper hover-sw-nav wow fadeInUp"
+          class="swiper tf-swiper"
           data-swiper='
             {
               "slidesPerView": {{ section.settings.slides_per_view_mobile }},
@@ -129,57 +305,68 @@
               },
               {%- endif -%}
               {%- if section.settings.show_pagination -%}
-              "pagination": {
-                "el": ".sw-pagination-cls",
-                "clickable": true
-              },
+              "pagination": { "el": ".sw-pagination-cls", "clickable": true },
               {%- endif -%}
               "breakpoints": {
-                "768": {
-                  "slidesPerView": {{ section.settings.slides_per_view_tablet }},
-                  "spaceBetween": 24,
-                  "slidesPerGroup": {{ section.settings.slides_per_view_tablet }}
-                },
-                "1200": {
-                  "slidesPerView": {{ section.settings.slides_per_view_desktop }},
-                  "slidesPerGroup": {{ section.settings.slides_per_view_desktop }}
-                }
+                "575": { "slidesPerView": 5, "spaceBetween": 12 ,"slidesPerGroup": 3 },
+                "768": { "slidesPerView": {{ section.settings.slides_per_view_tablet }}, "spaceBetween": 24, "slidesPerGroup": 3 },
+                "1200": { "slidesPerView": {{ section.settings.slides_per_view_desktop }}, "spaceBetween": 45, "slidesPerGroup": 3}
               }
             }
           '
         >
           <div class="swiper-wrapper">
-            {%- for i in (1..5) -%}
+            {%- if section.settings.show_shop_all -%}
+              {%- assign placeholder_limit = section.settings.collections_limit | minus: 1 -%}
+            {%- else -%}
+              {%- assign placeholder_limit = section.settings.collections_limit -%}
+            {%- endif -%}
+
+            {%- for i in (1..placeholder_limit) -%}
               <div class="swiper-slide">
-                <div class="wg-cls style-abs2 hover-img">
-                  <a href="#" class="image-wrap relative">
-                    <div class="image img-style">
-                      {{ 'collection-' | append: i | placeholder_svg_tag }}
-                    </div>
-                    <div class="cls-btn text-center">
-                      <button class="tf-btn btn-white hover-dark">{{ section.settings.button_text }}</button>
-                    </div>
-                    <span class="tf-overlay"></span>
+                <div class="wg-cls style-circle-md hover-img">
+                  <a href="#" class="image img-style d-block">
+                    {{ 'collection-' | append: i | placeholder_svg_tag }}
                   </a>
                   <div class="cls-content text-center">
-                    <a href="#" class="text-type text-xl-2 fw-medium link">Collection {{ i }}</a>
-                    <span class="count-item body-text-2 text-main">0 {{ section.settings.item_text }}</span>
+                    <a href="#" class="link text-sm fw-medium">Collection {{ i }}</a>
                   </div>
                 </div>
               </div>
             {%- endfor -%}
-          </div>
 
+            {%- if section.settings.show_shop_all -%}
+              <!-- Shop All Item (Placeholder) -->
+              <div class="swiper-slide">
+                <div class="wg-cls style-circle-md hover-img">
+                  <a href="{{ section.settings.shop_all_url }}" class="image img-style d-block shop-all">
+                    {%- if section.settings.shop_all_image -%}
+                      <img
+                        src="{{ section.settings.shop_all_image | image_url: width: 300, height: 300, crop: 'center' }}"
+                        data-src="{{ section.settings.shop_all_image | image_url: width: 300, height: 300, crop: 'center' }}"
+                        alt="{{ section.settings.shop_all_text | escape }}"
+                        class="lazyload"
+                        width="300"
+                        height="300"
+                      >
+                    {%- else -%}
+                      {{ 'collection-2' | placeholder_svg_tag }}
+                    {%- endif -%}
+                  </a>
+                  <div class="cls-content text-center">
+                    <a href="{{ section.settings.shop_all_url }}" class="link text-sm fw-medium">
+                      {{ section.settings.shop_all_text }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
           {%- if section.settings.show_pagination -%}
-            <div class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></div>
+            <span class="d-flex d-xl-none sw-dot-default sw-pagination-cls justify-content-center"></span>
           {%- endif -%}
         </div>
-
-        {%- if section.settings.show_navigation -%}
-          <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-cls"></div>
-          <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-cls"></div>
-        {%- endif -%}
-      </div>
+      {%- endif -%}
     </div>
   </div>
 {%- endif -%}
@@ -193,13 +380,13 @@
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:sections.sub-collection.settings.color_scheme.label",
+      "label": "t:sections.all.colors.label",
       "default": "scheme-1"
     },
     {
       "type": "select",
       "id": "width",
-      "label": "t:sections.sub-collection.settings.width.label",
+      "label": "t:sections.all.width.label",
       "options": [
         {
           "value": "container",
@@ -211,6 +398,22 @@
         }
       ],
       "default": "container"
+    },
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "t:sections.sub-collection.settings.layout_style.label",
+      "options": [
+        {
+          "value": "layout_1",
+          "label": "t:sections.sub-collection.settings.layout_style_options.layout_1"
+        },
+        {
+          "value": "layout_2",
+          "label": "t:sections.sub-collection.settings.layout_style_options.layout_2"
+        }
+      ],
+      "default": "layout_1"
     },
     {
       "type": "collection_list",
@@ -248,7 +451,7 @@
       "type": "range",
       "id": "slides_per_view_desktop",
       "min": 3,
-      "max": 6,
+      "max": 8,
       "step": 1,
       "default": 4,
       "label": "t:sections.sub-collection.settings.slides_per_view_desktop.label"
@@ -266,7 +469,8 @@
       "type": "checkbox",
       "id": "show_navigation",
       "label": "t:sections.sub-collection.settings.show_navigation.label",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout_1' }}"
     },
     {
       "type": "checkbox",
@@ -278,13 +482,46 @@
       "type": "text",
       "id": "button_text",
       "label": "t:sections.sub-collection.settings.button_text.label",
-      "default": "View all"
+      "default": "View all",
+      "visible_if": "{{ section.settings.layout_style == 'layout_1' }}"
     },
     {
       "type": "text",
       "id": "item_text",
       "label": "t:sections.sub-collection.settings.item_text.label",
-      "default": "items"
+      "default": "items",
+      "visible_if": "{{ section.settings.layout_style == 'layout_1' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.sub-collection.settings.shop_all_settings.label",
+      "visible_if": "{{ section.settings.layout_style == 'layout_2' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shop_all",
+      "label": "t:sections.sub-collection.settings.show_shop_all.label",
+      "default": false,
+      "visible_if": "{{ section.settings.layout_style == 'layout_2' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "shop_all_image",
+      "label": "t:sections.sub-collection.settings.shop_all_image.label",
+      "visible_if": "{{ section.settings.layout_style == 'layout_2' }}"
+    },
+    {
+      "type": "text",
+      "id": "shop_all_text",
+      "label": "t:sections.sub-collection.settings.shop_all_text.label",
+      "default": "Shop All",
+      "visible_if": "{{ section.settings.layout_style == 'layout_2' }}"
+    },
+    {
+      "type": "url",
+      "id": "shop_all_url",
+      "label": "t:sections.sub-collection.settings.shop_all_url.label",
+      "visible_if": "{{ section.settings.layout_style == 'layout_2' }}"
     },
     {
       "type": "header",
