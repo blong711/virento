@@ -168,8 +168,8 @@
       "name": "Split Collection Banner",
       "settings": {
         "color_scheme": "scheme-1",
-        "width": "container",
-        "banner_image": "",
+        "width": "container-full",
+        "banner_image": "shopify://shop_images/glasses_ae565cb0-7df8-4f83-90cc-46b395ebc093.jpg",
         "image_alt": "Fresh Frames Collection",
         "subtitle": "Fresh Frames, Just In",
         "title": "See What's New. Style That Speaks.",
