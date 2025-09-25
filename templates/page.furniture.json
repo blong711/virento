@@ -353,6 +353,53 @@
         "padding_mobile_rate": 75
       }
     },
+    "lookbook_banner_wy9JnQ": {
+        "type": "lookbook-banner",
+        "blocks": {
+          "pin_VgRTeT": {
+            "type": "pin",
+            "settings": {
+              "product": "nook-nightstand",
+              "top_pct": 31,
+              "left_pct": 42
+            }
+          },
+          "pin_zLdHiE": {
+            "type": "pin",
+            "settings": {
+              "product": "porcini-coffee-table",
+              "top_pct": 81,
+              "left_pct": 33
+            }
+          },
+          "pin_k8X6hM": {
+            "type": "pin",
+            "settings": {
+              "product": "three-big-coffee-table",
+              "top_pct": 68,
+              "left_pct": 58
+            }
+          }
+        },
+        "block_order": [
+          "pin_VgRTeT",
+          "pin_zLdHiE",
+          "pin_k8X6hM"
+        ],
+        "name": "t:sections.lookbook-banner.presets.name",
+        "settings": {
+          "color_scheme": "",
+          "width": "container",
+          "heading": "Inspired by You",
+          "title_tag": "h4",
+          "subheading": "Find everything you need to recreate the look.",
+          "subtitle_size": "text-md",
+          "banner_image": "shopify://shop_images/furniture_330c7932-2b82-41dd-b52d-aa039d49ce97.jpg",
+          "padding_top": 120,
+          "padding_bottom": 120,
+          "padding_mobile_rate": 75
+        }
+      },
     "testimonial_swiper_FURNI": {
       "type": "testimonial-swiper",
       "blocks": {
@@ -406,6 +453,7 @@
     "grid_collection_XxY7aK",
     "categories_A4YnKF",
     "banner_swiper_ABC123",
+    "lookbook_banner_wy9JnQ",
     "testimonial_swiper_FURNI"
   ]
 }
