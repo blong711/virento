@@ -7890,6 +7890,9 @@
         "category": "Collection"
       },
       "settings": {
+        "reverse_layout": {
+          "label": "Reverse layout direction"
+        },
         "gap_desktop": {
           "label": "Grid gap"
         }

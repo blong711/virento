@@ -19,6 +19,12 @@
       "default": "container"
     },
     {
+      "type": "checkbox",
+      "id": "reverse_layout",
+      "label": "t:sections.grid-collection.settings.reverse_layout.label",
+      "default": false
+    },
+    {
       "type": "range",
       "id": "gap_desktop",
       "min": 0,
@@ -111,7 +117,11 @@
 <section class="flat-spacing-3 pt-0 color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="{{ section.settings.width }}">
     <div class="grid-cls grid-cls-v1">
-      {% for block in section.blocks %}
+      {% assign blocks_to_render = section.blocks %}
+      {% if section.settings.reverse_layout %}
+        {% assign blocks_to_render = section.blocks | reverse %}
+      {% endif %}
+      {% for block in blocks_to_render %}
         {% assign index_class = forloop.index | prepend: 'item' %}
         <div class="{{ index_class }} wg-cls style-abs hover-img" {{ block.shopify_attributes }}>
           {% assign collection = block.settings.collection %}
