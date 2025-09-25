@@ -212,6 +212,87 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "shop_gram_p7JjYi": {
+      "type": "shop-gram",
+      "blocks": {
+        "gram_item_fqRGKK": {
+          "type": "gram_item",
+          "settings": {
+            "image": "shopify://shop_images/gallery-1_1.jpg",
+            "link": "shopify://products/billie",
+            "tooltip": "View Product"
+          }
+        },
+        "gram_item_QBzKrP": {
+          "type": "gram_item",
+          "settings": {
+            "image": "shopify://shop_images/gallery-2_1.jpg",
+            "link": "shopify://products/eleanor",
+            "tooltip": "View Product"
+          }
+        },
+        "gram_item_zG6HL6": {
+          "type": "gram_item",
+          "settings": {
+            "image": "shopify://shop_images/gallery-3_1.jpg",
+            "link": "shopify://products/nolan-kids",
+            "tooltip": "View Product"
+          }
+        },
+        "gram_item_rxMAQQ": {
+          "type": "gram_item",
+          "settings": {
+            "image": "shopify://shop_images/gallery-4_1.jpg",
+            "link": "shopify://products/spencerspencer",
+            "tooltip": "View Product"
+          }
+        },
+        "gram_item_HnrGFj": {
+          "type": "gram_item",
+          "settings": {
+            "image": "shopify://shop_images/gallery-5_1.jpg",
+            "link": "shopify://products/billie",
+            "tooltip": "View Product"
+          }
+        },
+        "gram_item_c3EmQd": {
+          "type": "gram_item",
+          "settings": {
+            "image": "shopify://shop_images/gallery-6.jpg",
+            "link": "shopify://products/spencerspencer",
+            "tooltip": "View Product"
+          }
+        }
+      },
+      "block_order": [
+        "gram_item_fqRGKK",
+        "gram_item_QBzKrP",
+        "gram_item_zG6HL6",
+        "gram_item_rxMAQQ",
+        "gram_item_HnrGFj",
+        "gram_item_c3EmQd"
+      ],
+      "name": "t:sections.shop-gram.presets.name",
+      "settings": {
+        "width": "boxed",
+        "color_scheme": "",
+        "heading": "Inspiration",
+        "heading_size": "medium",
+        "heading_font": "",
+        "content_align": "left",
+        "heading_spacing": 16,
+        "use_dots_mobile": true,
+        "items_desktop": "5",
+        "items_tablet": "3",
+        "items_mobile": "2",
+        "space_between_desktop": 10,
+        "space_between_tablet": 10,
+        "space_between_mobile": 10,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -219,6 +300,7 @@
     "grid_banner_Kq3Vea",
     "collection_slider_TgbDxK",
     "split_collection_banner_8X9K2L",
-    "featured_product_carousel_7axr7w"
+    "featured_product_carousel_7axr7w",
+    "shop_gram_p7JjYi"
   ]
 }
