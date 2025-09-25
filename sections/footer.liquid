@@ -1,217 +1,210 @@
 <!-- Footer -->
-<footer id="footer" class="footer-default {% if template == 'product' %}footer-pb-2{% else %}xl-pb-70{% endif %}">
-  <div class="footer-top">
-    <div class="container">
-      <div class="footer-top-wrap">
-        <div class="footer-logo">
-          <a href="{{ routes.root_url }}">
-            {%- if settings.logo != blank -%}
-              <img
-                src="{{ settings.logo | image_url: width: settings.logo_width }}"
-                class="logo"
-                alt="{{ shop.name }}"
-                width="{{ settings.logo_width }}"
-                height="auto"
-                loading="lazy"
-              >
-            {%- else -%}
-              <span class="h2">{{ shop.name }}</span>
-            {%- endif -%}
-          </a>
-        </div>
-        <ul class="tf-social-icon style-large">
-          {%- if settings.social_facebook_link != blank -%}
-            <li>
-              <a
-                href="{{ settings.social_facebook_link }}"
-                class="social-item social-facebook"
-                target="_blank"
-                rel="noopener"
-                aria-label="{{ 'general.social.links.facebook' | t }}"
-              >
-                <i class="icon icon-fb"></i>
+
+{%- if section.settings.footer_layout == 'layout-1' -%}
+  <!-- Layout 1: Dark background with centered content -->
+  <footer id="footer" class="color-{{ section.settings.color_scheme }} footer-default xl-pb-70">
+    <div class="footer-body line-top">
+      <div class="container">
+        <div class="row-footer">
+          <div class="footer-col-block s1 border-0">
+            <div class="footer-logo mb_32">
+              <a href="{{ routes.root_url }}">
+                {%- if settings.logo != blank -%}
+                  <img
+                    src="{{ settings.logo | image_url: width: settings.logo_width }}"
+                    class="logo"
+                    alt="{{ shop.name }}"
+                    width="{{ settings.logo_width }}"
+                    height="auto"
+                    loading="lazy"
+                  >
+                {%- else -%}
+                  <span class="h2">{{ shop.name }}</span>
+                {%- endif -%}
               </a>
-            </li>
-          {%- endif -%}
-          {%- if settings.social_instagram_link != blank -%}
-            <li>
-              <a
-                href="{{ settings.social_instagram_link }}"
-                class="social-item social-instagram"
-                target="_blank"
-                rel="noopener"
-                aria-label="{{ 'general.social.links.instagram' | t }}"
-              >
-                <i class="icon icon-instagram"></i>
-              </a>
-            </li>
-          {%- endif -%}
-          {%- if settings.social_youtube_link != blank -%}
-            <li>
-              <a
-                href="{{ settings.social_youtube_link }}"
-                class="social-item social-youtube"
-                target="_blank"
-                rel="noopener"
-                aria-label="{{ 'general.social.links.youtube' | t }}"
-              >
-                <i class="icon icon-youtube"></i>
-              </a>
-            </li>
-          {%- endif -%}
-          {%- if settings.social_tiktok_link != blank -%}
-            <li>
-              <a
-                href="{{ settings.social_tiktok_link }}"
-                class="social-item social-tiktok"
-                target="_blank"
-                rel="noopener"
-                aria-label="{{ 'general.social.links.tiktok' | t }}"
-              >
-                <i class="icon icon-tiktok"></i>
-              </a>
-            </li>
-          {%- endif -%}
-          {%- if settings.social_twitter_link != blank -%}
-            <li>
-              <a
-                href="{{ settings.social_twitter_link }}"
-                class="social-item social-x"
-                target="_blank"
-                rel="noopener"
-                aria-label="{{ 'general.social.links.twitter' | t }}"
-              >
-                <i class="icon icon-x"></i>
-              </a>
-            </li>
-          {%- endif -%}
-          {%- if settings.social_snapchat_link != blank -%}
-            <li>
-              <a
-                href="{{ settings.social_snapchat_link }}"
-                class="social-item social-snapchat"
-                target="_blank"
-                rel="noopener"
-                aria-label="{{ 'general.social.links.snapchat' | t }}"
-              >
-                <i class="icon icon-snapchat"></i>
-              </a>
-            </li>
-          {%- endif -%}
-          {%- if settings.social_pinterest_link != blank -%}
-            <li>
-              <a
-                href="{{ settings.social_pinterest_link }}"
-                class="social-item social-pinterest"
-                target="_blank"
-                rel="noopener"
-                aria-label="{{ 'general.social.links.pinterest' | t }}"
-              >
-                <i class="icon icon-pinterest"></i>
-              </a>
-            </li>
-          {%- endif -%}
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="footer-body">
-    <div class="container">
-      <div class="row-footer">
-        {%- for block in section.blocks -%}
-          {%- case block.type -%}
-            {%- when 'contact_info' -%}
-              <div class="footer-col-block s1" {{ block.shopify_attributes }}>
-                <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                  {{ block.settings.contact_heading | escape }}
+            </div>
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'contact_info' -%}
+                <div
+                  class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %} font-13 d-sm-none d-flex"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.contact_heading }}
                 </div>
                 <div class="tf-collapse-content">
                   <div class="footer-contact">
-                    <ul class="footer-info {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
-                      {%- if block.settings.address != blank -%}
-                        <li class="item">
-                          <span class="box-icon">
-                            <svg
-                              width="12"
-                              height="14"
-                              viewBox="0 0 12 14"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M10.1869 1.73431C9.06854 0.61592 7.58155 0 5.99993 0C4.4183 0 2.93129 0.61592 1.81292 1.73431C0.694534 2.85273 0.0786133 4.33969 0.0786133 5.92129C0.0786133 9.12084 3.10388 11.7821 4.72917 13.2118C4.95504 13.4105 5.15008 13.582 5.30547 13.7272C5.50016 13.9091 5.75006 14 5.9999 14C6.24979 14 6.49964 13.9091 6.69435 13.7272C6.84975 13.582 7.04479 13.4105 7.27065 13.2118C8.89594 11.7821 11.9212 9.12084 11.9212 5.92129C11.9212 4.33969 11.3053 2.85273 10.1869 1.73431ZM6.72897 12.5961C6.49816 12.7991 6.29885 12.9744 6.13451 13.1279C6.05902 13.1984 5.94078 13.1984 5.86526 13.1279C5.70095 12.9744 5.50161 12.7991 5.2708 12.596C3.74283 11.2519 0.898656 8.75001 0.898656 5.92131C0.898656 3.1085 3.18704 0.820124 5.99987 0.820124C8.81268 0.820124 11.1011 3.1085 11.1011 5.92131C11.1011 8.75001 8.25694 11.2519 6.72897 12.5961Z" fill="#0D0D0D"/>
-                              <path d="M6.00008 3.08887C4.56122 3.08887 3.39062 4.25943 3.39062 5.69829C3.39062 7.13715 4.56122 8.30772 6.00008 8.30772C7.43894 8.30772 8.6095 7.13715 8.6095 5.69829C8.6095 4.25943 7.43894 3.08887 6.00008 3.08887ZM6.00008 7.48759C5.01343 7.48759 4.21072 6.68489 4.21072 5.69826C4.21072 4.71164 5.01343 3.90894 6.00008 3.90894C6.98673 3.90894 7.7894 4.71164 7.7894 5.69826C7.7894 6.68489 6.98673 7.48759 6.00008 7.48759Z" fill="#0D0D0D"/>
-                            </svg>
+                    {%- if block.settings.address != blank -%}
+                      <p class="body-mb_12 {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                        {{ block.settings.address }}
+                      </p>
+                      {%- if block.settings.show_map_button
+                        and block.settings.map_button_text != blank
+                        and block.settings.address != blank
+                      -%}
+                        <a
+                          href="{{ block.settings.map_button_link }}"
+                          target="_blank"
+                          class="fw-normal mb_12 color-link"
+                        >
+                          <span class="text-sm text-transform-none">
+                            {{ block.settings.map_button_text }}
                           </span>
+                        </a>
+                      {%- endif -%}
+                    {%- endif -%}
+                    {%- if block.settings.phone != blank -%}
+                      <p class="body-mb_12 {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                        {{ block.settings.phone }}
+                      </p>
+                    {%- endif -%}
+                    {%- if block.settings.email != blank -%}
+                      <p class=" mb_40 {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                        {{ block.settings.email }}
+                      </p>
+                    {%- endif -%}
+                    <ul class="tf-social-icon social-size style-large">
+                      {%- if settings.social_facebook_link != blank -%}
+                        <li>
                           <a
+                            href="{{ settings.social_facebook_link }}"
+                            class="social-item social-facebook"
                             target="_blank"
-                            href="https://www.google.com/maps?q={{ block.settings.address | url_encode }}"
+                            rel="noopener"
+                            aria-label="{{ 'general.social.links.facebook' | t }}"
                           >
-                            {{ block.settings.address }}
+                            <i class="icon icon-fb"></i>
                           </a>
                         </li>
                       {%- endif -%}
-                      {%- if block.settings.phone != blank -%}
-                        <li class="item">
-                          <span class="box-icon">
-                            <svg
-                              width="14"
-                              height="14"
-                              viewBox="0 0 14 14"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M11.6666 9.4091L10.9841 8.4641C10.7324 8.12417 10.3574 7.89649 9.93972 7.82996C9.522 7.76343 9.09484 7.86335 8.74998 8.10827L8.09081 8.59243C7.13399 7.73698 6.36526 6.69214 5.83331 5.5241L6.49248 5.04577C6.837 4.79478 7.06794 4.41741 7.13464 3.99641C7.20135 3.5754 7.09838 3.14513 6.84831 2.79993L6.18331 1.86077C5.93339 1.51663 5.55703 1.28582 5.13698 1.21909C4.71693 1.15236 4.28757 1.25518 3.94331 1.50493L2.91664 2.23993C2.58681 2.47798 2.33009 2.80349 2.17547 3.17972C2.02086 3.55595 1.9745 3.96792 2.04164 4.3691C2.33803 6.09644 3.02915 7.73206 4.06118 9.14856C5.0932 10.5651 6.43827 11.7242 7.99164 12.5358C8.30603 12.696 8.65376 12.78 9.00664 12.7808C9.46814 12.7804 9.91756 12.6333 10.29 12.3608L11.3108 11.6666C11.4837 11.5428 11.6302 11.3858 11.7419 11.2048C11.8535 11.0238 11.9281 10.8224 11.9612 10.6123C11.9943 10.4023 11.9853 10.1877 11.9347 9.98113C11.8842 9.77457 11.793 9.58012 11.6666 9.4091ZM10.7975 10.9433L9.78248 11.6666C9.58631 11.8098 9.35413 11.8954 9.11199 11.914C8.86984 11.9325 8.62732 11.8832 8.41164 11.7716C6.97557 11.0225 5.73227 9.95129 4.779 8.6418C3.82572 7.33231 3.18832 5.82004 2.91664 4.22327C2.87745 3.98261 2.90577 3.73579 2.99846 3.51026C3.09114 3.28473 3.24455 3.08933 3.44164 2.94577L4.45664 2.21077C4.6131 2.09841 4.80765 2.05252 4.99783 2.08312C5.188 2.11373 5.35834 2.21833 5.47164 2.3741L6.15998 3.3191C6.27119 3.47659 6.31717 3.67098 6.28831 3.8616C6.27352 3.95579 6.24012 4.04608 6.19004 4.12721C6.13996 4.20834 6.07421 4.27867 5.99664 4.3341L5.05164 5.02243C4.97248 5.07857 4.91486 5.16007 4.88834 5.25342C4.86182 5.34678 4.86798 5.44639 4.90581 5.53577C5.52168 7.06896 6.5077 8.42575 7.77581 9.48493C7.85256 9.54453 7.94697 9.57689 8.04414 9.57689C8.14132 9.57689 8.23573 9.54453 8.31248 9.48493L9.25748 8.80243C9.41322 8.68947 9.60729 8.64263 9.79741 8.67214C9.98754 8.70164 10.1583 8.80508 10.2725 8.95993L10.9608 9.9166C11.072 10.0741 11.118 10.2685 11.0891 10.4591C11.0752 10.5552 11.0422 10.6475 10.9921 10.7306C10.942 10.8137 10.8759 10.886 10.7975 10.9433Z" fill="#0D0D0D"/>
-                            </svg>
-                          </span>
-                          <a href="tel:{{ block.settings.phone }}">{{ block.settings.phone }}</a>
+                      {%- if settings.social_instagram_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_instagram_link }}"
+                            class="social-item social-instagram"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="{{ 'general.social.links.instagram' | t }}"
+                          >
+                            <i class="icon icon-instagram"></i>
+                          </a>
                         </li>
                       {%- endif -%}
-                      {%- if block.settings.email != blank -%}
-                        <li class="item">
-                          <span class="box-icon">
-                            <svg
-                              width="14"
-                              height="14"
-                              viewBox="0 0 14 14"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M11.8125 2.625H2.1875C1.8394 2.625 1.50556 2.76328 1.25942 3.00942C1.01328 3.25556 0.875 3.5894 0.875 3.9375V10.0625C0.875 10.4106 1.01328 10.7444 1.25942 10.9906C1.50556 11.2367 1.8394 11.375 2.1875 11.375H11.8125C12.1606 11.375 12.4944 11.2367 12.7406 10.9906C12.9867 10.7444 13.125 10.4106 13.125 10.0625V3.9375C13.125 3.5894 12.9867 3.25556 12.7406 3.00942C12.4944 2.76328 12.1606 2.625 11.8125 2.625ZM11.5675 3.5L7.28 7.07438C7.20139 7.13985 7.10231 7.17571 7 7.17571C6.89769 7.17571 6.79861 7.13985 6.72 7.07438L2.4325 3.5H11.5675ZM11.8125 10.5H2.1875C2.07147 10.5 1.96019 10.4539 1.87814 10.3719C1.79609 10.2898 1.75 10.1785 1.75 10.0625V4.06875L6.16 7.74375C6.39584 7.94019 6.69307 8.04776 7 8.04776C7.30693 8.04776 7.60416 7.94019 7.84 7.74375L12.25 4.06875V10.0625C12.25 10.1785 12.2039 10.2898 12.1219 10.3719C12.0398 10.4539 11.9285 10.5 11.8125 10.5Z" fill="#0D0D0D"/>
-                            </svg>
-                          </span>
-                          <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                      {%- if settings.social_youtube_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_youtube_link }}"
+                            class="social-item social-youtube"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="{{ 'general.social.links.youtube' | t }}"
+                          >
+                            <i class="icon icon-youtube"></i>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_tiktok_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_tiktok_link }}"
+                            class="social-item social-tiktok"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="{{ 'general.social.links.tiktok' | t }}"
+                          >
+                            <i class="icon icon-tiktok"></i>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_twitter_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_twitter_link }}"
+                            class="social-item social-x"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="{{ 'general.social.links.twitter' | t }}"
+                          >
+                            <i class="icon icon-x"></i>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_snapchat_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_snapchat_link }}"
+                            class="social-item social-snapchat"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="{{ 'general.social.links.snapchat' | t }}"
+                          >
+                            <i class="icon icon-snapchat"></i>
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_pinterest_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_pinterest_link }}"
+                            class="social-item social-pinterest"
+                            target="_blank"
+                            rel="noopener"
+                            aria-label="{{ 'general.social.links.pinterest' | t }}"
+                          >
+                            <i class="icon icon-pinterest"></i>
+                          </a>
                         </li>
                       {%- endif -%}
                     </ul>
-                    {%- if block.settings.show_map_button
-                      and block.settings.map_button_text != blank
-                      and block.settings.address != blank
-                    -%}
-                      <a
-                        href="https://www.google.com/maps?q={{ block.settings.address | url_encode }}"
-                        class="tf-btn btn-line-dark fw-normal"
-                        target="_blank"
-                        rel="noopener"
-                      >
-                        <span class="text-sm">{{ block.settings.map_button_text }}</span>
-                        <i class="icon-arrow-top-left fs-8"></i>
-                      </a>
+                  </div>
+                </div>
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="footer-inner-wrap s3 border-0 mb_20">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'link_list' -%}
+                <div class="footer-col-block inner-col" {{ block.shopify_attributes }}>
+                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %} font-7">
+                    {{ block.settings.heading | escape }}
+                  </div>
+                  <div class="tf-collapse-content">
+                    {%- if block.settings.menu != blank -%}
+                      <ul class="footer-menu-list">
+                        {%- for link in block.settings.menu.links -%}
+                          <li>
+                            <a
+                              class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}"
+                              href="{{ link.url }}"
+                            >
+                              {{- link.title -}}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
                     {%- endif -%}
                   </div>
                 </div>
-              </div>
-            {%- when 'newsletter' -%}
-              <div class="footer-inner-wrap footer-col-block s2" {{ block.shopify_attributes }}>
-                <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                  {{ block.settings.newsletter_heading | escape }}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          <div class="footer-inner-wrap footer-col-block s2 border-0">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'newsletter' -%}
+                <div
+                  class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %} font-7"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ block.settings.newsletter_heading | default: 'Subscribe to Newsletter' | escape }}
                 </div>
                 <div class="tf-collapse-content">
                   <div class="footer-newsletter">
-                    {%- if block.settings.newsletter_text != blank -%}
-                      <div class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
-                        {{ block.settings.newsletter_text }}
-                      </div>
-                    {%- endif -%}
+                    <p class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                      {{
+                        block.settings.newsletter_text
+                        | default: 'Subscribe for 15% off your first order and unlock your inner potential with us.'
+                      }}
+                    </p>
                     {%- form 'customer', id: 'ContactFooter', class: 'form-newsletter' -%}
                       <input type="hidden" name="contact[tags]" value="newsletter">
                       <div class="subscribe-content">
@@ -219,130 +212,483 @@
                           <input
                             type="email"
                             name="contact[email]"
-                            class="subscribe-email"
+                            class="subscribe-email rounded-0 bg-white"
+                            placeholder="{{ 'newsletter.label' | t | default: 'Your email' }}"
                             value="{{ form.email }}"
-                            placeholder="{{ 'newsletter.label' | t }}"
+                            tabindex="0"
+                            aria-required="true"
                             required
                           >
                         </fieldset>
-                        <div class="button-submit">
+                        <div class="button-submit end-0">
                           <button
-                            class="subscribe-button animate-btn"
+                            class="tf-btn subscribe-button animate-btn {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %} rounded-0 bg-purple-1"
                             type="submit"
                             aria-label="Subscribe to newsletter"
                           >
+                            Submit
                             <svg
-                              width="18"
-                              height="18"
-                              viewBox="0 0 18 18"
+                              width="11"
+                              height="12"
+                              viewBox="0 0 11 12"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
-                              aria-hidden="true"
                             >
-                              <g clip-path="url(#clip0_5296_3345)">
-                                  <path d="M17.7938 8.50229L17.7931 8.50162L14.1192 4.84537C13.8439 4.57147 13.3988 4.57249 13.1248 4.84776C12.8508 5.123 12.8519 5.56818 13.1271 5.84212L15.5938 8.29687H0.703125C0.314789 8.29687 0 8.61166 0 9C0 9.38833 0.314789 9.70312 0.703125 9.70312H15.5938L13.1272 12.1579C12.8519 12.4318 12.8509 12.877 13.1248 13.1522C13.3988 13.4275 13.844 13.4285 14.1192 13.1546L17.7932 9.49837L17.7938 9.4977C18.0692 9.22285 18.0683 8.77623 17.7938 8.50229Z" fill="white"/>
-                              </g>
-                              <defs>
-                                  <clipPath id="clip0_5296_3345">
-                                      <rect width="18" height="18" fill="white"/>
-                                  </clipPath>
-                              </defs>
+                              <path d="M9.16987 3.62403L1.2939 11.5L0 10.2061L7.87505 2.33013H0.934282V0.5H11V10.5657H9.16987V3.62403Z" fill="white"></path>
                             </svg>
                           </button>
                         </div>
                       </div>
                       {%- if form.errors -%}
-                        <small class="newsletter-form__message form__message--error text-danger" style="margin-top: 12px; display: block;">
+                        <small
+                          class="newsletter-form__message form__message--error text-danger"
+                          style="margin-top: 12px; display: block;"
+                        >
                           {{ form.errors.translated_fields.email | capitalize }}
                           {{ form.errors.messages.email }}
                         </small>
                       {%- endif -%}
                       {%- if form.posted_successfully? -%}
-                        <small class="newsletter-form__message form__message--success text-success" style="margin-top: 12px; display: block;">
+                        <small
+                          class="newsletter-form__message form__message--success text-success"
+                          style="margin-top: 12px; display: block;"
+                        >
                           {{ 'newsletter.success' | t }}
                         </small>
                       {%- endif -%}
                     {%- endform -%}
                   </div>
                 </div>
-              </div>
-          {%- endcase -%}
-        {%- endfor -%}
-
-        <div class="footer-inner-wrap s3">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'link_list' -%}
-              <div class="footer-col-block inner-col" {{ block.shopify_attributes }}>
-                {%- if block.settings.heading != blank -%}
-                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
-                    {{ block.settings.heading | escape }}
-                  </div>
-                {%- endif -%}
-                {%- if block.settings.menu != blank -%}
-                  <div class="tf-collapse-content">
-                    <ul class="footer-menu-list {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
-                      {%- for link in block.settings.menu.links -%}
-                        <li>
-                          <a href="{{ link.url }}">{{ link.title }}</a>
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  </div>
-                {%- endif -%}
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="container">
-      <div class="footer-bottom-wrap">
-        {%- if section.settings.show_copyright -%}
-          {%- assign current_year = 'now' | date: '%Y' -%}
-          <p class="text-dark">
-            {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
-          </p>
-        {%- endif -%}
-        {%- if section.settings.payment_svg_list != blank -%}
-          <ul class="tf-payment">
-            {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
-            {%- for url in svg_urls -%}
-              <li class="item">
-                {% comment %}
-                  <img
-                    src="{{ url | payment_type_img_url }}"
-                    alt="Payment Method"
-                    width="{{ section.settings.svg_height }}px"
-                    height="{{ section.settings.svg_height }}px"
-                    loading="lazy"
-                    class="icon"
-                  >
-                {% endcomment %}
-
-                {{ url | payment_type_svg_tag: 'size-icon-payment' }}
-              </li>
-            {%- endfor -%}
-          </ul>
-        {%- endif -%}
+    <div class="footer-bottom line-3">
+      <div class="container">
+        <div class="footer-bottom-wrap">
+          {%- if section.settings.show_copyright -%}
+            {%- assign current_year = 'now' | date: '%Y' -%}
+            <p class="text-dark-8 {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+              {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
+            </p>
+          {%- endif -%}
+          {%- if section.settings.payment_svg_list != blank -%}
+            <ul class="tf-payment">
+              {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
+              {%- for url in svg_urls -%}
+                <li class="item">{{ url | payment_type_svg_tag: 'size-icon-payment' }}</li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          {%- if section.settings.footer_links != blank -%}
+            <ul class="d-flex gap-48 flex-wrap">
+              {%- for link in section.settings.footer_links.links -%}
+                <li>
+                  <a class="link font-13 color-footer-link" href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
+
+{%- else -%}
+  <!-- Layout 2: Original layout with top section and blocks -->
+  <footer
+    id="footer"
+    class=" color-{{ section.settings.color_scheme }} footer-default {% if template == 'product' %}footer-pb-2{% else %}xl-pb-70{% endif %}"
+  >
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-top-wrap">
+          <div class="footer-logo">
+            <a href="{{ routes.root_url }}">
+              {%- if settings.logo != blank -%}
+                <img
+                  src="{{ settings.logo | image_url: width: settings.logo_width }}"
+                  class="logo"
+                  alt="{{ shop.name }}"
+                  width="{{ settings.logo_width }}"
+                  height="auto"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <span class="h2">{{ shop.name }}</span>
+              {%- endif -%}
+            </a>
+          </div>
+          <ul class="tf-social-icon style-large">
+            {%- if settings.social_facebook_link != blank -%}
+              <li>
+                <a
+                  href="{{ settings.social_facebook_link }}"
+                  class="social-item social-facebook"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="{{ 'general.social.links.facebook' | t }}"
+                >
+                  <i class="icon icon-fb"></i>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_instagram_link != blank -%}
+              <li>
+                <a
+                  href="{{ settings.social_instagram_link }}"
+                  class="social-item social-instagram"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="{{ 'general.social.links.instagram' | t }}"
+                >
+                  <i class="icon icon-instagram"></i>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_youtube_link != blank -%}
+              <li>
+                <a
+                  href="{{ settings.social_youtube_link }}"
+                  class="social-item social-youtube"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="{{ 'general.social.links.youtube' | t }}"
+                >
+                  <i class="icon icon-youtube"></i>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_tiktok_link != blank -%}
+              <li>
+                <a
+                  href="{{ settings.social_tiktok_link }}"
+                  class="social-item social-tiktok"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="{{ 'general.social.links.tiktok' | t }}"
+                >
+                  <i class="icon icon-tiktok"></i>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_twitter_link != blank -%}
+              <li>
+                <a
+                  href="{{ settings.social_twitter_link }}"
+                  class="social-item social-x"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="{{ 'general.social.links.twitter' | t }}"
+                >
+                  <i class="icon icon-x"></i>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_snapchat_link != blank -%}
+              <li>
+                <a
+                  href="{{ settings.social_snapchat_link }}"
+                  class="social-item social-snapchat"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="{{ 'general.social.links.snapchat' | t }}"
+                >
+                  <i class="icon icon-snapchat"></i>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_pinterest_link != blank -%}
+              <li>
+                <a
+                  href="{{ settings.social_pinterest_link }}"
+                  class="social-item social-pinterest"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="{{ 'general.social.links.pinterest' | t }}"
+                >
+                  <i class="icon icon-pinterest"></i>
+                </a>
+              </li>
+            {%- endif -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-body">
+      <div class="container">
+        <div class="row-footer">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'contact_info' -%}
+                <div class="footer-col-block s1" {{ block.shopify_attributes }}>
+                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
+                    {{ block.settings.contact_heading | escape }}
+                  </div>
+                  <div class="tf-collapse-content">
+                    <div class="footer-contact">
+                      <ul class="footer-info {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                        {%- if block.settings.address != blank -%}
+                          <li class="item">
+                            <span class="box-icon">
+                              <svg
+                                width="12"
+                                height="14"
+                                viewBox="0 0 12 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M10.1869 1.73431C9.06854 0.61592 7.58155 0 5.99993 0C4.4183 0 2.93129 0.61592 1.81292 1.73431C0.694534 2.85273 0.0786133 4.33969 0.0786133 5.92129C0.0786133 9.12084 3.10388 11.7821 4.72917 13.2118C4.95504 13.4105 5.15008 13.582 5.30547 13.7272C5.50016 13.9091 5.75006 14 5.9999 14C6.24979 14 6.49964 13.9091 6.69435 13.7272C6.84975 13.582 7.04479 13.4105 7.27065 13.2118C8.89594 11.7821 11.9212 9.12084 11.9212 5.92129C11.9212 4.33969 11.3053 2.85273 10.1869 1.73431ZM6.72897 12.5961C6.49816 12.7991 6.29885 12.9744 6.13451 13.1279C6.05902 13.1984 5.94078 13.1984 5.86526 13.1279C5.70095 12.9744 5.50161 12.7991 5.2708 12.596C3.74283 11.2519 0.898656 8.75001 0.898656 5.92131C0.898656 3.1085 3.18704 0.820124 5.99987 0.820124C8.81268 0.820124 11.1011 3.1085 11.1011 5.92131C11.1011 8.75001 8.25694 11.2519 6.72897 12.5961Z" fill="#0D0D0D"/>
+                                <path d="M6.00008 3.08887C4.56122 3.08887 3.39062 4.25943 3.39062 5.69829C3.39062 7.13715 4.56122 8.30772 6.00008 8.30772C7.43894 8.30772 8.6095 7.13715 8.6095 5.69829C8.6095 4.25943 7.43894 3.08887 6.00008 3.08887ZM6.00008 7.48759C5.01343 7.48759 4.21072 6.68489 4.21072 5.69826C4.21072 4.71164 5.01343 3.90894 6.00008 3.90894C6.98673 3.90894 7.7894 4.71164 7.7894 5.69826C7.7894 6.68489 6.98673 7.48759 6.00008 7.48759Z" fill="#0D0D0D"/>
+                              </svg>
+                            </span>
+                            <a
+                              target="_blank"
+                              href="https://www.google.com/maps?q={{ block.settings.address | url_encode }}"
+                            >
+                              {{ block.settings.address }}
+                            </a>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.phone != blank -%}
+                          <li class="item">
+                            <span class="box-icon">
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M11.6666 9.4091L10.9841 8.4641C10.7324 8.12417 10.3574 7.89649 9.93972 7.82996C9.522 7.76343 9.09484 7.86335 8.74998 8.10827L8.09081 8.59243C7.13399 7.73698 6.36526 6.69214 5.83331 5.5241L6.49248 5.04577C6.837 4.79478 7.06794 4.41741 7.13464 3.99641C7.20135 3.5754 7.09838 3.14513 6.84831 2.79993L6.18331 1.86077C5.93339 1.51663 5.55703 1.28582 5.13698 1.21909C4.71693 1.15236 4.28757 1.25518 3.94331 1.50493L2.91664 2.23993C2.58681 2.47798 2.33009 2.80349 2.17547 3.17972C2.02086 3.55595 1.9745 3.96792 2.04164 4.3691C2.33803 6.09644 3.02915 7.73206 4.06118 9.14856C5.0932 10.5651 6.43827 11.7242 7.99164 12.5358C8.30603 12.696 8.65376 12.78 9.00664 12.7808C9.46814 12.7804 9.91756 12.6333 10.29 12.3608L11.3108 11.6666C11.4837 11.5428 11.6302 11.3858 11.7419 11.2048C11.8535 11.0238 11.9281 10.8224 11.9612 10.6123C11.9943 10.4023 11.9853 10.1877 11.9347 9.98113C11.8842 9.77457 11.793 9.58012 11.6666 9.4091ZM10.7975 10.9433L9.78248 11.6666C9.58631 11.8098 9.35413 11.8954 9.11199 11.914C8.86984 11.9325 8.62732 11.8832 8.41164 11.7716C6.97557 11.0225 5.73227 9.95129 4.779 8.6418C3.82572 7.33231 3.18832 5.82004 2.91664 4.22327C2.87745 3.98261 2.90577 3.73579 2.99846 3.51026C3.09114 3.28473 3.24455 3.08933 3.44164 2.94577L4.45664 2.21077C4.6131 2.09841 4.80765 2.05252 4.99783 2.08312C5.188 2.11373 5.35834 2.21833 5.47164 2.3741L6.15998 3.3191C6.27119 3.47659 6.31717 3.67098 6.28831 3.8616C6.27352 3.95579 6.24012 4.04608 6.19004 4.12721C6.13996 4.20834 6.07421 4.27867 5.99664 4.3341L5.05164 5.02243C4.97248 5.07857 4.91486 5.16007 4.88834 5.25342C4.86182 5.34678 4.86798 5.44639 4.90581 5.53577C5.52168 7.06896 6.5077 8.42575 7.77581 9.48493C7.85256 9.54453 7.94697 9.57689 8.04414 9.57689C8.14132 9.57689 8.23573 9.54453 8.31248 9.48493L9.25748 8.80243C9.41322 8.68947 9.60729 8.64263 9.79741 8.67214C9.98754 8.70164 10.1583 8.80508 10.2725 8.95993L10.9608 9.9166C11.072 10.0741 11.118 10.2685 11.0891 10.4591C11.0752 10.5552 11.0422 10.6475 10.9921 10.7306C10.942 10.8137 10.8759 10.886 10.7975 10.9433Z" fill="#0D0D0D"/>
+                              </svg>
+                            </span>
+                            <a href="tel:{{ block.settings.phone }}">{{ block.settings.phone }}</a>
+                          </li>
+                        {%- endif -%}
+                        {%- if block.settings.email != blank -%}
+                          <li class="item">
+                            <span class="box-icon">
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path d="M11.8125 2.625H2.1875C1.8394 2.625 1.50556 2.76328 1.25942 3.00942C1.01328 3.25556 0.875 3.5894 0.875 3.9375V10.0625C0.875 10.4106 1.01328 10.7444 1.25942 10.9906C1.50556 11.2367 1.8394 11.375 2.1875 11.375H11.8125C12.1606 11.375 12.4944 11.2367 12.7406 10.9906C12.9867 10.7444 13.125 10.4106 13.125 10.0625V3.9375C13.125 3.5894 12.9867 3.25556 12.7406 3.00942C12.4944 2.76328 12.1606 2.625 11.8125 2.625ZM11.5675 3.5L7.28 7.07438C7.20139 7.13985 7.10231 7.17571 7 7.17571C6.89769 7.17571 6.79861 7.13985 6.72 7.07438L2.4325 3.5H11.5675ZM11.8125 10.5H2.1875C2.07147 10.5 1.96019 10.4539 1.87814 10.3719C1.79609 10.2898 1.75 10.1785 1.75 10.0625V4.06875L6.16 7.74375C6.39584 7.94019 6.69307 8.04776 7 8.04776C7.30693 8.04776 7.60416 7.94019 7.84 7.74375L12.25 4.06875V10.0625C12.25 10.1785 12.2039 10.2898 12.1219 10.3719C12.0398 10.4539 11.9285 10.5 11.8125 10.5Z" fill="#0D0D0D"/>
+                              </svg>
+                            </span>
+                            <a href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                          </li>
+                        {%- endif -%}
+                      </ul>
+                      {%- if block.settings.show_map_button
+                        and block.settings.map_button_text != blank
+                        and block.settings.address != blank
+                      -%}
+                        <a
+                          href="{{ block.settings.map_button_link }}"
+                          target="_blank"
+                          class="fw-normal mb_12 color-link"
+                        >
+                          <span class="text-sm text-transform-none">
+                            {{ block.settings.map_button_text }}
+                          </span>
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              {%- when 'newsletter' -%}
+                <div class="footer-inner-wrap footer-col-block s2" {{ block.shopify_attributes }}>
+                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
+                    {{ block.settings.newsletter_heading | escape }}
+                  </div>
+                  <div class="tf-collapse-content">
+                    <div class="footer-newsletter">
+                      {%- if block.settings.newsletter_text != blank -%}
+                        <div class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                          {{ block.settings.newsletter_text }}
+                        </div>
+                      {%- endif -%}
+                      {%- form 'customer', id: 'ContactFooter', class: 'form-newsletter' -%}
+                        <input type="hidden" name="contact[tags]" value="newsletter">
+                        <div class="subscribe-content">
+                          <fieldset class="email">
+                            <input
+                              type="email"
+                              name="contact[email]"
+                              class="subscribe-email"
+                              value="{{ form.email }}"
+                              placeholder="{{ 'newsletter.label' | t }}"
+                              required
+                            >
+                          </fieldset>
+                          <div class="button-submit">
+                            <button
+                              class="subscribe-button animate-btn"
+                              type="submit"
+                              aria-label="Subscribe to newsletter"
+                            >
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 18 18"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                aria-hidden="true"
+                              >
+                                <g clip-path="url(#clip0_5296_3345)">
+                                    <path d="M17.7938 8.50229L17.7931 8.50162L14.1192 4.84537C13.8439 4.57147 13.3988 4.57249 13.1248 4.84776C12.8508 5.123 12.8519 5.56818 13.1271 5.84212L15.5938 8.29687H0.703125C0.314789 8.29687 0 8.61166 0 9C0 9.38833 0.314789 9.70312 0.703125 9.70312H15.5938L13.1272 12.1579C12.8519 12.4318 12.8509 12.877 13.1248 13.1522C13.3988 13.4275 13.844 13.4285 14.1192 13.1546L17.7932 9.49837L17.7938 9.4977C18.0692 9.22285 18.0683 8.77623 17.7938 8.50229Z" fill="white"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_5296_3345">
+                                        <rect width="18" height="18" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        {%- if form.errors -%}
+                          <small
+                            class="newsletter-form__message form__message--error text-danger"
+                            style="margin-top: 12px; display: block;"
+                          >
+                            {{ form.errors.translated_fields.email | capitalize }}
+                            {{ form.errors.messages.email }}
+                          </small>
+                        {%- endif -%}
+                        {%- if form.posted_successfully? -%}
+                          <small
+                            class="newsletter-form__message form__message--success text-success"
+                            style="margin-top: 12px; display: block;"
+                          >
+                            {{ 'newsletter.success' | t }}
+                          </small>
+                        {%- endif -%}
+                      {%- endform -%}
+                    </div>
+                  </div>
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+
+          <div class="footer-inner-wrap s3">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'link_list' -%}
+                <div class="footer-col-block inner-col" {{ block.shopify_attributes }}>
+                  {%- if block.settings.heading != blank -%}
+                    <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
+                      {{ block.settings.heading | escape }}
+                    </div>
+                  {%- endif -%}
+                  {%- if block.settings.menu != blank -%}
+                    <div class="tf-collapse-content">
+                      <ul class="footer-menu-list {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                        {%- for link in block.settings.menu.links -%}
+                          <li>
+                            <a href="{{ link.url }}">{{ link.title }}</a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="footer-bottom-wrap">
+          {%- if section.settings.show_copyright -%}
+            {%- assign current_year = 'now' | date: '%Y' -%}
+            <p class="text-dark">
+              {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
+            </p>
+          {%- endif -%}
+          {%- if section.settings.payment_svg_list != blank -%}
+            <ul class="tf-payment">
+              {%- assign svg_urls = section.settings.payment_svg_list | split: ',' -%}
+              {%- for url in svg_urls -%}
+                <li class="item">
+                  {{ url | payment_type_svg_tag: 'size-icon-payment' }}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </footer>
+{%- endif -%}
+
 <!-- /Footer -->
 
 {% style %}
-  .size-icon-payment {
-    height: {{ section.settings.svg_height }}px;
-    width: auto;
+    .size-icon-payment {
+      height: {{ section.settings.svg_height }}px;
+      width: auto;
+    }
+
+    .footer-heading,
+    .footer-default a,
+    .footer-bottom-wrap .color-footer-link {
+      color: rgb(var(--color-foreground));
+    }
+
+    .footer-contact .color-link {
+      text-decoration: underline;
+      color: rgb(var(--color-link));
+    }
+
+    .footer-contact .color-link:hover {
+      color: rgb(var(--color-link-hover));
+    }
+
+    .footer-heading-mobile::before, .footer-heading-mobile::after {
+      background-color: rgb(var(--color-foreground));
   }
+
+    .tf-social-icon.social-size .social-item {
+      width: 47px;
+      height: 47px;
+    }
 {% endstyle %}
 
 {% schema %}
 {
   "name": "Footer",
   "settings": [
+    {
+      "type": "select",
+      "id": "footer_layout",
+      "label": "t:sections.footer.settings.footer_layout",
+      "options": [
+        {
+          "value": "layout-1",
+          "label": "t:sections.footer.settings.footer_layout_1"
+        },
+        {
+          "value": "layout-2",
+          "label": "t:sections.footer.settings.footer_layout_2"
+        }
+      ],
+      "default": "layout-1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
     {
       "type": "select",
       "id": "heading_size",
@@ -436,6 +782,18 @@
       "unit": "px",
       "label": "t:sections.footer.settings.svg_height",
       "default": 40
+    },
+    {
+      "type": "header",
+      "content": "t:sections.footer.settings.footer_links",
+      "visible_if": "{{ section.settings.footer_layout == 'layout-1' }}"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_links",
+      "label": "t:sections.footer.settings.footer_links_menu",
+      "info": "Create a menu to show links in the footer bottom",
+      "visible_if": "{{ section.settings.footer_layout == 'layout-1' }}"
     }
   ],
   "blocks": [
@@ -476,6 +834,11 @@
           "id": "map_button_text",
           "label": "t:sections.footer.blocks.contact_info.map_button_text",
           "default": "t:sections.footer.blocks.contact_info.map_button_text"
+        },
+        {
+          "type": "url",
+          "id": "map_button_link",
+          "label": "t:sections.footer.blocks.contact_info.map_button_link"
         }
       ]
     },
