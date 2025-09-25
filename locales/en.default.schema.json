@@ -8023,6 +8023,47 @@
         "name": "Banner Swiper",
         "category": "Banner"
       }
+    },
+    "testimonial-swiper": {
+      "name": "Testimonial Swiper",
+      "settings": {
+        "color_scheme": { "label": "Color scheme" },
+        "width": {
+          "label": "Width",
+          "options": { "boxed": "Boxed", "full_width": "Full width" }
+        },
+        "slider_settings": { "content": "Slider Settings" },
+        "show_arrows": { "label": "Show navigation arrows" },
+        "show_pagination": { "label": "Show pagination dots on mobile" },
+        "space_between": { "label": "Space between slides (mobile)" },
+        "space_between_tablet": { "label": "Space between slides (tablet)" },
+        "space_between_desktop": { "label": "Space between slides (desktop)" },
+        "section_padding": { "content": "Section Padding" },
+        "padding_top": { "label": "Padding top" },
+        "padding_bottom": { "label": "Padding bottom" },
+        "padding_mobile_rate": {
+          "label": "Mobile padding rate",
+          "info": "Percentage of desktop padding to apply on mobile"
+        }
+      },
+      "blocks": {
+        "testimonial": {
+          "name": "Testimonial",
+          "settings": {
+            "image": { "label": "Author image" },
+            "rating": { "label": "Rating (1–5)" },
+            "title": { "label": "Headline", "default": "Great quality and design" },
+            "review": { "label": "Review text", "default": "This product transformed my space. Highly recommend!" },
+            "author": { "label": "Author name", "default": "John D." },
+            "product_link": { "label": "Product link URL" },
+            "product_label": { "label": "Product link label", "default": "View product" }
+          }
+        }
+      },
+      "presets": {
+        "name": "Testimonial Swiper",
+        "category": "Testimonials"
+      }
     }
   }
 }
