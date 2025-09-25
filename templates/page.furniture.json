@@ -316,7 +316,9 @@
           "settings": {
             "image": "shopify://shop_images/banner-cls1.jpg",
             "title": "Unbeatable Savings",
+            "title_size": "h6",
             "subtitle": "Get stylish furniture at discounted prices",
+            "subtitle_size": "text-md",
             "link": "shopify://collections/all",
             "button_text": "Shop Now"
           }
@@ -326,7 +328,9 @@
           "settings": {
             "image": "shopify://shop_images/banner-cls2.jpg",
             "title": "Limited-Time Offers",
+            "title_size": "h6",
             "subtitle": "Upgrade your home with exclusive deals",
+            "subtitle_size": "text-md",
             "link": "shopify://collections/sale",
             "button_text": "Shop Now"
           }
