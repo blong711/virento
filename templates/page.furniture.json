@@ -1,0 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slider": {
+      "type": "main-slider",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "image": "shopify://shop_images/furniture-slider-1.jpg",
+            "heading": "Transform Your Space",
+            "heading_size": "display-md",
+            "heading_weight": "fw-semibold",
+            "description": "Discover our curated collection of furniture — crafted for comfort, style, and lasting quality that elevates your home.",
+            "subheading": "Live Beautifully. Live Comfortably.",
+            "box_bg_class": "bg-brown-8",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "/collections/furniture",
+            "button_text": "Shop Furniture"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "image": "shopify://shop_images/furniture-slider-2.jpg",
+            "heading": "Modern Living Redefined",
+            "heading_size": "display-md",
+            "heading_weight": "fw-semibold",
+            "description": "Contemporary furniture pieces designed to complement your lifestyle and create the perfect living environment.",
+            "subheading": "Style Meets Function",
+            "box_bg_class": "bg-brown-8",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "/collections/modern-furniture",
+            "button_text": "Explore Collection"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "image": "shopify://shop_images/furniture-slider-3.jpg",
+            "heading": "Timeless Elegance",
+            "heading_size": "display-md",
+            "heading_weight": "fw-semibold",
+            "description": "Classic furniture pieces that stand the test of time — built with premium materials and exceptional craftsmanship.",
+            "subheading": "Built to Last",
+            "box_bg_class": "bg-brown-8",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "/collections/classic-furniture",
+            "button_text": "View Collection"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "layout_style": "style-2",
+        "width": "",
+        "height": "adapt-first",
+        "height_fixed": 500,
+        "mobile_height": "adapt-first",
+        "mobile_height_fixed": 300,
+        "loop": true,
+        "autoplay_speed": 5,
+        "pause_on_hover": true,
+        "draggable": true,
+        "show_arrows": false,
+        "show_arrows_mobile": false,
+        "show_dots": true,
+        "dots_style": "style-1",
+        "button_animate": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    }
+  },
+  "order": [
+    "slider"
+  ]
+}
