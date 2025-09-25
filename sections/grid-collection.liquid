@@ -1,258 +1,81 @@
-<!-- Grid Collection -->
-<section
-  class="section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
->
-  <div class="{% if section.settings.width == 'boxed' %}container{% else %}container-full{% endif %}">
-    <div class="grid-cls {% if section.settings.reverse_layout %} grid-cls-v3 grid-mega  {% else %} grid-vegetable grid-cls-v4 {% endif %}">
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'sale_item1' -%}
-            <div
-              class="{% if section.settings.reverse_layout %} item3  {% else %} item1 {% endif %} s-cls style-absolute hover-img abs-left-center color-{{ block.settings.color_scheme }}"
-              {{ block.shopify_attributes }}
-            >
-              <div class="image img-style">
-                {%- if block.settings.image != blank -%}
-                  <img
-                    src="{{ block.settings.image | image_url: width: 500 }}"
-                    data-src="{{ block.settings.image | image_url: width: 500 }}"
-                    alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
-                    class="lazyload"
-                    width="{{ block.settings.image.width | default: 500 }}"
-                    height="{{ block.settings.image.height | default: 400 }}"
-                    loading="lazy"
-                  >
-                {%- endif -%}
-              </div>
-              <div class="content">
-                <div class="box-title">
-                  {%- if block.settings.sale_text != blank -%}
-                    <div class="">
-                      {%- if block.settings.sale_text_size == 'small' -%}
-                        <p class="text-sm {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
-                          {{ block.settings.sale_text }}
-                        </p>
-                      {%- elsif block.settings.sale_text_size == 'medium' -%}
-                        <p class="text-md {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
-                          {{ block.settings.sale_text }}
-                        </p>
-                      {%- elsif block.settings.sale_text_size == 'large' -%}
-                        <p class="text-lg {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
-                          {{ block.settings.sale_text }}
-                        </p>
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
-                  {%- if block.settings.title != blank -%}
-                    <div>
-                      {%- if block.settings.title_size == 'small' -%}
-                        {{
-                          block.settings.title
-                          | replace: '<p>', '<p style="font-size: 16px; line-height: 24px; font-weight: 500;">'
-                        }}
-                      {%- elsif block.settings.title_size == 'medium' -%}
-                        {{
-                          block.settings.title
-                          | replace: '<p>', '<p style="font-size: 24px; line-height: 32px; font-weight: 500;">'
-                        }}
-                      {%- elsif block.settings.title_size == 'large' -%}
-                        {{
-                          block.settings.title
-                          | replace: '<p>', '<p style="font-size: 32px; line-height: 38px; font-weight: 500;">'
-                        }}
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
-                  {%- if block.settings.subtitle != blank -%}
-                    <div>
-                      {%- if block.settings.subtitle_size == 'small' -%}
-                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-sm">' }}
-                      {%- elsif block.settings.subtitle_size == 'medium' -%}
-                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-md">' }}
-                      {%- elsif block.settings.subtitle_size == 'large' -%}
-                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-lg">' }}
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
-                </div>
-                {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
-                  <div class="box-btn">
-                    <a href="{{ block.settings.button_link }}" class="tf-btn animate-btn">
-                      <span class="{{ block.settings.button_label_size }}">{{ block.settings.button_label }}</span>
-                    </a>
-                  </div>
-                {%- endif -%}
-              </div>
-            </div>
+{% schema %}
+{
+  "name": "Grid collection",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colors",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        { "value": "container", "label": "Boxed" },
+        { "value": "container-full", "label": "Full width" }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_mobile_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Padding mobile rate",
+      "default": 75
+    }
+  ],
+  "blocks": [
+    {
+      "type": "grid_item",
+      "name": "Grid item",
+      "limit": 12,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Category" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grid collection",
+      "category": "Collection",
+      "blocks": [
+        { "type": "grid_item", "settings": { "title": "Chairs" } },
+        { "type": "grid_item", "settings": { "title": "Tables" } },
+        { "type": "grid_item", "settings": { "title": "Decorations" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
 
-          {%- when 'sale_item2' -%}
-            <div
-              class="item2 s-cls style-absolute hover-img abs-left-center color-{{ block.settings.color_scheme }}"
-              {{ block.shopify_attributes }}
-            >
-              <div class="image img-style">
-                {%- if block.settings.image != blank -%}
-                  <img
-                    src="{{ block.settings.image | image_url: width: 500 }}"
-                    data-src="{{ block.settings.image | image_url: width: 500 }}"
-                    alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
-                    class="lazyload"
-                    width="{{ block.settings.image.width | default: 500 }}"
-                    height="{{ block.settings.image.height | default: 400 }}"
-                    loading="lazy"
-                  >
-                {%- endif -%}
-              </div>
-              <div class="content">
-                <div class="box-title">
-                  {%- if block.settings.sale_text != blank -%}
-                    <div class="">
-                      {%- if block.settings.sale_text_size == 'small' -%}
-                        <p class="text-sm {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
-                          {{ block.settings.sale_text }}
-                        </p>
-                      {%- elsif block.settings.sale_text_size == 'medium' -%}
-                        <p class="text-md {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
-                          {{ block.settings.sale_text }}
-                        </p>
-                      {%- elsif block.settings.sale_text_size == 'large' -%}
-                        <p class="text-lg {% if block.settings.discount_style == 'badge' %}offer{% endif %}">
-                          {{ block.settings.sale_text }}
-                        </p>
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
-                  {%- if block.settings.title != blank -%}
-                    <div>
-                      {%- if block.settings.title_size == 'small' -%}
-                        {{
-                          block.settings.title
-                          | replace: '<p>', '<p style="font-size: 16px; line-height: 24px; font-weight: 500;">'
-                        }}
-                      {%- elsif block.settings.title_size == 'medium' -%}
-                        {{
-                          block.settings.title
-                          | replace: '<p>', '<p style="font-size: 24px; line-height: 32px; font-weight: 500;">'
-                        }}
-                      {%- elsif block.settings.title_size == 'large' -%}
-                        {{
-                          block.settings.title
-                          | replace: '<p>', '<p style="font-size: 32px; line-height: 38px; font-weight: 500;">'
-                        }}
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
-                  {%- if block.settings.subtitle != blank -%}
-                    <div>
-                      {%- if block.settings.subtitle_size == 'small' -%}
-                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-sm">' }}
-                      {%- elsif block.settings.subtitle_size == 'medium' -%}
-                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-md">' }}
-                      {%- elsif block.settings.subtitle_size == 'large' -%}
-                        {{ block.settings.subtitle | replace: '<p>', '<p class="text-lg">' }}
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
-                </div>
-                {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
-                  <div class="box-btn">
-                    <a href="{{ block.settings.button_link }}" class="tf-btn animate-btn">
-                      <span class="{{ block.settings.button_label_size }}">{{ block.settings.button_label }}</span>
-                    </a>
-                  </div>
-                {%- endif -%}
-              </div>
-            </div>
-
-          {%- when 'discover_item' -%}
-            <div
-              class="{% if section.settings.reverse_layout %} item1  {% else %} item3 {% endif %} s-cls style-absolute abs-left-center type-large hover-img color-{{ block.settings.color_scheme }}"
-              {{ block.shopify_attributes }}
-            >
-              <div class="image img-style">
-                {%- if block.settings.image != blank -%}
-                  <img
-                    src="{{ block.settings.image | image_url: width: 900 }}"
-                    data-src="{{ block.settings.image | image_url: width: 900 }}"
-                    alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
-                    class="lazyload"
-                    width="{{ block.settings.image.width | default: 900 }}"
-                    height="{{ block.settings.image.height | default: 600 }}"
-                    loading="lazy"
-                  >
-                {%- endif -%}
-              </div>
-              <div class="content">
-                <div class="box-title">
-                  <div class=" box-offer mb_4">
-                    {%- if block.settings.offer_text != blank -%}
-                      <p class="{% if block.settings.discount_style == 'badge' %}offer{% endif %} text-xs fw-semibold">
-                        {{- block.settings.offer_text -}}
-                      </p>
-                    {%- endif -%}
-                  </div>
-                  {%- if block.settings.title != blank -%}
-                    {%- if block.settings.title_size == 'small' -%}
-                      {{ block.settings.title | replace: '<p>', '<h4>' | replace: '</p>', '</h4>' }}
-                    {%- elsif block.settings.title_size == 'medium' -%}
-                      {{ block.settings.title | replace: '<p>', '<h3>' | replace: '</p>', '</h3>' }}
-                    {%- elsif block.settings.title_size == 'large' -%}
-                      {{ block.settings.title | replace: '<p>', '<h2>' | replace: '</p>', '</h2>' }}
-                    {%- endif -%}
-                  {%- endif -%}
-                  {%- if block.settings.content != blank -%}
-                    <div>
-                      {%- if block.settings.content_size == 'small' -%}
-                        {{ block.settings.content | replace: '<p>', '<p class="text-sm">' }}
-                      {%- elsif block.settings.content_size == 'medium' -%}
-                        {{ block.settings.content | replace: '<p>', '<p class="text-md">' }}
-                      {%- elsif block.settings.content_size == 'large' -%}
-                        {{ block.settings.content | replace: '<p>', '<p class="text-lg">' }}
-                      {%- endif -%}
-                    </div>
-                  {%- endif -%}
-                  {%- if block.settings.show_price and block.settings.price != blank -%}
-                    <p class="text-md fw-medium">
-                      {%- if block.settings.price_prefix != blank -%}
-                        {{ block.settings.price_prefix }}
-                      {%- endif -%}
-                      {% if block.settings.price_size == 'small' %}
-                        <span class="display-sm" style="color: rgb(var(--color-foreground2)) !important;">
-                          {{- block.settings.price -}}
-                        </span>
-                      {% elsif block.settings.price_size == 'medium' %}
-                        <span class="display-md" style="color: rgb(var(--color-foreground2)) !important;">
-                          {{- block.settings.price -}}
-                        </span>
-                      {% elsif block.settings.price_size == 'large' %}
-                        <span class="display-lg" style="color: rgb(var(--color-foreground2)) !important;">
-                          {{- block.settings.price -}}
-                        </span>
-                      {% endif %}
-                    </p>
-                  {%- endif -%}
-                </div>
-                {%- if block.settings.button_label != blank and block.settings.button_link != blank -%}
-                  <div class="box-btn">
-                    <a href="{{ block.settings.button_link }}" class="tf-btn animate-btn">
-                      {{ block.settings.button_label }}
-                    </a>
-                  </div>
-                {%- endif -%}
-              </div>
-            </div>
-        {%- endcase -%}
-      {%- endfor -%}
-    </div>
-  </div>
-</section>
-<!-- Grid Collection -->
-
-<style>
-  .s-cls .offer {
-     background-color: rgb(var(--color-background2));
-     color: rgb(var(--color-foreground2));
-  }
+{% style %}
   .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
@@ -264,437 +87,43 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-</style>
+{% endstyle %}
 
-{% schema %}
-{
-  "name": "t:sections.grid_collection.name",
-  "settings": [
-    {
-      "type": "select",
-      "id": "width",
-      "options": [
-        {
-          "value": "boxed",
-          "label": "t:sections.grid_collection.settings.width.options.boxed"
-        },
-        {
-          "value": "full",
-          "label": "t:sections.grid_collection.settings.width.options.full"
-        }
-      ],
-      "default": "boxed",
-      "label": "t:sections.grid_collection.settings.width.label"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.grid_collection.settings.color_scheme.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_mobile_rate",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "label": "t:sections.all.padding.padding_mobile_rate.label",
-      "info": "t:sections.all.padding.padding_mobile_rate.info",
-      "default": 75
-    },
-    {
-      "type": "checkbox",
-      "id": "reverse_layout",
-      "label": "Reverse Layout Direction",
-      "info": "When checked, the layout direction will be reversed",
-      "default": false
-    }
-  ],
-  "blocks": [
-    {
-      "type": "sale_item1",
-      "name": "t:sections.grid_collection.blocks.sale_item1.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "color_scheme",
-          "id": "color_scheme",
-          "label": "t:sections.grid_collection.settings.color_scheme.label"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "t:sections.grid_collection.settings.image.label"
-        },
-        {
-          "type": "text",
-          "id": "sale_text",
-          "label": "t:sections.grid_collection.settings.sale_text.label",
-          "default": "t:sections.grid_collection.settings.sale_text.default"
-        },
-        {
-          "type": "select",
-          "id": "discount_style",
-          "label": "t:sections.grid_collection.settings.discount_style.label",
-          "options": [
-            { "value": "badge", "label": "t:sections.grid_collection.settings.discount_style.options.badge" },
-            { "value": "text", "label": "t:sections.grid_collection.settings.discount_style.options.text" }
-          ],
-          "default": "badge"
-        },
-        {
-          "type": "richtext",
-          "id": "title",
-          "label": "t:sections.grid_collection.settings.title.label",
-          "default": "t:sections.grid_collection.settings.title.default_1"
-        },
-        {
-          "type": "richtext",
-          "id": "subtitle",
-          "label": "t:sections.grid_collection.settings.subtitle.label",
-          "default": "t:sections.grid_collection.settings.subtitle.default"
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "t:sections.grid_collection.settings.button_label.label",
-          "default": "t:sections.grid_collection.settings.button_label.default"
-        },
-        {
-          "type": "select",
-          "id": "button_label_size",
-          "label": "t:sections.grid_collection.settings.button_label_size.label",
-          "options": [
-            { "value": "text-sm", "label": "t:sections.common.size.small" },
-            { "value": "text-md", "label": "t:sections.common.size.medium" },
-            { "value": "text-lg", "label": "t:sections.common.size.large" }
-          ],
-          "default": "text-sm"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "t:sections.grid_collection.settings.button_link.label"
-        },
-        {
-          "type": "header",
-          "content": "t:sections.grid_collection.settings.heading_size.label"
-        },
-        {
-          "type": "select",
-          "id": "sale_text_size",
-          "label": "t:sections.grid_collection.settings.sale_text_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "small"
-        },
-        {
-          "type": "select",
-          "id": "title_size",
-          "label": "t:sections.grid_collection.settings.title_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "medium"
-        },
-        {
-          "type": "select",
-          "id": "subtitle_size",
-          "label": "t:sections.grid_collection.settings.subtitle_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "small"
-        }
-      ]
-    },
-    {
-      "type": "sale_item2",
-      "name": "t:sections.grid_collection.blocks.sale_item2.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "color_scheme",
-          "id": "color_scheme",
-          "label": "t:sections.grid_collection.settings.color_scheme.label"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "t:sections.grid_collection.settings.image.label"
-        },
-        {
-          "type": "text",
-          "id": "sale_text",
-          "label": "t:sections.grid_collection.settings.sale_text.label",
-          "default": "t:sections.grid_collection.settings.sale_text.default_2"
-        },
-        {
-          "type": "select",
-          "id": "discount_style",
-          "label": "t:sections.grid_collection.settings.discount_style.label",
-          "options": [
-            { "value": "badge", "label": "t:sections.grid_collection.settings.discount_style.options.badge" },
-            { "value": "text", "label": "t:sections.grid_collection.settings.discount_style.options.text" }
-          ],
-          "default": "badge"
-        },
-        {
-          "type": "richtext",
-          "id": "title",
-          "label": "t:sections.grid_collection.settings.title.label",
-          "default": "t:sections.grid_collection.settings.title.default_2"
-        },
-        {
-          "type": "richtext",
-          "id": "subtitle",
-          "label": "t:sections.grid_collection.settings.subtitle.label",
-          "default": "t:sections.grid_collection.settings.subtitle.default"
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "t:sections.grid_collection.settings.button_label.label",
-          "default": "t:sections.grid_collection.settings.button_label.default"
-        },
-        {
-          "type": "select",
-          "id": "button_label_size",
-          "label": "t:sections.grid_collection.settings.button_label_size.label",
-          "options": [
-            { "value": "text-sm", "label": "t:sections.common.size.small" },
-            { "value": "text-md", "label": "t:sections.common.size.medium" },
-            { "value": "text-lg", "label": "t:sections.common.size.large" }
-          ],
-          "default": "text-sm"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "t:sections.grid_collection.settings.button_link.label"
-        },
-        {
-          "type": "header",
-          "content": "t:sections.grid_collection.settings.heading_size.label"
-        },
-        {
-          "type": "select",
-          "id": "sale_text_size",
-          "label": "t:sections.grid_collection.settings.sale_text_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "small"
-        },
-        {
-          "type": "select",
-          "id": "title_size",
-          "label": "t:sections.grid_collection.settings.title_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "medium"
-        },
-        {
-          "type": "select",
-          "id": "subtitle_size",
-          "label": "t:sections.grid_collection.settings.subtitle_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "small"
-        }
-      ]
-    },
-    {
-      "type": "discover_item",
-      "name": "t:sections.grid_collection.blocks.discover_item.name",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "color_scheme",
-          "id": "color_scheme",
-          "label": "t:sections.grid_collection.settings.color_scheme.label"
-        },
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "t:sections.grid_collection.settings.image.label"
-        },
-        {
-          "type": "text",
-          "id": "offer_text",
-          "label": "t:sections.grid_collection.settings.offer_text.label",
-          "default": "t:sections.grid_collection.settings.offer_text.default"
-        },
-        {
-          "type": "select",
-          "id": "discount_style",
-          "label": "t:sections.grid_collection.settings.discount_style.label",
-          "options": [
-            { "value": "badge", "label": "t:sections.grid_collection.settings.discount_style.options.badge" },
-            { "value": "text", "label": "t:sections.grid_collection.settings.discount_style.options.text" }
-          ],
-          "default": "badge"
-        },
-        {
-          "type": "richtext",
-          "id": "title",
-          "label": "t:sections.grid_collection.settings.title.label",
-          "default": "t:sections.grid_collection.settings.title.default_3"
-        },
+<section class="flat-spacing-3 pt-0 color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+  <div class="{{ section.settings.width }}">
+    <div class="grid-cls grid-cls-v1">
+      {% for block in section.blocks %}
+        {% assign index_class = forloop.index | prepend: 'item' %}
+        <div class="{{ index_class }} wg-cls style-abs hover-img" {{ block.shopify_attributes }}>
+          {% assign link_url = block.settings.link | default: '#' %}
+          <a href="{{ link_url }}" class="image img-style d-block">
+            {% if block.settings.image != blank %}
+              <img 
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                srcset="
+                  {{ block.settings.image | image_url: width: 400 }} 400w,
+                  {{ block.settings.image | image_url: width: 600 }} 600w,
+                  {{ block.settings.image | image_url: width: 800 }} 800w
+                "
+                sizes="(min-width: 1200px) 33vw, (min-width: 768px) 33vw, 100vw"
+                alt="{{ block.settings.title | default: 'Collection' | escape }}"
+                width="{{ block.settings.image.width | default: 800 }}"
+                height="{{ block.settings.image.height | default: 800 }}"
+                loading="lazy"
+              >
+            {% else %}
+              {{ 'collection-1' | placeholder_svg_tag }}
+            {% endif %}
+          </a>
+          {% if block.settings.title != blank %}
+            <div class="cls-btn text-center">
+              <a href="{{ link_url }}" class="tf-btn btn-cls btn-white hover-dark hover-icon-2">{{ block.settings.title }}</a>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "t:sections.grid_collection.settings.content.label",
-          "default": "t:sections.grid_collection.settings.content.default"
-        },
 
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "t:sections.grid_collection.settings.button_label.label",
-          "default": "t:sections.grid_collection.settings.button_label.default_2"
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "t:sections.grid_collection.settings.button_link.label"
-        },
-        {
-          "type": "header",
-          "content": "t:sections.grid_collection.settings.heading_size.label"
-        },
-        {
-          "type": "select",
-          "id": "title_size",
-          "label": "t:sections.grid_collection.settings.title_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "medium"
-        },
-        {
-          "type": "select",
-          "id": "content_size",
-          "label": "t:sections.grid_collection.settings.content_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "medium"
-        },
-        {
-          "type": "header",
-          "content": "t:sections.grid_collection.settings.price_settings.content"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_price",
-          "label": "t:sections.grid_collection.settings.show_price.label",
-          "default": true
-        },
-        {
-          "type": "text",
-          "id": "price_prefix",
-          "label": "t:sections.grid_collection.settings.price_prefix.label",
-          "default": "From"
-        },
-        {
-          "type": "text",
-          "id": "price",
-          "label": "t:sections.grid_collection.settings.price.label",
-          "default": "$1,200"
-        },
-        {
-          "type": "select",
-          "id": "price_size",
-          "label": "t:sections.grid_collection.blocks.discover_item.price_size.label",
-          "options": [
-            { "value": "small", "label": "t:sections.common.size.small" },
-            { "value": "medium", "label": "t:sections.common.size.medium" },
-            { "value": "large", "label": "t:sections.common.size.large" }
-          ],
-          "default": "medium"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:sections.grid_collection.presets.name",
-      "category": "t:sections.grid_collection.presets.category",
-      "blocks": [
-        {
-          "type": "sale_item1",
-          "settings": {
-            "sale_text": "Save up to 20% on",
-            "title": "<p>Dairy Milk Chocolate</p>",
-            "button_label": "Shop Now",
-            "button_link": "/collections/all"
-          }
-        },
-        {
-          "type": "sale_item2",
-          "settings": {
-            "sale_text": "Save up to 10% on",
-            "title": "<p>Yoghurt Pouch Blueberry 140g</p>",
-            "button_label": "Shop Now",
-            "button_link": "/collections/all"
-          }
-        },
-        {
-          "type": "discover_item",
-          "settings": {
-            "title": "<p>Eat Fresh, Live Well</p>",
-            "content": "<p>Discover farm-fresh, organic veggies at our store. Locally sourced, quality guaranteed—perfect for your healthy meals!</p>",
-            "button_label": "Discover Now",
-            "button_link": "/collections/all"
-          }
-        }
-      ]
-    }
-  ]
-}
-{% endschema %}

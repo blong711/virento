@@ -178,11 +178,53 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "grid_collection_XxY7aK": {
+      "type": "grid-collection",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "padding_mobile_rate": 75
+      },
+      "blocks": {
+        "grid_item_1": {
+          "type": "grid_item",
+          "settings": {
+            "title": "Chairs",
+            "image": "",
+            "link": "shopify://collections"
+          }
+        },
+        "grid_item_2": {
+          "type": "grid_item",
+          "settings": {
+            "title": "Tables",
+            "image": "",
+            "link": "shopify://collections"
+          }
+        },
+        "grid_item_3": {
+          "type": "grid_item",
+          "settings": {
+            "title": "Decorations",
+            "image": "",
+            "link": "shopify://collections"
+          }
+        }
+      },
+      "block_order": [
+        "grid_item_1",
+        "grid_item_2",
+        "grid_item_3"
+      ]
     }
   },
   "order": [
     "slider",
     "icon_box_hChFXj",
-    "featured_product_carousel_r9mPVq"
+    "featured_product_carousel_r9mPVq",
+    "grid_collection_XxY7aK"
   ]
 }
