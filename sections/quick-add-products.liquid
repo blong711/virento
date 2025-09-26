@@ -225,7 +225,7 @@
           "type": "text",
           "id": "product_features",
           "label": "Product Features",
-          "info": "Enter features separated by commas (e.g., Boosts Performance, Supports Muscle Growth, Speeds Up Recovery)"
+          "info": "Enter features separated by dots (e.g., Boosts Performance. Supports Muscle Growth. Speeds Up Recovery)"
         }
       ]
     }
@@ -238,19 +238,19 @@
         {
           "type": "product",
           "settings": {
-            "product_features": "Boosts Performance, Supports Muscle Growth, Speeds Up Recovery"
+            "product_features": "Boosts Performance. Supports Muscle Growth. Speeds Up Recovery"
           }
         },
         {
           "type": "product",
           "settings": {
-            "product_features": "Clean Formula, Tested Ingredients, Fast Absorption"
+            "product_features": "Clean Formula. Tested Ingredients. Fast Absorption"
           }
         },
         {
           "type": "product",
           "settings": {
-            "product_features": "Natural Ingredients, No Side Effects, Clinically Proven"
+            "product_features": "Natural Ingredients. No Side Effects. Clinically Proven"
           }
         }
       ]
@@ -388,7 +388,7 @@
                         <div class="line-top"></div>
                         {% if section.settings.show_product_features and block.settings.product_features != blank %}
                           <ul class="list-infor pb-30">
-                            {%- assign features = block.settings.product_features | split: ',' -%}
+                            {%- assign features = block.settings.product_features | split: '.' -%}
                             {%- for feature in features -%}
                               {%- assign trimmed_feature = feature | strip -%}
                               {%- if trimmed_feature != blank -%}
