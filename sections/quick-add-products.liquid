@@ -32,22 +32,7 @@
       "label": "Background Image",
       "info": "Background image for the section"
     },
-    {
-      "type": "select",
-      "id": "title_alignment",
-      "label": "Title Alignment",
-      "options": [
-        {
-          "value": "start",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        }
-      ],
-      "default": "start"
-    },
+    
     {
       "type": "text",
       "id": "title",
@@ -108,12 +93,7 @@
       "type": "header",
       "content": "Slider Settings"
     },
-    {
-      "type": "checkbox",
-      "id": "show_navigation",
-      "label": "Show Navigation Arrows",
-      "default": true
-    },
+    
     {
       "type": "checkbox",
       "id": "show_dots_mobile",
@@ -148,7 +128,7 @@
       "label": "Products per row (Mobile)",
       "options": [
         { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" },
+        { "value": "2", "label": "2" }
       ],
       "default": "1"
     },
@@ -295,7 +275,7 @@
     {% endif %}
     
     <div class="{{ section.settings.width }} position-relative">
-      <div class="flat-title wow fadeInUp {% if section.settings.title_alignment == 'center' %} text-center{% endif %}" style="visibility: visible; animation-name: fadeInUp;">
+      <div class="flat-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
         <{{ section.settings.title_tag }} class="title text-white">
           {{ section.settings.title }}
         </{{ section.settings.title_tag }}>
@@ -385,7 +365,7 @@
                           </div>
                         {% endif %}
                         {%- assign display_title = block.settings.custom_title | default: product.title -%}
-                        <a href="{{ product.url }}" class="name-product link fw-medium display-xs font-7">
+                        <a href="{{ product.url }}" class="name-product link fw-medium display-xs font-7 d-block mx-auto" style="max-width: 330px;">
                           {{ display_title }}
                         </a>
                         <p class="price-wrap fw-medium d-flex justify-content-center align-items-center gap-8">
