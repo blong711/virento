@@ -94,12 +94,12 @@
             "heading": "Welcome to Our Store",
             "heading_size": "display-md",
             "heading_weight": "fw-medium",
-            "description": "Discover amazing products and exceptional quality that will exceed your expectations.",
-            "subheading": "",
+            "description": "",
+            "subheading": "Max Out Every Set, Every Session.",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
-            "button_link": "",
+            "button_link": "shopify://collections",
             "button_text": "Shop Now"
           }
         },
@@ -111,13 +111,13 @@
             "heading": "Quality You Can Trust",
             "heading_size": "display-md",
             "heading_weight": "fw-medium",
-            "description": "Every product is carefully selected and tested to ensure the highest standards.",
-            "subheading": "",
+            "description": "",
+            "subheading": "Max Out Every Set, Every Session.",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
-            "button_link": "",
-            "button_text": "Learn More"
+            "button_link": "shopify://collections",
+            "button_text": "Show Now"
           }
         }
       },
