@@ -106,7 +106,7 @@
             "article_limit": 7,
             "items_per_row_dk": "2",
             "items_per_row_tb": "2",
-            "items_per_row_mb": "2",
+            "items_per_row_mb": "1",
             "show_excerpt": true,
             "show_author": true,
             "show_comment_count": true,
