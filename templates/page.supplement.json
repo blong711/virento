@@ -332,7 +332,7 @@
           "type": "product",
           "settings": {
             "product": "esn",
-            "custom_vendor": "",
+            "custom_vendor": "WHEY PROTEIN",
             "custom_title": "ESN ELITE SPORTS NUTRITION WHEY PROTEIN",
             "product_features": "Boosts Performance. Supports Muscle Growth. Speeds Up Recovery. Clean, Tested Formula"
           }
@@ -341,15 +341,25 @@
           "type": "product",
           "settings": {
             "product": "24h",
-            "custom_vendor": "",
+            "custom_vendor": "SPORT NUTRITION",
             "custom_title": "HERBALIFT 24-HOUR ATHLETE REBUILD STRENGTH",
+            "product_features": "Boosts Performance. Supports Muscle Growth. Speeds Up Recovery. Clean, Tested Formula"
+          }
+        },
+        "product_qyfW4d": {
+          "type": "product",
+          "settings": {
+            "product": "nutrition-protein-bar",
+            "custom_vendor": "FOOD & DRINK",
+            "custom_title": "NUTRITION PROTEIN BAR KETO BAR COCOA & ORANGE",
             "product_features": "Boosts Performance. Supports Muscle Growth. Speeds Up Recovery. Clean, Tested Formula"
           }
         }
       },
       "block_order": [
         "product_xXjRnL",
-        "product_p6WDyW"
+        "product_p6WDyW",
+        "product_qyfW4d"
       ],
       "name": "Quick Add Products",
       "settings": {
