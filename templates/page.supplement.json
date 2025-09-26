@@ -426,6 +426,35 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "blog_carousel_tiazLz": {
+      "type": "blog-carousel",
+      "name": "t:sections.blog-carousel.name",
+      "settings": {
+        "heading": "Explore Our Blogs",
+        "description": "Explore our most popular pieces that customers can't get enough of",
+        "layout_style": "layout1",
+        "width": "boxed",
+        "color_scheme": "",
+        "blog": "",
+        "posts_to_show": 6,
+        "show_tags": true,
+        "show_excerpt": true,
+        "show_author": true,
+        "show_date": true,
+        "show_comments": true,
+        "show_read_more": true,
+        "slides_mobile": 1,
+        "slides_tablet": 2,
+        "slides_desktop": 3,
+        "space_between": 24,
+        "animation_speed": 800,
+        "show_navigation": true,
+        "show_pagination": true,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -435,6 +464,7 @@
     "featured_product_carousel_WCCACY",
     "grid_banner_FkKW9K",
     "quick_add_products",
-    "testimonial_swiper_YeRbPX"
+    "testimonial_swiper_YeRbPX",
+    "blog_carousel_tiazLz"
   ]
 }
