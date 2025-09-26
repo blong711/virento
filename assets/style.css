@@ -28882,3 +28882,6 @@ shopify-accelerated-checkout {
       padding: 40px 60px;
   }
 }
+.slider-supplement .content-slider {
+  gap: 40px;
+}

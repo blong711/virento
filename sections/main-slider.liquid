@@ -246,7 +246,7 @@
               "label": "t:sections.main_slider.blocks.slide.settings.heading_size.options.medium"
             },
             {
-              "value": "display-lg",
+              "value": "display-xl-2",
               "label": "t:sections.main_slider.blocks.slide.settings.heading_size.options.large"
             }
           ],
@@ -285,13 +285,14 @@
         {
           "type": "text",
           "id": "subheading",
-          "label": "Subheading (Style 2)"
+          "label": "t:sections.main_slider.blocks.slide.settings.subheading.label"
         },
         {
           "type": "text",
           "id": "box_bg_class",
-          "label": "Box background class (Style 2)"
-        },
+          "label": "t:sections.main_slider.blocks.slide.settings.box_bg_class.label",
+          "visible_if": "{{ section.settings.layout_style == 'style-2' }}"
+          },
         {
           "type": "select",
           "id": "content_alignment",

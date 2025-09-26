@@ -807,6 +807,12 @@
               "label": "Description",
               "default": "Slide description goes here"
             },
+            "subheading": {
+              "label": "Subheading"
+            },
+            "box_bg_class": {
+              "label": "Box background class",
+            },
             "content_alignment": {
               "label": "Content Alignment",
               "options": {
