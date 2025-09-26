@@ -4791,6 +4791,13 @@
         "image_size": {
           "content": "Image Size"
         },
+        "image_shape": {
+          "label": "Image Shape",
+          "options": {
+            "circle": "Circle",
+            "square": "Square"
+          }
+        },
         "image_size_type": {
           "label": "Image Size Type",
           "options": {
