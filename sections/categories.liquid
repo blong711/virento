@@ -97,6 +97,16 @@
     },
     {
       "type": "select",
+      "id": "image_shape",
+      "label": "t:sections.categories.settings.image_shape.label",
+      "options": [
+        { "value": "circle", "label": "t:sections.categories.settings.image_shape.options.circle" },
+        { "value": "square", "label": "t:sections.categories.settings.image_shape.options.square" }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "select",
       "id": "image_size_type",
       "label": "t:sections.categories.settings.image_size_type.label",
       "options": [
@@ -326,7 +336,7 @@
               {% assign collection = block.settings.collection %}
               {% if collection != blank %}
                 <div class="swiper-slide">
-                  <div class="wg-cls style-circle hover-img ">
+                  <div class="wg-cls {% if section.settings.image_shape == 'circle' %}style-circle{% endif %} hover-img ">
                     {% assign link = block.settings.link | default: collection.url %}
                     <a
                       href="{{ link }}"
@@ -390,15 +400,15 @@
 
   @media (min-width: 1200px) {
     /* Custom image sizing for categories section */
-    .section-{{ section.id }} .wg-cls.style-circle .image.size-image-px {
+    .section-{{ section.id }} .wg-cls .image.size-image-px {
       width: {{ section.settings.image_size_px }}px;
       height: {{ section.settings.image_size_px }}px;
       margin: 0 auto;
     }
   }
-  .section-{{ section.id }} .wg-cls.style-circle .image.size-image-px img {
+  .section-{{ section.id }} .wg-cls .image.size-image-px img {
     width: 100%;
     height: 100%;
-      object-fit: cover;
-    }
+    object-fit: cover;
+  }
 {%- endstyle -%}
