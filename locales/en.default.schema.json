@@ -8055,6 +8055,13 @@
     "testimonial-swiper": {
       "name": "Testimonial Swiper",
       "settings": {
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "layout-1": "Layout 1",
+            "layout-2": "Layout 2"
+          }
+        },
         "color_scheme": { "label": "Color scheme" },
         "width": {
           "label": "Width",

@@ -10,16 +10,6 @@
     },
     {
       "type": "select",
-      "id": "layout",
-      "label": "t:sections.testimonial-swiper.settings.layout.label",
-      "options": [
-        { "value": "layout-1", "label": "t:sections.testimonial-swiper.settings.layout.options.layout_1" },
-        { "value": "layout-2", "label": "t:sections.testimonial-swiper.settings.layout.options.layout_2" }
-      ],
-      "default": "layout-1"
-    },
-    {
-      "type": "select",
       "id": "width",
       "label": "t:sections.testimonial-swiper.settings.width.label",
       "options": [
@@ -27,6 +17,16 @@
         { "value": "container-full", "label": "t:sections.testimonial-swiper.settings.width.options.full_width" }
       ],
       "default": "container"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.testimonial-swiper.settings.layout.label",
+      "options": [
+        { "value": "layout-1", "label": "t:sections.testimonial-swiper.settings.layout.options.layout_1" },
+        { "value": "layout-2", "label": "t:sections.testimonial-swiper.settings.layout.options.layout_2" }
+      ],
+      "default": "layout-1"
     },
     { "type": "header", "content": "t:sections.testimonial-swiper.settings.slider_settings.content" },
     { "type": "checkbox", "id": "show_arrows", "label": "t:sections.testimonial-swiper.settings.show_arrows.label", "default": true },
@@ -88,12 +88,12 @@
                       <div class="content">
                         <div class="list-star-default">
                           {% for i in (1..block.settings.rating) %}
-                            <i class="icon-star"></i>
+                            <i class="icon-start"></i>
                           {% endfor %}
                           {% assign empty_stars = 5 | minus: block.settings.rating %}
                           {% if empty_stars > 0 %}
                             {% for i in (1..empty_stars) %}
-                              <i class="icon-star" style="color: #ddd"></i>
+                              <i class="icon-start" style="color: #ddd"></i>
                             {% endfor %}
                           {% endif %}
                         </div>
