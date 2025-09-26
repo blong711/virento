@@ -13,7 +13,7 @@
 
           <!-- Blog Content Section -->
           <section
-            class="{% if section.settings.layout == 'list' %}s-blog-list-v1{% elsif section.settings.layout == 'list_v2' %}s-blog-list-v2 sec-blog{% elsif section.settings.layout == 'grid_v2' %}s-blog-grid-v2 sec-blog{% else %}s-blog-grid{% endif %} space-blog color-{{ section.settings.color_scheme }} gradient"
+            class="{% if section.settings.layout == 'list' %}s-blog-list-v1{% elsif section.settings.layout == 'list_v2' %}s-blog-list-v2 {% elsif section.settings.layout == 'grid_v2' %}s-blog-grid-v2 {% else %}s-blog-grid{% endif %} space-blog color-{{ section.settings.color_scheme }} gradient"
             {{ block.shopify_attributes }}
           >
             {% comment %} Determine blog source based on settings {% endcomment %}
