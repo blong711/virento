@@ -1,0 +1,273 @@
+{% comment %}
+    Quick Add Modal Snippet
+    Accepts:
+    - product: The product object
+    - modal_id: Custom modal ID (optional, defaults to "quickAdd")
+{% endcomment %}
+
+{% assign modal_id = modal_id | default: 'quickAdd' %}
+{% assign product = product | default: blank %}
+
+{% if product != blank %}
+<div class="modal fade modalCentered popup-quickadd" id="{{ modal_id }}" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+            <div class="main-product-quickadd card-product">
+                <div class="item-product-info">
+                    <div class="product-img">
+                        {% if product.featured_image %}
+                            <img 
+                                class="img-product ls-is-cached lazyloaded" 
+                                data-src="{{ product.featured_image | image_url: width: 300, height: 300, crop: 'center' }}" 
+                                src="{{ product.featured_image | image_url: width: 300, height: 300, crop: 'center' }}" 
+                                alt="{{ product.featured_image.alt | escape }}"
+                                width="300"
+                                height="300"
+                            >
+                        {% endif %}
+                    </div>
+                    <div class="content-box">
+                        <a href="{{ product.url }}" class="name-product link text-lg">{{ product.title }}</a>
+                        <div class="price-show-badge">
+                            <div class="price-wrap">
+                                <span class="price-new">
+                                    {%- if settings.currency_code_enabled -%}
+                                        {{- product.price | money }}
+                                        {{ shop.currency -}}
+                                    {%- else -%}
+                                        {{- product.price | money -}}
+                                    {%- endif -%}
+                                </span>
+                                {% if product.compare_at_price > product.price %}
+                                    <span class="price-old">
+                                        {%- if settings.currency_code_enabled -%}
+                                            {{- product.compare_at_price | money }}
+                                            {{ shop.currency -}}
+                                        {%- else -%}
+                                            {{- product.compare_at_price | money -}}
+                                        {%- endif -%}
+                                    </span>
+                                {% endif %}
+                            </div>
+                            {% if product.compare_at_price > product.price %}
+                                {% assign discount_percentage = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+                                <span class="on-sale-item">{{ discount_percentage }}% Off</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if product.variants.size > 1 %}
+                    <div class="item-product-variant">
+                        {% for option in product.options_with_values %}
+                            {% if option.name == 'Color' or option.name == 'Colour' %}
+                                <div class="quickadd-variant-color">
+                                    <div class="variant-label text-md">{{ option.name }}: <span class="variant-value">{{ option.selected_value }}</span></div>
+                                    <ul class="list-color-product">
+                                        {% for value in option.values %}
+                                            {% assign variant = product.variants | where: option.name, value | first %}
+                                            <li class="list-color-item color-swatch hover-tooltip tooltip-bot{% if value == option.selected_value %} active{% endif %}{% unless variant.available %} line{% endunless %}" 
+                                                data-variant-id="{{ variant.id }}"
+                                                data-option="{{ option.name }}"
+                                                data-value="{{ value }}">
+                                                <span class="tooltip color-label">{{ value }}</span>
+                                                <span class="swatch-value bg-{{ value | downcase | replace: ' ', '-' }}"></span>
+                                                {% if variant.featured_image %}
+                                                    <img 
+                                                        class="ls-is-cached lazyloaded" 
+                                                        data-src="{{ variant.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
+                                                        src="{{ variant.featured_image | image_url: width: 100, height: 100, crop: 'center' }}" 
+                                                        alt="{{ variant.featured_image.alt | escape }}"
+                                                        width="100"
+                                                        height="100"
+                                                    >
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% else %}
+                                <div class="quickadd-variant-option">
+                                    <div class="variant-label text-md">{{ option.name }}: <span class="variant-value">{{ option.selected_value }}</span></div>
+                                    <select class="form-select variant-select" data-option="{{ option.name }}">
+                                        {% for value in option.values %}
+                                            {% assign variant = product.variants | where: option.name, value | first %}
+                                            <option value="{{ value }}" data-variant-id="{{ variant.id }}"{% if value == option.selected_value %} selected{% endif %}{% unless variant.available %} disabled{% endunless %}>
+                                                {{ value }}{% unless variant.available %} - Sold Out{% endunless %}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <div class="item-product-quantity">
+                    <div class="label text-md">Quantity</div>
+                    <div class="wg-quantity">
+                        <button class="btn-quantity minus-btn" type="button">-</button>
+                        <input class="quantity-product font-4" type="number" name="quantity" value="1" min="1" max="99">
+                        <button class="btn-quantity plus-btn" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="item-product-group-btn">
+                    <button class="tf-btn animate-btn atc" 
+                            data-product-id="{{ product.id }}" 
+                            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                            {% unless product.available %}disabled{% endunless %}>
+                        {% if product.available %}
+                            Add to cart
+                        {% else %}
+                            Sold Out
+                        {% endif %}
+                    </button>
+                    <a href="{{ product.url }}" class="box-icon" title="View Product">
+                        <i class="icon icon-eye"></i>
+                    </a>
+                    {% render 'product-wishlist-button', product: product %}
+                    {% render 'product-compare-button', product: product %}
+                    <a href="{{ product.url }}" class="tf-btn btn-primary animate-btn w-100">View Product</a>
+                </div>
+                
+                <a href="{{ product.url }}" class="tf-btn btn-line-dark payment-link">More payment options</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('{{ modal_id }}');
+    if (!modal) return;
+
+    // Quantity controls
+    const quantityInput = modal.querySelector('.quantity-product');
+    const minusBtn = modal.querySelector('.minus-btn');
+    const plusBtn = modal.querySelector('.plus-btn');
+
+    if (minusBtn && plusBtn && quantityInput) {
+        minusBtn.addEventListener('click', function() {
+            const currentValue = parseInt(quantityInput.value) || 1;
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        plusBtn.addEventListener('click', function() {
+            const currentValue = parseInt(quantityInput.value) || 1;
+            const maxValue = parseInt(quantityInput.max) || 99;
+            if (currentValue < maxValue) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+    }
+
+    // Variant selection
+    const colorSwatches = modal.querySelectorAll('.list-color-item');
+    const variantSelects = modal.querySelectorAll('.variant-select');
+    const addToCartBtn = modal.querySelector('.atc');
+    const variantValueSpans = modal.querySelectorAll('.variant-value');
+
+    function updateVariantSelection() {
+        let selectedVariantId = '{{ product.selected_or_first_available_variant.id }}';
+        
+        // Update from color swatches
+        colorSwatches.forEach(function(swatch) {
+            if (swatch.classList.contains('active')) {
+                selectedVariantId = swatch.dataset.variantId;
+            }
+        });
+
+        // Update from select dropdowns
+        variantSelects.forEach(function(select) {
+            const selectedOption = select.options[select.selectedIndex];
+            if (selectedOption && selectedOption.dataset.variantId) {
+                selectedVariantId = selectedOption.dataset.variantId;
+            }
+        });
+
+        // Update add to cart button
+        if (addToCartBtn) {
+            addToCartBtn.dataset.variantId = selectedVariantId;
+        }
+    }
+
+    // Color swatch click handlers
+    colorSwatches.forEach(function(swatch) {
+        swatch.addEventListener('click', function() {
+            if (this.classList.contains('line')) return; // Skip if sold out
+            
+            // Remove active class from siblings
+            const siblings = this.parentNode.querySelectorAll('.list-color-item');
+            siblings.forEach(function(sibling) {
+                sibling.classList.remove('active');
+            });
+            
+            // Add active class to clicked item
+            this.classList.add('active');
+            
+            // Update variant value display
+            const optionName = this.dataset.option;
+            const value = this.dataset.value;
+            variantValueSpans.forEach(function(span) {
+                if (span.previousSibling && span.previousSibling.textContent.includes(optionName)) {
+                    span.textContent = value;
+                }
+            });
+            
+            updateVariantSelection();
+        });
+    });
+
+    // Select dropdown change handlers
+    variantSelects.forEach(function(select) {
+        select.addEventListener('change', function() {
+            const selectedOption = this.options[this.selectedIndex];
+            const optionName = this.dataset.option;
+            const value = selectedOption.value;
+            
+            // Update variant value display
+            variantValueSpans.forEach(function(span) {
+                if (span.previousSibling && span.previousSibling.textContent.includes(optionName)) {
+                    span.textContent = value;
+                }
+            });
+            
+            updateVariantSelection();
+        });
+    });
+
+    // Add to cart functionality
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', function() {
+            const variantId = this.dataset.variantId;
+            const quantity = parseInt(quantityInput.value) || 1;
+            
+            // Add to cart logic here
+            fetch('/cart/add.js', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: variantId,
+                    quantity: quantity
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle success
+                console.log('Added to cart:', data);
+                // You can add cart drawer opening logic here
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+            });
+        });
+    }
+});
+</script>
+{% endif %}

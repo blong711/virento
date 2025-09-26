@@ -1,0 +1,17 @@
+{% comment %}
+    Accepts:
+    - product: The product object
+    - button_text: Custom button text (optional, defaults to "QUICK ADD")
+    - button_class: Additional CSS classes (optional)
+    - modal_target: Modal target ID (optional, defaults to "quickAdd")
+{% endcomment %}
+
+{% assign button_text = button_text | default: 'QUICK ADD' %}
+{% assign button_class = button_class | default: 'tf-btn btn-purple-2 rounded-0' %}
+{% assign modal_target = modal_target | default: '#quickAdd' %}
+
+{% if product.available %}
+  <a href="{{ modal_target }}" data-bs-toggle="modal" class="{{ button_class }}">
+    {{ button_text }}
+  </a>
+{% endif %}

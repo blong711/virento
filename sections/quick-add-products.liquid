@@ -395,18 +395,7 @@
                             {%- endfor -%}
                           </ul>
                         {% endif %}
-                        {% if product.available %}
-                          <a 
-                            href="#quickAdd" 
-                            data-bs-toggle="modal" 
-                            class="tf-btn btn-purple-2 rounded-0 product-cart-button"
-                            data-product-id="{{ product.id }}"
-                            data-product-handle="{{ product.handle }}"
-                            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                          >
-                            QUICK ADD
-                          </a>
-                        {% endif %}
+                        {% render 'product-quick-add-button', product: product %}
                       </div>
                     </div>
                   </div>
@@ -423,6 +412,9 @@
     </div>
   </div>
 </section>
+
+<!-- Quick Add Modal -->
+{% render 'quick-add-modal', product: section.blocks.first.settings.product %}
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
