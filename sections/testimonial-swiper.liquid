@@ -10,6 +10,16 @@
     },
     {
       "type": "select",
+      "id": "layout",
+      "label": "t:sections.testimonial-swiper.settings.layout.label",
+      "options": [
+        { "value": "layout-1", "label": "t:sections.testimonial-swiper.settings.layout.options.layout_1" },
+        { "value": "layout-2", "label": "t:sections.testimonial-swiper.settings.layout.options.layout_2" }
+      ],
+      "default": "layout-1"
+    },
+    {
+      "type": "select",
       "id": "width",
       "label": "t:sections.testimonial-swiper.settings.width.label",
       "options": [
@@ -58,99 +68,193 @@
 {% endschema %}
 
 <!-- Testimonial Swiper -->
-<section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
+<section class="{% if section.settings.layout == 'layout-2' %}flat-spacing-3{% else %}flat-spacing{% endif %} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
   <div class="{{ section.settings.width }}">
-    <div class="wrapper-thumbs-tes flat-thumbs-tes" data-effect="fade">
-      <div class="box-left">
-        <div
-          dir="ltr"
-          class="swiper tf-thumb-tes"
-          data-space-lg="0"
-          data-space="0"
-        >
-          <div class="swiper-wrapper">
-            {% for block in section.blocks %}
-              {% if block.type == 'testimonial' %}
-                <div class="swiper-slide" {{ block.shopify_attributes }}>
-                  <div class="img-sw-thumb">
-                    {% if block.settings.image %}
-                      {{
-                        block.settings.image
-                        | image_url: width: 800
-                        | image_tag: class: 'lazyload', alt: block.settings.author, loading: 'lazy', decoding: 'async'
-                      }}
-                    {% else %}
-                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                    {% endif %}
-                  </div>
-                </div>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-      <div class="box-right">
-        <div
-          dir="ltr"
-          class="swiper tf-tes-main"
-          data-space-lg="{{ section.settings.space_between_desktop }}"
-          data-space="{{ section.settings.space_between }}"
-        >
-          <div class="swiper-wrapper">
-            {% for block in section.blocks %}
-              {% if block.type == 'testimonial' %}
-                <div class="swiper-slide" {{ block.shopify_attributes }}>
-                  <div class="box-testimonial-main">
-                    <span class="quote icon-quote"></span>
-                    <div class="content">
-                      <div class="list-star-default">
-                        {% for i in (1..block.settings.rating) %}
-                          <i class="icon-start"></i>
-                        {% endfor %}
-                        {% assign empty_stars = 5 | minus: block.settings.rating %}
-                        {% if empty_stars > 0 %}
-                          {% for i in (1..empty_stars) %}
-                            <i class="icon-start" style="color: #ddd"></i>
+    {% if section.settings.layout == 'layout-2' %}
+      <div class="wrapper-thumbs-tes-2 flat-thumbs-tes">
+        <div class="box-left">
+          <div
+            dir="ltr"
+            class="swiper tf-tes-main"
+            data-space-lg="{{ section.settings.space_between_desktop }}"
+            data-space="{{ section.settings.space_between }}"
+          >
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                {% if block.type == 'testimonial' %}
+                  <div class="swiper-slide" {{ block.shopify_attributes }}>
+                    <div class="box-testimonial-main">
+                      <span class="quote icon-quote2"></span>
+                      <div class="content">
+                        <div class="list-star-default">
+                          {% for i in (1..block.settings.rating) %}
+                            <i class="icon-star"></i>
                           {% endfor %}
-                        {% endif %}
-                      </div>
-                      <div class="title-review">{{ block.settings.title }}</div>
-                      <p class="text-review display-xs">{{ block.settings.review }}</p>
-                      <div class="box-author">
-                        <div class="img d-md-none">
-                          {% if block.settings.image %}
-                            {{
-                              block.settings.image
-                              | image_url: width: 200
-                              | image_tag: alt: block.settings.author, loading: 'lazy', decoding: 'async'
-                            }}
+                          {% assign empty_stars = 5 | minus: block.settings.rating %}
+                          {% if empty_stars > 0 %}
+                            {% for i in (1..empty_stars) %}
+                              <i class="icon-star" style="color: #ddd"></i>
+                            {% endfor %}
                           {% endif %}
                         </div>
-                        <div class="info">
-                          <div class="name text-md fw-medium">{{ block.settings.author }}</div>
-                          {% if block.settings.product_link != blank %}
-                            <a href="{{ block.settings.product_link }}" class="meta link">{{ block.settings.product_label }}</a>
-                          {% endif %}
+                        <div class="title-review">{{ block.settings.title }}</div>
+                        <p class="text-review display-xs">{{ block.settings.review }}</p>
+                        <div class="box-author">
+                          <div class="img d-md-none">
+                            {% if block.settings.image %}
+                              {{
+                                block.settings.image
+                                | image_url: width: 200
+                                | image_tag: alt: block.settings.author, loading: 'lazy', decoding: 'async'
+                              }}
+                            {% endif %}
+                          </div>
+                          <div class="info">
+                            <div class="name text-md fw-medium">{{ block.settings.author }}</div>
+                            {% if block.settings.product_link != blank %}
+                              <a href="{{ block.settings.product_link }}" class="meta link">{{ block.settings.product_label }}</a>
+                            {% endif %}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="box-nav-swiper">
+              {% if section.settings.show_arrows %}
+                <div class="swiper-button-prev nav-swiper size-30 style-line nav-prev-tes"></div>
+                <div class="swiper-button-next nav-swiper size-30 style-line nav-next-tes"></div>
               {% endif %}
-            {% endfor %}
-          </div>
-          <div class="box-nav-swiper">
-            {% if section.settings.show_arrows %}
-              <div class="swiper-button-prev nav-swiper size-30 line-white nav-prev-tes"></div>
-              <div class="swiper-button-next nav-swiper size-30 line-white nav-next-tes"></div>
+            </div>
+            {% if section.settings.show_pagination %}
+              <div class="d-flex d-xl-none sw-dot-default sw-pagination-tes justify-content-center"></div>
             {% endif %}
           </div>
-          {% if section.settings.show_pagination %}
-            <div class="d-flex d-xl-none sw-dot-default sw-pagination-tes justify-content-center"></div>
-          {% endif %}
+        </div>
+        <div class="box-right">
+          <div
+            dir="ltr"
+            class="swiper tf-thumb-tes"
+            data-space-lg="{{ section.settings.space_between_desktop }}"
+            data-space="{{ section.settings.space_between }}"
+          >
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                {% if block.type == 'testimonial' %}
+                  <div class="swiper-slide hover-img" {{ block.shopify_attributes }}>
+                    <div class="img-sw-thumb img-style">
+                      {% if block.settings.image %}
+                        {{
+                          block.settings.image
+                          | image_url: width: 800
+                          | image_tag: class: 'lazyload', alt: block.settings.author, loading: 'lazy', decoding: 'async'
+                        }}
+                      {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    {% else %}
+      <div class="wrapper-thumbs-tes flat-thumbs-tes" data-effect="fade">
+        <div class="box-left">
+          <div
+            dir="ltr"
+            class="swiper tf-thumb-tes"
+            data-space-lg="0"
+            data-space="0"
+          >
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                {% if block.type == 'testimonial' %}
+                  <div class="swiper-slide" {{ block.shopify_attributes }}>
+                    <div class="img-sw-thumb">
+                      {% if block.settings.image %}
+                        {{
+                          block.settings.image
+                          | image_url: width: 800
+                          | image_tag: class: 'lazyload', alt: block.settings.author, loading: 'lazy', decoding: 'async'
+                        }}
+                      {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="box-right">
+          <div
+            dir="ltr"
+            class="swiper tf-tes-main"
+            data-space-lg="{{ section.settings.space_between_desktop }}"
+            data-space="{{ section.settings.space_between }}"
+          >
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                {% if block.type == 'testimonial' %}
+                  <div class="swiper-slide" {{ block.shopify_attributes }}>
+                    <div class="box-testimonial-main">
+                      <span class="quote icon-quote"></span>
+                      <div class="content">
+                        <div class="list-star-default">
+                          {% for i in (1..block.settings.rating) %}
+                            <i class="icon-start"></i>
+                          {% endfor %}
+                          {% assign empty_stars = 5 | minus: block.settings.rating %}
+                          {% if empty_stars > 0 %}
+                            {% for i in (1..empty_stars) %}
+                              <i class="icon-start" style="color: #ddd"></i>
+                            {% endfor %}
+                          {% endif %}
+                        </div>
+                        <div class="title-review">{{ block.settings.title }}</div>
+                        <p class="text-review display-xs">{{ block.settings.review }}</p>
+                        <div class="box-author">
+                          <div class="img d-md-none">
+                            {% if block.settings.image %}
+                              {{
+                                block.settings.image
+                                | image_url: width: 200
+                                | image_tag: alt: block.settings.author, loading: 'lazy', decoding: 'async'
+                              }}
+                            {% endif %}
+                          </div>
+                          <div class="info">
+                            <div class="name text-md fw-medium">{{ block.settings.author }}</div>
+                            {% if block.settings.product_link != blank %}
+                              <a href="{{ block.settings.product_link }}" class="meta link">{{ block.settings.product_label }}</a>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <div class="box-nav-swiper">
+              {% if section.settings.show_arrows %}
+                <div class="swiper-button-prev nav-swiper size-30 line-white nav-prev-tes"></div>
+                <div class="swiper-button-next nav-swiper size-30 line-white nav-next-tes"></div>
+              {% endif %}
+            </div>
+            {% if section.settings.show_pagination %}
+              <div class="d-flex d-xl-none sw-dot-default sw-pagination-tes justify-content-center"></div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
   </div>
 </section>
 <!-- /Testimonial Swiper -->
@@ -168,6 +272,9 @@
     }
   }
   .section-{{ section.id }} .wrapper-thumbs-tes {
+    background-color: var(--color-background2);
+  }
+  .section-{{ section.id }} .wrapper-thumbs-tes-2 {
     background-color: var(--color-background2);
   }
 {%- endstyle -%}
