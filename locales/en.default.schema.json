@@ -699,6 +699,7 @@
           "label": "Width",
           "options": {
             "boxed": "Boxed",
+            "container-full": "Extra Boxed",
             "full_width": "Full width"
           }
         },
