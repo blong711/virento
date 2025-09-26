@@ -222,6 +222,12 @@
           "info": "Override the product title (leave blank to use product default)"
         },
         {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image",
+          "info": "Override the product image (leave blank to use product default)"
+        },
+        {
           "type": "text",
           "id": "product_features",
           "label": "Product Features",
@@ -327,7 +333,24 @@
                     <div class="card-product">
                       <div class="card-product-wrapper rounded-0">
                         <a href="{{ product.url }}" class="product-img">
-                          {% if product.featured_image %}
+                          {% if block.settings.custom_image %}
+                            <img 
+                              class="img-product ls-is-cached lazyloaded" 
+                              data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              alt="{{ block.settings.custom_image.alt | escape }}"
+                              width="460"
+                              height="460"
+                            >
+                            <img 
+                              class="img-hover ls-is-cached lazyloaded" 
+                              data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              alt="{{ block.settings.custom_image.alt | escape }}"
+                              width="460"
+                              height="460"
+                            >
+                          {% elsif product.featured_image %}
                             <img 
                               class="img-product ls-is-cached lazyloaded" 
                               data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
