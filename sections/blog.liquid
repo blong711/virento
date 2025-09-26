@@ -13,74 +13,242 @@
 
           <!-- Blog Content Section -->
           <section
-            class="{% if block.settings.layout == 'list' %}s-blog-list-v1{% else %}s-blog-grid{% endif %} space-blog color-{{ section.settings.color_scheme }} gradient"
+            class="{% if section.settings.layout == 'list' %}s-blog-list-v1{% elsif section.settings.layout == 'list_v2' %}s-blog-list-v2 sec-blog{% elsif section.settings.layout == 'grid_v2' %}s-blog-grid-v2 sec-blog{% else %}s-blog-grid{% endif %} space-blog color-{{ section.settings.color_scheme }} gradient"
             {{ block.shopify_attributes }}
           >
+            {% comment %} Determine blog source based on settings {% endcomment %}
+            {% assign current_blog = blog %}
+            {% assign blog_source_type = block.settings.blog_source | default: 'current' %}
+
+            {% if blog_source_type == 'specific' and block.settings.specific_blog != blank %}
+              {% assign current_blog = blogs[block.settings.specific_blog] %}
+            {% endif %}
+
+            {% comment %} Generate image ratio class {% endcomment %}
+            {%- assign image_ratio = block.settings.image_ratio | default: '-adapt_image' -%}
+            {%- capture ratio_class -%}
+              {%- case image_ratio -%}
+                {%- when '-square' -%}blog-image-ratio--square
+                {%- when '-asos' -%}blog-image-ratio--asos  
+                {%- when '-landscape' -%}blog-image-ratio--landscape
+                {%- when '4-3' -%}blog-image-ratio--4-3
+                {%- else -%}blog-image-ratio--adapt
+              {%- endcase -%}
+            {%- endcapture -%}
+
+            {% comment %} Generate content alignment class {% endcomment %}
+            {%- assign content_align = block.settings.Content_align | default: 'start' -%}
+
+            {% comment %} Generate responsive grid classes {% endcomment %}
+            {%- assign grid_dk = block.settings.items_per_row_dk | default: '2' -%}
+            {%- assign grid_tb = block.settings.items_per_row_tb | default: '2' -%}
+            {%- assign grid_mb = block.settings.items_per_row_mb | default: '1' -%}
+            {%- capture responsive_grid_class -%}grid-{{ grid_dk }} grid-tb-{{ grid_tb }} grid-mb-{{ grid_mb }}{%- endcapture -%}
+
             <div class="row">
-              <div class="{% if has_sidebar %}col-lg-8{% else %}col-12{% endif %}">
-                {% comment %} Determine blog source based on settings {% endcomment %}
-                {% assign current_blog = blog %}
-                {% assign blog_source_type = block.settings.blog_source | default: 'current' %}
-
-                {% if blog_source_type == 'specific' and block.settings.specific_blog != blank %}
-                  {% assign current_blog = blogs[block.settings.specific_blog] %}
+              <!-- Sidebar for list_v2 and grid_v2 layouts -->
+              {% assign show_sidebar_left = false %}
+              {% if has_sidebar %}
+                {% if section.settings.layout == 'list_v2' or section.settings.layout == 'grid_v2' %}
+                  {% assign show_sidebar_left = true %}
                 {% endif %}
+              {% endif %}
+              {% if show_sidebar_left %}
+                {% for sidebar_block in section.blocks %}
+                  {% if sidebar_block.type == 'blog_sidebar' %}
+                    <div class="col-lg-4">
+                      <div class="sidebar-blog d-lg-grid d-none sidebar-content-wrap type-left">
+                        {% if sidebar_block.settings.show_categories %}
+                          <div class="sb-item">
+                            <p class="sb-title text-xl fw-medium">Categories</p>
+                            <div class="sb-content">
+                              {% if current_blog.all_tags.size > 0 %}
+                                <ul class="category-blog-list">
+                                  {% assign sorted_tags = current_blog.all_tags | sort %}
+                                  {% for tag in sorted_tags %}
+                                    <li>
+                                      <a href="{{ current_blog.url }}/tagged/{{ tag | handle }}" class="text-md link{% if current_tags contains tag %} active{% endif %}">
+                                        {{- tag -}}
+                                        {% comment %}Note: Post count is not shown as it requires additional development{% endcomment %}
+                                      </a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </div>
+                          </div>
+                        {% endif %}
 
-                {% comment %} Generate image ratio class {% endcomment %}
-                {%- assign image_ratio = block.settings.image_ratio | default: '-adapt_image' -%}
-                {%- capture ratio_class -%}
-                  {%- case image_ratio -%}
-                    {%- when '-square' -%}blog-image-ratio--square
-                    {%- when '-asos' -%}blog-image-ratio--asos  
-                    {%- when '-landscape' -%}blog-image-ratio--landscape
-                    {%- when '4-3' -%}blog-image-ratio--4-3
-                    {%- else -%}blog-image-ratio--adapt
-                  {%- endcase -%}
-                {%- endcapture -%}
+                        {% if sidebar_block.settings.show_recent_posts %}
+                          <div class="sb-item">
+                            <p class="sb-title text-xl fw-medium">{{ 'sections.blog.recent_posts' | t }}</p>
+                            <div class="sb-content">
+                              {% if current_blog.articles.size > 0 %}
+                                <ul class="recent-blog-list">
+                                  {% for article in current_blog.articles limit: 3 %}
+                                    <li class="hover-img">
+                                      <div class="image">
+                                        <a href="{{ article.url }}" class="img-style d-block">
+                                          {% if article.image %}
+                                            <img
+                                              src="{{ article.image | image_url: width: 100 }}"
+                                              data-src="{{ article.image | image_url: width: 100 }}"
+                                              alt="{{ article.image.alt | escape }}"
+                                              class="lazyload"
+                                              width="100"
+                                              height="80"
+                                              loading="lazy"
+                                            >
+                                          {% else %}
+                                            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                          {% endif %}
+                                        </a>
+                                      </div>
+                                      <div class="post-content">
+                                        <a href="{{ article.url }}" class="link text-md fw-medium">
+                                          {{ article.title | truncate: 50 }}
+                                        </a>
+                                        <p class="entry_date">
+                                          {% assign date_format = block.settings.date | default: '%b %d' %}
+                                          {% case date_format %}
+                                            {% when 'abbreviated_date' %}
+                                              {{ article.published_at | date: '%b %d, %Y' }}
+                                            {% when 'basic' %}
+                                              {{ article.published_at | date: '%m/%d/%Y' }}
+                                            {% when 'date' %}
+                                              {{ article.published_at | date: '%B %d, %Y' }}
+                                            {% when '%b %d' %}
+                                              {{ article.published_at | date: '%b %d %Y' }}
+                                            {% else %}
+                                              {{ article.published_at | date: date_format }}
+                                          {% endcase %}
+                                        </p>
+                                      </div>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </div>
+                          </div>
+                        {% endif %}
 
-                {% comment %} Generate content alignment class {% endcomment %}
-                {%- assign content_align = block.settings.Content_align | default: 'start' -%}
+                        {% if sidebar_block.settings.show_tags %}
+                          <div class="sb-item">
+                            <p class="sb-title text-xl fw-medium">{{ 'sections.blog.tags' | t }}</p>
+                            <div class="sb-content entry-tag">
+                              {% if current_blog.all_tags.size > 0 %}
+                                <ul class="tag-blog-list style-list">
+                                  {% for tag in current_blog.all_tags limit: 8 %}
+                                    <li>
+                                      <a
+                                        href="{{ current_blog.url }}/tagged/{{ tag | handle }}"
+                                        class="type-{{ tag | handle }}"
+                                      >
+                                        {{ tag }}
+                                      </a>
+                                    </li>
+                                  {% endfor %}
+                                </ul>
+                              {% endif %}
+                            </div>
+                          </div>
+                        {% endif %}
 
-                {% comment %} Generate responsive grid classes {% endcomment %}
-                {%- assign grid_dk = block.settings.items_per_row_dk | default: '2' -%}
-                {%- assign grid_tb = block.settings.items_per_row_tb | default: '2' -%}
-                {%- assign grid_mb = block.settings.items_per_row_mb | default: '1' -%}
-                {%- capture responsive_grid_class -%}grid-{{ grid_dk }} grid-tb-{{ grid_tb }} grid-mb-{{ grid_mb }}{%- endcapture -%}
+                        {% if sidebar_block.settings.sidebar_banner_image %}
+                          <div class="sb-item">
+                            <div class="sb-banner hover-img">
+                              <div class="image img-style">
+                                <img
+                                  src="{{ sidebar_block.settings.sidebar_banner_image | image_url: width: 400 }}"
+                                  data-src="{{ sidebar_block.settings.sidebar_banner_image | image_url: width: 400 }}"
+                                  alt="{{ sidebar_block.settings.sidebar_banner_title | escape }}"
+                                  class="lazyload"
+                                  width="400"
+                                  height="300"
+                                >
+                              </div>
+                              <div class="banner-content">
+                                {% if sidebar_block.settings.sidebar_banner_title != blank %}
+                                  <p class="title">
+                                    {{ sidebar_block.settings.sidebar_banner_title }}
+                                  </p>
+                                {% endif %}
+                                {% if sidebar_block.settings.sidebar_banner_button_text != blank
+                                  and sidebar_block.settings.sidebar_banner_button_link != blank
+                                %}
+                                  <a
+                                    href="{{ sidebar_block.settings.sidebar_banner_button_link }}"
+                                    class="tf-btn btn-white hover-primary"
+                                  >
+                                    {{ sidebar_block.settings.sidebar_banner_button_text }}
+                                  </a>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
 
+              <!-- Main Content Area -->
+              {% assign main_content_class = 'col-12' %}
+              {% if show_sidebar_left %}
+                {% assign main_content_class = 'col-lg-8' %}
+              {% elsif has_sidebar and section.settings.layout != 'list_v2' and section.settings.layout != 'grid_v2' %}
+                {% assign main_content_class = 'col-lg-8' %}
+              {% endif %}
+              <div class="{{ main_content_class }}">
                 {% comment %} Handle single blog mode (current or specific) {% endcomment %}
                 {%- paginate current_blog.articles by block.settings.article_limit -%}
-                  <div class="{% if block.settings.layout == 'list' %}s-content{% else %}s-blog-list-grid {{ responsive_grid_class | strip }}{% endif %}">
+                  <div class="{% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}s-content{% elsif section.settings.layout == 'grid_v2' %}s-blog-list-grid grid-2{% else %}s-blog-list-grid {{ responsive_grid_class | strip }}{% endif %}">
                     {% if current_blog.articles.size > 0 %}
                       {% for article in current_blog.articles %}
-                        <div class="blog-post-item hover-img">
+                        <div class="blog-post-item {% if section.settings.layout == 'list_v2' %}style-2{% elsif section.settings.layout == 'grid_v2' %}{% comment %}grid_v2 styling{% endcomment %}{% endif %} hover-img">
                           <div class="entry_image">
-                            <a href="{{ article.url }}">
+                            <a
+                              href="{{ article.url }}"
+                              class="blog-image-ratio img-style {{ ratio_class | strip }}"
+                            >
                               <div class="blog-image-ratio img-style {{ ratio_class | strip }}">
-                                {% if article.image %}
-                                  {% if block.settings.layout == 'list' %}
-                                    <img
-                                      src="{{ article.image | image_url: width: 600 }}"
-                                      data-src="{{ article.image | image_url: width: 600 }}"
-                                      alt="{{ article.image.alt | escape }}"
-                                      class="lazyload"
-                                      loading="lazy"
-                                      width="600"
-                                      height="400"
-                                    >
-                                  {% else %}
-                                    <img
-                                      src="{{ article.image | image_url: width: 400 }}"
-                                      data-src="{{ article.image | image_url: width: 400 }}"
-                                      alt="{{ article.image.alt | escape }}"
-                                      class="lazyload"
-                                      loading="lazy"
-                                      width="400"
-                                      height="300"
-                                    >
-                                  {% endif %}
+                              {% if article.image %}
+                                {% if section.settings.layout == 'list' %}
+                                  <img
+                                    src="{{ article.image | image_url: width: 600 }}"
+                                    data-src="{{ article.image | image_url: width: 600 }}"
+                                    alt="{{ article.image.alt | escape }}"
+                                    class="lazyload"
+                                    loading="lazy"
+                                    width="600"
+                                    height="400"
+                                  >
+                                {% elsif section.settings.layout == 'list_v2' or section.settings.layout == 'grid_v2' %}
+                                  <img
+                                    src="{{ article.image | image_url: width: 600 }}"
+                                    data-src="{{ article.image | image_url: width: 600 }}"
+                                    alt="{{ article.image.alt | escape }}"
+                                    class="lazyload"
+                                    loading="lazy"
+                                    width="600"
+                                    height="400"
+                                  >
                                 {% else %}
-                                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                                  <img
+                                    src="{{ article.image | image_url: width: 400 }}"
+                                    data-src="{{ article.image | image_url: width: 400 }}"
+                                    alt="{{ article.image.alt | escape }}"
+                                    class="lazyload"
+                                    loading="lazy"
+                                    width="400"
+                                    height="300"
+                                  >
                                 {% endif %}
+                              {% else %}
+                                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                              {% endif %}
                               </div>
                             </a>
                           </div>
@@ -100,18 +268,18 @@
                               </ul>
                             </div>
                             <a href="{{ article.url }}" class="entry_title d-block text-xl fw-medium link">
-                              {% if block.settings.layout == 'list' %}
+                              {% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}
                                 {{ article.title }}
                               {% else %}
-                                {{ article.title | truncate: 50 }}
+                                {{ article.title | truncate: 35 }}
                               {% endif %}
                             </a>
                             {% if block.settings.show_excerpt %}
                               <p class="entry_sub text-md text-main">
-                                {% if block.settings.layout == 'list' %}
+                                {% if section.settings.layout == 'list' or section.settings.layout == 'list_v2'%}
                                   {{ article.excerpt | strip_html | truncate: 150 }}
                                 {% else %}
-                                  {{ article.excerpt | strip_html | truncate: 100 }}
+                                  {{ article.excerpt | strip_html | truncate: 70 }}
                                 {% endif %}
                               </p>
                             {% endif %}
@@ -139,7 +307,11 @@
                                   </div>
                                   <p class="entry_name">
                                     {{ 'sections.blog.post_by' | t }}
-                                    <span class="fw-medium">{{ article.author | default: shop.name }}</span>
+                                    {% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}
+                                      {{ article.author | default: shop.name }}
+                                    {% else %}
+                                      {{ article.author | default: shop.name | truncate: 10 }}
+                                    {% endif %}
                                   </p>
                                 </li>
                                 <li class="br-line"></li>
@@ -156,7 +328,7 @@
                                       {% when 'date' %}
                                         {{ article.published_at | date: '%B %d, %Y' }}
                                       {% when '%b %d' %}
-                                        {{ article.published_at | date: '%b %d' }}
+                                        {{ article.published_at | date: '%b %d %Y' }}
                                       {% else %}
                                         {{ article.published_at | date: date_format }}
                                     {% endcase %}
@@ -219,7 +391,8 @@
                 {%- endpaginate -%}
               </div>
 
-              {% if has_sidebar %}
+              <!-- Sidebar for other layouts -->
+              {% if has_sidebar and section.settings.layout != 'list_v2' and section.settings.layout != 'grid_v2' %}
                 {% for sidebar_block in section.blocks %}
                   {% if sidebar_block.type == 'blog_sidebar' %}
                     <div class="col-lg-4">
@@ -346,7 +519,7 @@
 </div>
 <div class="btn-sidebar-mb d-lg-none right">
   <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
-      <i class="icon icon-sidebar"></i>
+    <i class="icon icon-sidebar"></i>
   </button>
 </div>
 {% render 'blog-sidebar' %}
@@ -385,7 +558,7 @@
   }
 
   .blog-image-ratio--asos {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 3 / 2.55;
   }
 
   .blog-image-ratio--landscape {
@@ -440,7 +613,6 @@
     text-align: left;
   }
 
-
   /* Responsive grid system for blog */
   .s-blog-list-grid {
     display: grid;
@@ -474,16 +646,25 @@
     }
   }
 
-  /* Mobile grid classes */
+  /* Mobile grid classes - Force all layouts to single column on mobile */
   @media (max-width: 767px) {
+    .s-blog-list-grid {
+      grid-template-columns: repeat(1, 1fr) !important;
+    }
     .s-blog-list-grid.grid-mb-1 {
       grid-template-columns: repeat(1, 1fr);
     }
     .s-blog-list-grid.grid-mb-2 {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(1, 1fr);
     }
     .s-blog-list-grid.grid-mb-3 {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    .blog-post-item .entry_date p,
+    .blog-post-item .entry_comment p,
+    .blog-post-item .entry_name {
+      font-size: 14px;
     }
   }
 
@@ -498,6 +679,8 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  
 {% endstyle %}
 
 {% schema %}
@@ -566,6 +749,30 @@
       "label": "t:sections.blog.settings.padding_mobile_rate.label",
       "default": 75,
       "info": "t:sections.blog.settings.padding_mobile_rate.info"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "list",
+          "label": "t:sections.blog.blocks.blog_content.settings.layout.options.list"
+        },
+        {
+          "value": "list_v2",
+          "label": "t:sections.blog.blocks.blog_content.settings.layout.options.list_v2"
+        },
+        {
+          "value": "grid_v2",
+          "label": "t:sections.blog.blocks.blog_content.settings.layout.options.grid_v2"
+        },
+        {
+          "value": "grid",
+          "label": "t:sections.blog.blocks.blog_content.settings.layout.options.grid"
+        }
+      ],
+      "default": "list",
+      "label": "t:sections.blog.blocks.blog_content.settings.layout.label"
     }
   ],
   "blocks": [
@@ -574,22 +781,6 @@
       "name": "t:sections.blog.blocks.blog_content.name",
       "limit": 1,
       "settings": [
-        {
-          "type": "select",
-          "id": "layout",
-          "options": [
-            {
-              "value": "list",
-              "label": "t:sections.blog.blocks.blog_content.settings.layout.options.list"
-            },
-            {
-              "value": "grid",
-              "label": "t:sections.blog.blocks.blog_content.settings.layout.options.grid"
-            }
-          ],
-          "default": "list",
-          "label": "t:sections.blog.blocks.blog_content.settings.layout.label"
-        },
         {
           "type": "select",
           "id": "blog_source",
@@ -644,7 +835,7 @@
           ],
           "default": "2",
           "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_dk.label",
-          "visible_if": "{{ block.settings.layout == 'grid' }}"
+          "visible_if": "{{ section.settings.layout == 'grid' or section.settings.layout == 'grid_v2'}}"
         },
         {
           "type": "select",
@@ -665,7 +856,7 @@
           ],
           "default": "2",
           "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_tb.label",
-          "visible_if": "{{ block.settings.layout == 'grid' }}"
+          "visible_if": "{{ section.settings.layout == 'grid' or section.settings.layout == 'grid_v2'}}"
         },
         {
           "type": "select",
@@ -682,7 +873,7 @@
           ],
           "default": "1",
           "label": "t:sections.blog.blocks.blog_content.settings.items_per_row_mb.label",
-          "visible_if": "{{ block.settings.layout == 'grid' }}"
+          "visible_if": "{{ section.settings.layout == 'grid' or section.settings.layout == 'grid_v2'}}"
         },
         {
           "type": "checkbox",
@@ -790,6 +981,13 @@
       "settings": [
         {
           "type": "checkbox",
+          "id": "show_categories",
+          "default": true,
+          "label": "t:sections.blog.blocks.blog_sidebar.settings.show_categories.label",
+          "visible_if": "{{ section.settings.layout == 'list_v2' or section.settings.layout == 'grid_v2'}}"
+        },
+        {
+          "type": "checkbox",
           "id": "show_recent_posts",
           "default": true,
           "label": "t:sections.blog.blocks.blog_sidebar.settings.show_recent_posts.label"
@@ -841,4 +1039,3 @@
   ]
 }
 {% endschema %}
-

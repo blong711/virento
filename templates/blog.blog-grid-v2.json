@@ -138,7 +138,7 @@
         "padding_top": 80,
         "padding_bottom": 100,
         "padding_mobile_rate": 100,
-        "layout": "grid"
+        "layout": "grid_v2"
       }
     }
   },
