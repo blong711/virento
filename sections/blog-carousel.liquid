@@ -9,6 +9,7 @@
   assign slides_per_view_tablet = section.settings.slides_tablet | default: 2
   assign slides_per_view_desktop = section.settings.slides_desktop | default: 3
   assign space_between = section.settings.space_between | default: 24
+  assign border_radius = section.settings.border_radius | default: 16
   
   # Check if navigation buttons should be hidden
   assign total_posts = blog_posts.size
@@ -44,6 +45,12 @@
     color: rgb(var(--color-button-text)) !important;
     border: 1px solid rgb(var(--color-button-outline)) !important;
     font-size: 14px;
+  }
+
+  .news-item {
+    border: 1px solid var(--line);
+    border-radius: {{ border_radius }}px;
+    overflow: hidden;
   }
 {%- endstyle -%}
 
@@ -327,6 +334,17 @@
       "id": "color_scheme",
       "label": "t:sections.blog-carousel.color_scheme",
       "default": "background-1"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "t:sections.blog-carousel.border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ section.settings.layout_style == 'layout2' }}"
     },
     {
       "type": "header",

@@ -7630,6 +7630,7 @@
     },
     "blog-carousel": {
       "name": "Blog Carousel",
+      "border_radius": "Border Radius",
       "general_settings": "General Settings",
       "heading": "Heading",
       "heading_default": "Latest Tips & Trends",
