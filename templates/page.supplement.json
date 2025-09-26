@@ -252,8 +252,8 @@
           "24h"
         ],
         "products_to_show": 6,
-        "show_navigation": false,
-        "navigation_style": "boxed",
+        "show_navigation": true,
+        "navigation_style": "individual",
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
