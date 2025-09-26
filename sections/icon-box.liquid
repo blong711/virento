@@ -242,10 +242,30 @@
           "default": "t:sections.icon-box.presets.free_delivery.title"
         },
         {
+          "type": "range",
+          "id": "title_size",
+          "min": 12,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.icon-box.blocks.icon_box.settings.title_size.label",
+          "default": 16
+        },
+        {
           "type": "text",
           "id": "description",
           "label": "t:sections.icon-box.blocks.icon_box.settings.description.label",
           "default": "t:sections.icon-box.presets.free_delivery.description"
+        },
+        {
+          "type": "range",
+          "id": "description_size",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "label": "t:sections.icon-box.blocks.icon_box.settings.description_size.label",
+          "default": 14
         }
       ]
     }
@@ -334,15 +354,15 @@
                 <div class="content">
                   {% if block.settings.title != blank %}
                     {% if section.settings.icon_style == 'default' %}
-                      <div class="title">{{ block.settings.title }}</div>
+                      <div class="title" style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</div>
                     {% else %}
-                      <h6>{{ block.settings.title }}</h6>
+                      <h6 style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</h6>
                     {% endif %}
                   {% endif %}
                   {% if block.settings.description != blank %}
                     <p
                       class="{% if section.settings.icon_style == 'default' %}desc{% else %}text-sm text-main text-line-clamp-4{% endif %}"
-                      style="color: rgb(var(--color-foreground2)); max-width: 400px;"
+                      style="color: rgb(var(--color-foreground2)); max-width: 400px; font-size: {{ block.settings.description_size | default: 14 }}px;"
                     >
                       {{ block.settings.description }}
                     </p>

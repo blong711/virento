@@ -5419,6 +5419,12 @@
             "description": {
               "label": "Description",
               "info": "Additional text to display below the title"
+            },
+            "title_size": {
+              "label": "Title Size"
+            },
+            "description_size": {
+              "label": "Description Size"
             }
           }
         }
