@@ -467,24 +467,9 @@
                       </a>
                       {% if product.available %}
                         <ul class="list-product-btn">
-                          <li class="wishlist">
-                            <a href="javascript:void(0);" class="hover-tooltip tooltip-left box-icon">
-                              <span class="icon icon-heart2"></span>
-                              <span class="tooltip">Add to Wishlist</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#quickView" data-bs-toggle="modal" class="hover-tooltip tooltip-left box-icon quickview">
-                              <span class="icon icon-view"></span>
-                              <span class="tooltip">Quick View</span>
-                            </a>
-                          </li>
-                          <li class="compare">
-                            <a href="#compare" data-bs-toggle="modal" aria-controls="compare" class="hover-tooltip tooltip-left box-icon">
-                              <span class="icon icon-compare"></span>
-                              <span class="tooltip">Add to Compare</span>
-                            </a>
-                          </li>
+                          {% render 'product-wishlist-button', product: product, card_style:  %}
+                          {% render 'product-quickview-button', product: product, card_style:  %}
+                          {% render 'product-compare-button', product: product, card_style:  %}
                         </ul>
                       {% endif %}
                     </div>

@@ -28885,3 +28885,26 @@ shopify-accelerated-checkout {
 .slider-supplement .content-slider {
   gap: 40px;
 }
+.card-product .card-product-info .list-infor .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-product .card-product-info .list-infor {
+  display: grid;
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 10px;
+}
+@media (min-width: 992px) {
+  .card-product .card-product-info .list-infor {
+      padding-top: 14px;
+      padding-bottom: 30px;
+  }
+}
+.card-product .card-product-info .list-infor.pb-30 {
+  padding-bottom: 30px;
+}
