@@ -269,7 +269,7 @@
                               </ul>
                             </div>
                             <a href="{{ article.url }}" class="entry_title d-block text-xl fw-medium link">
-                              {% if section.settings.layout == 'list' %}
+                              {% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}
                                 {{ article.title }}
                               {% else %}
                                 {{ article.title | truncate: 35 }}
@@ -277,7 +277,7 @@
                             </a>
                             {% if block.settings.show_excerpt %}
                               <p class="entry_sub text-md text-main">
-                                {% if section.settings.layout == 'list'%}
+                                {% if section.settings.layout == 'list' or section.settings.layout == 'list_v2'%}
                                   {{ article.excerpt | strip_html | truncate: 150 }}
                                 {% else %}
                                   {{ article.excerpt | strip_html | truncate: 70 }}
@@ -308,7 +308,7 @@
                                   </div>
                                   <p class="entry_name">
                                     {{ 'sections.blog.post_by' | t }}
-                                    {% if section.settings.layout == 'list' %}
+                                    {% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}
                                       {{ article.author | default: shop.name }}
                                     {% else %}
                                       {{ article.author | default: shop.name | truncate: 10 }}
