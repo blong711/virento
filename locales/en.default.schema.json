@@ -5538,7 +5538,9 @@
               "label": "Layout",
               "options": {
                 "list": "List",
-                "grid": "Grid"
+                "grid": "Grid",
+                "list_v2": "List V2",
+                "grid_v2": "Grid V2"
               }
             },
             "content_align": {
@@ -5596,6 +5598,9 @@
         "blog_sidebar": {
           "name": "Blog Sidebar",
           "settings": {
+            "show_categories": {
+              "label": "Show categories"
+            },
             "show_recent_posts": {
               "label": "Show recent posts"
             },
