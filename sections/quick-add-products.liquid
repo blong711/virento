@@ -243,10 +243,8 @@
       "info": "Select a collection to display products from"
     },
     {
-      "type": "product_list",
-      "id": "product_list",
-      "label": "Product List",
-      "info": "Select specific products to display (overrides collection selection)"
+      "type": "header",
+      "content": "Product Blocks"
     },
     {
       "type": "range",
@@ -371,10 +369,34 @@
       "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
     }
   ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Quick Add Products",
-      "category": "Product"
+      "category": "Product",
+      "blocks": [
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
     }
   ]
 }
@@ -440,112 +462,115 @@
           }'
         >
           <div class="swiper-wrapper" aria-live="polite">
-            {%- if section.settings.product_list != blank -%}
-              {%- for product in section.settings.product_list limit: section.settings.products_to_show -%}
-                <div class="swiper-slide" role="group" aria-label="{{ forloop.index }} / {{ section.settings.products_to_show }}">
-                  <div class="card-product">
-                    <div class="card-product-wrapper rounded-0">
-                      <a href="{{ product.url }}" class="product-img">
-                        {% if product.featured_image %}
-                          <img 
-                            class="img-product ls-is-cached lazyloaded" 
-                            data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                            src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                            alt="{{ product.featured_image.alt | escape }}"
-                            width="460"
-                            height="460"
-                          >
-                          <img 
-                            class="img-hover ls-is-cached lazyloaded" 
-                            data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                            src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                            alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
-                            width="460"
-                            height="460"
-                          >
+            {%- if section.blocks.size > 0 -%}
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'product' and block.settings.product != blank -%}
+                  {%- assign product = block.settings.product -%}
+                  <div class="swiper-slide" role="group" aria-label="{{ forloop.index }} / {{ section.blocks.size }}" {{ block.shopify_attributes }}>
+                    <div class="card-product">
+                      <div class="card-product-wrapper rounded-0">
+                        <a href="{{ product.url }}" class="product-img">
+                          {% if product.featured_image %}
+                            <img 
+                              class="img-product ls-is-cached lazyloaded" 
+                              data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              alt="{{ product.featured_image.alt | escape }}"
+                              width="460"
+                              height="460"
+                            >
+                            <img 
+                              class="img-hover ls-is-cached lazyloaded" 
+                              data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
+                              width="460"
+                              height="460"
+                            >
+                          {% endif %}
+                        </a>
+                        {% if product.available %}
+                          <ul class="list-product-btn">
+                            {% render 'product-wishlist-button', product: product, card_style:  %}
+                            {% render 'product-quickview-button', product: product, card_style:  %}
+                            {% render 'product-compare-button', product: product, card_style:  %}
+                          </ul>
                         {% endif %}
-                      </a>
-                      {% if product.available %}
-                        <ul class="list-product-btn">
-                          {% render 'product-wishlist-button', product: product, card_style:  %}
-                          {% render 'product-quickview-button', product: product, card_style:  %}
-                          {% render 'product-compare-button', product: product, card_style:  %}
-                        </ul>
-                      {% endif %}
-                    </div>
-                    <div class="card-product-info text-center bg-white pb-0">
-                      {% if product.vendor != blank %}
-                        <div class="sub fw-semibold font-13 text-dark-purple-2 text-xs fs-13">
-                          {{ product.vendor | upcase }}
-                        </div>
-                      {% endif %}
-                      <a href="{{ product.url }}" class="name-product link fw-medium display-xs font-7">
-                        {{ product.title }}
-                      </a>
-                      <p class="price-wrap fw-medium d-flex justify-content-center align-items-center gap-8">
-                        <span class="price-new text-red-3 text-xl font-13">
-                          {%- if settings.currency_code_enabled -%}
-                            {{- product.price | money }}
-                            {{ shop.currency -}}
-                          {%- else -%}
-                            {{- product.price | money -}}
-                          {%- endif -%}
-                        </span>
-                        {% if product.compare_at_price > product.price %}
-                          <span class="price-old text-sm font-13">
+                      </div>
+                      <div class="card-product-info text-center bg-white pb-0">
+                        {% if product.vendor != blank %}
+                          <div class="sub fw-semibold font-13 text-dark-purple-2 text-xs fs-13">
+                            {{ product.vendor | upcase }}
+                          </div>
+                        {% endif %}
+                        <a href="{{ product.url }}" class="name-product link fw-medium display-xs font-7">
+                          {{ product.title }}
+                        </a>
+                        <p class="price-wrap fw-medium d-flex justify-content-center align-items-center gap-8">
+                          <span class="price-new text-red-3 text-xl font-13">
                             {%- if settings.currency_code_enabled -%}
-                              {{- product.compare_at_price | money }}
+                              {{- product.price | money }}
                               {{ shop.currency -}}
                             {%- else -%}
-                              {{- product.compare_at_price | money -}}
+                              {{- product.price | money -}}
                             {%- endif -%}
                           </span>
+                          {% if product.compare_at_price > product.price %}
+                            <span class="price-old text-sm font-13">
+                              {%- if settings.currency_code_enabled -%}
+                                {{- product.compare_at_price | money }}
+                                {{ shop.currency -}}
+                              {%- else -%}
+                                {{- product.compare_at_price | money -}}
+                              {%- endif -%}
+                            </span>
+                          {% endif %}
+                        </p>
+                        <div class="line-top"></div>
+                        {% if section.settings.show_product_features %}
+                          <ul class="list-infor pb-30">
+                            {% if section.settings.feature_1 != blank %}
+                              <li class="item">
+                                <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
+                                <div class="text-sm text-grey-3">{{ section.settings.feature_1 }}</div>
+                              </li>
+                            {% endif %}
+                            {% if section.settings.feature_2 != blank %}
+                              <li class="item">
+                                <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
+                                <div class="text-sm text-grey-3">{{ section.settings.feature_2 }}</div>
+                              </li>
+                            {% endif %}
+                            {% if section.settings.feature_3 != blank %}
+                              <li class="item">
+                                <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
+                                <div class="text-sm text-grey-3">{{ section.settings.feature_3 }}</div>
+                              </li>
+                            {% endif %}
+                            {% if section.settings.feature_4 != blank %}
+                              <li class="item">
+                                <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
+                                <div class="text-sm text-grey-3">{{ section.settings.feature_4 }}</div>
+                              </li>
+                            {% endif %}
+                          </ul>
                         {% endif %}
-                      </p>
-                      <div class="line-top"></div>
-                      {% if section.settings.show_product_features %}
-                        <ul class="list-infor pb-30">
-                          {% if section.settings.feature_1 != blank %}
-                            <li class="item">
-                              <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
-                              <div class="text-sm text-grey-3">{{ section.settings.feature_1 }}</div>
-                            </li>
-                          {% endif %}
-                          {% if section.settings.feature_2 != blank %}
-                            <li class="item">
-                              <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
-                              <div class="text-sm text-grey-3">{{ section.settings.feature_2 }}</div>
-                            </li>
-                          {% endif %}
-                          {% if section.settings.feature_3 != blank %}
-                            <li class="item">
-                              <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
-                              <div class="text-sm text-grey-3">{{ section.settings.feature_3 }}</div>
-                            </li>
-                          {% endif %}
-                          {% if section.settings.feature_4 != blank %}
-                            <li class="item">
-                              <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
-                              <div class="text-sm text-grey-3">{{ section.settings.feature_4 }}</div>
-                            </li>
-                          {% endif %}
-                        </ul>
-                      {% endif %}
-                      {% if product.available %}
-                        <a 
-                          href="#quickAdd" 
-                          data-bs-toggle="modal" 
-                          class="tf-btn btn-purple-2 rounded-0 product-cart-button"
-                          data-product-id="{{ product.id }}"
-                          data-product-handle="{{ product.handle }}"
-                          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                        >
-                          QUICK ADD
-                        </a>
-                      {% endif %}
+                        {% if product.available %}
+                          <a 
+                            href="#quickAdd" 
+                            data-bs-toggle="modal" 
+                            class="tf-btn btn-purple-2 rounded-0 product-cart-button"
+                            data-product-id="{{ product.id }}"
+                            data-product-handle="{{ product.handle }}"
+                            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                          >
+                            QUICK ADD
+                          </a>
+                        {% endif %}
+                      </div>
                     </div>
                   </div>
-                </div>
+                {%- endif -%}
               {%- endfor -%}
             {%- elsif section.settings.featured_collection != blank -%}
               {%- assign collection = collections[section.settings.featured_collection] -%}
@@ -575,24 +600,9 @@
                       </a>
                       {% if product.available %}
                         <ul class="list-product-btn">
-                          <li class="wishlist">
-                            <a href="javascript:void(0);" class="hover-tooltip tooltip-left box-icon">
-                              <span class="icon icon-heart2"></span>
-                              <span class="tooltip">Add to Wishlist</span>
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#quickView" data-bs-toggle="modal" class="hover-tooltip tooltip-left box-icon quickview">
-                              <span class="icon icon-view"></span>
-                              <span class="tooltip">Quick View</span>
-                            </a>
-                          </li>
-                          <li class="compare">
-                            <a href="#compare" data-bs-toggle="modal" aria-controls="compare" class="hover-tooltip tooltip-left box-icon">
-                              <span class="icon icon-compare"></span>
-                              <span class="tooltip">Add to Compare</span>
-                            </a>
-                          </li>
+                          {% render 'product-wishlist-button', product: product, card_style:  %}
+                          {% render 'product-quickview-button', product: product, card_style:  %}
+                          {% render 'product-compare-button', product: product, card_style:  %}
                         </ul>
                       {% endif %}
                     </div>
