@@ -11,7 +11,18 @@
 {% assign modal_target = modal_target | default: '#quickAdd' %}
 
 {% if product.available %}
-  <a href="{{ modal_target }}" data-bs-toggle="modal" class="{{ button_class }}">
+  <a href="{{ modal_target }}" 
+     data-bs-toggle="modal" 
+     class="{{ button_class }} product-quick-add-button"
+     data-quick-add="true"
+     data-product="{{ product | json | escape }}"
+     data-product-id="{{ product.id }}"
+     data-product-handle="{{ product.handle }}"
+     data-product-title="{{ product.title | escape }}"
+     data-product-price="{{ product.price }}"
+     data-product-compare-price="{{ product.compare_at_price }}"
+     data-product-image="{{ product.featured_image | image_url: width: 300 }}"
+     data-product-url="{{ product.url }}">
     {{ button_text }}
   </a>
 {% endif %}
