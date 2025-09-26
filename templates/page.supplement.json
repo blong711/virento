@@ -17,9 +17,11 @@
           "settings": {
             "icon_class": "icon-shipping",
             "custom_svg": "",
-            "icon_size": 28,
+            "icon_size": 22,
             "title": "Low Price Guarantee",
-            "description": ""
+            "title_size": 16,
+            "description": "",
+            "description_size": 14
           }
         },
         "icon-box-2": {
@@ -27,9 +29,11 @@
           "settings": {
             "icon_class": "icon-gift",
             "custom_svg": "",
-            "icon_size": 28,
+            "icon_size": 22,
             "title": "Free Delivery Worldwide",
-            "description": ""
+            "title_size": 16,
+            "description": "",
+            "description_size": 14
           }
         },
         "icon-box-3": {
@@ -37,9 +41,11 @@
           "settings": {
             "icon_class": "icon-return",
             "custom_svg": "",
-            "icon_size": 28,
+            "icon_size": 22,
             "title": "30 Day Online Return",
-            "description": ""
+            "title_size": 16,
+            "description": "",
+            "description_size": 14
           }
         },
         "icon-box-4": {
@@ -47,9 +53,11 @@
           "settings": {
             "icon_class": "icon-support",
             "custom_svg": "",
-            "icon_size": 28,
+            "icon_size": 22,
             "title": "24/7 Support Online",
-            "description": ""
+            "title_size": 16,
+            "description": "",
+            "description_size": 14
           }
         }
       },
@@ -120,7 +128,7 @@
       "settings": {
         "color_scheme": "scheme-1",
         "layout_style": "default",
-        "width": "",
+        "width": "container-full",
         "height": "adapt-first",
         "height_fixed": 500,
         "mobile_height": "adapt-first",
