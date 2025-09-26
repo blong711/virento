@@ -327,6 +327,30 @@
     },
     "quick_add_products": {
       "type": "quick-add-products",
+      "blocks": {
+        "product_xXjRnL": {
+          "type": "product",
+          "settings": {
+            "product": "esn",
+            "custom_vendor": "",
+            "custom_title": "",
+            "product_features": ""
+          }
+        },
+        "product_p6WDyW": {
+          "type": "product",
+          "settings": {
+            "product": "24h",
+            "custom_vendor": "",
+            "custom_title": "",
+            "product_features": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_xXjRnL",
+        "product_p6WDyW"
+      ],
       "name": "Quick Add Products",
       "settings": {
         "color_scheme": "scheme-1",
@@ -335,27 +359,14 @@
         "title_alignment": "start",
         "title": "Featured Products",
         "title_tag": "h4",
-        "title_font": "font-7",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
-        "subtitle_font": "font-13",
-        "featured_collection": "",
-        "product_list": [
-          "100-whey-protein-powder",
-          "vega-protein-and-greens-protein-powder",
-          "blenderbottle-shaker-bottle"
-        ],
-        "products_to_show": 6,
         "show_navigation": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": 3,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 1,
         "show_product_features": true,
-        "feature_1": "Boosts Performance",
-        "feature_2": "Supports Muscle Growth",
-        "feature_3": "Speeds Up Recovery",
-        "feature_4": "Clean, Tested Formula",
         "padding_top": 120,
         "padding_bottom": 116,
         "padding_mobile_rate": 75
