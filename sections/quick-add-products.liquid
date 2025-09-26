@@ -398,17 +398,14 @@
   <div class="flat-spacing-33 bg-brown-17 overflow-hidden relative section-{{ section.id }}-padding">
     {% if section.settings.background_image %}
       <div class="tf-overlay">
-        <div class="simpleParallax simple-parallax-initialized" style="overflow: hidden;">
-          <img 
-            src="{{ section.settings.background_image | image_url: width: 500 }}" 
-            data-src="{{ section.settings.background_image | image_url: width: 500 }}" 
-            alt="{{ section.settings.background_image.alt | escape }}" 
-            class="effect-paralax ls-is-cached lazyloaded" 
-            style="transform: translate3d(0px, 85px, 0px) scale(1.3); will-change: transform; transition: transform 0.5s cubic-bezier(0.2, 0.8, 1, 1);"
-            width="500"
-            height="700"
-          >
-        </div>
+        <img 
+          src="{{ section.settings.background_image | image_url: width: 1920 }}" 
+          alt="{{ section.settings.background_image.alt | escape }}" 
+          class="effect-paralax"
+          style="width: 100%; height: 100%; object-fit: cover;"
+          width="1920"
+          height="100%"
+        >
       </div>
     {% endif %}
     
@@ -699,3 +696,19 @@
     </div>
   </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize SimpleParallax for the background image
+  const parallaxElements = document.querySelectorAll('.section-{{ section.id }} .effect-paralax');
+  if (parallaxElements.length > 0 && window.SimpleParallax) {
+    new SimpleParallax(parallaxElements, {
+      orientation: 'down',
+      scale: 1.3,
+      overflow: true,
+      delay: 0.4,
+      transition: 'cubic-bezier(0,0,0,1)'
+    });
+  }
+});
+</script>
