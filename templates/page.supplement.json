@@ -452,7 +452,7 @@
         "show_navigation": false,
         "show_pagination": true,
         "padding_top": 0,
-        "padding_bottom": 100,
+        "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
     }
