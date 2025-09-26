@@ -205,7 +205,7 @@
               <div class="{{ main_content_class }}">
                 {% comment %} Handle single blog mode (current or specific) {% endcomment %}
                 {%- paginate current_blog.articles by block.settings.article_limit -%}
-                  <div class="{% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}s-content{% elsif section.settings.layout == 'grid_v2' %}s-blog-list-grid grid-2{% else %}s-blog-list-grid {{ responsive_grid_class | strip }}{% endif %}">
+                  <div class="{% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}s-content{% elsif section.settings.layout == 'grid_v2' %}s-blog-list-grid {{ responsive_grid_class | strip }}{% else %}s-blog-list-grid {{ responsive_grid_class | strip }}{% endif %}">
                     {% if current_blog.articles.size > 0 %}
                       {% for article in current_blog.articles %}
                         <div class="blog-post-item {% if section.settings.layout == 'list_v2' %}style-2{% elsif section.settings.layout == 'grid_v2' %}{% comment %}grid_v2 styling{% endcomment %}{% endif %} hover-img">
