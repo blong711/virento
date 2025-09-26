@@ -366,12 +366,10 @@
         "color_scheme": "scheme-1",
         "width": "container",
         "background_image": "shopify://shop_images/bg-supplement-product.jpg",
-        "title_alignment": "start",
         "title": "Featured Products",
         "title_tag": "h4",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
-        "show_navigation": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": "3",
         "products_per_row_tablet": "3",
@@ -379,6 +377,53 @@
         "show_product_features": true,
         "padding_top": 120,
         "padding_bottom": 116,
+        "padding_mobile_rate": 75
+      }
+    },
+    "testimonial_swiper_YeRbPX": {
+      "type": "testimonial-swiper",
+      "blocks": {
+        "testimonial_PTBXHq": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/tes-supplement-1.jpg",
+            "rating": 5,
+            "title": "Great quality and design",
+            "review": "This product transformed my space. Highly recommend!",
+            "author": "John D.",
+            "product_link": "",
+            "product_label": "View product"
+          }
+        },
+        "testimonial_UtgBzB": {
+          "type": "testimonial",
+          "settings": {
+            "image": "shopify://shop_images/tes-sport2.jpg",
+            "rating": 5,
+            "title": "Great quality and design",
+            "review": "This product transformed my space. Highly recommend!",
+            "author": "John D.",
+            "product_link": "",
+            "product_label": "View product"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_PTBXHq",
+        "testimonial_UtgBzB"
+      ],
+      "name": "t:sections.testimonial-swiper.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "layout": "layout-2",
+        "width": "container",
+        "show_arrows": true,
+        "show_pagination": false,
+        "space_between": 12,
+        "space_between_tablet": 12,
+        "space_between_desktop": 24,
+        "padding_top": 120,
+        "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
     }
@@ -389,6 +434,7 @@
     "categories_pahYDV",
     "featured_product_carousel_WCCACY",
     "grid_banner_FkKW9K",
-    "quick_add_products"
+    "quick_add_products",
+    "testimonial_swiper_YeRbPX"
   ]
 }
