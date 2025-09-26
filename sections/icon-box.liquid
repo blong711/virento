@@ -405,6 +405,8 @@
       flex-shrink: 0;
       {% if section.settings.show_border %}border: 1px solid rgb(var(--color-button-outline));{% endif %}
       border-radius: 50%;
+      width: calc(var(--icon-size, 28px) + 36px);
+      height: calc(var(--icon-size, 28px) + 36px);
   }
 
   #shopify-section-{{ section.id }} .tf-icon-box .box-icon .icon {
