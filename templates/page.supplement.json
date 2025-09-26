@@ -91,8 +91,8 @@
           "settings": {
             "color_scheme": "",
             "image": "shopify://shop_images/slider-1_1.jpg",
-            "heading": "Welcome to Our Store",
-            "heading_size": "display-md",
+            "heading": "Train Hard. Recover Harder.",
+            "heading_size": "display-xl-2",
             "heading_weight": "fw-medium",
             "description": "",
             "subheading": "Max Out Every Set, Every Session.",
@@ -108,7 +108,7 @@
           "settings": {
             "color_scheme": "",
             "image": "shopify://shop_images/slider-2.jpg",
-            "heading": "Quality You Can Trust",
+            "heading": "100% Whey Protein Powder",
             "heading_size": "display-md",
             "heading_weight": "fw-medium",
             "description": "",
