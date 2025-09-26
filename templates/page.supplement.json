@@ -258,8 +258,70 @@
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
+    },
+    "grid_banner_FkKW9K": {
+      "type": "grid-banner",
+      "blocks": {
+        "grid_item_aeyHBV": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/supplement-1.jpg",
+            "hover_image": true,
+            "title": "20% OFF ALL SPORT NUTRITION",
+            "title_size": "medium",
+            "subtitle": "PROMOTION",
+            "subtitle_size": "medium",
+            "link": "shopify://collections",
+            "button_label": "Shop Now",
+            "button_style": "primary"
+          }
+        },
+        "grid_item_hYYR9N": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/supplement-2.jpg",
+            "hover_image": true,
+            "title": "TRAIN HARDER",
+            "title_size": "small",
+            "subtitle": "STRENGTH THAT LASTS",
+            "subtitle_size": "medium",
+            "link": "shopify://collections",
+            "button_label": "Shop Now",
+            "button_style": "primary"
+          }
+        },
+        "grid_item_knEL63": {
+          "type": "grid_item",
+          "settings": {
+            "image": "shopify://shop_images/supplement-3.jpg",
+            "hover_image": true,
+            "title": "Bundle Deal",
+            "title_size": "small",
+            "subtitle": "More gains, less cost",
+            "subtitle_size": "medium",
+            "link": "shopify://collections",
+            "button_label": "Sop Now",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "grid_item_aeyHBV",
+        "grid_item_hYYR9N",
+        "grid_item_knEL63"
+      ],
+      "name": "Grid Banner",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "add_top_line": true,
+        "three_item_style": "style2",
         "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
     }
@@ -268,6 +330,7 @@
     "icon-box",
     "main-slider",
     "categories_pahYDV",
-    "featured_product_carousel_WCCACY"
+    "featured_product_carousel_WCCACY",
+    "grid_banner_FkKW9K"
   ]
 }
