@@ -660,18 +660,17 @@
     }
   }
 
-  /* Mobile grid classes - Force all layouts to single column on mobile */
+  /* Mobile grid classes - Respect items_per_row_mb settings */
   @media (max-width: 767px) {
-    .s-blog-list-grid {
-      grid-template-columns: repeat(1, 1fr) !important;
-    }
     .s-blog-list-grid.grid-mb-1 {
       grid-template-columns: repeat(1, 1fr);
     }
     .s-blog-list-grid.grid-mb-2 {
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
-    .s-blog-list-grid.grid-mb-3 {
+    
+    /* Only force single column for grids that don't have specific mobile settings */
+    .s-blog-list-grid:not(.grid-mb-1):not(.grid-mb-2) {
       grid-template-columns: repeat(1, 1fr);
     }
 
