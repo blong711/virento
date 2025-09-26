@@ -146,10 +146,93 @@
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "categories_pahYDV": {
+      "type": "categories",
+      "blocks": {
+        "category_9GpCPP": {
+          "type": "category",
+          "settings": {
+            "collection": "whey-protein",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_Tmyirh": {
+          "type": "category",
+          "settings": {
+            "collection": "weight-loss",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_YGPbXb": {
+          "type": "category",
+          "settings": {
+            "collection": "vitamins",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_7CFi3K": {
+          "type": "category",
+          "settings": {
+            "collection": "food-drink",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_YmkyyD": {
+          "type": "category",
+          "settings": {
+            "collection": "sport-nutrition",
+            "title": "",
+            "link": ""
+          }
+        },
+        "category_af8UrX": {
+          "type": "category",
+          "settings": {
+            "collection": "equipments",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_9GpCPP",
+        "category_Tmyirh",
+        "category_YGPbXb",
+        "category_7CFi3K",
+        "category_YmkyyD",
+        "category_af8UrX"
+      ],
+      "name": "t:sections.categories.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title_alignment": "start",
+        "title": "",
+        "title_tag": "h4",
+        "subtitle": "",
+        "subtitle_size": "text-md",
+        "image_shape": "square",
+        "image_size_type": "auto",
+        "image_size_px": 200,
+        "show_arrows": false,
+        "show_mobile_dots": true,
+        "items_per_row_desktop": 6,
+        "items_per_row_tablet": 4,
+        "items_per_row_mobile": 2,
+        "padding_top": 120,
+        "padding_bottom": 116,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "icon-box",
-    "main-slider"
+    "main-slider",
+    "categories_pahYDV"
   ]
 }
