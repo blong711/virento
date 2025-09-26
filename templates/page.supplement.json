@@ -388,11 +388,11 @@
           "settings": {
             "image": "shopify://shop_images/tes-supplement-1.jpg",
             "rating": 5,
-            "title": "Great quality and design",
-            "review": "This product transformed my space. Highly recommend!",
-            "author": "John D.",
-            "product_link": "",
-            "product_label": "View product"
+            "title": "testimonial",
+            "review": "Great selection and expert advice! Virento has everything I need for my training. I've seen real improvements in performance and recovery since I started shopping here.",
+            "author": "Sarah T.",
+            "product_link": "shopify://products/nike-air-max-plus",
+            "product_label": "Purchase item: Nike Air Max Plus"
           }
         },
         "testimonial_UtgBzB": {
@@ -400,11 +400,11 @@
           "settings": {
             "image": "shopify://shop_images/tes-sport2.jpg",
             "rating": 5,
-            "title": "Great quality and design",
-            "review": "This product transformed my space. Highly recommend!",
+            "title": "testimonial",
+            "review": "Great selection and expert advice! Virento has everything I need for my training. I've seen real improvements in performance and recovery since I started shopping here.",
             "author": "John D.",
-            "product_link": "",
-            "product_label": "View product"
+            "product_link": "shopify://products/nike-victori-one",
+            "product_label": "Purchase item: Nike Victori One"
           }
         }
       },
@@ -415,8 +415,8 @@
       "name": "t:sections.testimonial-swiper.presets.name",
       "settings": {
         "color_scheme": "",
-        "layout": "layout-2",
         "width": "container",
+        "layout": "layout-2",
         "show_arrows": true,
         "show_pagination": false,
         "space_between": 12,
