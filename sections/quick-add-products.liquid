@@ -388,8 +388,8 @@
                             </span>
                           {% endif %}
                         </p>
-                        <div class="line-top"></div>
                         {% if section.settings.show_product_features and block.settings.product_features != blank %}
+                        <div class="line-top"></div>
                           <ul class="list-infor pb-30">
                             {%- assign features = block.settings.product_features | split: '.' -%}
                             {%- for feature in features -%}
