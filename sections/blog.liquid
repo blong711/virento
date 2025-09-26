@@ -13,7 +13,7 @@
 
           <!-- Blog Content Section -->
           <section
-            class="{% if section.settings.layout == 'list' %}s-blog-list-v1{% elsif section.settings.layout == 'list_v2' %}s-blog-list-v2 sec-blog{% elsif section.settings.layout == 'grid_v2' %}s-blog-grid-v2 sec-blog{% else %}s-blog-grid{% endif %} space-blog color-{{ section.settings.color_scheme }} gradient"
+            class="{% if section.settings.layout == 'list' %}s-blog-list-v1{% elsif section.settings.layout == 'list_v2' %}s-blog-list-v2 {% elsif section.settings.layout == 'grid_v2' %}s-blog-grid-v2 {% else %}s-blog-grid{% endif %} space-blog color-{{ section.settings.color_scheme }} gradient"
             {{ block.shopify_attributes }}
           >
             {% comment %} Determine blog source based on settings {% endcomment %}
@@ -32,6 +32,7 @@
                 {%- when '-asos' -%}blog-image-ratio--asos  
                 {%- when '-landscape' -%}blog-image-ratio--landscape
                 {%- when '4-3' -%}blog-image-ratio--4-3
+                {%- when '3-4' -%}blog-image-ratio--3-4
                 {%- else -%}blog-image-ratio--adapt
               {%- endcase -%}
             {%- endcapture -%}
@@ -204,7 +205,7 @@
               <div class="{{ main_content_class }}">
                 {% comment %} Handle single blog mode (current or specific) {% endcomment %}
                 {%- paginate current_blog.articles by block.settings.article_limit -%}
-                  <div class="{% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}s-content{% elsif section.settings.layout == 'grid_v2' %}s-blog-list-grid grid-2{% else %}s-blog-list-grid {{ responsive_grid_class | strip }}{% endif %}">
+                  <div class="{% if section.settings.layout == 'list' or section.settings.layout == 'list_v2' %}s-content{% elsif section.settings.layout == 'grid_v2' %}s-blog-list-grid {{ responsive_grid_class | strip }}{% else %}s-blog-list-grid {{ responsive_grid_class | strip }}{% endif %}">
                     {% if current_blog.articles.size > 0 %}
                       {% for article in current_blog.articles %}
                         <div class="blog-post-item {% if section.settings.layout == 'list_v2' %}style-2{% elsif section.settings.layout == 'grid_v2' %}{% comment %}grid_v2 styling{% endcomment %}{% endif %} hover-img">
@@ -529,6 +530,15 @@
     height: 98px;
   }
 
+
+
+  @media (min-width: 768px) {
+    .s-blog-list-v2 .blog-post-item .blog-content {
+      flex: 0 0 55%;
+      max-width: 55%;
+    }
+  }
+
   .blog-content--center .entry-tag,
   .blog-content--center .entry-meta {
     justify-content: center;
@@ -568,6 +578,10 @@
   .blog-image-ratio--4-3 {
     aspect-ratio: 4 / 3.4;
   }
+
+  .blog-image-ratio--3-4 {
+    aspect-ratio: 3 / 3.4;
+}
 
   .blog-image-ratio > img {
     width: 100%;
@@ -646,18 +660,17 @@
     }
   }
 
-  /* Mobile grid classes - Force all layouts to single column on mobile */
+  /* Mobile grid classes - Respect items_per_row_mb settings */
   @media (max-width: 767px) {
-    .s-blog-list-grid {
-      grid-template-columns: repeat(1, 1fr) !important;
-    }
     .s-blog-list-grid.grid-mb-1 {
       grid-template-columns: repeat(1, 1fr);
     }
     .s-blog-list-grid.grid-mb-2 {
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
-    .s-blog-list-grid.grid-mb-3 {
+    
+    /* Only force single column for grids that don't have specific mobile settings */
+    .s-blog-list-grid:not(.grid-mb-1):not(.grid-mb-2) {
       grid-template-columns: repeat(1, 1fr);
     }
 
@@ -967,6 +980,10 @@
             {
               "value": "4-3",
               "label": "t:sections.blog_content.image_ratio.43.label"
+            },
+            {
+              "value": "3-4",
+              "label": "t:sections.blog_content.image_ratio.34.label"
             }
           ],
           "label": "t:sections.blog_content.image_ratio.label",

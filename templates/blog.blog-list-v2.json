@@ -12,85 +12,10 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
+        "background_image": "shopify://shop_images/page-title.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
-      }
-    },
-    "blog_sub_collection": {
-      "type": "blog-sub-collection",
-      "blocks": {
-        "category_1": {
-          "type": "category",
-          "settings": {
-            "category_name": "Accessories",
-            "blog_handle": "accessories",
-            "button_text": "View all",
-            "category_url": "",
-            "show_overlay": true
-          }
-        },
-        "category_2": {
-          "type": "category",
-          "settings": {
-            "category_name": "Bags",
-            "blog_handle": "bags",
-            "button_text": "View all",
-            "category_url": "",
-            "show_overlay": true
-          }
-        },
-        "category_3": {
-          "type": "category",
-          "settings": {
-            "category_name": "Lifestyle",
-            "blog_handle": "lifestyle",
-            "button_text": "View all",
-            "category_url": "",
-            "show_overlay": true
-          }
-        },
-        "category_4": {
-          "type": "category",
-          "settings": {
-            "category_name": "Design",
-            "blog_handle": "design",
-            "button_text": "View all",
-            "category_url": "",
-            "show_overlay": true
-          }
-        },
-        "category_5": {
-          "type": "category",
-          "settings": {
-            "category_name": "Tricks & Tips",
-            "blog_handle": "tricks-tips",
-            "button_text": "View all",
-            "category_url": "",
-            "show_overlay": true
-          }
-        }
-      },
-      "block_order": [
-        "category_1",
-        "category_2",
-        "category_3",
-        "category_4",
-        "category_5"
-      ],
-      "settings": {
-        "width": "boxed",
-        "color_scheme": "",
-        "image_ratio": "square",
-        "show_post_count": true,
-        "slides_per_view_mobile": "2",
-        "slides_per_view_tablet": "3",
-        "slides_per_view_desktop": "5",
-        "space_between": 20,
-        "show_pagination": true,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "padding_mobile_rate": 75
       }
     },
     "blog_section": {
@@ -111,7 +36,7 @@
             "show_date": true,
             "date": "%b %d",
             "Content_align": "start",
-            "image_ratio": "-square"
+            "image_ratio": "3-4"
           }
         },
         "blog_sidebar": {
@@ -134,7 +59,7 @@
       "settings": {
         "width": "boxed",
         "color_scheme": "background-1",
-        "padding_top": 36,
+        "padding_top": 80,
         "padding_bottom": 100,
         "padding_mobile_rate": 75,
         "layout": "list_v2"
@@ -143,7 +68,6 @@
   },
   "order": [
     "page_breadcrumb",
-    "blog_sub_collection",
     "blog_section"
   ]
 }
