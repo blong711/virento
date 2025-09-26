@@ -1,6 +1,6 @@
 {% schema %}
 {
-  "name": "Quick Add Products",
+  "name": "t:sections.quick-add-products.name",
   "tag": "section",
   "class": "flat-spacing pt-0 pb-0",
   "settings": [
@@ -29,32 +29,32 @@
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background Image",
-      "info": "Background image for the section"
+      "label": "t:sections.quick-add-products.settings.background_image.label",
+      "info": "t:sections.quick-add-products.settings.background_image.info"
     },
     
     {
       "type": "text",
       "id": "title",
-      "label": "Section Title",
-      "default": "Featured Products"
+      "label": "t:sections.quick-add-products.settings.title.label",
+      "default": "t:sections.quick-add-products.settings.title.default"
     },
     {
       "type": "select",
       "id": "title_tag",
-      "label": "Title Size",
+      "label": "t:sections.quick-add-products.settings.title_tag.label",
       "options": [
         {
           "value": "h5",
-          "label": "Small"
+          "label": "t:sections.quick-add-products.settings.title_tag.options.small.label"
         },
         {
           "value": "h4",
-          "label": "Medium"
+          "label": "t:sections.quick-add-products.settings.title_tag.options.medium.label"
         },
         {
           "value": "h3",
-          "label": "Large"
+          "label": "t:sections.quick-add-products.settings.title_tag.options.large.label"
         }
       ],
       "default": "h4"
@@ -62,48 +62,48 @@
     {
       "type": "text",
       "id": "subtitle",
-      "label": "Section Subtitle",
-      "default": "Explore our most popular pieces that customers can't get enough of"
+      "label": "t:sections.quick-add-products.settings.subtitle.label",
+      "default": "t:sections.quick-add-products.settings.subtitle.default"
     },
     {
       "type": "select",
       "id": "subtitle_size",
-      "label": "Subtitle Size",
+      "label": "t:sections.quick-add-products.settings.subtitle_size.label",
       "options": [
         {
           "value": "text-sm",
-          "label": "Small"
+          "label": "t:sections.quick-add-products.settings.subtitle_size.options.small.label"
         },
         {
           "value": "text-md",
-          "label": "Medium"
+          "label": "t:sections.quick-add-products.settings.subtitle_size.options.medium.label"
         },
         {
           "value": "text-lg",
-          "label": "Large"
+          "label": "t:sections.quick-add-products.settings.subtitle_size.options.large.label"
         }
       ],
       "default": "text-md"
     },
     {
       "type": "header",
-      "content": "Product Blocks"
+      "content": "t:sections.quick-add-products.settings.product_blocks_header.content"
     },
     {
       "type": "header",
-      "content": "Slider Settings"
+      "content": "t:sections.quick-add-products.settings.slider_settings_header.content"
     },
     
     {
       "type": "checkbox",
       "id": "show_dots_mobile",
-      "label": "Show Dots on Mobile",
+      "label": "t:sections.quick-add-products.settings.show_dots_mobile.label",
       "default": true
     },
     {
       "type": "select",
       "id": "products_per_row_desktop",
-      "label": "Products per row (Desktop)",
+      "label": "t:sections.quick-add-products.settings.products_per_row_desktop.label",
       "options": [
         { "value": "2", "label": "2" },
         { "value": "3", "label": "3" },
@@ -114,7 +114,7 @@
     {
       "type": "select",
       "id": "products_per_row_tablet",
-      "label": "Products per row (Tablet)",
+      "label": "t:sections.quick-add-products.settings.products_per_row_tablet.label",
       "options": [
         { "value": "1", "label": "1" },
         { "value": "2", "label": "2" },
@@ -125,7 +125,7 @@
     {
       "type": "select",
       "id": "products_per_row_mobile",
-      "label": "Products per row (Mobile)",
+      "label": "t:sections.quick-add-products.settings.products_per_row_mobile.label",
       "options": [
         { "value": "1", "label": "1" },
         { "value": "2", "label": "2" }
@@ -134,14 +134,14 @@
     },
     {
       "type": "header",
-      "content": "Product Features"
+      "content": "t:sections.quick-add-products.settings.product_features_header.content"
     },
     {
       "type": "checkbox",
       "id": "show_product_features",
-      "label": "Show Product Features",
+      "label": "t:sections.quick-add-products.settings.show_product_features.label",
       "default": true,
-      "info": "Display the feature list below product info"
+      "info": "t:sections.quick-add-products.settings.show_product_features.info"
     },
     {
       "type": "header",
@@ -182,43 +182,43 @@
   "blocks": [
     {
       "type": "product",
-      "name": "Product",
+      "name": "t:sections.quick-add-products.blocks.product.name",
       "settings": [
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "t:sections.quick-add-products.blocks.product.settings.product.label"
         },
         {
           "type": "text",
           "id": "custom_vendor",
-          "label": "Custom Vendor",
-          "info": "Override the product vendor (leave blank to use product default)"
+          "label": "t:sections.quick-add-products.blocks.product.settings.custom_vendor.label",
+          "info": "t:sections.quick-add-products.blocks.product.settings.custom_vendor.info"
         },
         {
           "type": "text",
           "id": "custom_title",
-          "label": "Custom Title",
-          "info": "Override the product title (leave blank to use product default)"
+          "label": "t:sections.quick-add-products.blocks.product.settings.custom_title.label",
+          "info": "t:sections.quick-add-products.blocks.product.settings.custom_title.info"
         },
         {
           "type": "image_picker",
           "id": "custom_image",
-          "label": "Custom Image",
-          "info": "Override the product image (leave blank to use product default)"
+          "label": "t:sections.quick-add-products.blocks.product.settings.custom_image.label",
+          "info": "t:sections.quick-add-products.blocks.product.settings.custom_image.info"
         },
         {
           "type": "text",
           "id": "product_features",
-          "label": "Product Features",
-          "info": "Enter features separated by dots (e.g., Boosts Performance. Supports Muscle Growth. Speeds Up Recovery)"
+          "label": "t:sections.quick-add-products.blocks.product.settings.product_features.label",
+          "info": "t:sections.quick-add-products.blocks.product.settings.product_features.info"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Quick Add Products",
+      "name": "t:sections.quick-add-products.presets.name",
       "category": "Product",
       "blocks": [
         {

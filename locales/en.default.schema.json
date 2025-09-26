@@ -8092,6 +8092,91 @@
         "name": "Testimonial Swiper",
         "category": "Testimonials"
       }
+    },
+    "quick-add-products": {
+      "name": "Quick Add Products",
+      "settings": {
+        "background_image": {
+          "label": "Background Image",
+          "info": "Background image for the section"
+        },
+        "title": {
+          "label": "Section Title",
+          "default": "Featured Products"
+        },
+        "title_tag": {
+          "label": "Title Size",
+          "options": {
+            "small": { "label": "Small" },
+            "medium": { "label": "Medium" },
+            "large": { "label": "Large" }
+          }
+        },
+        "subtitle": {
+          "label": "Section Subtitle",
+          "default": "Explore our most popular pieces that customers can't get enough of"
+        },
+        "subtitle_size": {
+          "label": "Subtitle Size",
+          "options": {
+            "small": { "label": "Small" },
+            "medium": { "label": "Medium" },
+            "large": { "label": "Large" }
+          }
+        },
+        "product_blocks_header": {
+          "content": "Product Blocks"
+        },
+        "slider_settings_header": {
+          "content": "Slider Settings"
+        },
+        "show_dots_mobile": {
+          "label": "Show Dots on Mobile"
+        },
+        "products_per_row_desktop": {
+          "label": "Products per row (Desktop)"
+        },
+        "products_per_row_tablet": {
+          "label": "Products per row (Tablet)"
+        },
+        "products_per_row_mobile": {
+          "label": "Products per row (Mobile)"
+        },
+        "product_features_header": {
+          "content": "Product Features"
+        },
+        "show_product_features": {
+          "label": "Show Product Features",
+          "info": "Display the feature list below product info"
+        }
+      },
+      "blocks": {
+        "product": {
+          "name": "Product",
+          "settings": {
+            "product": { "label": "Product" },
+            "custom_vendor": {
+              "label": "Custom Vendor",
+              "info": "Override the product vendor (leave blank to use product default)"
+            },
+            "custom_title": {
+              "label": "Custom Title",
+              "info": "Override the product title (leave blank to use product default)"
+            },
+            "custom_image": {
+              "label": "Custom Image",
+              "info": "Override the product image (leave blank to use product default)"
+            },
+            "product_features": {
+              "label": "Product Features",
+              "info": "Enter features separated by dots (e.g., Boosts Performance. Supports Muscle Growth. Speeds Up Recovery)"
+            }
+          }
+        }
+      },
+      "presets": {
+        "name": "Quick Add Products"
+      }
     }
   }
 }
