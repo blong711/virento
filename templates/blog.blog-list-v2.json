@@ -111,7 +111,7 @@
             "show_date": true,
             "date": "%b %d",
             "Content_align": "start",
-            "image_ratio": "-square"
+            "image_ratio": "3-4"
           }
         },
         "blog_sidebar": {
