@@ -388,11 +388,11 @@
           "settings": {
             "image": "shopify://shop_images/tes-supplement-1.jpg",
             "rating": 5,
-            "title": "Great quality and design",
-            "review": "This product transformed my space. Highly recommend!",
-            "author": "John D.",
-            "product_link": "",
-            "product_label": "View product"
+            "title": "testimonial",
+            "review": "Great selection and expert advice! Virento has everything I need for my training. I've seen real improvements in performance and recovery since I started shopping here.",
+            "author": "Sarah T.",
+            "product_link": "shopify://products/nike-air-max-plus",
+            "product_label": "Purchase item: Nike Air Max Plus"
           }
         },
         "testimonial_UtgBzB": {
@@ -400,11 +400,11 @@
           "settings": {
             "image": "shopify://shop_images/tes-sport2.jpg",
             "rating": 5,
-            "title": "Great quality and design",
-            "review": "This product transformed my space. Highly recommend!",
+            "title": "testimonial",
+            "review": "Great selection and expert advice! Virento has everything I need for my training. I've seen real improvements in performance and recovery since I started shopping here.",
             "author": "John D.",
-            "product_link": "",
-            "product_label": "View product"
+            "product_link": "shopify://products/nike-victori-one",
+            "product_label": "Purchase item: Nike Victori One"
           }
         }
       },
@@ -415,8 +415,8 @@
       "name": "t:sections.testimonial-swiper.presets.name",
       "settings": {
         "color_scheme": "",
-        "layout": "layout-2",
         "width": "container",
+        "layout": "layout-2",
         "show_arrows": true,
         "show_pagination": false,
         "space_between": 12,
@@ -424,6 +424,35 @@
         "space_between_desktop": 24,
         "padding_top": 120,
         "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
+    },
+    "blog_carousel_tiazLz": {
+      "type": "blog-carousel",
+      "name": "t:sections.blog-carousel.name",
+      "settings": {
+        "heading": "Explore Our Blogs",
+        "description": "Explore our most popular pieces that customers can't get enough of",
+        "layout_style": "layout2",
+        "width": "boxed",
+        "color_scheme": "",
+        "blog": "lifestyle",
+        "posts_to_show": 6,
+        "show_tags": true,
+        "show_excerpt": true,
+        "show_author": true,
+        "show_date": true,
+        "show_comments": true,
+        "show_read_more": true,
+        "slides_mobile": 1,
+        "slides_tablet": 2,
+        "slides_desktop": 3,
+        "space_between": 24,
+        "animation_speed": 800,
+        "show_navigation": false,
+        "show_pagination": true,
+        "padding_top": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     }
@@ -435,6 +464,7 @@
     "featured_product_carousel_WCCACY",
     "grid_banner_FkKW9K",
     "quick_add_products",
-    "testimonial_swiper_YeRbPX"
+    "testimonial_swiper_YeRbPX",
+    "blog_carousel_tiazLz"
   ]
 }
