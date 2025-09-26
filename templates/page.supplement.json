@@ -436,6 +436,7 @@
         "layout_style": "layout2",
         "width": "boxed",
         "color_scheme": "",
+        "border_radius": 0,
         "blog": "lifestyle",
         "posts_to_show": 6,
         "show_tags": true,
