@@ -394,8 +394,8 @@
   }
 {% endstyle %}
 
-<section class="container-full section-{{ section.id }} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
-  <div class="flat-spacing-33 bg-brown-17 overflow-hidden relative">
+<section class="container-full section-{{ section.id }} color-{{ section.settings.color_scheme }}">
+  <div class="flat-spacing-33 bg-brown-17 overflow-hidden relative section-{{ section.id }}-padding">
     {% if section.settings.background_image %}
       <div class="tf-overlay">
         <div class="simpleParallax simple-parallax-initialized" style="overflow: hidden;">
