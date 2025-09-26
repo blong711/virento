@@ -545,7 +545,7 @@
   }
 {% endstyle %}
 
-<section class="tf-slideshow {% if section.settings.layout_style == 'style-2' %}slider-viewport slider-style-2{% else %}slider-electric-access slider-default{% endif %} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+<section class="tf-slideshow {% if section.settings.layout_style == 'style-2' %}slider-viewport slider-style-2{% else %}slider-supplement slider-default{% endif %} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="{{ section.settings.width }}">
     <div class="row">
       <div class="col-lg-12">
@@ -728,18 +728,23 @@
                             <div class="{{ block.settings.content_alignment }}">
                               <div class="content-slider">
                                 <div class="box-title-slider">
-                                  <h4 class="heading {{ block.settings.heading_size }} {{ block.settings.heading_weight }} fade-item fade-item-1">
+                                  {% if block.settings.subheading != '' %}
+                                    <p class="sub font-13 text-uppercase text-dark-purple-1 text-md fw-semibold text-dark-3 fade-item fade-item-1">
+                                      {{ block.settings.subheading }}
+                                    </p>
+                                  {% endif %}
+                                  <h4 class="heading {{ block.settings.heading_size }} {{ block.settings.heading_weight }} fade-item fade-item-2">
                                     {{ block.settings.heading }}
                                   </h4>
                                   <p
-                                    class="sub {{ block.settings.text_size }} fade-item fade-item-2"
+                                    class="sub {{ block.settings.text_size }} fade-item fade-item-3"
                                     style="color: rgb(var(--color-foreground2));"
                                   >
                                     {{ block.settings.description }}
                                   </p>
                                 </div>
                                 {% if block.settings.button_link %}
-                                  <div class="box-btn-slider fade-item fade-item-3">
+                                  <div class="box-btn-slider fade-item fade-item-4">
                                     <a
                                       href="{{ block.settings.button_link }}"
                                       class="tf-btn {% if section.settings.button_animate %}animate-btn{% endif %}"
