@@ -1,35 +1,88 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "icon-box": {
+      "type": "icon-box",
+      "blocks": {
+        "icon-box-1": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_size": 28,
+            "title": "Low Price Guarantee",
+            "description": ""
+          }
+        },
+        "icon-box-2": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-gift",
+            "custom_svg": "",
+            "icon_size": 28,
+            "title": "Free Delivery Worldwide",
+            "description": ""
+          }
+        },
+        "icon-box-3": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_size": 28,
+            "title": "30 Day Online Return",
+            "description": ""
+          }
+        },
+        "icon-box-4": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_size": 28,
+            "title": "24/7 Support Online",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon-box-1",
+        "icon-box-2",
+        "icon-box-3",
+        "icon-box-4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-5",
+        "width": "container",
+        "icon_position_center": false,
+        "line_top": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "icon_style": "default",
+        "show_border": true,
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_mobile_rate": 75
+      }
+    },
     "main-slider": {
       "type": "main-slider",
-      "settings": {
-        "color_scheme": "scheme-1",
-        "layout_style": "default",
-        "width": "container",
-        "height": "adapt-first",
-        "height_fixed": 500,
-        "mobile_height": "adapt-first",
-        "mobile_height_fixed": 300,
-        "loop": true,
-        "autoplay_speed": 5,
-        "pause_on_hover": true,
-        "draggable": true,
-        "show_arrows": false,
-        "show_arrows_mobile": false,
-        "show_dots": true,
-        "dots_style": "style-1",
-        "button_animate": true,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "padding_mobile_rate": 75
-      },
       "blocks": {
         "slide-1": {
           "type": "slide",
           "settings": {
             "color_scheme": "",
-            "image": "",
-            "mobile_image": "",
+            "image": "shopify://shop_images/slider-1_1.jpg",
             "heading": "Welcome to Our Store",
             "heading_size": "display-md",
             "heading_weight": "fw-medium",
@@ -46,110 +99,45 @@
           "type": "slide",
           "settings": {
             "color_scheme": "",
-            "image": "",
-            "mobile_image": "",
+            "image": "shopify://shop_images/slider-2.jpg",
             "heading": "Quality You Can Trust",
             "heading_size": "display-md",
             "heading_weight": "fw-medium",
             "description": "Every product is carefully selected and tested to ensure the highest standards.",
             "subheading": "",
             "box_bg_class": "",
-            "content_alignment": "col-12 col-sm-6 col-lg-5 offset-sm-6 offset-lg-6",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "",
             "button_text": "Learn More"
-          }
-        },
-        "slide-3": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "",
-            "image": "",
-            "mobile_image": "",
-            "heading": "Exceptional Service",
-            "heading_size": "display-md",
-            "heading_weight": "fw-medium",
-            "description": "Our dedicated team is here to provide you with outstanding customer service.",
-            "subheading": "",
-            "box_bg_class": "",
-            "content_alignment": "col-12 col-sm-8 col-lg-6 offset-sm-2 offset-lg-3",
-            "text_size": "text-md",
-            "button_link": "",
-            "button_text": "Contact Us"
           }
         }
       },
       "block_order": [
         "slide-1",
-        "slide-2",
-        "slide-3"
-      ]
-    },
-    "icon-box": {
-      "type": "icon-box",
+        "slide-2"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
-        "width": "container",
-        "icon_position_center": true,
-        "line_top": true,
-        "show_dots_mobile": true,
-        "products_per_row_desktop": 4,
-        "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
-        "icon_style": "default",
-        "show_border": true,
+        "layout_style": "default",
+        "width": "",
+        "height": "adapt-first",
+        "height_fixed": 500,
+        "mobile_height": "adapt-first",
+        "mobile_height_fixed": 300,
+        "loop": true,
+        "autoplay_speed": 5,
+        "pause_on_hover": true,
+        "draggable": true,
+        "show_arrows": false,
+        "show_arrows_mobile": false,
+        "show_dots": true,
+        "dots_style": "style-1",
+        "button_animate": true,
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
-      },
-      "blocks": {
-        "icon-box-1": {
-          "type": "icon_box",
-          "settings": {
-            "icon_class": "icon-shipping",
-            "custom_svg": "",
-            "icon_size": 28,
-            "title": "Free Delivery",
-            "description": "Free shipping on all orders over $50. Fast and reliable delivery to your doorstep."
-          }
-        },
-        "icon-box-2": {
-          "type": "icon_box",
-          "settings": {
-            "icon_class": "icon-payment",
-            "custom_svg": "",
-            "icon_size": 28,
-            "title": "Secured Payment",
-            "description": "Your payment information is safe and secure with our encrypted checkout process."
-          }
-        },
-        "icon-box-3": {
-          "type": "icon_box",
-          "settings": {
-            "icon_class": "icon-return",
-            "custom_svg": "",
-            "icon_size": 28,
-            "title": "Easy Returns",
-            "description": "Not satisfied? Return your items within 30 days for a full refund, no questions asked."
-          }
-        },
-        "icon-box-4": {
-          "type": "icon_box",
-          "settings": {
-            "icon_class": "icon-support",
-            "custom_svg": "",
-            "icon_size": 28,
-            "title": "24/7 Support",
-            "description": "Our customer support team is available around the clock to help with any questions."
-          }
-        }
-      },
-      "block_order": [
-        "icon-box-1",
-        "icon-box-2",
-        "icon-box-3",
-        "icon-box-4"
-      ]
+      }
     }
   },
   "order": [
