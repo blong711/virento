@@ -121,31 +121,36 @@
       "default": true
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "products_per_row_desktop",
-      "min": 2,
-      "max": 4,
-      "step": 1,
-      "default": 3,
-      "label": "Products per row (Desktop)"
+      "label": "Products per row (Desktop)",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "3"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "products_per_row_tablet",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "default": 3,
-      "label": "Products per row (Tablet)"
+      "label": "Products per row (Tablet)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "3"
     },
     {
-      "type": "range",
+      "type": "select",
       "id": "products_per_row_mobile",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "default": 1,
-      "label": "Products per row (Mobile)"
+      "label": "Products per row (Mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+      ],
+      "default": "1"
     },
     {
       "type": "header",

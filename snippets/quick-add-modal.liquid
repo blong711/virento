@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="item-product-quantity">
-                    <div class="label text-md">Quantity</div>
+                    <div class="label text-md">{{ 'products.product.quantity.label' | t }}</div>
                     <div class="wg-quantity">
                         <button class="btn-quantity btn-decrease" type="button">-</button>
                         <input class="quantity-product" type="text" name="quantity" value="1">
@@ -56,14 +56,14 @@
                        data-selected-variant=""
                        data-quantity="1"
                        disabled>
-                        Add to cart
+                        {{ 'quickview.add_to_cart' | t }}
                     </a>
                     <li class="wishlist">
                         <a href="#" class="hover-tooltip box-icon"
                             id="modal-wishlist-button"
                             data-product-id=""
                             data-product-handle=""
-                            aria-label="Add to wishlist">
+                            aria-label="{{ 'snippets.product-card.add_to_wishlist' | t }}">
                             <span class="icon icon-heart2" aria-hidden="true"></span>
                             <span class="tooltip">{{ 'snippets.product-card.add_to_wishlist' | t }}</span>
                         </a>
@@ -73,15 +73,15 @@
                             id="modal-compare-button"
                             data-product-id=""
                             data-product-handle=""
-                            aria-label="Add to compare">
+                            aria-label="{{ 'snippets.product-card.add_to_compare' | t }}">
                             <span class="icon icon-compare" aria-hidden="true"></span>
                             <span class="tooltip">{{ 'snippets.product-card.add_to_compare' | t }}</span>
                         </a>
                     </li>
-                    <a href="#" class="tf-btn btn-primary animate-btn w-100" id="modal-buy-now">Buy It Now</a>
+                    <a href="#" class="tf-btn btn-primary animate-btn w-100" id="modal-buy-now">{{ 'quickview.buy_it_now' | t }}</a>
                 </div>
                 
-                <a href="#" class="tf-btn btn-line-dark payment-link" id="modal-payment-link">More payment options</a>
+                <a href="#" class="tf-btn btn-line-dark payment-link" id="modal-payment-link">{{ 'quickview.more_payment_options' | t }}</a>
             </div>
         </div>
     </div>

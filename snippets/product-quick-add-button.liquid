@@ -6,7 +6,6 @@
     - modal_target: Modal target ID (optional, defaults to "quickAdd")
 {% endcomment %}
 
-{% assign button_text = button_text | default: 'QUICK ADD' %}
 {% assign button_class = button_class | default: 'tf-btn btn-purple-2 rounded-0' %}
 {% assign modal_target = modal_target | default: '#quickAdd' %}
 
@@ -23,6 +22,6 @@
      data-product-compare-price="{{ product.compare_at_price }}"
      data-product-image="{{ product.featured_image | image_url: width: 300 }}"
      data-product-url="{{ product.url }}">
-    {{ button_text }}
+    {{ 'products.product.quick_add' | t }}
   </a>
 {% endif %}
