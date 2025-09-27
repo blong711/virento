@@ -29051,3 +29051,65 @@ shopify-accelerated-checkout {
   color: var(--white);
   border-radius: 22px;
 }
+
+.card-product {
+  &.style-bg {
+    border-radius: 20px;
+    overflow: hidden;
+
+    .card-product-wrapper {
+      border-radius: 0;
+    }
+    .card-product-info {
+      @include transition3;
+      background-color: var(--surface-2);
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .item .text,
+    .price-old,
+    .sub,
+    .price-wrap {
+      @include transition3;
+    }
+
+    .dir {
+      max-width: 342px;
+      width: 100%;
+      background-color: var(--line);
+      height: 1px;
+      margin: auto;
+      @include transition3;
+    }
+    .tf-btn {
+      max-width: 226px;
+      width: 100%;
+      margin: auto;
+      background-color: #252525;
+      text-transform: uppercase;
+      font-weight: 600;
+      border: 0;
+    }
+    &:hover {
+      .card-product-info {
+        background-color: var(--dark);
+        color: var(--white);
+        .item .text,
+        .price-old,
+        .price-wrap,
+        .name-product,
+        .sub {
+          color: var(--white) !important;
+        }
+      }
+      .dir {
+        background-color: #515151;
+      }
+      .tf-btn {
+        background-color: var(--white);
+        color: var(--dark);
+      }
+    }
+  }
+}
+

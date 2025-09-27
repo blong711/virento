@@ -349,9 +349,9 @@
                       </a>
                       {% if product.available %}
                         <ul class="list-product-btn">
-                          {% render 'product-wishlist-button', product: product, card_style:  %}
-                          {% render 'product-quickview-button', product: product, card_style:  %}
-                          {% render 'product-compare-button', product: product, card_style:  %}
+                          {% render 'product-wishlist-button', product: product, card_style: 'style-2' %}
+                          {% render 'product-quickview-button', product: product, card_style: 'style-2' %}
+                          {% render 'product-compare-button', product: product, card_style: 'style-2' %}
                         </ul>
                       {% endif %}
                     </div>
@@ -401,7 +401,7 @@
                           {%- endfor -%}
                         </ul>
                       {% endif %}
-                      {% render 'product-quick-add-button', product: product %}
+                      {% render 'product-quick-add-button', product: product, style: 'style-2' %}
                     </div>
                   </div>
                 </div>
@@ -562,7 +562,7 @@
                               {%- endfor -%}
                             </ul>
                           {% endif %}
-                          {% render 'product-quick-add-button', product: product %}
+                          {% render 'product-quick-add-button', product: product, style: 'style-1' %}
                         </div>
                       </div>
                     </div>
