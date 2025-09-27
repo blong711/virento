@@ -1,0 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main_slider": {
+      "type": "main-slider",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "image": "shopify://shop_images/ergonic-chair-slider-1.jpg",
+            "heading": "Ergonomic Excellence",
+            "heading_size": "display-md",
+            "heading_weight": "fw-semibold",
+            "description": "Experience ultimate comfort with our premium ergonomic chairs designed for your well-being.",
+            "subheading": "Premium Quality",
+            "box_bg_class": "",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "shopify://collections/ergonomic-chairs",
+            "button_text": "Shop Now"
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "image": "shopify://shop_images/ergonic-chair-slider-2.jpg",
+            "heading": "Perfect Posture Support",
+            "heading_size": "display-md",
+            "heading_weight": "fw-semibold",
+            "description": "Advanced lumbar support and adjustable features for all-day comfort and productivity.",
+            "subheading": "Health First",
+            "box_bg_class": "",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "shopify://collections/ergonomic-chairs",
+            "button_text": "Learn More"
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "color_scheme": "scheme-1",
+            "image": "shopify://shop_images/ergonic-chair-slider-3.jpg",
+            "heading": "Professional Grade",
+            "heading_size": "display-md",
+            "heading_weight": "fw-semibold",
+            "description": "Built for professionals who demand the best in comfort, durability, and style.",
+            "subheading": "Work Better",
+            "box_bg_class": "",
+            "content_alignment": "col-12 col-sm-6 col-lg-5",
+            "text_size": "text-md",
+            "button_link": "shopify://collections/ergonomic-chairs",
+            "button_text": "Shop Collection"
+          }
+        }
+      },
+      "block_order": [
+        "slide-1",
+        "slide-2",
+        "slide-3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "layout_style": "default",
+        "width": "container",
+        "height": "adapt-first",
+        "height_fixed": 600,
+        "mobile_height": "adapt-first",
+        "mobile_height_fixed": 400,
+        "loop": true,
+        "autoplay_speed": 5,
+        "pause_on_hover": true,
+        "draggable": true,
+        "show_arrows": true,
+        "show_arrows_mobile": true,
+        "show_dots": true,
+        "dots_style": "style-1",
+        "button_animate": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    }
+  },
+  "order": [
+    "main_slider"
+  ]
+}
