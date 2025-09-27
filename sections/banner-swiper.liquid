@@ -71,6 +71,22 @@
       "default": 24
     },
     {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.banner-swiper.settings.layout.label",
+      "options": [
+        {
+          "value": "layout1",
+          "label": "t:sections.banner-swiper.settings.layout.options.layout1"
+        },
+        {
+          "value": "layout2",
+          "label": "t:sections.banner-swiper.settings.layout.options.layout2"
+        }
+      ],
+      "default": "layout1"
+    },
+    {
       "type": "header",
       "content": "t:sections.banner-swiper.settings.section_padding.content"
     },
@@ -200,13 +216,50 @@
 {% endschema %}
 
 <!-- Banner Swiper -->
-<section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
-  <div class="{{ section.settings.width }}">
+<section class="{% if section.settings.layout == 'layout2' %}flat-spacing-3{% else %}flat-spacing{% endif %} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
+  <div class="{% if section.settings.layout == 'layout2' %}container{% else %}{{ section.settings.width }}{% endif %}">
     <div class="fl-control-sw2 pos1">
       <div
         dir="ltr"
         class="swiper tf-swiper"
         data-swiper='
+          {% if section.settings.layout == "layout2" %}
+          {
+              "slidesPerView": 1,
+              "spaceBetween": {{ section.settings.space_between }},
+              "speed": 800,
+              "observer": true,
+              "observeParents": true,
+              "slidesPerGroup": 1,
+              "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-banner-swiper",
+                  "prevEl": ".nav-prev-banner-swiper"
+              },
+              "pagination": {
+                  "el": ".sw-pagination-banner-swiper",
+                  "clickable": true,
+                  "enabled": {{ section.settings.show_pagination | json }}
+              },
+              "breakpoints": {
+                  "768": {
+                      "slidesPerView": 2,
+                      "spaceBetween": {{ section.settings.space_between_tablet }},
+                      "slidesPerGroup": 2
+                  },
+                  "992": {
+                      "slidesPerView": 2,
+                      "spaceBetween": {{ section.settings.space_between }},
+                      "slidesPerGroup": 2
+                  },
+                  "1200": {
+                      "slidesPerView": 3,
+                      "spaceBetween": {{ section.settings.space_between_desktop }},
+                      "slidesPerGroup": 3
+                  }
+              }
+          }
+          {% else %}
           {
               "slidesPerView": 1,
               "spaceBetween": {{ section.settings.space_between }},
@@ -240,48 +293,88 @@
                   }
               }
           }
+          {% endif %}
         '
       >
         <div class="swiper-wrapper wow fadeInUp">
           {% for block in section.blocks %}
             {% if block.type == 'banner' %}
               <div class="swiper-slide" {{ block.shopify_attributes }}>
-                <div class="wg-cls-2 hover-img">
-                  {% if block.settings.link != blank %}
-                    <a href="{{ block.settings.link }}" class="img-style img-box">
-                  {% else %}
-                    <div class="img-style img-box">
-                  {% endif %}
-                    {% if block.settings.image %}
-                      {{
-                        block.settings.image
-                        | image_url: width: 800
-                        | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
-                      }}
+                {% if section.settings.layout == 'layout2' %}
+                  <div class="banner-shop style-bottom style-bottom2 hover-img">
+                    {% if block.settings.link != blank %}
+                      <a href="{{ block.settings.link }}" class="img-style d-block">
                     {% else %}
-                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      <div class="img-style d-block">
                     {% endif %}
-                  {% if block.settings.link != blank %}
-                    </a>
-                  {% else %}
-                    </div>
-                  {% endif %}
-                  <div class="content">
-                    <div class="box-title">
-                      {% if block.settings.link != blank %}
-                        <{{ block.settings.title_size }} class="title">
-                          <a href="{{ block.settings.link }}" class="link">{{ block.settings.title }}</a>
-                        </{{ block.settings.title_size }}>
+                      {% if block.settings.image %}
+                        {{
+                          block.settings.image
+                          | image_url: width: 800
+                          | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
+                        }}
                       {% else %}
-                        <{{ block.settings.title_size }} class="title">{{ block.settings.title }}</{{ block.settings.title_size }}>
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                       {% endif %}
-                      <p class="{{ block.settings.subtitle_size }} text-main">{{ block.settings.subtitle }}</p>
-                    </div>
-                    {% if block.settings.link != blank and block.settings.button_text != blank %}
-                      <a href="{{ block.settings.link }}" class="tf-btn animate-btn">{{ block.settings.button_text }}</a>
+                    {% if block.settings.link != blank %}
+                      </a>
+                    {% else %}
+                      </div>
                     {% endif %}
+                    <div class="content text-center wow fadeInUp">
+                      <div class="box-title">
+                        {% if block.settings.link != blank %}
+                          <h5 class="display-sm-2">
+                            <a href="{{ block.settings.link }}" class="text-white link">{{ block.settings.title }}</a>
+                          </h5>
+                        {% else %}
+                          <h5 class="display-sm-2 text-white">{{ block.settings.title }}</h5>
+                        {% endif %}
+                        <p class="text-white text-md">{{ block.settings.subtitle }}</p>
+                      </div>
+                      {% if block.settings.link != blank and block.settings.button_text != blank %}
+                        <a href="{{ block.settings.link }}" class="tf-btn btn-white hover-dark">{{ block.settings.button_text }}</a>
+                      {% endif %}
+                    </div>
                   </div>
-                </div>
+                {% else %}
+                  <div class="wg-cls-2 hover-img">
+                    {% if block.settings.link != blank %}
+                      <a href="{{ block.settings.link }}" class="img-style img-box">
+                    {% else %}
+                      <div class="img-style img-box">
+                    {% endif %}
+                      {% if block.settings.image %}
+                        {{
+                          block.settings.image
+                          | image_url: width: 800
+                          | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
+                        }}
+                      {% else %}
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    {% if block.settings.link != blank %}
+                      </a>
+                    {% else %}
+                      </div>
+                    {% endif %}
+                    <div class="content">
+                      <div class="box-title">
+                        {% if block.settings.link != blank %}
+                          <{{ block.settings.title_size }} class="title">
+                            <a href="{{ block.settings.link }}" class="link">{{ block.settings.title }}</a>
+                          </{{ block.settings.title_size }}>
+                        {% else %}
+                          <{{ block.settings.title_size }} class="title">{{ block.settings.title }}</{{ block.settings.title_size }}>
+                        {% endif %}
+                        <p class="{{ block.settings.subtitle_size }} text-main">{{ block.settings.subtitle }}</p>
+                      </div>
+                      {% if block.settings.link != blank and block.settings.button_text != blank %}
+                        <a href="{{ block.settings.link }}" class="tf-btn animate-btn">{{ block.settings.button_text }}</a>
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
               </div>
             {% endif %}
           {% endfor %}

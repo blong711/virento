@@ -7975,6 +7975,13 @@
             "full_width": "Full width"
           }
         },
+        "layout": {
+          "label": "Layout",
+          "options": {
+            "layout1": "Layout 1",
+            "layout2": "Layout 2"
+          }
+        },
         "slider_settings": {
           "content": "Slider Settings"
         },
