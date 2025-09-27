@@ -194,11 +194,67 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "quick_add_products_RFebqd": {
+      "type": "quick-add-products",
+      "blocks": {
+        "product_EQXnpT": {
+          "type": "product",
+          "settings": {
+            "product": "aeron-chair",
+            "custom_vendor": "",
+            "custom_title": "",
+            "product_features": "Boosts Performance. Supports Muscle Growth. Speeds Up Recovery"
+          }
+        },
+        "product_nAhzJa": {
+          "type": "product",
+          "settings": {
+            "product": "gesture-chair",
+            "custom_vendor": "",
+            "custom_title": "",
+            "product_features": "Clean Formula. Tested Ingredients. Fast Absorption"
+          }
+        },
+        "product_WXfFpc": {
+          "type": "product",
+          "settings": {
+            "product": "neuechair™",
+            "custom_vendor": "",
+            "custom_title": "",
+            "product_features": "Natural Ingredients. No Side Effects. Clinically Proven"
+          }
+        }
+      },
+      "block_order": [
+        "product_EQXnpT",
+        "product_nAhzJa",
+        "product_WXfFpc"
+      ],
+      "name": "t:sections.quick-add-products.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container-full",
+        "title": "Featured Products",
+        "title_tag": "h4",
+        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle_size": "text-md",
+        "layout": "layout-2",
+        "show_dots_mobile": true,
+        "products_per_row_desktop": "3",
+        "products_per_row_tablet": "3",
+        "products_per_row_mobile": "1",
+        "show_product_features": true,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "main_slider",
     "icon_box_WhtNfz",
-    "banner_swiper_EmaKGR"
+    "banner_swiper_EmaKGR",
+    "quick_add_products_RFebqd"
   ]
 }
