@@ -324,13 +324,13 @@
                     <div class="content text-center wow fadeInUp">
                       <div class="box-title">
                         {% if block.settings.link != blank %}
-                          <h5 class="display-sm-2">
+                          <{{ block.settings.title_size }} class="text-white">
                             <a href="{{ block.settings.link }}" class="text-white link">{{ block.settings.title }}</a>
-                          </h5>
+                          </{{ block.settings.title_size }}>
                         {% else %}
-                          <h5 class="display-sm-2 text-white">{{ block.settings.title }}</h5>
+                          <{{ block.settings.title_size }} class="text-white">{{ block.settings.title }}</{{ block.settings.title_size }}>
                         {% endif %}
-                        <p class="text-white text-md">{{ block.settings.subtitle }}</p>
+                        <p class="{{ block.settings.subtitle_size }} text-white">{{ block.settings.subtitle }}</p>
                       </div>
                       {% if block.settings.link != blank and block.settings.button_text != blank %}
                         <a href="{{ block.settings.link }}" class="tf-btn btn-white hover-dark">{{ block.settings.button_text }}</a>
