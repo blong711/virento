@@ -16,12 +16,12 @@
           "type": "slide",
           "settings": {
             "color_scheme": "scheme-1",
-            "image": "shopify://shop_images/ergonic-chair-slider-1.jpg",
-            "heading": "Ergonomic Excellence",
+            "image": "shopify://shop_images/chair1.jpg",
+            "heading": "Work Smarter, Sit Better",
             "heading_size": "display-md",
             "heading_weight": "fw-semibold",
-            "description": "Experience ultimate comfort with our premium ergonomic chairs designed for your well-being.",
-            "subheading": "Premium Quality",
+            "description": "Explore ergonomic desks and chairs that support posture, boost  focus, and keep you comfortable — anywhere you work.",
+            "subheading": "Form Meets Function.",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
@@ -33,46 +33,28 @@
           "type": "slide",
           "settings": {
             "color_scheme": "scheme-1",
-            "image": "shopify://shop_images/ergonic-chair-slider-2.jpg",
-            "heading": "Perfect Posture Support",
+            "image": "shopify://shop_images/chair1.jpg",
+            "heading": "Work Smarter, Sit Better",
             "heading_size": "display-md",
             "heading_weight": "fw-semibold",
-            "description": "Advanced lumbar support and adjustable features for all-day comfort and productivity.",
-            "subheading": "Health First",
+            "description": "Explore ergonomic desks and chairs that support posture, boost  focus, and keep you comfortable — anywhere you work.",
+            "subheading": "Form Meets Function.",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "shopify://collections/ergonomic-chairs",
-            "button_text": "Learn More"
-          }
-        },
-        "slide-3": {
-          "type": "slide",
-          "settings": {
-            "color_scheme": "scheme-1",
-            "image": "shopify://shop_images/ergonic-chair-slider-3.jpg",
-            "heading": "Professional Grade",
-            "heading_size": "display-md",
-            "heading_weight": "fw-semibold",
-            "description": "Built for professionals who demand the best in comfort, durability, and style.",
-            "subheading": "Work Better",
-            "box_bg_class": "",
-            "content_alignment": "col-12 col-sm-6 col-lg-5",
-            "text_size": "text-md",
-            "button_link": "shopify://collections/ergonomic-chairs",
-            "button_text": "Shop Collection"
+            "button_text": "Shop Now"
           }
         }
       },
       "block_order": [
         "slide-1",
-        "slide-2",
-        "slide-3"
+        "slide-2"
       ],
       "settings": {
         "color_scheme": "scheme-1",
         "layout_style": "default",
-        "width": "container",
+        "width": "",
         "height": "adapt-first",
         "height_fixed": 600,
         "mobile_height": "adapt-first",
@@ -81,18 +63,81 @@
         "autoplay_speed": 5,
         "pause_on_hover": true,
         "draggable": true,
-        "show_arrows": true,
+        "show_arrows": false,
         "show_arrows_mobile": true,
         "show_dots": true,
-        "dots_style": "style-1",
+        "dots_style": "style-2",
         "button_animate": true,
         "padding_top": 0,
         "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
+    },
+    "icon_box_WhtNfz": {
+      "type": "icon-box",
+      "blocks": {
+        "icon_box_XLrjWe": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-shipping",
+            "custom_svg": "",
+            "icon_size": 28,
+            "title": "Free Shipping on Orders Over $120",
+            "title_size": 16,
+            "description": "",
+            "description_size": 14
+          }
+        },
+        "icon_box_AdAUec": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-return",
+            "custom_svg": "",
+            "icon_size": 28,
+            "title": "Versatile and Adaptable Payment Solutions",
+            "title_size": 16,
+            "description": "",
+            "description_size": 14
+          }
+        },
+        "icon_box_KcUCKg": {
+          "type": "icon_box",
+          "settings": {
+            "icon_class": "icon-support",
+            "custom_svg": "",
+            "icon_size": 28,
+            "title": "14-Day Hassle-Free Return Policy",
+            "title_size": 16,
+            "description": "",
+            "description_size": 14
+          }
+        }
+      },
+      "block_order": [
+        "icon_box_XLrjWe",
+        "icon_box_AdAUec",
+        "icon_box_KcUCKg"
+      ],
+      "name": "t:sections.icon-box.preset.name",
+      "settings": {
+        "color_scheme": "scheme-5",
+        "width": "container",
+        "icon_position_center": false,
+        "line_top": true,
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 3,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "icon_style": "default",
+        "show_border": true,
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
-    "main_slider"
+    "main_slider",
+    "icon_box_WhtNfz"
   ]
 }
