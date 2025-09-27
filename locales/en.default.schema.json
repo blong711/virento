@@ -8142,6 +8142,13 @@
         "product_blocks_header": {
           "content": "Product Blocks"
         },
+        "layout": {
+          "label": "Layout Style",
+          "options": {
+            "layout_1": { "label": "Layout 1 (Background Image)" },
+            "layout_2": { "label": "Layout 2 (Featured Products)" }
+          }
+        },
         "slider_settings_header": {
           "content": "Slider Settings"
         },
