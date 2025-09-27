@@ -134,10 +134,71 @@
         "padding_bottom": 32,
         "padding_mobile_rate": 75
       }
+    },
+    "banner_swiper_EmaKGR": {
+      "type": "banner-swiper",
+      "blocks": {
+        "banner_GAghW4": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/chair1_1.jpg",
+            "title": "Everyday Essentials",
+            "title_size": "h6",
+            "subtitle": "Timeless pieces built for daily comfort and function.",
+            "subtitle_size": "text-md",
+            "link": "shopify://collections",
+            "button_text": "Shop Now"
+          }
+        },
+        "banner_ftiDkw": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/chair2.jpg",
+            "title": "Modern Workspace",
+            "title_size": "h6",
+            "subtitle": "Ergonomic designs that boost productivity in style.",
+            "subtitle_size": "text-md",
+            "link": "shopify://collections",
+            "button_text": "Shop Now"
+          }
+        },
+        "banner_HkzhnM": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/chair3.jpg",
+            "title": "Luxe Living",
+            "title_size": "h6",
+            "subtitle": "Elegant comfort crafted to elevate your space.",
+            "subtitle_size": "text-md",
+            "link": "shopify://collections",
+            "button_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "banner_GAghW4",
+        "banner_ftiDkw",
+        "banner_HkzhnM"
+      ],
+      "name": "t:sections.banner-swiper.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "show_arrows": false,
+        "show_pagination": true,
+        "space_between": 12,
+        "space_between_tablet": 12,
+        "space_between_desktop": 24,
+        "layout": "layout2",
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
     "main_slider",
-    "icon_box_WhtNfz"
+    "icon_box_WhtNfz",
+    "banner_swiper_EmaKGR"
   ]
 }
