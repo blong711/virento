@@ -1,5 +1,9 @@
 {% comment %} Banner Collection {% endcomment %}
-<section class="s-banner-colection banner-cls-electric-acc style-abs-2 flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+{% if section.settings.layout == 'layout-2' %}
+  <section class="flat-spacing-3 pt-0 s-banner-colection style-lg style-abs color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+{% else %}
+  <section class="s-banner-colection banner-cls-electric-acc style-abs-2 flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+{% endif %}
   <div class="{{ section.settings.width }}">
     <div class="banner-content">
       <div class="image">
@@ -15,7 +19,7 @@
           {{
             section.settings.banner_image
             | image_url: width: 1920
-            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax desktop-only', alt: desktop_alt
+            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax desktop-only', alt: desktop_alt, height: 'auto'
             | escape
           }}
         {% else %}
@@ -31,7 +35,7 @@
           {{
             section.settings.banner_image_mobile
             | image_url: width: 767
-            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax mobile-only', alt: mobile_alt
+            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax mobile-only', alt: mobile_alt, height: 'auto'
             | escape
           }}
         {% elsif section.settings.banner_image %}
@@ -42,37 +46,68 @@
           {{
             section.settings.banner_image
             | image_url: width: 767
-            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax mobile-only', alt: mobile_fallback_alt
+            | image_tag: loading: 'lazy', class: 'lazyload effect-paralax mobile-only', alt: mobile_fallback_alt, height: 'auto'
             | escape
           }}
         {% else %}
           {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg mobile-only'}}
         {% endif %}
       </div>
-      <div class="box-content text-{{ section.settings.content_alignment }}">
-        <div class="box-title-banner">
-          {% if section.settings.title != blank %}
-            <p class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }}">
-              {{ section.settings.title }}
-            </p>
-          {% endif %}
-          {% if section.settings.subtitle != blank %}
-            <p class="sub {{ section.settings.subtitle_font_size }}" style="color: rgb(var(--color-foreground2));">
-              {{ section.settings.subtitle }}
-            </p>
+      {% if section.settings.layout == 'layout-2' %}
+        <div class="box-content wow fadeInUp">
+          <div class="box-title-banner">
+            {% if section.settings.title != blank %}
+              <h3 class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }} text-white">
+                {{ section.settings.title }}
+              </h3>
+            {% endif %}
+            {% if section.settings.subtitle != blank %}
+              <p class="sub {{ section.settings.subtitle_font_size }} text-white">
+                {{ section.settings.subtitle }}
+              </p>
+            {% endif %}
+          </div>
+          {% if section.settings.button_label != blank %}
+            <div class="box-btn-banner">
+              <a href="{{ section.settings.button_link | default: '#' }}" class="tf-btn btn-white animate-btn animate-dark">
+                {{ section.settings.button_label }}
+                {% if section.settings.button_icon %}
+                  <img class="icon" width="24" height="24" src="{{ section.settings.button_icon | image_url: width: 24 }}" alt="{{ section.settings.button_label }}">
+                {% endif %}
+              </a>
+            </div>
           {% endif %}
         </div>
-        {% if section.settings.button_label != blank %}
-          <div class="box-btn-banner">
-            <a href="{{ section.settings.button_link | default: '#' }}" class="tf-btn btn-dark2 animate-btn">
-              {{ section.settings.button_label }}
-            </a>
+      {% else %}
+        <div class="box-content text-{{ section.settings.content_alignment }}">
+          <div class="box-title-banner">
+            {% if section.settings.title != blank %}
+              <p class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }}">
+                {{ section.settings.title }}
+              </p>
+            {% endif %}
+            {% if section.settings.subtitle != blank %}
+              <p class="sub {{ section.settings.subtitle_font_size }}" style="color: rgb(var(--color-foreground2));">
+                {{ section.settings.subtitle }}
+              </p>
+            {% endif %}
           </div>
-        {% endif %}
-      </div>
+          {% if section.settings.button_label != blank %}
+            <div class="box-btn-banner">
+              <a href="{{ section.settings.button_link | default: '#' }}" class="tf-btn btn-dark2 animate-btn">
+                {{ section.settings.button_label }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
     </div>
   </div>
+{% if section.settings.layout == 'layout-2' %}
 </section>
+{% else %}
+</section>
+{% endif %}
 
 {% schema %}
 {
@@ -99,6 +134,22 @@
         }
       ],
       "default": "container"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "layout-1",
+          "label": "Layout 1 (Original)"
+        },
+        {
+          "value": "layout-2",
+          "label": "Layout 2 (Modern)"
+        }
+      ],
+      "default": "layout-1"
     },
     {
       "type": "header",
@@ -206,6 +257,11 @@
       "label": "t:sections.collection-banner.settings.button_link"
     },
     {
+      "type": "image_picker",
+      "id": "button_icon",
+      "label": "Button Icon (for Layout 2)"
+    },
+    {
       "type": "select",
       "id": "content_position",
       "label": "t:sections.collection-banner.settings.content_position",
@@ -287,8 +343,8 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
-      "step": 1,
+      "max": 120,
+      "step": 2,
       "unit": "px",
       "label": "t:sections.all.padding.padding_top",
       "default": 0
@@ -297,8 +353,8 @@
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
-      "step": 1,
+      "max": 120,
+      "step": 2,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 0
@@ -356,49 +412,60 @@
   }
 
   @media (min-width: 768px) {
-      .banner-cls-electric-acc.style-abs-2 .box-content {
-          width: {{ section.settings.content_width }}px;
-          padding: 30px 64px;
-          position: absolute;
-          {% case section.settings.content_position %}
-              {% when 'top-left' %}
-                  top: 64px;
-                  left: 30%;
-                  transform: translateX(-50%);
-              {% when 'top-center' %}
-                  top: 64px;
-                  left: 50%;
-                  transform: translateX(-50%);
-              {% when 'top-right' %}
-                  top: 64px;
-                  right: 64px;
-                  left: 70%;
-                  transform: translateX(-50%);
-              {% when 'center-left' %}
-                  top: 50%;
-                  left: 64px;
-                  transform: translateY(-50%);
-              {% when 'center' %}
-                  top: 50%;
-                  left: 50%;
-                  transform: translate(-50%, -50%);
-              {% when 'center-right' %}
-                  top: 50%;
-                  left: 50%;
-                  transform: translateY(-50%);
-              {% when 'bottom-left' %}
-                  left: 30%;
-                  top: 40%;
-                  transform: translateX(-50%);
-              {% when 'bottom-center' %}
-                  left: 50%;
-                  top: 40%;
-                  transform: translateX(-50%);
-              {% when 'bottom-right' %}
-                  left: 70%;
-                  top: 40%;
-                  transform: translateX(-50%);
-          {% endcase %}
-      }
+      {% if section.settings.layout == 'layout-2' %}
+          .style-lg.style-abs .box-content {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              text-align: center;
+              z-index: 2;
+          }
+      {% else %}
+          .banner-cls-electric-acc.style-abs-2 .box-content {
+              width: {{ section.settings.content_width }}px;
+              padding: 30px 64px;
+              position: absolute;
+              {% case section.settings.content_position %}
+                  {% when 'top-left' %}
+                      top: 64px;
+                      left: 30%;
+                      transform: translateX(-50%);
+                  {% when 'top-center' %}
+                      top: 64px;
+                      left: 50%;
+                      transform: translateX(-50%);
+                  {% when 'top-right' %}
+                      top: 64px;
+                      right: 64px;
+                      left: 70%;
+                      transform: translateX(-50%);
+                  {% when 'center-left' %}
+                      top: 50%;
+                      left: 64px;
+                      transform: translateY(-50%);
+                  {% when 'center' %}
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                  {% when 'center-right' %}
+                      top: 50%;
+                      left: 50%;
+                      transform: translateY(-50%);
+                  {% when 'bottom-left' %}
+                      left: 30%;
+                      top: 40%;
+                      transform: translateX(-50%);
+                  {% when 'bottom-center' %}
+                      left: 50%;
+                      top: 40%;
+                      transform: translateX(-50%);
+                  {% when 'bottom-right' %}
+                      left: 70%;
+                      top: 40%;
+                      transform: translateX(-50%);
+              {% endcase %}
+          }
+      {% endif %}
   }
 {% endstyle %}
