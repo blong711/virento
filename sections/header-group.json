@@ -17,7 +17,11 @@
         "announcement_b4ry97": {
           "type": "announcement",
           "settings": {
-            "messages": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer"
+            "messages": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer",
+            "enable_countdown": true,
+            "countdown_prefix": "WINTER SALE 75% OFF. Ends in:",
+            "countdown_seconds": 900610,
+            "countdown_labels": "DAYS : , HOURS : , MINUTES : , SECONDS"
           }
         }
       },
