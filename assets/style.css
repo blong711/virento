@@ -15382,11 +15382,56 @@ button.animate-btn::after,
 
 .thumbs-bottom .tf-product-media-thumbs {
   order: 1;
+  width: 100% !important;
+  max-height: none !important;
+  height: auto !important;
+  flex-direction: row !important;
+  display: flex !important;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.thumbs-bottom .tf-product-media-thumbs .swiper-wrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 10px;
+  width: auto !important;
+  transform: none !important;
+}
+
+.thumbs-bottom .tf-product-media-thumbs .swiper-slide {
+  width: 120px !important;
+  height: 120px !important;
+  flex-shrink: 0;
+  margin-right: 0 !important;
+  display: inline-block !important;
+}
+
+/* Fallback for when swiper is not working */
+.thumbs-bottom .tf-product-media-thumbs .swiper-slide {
+  float: left;
+  position: relative;
+}
+
+.thumbs-bottom .tf-product-media-thumbs .swiper-slide .item {
+  width: 120px;
+  height: 120px;
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.thumbs-bottom .tf-product-media-thumbs .swiper-slide .item img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .thumbs-bottom .flat-wrap-media-product {
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .tf-product-media-thumbs {
@@ -26137,19 +26182,30 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   }
 
   .slider-scroll,
-  .thumbs-slider {
+  .thumbs-slider:not(.thumbs-bottom) {
     flex-direction: column;
   }
 
   .slider-scroll .flat-wrap-media-product,
-  .thumbs-slider .flat-wrap-media-product {
+  .thumbs-slider:not(.thumbs-bottom) .flat-wrap-media-product {
     width: 100%;
   }
 
   .slider-scroll .tf-product-media-thumbs,
-  .thumbs-slider .tf-product-media-thumbs {
+  .thumbs-slider:not(.thumbs-bottom) .tf-product-media-thumbs {
     order: 1;
     width: 100%;
+  }
+
+  /* Responsive for thumbs-bottom on mobile */
+  .thumbs-bottom .tf-product-media-thumbs .swiper-slide {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .thumbs-bottom .tf-product-media-thumbs .swiper-slide .item {
+    width: 100px;
+    height: 100px;
   }
 
   .tab-vertical-product-desc {

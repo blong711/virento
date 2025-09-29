@@ -82,7 +82,10 @@
         <div class="col-md-6">
           {% if section.settings.layout == 'default' %}
             <div class="tf-product-media-wrap sticky-top">
-              <div class="thumbs-slider" id="gallery-started">
+              <div
+                class="thumbs-slider {% if section.settings.thumbnail_position == 'bottom' %}thumbs-bottom{% endif %}"
+                id="gallery-started"
+              >
                 {% if section.settings.thumbnail_position == 'left' %}
                   <div dir="ltr" class="swiper tf-product-media-thumbs" data-preview="4" data-direction="vertical">
                     <div class="swiper-wrapper stagger-wrap">
@@ -241,6 +244,54 @@
                                 <img
                                   class="lazyload"
                                   src="{{ media.preview_image | image_url: width: 100 }}"
+                                  alt="{{ 'sections.product.model_thumbnail' | t }}"
+                                  width="100"
+                                  height="150"
+                                >
+                            {% endcase %}
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+                {% if section.settings.thumbnail_position == 'bottom' %}
+                  <div dir="ltr" class="swiper tf-product-media-thumbs" data-preview="4" data-direction="horizontal">
+                    <div class="swiper-wrapper stagger-wrap">
+                      {% for media in product.media %}
+                        <div
+                          class="swiper-slide stagger-item"
+                          data-media-type="{{ media.media_type }}"
+                          data-media-id="{{ media.id }}"
+                        >
+                          <div class="item">
+                            {% case media.media_type %}
+                              {% when 'image' %}
+                                <img
+                                  class="lazyload"
+                                  src="{{ media | image_url: width: 400 }}"
+                                  alt="{{ media.alt | default: product.title }}"
+                                  width="100"
+                                  height="150"
+                                >
+                              {% when 'video' %}
+                                <div class="wrap-btn-viewer style-video">
+                                  <i class="icon icon-video"></i>
+                                </div>
+                                <img
+                                  class="lazyload"
+                                  src="{{ media.preview_image | image_url: width: 400 }}"
+                                  alt="{{ 'sections.product.video_thumbnail' | t }}"
+                                  width="100"
+                                  height="150"
+                                >
+                              {% when 'model' %}
+                                <div class="wrap-btn-viewer">
+                                  <i class="icon icon-btn3d"></i>
+                                </div>
+                                <img
+                                  class="lazyload"
+                                  src="{{ media.preview_image | image_url: width: 400 }}"
                                   alt="{{ 'sections.product.model_thumbnail' | t }}"
                                   width="100"
                                   height="150"
@@ -814,7 +865,6 @@
                                 {{ form | payment_button }}
                               {% endform %}
                             {% endif %}
-
                           </div>
                         {% endif %}
                     {% endcase %}
@@ -1661,6 +1711,10 @@
         {
           "value": "right",
           "label": "t:sections.main-product.settings.thumbnail_position.options.right.label"
+        },
+        {
+          "value": "bottom",
+          "label": "t:sections.main-product.settings.thumbnail_position.options.bottom.label"
         }
       ],
       "default": "left",

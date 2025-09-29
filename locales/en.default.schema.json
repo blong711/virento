@@ -2709,6 +2709,9 @@
             },
             "right": {
               "label": "Right"
+            },
+            "bottom": {
+              "label": "Bottom"
             }
           },
           "info": "Choose the position of thumbnails in default layout"
