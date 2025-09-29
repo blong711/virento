@@ -265,7 +265,7 @@
         "subtitle_font_size": "text-md",
         "button_label": "Shop Now",
         "button_link": "",
-        "content_position": "center-left",
+        "content_position": "bottom-left",
         "content_alignment": "start",
         "content_width": 478,
         "padding_top": 0,
