@@ -371,11 +371,11 @@
   <div class="{{ section.settings.width }}">
     <div class="flat-title style-between align-items-end wow fadeInUp {% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
       <div class="box-title{% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
-        <{{ section.settings.title_tag }} class="title {{ section.settings.title_font }}" style="color: rgb(var(--color-foreground2));">
+        <{{ section.settings.title_tag }} class="title {{ section.settings.title_font }}" style="color: rgb(var(--color-foreground));">
           {{- section.settings.title -}}
         </{{ section.settings.title_tag }}>
         {% if section.settings.subtitle != blank %}
-          <p class="desc {{ section.settings.subtitle_size }} {{ section.settings.subtitle_font }}" style="color: rgb(var(--color-foreground), 0.7);">
+          <p class="desc {{ section.settings.subtitle_size }} {{ section.settings.subtitle_font }}" style="color: rgb(var(--color-foreground2));">
             {{ section.settings.subtitle }}
           </p>
         {% endif %}

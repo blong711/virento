@@ -27105,8 +27105,8 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   h4,
   .display-md,
   .display-md-2 {
-    font-size: 26px;
-    line-height: 28px;
+    font-size: 24px;
+    line-height: 32px;
   }
 
   h5,
@@ -27455,7 +27455,7 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle {
   .tf-btn {
     font-size: 14px;
     line-height: 24px;
-    padding: 8px 20px;
+    padding: 6px 20px;
   }
 
   .s-contact.style-2 .content-left {
