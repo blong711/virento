@@ -255,7 +255,7 @@
         "color_scheme": "scheme-1",
         "width": "container",
         "title_alignment": "start",
-        "title": "Collection Slider",
+        "title": "",
         "title_tag": "h4",
         "collection_list": [
           "spring-steps",
