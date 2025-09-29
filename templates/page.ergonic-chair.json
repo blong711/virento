@@ -287,7 +287,13 @@
         "subtitle_size": "text-md",
         "subtitle_font": "",
         "featured_collection": "",
-        "product_list": [],
+        "product_list": [
+          "novo-chair",
+          "mini-standing-desk",
+          "seashell-chair",
+          "muse-chair",
+          "gesture-chair"
+        ],
         "products_to_show": 6,
         "show_navigation": true,
         "navigation_style": "individual",
