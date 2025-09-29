@@ -2229,8 +2229,8 @@ a:hover {
 
 .tf-topbar .marquee-wrapper {
   display: flex;
-  animation: infiniteScroll 20s linear infinite;
   align-items: center;
+  animation: 30s linear 0s infinite normal none running infiniteScroll;
   transition: animation-duration 300ms;
 }
 
@@ -7411,8 +7411,8 @@ a:hover {
 
 .tf-topbar .marquee-wrapper {
   display: flex;
-  animation: infiniteScroll 20s linear infinite;
   align-items: center;
+  animation: 30s linear 0s infinite normal none running infiniteScroll;
   transition: animation-duration 300ms;
 }
 

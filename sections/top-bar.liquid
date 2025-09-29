@@ -79,6 +79,30 @@
           "label": "t:sections.top_bar.blocks.announcement.settings.messages.label",
           "default": "t:sections.top_bar.blocks.announcement.settings.messages.default",
           "info": "t:sections.top_bar.blocks.announcement.settings.messages.info"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_countdown",
+          "label": "Enable countdown",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "countdown_prefix",
+          "label": "Countdown prefix text",
+          "default": "WINTER SALE 75% OFF. Ends in:"
+        },
+        {
+          "type": "number",
+          "id": "countdown_seconds",
+          "label": "Countdown seconds (total)",
+          "default": 900610
+        },
+        {
+          "type": "text",
+          "id": "countdown_labels",
+          "label": "Countdown labels (comma-separated)",
+          "default": " DAYS : , HOURS : , MINUTES : , SECONDS"
         }
       ],
       "limit": 1
@@ -159,8 +183,10 @@
   class="tf-topbar topbar-md color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}{% if section.settings.capitalize_text %} marquee-topbar{% endif %}"
 >
   <div class="{{ section.settings.width }}">
-    <div class="row justify-content-center">
-      <div class="col-xl-6">
+    {%- if section.blocks.size == 1 and section.blocks.first.type == 'announcement' -%}
+      <div class="row justify-content-center">
+        <div class="col-xl-6">
+    {%- endif -%}
         <div class="topbar-wraper">
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -244,19 +270,28 @@
                   <div class="topbar-center marquee-wrapper">
                     <div class="initial-child-container">
                       {%- assign messages = block.settings.messages | split: ',' -%}
-                      {% for i in (1..5) %}
-                        {%- for message in messages -%}
+                      {%- if block.settings.enable_countdown -%}
+                        {% for i in (1..8) %}
                           <div class="marquee-child-item">
-                            <p>{{ message | strip }}</p>
+                            {{ block.settings.countdown_prefix | escape }}&nbsp;
+                            <div class="js-countdown d-flex justify-content-center" data-timer="{{ block.settings.countdown_seconds }}" data-labels="{{ block.settings.countdown_labels }}"></div>
                           </div>
-                          {%- unless forloop.last -%}
+                        {% endfor %}
+                      {%- else -%}
+                        {% for i in (1..5) %}
+                          {%- for message in messages -%}
+                            <div class="marquee-child-item">
+                              <p>{{ message | strip }}</p>
+                            </div>
+                            {%- unless forloop.last -%}
+                              <div class="marquee-child-item"><span class="dot"></span></div>
+                            {%- endunless -%}
+                          {%- endfor -%}
+                          {%- if messages.size > 0 -%}
                             <div class="marquee-child-item"><span class="dot"></span></div>
-                          {%- endunless -%}
-                        {%- endfor -%}
-                        {%- if messages.size > 0 -%}
-                          <div class="marquee-child-item"><span class="dot"></span></div>
-                        {%- endif -%}
-                      {% endfor %}
+                          {%- endif -%}
+                        {% endfor %}
+                      {%- endif -%}
                     </div>
                   </div>
                 </div>
@@ -343,8 +378,10 @@
             </div>
           {%- endif -%}
         </div>
+    {%- if section.blocks.size == 1 and section.blocks.first.type == 'announcement' -%}
       </div>
     </div>
+    {%- endif -%}
   </div>
 </div>
 
