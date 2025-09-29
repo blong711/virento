@@ -348,8 +348,88 @@
         "space_between": 12,
         "space_between_tablet": 12,
         "space_between_desktop": 24,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
+    },
+    "brands_q8UVpN": {
+      "type": "brands",
+      "blocks": {
+        "brand_Fy9Pkr": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/zara.png",
+            "brand_name": "zara",
+            "brand_link": ""
+          }
+        },
+        "brand_giV8pw": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/bear.png",
+            "brand_name": "bear",
+            "brand_link": ""
+          }
+        },
+        "brand_zAkiED": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/nike.png",
+            "brand_name": "",
+            "brand_link": ""
+          }
+        },
+        "brand_HqCTMe": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/asos_1.png",
+            "brand_name": "asos",
+            "brand_link": ""
+          }
+        },
+        "brand_BweXPQ": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/burberry.png",
+            "brand_name": "burberry",
+            "brand_link": ""
+          }
+        },
+        "brand_cAm3YJ": {
+          "type": "brand",
+          "settings": {
+            "brand_image": "shopify://shop_images/forever.png",
+            "brand_name": "forever",
+            "brand_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "brand_Fy9Pkr",
+        "brand_giV8pw",
+        "brand_zAkiED",
+        "brand_HqCTMe",
+        "brand_BweXPQ",
+        "brand_cAm3YJ"
+      ],
+      "name": "t:sections.brands.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "show_border": true,
+        "title_alignment": "start",
+        "title": "",
+        "title_tag": "h4",
+        "subtitle": "",
+        "subtitle_size": "text-md",
+        "show_navigation": false,
+        "show_mobile_dots": true,
+        "items_per_row_desktop": 6,
+        "items_per_row_tablet": 4,
+        "items_per_row_mobile": 3,
         "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_bottom": 100,
         "padding_mobile_rate": 75
       }
     }
@@ -361,6 +441,7 @@
     "quick_add_products_RFebqd",
     "collection_banner_MLBMXr",
     "featured_product_carousel_3TL7jk",
-    "testimonial_swiper_Qxk6hR"
+    "testimonial_swiper_Qxk6hR",
+    "brands_q8UVpN"
   ]
 }
