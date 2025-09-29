@@ -183,6 +183,28 @@
           "primary_input": "#ffffff",
           "secondary_input": "#f5f5f5"
         }
+      },
+      "scheme-df5096e5-9412-4cdf-82ea-1adacc1c4967": {
+        "settings": {
+          "background": "#219913",
+          "background_gradient": "",
+          "background2": "#f5f5f5",
+          "text": "#000000",
+          "link": "#121212",
+          "link_hover": "#ff6f61",
+          "text2": "#686868",
+          "text3": "#8f6dff",
+          "text_hover": "#ff6f61",
+          "button": "#101828",
+          "button_label": "#ffffff",
+          "button_outline": "#121212",
+          "button_hover": "#101828",
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ffffff",
+          "shadow": "#121212",
+          "primary_input": "#ffffff",
+          "secondary_input": "#f5f5f5"
+        }
       }
     }
   },
