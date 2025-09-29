@@ -21,6 +21,7 @@
     "body_font_family": "\"Poppins\", sans-serif",
     "body_font_weight": 400,
     "heading_scale": 100,
+    "heading_line_height": 100,
     "body_scale": 100,
     "body_size_mobile": 14,
     "body_size_desktop": 14,
