@@ -237,7 +237,7 @@
         "width": "container-full",
         "title": "Featured Products",
         "title_tag": "h4",
-        "subtitle": "Explore our most popular pieces that customers can't get enough of",
+        "subtitle": "",
         "subtitle_size": "text-md",
         "layout": "layout-2",
         "show_dots_mobile": true,
