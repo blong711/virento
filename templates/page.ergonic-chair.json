@@ -272,6 +272,84 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "featured_product_carousel_3TL7jk": {
+      "type": "featured-product-carousel",
+      "name": "t:sections.featured-product-carousel.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "title_alignment": "center",
+        "title": "Best Sellers",
+        "title_tag": "h4",
+        "title_font": "",
+        "subtitle": "",
+        "subtitle_size": "text-md",
+        "subtitle_font": "",
+        "featured_collection": "",
+        "product_list": [
+          "novo-chair",
+          "mini-standing-desk",
+          "seashell-chair",
+          "muse-chair",
+          "gesture-chair"
+        ],
+        "products_to_show": 6,
+        "show_navigation": true,
+        "navigation_style": "individual",
+        "show_dots_mobile": true,
+        "products_per_row_desktop": 4,
+        "products_per_row_tablet": 3,
+        "products_per_row_mobile": 2,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_mobile_rate": 75
+      }
+    },
+    "testimonial_swiper_Qxk6hR": {
+      "type": "testimonial-swiper",
+      "blocks": {
+        "testimonial_bA4kT4": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "title": "Great quality and design",
+            "review": "This product transformed my space. Highly recommend!",
+            "author": "John D.",
+            "product_link": "",
+            "product_label": "View product"
+          }
+        },
+        "testimonial_VnM9gD": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "title": "Great quality and design",
+            "review": "This product transformed my space. Highly recommend!",
+            "author": "John D.",
+            "product_link": "",
+            "product_label": "View product"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_bA4kT4",
+        "testimonial_VnM9gD"
+      ],
+      "name": "t:sections.testimonial-swiper.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "layout": "layout-1",
+        "show_arrows": true,
+        "show_pagination": false,
+        "space_between": 12,
+        "space_between_tablet": 12,
+        "space_between_desktop": 24,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -279,6 +357,8 @@
     "icon_box_WhtNfz",
     "banner_swiper_EmaKGR",
     "quick_add_products_RFebqd",
-    "collection_banner_MLBMXr"
+    "collection_banner_MLBMXr",
+    "featured_product_carousel_3TL7jk",
+    "testimonial_swiper_Qxk6hR"
   ]
 }
