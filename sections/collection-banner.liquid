@@ -54,7 +54,7 @@
         {% endif %}
       </div>
       {% if section.settings.layout == 'layout-2' %}
-        <div class="box-content wow fadeInUp">
+        <div class="box-content text-{{ section.settings.content_alignment }} wow fadeInUp">
           <div class="box-title-banner">
             {% if section.settings.title != blank %}
               <h3 class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }} text-white">
@@ -71,9 +71,7 @@
             <div class="box-btn-banner">
               <a href="{{ section.settings.button_link | default: '#' }}" class="tf-btn btn-white animate-btn animate-dark">
                 {{ section.settings.button_label }}
-                {% if section.settings.button_icon %}
-                  <img class="icon" width="24" height="24" src="{{ section.settings.button_icon | image_url: width: 24 }}" alt="{{ section.settings.button_label }}">
-                {% endif %}
+                <img class="icon" width="24" height="24" src="{{ 'arrow-black.svg' | asset_url }}" alt="">
               </a>
             </div>
           {% endif %}
@@ -257,11 +255,6 @@
       "label": "t:sections.collection-banner.settings.button_link"
     },
     {
-      "type": "image_picker",
-      "id": "button_icon",
-      "label": "Button Icon (for Layout 2)"
-    },
-    {
       "type": "select",
       "id": "content_position",
       "label": "t:sections.collection-banner.settings.content_position",
@@ -413,13 +406,47 @@
 
   @media (min-width: 768px) {
       {% if section.settings.layout == 'layout-2' %}
-          .style-lg.style-abs .box-content {
+          .s-banner-colection.style-abs .box-content {
               position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              text-align: center;
-              z-index: 2;
+              {% case section.settings.content_position %}
+                  {% when 'top-left' %}
+                      top: 64px;
+                      left: 30%;
+                      transform: translateX(-50%);
+                  {% when 'top-center' %}
+                      top: 64px;
+                      left: 50%;
+                      transform: translateX(-50%);
+                  {% when 'top-right' %}
+                      top: 64px;
+                      right: 64px;
+                      left: 70%;
+                      transform: translateX(-50%);
+                  {% when 'center-left' %}
+                      top: 50%;
+                      left: 64px;
+                      transform: translateY(-50%);
+                  {% when 'center' %}
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                  {% when 'center-right' %}
+                      top: 50%;
+                      left: 50%;
+                      transform: translateY(-50%);
+                  {% when 'bottom-left' %}
+                      left: 30%;
+                      top: 40%;
+                      transform: translateX(-50%);
+                  {% when 'bottom-center' %}
+                      left: 50%;
+                      top: 40%;
+                      transform: translateX(-50%);
+                  {% when 'bottom-right' %}
+                      left: 70%;
+                      top: 40%;
+                      transform: translateX(-50%);
+              {% endcase %}
           }
       {% else %}
           .banner-cls-electric-acc.style-abs-2 .box-content {
