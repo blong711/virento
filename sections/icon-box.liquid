@@ -318,64 +318,67 @@
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
+    <div class="mw-1 mx-auto">    
       <div
-      dir="ltr"
-      class="swiper tf-swiper"
-      data-swiper='
-        {
-            "slidesPerView": {{ section.settings.products_per_row_mobile }},
-            "spaceBetween": 12,
-            "speed": 800,
-            "observer": true,
-            "observeParents": true,
-            "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
-            "breakpoints": {
-                "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": 12, "slidesPerGroup": {{ section.settings.products_per_row_mobile }}},
-                "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_tablet }}},
-                "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
-            }
-        }
-      '>
-      <div class="swiper-wrapper wow fadeInUp">
-        {% for block in section.blocks %}
-          {% if block.type == 'icon_box' %}
-            <div class="swiper-slide" {{ block.shopify_attributes }}>
-              <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-lg{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %}">
-                <div
-                  class="box-icon"
-                  style="--icon-size: {{ block.settings.icon_size | default: 28 }}px;"
-                >
-                  {% if block.settings.custom_svg != blank %}
-                    <div class="icon">{{ block.settings.custom_svg }}</div>
+    dir="ltr"
+    class="swiper tf-swiper"
+    data-swiper='
+      {
+          "slidesPerView": {{ section.settings.products_per_row_mobile }},
+          "spaceBetween": 12,
+          "speed": 800,
+          "observer": true,
+          "observeParents": true,
+          "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
+          "breakpoints": {
+              "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": 12, "slidesPerGroup": {{ section.settings.products_per_row_mobile }}},
+              "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_tablet }}},
+              "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
+          }
+      }
+    '>
+    <div class="swiper-wrapper wow fadeInUp">
+      {% for block in section.blocks %}
+        {% if block.type == 'icon_box' %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-lg{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %}">
+              <div
+                class="box-icon"
+                style="--icon-size: {{ block.settings.icon_size | default: 28 }}px;"
+              >
+                {% if block.settings.custom_svg != blank %}
+                  <div class="icon">{{ block.settings.custom_svg }}</div>
+                {% else %}
+                  <i class="icon {{ block.settings.icon_class }}"></i>
+                {% endif %}
+              </div>
+              <div class="content">
+                {% if block.settings.title != blank %}
+                  {% if section.settings.icon_style == 'default' %}
+                    <div class="title" style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</div>
                   {% else %}
-                    <i class="icon {{ block.settings.icon_class }}"></i>
+                    <h6 style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</h6>
                   {% endif %}
-                </div>
-                <div class="content">
-                  {% if block.settings.title != blank %}
-                    {% if section.settings.icon_style == 'default' %}
-                      <div class="title" style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</div>
-                    {% else %}
-                      <h6 style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</h6>
-                    {% endif %}
-                  {% endif %}
-                  {% if block.settings.description != blank %}
-                    <p
-                      class="{% if section.settings.icon_style == 'default' %}desc{% else %}text-sm text-main text-line-clamp-4{% endif %}"
-                      style="color: rgb(var(--color-foreground2)); max-width: 400px; font-size: {{ block.settings.description_size | default: 14 }}px;"
-                    >
-                      {{ block.settings.description }}
-                    </p>
-                  {% endif %}
-                </div>
+                {% endif %}
+                {% if block.settings.description != blank %}
+                  <p
+                    class="{% if section.settings.icon_style == 'default' %}desc{% else %}text-sm text-main text-line-clamp-4{% endif %}"
+                    style="color: rgb(var(--color-foreground2)); max-width: 400px; font-size: {{ block.settings.description_size | default: 14 }}px;"
+                  >
+                    {{ block.settings.description }}
+                  </p>
+                {% endif %}
               </div>
             </div>
-          {% endif %}
-        {% endfor %}
-      </div>
-      {% if section.settings.show_dots_mobile %}
-        <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
-      {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% if section.settings.show_dots_mobile %}
+      <div class="d-flex d-xl-none sw-dot-default sw-pagination-iconbox justify-content-center"></div>
+    {% endif %}
+  </div>
+
     </div>
   </div>
 </div>
