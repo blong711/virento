@@ -180,7 +180,7 @@
 {% endschema %}
 
 <div
-  class="tf-topbar topbar-md color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}{% if section.settings.capitalize_text %} marquee-topbar{% endif %}"
+  class="tf-topbar color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}{% if section.settings.capitalize_text %} marquee-topbar{% endif %}"
 >
   <div class="{{ section.settings.width }}">
     {%- if section.blocks.size == 1 and section.blocks.first.type == 'announcement' -%}
