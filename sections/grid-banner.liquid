@@ -5,7 +5,7 @@
         {% for block in section.blocks %}
           {% case block.type %}
             {% when 'grid_item' %}
-              <div class="item{{ forloop.index }} {% if section.blocks.size == 3 %}{% if section.settings.three_item_style == 'style1' %}wg-cls style-abs{% else %}s-cls rounded-0 style-absolute abs-left-center{% endif %}{% else %}s-cls radius-{{ section.settings.border_radius }} style-absolute abs-top-center{% endif %} {% if block.settings.hover_image %}hover-img{% endif %}" {{ block.shopify_attributes }}>
+              <div class="item{{ forloop.index }} {% if section.blocks.size == 3 %}{% if section.settings.three_item_style == 'style1' %}wg-cls style-abs{% else %}s-cls rounded-0 style-absolute abs-left-center{% endif %}{% else %}s-cls radius-20 style-absolute abs-top-center{% endif %} {% if block.settings.hover_image %}hover-img{% endif %}" {{ block.shopify_attributes }}>
                 {% if section.blocks.size == 3 %}
                   {% if section.settings.three_item_style == 'style1' %}
                     <a href="{{ block.settings.link }}" class="image img-style d-block">
