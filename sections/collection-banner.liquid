@@ -54,7 +54,7 @@
         {% endif %}
       </div>
       {% if section.settings.layout == 'layout-2' %}
-        <div class="box-content text-{{ section.settings.content_alignment }} wow fadeInUp">
+        <div class="box-content wow fadeInUp">
           <div class="box-title-banner">
             {% if section.settings.title != blank %}
               <h3 class="title {{ section.settings.title_font_size }} {{ section.settings.title_font_weight }} text-white">
@@ -296,7 +296,7 @@
           "label": "t:sections.collection-banner.settings.content_position_options.bottom-right"
         }
       ],
-      "default": "center-left"
+      "default": "bottom-left"
     },
     {
       "type": "select",
@@ -406,48 +406,62 @@
 
   @media (min-width: 768px) {
       {% if section.settings.layout == 'layout-2' %}
-          .s-banner-colection.style-abs .box-content {
-              position: absolute;
-              {% case section.settings.content_position %}
-                  {% when 'top-left' %}
-                      top: 64px;
-                      left: 30%;
-                      transform: translateX(-50%);
-                  {% when 'top-center' %}
-                      top: 64px;
-                      left: 50%;
-                      transform: translateX(-50%);
-                  {% when 'top-right' %}
-                      top: 64px;
-                      right: 64px;
-                      left: 70%;
-                      transform: translateX(-50%);
-                  {% when 'center-left' %}
-                      top: 50%;
-                      left: 64px;
-                      transform: translateY(-50%);
-                  {% when 'center' %}
-                      top: 50%;
-                      left: 50%;
-                      transform: translate(-50%, -50%);
-                  {% when 'center-right' %}
-                      top: 50%;
-                      left: 50%;
-                      transform: translateY(-50%);
-                  {% when 'bottom-left' %}
-                      left: 30%;
-                      top: 40%;
-                      transform: translateX(-50%);
-                  {% when 'bottom-center' %}
-                      left: 50%;
-                      top: 40%;
-                      transform: translateX(-50%);
-                  {% when 'bottom-right' %}
-                      left: 70%;
-                      top: 40%;
-                      transform: translateX(-50%);
-              {% endcase %}
-          }
+        .s-banner-colection.style-abs .box-content {
+            position: absolute;
+            gap: 32px;
+            {% case section.settings.content_position %}
+                {% when 'top-left' %}
+                    top: 64px;
+                    left: 64px;
+                    right: unset;
+                    bottom: unset;
+                {% when 'top-center' %}
+                    top: 64px;
+                    left: 50%;
+                    right: unset;
+                    bottom: unset;
+                    transform: translateX(-50%);
+                {% when 'top-right' %}
+                    top: 64px;
+                    right: 64px;
+                    left: unset;
+                    bottom: unset;
+                {% when 'center-left' %}
+                    top: 50%;
+                    left: 64px;
+                    right: unset;
+                    bottom: unset;
+                    transform: translateY(-50%);
+                {% when 'center' %}
+                    top: 50%;
+                    left: 50%;
+                    right: unset;
+                    bottom: unset;
+                    transform: translate(-50%, -50%);
+                {% when 'center-right' %}
+                    top: 50%;
+                    right: 64px;
+                    left: unset;
+                    bottom: unset;
+                    transform: translateY(-50%);
+                {% when 'bottom-left' %}
+                    left: 64px;
+                    bottom: 64px;
+                    right: unset;
+                    top: unset;
+                {% when 'bottom-center' %}
+                    left: 50%;
+                    bottom: 64px;
+                    right: unset;
+                    top: unset;
+                    transform: translateX(-50%);
+                {% when 'bottom-right' %}
+                    right: 64px;
+                    bottom: 64px;
+                    left: unset;
+                    top: unset;
+            {% endcase %}
+        }
       {% else %}
           .banner-cls-electric-acc.style-abs-2 .box-content {
               width: {{ section.settings.content_width }}px;
