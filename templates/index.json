@@ -89,7 +89,7 @@
       "type": "featured-product-carousel",
       "name": "t:sections.featured-product-carousel.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "width": "container",
         "title_alignment": "center",
         "title": "Today's Picks",
@@ -234,7 +234,6 @@
       "settings": {
         "color_scheme": "scheme-1",
         "width": "container",
-        "show_border": true,
         "title_alignment": "start",
         "title": "Shop by Brands",
         "title_tag": "h4",
@@ -255,6 +254,9 @@
       "settings": {
         "color_scheme": "scheme-1",
         "width": "container",
+        "title_alignment": "start",
+        "title": "Collection Slider",
+        "title_tag": "h4",
         "collection_list": [
           "spring-steps",
           "summer-soes",
@@ -444,6 +446,7 @@
         "heading_font": "font-7",
         "content_align": "center",
         "heading_spacing": 48,
+        "border_radius": 8,
         "use_dots_mobile": true,
         "items_desktop": "5",
         "items_tablet": "3",
@@ -464,10 +467,11 @@
           "settings": {
             "icon_class": "icon-shipping",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_size": 28,
             "title": "FREE DELIVERY",
-            "description": "Enjoy free delivery on all orders"
+            "title_size": 16,
+            "description": "Enjoy free delivery on all orders",
+            "description_size": 14
           }
         },
         "icon_box_4RzVU6": {
@@ -475,10 +479,11 @@
           "settings": {
             "icon_class": "icon-gift",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_size": 28,
             "title": "GIFT PACKAGE",
-            "description": "Perfectly packaged for gifting"
+            "title_size": 16,
+            "description": "Perfectly packaged for gifting",
+            "description_size": 14
           }
         },
         "icon_box_wCbCjh": {
@@ -486,10 +491,11 @@
           "settings": {
             "icon_class": "icon-return",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_size": 28,
             "title": "EASY RETURNS",
-            "description": "Within 14 days for a return"
+            "title_size": 16,
+            "description": "Within 14 days for a return",
+            "description_size": 14
           }
         },
         "icon_box_Vx4JVQ": {
@@ -497,10 +503,11 @@
           "settings": {
             "icon_class": "icon-support",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_size": 28,
             "title": "24/7 PREMIUM SUPPORT",
-            "description": "Outstanding premium support"
+            "title_size": 16,
+            "description": "Outstanding premium support",
+            "description_size": 14
           }
         }
       },
