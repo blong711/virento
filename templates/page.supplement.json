@@ -370,6 +370,7 @@
         "title_tag": "h4",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
+        "layout": "layout-1",
         "show_dots_mobile": true,
         "products_per_row_desktop": "3",
         "products_per_row_tablet": "3",
@@ -456,6 +457,28 @@
         "padding_bottom": 120,
         "padding_mobile_rate": 75
       }
+    },
+    "collection_banner_PhMX9C": {
+      "type": "collection-banner",
+      "name": "t:sections.collection-banner.presets.name",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "banner_image": "shopify://shop_images/chair.jpg",
+        "title": "Limited Time Deals",
+        "title_font_size": "display-md",
+        "title_font_weight": "fw-medium",
+        "subtitle": "Shop the latest activewear designed for maximum comfort and style.",
+        "subtitle_font_size": "text-md",
+        "button_label": "Shop Now",
+        "button_link": "",
+        "content_position": "center-left",
+        "content_alignment": "center",
+        "content_width": 478,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
     }
   },
   "order": [
@@ -466,6 +489,7 @@
     "grid_banner_FkKW9K",
     "quick_add_products",
     "testimonial_swiper_YeRbPX",
-    "blog_carousel_tiazLz"
+    "blog_carousel_tiazLz",
+    "collection_banner_PhMX9C"
   ]
 }
