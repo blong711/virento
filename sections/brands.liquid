@@ -25,12 +25,6 @@
       "default": "container"
     },
     {
-      "type": "checkbox",
-      "id": "show_border",
-      "label": "t:sections.brands.settings.show_border.label",
-      "default": true
-    },
-    {
       "type": "select",
       "id": "title_alignment",
       "label": "t:sections.brands.settings.title_alignment.label",
@@ -245,18 +239,9 @@
       }
   }
 
-  {% if section.settings.show_border %}
-  .sw-brand .swiper-slide:not(:last-child) .brand-item {
-      border-right: 1px solid var(--line);
-  }
-  {% else %}
-  .sw-brand .swiper-slide:not(:last-child) .brand-item {
-      border-right: none;
-  }
-  {% endif %}
 {% endstyle %}
 
-<section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
+<div class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="{{ section.settings.width }}">
     <div class="flat-title style-between align-items-end wow fadeInUp{% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
       <div class="box-title{% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
@@ -274,7 +259,7 @@
     </div>
     <div
       dir="ltr"
-      class="wow fadeInUp swiper tf-swiper sw-brand border-0"
+      class="swiper tf-swiper sw-brand"
       data-swiper='
         {
             "slidesPerView": {{ section.settings.items_per_row_mobile }},
@@ -303,17 +288,13 @@
         {% for block in section.blocks %}
           {% if block.type == 'brand' %}
             <div class="swiper-slide" {{ block.shopify_attributes }}>
-              <div class="brand-item{% if section.settings.show_border %} line{% endif %} radius-8 text-center">
+              <div class="brand-item wow fadeInLeft"{% if forloop.index0 > 0 %} data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"{% endif %}>
                 {% if block.settings.brand_link != blank %}
                   <a href="{{ block.settings.brand_link }}">
                 {% endif %}
                 {% if block.settings.brand_image != blank %}
                   <img
                     src="{{ block.settings.brand_image | image_url }}"
-                    srcset="
-                      {{ block.settings.brand_image | image_url: width: 180 }} 180w,
-                      {{ block.settings.brand_image | image_url: width: 360 }} 360w
-                    "
                     alt="{{ block.settings.brand_name | escape }}"
                     width="{{ block.settings.brand_image.width | default: 240 }}"
                     height="{{ block.settings.brand_image.height | default: 114 }}"
@@ -336,4 +317,4 @@
       <div class="d-flex d-xl-none sw-dot-default sw-pagination-brand justify-content-center"></div>
     {% endif %}
   </div>
-</section>
+</div>
