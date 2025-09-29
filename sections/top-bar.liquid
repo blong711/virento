@@ -159,187 +159,191 @@
   class="tf-topbar topbar-md color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}{% if section.settings.capitalize_text %} marquee-topbar{% endif %}"
 >
   <div class="{{ section.settings.width }}">
-    <div class="topbar-wraper">
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'email' -%}
-            <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
-              <a class="mail" href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
-            </div>
-          {%- when 'social_icons' -%}
-            {%- if section.settings.show_social_icons -%}
-              <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
-                <ul class="tf-social-icon topbar-left">
-                  {%- if settings.social_facebook_link != blank -%}
-                    <li>
-                      <a
-                        href="{{ settings.social_facebook_link }}"
-                        class="social-item social-facebook"
-                        aria-label="Facebook"
-                        ><i class="icon icon-fb"></i
-                      ></a>
-                    </li>
-                  {%- endif -%}
-                  {%- if settings.social_instagram_link != blank -%}
-                    <li>
-                      <a
-                        href="{{ settings.social_instagram_link }}"
-                        class="social-item social-instagram"
-                        aria-label="Instagram"
-                        ><i class="icon icon-instagram"></i
-                      ></a>
-                    </li>
-                  {%- endif -%}
-                  {%- if settings.social_youtube_link != blank -%}
-                    <li>
-                      <a
-                        href="{{ settings.social_youtube_link }}"
-                        class="social-item social-youtube"
-                        aria-label="YouTube"
-                        ><i class="icon icon-youtube"></i
-                      ></a>
-                    </li>
-                  {%- endif -%}
-                  {%- if settings.social_tiktok_link != blank -%}
-                    <li>
-                      <a href="{{ settings.social_tiktok_link }}" class="social-item social-tiktok" aria-label="TikTok"
-                        ><i class="icon icon-tiktok"></i
-                      ></a>
-                    </li>
-                  {%- endif -%}
-                  {%- if settings.social_twitter_link != blank -%}
-                    <li>
-                      <a href="{{ settings.social_twitter_link }}" class="social-item social-x" aria-label="Twitter"
-                        ><i class="icon icon-x"></i
-                      ></a>
-                    </li>
-                  {%- endif -%}
-                  {%- if settings.social_snapchat_link != blank -%}
-                    <li>
-                      <a
-                        href="{{ settings.social_snapchat_link }}"
-                        class="social-item social-snapchat"
-                        aria-label="Snapchat"
-                        ><i class="icon icon-snapchat"></i
-                      ></a>
-                    </li>
-                  {%- endif -%}
-                  {%- if settings.social_pinterest_link != blank -%}
-                    <li>
-                      <a
-                        href="{{ settings.social_pinterest_link }}"
-                        class="social-item social-pinterest"
-                        aria-label="Pinterest"
-                        ><i class="icon icon-pinterest"></i
-                      ></a>
-                    </li>
-                  {%- endif -%}
-                </ul>
-              </div>
+    <div class="row justify-content-center">
+      <div class="col-xl-6">
+        <div class="topbar-wraper">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'email' -%}
+                <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
+                  <a class="mail" href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>
+                </div>
+              {%- when 'social_icons' -%}
+                {%- if section.settings.show_social_icons -%}
+                  <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
+                    <ul class="tf-social-icon topbar-left">
+                      {%- if settings.social_facebook_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_facebook_link }}"
+                            class="social-item social-facebook"
+                            aria-label="Facebook"
+                            ><i class="icon icon-fb"></i
+                          ></a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_instagram_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_instagram_link }}"
+                            class="social-item social-instagram"
+                            aria-label="Instagram"
+                            ><i class="icon icon-instagram"></i
+                          ></a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_youtube_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_youtube_link }}"
+                            class="social-item social-youtube"
+                            aria-label="YouTube"
+                            ><i class="icon icon-youtube"></i
+                          ></a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_tiktok_link != blank -%}
+                        <li>
+                          <a href="{{ settings.social_tiktok_link }}" class="social-item social-tiktok" aria-label="TikTok"
+                            ><i class="icon icon-tiktok"></i
+                          ></a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_twitter_link != blank -%}
+                        <li>
+                          <a href="{{ settings.social_twitter_link }}" class="social-item social-x" aria-label="Twitter"
+                            ><i class="icon icon-x"></i
+                          ></a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_snapchat_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_snapchat_link }}"
+                            class="social-item social-snapchat"
+                            aria-label="Snapchat"
+                            ><i class="icon icon-snapchat"></i
+                          ></a>
+                        </li>
+                      {%- endif -%}
+                      {%- if settings.social_pinterest_link != blank -%}
+                        <li>
+                          <a
+                            href="{{ settings.social_pinterest_link }}"
+                            class="social-item social-pinterest"
+                            aria-label="Pinterest"
+                            ><i class="icon icon-pinterest"></i
+                          ></a>
+                        </li>
+                      {%- endif -%}
+                    </ul>
+                  </div>
+                {%- endif -%}
+              {%- when 'announcement' -%}
+                <div class="overflow-hidden" {{ block.shopify_attributes }}>
+                  <div class="topbar-center marquee-wrapper">
+                    <div class="initial-child-container">
+                      {%- assign messages = block.settings.messages | split: ',' -%}
+                      {% for i in (1..5) %}
+                        {%- for message in messages -%}
+                          <div class="marquee-child-item">
+                            <p>{{ message | strip }}</p>
+                          </div>
+                          {%- unless forloop.last -%}
+                            <div class="marquee-child-item"><span class="dot"></span></div>
+                          {%- endunless -%}
+                        {%- endfor -%}
+                        {%- if messages.size > 0 -%}
+                          <div class="marquee-child-item"><span class="dot"></span></div>
+                        {%- endif -%}
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              {%- when 'store_location' -%}
+                <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
+                  <a href="{{ block.settings.store_link }}" class="store">{{ block.settings.store_text }}</a>
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+    
+          {%- comment -%} Render language and currency selectors separately {%- endcomment -%}
+          {%- assign has_visible_selectors = false -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'language_selector' and section.settings.show_language_selector -%}
+              {%- assign has_visible_selectors = true -%}
+              {%- break -%}
+            {%- elsif block.type == 'currency_selector' and section.settings.show_currency_selector -%}
+              {%- assign has_visible_selectors = true -%}
+              {%- break -%}
             {%- endif -%}
-          {%- when 'announcement' -%}
-            <div class="overflow-hidden" {{ block.shopify_attributes }}>
-              <div class="topbar-center marquee-wrapper">
-                <div class="initial-child-container">
-                  {%- assign messages = block.settings.messages | split: ',' -%}
-                  {% for i in (1..5) %}
-                    {%- for message in messages -%}
-                      <div class="marquee-child-item">
-                        <p>{{ message | strip }}</p>
-                      </div>
-                      {%- unless forloop.last -%}
-                        <div class="marquee-child-item"><span class="dot"></span></div>
-                      {%- endunless -%}
-                    {%- endfor -%}
-                    {%- if messages.size > 0 -%}
-                      <div class="marquee-child-item"><span class="dot"></span></div>
-                    {%- endif -%}
-                  {% endfor %}
-                </div>
+          {%- endfor -%}
+    
+          {%- if has_visible_selectors -%}
+            <div class="d-none d-xl-block flex-shrink-0">
+              <div class="topbar-right">
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'language_selector' and section.settings.show_language_selector -%}
+                    <div class="tf-languages" {{ block.shopify_attributes }}>
+                      {%- form 'localization', id: 'TopBarLanguageForm', class: 'localization-form' -%}
+                        <div class="no-js-hidden">
+                          <select
+                            name="locale_code"
+                            id="language-selector-topbar"
+                            class="image-select center style-default type-languages"
+                            aria-labelledby="LanguageLabel"
+                          >
+                            {%- assign current_language = localization.language.iso_code -%}
+                            {%- for language in localization.available_languages -%}
+                              <option
+                                value="{{ language.iso_code }}"
+                                {% if language.iso_code == current_language %}
+                                  selected
+                                {% endif %}
+                              >
+                                {{ language.endonym_name | capitalize }}
+                              </option>
+                            {%- endfor -%}
+                          </select>
+                        </div>
+                        <input type="hidden" name="return_to" value="{{ request.path }}">
+                      {%- endform -%}
+                    </div>
+                  {%- elsif block.type == 'currency_selector' and section.settings.show_currency_selector -%}
+                    <div class="tf-currencies" {{ block.shopify_attributes }}>
+                      {%- form 'localization', id: 'TopBarCurrencyForm', class: 'localization-form' -%}
+                        <div class="no-js-hidden">
+                          <select
+                            name="country_code"
+                            id="currency-selector-topbar"
+                            class="image-select center style-default type-currencies"
+                            aria-labelledby="CurrencyLabel"
+                          >
+                            {%- assign current_country = localization.country.iso_code -%}
+                            {%- for country in localization.available_countries -%}
+                              <option
+                                value="{{ country.iso_code }}"
+                                {% if country.iso_code == current_country %}
+                                  selected
+                                {% endif %}
+                                data-thumbnail="{{ 'https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/' | append: country.iso_code | downcase | append: '.svg' }}"
+                              >
+                                {{ country.name }} ({{ country.currency.iso_code }}
+                                {{ country.currency.symbol }})
+                              </option>
+                            {%- endfor -%}
+                          </select>
+                        </div>
+                        <input type="hidden" name="return_to" value="{{ request.path }}">
+                      {%- endform -%}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
               </div>
             </div>
-          {%- when 'store_location' -%}
-            <div class="d-none d-xl-block flex-shrink-0" {{ block.shopify_attributes }}>
-              <a href="{{ block.settings.store_link }}" class="store">{{ block.settings.store_text }}</a>
-            </div>
-        {%- endcase -%}
-      {%- endfor -%}
-
-      {%- comment -%} Render language and currency selectors separately {%- endcomment -%}
-      {%- assign has_visible_selectors = false -%}
-      {%- for block in section.blocks -%}
-        {%- if block.type == 'language_selector' and section.settings.show_language_selector -%}
-          {%- assign has_visible_selectors = true -%}
-          {%- break -%}
-        {%- elsif block.type == 'currency_selector' and section.settings.show_currency_selector -%}
-          {%- assign has_visible_selectors = true -%}
-          {%- break -%}
-        {%- endif -%}
-      {%- endfor -%}
-
-      {%- if has_visible_selectors -%}
-        <div class="d-none d-xl-block flex-shrink-0">
-          <div class="topbar-right">
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'language_selector' and section.settings.show_language_selector -%}
-                <div class="tf-languages" {{ block.shopify_attributes }}>
-                  {%- form 'localization', id: 'TopBarLanguageForm', class: 'localization-form' -%}
-                    <div class="no-js-hidden">
-                      <select
-                        name="locale_code"
-                        id="language-selector-topbar"
-                        class="image-select center style-default type-languages"
-                        aria-labelledby="LanguageLabel"
-                      >
-                        {%- assign current_language = localization.language.iso_code -%}
-                        {%- for language in localization.available_languages -%}
-                          <option
-                            value="{{ language.iso_code }}"
-                            {% if language.iso_code == current_language %}
-                              selected
-                            {% endif %}
-                          >
-                            {{ language.endonym_name | capitalize }}
-                          </option>
-                        {%- endfor -%}
-                      </select>
-                    </div>
-                    <input type="hidden" name="return_to" value="{{ request.path }}">
-                  {%- endform -%}
-                </div>
-              {%- elsif block.type == 'currency_selector' and section.settings.show_currency_selector -%}
-                <div class="tf-currencies" {{ block.shopify_attributes }}>
-                  {%- form 'localization', id: 'TopBarCurrencyForm', class: 'localization-form' -%}
-                    <div class="no-js-hidden">
-                      <select
-                        name="country_code"
-                        id="currency-selector-topbar"
-                        class="image-select center style-default type-currencies"
-                        aria-labelledby="CurrencyLabel"
-                      >
-                        {%- assign current_country = localization.country.iso_code -%}
-                        {%- for country in localization.available_countries -%}
-                          <option
-                            value="{{ country.iso_code }}"
-                            {% if country.iso_code == current_country %}
-                              selected
-                            {% endif %}
-                            data-thumbnail="{{ 'https://cdn.jsdelivr.net/npm/flag-icons/flags/4x3/' | append: country.iso_code | downcase | append: '.svg' }}"
-                          >
-                            {{ country.name }} ({{ country.currency.iso_code }}
-                            {{ country.currency.symbol }})
-                          </option>
-                        {%- endfor -%}
-                      </select>
-                    </div>
-                    <input type="hidden" name="return_to" value="{{ request.path }}">
-                  {%- endform -%}
-                </div>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
+          {%- endif -%}
         </div>
-      {%- endif -%}
+      </div>
     </div>
   </div>
 </div>
