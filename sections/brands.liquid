@@ -243,12 +243,17 @@
 
 <div class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
   <div class="{{ section.settings.width }}">
+    {% if section.settings.title != blank or section.settings.subtitle != blank or section.settings.show_navigation %}
     <div class="flat-title style-between align-items-end wow fadeInUp{% if section.settings.title_alignment == 'center' %} text-center{% endif %}">
       <div class="box-title{% if section.settings.title_alignment == 'center' %} w-100{% endif %}">
-        <{{ section.settings.title_tag }} class="title">{{ section.settings.title }}</{{ section.settings.title_tag }}>
-        <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground2));">
-          {{ section.settings.subtitle }}
-        </p>
+        {% if section.settings.title != blank %}
+          <{{ section.settings.title_tag }} class="title">{{ section.settings.title }}</{{ section.settings.title_tag }}>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+          <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground2));">
+            {{ section.settings.subtitle }}
+          </p>
+        {% endif %}
       </div>
       {% if section.settings.show_navigation %}
         <div class="box-nav-swiper style-2 d-none d-xl-flex">
@@ -257,6 +262,7 @@
         </div>
       {% endif %}
     </div>
+    {% endif %}
     <div
       dir="ltr"
       class="swiper tf-swiper sw-brand"
