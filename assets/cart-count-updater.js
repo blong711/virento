@@ -2,6 +2,8 @@ class CartCountUpdater {
   constructor() {
     this.cartCountElements = document.querySelectorAll('.toolbar-count.cart-count');
     this.init();
+    // Initialize the cart count on first load
+    this.forceUpdate();
   }
 
   init() {
@@ -48,12 +50,7 @@ class CartCountUpdater {
   }
 }
 
-// Initialize cart count updater when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  new CartCountUpdater();
-});
-
-// Also initialize immediately if DOM is already loaded
+// Initialize once (supports both already-loaded and loading states)
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     new CartCountUpdater();
