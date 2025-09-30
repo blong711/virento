@@ -206,7 +206,7 @@
               {%- else -%}
                 <!-- Layout 2 -->
                 <div class="news-item hover-img">
-                  <a href="{{ article.url }}" class="img-style aspect-ratio-layout2">
+                  <a href="{{ article.url }}" class="img-style">
                     {%- if article.image -%}
                       <img
                         src="{{ article.image | image_url: width: 400 }}"
@@ -221,7 +221,7 @@
                   <div class="content">
                     <a
                       href="{{ article.url }}"
-                      class="title fw-medium link text-xl title-ellipsis"
+                      class="title fw-medium link text-xl text-line-clamp-2 font-7"
                     >
                       {{ article.title }}
                     </a>
