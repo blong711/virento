@@ -519,7 +519,7 @@
                         <div class="card-product-info text-center bg-white pb-0">
                           {%- assign display_vendor = block.settings.custom_vendor | default: product.vendor -%}
                           {% if display_vendor != blank %}
-                            <div class="sub fw-semibold font-13 text-dark-purple-2 text-xs fs-13">
+                            <div class="sub fw-semibold font-13 text-xs fs-13" style="color: rgb(var(--color-foreground2));">
                               {{ display_vendor | upcase }}
                             </div>
                           {% endif %}
@@ -556,7 +556,7 @@
                                 {%- if trimmed_feature != blank -%}
                                   <li class="item">
                                     <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
-                                    <div class="text-sm text-grey-3">{{ trimmed_feature }}</div>
+                                    <div class="text-sm text-grey-3" style="color: rgb(var(--color-foreground3));">{{ trimmed_feature }}</div>
                                   </li>
                                 {%- endif -%}
                               {%- endfor -%}

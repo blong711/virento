@@ -71,7 +71,7 @@
                       <div class="box-title">
                         <p class="{% case block.settings.subtitle_size %}{% when 'small' %}text-sm{% when 'large' %}text-lg{% else %}text-md{% endcase %} font-13 fw-semibold" style="color: rgb(var(--color-foreground2));">{{ block.settings.subtitle }}</p>
                         {% capture heading_tag %}{% case block.settings.title_size %}{% when 'small' %}h5{% when 'large' %}h3{% else %}h4{% endcase %}{% endcapture %}
-                        <{{ heading_tag }} class="font-7 fw-medium text-white">
+                        <{{ heading_tag }} class="font-7 fw-medium">
                           {{ block.settings.title }}
                         </{{ heading_tag }}>
                       </div>
@@ -230,7 +230,7 @@
         {
           "type": "color_scheme",
           "id": "color_scheme",
-          "label": "t:sections.grid-banner.blocks.grid_item.settings.color_scheme",
+          "label": "t:sections.grid-banner.settings.color_scheme",
           "default": "scheme-1"
         },
         {
