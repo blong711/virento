@@ -47,9 +47,10 @@
     "predictive_search_enabled": true,
     "predictive_search_show_price": true,
     "suggestion_products": [
-      "wireless-premium-headphones",
-      "10000mah-power-go-power-bank",
-      "wireless-earbuds-for-playstation-5"
+      "aeron-chair",
+      "billie",
+      "gesture-chair",
+      "nike-air-force-1-07"
     ],
     "currency_code_enabled": false,
     "cart_type": "drawer",
