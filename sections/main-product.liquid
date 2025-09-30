@@ -5,6 +5,14 @@
   - Product information with variants
   - Add to cart functionality
 {% endcomment %}
+{% style %}
+  .tf-product-info-wrap .variant-color .color-btn.style-image {
+    width: 56px !important;
+    height: 56px !important;
+    padding: 5px !important;
+    border: 1px solid var(--line) !important;
+}
+{% endstyle %}
 
 {%- comment -%}Product Data for Recently Viewed Tracking{%- endcomment -%}
 <script type="application/json" data-product-json>
@@ -135,7 +143,7 @@
                   </div>
                 {% endif %}
                 <div class="flat-wrap-media-product">
-                  <div dir="ltr" class="swiper tf-product-media-main tf-product-zoom-inner" id="gallery-swiper-started">
+                  <div dir="ltr" class="swiper tf-product-media-main " id="gallery-swiper-started">
                     <div class="swiper-wrapper">
                       {% for media in product.media %}
                         <div
@@ -146,7 +154,7 @@
                           {% case media.media_type %}
                             {% when 'image' %}
                               <img
-                                class="tf-image-zoom-inner lazyload"
+                                class=" lazyload"
                                 src="{{ media | image_url: width: 800 }}"
                                 alt="{{ media.alt | default: product.title }}"
                                 width="auto"
@@ -376,6 +384,7 @@
         <!-- Product Information -->
         <div class="col-md-6">
           <div class="tf-product-info">
+            <div class="tf-zoom-main"></div>
             <div class="tf-product-info-wrap sticky-top  other-image-zoom">
               <div class="tf-product-info-list">
                 <!-- Remove the following line to disable the external zoom box -->
@@ -2246,6 +2255,10 @@
             {
               "value": "dropdown",
               "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_type.options.dropdown.label"
+            },
+            {
+              "value": "swatch_image",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.color_selector_type.options.swatch_image.label"
             }
           ],
           "default": "swatch_rounded"
@@ -2270,6 +2283,22 @@
           ],
           "default": "medium",
           "visible_if": "{{  block.settings.color_selector_type == 'swatch_rounded' }}"
+        },
+        {
+          "type": "select",
+          "id": "size_button_style",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.size_button_style.label",
+          "options": [
+            {
+              "value": "default",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.size_button_style.options.default.label"
+            },
+            {
+              "value": "dropdown",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.size_button_style.options.dropdown.label"
+            }
+          ],
+          "default": "default"
         }
       ]
     },

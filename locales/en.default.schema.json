@@ -3024,6 +3024,9 @@
                 },
                 "dropdown": {
                   "label": "Dropdown"
+                },
+                "swatch_image": {
+                  "label": "Color swatch image"
                 }
               }
             },
@@ -3038,6 +3041,17 @@
                 },
                 "large": {
                   "label": "Large"
+                }
+              }
+            },
+            "size_button_style": {
+              "label": "Size button style",
+              "options": {
+                "default": {
+                  "label": "Default"
+                },
+                "dropdown": {
+                  "label": "Dropdown"
                 }
               }
             }
