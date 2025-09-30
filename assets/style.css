@@ -29165,3 +29165,9 @@ shopify-accelerated-checkout {
 .tf-topbar .overflow-hidden {
   position: relative;
 }
+.tf-topbar.bg-brown-18 .overflow-hidden::before {
+  background: linear-gradient(to right, #995413, transparent);
+}
+.tf-topbar.bg-brown-18 .overflow-hidden::after {
+  background: linear-gradient(to left, #995413, transparent);
+}
