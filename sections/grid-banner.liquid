@@ -5,7 +5,7 @@
         {% for block in section.blocks %}
           {% case block.type %}
             {% when 'grid_item' %}
-              <div class="item{{ forloop.index }} {% if section.blocks.size == 3 %}{% if section.settings.three_item_style == 'style1' %}wg-cls style-abs{% else %}s-cls rounded-0 style-absolute abs-left-center{% endif %}{% else %}s-cls radius-20 style-absolute abs-top-center{% endif %} {% if block.settings.hover_image %}hover-img{% endif %}" {{ block.shopify_attributes }}>
+              <div class="item{{ forloop.index }} color-{{ block.settings.color_scheme | default: section.settings.color_scheme }} {% if section.blocks.size == 3 %}{% if section.settings.three_item_style == 'style1' %}wg-cls style-abs{% else %}s-cls rounded-0 style-absolute abs-left-center{% endif %}{% else %}s-cls radius-20 style-absolute abs-top-center{% endif %} {% if block.settings.hover_image %}hover-img{% endif %}" {{ block.shopify_attributes }}>
                 {% if section.blocks.size == 3 %}
                   {% if section.settings.three_item_style == 'style1' %}
                     <a href="{{ block.settings.link }}" class="image img-style d-block">
@@ -69,7 +69,7 @@
                   {% else %}
                     <div class="content">
                       <div class="box-title">
-                        <p class="{% case block.settings.subtitle_size %}{% when 'small' %}text-sm{% when 'large' %}text-lg{% else %}text-md{% endcase %} text-white font-13 fw-semibold">{{ block.settings.subtitle }}</p>
+                        <p class="{% case block.settings.subtitle_size %}{% when 'small' %}text-sm{% when 'large' %}text-lg{% else %}text-md{% endcase %} font-13 fw-semibold" style="color: rgb(var(--color-foreground2));">{{ block.settings.subtitle }}</p>
                         {% capture heading_tag %}{% case block.settings.title_size %}{% when 'small' %}h5{% when 'large' %}h3{% else %}h4{% endcase %}{% endcapture %}
                         <{{ heading_tag }} class="font-7 fw-medium text-white">
                           {{ block.settings.title }}
@@ -227,6 +227,12 @@
       "name": "t:sections.grid-banner.blocks.grid_item.name",
       "limit": 4,
       "settings": [
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "t:sections.grid-banner.blocks.grid_item.settings.color_scheme",
+          "default": "scheme-1"
+        },
         {
           "type": "header",
           "content": "t:sections.grid-banner.blocks.grid_item.settings.media_header"
