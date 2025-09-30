@@ -369,7 +369,7 @@
 
 {% style %}
   {% if section.settings.layout_style == 'default' %}
-    .slider-height {
+    #shopify-section-{{ section.id }} .slider-height {
       {% if section.settings.height == 'fixed' %}
         height: {{ section.settings.height_fixed }}px;
       {% elsif section.settings.height == 'fill' %}
@@ -380,44 +380,44 @@
     }
 
     /* Override CSS constraints for adapt-first to use actual image heights */
-    .slider-height[data-height="adapt-first"] .slider-wrap .image {
+    #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .slider-wrap .image {
       height: auto !important;
     }
 
-    .slider-height[data-height="adapt-first"] .slider-wrap img {
+    #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .slider-wrap img {
       height: auto !important;
       width: 100% !important;
       object-fit: contain !important;
     }
 
-    .slider-height[data-height="adapt-first"] .swiper-slide {
+    #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .swiper-slide {
       height: auto !important;
       min-height: auto !important;
       max-height: none !important;
     }
 
-    .slider-height[data-height="adapt-first"] .slider-wrap {
+    #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .slider-wrap {
       height: auto !important;
       min-height: auto !important;
       max-height: none !important;
     }
 
     /* Override Swiper's internal height management */
-    .slider-height[data-height="adapt-first"] .swiper-wrapper {
+    #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .swiper-wrapper {
       height: auto !important;
       align-items: stretch !important;
     }
 
-    .slider-height[data-height="adapt-first"] .swiper {
+    #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .swiper {
       height: auto !important;
     }
 
-    .slider-height[data-height="adapt-first"] .tf-sw-slideshow {
+    #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .tf-sw-slideshow {
       height: auto !important;
     }
 
     @media (max-width: 767px) {
-      .slider-height {
+      #shopify-section-{{ section.id }} .slider-height {
         {% if section.settings.mobile_height == 'fixed' %}
           height: {{ section.settings.mobile_height_fixed }}px;
         {% elsif section.settings.mobile_height == 'fill' %}
@@ -428,15 +428,15 @@
       }
 
       /* Mobile-specific fill and fixed height styles to eliminate blank space */
-      .slider-height[data-mobile-height="fill"] .slider-wrap,
-      .slider-height[data-mobile-height="fixed"] .slider-wrap {
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="fill"] .slider-wrap,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="fixed"] .slider-wrap {
         height: 100% !important;
         display: flex !important;
         flex-direction: column !important;
       }
 
-      .slider-height[data-mobile-height="fill"] .slider-wrap .image,
-      .slider-height[data-mobile-height="fixed"] .slider-wrap .image {
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="fill"] .slider-wrap .image,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="fixed"] .slider-wrap .image {
         flex: 1 !important;
         height: auto !important;
         min-height: 0 !important;
@@ -445,8 +445,8 @@
         justify-content: center !important;
       }
 
-      .slider-height[data-mobile-height="fill"] .slider-wrap img,
-      .slider-height[data-mobile-height="fixed"] .slider-wrap img {
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="fill"] .slider-wrap img,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="fixed"] .slider-wrap img {
         width: 100% !important;
         height: 100% !important;
         object-fit: cover !important;
@@ -454,65 +454,65 @@
       }
 
       /* Mobile-specific adapt-first styles - more aggressive overrides */
-      .slider-height[data-height="adapt-first"] .slider-wrap .image,
-      .slider-height[data-mobile-height="adapt-first"] .slider-wrap .image {
+      #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .slider-wrap .image,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .slider-wrap .image {
         height: auto !important;
       }
 
-      .slider-height[data-height="adapt-first"] .slider-wrap img,
-      .slider-height[data-mobile-height="adapt-first"] .slider-wrap img {
+      #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .slider-wrap img,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .slider-wrap img {
         height: auto !important;
         width: 100% !important;
         object-fit: contain !important;
       }
 
-      .slider-height[data-height="adapt-first"] .swiper-slide,
-      .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
+      #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .swiper-slide,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
         height: auto !important;
         min-height: auto !important;
         max-height: none !important;
       }
 
-      .slider-height[data-height="adapt-first"] .slider-wrap,
-      .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
+      #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .slider-wrap,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
         height: auto !important;
         min-height: auto !important;
         max-height: none !important;
       }
 
-      .slider-height[data-height="adapt-first"] .swiper-wrapper,
-      .slider-height[data-mobile-height="adapt-first"] .swiper-wrapper {
+      #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .swiper-wrapper,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .swiper-wrapper {
         height: auto !important;
         align-items: stretch !important;
       }
 
-      .slider-height[data-height="adapt-first"] .swiper,
-      .slider-height[data-mobile-height="adapt-first"] .swiper {
+      #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .swiper,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .swiper {
         height: auto !important;
       }
 
-      .slider-height[data-height="adapt-first"] .tf-sw-slideshow,
-      .slider-height[data-mobile-height="adapt-first"] .tf-sw-slideshow {
+      #shopify-section-{{ section.id }} .slider-height[data-height="adapt-first"] .tf-sw-slideshow,
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .tf-sw-slideshow {
         height: auto !important;
       }
 
       /* Additional mobile-specific overrides to ensure height is respected */
-      .slider-height[data-mobile-height="adapt-first"] {
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] {
         height: auto !important;
       }
 
-      .slider-height[data-mobile-height="adapt-first"] * {
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] * {
         box-sizing: border-box !important;
       }
 
       /* Force all slides to have the same height on mobile */
-      .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .swiper-slide {
         height: inherit !important;
         min-height: inherit !important;
         max-height: inherit !important;
       }
 
-      .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
+      #shopify-section-{{ section.id }} .slider-height[data-mobile-height="adapt-first"] .slider-wrap {
         height: inherit !important;
         min-height: inherit !important;
         max-height: inherit !important;
@@ -523,7 +523,7 @@
   {% endif %}
 
   /* Style 2 left content background and positioning */
-  .slider-style-2 .box-content-left {
+  #shopify-section-{{ section.id }} .slider-style-2 .box-content-left {
     background: rgb(var(--color-background));
     position: absolute;
     left: 0;
@@ -533,13 +533,13 @@
     display: flex;
   }
 
-  .section-{{ section.id }}-padding {
+  #shopify-section-{{ section.id }} .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
   }
 
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
+    #shopify-section-{{ section.id }} .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
@@ -594,14 +594,14 @@
                                 {{ block.settings.heading }}
                               </h2>
                               {% if block.settings.description != '' %}
-                                <p class="sub text-md fade-item fade-item-3 font-13 text-main">
+                                <p class="sub text-md fade-item fade-item-3 font-13" style="color: rgb(var(--color-foreground2));">
                                   {{ block.settings.description }}
                                 </p>
                               {% endif %}
                             </div>
                             {% if block.settings.button_link %}
                               <div class="box-btn-slider fade-item fade-item-3">
-                                <a href="{{ block.settings.button_link }}" class="tf-btn fw-normal {% if section.settings.button_animate %}animate-btn{% endif %} font-13 border-0">
+                                <a href="{{ block.settings.button_link }}" class="tf-btn fw-normal {% if section.settings.button_animate %}animate-btn{% endif %} font-13">
                                   {{ block.settings.button_text }}
                                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M22.354 11.6459C22.4006 11.6923 22.4375 11.7475 22.4627 11.8083C22.4879 11.869 22.5009 11.9341 22.5009 11.9999C22.5009 12.0657 22.4879 12.1308 22.4627 12.1915C22.4375 12.2523 22.4006 12.3075 22.354 12.3539L18.354 16.3539C18.3075 16.4004 18.2523 16.4373 18.1916 16.4624C18.1308 16.4876 18.0657 16.5005 18 16.5005C17.8672 16.5005 17.7399 16.4478 17.646 16.3539C17.5521 16.26 17.4994 16.1327 17.4994 15.9999C17.4994 15.8671 17.5521 15.7398 17.646 15.6459L20.793 12.4999H2C1.86739 12.4999 1.74021 12.4472 1.64645 12.3535C1.55268 12.2597 1.5 12.1325 1.5 11.9999C1.5 11.8673 1.55268 11.7401 1.64645 11.6463C1.74021 11.5526 1.86739 11.4999 2 11.4999H20.793L17.646 8.3539C17.5521 8.26001 17.4994 8.13268 17.4994 7.9999C17.4994 7.86712 17.5521 7.73979 17.646 7.6459C17.7399 7.55201 17.8672 7.49927 18 7.49927C18.1328 7.49927 18.2601 7.55201 18.354 7.6459L22.354 11.6459Z" fill="white"></path>

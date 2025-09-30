@@ -387,18 +387,18 @@
 
 {%- style -%}
     /* Smooth hide/show animations */
-    .tf-topbar {
+    #shopify-section-{{ section.id }} .tf-topbar {
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .tf-topbar.hidden {
+    #shopify-section-{{ section.id }} .tf-topbar.hidden {
       opacity: 0;
       transform: translateY(-100%);
       pointer-events: none;
     }
 
     /* Individual block hide/show */
-    .topbar-block-hidden {
+    #shopify-section-{{ section.id }} .topbar-block-hidden {
       display: none !important;
     }
 
@@ -414,34 +414,35 @@
   }
 
   /* Border bottom control */
-  .tf-topbar.no-border-bottom {
+  #shopify-section-{{ section.id }} .tf-topbar.no-border-bottom {
     border-bottom: none !important;
   }
-  .tf-topbar.topbar-md .mail, .tf-topbar.topbar-md .store {
+  #shopify-section-{{ section.id }} .tf-topbar.topbar-md .mail, 
+  #shopify-section-{{ section.id }} .tf-topbar.topbar-md .store {
     color: rgba(var(--color-foreground)) !important;
   }
 
-  .tf-topbar .marquee-wrapper .marquee-child-item,
-  .custom-select-selected-content,
-  .custom-select-arrow:after {
+  #shopify-section-{{ section.id }} .tf-topbar .marquee-wrapper .marquee-child-item,
+  #shopify-section-{{ section.id }} .custom-select-selected-content,
+  #shopify-section-{{ section.id }} .custom-select-arrow:after {
     color: rgb(var(--color-foreground)) !important;
     line-height: normal;
   }
   
-  .tf-topbar .overflow-hidden::before {
+  #shopify-section-{{ section.id }} .tf-topbar .overflow-hidden::before {
     left: 0;
     background: linear-gradient(to right, rgba(var(--color-background)), transparent);
   }
-  .tf-topbar .overflow-hidden::after {
+  #shopify-section-{{ section.id }} .tf-topbar .overflow-hidden::after {
     right: 0;
     background: linear-gradient(to left, rgba(var(--color-background)), transparent);
   }
-  .tf-social-icon .social-item {
+  #shopify-section-{{ section.id }} .tf-social-icon .social-item {
     background-color: rgba(var(--color-background)) !important;
     color: rgba(var(--color-foreground)) !important;
     border-color: rgba(var(--color-foreground)) !important;
   }
-  .tf-social-icon .social-item:hover {
+  #shopify-section-{{ section.id }} .tf-social-icon .social-item:hover {
     color: rgba(var(--color-link-hover)) !important;
     border-color: rgba(var(--color-link-hover)) !important;
   }
