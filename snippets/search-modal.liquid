@@ -11,7 +11,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="looking-for-wrap">
-                        <div class="heading">What are you looking for?</div>
+                        <div class="heading">{{ 'general.search.modal.heading' | t }}</div>
                         <div class="tf-form-search">
                             <form class="form-search" action="{{ routes.search_url }}" method="get">
                                 <input type="hidden" name="type" value="product">
@@ -32,7 +32,7 @@
                             </form>
                         </div>
                         <div class="popular-searches justify-content-md-center">
-                            <div class="text fw-medium">Popular searches:</div>
+                            <div class="text fw-medium">{{ 'general.search.modal.popular_searches' | t }}</div>
                             <ul>
                                 {% if settings.popular_searches != blank %}
                                     {% assign popular_terms = settings.popular_searches | split: ',' %}
@@ -50,7 +50,7 @@
                 {% if settings.predictive_search_enabled %}
                     <div class="col-lg-10">
                         <div class="featured-product">
-                            <div class="text-xl-2 fw-medium featured-product-heading">Featured product</div>
+                            <div class="text-xl-2 fw-medium featured-product-heading">{{ 'general.search.modal.featured_product' | t }}</div>
                             <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-swiper='{
                                     "slidesPerView": 2,
                                     "spaceBetween": 12,
@@ -86,7 +86,7 @@
                                             {% endfor %}
                                         {% else %}
                                             <div class="swiper-slide">
-                                                <div class="text-sm">No products found.</div>
+                                                <div class="text-sm">{{ 'general.search.no_products_found' | t }}</div>
                                             </div>
                                         {% endif %}
                                     {% endif %}

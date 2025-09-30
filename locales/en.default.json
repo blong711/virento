@@ -83,7 +83,12 @@
       "no_products_found": "No products found",
       "search_failed": "Search failed. Please try again.",
       "product_image": "Product image",
-      "search_our_store": "Search our store"
+      "search_our_store": "Search our store",
+      "modal": {
+        "heading": "What are you looking for?",
+        "popular_searches": "Popular searches:",
+        "featured_product": "Featured product"
+      }
     },
     "cart": {
       "title": "Cart",
