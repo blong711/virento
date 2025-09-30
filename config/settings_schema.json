@@ -618,6 +618,13 @@
         "label": "t:settings_schema.search_input.settings.suggestion_products.label",
         "info": "t:settings_schema.search_input.settings.suggestion_products.info",
         "limit": 10
+      },
+      {
+        "type": "text",
+        "id": "popular_searches",
+        "label": "t:settings_schema.search_input.settings.popular_searches.label",
+        "info": "t:settings_schema.search_input.settings.popular_searches.info",
+        "default": "Featured, Trendy, New, Sale"
       }
     ]
   },

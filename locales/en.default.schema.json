@@ -279,6 +279,10 @@
         "suggestion_products": {
           "label": "Suggestion products",
           "info": "Select products to show as suggestions in search"
+        },
+        "popular_searches": {
+          "label": "Popular searches",
+          "info": "Enter popular search terms separated by commas (e.g., Featured, Trendy, New, Sale)"
         }
       }
     },

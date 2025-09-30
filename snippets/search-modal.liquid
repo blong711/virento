@@ -1,3 +1,7 @@
+<!-- Predictive Search Settings -->
+<meta name="predictive-search-enabled" content="{{ settings.predictive_search_enabled }}">
+<meta name="predictive-search-show-price" content="{{ settings.predictive_search_show_price }}">
+
 <div class="offcanvas offcanvas-top offcanvas-search" id="search" tabindex="-1" aria-labelledby="search-label">
     <div class="offcanvas-content">
         <div class="header">
@@ -8,22 +12,37 @@
                 <div class="col-lg-8">
                     <div class="looking-for-wrap">
                         <div class="heading">What are you looking for?</div>
-                        <form class="form-search">
-                            <fieldset class="text">
-                                <input type="text" placeholder="Search" class="" name="text" tabindex="0" value=""
-                                    aria-required="true" required="">
-                            </fieldset>
-                            <button class="" type="submit">
-                                <i class="icon icon-search"></i>
-                            </button>
-                        </form>
+                        <div class="tf-form-search">
+                            <form class="form-search" action="{{ routes.search_url }}" method="get">
+                                <input type="hidden" name="type" value="product">
+                                <fieldset class="text">
+                                    <input 
+                                        type="text" 
+                                        name="q" 
+                                        placeholder="{{ section.settings.search_placeholder | default: 'Search' }}" 
+                                        class="" 
+                                        tabindex="0" 
+                                        value="{{ search.terms | escape }}"
+                                        aria-required="true" 
+                                        required="">
+                                </fieldset>
+                                <button class="" type="submit" aria-label="Search">
+                                    <i class="icon icon-search"></i>
+                                </button>
+                            </form>
+                        </div>
                         <div class="popular-searches justify-content-md-center">
                             <div class="text fw-medium">Popular searches:</div>
                             <ul>
-                                <li><a class="link" href="#">Featured</a></li>
-                                <li><a class="link" href="#">Trendy</a></li>
-                                <li><a class="link" href="#">New</a></li>
-                                <li><a class="link" href="#">Sale</a></li>
+                                {% if settings.popular_searches != blank %}
+                                    {% assign popular_terms = settings.popular_searches | split: ',' %}
+                                    {% for term in popular_terms %}
+                                        {% assign clean_term = term | strip %}
+                                        {% if clean_term != blank %}
+                                            <li><a class="link" href="{{ routes.search_url }}?q={{ clean_term | url_encode }}">{{ clean_term }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -45,20 +64,30 @@
                                 }
                             }'>
                             <div class="swiper-wrapper">
-                                {% assign featured_collection = collections['frontpage'] %}
-                                {% if featured_collection == nil or featured_collection.products_count == 0 %}
-                                    {% assign featured_collection = collections['all'] %}
-                                {% endif %}
-                                {% if featured_collection and featured_collection.products_count > 0 %}
-                                    {% for product in featured_collection.products limit: 8 %}
-                                <div class="swiper-slide">
-                                            {% render 'product-card', product: product, show_progress_sale: false %}
-                                        </div>
+                                {% if settings.suggestion_products != blank %}
+                                    {% for suggestion_product in settings.suggestion_products limit: 8 %}
+                                        {% if suggestion_product and suggestion_product.available %}
+                                            <div class="swiper-slide">
+                                                {% render 'product-card', product: suggestion_product, show_progress_sale: false %}
+                                            </div>
+                                        {% endif %}
                                     {% endfor %}
                                 {% else %}
-                                <div class="swiper-slide">
-                                        <div class="text-sm">No featured products found.</div>
-                                    </div>
+                                    {% assign featured_collection = collections['frontpage'] %}
+                                    {% if featured_collection == nil or featured_collection.products_count == 0 %}
+                                        {% assign featured_collection = collections['all'] %}
+                                    {% endif %}
+                                    {% if featured_collection and featured_collection.products_count > 0 %}
+                                        {% for product in featured_collection.products limit: 8 %}
+                                            <div class="swiper-slide">
+                                                {% render 'product-card', product: product, show_progress_sale: false %}
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="swiper-slide">
+                                            <div class="text-sm">No products found.</div>
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div
