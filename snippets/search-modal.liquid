@@ -47,55 +47,57 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-10">
-                    <div class="featured-product">
-                        <div class="text-xl-2 fw-medium featured-product-heading">Featured product</div>
-                        <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-swiper='{
-                                "slidesPerView": 2,
-                                "spaceBetween": 12,
-                                "speed": 1000,
-                                "observer": true,
-                                "observeParents": true,
-                                "slidesPerGroup": 2,
-                                "pagination": { "el": ".sw-pagination-search", "clickable": true },
-                                "breakpoints": {
-                                "768": { "slidesPerView": 3, "spaceBetween": 12, "slidesPerGroup": 3 },
-                                "1200": { "slidesPerView": 4, "spaceBetween": 24, "slidesPerGroup": 4}
-                                }
-                            }'>
-                            <div class="swiper-wrapper">
-                                {% if settings.suggestion_products != blank %}
-                                    {% for suggestion_product in settings.suggestion_products limit: 8 %}
-                                        {% if suggestion_product and suggestion_product.available %}
-                                            <div class="swiper-slide">
-                                                {% render 'product-card', product: suggestion_product, show_progress_sale: false %}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% else %}
-                                    {% assign featured_collection = collections['frontpage'] %}
-                                    {% if featured_collection == nil or featured_collection.products_count == 0 %}
-                                        {% assign featured_collection = collections['all'] %}
-                                    {% endif %}
-                                    {% if featured_collection and featured_collection.products_count > 0 %}
-                                        {% for product in featured_collection.products limit: 8 %}
-                                            <div class="swiper-slide">
-                                                {% render 'product-card', product: product, show_progress_sale: false %}
-                                            </div>
+                {% if settings.predictive_search_enabled %}
+                    <div class="col-lg-10">
+                        <div class="featured-product">
+                            <div class="text-xl-2 fw-medium featured-product-heading">Featured product</div>
+                            <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-swiper='{
+                                    "slidesPerView": 2,
+                                    "spaceBetween": 12,
+                                    "speed": 1000,
+                                    "observer": true,
+                                    "observeParents": true,
+                                    "slidesPerGroup": 2,
+                                    "pagination": { "el": ".sw-pagination-search", "clickable": true },
+                                    "breakpoints": {
+                                    "768": { "slidesPerView": 3, "spaceBetween": 12, "slidesPerGroup": 3 },
+                                    "1200": { "slidesPerView": 4, "spaceBetween": 24, "slidesPerGroup": 4}
+                                    }
+                                }'>
+                                <div class="swiper-wrapper">
+                                    {% if settings.suggestion_products != blank %}
+                                        {% for suggestion_product in settings.suggestion_products limit: 8 %}
+                                            {% if suggestion_product and suggestion_product.available %}
+                                                <div class="swiper-slide">
+                                                    {% render 'product-card', product: suggestion_product, show_progress_sale: false %}
+                                                </div>
+                                            {% endif %}
                                         {% endfor %}
                                     {% else %}
-                                        <div class="swiper-slide">
-                                            <div class="text-sm">No products found.</div>
-                                        </div>
+                                        {% assign featured_collection = collections['frontpage'] %}
+                                        {% if featured_collection == nil or featured_collection.products_count == 0 %}
+                                            {% assign featured_collection = collections['all'] %}
+                                        {% endif %}
+                                        {% if featured_collection and featured_collection.products_count > 0 %}
+                                            {% for product in featured_collection.products limit: 8 %}
+                                                <div class="swiper-slide">
+                                                    {% render 'product-card', product: product, show_progress_sale: false %}
+                                                </div>
+                                            {% endfor %}
+                                        {% else %}
+                                            <div class="swiper-slide">
+                                                <div class="text-sm">No products found.</div>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            </div>
-                            <div
-                                class="d-flex d-xl-none sw-dot-default sw-pagination-search justify-content-center">
+                                </div>
+                                <div
+                                    class="d-flex d-xl-none sw-dot-default sw-pagination-search justify-content-center">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>
