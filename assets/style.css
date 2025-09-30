@@ -29139,3 +29139,29 @@ shopify-accelerated-checkout {
       gap: 48px;
   }
 }
+.tf-topbar .overflow-hidden::before, .tf-topbar .overflow-hidden::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 30px;
+  z-index: 5;
+  pointer-events: none;
+}
+.tf-topbar .overflow-hidden::before {
+  left: 0px;
+  background: linear-gradient(to right, rgb(255, 255, 255), transparent);
+}
+.tf-topbar .overflow-hidden::after {
+  right: 0px;
+  background: linear-gradient(to left, rgb(255, 255, 255), transparent);
+}
+.tf-topbar.bg-dark-green-7 .overflow-hidden::before {
+  background: linear-gradient(to right, rgb(33, 153, 19), transparent);
+}
+.tf-topbar.bg-dark-green-7 .overflow-hidden::after {
+  background: linear-gradient(to left, rgb(33, 153, 19), transparent);
+}
+.tf-topbar .overflow-hidden {
+  position: relative;
+}
