@@ -29148,26 +29148,6 @@ shopify-accelerated-checkout {
   z-index: 5;
   pointer-events: none;
 }
-.tf-topbar .overflow-hidden::before {
-  left: 0px;
-  background: linear-gradient(to right, rgb(255, 255, 255), transparent);
-}
-.tf-topbar .overflow-hidden::after {
-  right: 0px;
-  background: linear-gradient(to left, rgb(255, 255, 255), transparent);
-}
-.tf-topbar.bg-dark-green-7 .overflow-hidden::before {
-  background: linear-gradient(to right, rgb(33, 153, 19), transparent);
-}
-.tf-topbar.bg-dark-green-7 .overflow-hidden::after {
-  background: linear-gradient(to left, rgb(33, 153, 19), transparent);
-}
 .tf-topbar .overflow-hidden {
   position: relative;
-}
-.tf-topbar.bg-brown-18 .overflow-hidden::before {
-  background: linear-gradient(to right, #995413, transparent);
-}
-.tf-topbar.bg-brown-18 .overflow-hidden::after {
-  background: linear-gradient(to left, #995413, transparent);
 }

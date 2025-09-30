@@ -180,7 +180,7 @@
 {% endschema %}
 
 <div
-  class="tf-topbar color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}{% if section.settings.capitalize_text %} marquee-topbar{% endif %} {%- if section.blocks.size == 1 and section.blocks.first.type == 'announcement' -%}bg-dark-green-7{%- endif -%}{%- if section.blocks.size == 3 and section.blocks.first.type == 'email' -%}bg-brown-18 topbar-md{%- endif -%}"
+  class="tf-topbar color-{{ section.settings.color_scheme }} gradient {% unless section.settings.show_border_bottom %} no-border-bottom{% endunless %}{% if section.settings.capitalize_text %} marquee-topbar{% endif %}{%- if section.blocks.size == 3 and section.blocks.first.type == 'email' -%} topbar-md{%- endif -%}"
 >
   <div class="{{ section.settings.width }}">
     {%- if section.blocks.size == 1 and section.blocks.first.type == 'announcement' -%}
@@ -426,5 +426,14 @@
   .custom-select-arrow:after {
     color: rgb(var(--color-foreground)) !important;
     line-height: normal;
+  }
+  
+  .tf-topbar .overflow-hidden::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(var(--color-background)), transparent);
+  }
+  .tf-topbar .overflow-hidden::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(var(--color-background)), transparent);
   }
 {%- endstyle -%}
