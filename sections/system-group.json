@@ -136,7 +136,7 @@
       ],
       "settings": {
         "color_scheme": "scheme-1",
-        "newsletter_image": "shopify://shop_images/newsletter-1_1.jpg",
+        "newsletter_image": "shopify://shop_images/newsletter-1.jpg",
         "popup_trigger": "scroll",
         "popup_delay": 3,
         "scroll_threshold": 300,
