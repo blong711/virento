@@ -53,11 +53,9 @@
           "settings": {
             "menu_item_match": "Shop",
             "collections": [
-              "cables",
-              "chargers",
-              "earphones",
-              "headphones",
-              "frontpage"
+              "spring-steps",
+              "autumn-edge",
+              "summer-soes"
             ]
           }
         },
@@ -66,10 +64,10 @@
           "settings": {
             "menu_item_match": "Products",
             "products": [
-              "apple-iphone-16-promax",
-              "apple-magsafe-charger",
-              "apple-smart-keyboard",
-              "logitech-k380"
+              "nike-p-6000",
+              "nike-air-max-plus",
+              "nike-victori-one",
+              "nike-air-force-1-07"
             ]
           }
         },
