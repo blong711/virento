@@ -12,7 +12,6 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
-        "background_image": "shopify://shop_images/page-title_1.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
@@ -35,7 +34,7 @@
         "items_per_row_mobile": 2,
         "enable_uppercase": false,
         "content_position": "center",
-        "image_ratio": "adapt_image",
+        "image_ratio": "square",
         "button_text": "View all",
         "pagination_type": "numbers",
         "pagination_position": "center"
