@@ -269,6 +269,7 @@
         "grid_item_aeyHBV": {
           "type": "grid_item",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/supplement-1.jpg",
             "hover_image": true,
             "title": "20% OFF ALL SPORT NUTRITION",
@@ -283,6 +284,7 @@
         "grid_item_hYYR9N": {
           "type": "grid_item",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/supplement-2.jpg",
             "hover_image": true,
             "title": "TRAIN HARDER",
@@ -297,6 +299,7 @@
         "grid_item_knEL63": {
           "type": "grid_item",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/supplement-3.jpg",
             "hover_image": true,
             "title": "Bundle Deal",
@@ -438,7 +441,7 @@
         "width": "boxed",
         "color_scheme": "",
         "border_radius": 0,
-        "blog": "lifestyle",
+        "blog": "tricks-tips",
         "posts_to_show": 6,
         "show_tags": true,
         "show_excerpt": true,
