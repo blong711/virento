@@ -29151,3 +29151,8 @@ shopify-accelerated-checkout {
 .tf-topbar .overflow-hidden {
   position: relative;
 }
+@media (max-width: 991px) {
+  .slider-supplement .content-slider {
+      gap: 20px;
+  }
+}

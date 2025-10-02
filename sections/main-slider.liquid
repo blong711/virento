@@ -755,6 +755,9 @@
                                       class="tf-btn {% if section.settings.button_animate %}animate-btn{% endif %}"
                                     >
                                       {{ block.settings.button_text }}
+                                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M22.354 11.6459C22.4006 11.6923 22.4375 11.7475 22.4627 11.8083C22.4879 11.869 22.5009 11.9341 22.5009 11.9999C22.5009 12.0657 22.4879 12.1308 22.4627 12.1915C22.4375 12.2523 22.4006 12.3075 22.354 12.3539L18.354 16.3539C18.3075 16.4004 18.2523 16.4373 18.1916 16.4624C18.1308 16.4876 18.0657 16.5005 18 16.5005C17.8672 16.5005 17.7399 16.4478 17.646 16.3539C17.5521 16.26 17.4994 16.1327 17.4994 15.9999C17.4994 15.8671 17.5521 15.7398 17.646 15.6459L20.793 12.4999H2C1.86739 12.4999 1.74021 12.4472 1.64645 12.3535C1.55268 12.2597 1.5 12.1325 1.5 11.9999C1.5 11.8673 1.55268 11.7401 1.64645 11.6463C1.74021 11.5526 1.86739 11.4999 2 11.4999H20.793L17.646 8.3539C17.5521 8.26001 17.4994 8.13268 17.4994 7.9999C17.4994 7.86712 17.5521 7.73979 17.646 7.6459C17.7399 7.55201 17.8672 7.49927 18 7.49927C18.1328 7.49927 18.2601 7.55201 18.354 7.6459L22.354 11.6459Z" fill="white"></path>
+                                    </svg>
                                     </a>
                                   </div>
                                 {% endif %}
@@ -820,6 +823,32 @@
 
         // Skip height adjustment if mobile is set to 'fill' (let CSS handle it)
         if (isMobile && mobileHeightSetting === 'fill') {
+          return;
+        }
+
+        // Handle mobile fixed height
+        if (isMobile && mobileHeightSetting === 'fixed') {
+          const fixedHeight = {{ section.settings.mobile_height_fixed }};
+          slides.forEach((slide) => {
+            const content = slide.querySelector('.slider-wrap');
+            if (content) {
+              slide.style.setProperty('height', fixedHeight + 'px', 'important');
+              content.style.setProperty('height', fixedHeight + 'px', 'important');
+              slide.style.setProperty('min-height', fixedHeight + 'px', 'important');
+              slide.style.setProperty('max-height', fixedHeight + 'px', 'important');
+              content.style.setProperty('min-height', fixedHeight + 'px', 'important');
+              content.style.setProperty('max-height', fixedHeight + 'px', 'important');
+            }
+          });
+          
+          // Force Swiper to recalculate
+          if (window.Swiper && slider.swiper) {
+            setTimeout(() => {
+              slider.swiper.update();
+              slider.swiper.updateSize();
+              slider.swiper.updateSlides();
+            }, 100);
+          }
           return;
         }
 
@@ -904,15 +933,59 @@
         }, 100);
       }
 
+      // Always call mobile height handler after height adjustment
+      handleMobileHeightModes();
+
       // Initial adjustment - wait a bit for content to settle
       setTimeout(adjustSlideHeights, 100);
 
-      // Adjust on window resize
+      // Adjust on window resize with proper reinitialization
       let resizeTimer;
+      let lastViewportMode = null; // Track desktop vs mobile
+      
       window.addEventListener('resize', function () {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(adjustSlideHeights, 250);
+        resizeTimer = setTimeout(() => {
+          const isMobile = window.innerWidth <= 767;
+          const currentViewportMode = isMobile ? 'mobile' : 'desktop';
+          
+          // If viewport mode changed, reinitialize everything
+          if (lastViewportMode !== null && lastViewportMode !== currentViewportMode) {
+            // Reset all slide styles first
+            slides.forEach((slide) => {
+              const content = slide.querySelector('.slider-wrap');
+              if (content) {
+                slide.style.removeProperty('height');
+                slide.style.removeProperty('min-height');
+                slide.style.removeProperty('max-height');
+                content.style.removeProperty('height');
+                content.style.removeProperty('min-height');
+                content.style.removeProperty('max-height');
+              }
+            });
+            
+            // Force Swiper to recalculate
+            if (window.Swiper && slider.swiper) {
+              slider.swiper.update();
+              slider.swiper.updateSize();
+              slider.swiper.updateSlides();
+            }
+            
+            // Wait a bit then apply new height logic
+            setTimeout(() => {
+              adjustSlideHeights();
+            }, 100);
+          } else {
+            // Same viewport mode, just adjust heights
+            adjustSlideHeights();
+          }
+          
+          lastViewportMode = currentViewportMode;
+        }, 250);
       });
+      
+      // Initialize viewport mode tracking
+      lastViewportMode = window.innerWidth <= 767 ? 'mobile' : 'desktop';
 
       // Adjust when images are loaded
       const images = slider.querySelectorAll('img');
@@ -959,20 +1032,27 @@
       const isMobile = window.innerWidth <= 767;
       if (!isMobile) return;
 
-      if (mobileHeightSetting === 'fill' || mobileHeightSetting === 'fixed') {
-        const slides = slider.querySelectorAll('.swiper-slide');
+      const slides = slider.querySelectorAll('.swiper-slide');
 
-        slides.forEach((slide) => {
-          const content = slide.querySelector('.slider-wrap');
-          const imageContainer = slide.querySelector('.image');
-          const textContent = slide.querySelector('.box-content');
+      slides.forEach((slide) => {
+        const content = slide.querySelector('.slider-wrap');
+        const imageContainer = slide.querySelector('.image');
+        const textContent = slide.querySelector('.box-content');
 
-          if (content && imageContainer && textContent) {
-            // Ensure the image container takes up the full available space
+        if (content && imageContainer && textContent) {
+          // Reset any previous positioning
+          textContent.style.removeProperty('position');
+          textContent.style.removeProperty('top');
+          textContent.style.removeProperty('left');
+          textContent.style.removeProperty('right');
+          textContent.style.removeProperty('bottom');
+          textContent.style.removeProperty('z-index');
+
+          if (mobileHeightSetting === 'fill') {
+            // For fill mode: position text content absolutely over the image
             imageContainer.style.setProperty('flex', '1', 'important');
             imageContainer.style.setProperty('min-height', '0', 'important');
 
-            // Position text content absolutely over the image
             textContent.style.setProperty('position', 'absolute', 'important');
             textContent.style.setProperty('top', '0', 'important');
             textContent.style.setProperty('left', '0', 'important');
@@ -988,21 +1068,30 @@
               img.style.setProperty('object-fit', 'cover', 'important');
               img.style.setProperty('object-position', 'center', 'important');
             });
+          } else if (mobileHeightSetting === 'fixed') {
+            // For fixed mode: use normal layout, just ensure proper image sizing
+            imageContainer.style.setProperty('flex', '1', 'important');
+            imageContainer.style.setProperty('min-height', '0', 'important');
+
+            // Ensure images fill the container properly
+            const images = imageContainer.querySelectorAll('img');
+            images.forEach((img) => {
+              img.style.setProperty('width', '100%', 'important');
+              img.style.setProperty('height', '100%', 'important');
+              img.style.setProperty('object-fit', 'cover', 'important');
+              img.style.setProperty('object-position', 'center', 'important');
+            });
           }
-        });
-      }
+          // For adapt-first mode, don't apply any special positioning
+        }
+      });
     }
 
     // Call mobile height handler
     handleMobileHeightModes();
 
-    // Handle on resize
-    window.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        handleMobileHeightModes();
-      }, 250);
-    });
+    // Handle on resize - this is now handled by the main resize handler above
+    // The handleMobileHeightModes function will be called as part of adjustSlideHeights
   });
 </script>
 {% endif %}
