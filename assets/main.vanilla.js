@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sidebarMobile();
   staggerWrap();
   clickModalSecond();
+  searchModalAutoClose();
   estimateShipping();
   headerSticky();
   newsletterPopup();
@@ -777,6 +778,12 @@ const clickModalSecond = () => {
     if (!btn) return;
 
     e.preventDefault();
+
+    // Close search modal if it's open
+    const searchModal = bootstrap.Offcanvas.getInstance(document.getElementById('search'));
+    if (searchModal) {
+      searchModal.hide();
+    }
 
     // Safely parse JSON data with error handling
     let variants = [];
@@ -2232,5 +2239,26 @@ const predictiveSearch = () => {
         staticSuggestions.style.display = 'block';
       }
     }, 150);
+  });
+};
+
+/* Search Modal Auto-Close
+-------------------------------------------------------------------------*/
+const searchModalAutoClose = () => {
+  // Add global event listener for any modal-opening buttons within search modal
+  document.addEventListener('click', (e) => {
+    // Check if the click is within the search modal
+    const searchModal = document.getElementById('search');
+    if (!searchModal || !searchModal.classList.contains('show')) return;
+    
+    // Check if the clicked element or its parent is a modal-opening button
+    const modalButton = e.target.closest('[data-bs-toggle="modal"], [data-bs-target], .btn-quickview, .quickview, .compare, [data-quick-add="true"], .product-quick-add-button');
+    if (!modalButton) return;
+    
+    // Close search modal before opening the new modal
+    const searchOffcanvas = bootstrap.Offcanvas.getInstance(searchModal);
+    if (searchOffcanvas) {
+      searchOffcanvas.hide();
+    }
   });
 };

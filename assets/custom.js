@@ -756,6 +756,12 @@ function updateAllCompareButtons(productId, action) {
 
 // Open compare modal
 function openCompareModal() {
+  // Close search modal if it's open
+  const searchModal = bootstrap.Offcanvas.getInstance(document.getElementById('search'));
+  if (searchModal) {
+    searchModal.hide();
+  }
+
   const modal = document.getElementById('compare');
   if (modal) {
     // Update modal content with current compare items
@@ -769,6 +775,12 @@ function openCompareModal() {
 
 // Open compare modal from compare button (when not adding a product)
 function openCompareModalFromButton() {
+  // Close search modal if it's open
+  const searchModal = bootstrap.Offcanvas.getInstance(document.getElementById('search'));
+  if (searchModal) {
+    searchModal.hide();
+  }
+
   const modal = document.getElementById('compare');
   if (modal) {
     // Update modal content with current compare items

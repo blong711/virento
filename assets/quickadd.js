@@ -102,6 +102,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Load product variants
         loadProductVariants(productData.productHandle);
         
+        // Close search modal if it's open
+        const searchModal = bootstrap.Offcanvas.getInstance(document.getElementById('search'));
+        if (searchModal) {
+            searchModal.hide();
+        }
+        
         // Show modal
         const bsModal = new bootstrap.Modal(modal);
         bsModal.show();
