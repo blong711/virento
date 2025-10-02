@@ -240,7 +240,8 @@
     "add_to_cart": "Add to cart",
     "buy_it_now": "Buy It Now",
     "more_payment_options": "More payment options",
-    "view_full_details": "View full details"
+    "view_full_details": "View full details",
+    "processing": "Processing..."
   },
   "accessibility": {
     "skip_to_text": "Skip to content",

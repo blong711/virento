@@ -67,7 +67,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const wishlistButton = modal.querySelector('#modal-wishlist-button');
         const compareButton = modal.querySelector('#modal-compare-button');
         
-        if (buyNowLink) buyNowLink.href = productData.productUrl;
+        // Set up Buy Now button for direct checkout
+        if (buyNowLink) {
+            buyNowLink.href = '#';
+            buyNowLink.dataset.productId = productData.productId;
+            buyNowLink.dataset.variantId = '';
+            buyNowLink.dataset.quantity = '1';
+        }
         if (paymentLink) paymentLink.href = productData.productUrl;
         
         // Update wishlist button with product data
@@ -145,6 +151,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     const ADD_TO_CART = T.add_to_cart || 'Add to cart';
                     const SOLD_OUT = T.sold_out || 'Sold Out';
                     addToCartBtn.textContent = product.variants[0].available ? ADD_TO_CART : SOLD_OUT;
+                }
+                
+                // Update Buy Now button with initial variant
+                const buyNowBtn = modal.querySelector('#modal-buy-now');
+                if (buyNowBtn) {
+                    buyNowBtn.dataset.variantId = product.variants[0].id;
+                    buyNowBtn.disabled = !product.variants[0].available;
                 }
             })
             .catch(error => console.error('Error loading product:', error));
@@ -323,6 +336,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         productImage.alt = variant.featured_image.alt || product.title;
                     }
                 }
+                
+                // Update Buy Now button with current variant
+                const buyNowBtn = modal.querySelector('#modal-buy-now');
+                if (buyNowBtn) {
+                    buyNowBtn.dataset.variantId = variant.id;
+                }
             }
         }
     }
@@ -356,7 +375,58 @@ document.addEventListener('DOMContentLoaded', function() {
         if (addToCartBtn) {
             addToCartBtn.setAttribute('data-quantity', quantity);
         }
+        
+        // Also update Buy Now button quantity
+        const buyNowBtn = modal.querySelector('#modal-buy-now');
+        if (buyNowBtn) {
+            buyNowBtn.setAttribute('data-quantity', quantity);
+        }
     }
+
+    // Buy Now button click handler
+    modal.addEventListener('click', function(e) {
+        if (e.target.id === 'modal-buy-now' || e.target.closest('#modal-buy-now')) {
+            e.preventDefault();
+            
+            const buyNowBtn = modal.querySelector('#modal-buy-now');
+            const variantId = buyNowBtn.dataset.variantId;
+            const quantity = buyNowBtn.dataset.quantity || '1';
+            
+            if (!variantId) {
+                console.error('No variant selected for Buy Now');
+                return;
+            }
+            
+            // Disable button to prevent multiple clicks
+            buyNowBtn.disabled = true;
+            const T = (window.ShopifyTranslations && window.ShopifyTranslations.quickview) || {};
+            buyNowBtn.textContent = T.processing || 'Processing...';
+            
+            // Add to cart and redirect to checkout
+            fetch('/cart/add.js', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: variantId,
+                    quantity: parseInt(quantity)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirect to checkout
+                window.location.href = '/checkout';
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+                // Re-enable button
+                buyNowBtn.disabled = false;
+                const T = (window.ShopifyTranslations && window.ShopifyTranslations.quickview) || {};
+                buyNowBtn.textContent = T.buy_it_now || 'Buy it now';
+            });
+        }
+    });
 
     // Helper function to format money
     function formatMoney(cents) {
