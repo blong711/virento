@@ -195,15 +195,12 @@
                   class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %} font-7"
                   {{ block.shopify_attributes }}
                 >
-                  {{ block.settings.newsletter_heading | default: 'Subscribe to Newsletter' | escape }}
+                  {{ block.settings.newsletter_heading | escape }}
                 </div>
                 <div class="tf-collapse-content">
                   <div class="footer-newsletter">
                     <p class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
-                      {{
-                        block.settings.newsletter_text
-                        | default: 'Subscribe for 15% off your first order and unlock your inner potential with us.'
-                      }}
+                      {{ block.settings.newsletter_text }}
                     </p>
                     {%- form 'customer', id: 'ContactFooter', class: 'form-newsletter' -%}
                       <input type="hidden" name="contact[tags]" value="newsletter">
@@ -213,7 +210,7 @@
                             type="email"
                             name="contact[email]"
                             class="subscribe-email rounded-0 bg-white"
-                            placeholder="{{ 'newsletter.label' | t | default: 'Your email' }}"
+                            placeholder="{{ 'newsletter.label' | t }}"
                             value="{{ form.email }}"
                             tabindex="0"
                             aria-required="true"
@@ -511,7 +508,7 @@
                   <div class="tf-collapse-content">
                     <div class="footer-newsletter">
                       {%- if block.settings.newsletter_text != blank -%}
-                        <div class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+                        <div class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}" style="color: rgba(var(--color-foreground2))">
                           {{ block.settings.newsletter_text }}
                         </div>
                       {%- endif -%}
@@ -592,7 +589,7 @@
                       <ul class="footer-menu-list {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
                         {%- for link in block.settings.menu.links -%}
                           <li>
-                            <a href="{{ link.url }}">{{ link.title }}</a>
+                            <a href="{{ link.url }}" style="color: rgba(var(--color-foreground2))">{{ link.title }}</a>
                           </li>
                         {%- endfor -%}
                       </ul>
@@ -806,7 +803,6 @@
           "type": "text",
           "id": "contact_heading",
           "label": "t:sections.footer.blocks.contact_info.contact_heading",
-          "default": "t:sections.footer.blocks.contact_info.contact_heading"
         },
         {
           "type": "text",
@@ -833,7 +829,6 @@
           "type": "text",
           "id": "map_button_text",
           "label": "t:sections.footer.blocks.contact_info.map_button_text",
-          "default": "t:sections.footer.blocks.contact_info.map_button_text"
         },
         {
           "type": "url",
@@ -851,13 +846,11 @@
           "type": "text",
           "id": "newsletter_heading",
           "label": "t:sections.footer.blocks.newsletter.newsletter_heading",
-          "default": "t:sections.footer.blocks.newsletter.newsletter_heading"
         },
         {
           "type": "text",
           "id": "newsletter_text",
           "label": "t:sections.footer.blocks.newsletter.newsletter_text",
-          "default": "t:sections.footer.blocks.newsletter.newsletter_text"
         }
       ]
     },
@@ -868,7 +861,6 @@
         {
           "type": "text",
           "id": "heading",
-          "default": "t:sections.footer.blocks.menu.heading",
           "label": "t:sections.footer.blocks.menu.heading"
         },
         {
@@ -889,26 +881,26 @@
       {
         "type": "contact_info",
         "settings": {
-          "contact_heading": "t:sections.footer.blocks.contact_info.contact_heading"
+          "contact_heading": ""
         }
       },
       {
         "type": "newsletter",
         "settings": {
-          "newsletter_heading": "t:sections.footer.blocks.newsletter.newsletter_heading"
+          "newsletter_heading": ""
         }
       },
       {
         "type": "link_list",
         "settings": {
-          "heading": "t:sections.footer.blocks.menu.heading",
+          "heading": "",
           "menu": "footer"
         }
       },
       {
         "type": "link_list",
         "settings": {
-          "heading": "t:sections.footer.blocks.menu.heading",
+          "heading": "",
           "menu": "footer"
         }
       }
