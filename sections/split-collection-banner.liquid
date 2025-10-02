@@ -163,14 +163,14 @@
           {% if section.settings.title != blank %}
             <h3 class="title display-lg">
               {% if section.settings.button_link != blank %}
-                <a href="{{ section.settings.button_link }}" class="link" style="max-width: 500px">{{ section.settings.title }}</a>
+                <a href="{{ section.settings.button_link }}" class="link" style="max-width: 400px">{{ section.settings.title }}</a>
               {% else %}
                 {{ section.settings.title }}
               {% endif %}
             </h3>
           {% endif %}
           {% if section.settings.description != blank %}
-            <p class="sub text-md fw-medium text-main" style="max-width: 600px">{{ section.settings.description }}</p>
+            <p class="sub text-md fw-medium text-main" style="max-width: 550px">{{ section.settings.description }}</p>
           {% endif %}
         </div>
         {% if section.settings.button_text != blank and section.settings.button_link != blank %}

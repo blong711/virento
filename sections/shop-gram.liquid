@@ -23,11 +23,11 @@
       <div class="flat-title wow fadeInUp text-{{ section.settings.content_align }}" style="margin-bottom: {{ section.settings.heading_spacing }}px;">
         {% case section.settings.heading_size %}
           {% when 'small' %}
-            <h5 class="title fw-semibold letter-0 {{ section.settings.heading_font }}">{{ section.settings.heading }}</h5>
+            <h5 class="title {{ section.settings.heading_font_weight }} letter-0 {{ section.settings.heading_font }}">{{ section.settings.heading }}</h5>
           {% when 'large' %}
-            <h3 class="title fw-semibold letter-0 {{ section.settings.heading_font }}">{{ section.settings.heading }}</h3>
+            <h3 class="title {{ section.settings.heading_font_weight }} letter-0 {{ section.settings.heading_font }}">{{ section.settings.heading }}</h3>
           {% else %}
-            <h4 class="title fw-semibold letter-0 {{ section.settings.heading_font }}">{{ section.settings.heading }}</h4>
+            <h4 class="title {{ section.settings.heading_font_weight }} letter-0 {{ section.settings.heading_font }}">{{ section.settings.heading }}</h4>
         {% endcase %}
       </div>
     {% endif %}
@@ -156,6 +156,19 @@
         { "value": "font-14", "label": "Gloock" }
       ],
       "default": ""
+    },
+    {
+      "type": "select",
+      "id": "heading_font_weight",
+      "label": "t:sections.shop-gram.settings.heading_font_weight.label",
+      "options": [
+        { "value": "fw-light", "label": "t:sections.shop-gram.settings.heading_font_weight.options.fw-light" },
+        { "value": "fw-regular", "label": "t:sections.shop-gram.settings.heading_font_weight.options.fw-regular" },
+        { "value": "fw-medium", "label": "t:sections.shop-gram.settings.heading_font_weight.options.fw-medium" },
+        { "value": "fw-semibold", "label": "t:sections.shop-gram.settings.heading_font_weight.options.fw-semibold" },
+        { "value": "fw-bold", "label": "t:sections.shop-gram.settings.heading_font_weight.options.fw-bold" }
+      ],
+      "default": "fw-semibold"
     },
     {
       "type": "select",

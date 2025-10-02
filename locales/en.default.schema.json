@@ -7823,6 +7823,16 @@
         "heading_font": {
           "label": "Heading font"
         },
+        "heading_font_weight": {
+          "label": "Heading font weight",
+          "options": {
+            "fw-light": "Light",
+            "fw-regular": "Regular",
+            "fw-medium": "Medium",
+            "fw-semibold": "Semi Bold",
+            "fw-bold": "Bold"
+          }
+        },
         "content_align": {
           "label": "Heading alignment",
           "options": {

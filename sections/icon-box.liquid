@@ -355,7 +355,7 @@
               <div class="content">
                 {% if block.settings.title != blank %}
                   {% if section.settings.icon_style == 'default' %}
-                    <div class="title" style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</div>
+                    <div class="title heading-font" style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</div>
                   {% else %}
                     <h6 style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</h6>
                   {% endif %}
