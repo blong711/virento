@@ -3614,8 +3614,7 @@ header.header-bg {
 .footer-default .footer-top {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding-top: 40px;
-  padding-bottom: 32px;
+  padding: 32px 0px;
 }
 
 .footer-default .footer-top-wrap {
@@ -8783,8 +8782,7 @@ header.header-bg {
 .footer-default .footer-top {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding-top: 40px;
-  padding-bottom: 32px;
+  padding: 32px 0px;
 }
 
 .footer-default .footer-top-wrap {
