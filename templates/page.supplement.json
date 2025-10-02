@@ -75,7 +75,7 @@
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
+        "products_per_row_mobile": 1,
         "icon_style": "default",
         "show_border": true,
         "padding_top": 32,
@@ -100,7 +100,8 @@
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "shopify://collections",
-            "button_text": "Shop Now"
+            "button_text": "Shop Now",
+            "heading_max_width": 400
           }
         },
         "slide-2": {
@@ -117,7 +118,8 @@
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "shopify://collections",
-            "button_text": "Show Now"
+            "button_text": "Show Now",
+            "heading_max_width": 400
           }
         }
       },
@@ -134,7 +136,7 @@
         "mobile_height": "adapt-first",
         "mobile_height_fixed": 300,
         "loop": true,
-        "autoplay_speed": 5,
+        "autoplay_speed": 0,
         "pause_on_hover": true,
         "draggable": true,
         "show_arrows": false,
