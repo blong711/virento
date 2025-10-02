@@ -29159,3 +29159,17 @@ shopify-accelerated-checkout {
       display: none;
   }
 }
+@media (min-width: 768px) {
+  .main-product-quickadd .item-product-group-btn .tf-btn {
+      padding: 11px 24px;
+  }
+}
+@media (min-width: 768px) {
+  .main-product-quickadd .item-product-group-btn .box-icon {
+      width: 48px;
+      height: 48px;
+  }
+}
+.main-product-quickadd .item-product-group-btn .atc {
+  flex-grow: 1;
+}
