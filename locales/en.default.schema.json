@@ -839,6 +839,9 @@
             "button_text": {
               "label": "Button Text",
               "default": "Explore More"
+            },
+            "heading_max_width": {
+              "label": "Heading max width"
             }
           }
         }

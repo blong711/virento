@@ -343,6 +343,16 @@
           "id": "button_text",
           "label": "t:sections.main_slider.blocks.slide.settings.button_text.label",
           "default": "t:sections.main_slider.blocks.slide.settings.button_text.default"
+        },
+        {
+          "type": "range",
+          "id": "heading_max_width",
+          "label": "t:sections.main_slider.blocks.slide.settings.heading_max_width.label",
+          "min": 200,
+          "max": 800,
+          "step": 10,
+          "unit": "px",
+          "default": 400
         }
       ]
     }
@@ -734,9 +744,9 @@
                                       {{ block.settings.subheading }}
                                     </p>
                                   {% endif %}
-                                  <h4 class="heading {{ block.settings.heading_size }} {{ block.settings.heading_weight }} fade-item fade-item-2">
+                                  <h2 class="heading {{ block.settings.heading_size }} {{ block.settings.heading_weight }} fade-item fade-item-2" style="max-width: {{ block.settings.heading_max_width }}px;">
                                     {{ block.settings.heading }}
-                                  </h4>
+                                  </h2>
                                   <p
                                     class="sub {{ block.settings.text_size }} fade-item fade-item-3"
                                     style="color: rgb(var(--color-foreground2));"

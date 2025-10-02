@@ -318,7 +318,7 @@
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
-    <div class="mw-1 mx-auto">    
+    <div{% unless section.blocks.size == 3 %} class="mw-1 mx-auto"{% endunless %}>    
       <div
     dir="ltr"
     class="swiper tf-swiper"
@@ -344,7 +344,7 @@
             <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-lg{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %}">
               <div
                 class="box-icon"
-                style="--icon-size: {{ block.settings.icon_size | default: 28 }}px;"
+                style="--icon-size: {{ block.settings.icon_size | default: 28 }}px; background-color: rgb(var(--color-background2));"
               >
                 {% if block.settings.custom_svg != blank %}
                   <div class="icon">{{ block.settings.custom_svg }}</div>
