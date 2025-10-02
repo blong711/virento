@@ -15385,8 +15385,8 @@ button.animate-btn::after,
   width: 100% !important;
   max-height: none !important;
   height: auto !important;
-  flex-direction: row !important;
-  display: flex !important;
+  /* flex-direction: row !important;
+  display: flex !important; */
   gap: 10px;
   overflow-x: auto;
   padding: 10px 0;

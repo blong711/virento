@@ -260,37 +260,87 @@ const variantPicker = () => {
   // Color variant
   document.querySelectorAll('.color-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      const value = btn.dataset.scroll;
-      document.querySelectorAll('.value-currentColor').forEach((el) => {
-        el.textContent = value;
-      });
+      // Get value from multiple possible data attributes for compatibility
+      const value = btn.dataset.scroll || btn.dataset.color || btn.dataset.value;
 
-      // Remove active class from all buttons in the same group
-      const parentValues = btn.closest('.variant-picker-values');
-      if (parentValues) {
-        parentValues.querySelectorAll('.color-btn').forEach((b) => {
-          b.classList.remove('active');
+      if (value) {
+        document.querySelectorAll('.value-currentColor').forEach((el) => {
+          el.textContent = value;
         });
+
+        // Remove active class from all buttons in the same group
+        const parentValues = btn.closest('.variant-picker-values');
+        if (parentValues) {
+          parentValues.querySelectorAll('.color-btn').forEach((b) => {
+            b.classList.remove('active');
+          });
+        }
+        btn.classList.add('active');
       }
-      btn.classList.add('active');
     });
   });
 
   // Size variant
   document.querySelectorAll('.size-btn').forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      const value = btn.dataset.size;
-      document.querySelectorAll('.value-currentSize').forEach((el) => {
-        el.textContent = value;
-      });
+      // Get value from multiple possible data attributes for compatibility
+      const value = btn.dataset.size || btn.dataset.value;
 
-      const parentValues = btn.closest('.variant-picker-values');
-      if (parentValues) {
-        parentValues.querySelectorAll('.size-btn').forEach((b) => {
-          b.classList.remove('active');
+      if (value) {
+        document.querySelectorAll('.value-currentSize').forEach((el) => {
+          el.textContent = value;
         });
+
+        const parentValues = btn.closest('.variant-picker-values');
+        if (parentValues) {
+          parentValues.querySelectorAll('.size-btn').forEach((b) => {
+            b.classList.remove('active');
+          });
+        }
+        btn.classList.add('active');
       }
-      btn.classList.add('active');
+    });
+  });
+
+  // Dropdown variant selection
+  document.querySelectorAll('.tf-variant-dropdown .select-item').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const value = btn.dataset.value;
+      const option = btn.dataset.option;
+      const label = btn.querySelector('.text-value-item')?.textContent || value;
+
+      if (value) {
+        // Update dropdown label
+        const dropdown = btn.closest('.tf-variant-dropdown');
+        if (dropdown) {
+          const labelSpan = dropdown.querySelector('.text-sort-value');
+          if (labelSpan) labelSpan.textContent = label;
+        }
+
+        // Set active class
+        btn.parentElement.querySelectorAll('.select-item').forEach((el) => {
+          el.classList.remove('active');
+        });
+        btn.classList.add('active');
+
+        // Update the corresponding value display
+        if (option === 'color') {
+          document.querySelectorAll('.value-currentColor').forEach((el) => {
+            el.textContent = value;
+          });
+        } else if (option === 'size') {
+          document.querySelectorAll('.value-currentSize').forEach((el) => {
+            el.textContent = value;
+          });
+        }
+
+        // Update the label value for the option
+        const pickerItem = btn.closest('.variant-picker-item');
+        if (pickerItem) {
+          const labelValue = pickerItem.querySelector('.variant-picker-label-value');
+          if (labelValue) labelValue.textContent = label;
+        }
+      }
     });
   });
 };

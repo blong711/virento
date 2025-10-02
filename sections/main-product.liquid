@@ -11,7 +11,7 @@
     height: 56px !important;
     padding: 5px !important;
     border: 1px solid var(--line) !important;
-}
+  }
 {% endstyle %}
 
 {%- comment -%}Product Data for Recently Viewed Tracking{%- endcomment -%}
@@ -584,7 +584,7 @@
                           {% for block in section.blocks %}
                             {% if block.type == 'variant_picker' %}
                               {% for option in product.options_with_values %}
-                                <div class="variant-picker-item variant-{{ option.name | handle }}">
+                                <div class="variant-picker-item {% if option.name == 'Shoe size' %}variant-size{% else %}variant-{{ option.name | handle }}{% endif %}">
                                   <div class="variant-picker-label">
                                     <div>
                                       {{ option.name }}:
@@ -669,6 +669,142 @@
                                           {% endif %}
                                         {% endfor %}
                                       </div>
+                                    </div>
+                                  {% elsif block.settings.color_selector_type == 'swatch_image' %}
+                                    <div class="variant-picker-values">
+                                      {% if option.name == 'Color' %}
+                                        <span class="value-currentColor" style="display: none;">
+                                          {{- option.selected_value -}}
+                                        </span>
+                                        {% for value in option.values %}
+                                          {% assign show_value = true %}
+                                          {% assign is_out_of_stock = false %}
+                                          {% if block.settings.hide_sold_out %}
+                                            {% assign all_variants_unavailable = true %}
+                                            {% for variant in product.variants %}
+                                              {% if variant.option1 == value
+                                                or variant.option2 == value
+                                                or variant.option3 == value
+                                              %}
+                                                {% if variant.available == true %}
+                                                  {% assign all_variants_unavailable = false %}
+                                                  {% break %}
+                                                {% endif %}
+                                              {% endif %}
+                                            {% endfor %}
+                                            {% if all_variants_unavailable %}
+                                              {% assign show_value = false %}
+                                            {% endif %}
+                                          {% endif %}
+                                          {% if show_value %}
+                                            {% for variant in product.variants %}
+                                              {% if variant.option1 == value
+                                                or variant.option2 == value
+                                                or variant.option3 == value
+                                              %}
+                                                {% if variant.available == false %}
+                                                  {% assign is_out_of_stock = true %}
+                                                {% endif %}
+                                                {% break %}
+                                              {% endif %}
+                                            {% endfor %}
+                                            {% comment %} Get variant image for color swatch {% endcomment %}
+                                            {% assign variant_image = null %}
+                                            {% for variant in product.variants %}
+                                              {% if variant.option1 == value
+                                                or variant.option2 == value
+                                                or variant.option3 == value
+                                              %}
+                                                {% if variant.featured_image %}
+                                                  {% assign variant_image = variant.featured_image %}
+                                                  {% break %}
+                                                {% endif %}
+                                              {% endif %}
+                                            {% endfor %}
+                                            <div
+                                              class="hover-tooltip tooltip-bot color-btn style-image{% if value == option.selected_value %} active{% endif %}{% if is_out_of_stock %} out-of-stock{% endif %}"
+                                              data-color="{{ value | handle }}"
+                                              data-scroll="{{ value | handle }}"
+                                              data-option="{{ option.name | handle }}"
+                                              data-value="{{ value | handle }}"
+                                            >
+                                              <div class="img">
+                                                {% if variant_image %}
+                                                  <img
+                                                    class="lazyload"
+                                                    data-src="{{ variant_image | image_url: width: 100 }}"
+                                                    src="{{ variant_image | image_url: width: 50 }}"
+                                                    alt="{{ value }}"
+                                                    width="56"
+                                                    height="56"
+                                                  >
+                                                {% else %}
+                                                  <div class="color-placeholder bg-{{ value | handle }}"></div>
+                                                {% endif %}
+                                              </div>
+                                              <span class="tooltip">
+                                                {{- value -}}
+                                                {%- if is_out_of_stock %} (Out of stock){% endif -%}
+                                              </span>
+                                              {% if is_out_of_stock %}
+                                                <div class="out-of-stock-overlay">
+                                                  <span class="slash">/</span>
+                                                </div>
+                                              {% endif %}
+                                            </div>
+                                          {% endif %}
+                                        {% endfor %}
+                                      {% elsif option.name == 'Shoe size' or option.name == 'Size' %}
+                                        <span class="value-currentSize" style="display: none;">
+                                          {{- option.selected_value -}}
+                                        </span>
+                                        {% for value in option.values %}
+                                          {% assign show_value = true %}
+                                          {% assign is_out_of_stock = false %}
+                                          {% if block.settings.hide_sold_out %}
+                                            {% assign all_variants_unavailable = true %}
+                                            {% for variant in product.variants %}
+                                              {% if variant.option1 == value
+                                                or variant.option2 == value
+                                                or variant.option3 == value
+                                              %}
+                                                {% if variant.available == true %}
+                                                  {% assign all_variants_unavailable = false %}
+                                                  {% break %}
+                                                {% endif %}
+                                              {% endif %}
+                                            {% endfor %}
+                                            {% if all_variants_unavailable %}
+                                              {% assign show_value = false %}
+                                            {% endif %}
+                                          {% endif %}
+                                          {% if show_value %}
+                                            {% for variant in product.variants %}
+                                              {% if variant.option1 == value
+                                                or variant.option2 == value
+                                                or variant.option3 == value
+                                              %}
+                                                {% if variant.available == false %}
+                                                  {% assign is_out_of_stock = true %}
+                                                {% endif %}
+                                                {% break %}
+                                              {% endif %}
+                                            {% endfor %}
+                                          {% endif %}
+                                          
+                                          {% if show_value %}
+                                            <span
+                                              class="size-btn{% if value == option.selected_value %} active{% endif %} "
+                                              {% comment %} style="{% if is_out_of_stock %}opacity: 0.6; cursor: not-allowed; {% endif %} " {% endcomment %}
+                                              data-size="{{ value | handle }}"
+                                              data-option="{{ option.name | handle }}"
+                                              data-value="{{ value | handle }}"
+                                            >
+                                              {{ value -}}
+                                            </span>
+                                          {% endif %}
+                                        {% endfor %}
+                                      {% endif %}
                                     </div>
                                   {% else %}
                                     <div class="variant-picker-values">
@@ -2283,22 +2419,6 @@
           ],
           "default": "medium",
           "visible_if": "{{  block.settings.color_selector_type == 'swatch_rounded' }}"
-        },
-        {
-          "type": "select",
-          "id": "size_button_style",
-          "label": "t:sections.main-product.blocks.variant_picker.settings.size_button_style.label",
-          "options": [
-            {
-              "value": "default",
-              "label": "t:sections.main-product.blocks.variant_picker.settings.size_button_style.options.default.label"
-            },
-            {
-              "value": "dropdown",
-              "label": "t:sections.main-product.blocks.variant_picker.settings.size_button_style.options.dropdown.label"
-            }
-          ],
-          "default": "default"
         }
       ]
     },
@@ -2474,6 +2594,10 @@
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
       }
+  }
+
+  .full.tf-variant-dropdown {
+    width: 100%;
   }
 
   .size-icon-payment-product {
