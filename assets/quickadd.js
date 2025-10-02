@@ -118,12 +118,17 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/products/${productHandle}.js`)
             .then(response => response.json())
             .then(product => {
+                console.log('Product data loaded:', product);
+                console.log('Product options:', product.options);
+                
                 const variantsContainer = modal.querySelector('#modal-product-variants');
                 if (!variantsContainer) return;
                 
                 if (product.variants.length > 1) {
                     variantsContainer.style.display = 'block';
-                    variantsContainer.innerHTML = generateVariantsHTML(product);
+                    const variantsHTML = generateVariantsHTML(product);
+                    console.log('Generated variants HTML:', variantsHTML);
+                    variantsContainer.innerHTML = variantsHTML;
                     setupVariantHandlers(product);
                 } else {
                     variantsContainer.style.display = 'none';
@@ -150,11 +155,17 @@ document.addEventListener('DOMContentLoaded', function() {
         let html = '';
         
         product.options.forEach((option, optionIndex) => {
-            if (option.name === 'Color' || option.name === 'Colour') {
+            // Check for color options with case-insensitive matching
+            const isColorOption = option.name.toLowerCase() === 'color' || 
+                                 option.name.toLowerCase() === 'colour' ||
+                                 option.name.toLowerCase() === 'colors' ||
+                                 option.name.toLowerCase() === 'colours';
+            
+            if (isColorOption) {
                 html += `
                     <div class="quickadd-variant-color">
                         <div class="variant-label text-md">${option.name}: <span class="variant-value">${option.values[0]}</span></div>
-                        <div class="variant-picker-values">
+                        <ul class="list-color-product">
                 `;
                 
                 option.values.forEach(value => {
@@ -162,18 +173,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     const isActive = value === option.values[0];
                     const isSoldOut = !variant.available;
                     
+                    // Create handle-like string for data attributes
+                    const optionHandle = option.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                    const valueHandle = value.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                    
+                    // Get variant image if available
+                    const variantImage = variant && variant.featured_image ? variant.featured_image.src : '';
+                    
+                    // Create CSS class for color background
+                    const colorClass = value.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                    
                     html += `
-                        <div class="hover-tooltip tooltip-bot color-btn${isActive ? ' active' : ''}${isSoldOut ? ' out-of-stock' : ''}" 
-                            data-option="${option.name | handle}"
-                            data-value="${value | handle}">
-                            <span class="check-color bg-${value.toLowerCase().replace(/\s+/g, '-')}"></span>
-                            <span class="tooltip">${value}${isSoldOut ? ` (${((window.ShopifyTranslations && window.ShopifyTranslations.quickadd) || {}).out_of_stock || 'Out of stock'})` : ''}</span>
-                            ${isSoldOut ? '<div class="out-of-stock-overlay"><span class="slash">/</span></div>' : ''}
-                        </div>
+                        <li class="list-color-item color-swatch hover-tooltip tooltip-bot${isActive ? ' active' : ''}${isSoldOut ? ' line' : ''}" 
+                            data-option="${optionHandle}"
+                            data-value="${valueHandle}">
+                            <span class="tooltip color-label">${value}${isSoldOut ? ` (${((window.ShopifyTranslations && window.ShopifyTranslations.quickadd) || {}).out_of_stock || 'Out of stock'})` : ''}</span>
+                            <span class="swatch-value bg-${colorClass}"></span>
+                            ${variantImage ? `<img class="ls-is-cached lazyloaded" data-src="${variantImage}" src="${variantImage}" alt="${value}">` : ''}
+                        </li>
                     `;
                 });
                 
-                html += '</div></div>';
+                html += '</ul></div>';
             } else {
                 html += `
                     <div class="quickadd-variant-option">
@@ -202,23 +223,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Setup variant handlers
     function setupVariantHandlers(product) {
-        const colorButtons = modal.querySelectorAll('.color-btn');
+        const colorSwatches = modal.querySelectorAll('.color-swatch');
         const variantSelects = modal.querySelectorAll('.variant-select');
         const addToCartBtn = modal.querySelector('#modal-add-to-cart');
 
-        // Color button handlers
-        colorButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                if (this.classList.contains('out-of-stock')) return;
+        // Color swatch handlers
+        colorSwatches.forEach(function(swatch) {
+            swatch.addEventListener('click', function() {
+                if (this.classList.contains('line')) return; // Skip if out of stock
                 
                 // Remove active class from siblings
-                const siblings = this.parentNode.querySelectorAll('.color-btn');
+                const siblings = this.parentNode.querySelectorAll('.color-swatch');
                 siblings.forEach(function(sibling) {
                     sibling.classList.remove('active');
                 });
                 
-                // Add active class to clicked button
+                // Add active class to clicked swatch
                 this.classList.add('active');
+                
+                // Update the variant value display
+                const variantValueSpan = this.closest('.quickadd-variant-color').querySelector('.variant-value');
+                if (variantValueSpan) {
+                    variantValueSpan.textContent = this.querySelector('.color-label').textContent.split(' (')[0]; // Remove out of stock text if present
+                }
                 
                 // Update variant selection
                 updateVariantSelection();
@@ -233,26 +260,68 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         function updateVariantSelection() {
-            // Check active color button
-            const activeColorBtn = modal.querySelector('.color-btn.active');
-            if (activeColorBtn) {
-                const value = activeColorBtn.dataset.value;
+            // Collect all selected options
+            const selectedOptions = {};
+            
+            // Check active color swatches
+            const activeColorSwatch = modal.querySelector('.color-swatch.active');
+            if (activeColorSwatch) {
+                const optionName = activeColorSwatch.dataset.option;
+                const valueHandle = activeColorSwatch.dataset.value;
                 
-                // Find variant that matches this option
-                const variant = product.variants.find(v => {
-                    return v.options.some(option => 
-                        option.toLowerCase().replace(/\s+/g, '-') === value
+                // Find the actual option value by matching the handle
+                const option = product.options.find(opt => 
+                    opt.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === optionName
+                );
+                if (option) {
+                    const actualValue = option.values.find(val => 
+                        val.toLowerCase().replace(/[^a-z0-9]/g, '-') === valueHandle
                     );
+                    if (actualValue) {
+                        selectedOptions[optionName] = actualValue;
+                    }
+                }
+            }
+            
+            // Check select dropdowns
+            const variantSelects = modal.querySelectorAll('.variant-select');
+            variantSelects.forEach(select => {
+                const optionName = select.dataset.option;
+                const selectedValue = select.value;
+                if (selectedValue) {
+                    selectedOptions[optionName] = selectedValue;
+                }
+            });
+            
+            // Find matching variant
+            const variant = product.variants.find(v => {
+                return Object.keys(selectedOptions).every(optionKey => {
+                    const option = product.options.find(opt => 
+                        opt.name.toLowerCase().replace(/[^a-z0-9]/g, '-') === optionKey
+                    );
+                    if (!option) return false;
+                    
+                    const optionIndex = product.options.indexOf(option);
+                    return v.options[optionIndex] === selectedOptions[optionKey];
                 });
+            });
+            
+            if (variant) {
+                addToCartBtn.dataset.variantId = variant.id;
+                addToCartBtn.dataset.selectedVariant = variant.id;
+                addToCartBtn.disabled = !variant.available;
+                const T = (window.ShopifyTranslations && window.ShopifyTranslations.quickadd) || {};
+                const ADD_TO_CART = T.add_to_cart || 'Add to cart';
+                const SOLD_OUT = T.sold_out || 'Sold Out';
+                addToCartBtn.textContent = variant.available ? ADD_TO_CART : SOLD_OUT;
                 
-                if (variant) {
-                    addToCartBtn.dataset.variantId = variant.id;
-                    addToCartBtn.dataset.selectedVariant = variant.id;
-                    addToCartBtn.disabled = !variant.available;
-                    const T = (window.ShopifyTranslations && window.ShopifyTranslations.quickadd) || {};
-                    const ADD_TO_CART = T.add_to_cart || 'Add to cart';
-                    const SOLD_OUT = T.sold_out || 'Sold Out';
-                    addToCartBtn.textContent = variant.available ? ADD_TO_CART : SOLD_OUT;
+                // Update product image if variant has a different image
+                if (variant.featured_image) {
+                    const productImage = modal.querySelector('#modal-product-image');
+                    if (productImage) {
+                        productImage.src = variant.featured_image.src;
+                        productImage.alt = variant.featured_image.alt || product.title;
+                    }
                 }
             }
         }

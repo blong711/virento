@@ -118,6 +118,7 @@
     <script src="{{ 'cart-button.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
     <script src="{{ 'recently-viewed.js' | asset_url }}" defer></script>
+    <script src="{{ 'quickadd.js' | asset_url }}" defer></script>
   </head>
 
   <body class="gradient">
@@ -143,6 +144,7 @@
     {% render 'register-drawer' %}
     {% render 'mobile-toolbar' %}
     {% render 'search-modal' %}
+    {% render 'quick-add-modal'%}
   {% comment %} {%- if request.design_mode -%}{%- render 'var_adm' -%}{% endif -%} {% endcomment %}
 
     <ul hidden>

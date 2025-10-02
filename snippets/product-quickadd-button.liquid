@@ -1,0 +1,25 @@
+{% comment %}
+    Accepts:
+    - product: The product object
+    - card_style: The card style (style-1, style-2, style-small)
+{% endcomment %}
+{% assign card_style = card_style | default: settings.card_style | default: 'style-2' %}
+<li>
+    <a 
+        href="#quickAdd" 
+        class="hover-tooltip tooltip-left box-icon product-quick-add-button"
+        data-quick-add="true"
+        data-product="{{ product | json | escape }}"
+        data-product-id="{{ product.id }}"
+        data-product-handle="{{ product.handle }}"
+        data-product-title="{{ product.title | escape }}"
+        data-product-price="{{ product.price }}"
+        data-product-compare-price="{{ product.compare_at_price }}"
+        data-product-image="{{ product.featured_image | image_url: width: 300 }}"
+        data-product-url="{{ product.url }}"
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        aria-label="Quick add {{ product.title }} to cart">
+        <span class="icon icon-cart2" aria-hidden="true"></span>
+        <span class="tooltip">{{ 'snippets.product-card.quick_add' | t }}</span>
+    </a>
+</li>

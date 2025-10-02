@@ -25,7 +25,6 @@
 
 {% if product.available %}
   <a href="{{ modal_target }}" 
-     data-bs-toggle="modal" 
      class="{{ button_class }} product-quick-add-button"
      data-quick-add="true"
      data-product="{{ product | json | escape }}"

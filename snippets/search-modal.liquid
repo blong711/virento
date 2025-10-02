@@ -69,7 +69,8 @@
                                         {% for suggestion_product in settings.suggestion_products limit: 8 %}
                                             {% if suggestion_product and suggestion_product.available %}
                                                 <div class="swiper-slide">
-                                                    {% render 'product-card', product: suggestion_product, show_progress_sale: false %}
+                                                    {% render 'product-card', product: suggestion_product, show_progress_sale: false,
+                                                    use_quick_add_button: true %}
                                                 </div>
                                             {% endif %}
                                         {% endfor %}
@@ -81,7 +82,7 @@
                                         {% if featured_collection and featured_collection.products_count > 0 %}
                                             {% for product in featured_collection.products limit: 8 %}
                                                 <div class="swiper-slide">
-                                                    {% render 'product-card', product: product, show_progress_sale: false %}
+                                                    {% render 'product-card', product: product, show_progress_sale: false, use_quick_add_button: true %}
                                                 </div>
                                             {% endfor %}
                                         {% else %}

@@ -27,6 +27,7 @@
 {% assign card_text_alignment = card_text_alignment | default: settings.card_text_alignment | default: 'center' %}
 {% assign should_show_progress = should_show_progress | default: false %}
 {% assign cart_button_style = cart_button_style | default: settings.cart_button_style | default: 'icon' %}
+{% assign use_quick_add_button = use_quick_add_button | default: false %}
 {% assign show_color_swatches = show_color_swatches | default: false %}
 {% assign loading_priority = loading_priority | default: 'lazy' %}
 
@@ -93,7 +94,11 @@
       {% if product.available %}
         <ul class="list-product-btn">
           {% if cart_button_style == 'icon' %}
-            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% if use_quick_add_button %}
+              {% render 'product-quickadd-button', product: product, card_style: card_style %}
+            {% else %}
+              {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% endif %}
           {% endif %}
           {% render 'product-wishlist-button', product: product, card_style: card_style %}
           {% render 'product-quickview-button', product: product, card_style: card_style %}
@@ -297,7 +302,11 @@
       {% if product.available %}
         <ul class="list-product-btn">
           {% if cart_button_style == 'icon' %}
-            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% if use_quick_add_button %}
+              {% render 'product-quickadd-button', product: product, card_style: card_style %}
+            {% else %}
+              {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% endif %}
           {% endif %}
           {% render 'product-wishlist-button', product: product, card_style: card_style %}
           {% render 'product-quickview-button', product: product, card_style: card_style %}
@@ -413,7 +422,11 @@
       {% if product.available %}
         <ul class="list-product-btn">
           {% if cart_button_style == 'icon' %}
-            {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% if use_quick_add_button %}
+              {% render 'product-quickadd-button', product: product, card_style: card_style %}
+            {% else %}
+              {% render 'product-cart-button', product: product, card_style: card_style %}
+            {% endif %}
           {% endif %}
           {% render 'product-wishlist-button', product: product, card_style: card_style %}
           {% render 'product-quickview-button', product: product, card_style: card_style %}

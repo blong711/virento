@@ -5221,6 +5221,10 @@
             "icon": "Icon only",
             "button": "Button with text"
           }
+        },
+        "use_quick_add_button": {
+          "label": "Use quick add button",
+          "type": "checkbox"
         }
       },
       "blocks": {
