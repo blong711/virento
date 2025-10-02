@@ -271,11 +271,11 @@
   <section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
   <div class="{{ section.settings.width }}">
     <div class="flat-title text-{{ section.settings.title_alignment }} wow fadeInUp">
-      <{{ section.settings.title_tag }} class="title" style="color: rgb(var(--color-foreground2));">
+      <{{ section.settings.title_tag }} class="title" style="color: rgb(var(--color-foreground));">
         {{- section.settings.title -}}
       </{{ section.settings.title_tag }}>
       {% if section.settings.subtitle != blank %}
-        <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground), 0.7);">
+        <p class="desc {{ section.settings.subtitle_size }}" style="color: rgb(var(--color-foreground2));">
           {{ section.settings.subtitle }}
         </p>
       {% endif %}
@@ -364,7 +364,7 @@
                       {% endif %}
                     </a>
                     <div class="cls-content text-center">
-                      <a href="{{ link }}" class="link fw-medium {% if section.settings.image_shape == 'square' %}text-xl{% else %}text-md{% endif %}">
+                      <a href="{{ link }}" class="link fw-medium heading-font {% if section.settings.image_shape == 'square' %}text-xl{% else %}text-md{% endif %}">
                         {{- block.settings.title | default: collection.title -}}
                       </a>
                     </div>

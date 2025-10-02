@@ -318,7 +318,7 @@
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
-    <div{% unless section.blocks.size == 3 %} class="mw-1 mx-auto"{% endunless %}>    
+    <div{% if section.settings.icon_position_center == true and section.settings.icon_style == 'default' %} class="mw-1 mx-auto"{% endif %}>    
       <div
     dir="ltr"
     class="swiper tf-swiper"
