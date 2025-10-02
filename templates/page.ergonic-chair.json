@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "sections": {
     "main_slider": {
       "type": "main-slider",
@@ -15,35 +15,37 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-94f56adc-49f1-4e48-8f80-ddfff07ee817",
             "image": "shopify://shop_images/chair1.jpg",
             "heading": "Work Smarter, Sit Better",
-            "heading_size": "display-md",
-            "heading_weight": "fw-semibold",
+            "heading_size": "display-xl-2",
+            "heading_weight": "fw-medium",
             "description": "Explore ergonomic desks and chairs that support posture, boost  focus, and keep you comfortable — anywhere you work.",
             "subheading": "Form Meets Function.",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "shopify://collections/ergonomic-chairs",
-            "button_text": "Shop Now"
+            "button_text": "Shop Now",
+            "heading_max_width": 400
           }
         },
         "slide-2": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-94f56adc-49f1-4e48-8f80-ddfff07ee817",
             "image": "shopify://shop_images/chair1.jpg",
             "heading": "Work Smarter, Sit Better",
-            "heading_size": "display-md",
-            "heading_weight": "fw-semibold",
+            "heading_size": "display-xl-2",
+            "heading_weight": "fw-medium",
             "description": "Explore ergonomic desks and chairs that support posture, boost  focus, and keep you comfortable — anywhere you work.",
             "subheading": "Form Meets Function.",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "shopify://collections/ergonomic-chairs",
-            "button_text": "Shop Now"
+            "button_text": "Shop Now",
+            "heading_max_width": 400
           }
         }
       },
@@ -52,19 +54,19 @@
         "slide-2"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-94f56adc-49f1-4e48-8f80-ddfff07ee817",
         "layout_style": "default",
         "width": "",
         "height": "adapt-first",
         "height_fixed": 600,
-        "mobile_height": "adapt-first",
+        "mobile_height": "fixed",
         "mobile_height_fixed": 400,
         "loop": true,
         "autoplay_speed": 5,
         "pause_on_hover": true,
         "draggable": true,
         "show_arrows": false,
-        "show_arrows_mobile": true,
+        "show_arrows_mobile": false,
         "show_dots": true,
         "dots_style": "style-2",
         "button_animate": true,
@@ -120,19 +122,19 @@
       ],
       "name": "t:sections.icon-box.preset.name",
       "settings": {
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-6a332269-9591-415c-86c4-6165ef16b10d",
         "width": "container",
         "icon_position_center": false,
         "line_top": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": 3,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
+        "products_per_row_mobile": 1,
         "icon_style": "default",
         "show_border": true,
         "padding_top": 32,
         "padding_bottom": 32,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 100
       }
     },
     "banner_swiper_EmaKGR": {
@@ -192,7 +194,7 @@
         "layout": "layout2",
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "quick_add_products_RFebqd": {
@@ -236,7 +238,7 @@
         "color_scheme": "",
         "width": "container-full",
         "title": "Featured Products",
-        "title_tag": "h4",
+        "title_tag": "h3",
         "subtitle": "",
         "subtitle_size": "text-md",
         "layout": "layout-2",
@@ -247,7 +249,7 @@
         "show_product_features": true,
         "padding_top": 0,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "collection_banner_MLBMXr": {
@@ -270,14 +272,14 @@
         "content_width": 478,
         "padding_top": 0,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 60
       }
     },
     "featured_product_carousel_3TL7jk": {
       "type": "featured-product-carousel",
       "name": "t:sections.featured-product-carousel.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-08fe3333-6196-45a6-b282-b16d253ac48d",
         "width": "container",
         "title_alignment": "center",
         "title": "Best Sellers",
@@ -303,7 +305,7 @@
         "products_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "testimonial_swiper_Qxk6hR": {
@@ -340,7 +342,7 @@
       ],
       "name": "t:sections.testimonial-swiper.presets.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "width": "container",
         "layout": "layout-2",
         "show_arrows": true,
@@ -350,7 +352,7 @@
         "space_between_desktop": 24,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "brands_q8UVpN": {
@@ -426,10 +428,10 @@
         "show_mobile_dots": true,
         "items_per_row_desktop": 6,
         "items_per_row_tablet": 4,
-        "items_per_row_mobile": 3,
+        "items_per_row_mobile": 2,
         "padding_top": 0,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     }
   },

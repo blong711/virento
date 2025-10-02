@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "sections": {
     "icon-box": {
       "type": "icon-box",
@@ -80,7 +80,7 @@
         "show_border": true,
         "padding_top": 32,
         "padding_bottom": 32,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 100
       }
     },
     "main-slider": {
@@ -89,7 +89,7 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-bf1336ec-67f5-491f-ad81-62eb821449c6",
             "image": "shopify://shop_images/slider-1_1.jpg",
             "heading": "Train Hard. Recover Harder.",
             "heading_size": "display-xl-2",
@@ -107,7 +107,7 @@
         "slide-2": {
           "type": "slide",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-bf1336ec-67f5-491f-ad81-62eb821449c6",
             "image": "shopify://shop_images/slider-2.jpg",
             "heading": "100% Whey Protein Powder",
             "heading_size": "display-xl-2",
@@ -128,7 +128,7 @@
         "slide-2"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-bf1336ec-67f5-491f-ad81-62eb821449c6",
         "layout_style": "default",
         "width": "container-full",
         "height": "adapt-first",
@@ -136,7 +136,7 @@
         "mobile_height": "fixed",
         "mobile_height_fixed": 400,
         "loop": true,
-        "autoplay_speed": 0,
+        "autoplay_speed": 5,
         "pause_on_hover": true,
         "draggable": true,
         "show_arrows": false,
@@ -211,7 +211,7 @@
       ],
       "name": "t:sections.categories.presets.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-4ab8fbcb-778d-429e-99d7-89b6a226ccce",
         "width": "container",
         "title_alignment": "start",
         "title": "",
@@ -228,7 +228,7 @@
         "items_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 116,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "featured_product_carousel_WCCACY": {
@@ -262,7 +262,7 @@
         "products_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "grid_banner_FkKW9K": {
@@ -271,7 +271,7 @@
         "grid_item_aeyHBV": {
           "type": "grid_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-bf1336ec-67f5-491f-ad81-62eb821449c6",
             "image": "shopify://shop_images/supplement-1.jpg",
             "hover_image": true,
             "title": "20% OFF ALL SPORT NUTRITION",
@@ -286,7 +286,7 @@
         "grid_item_hYYR9N": {
           "type": "grid_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-876069d9-0e48-4e3c-bab3-2adecaffa131",
             "image": "shopify://shop_images/supplement-2.jpg",
             "hover_image": true,
             "title": "TRAIN HARDER",
@@ -301,7 +301,7 @@
         "grid_item_knEL63": {
           "type": "grid_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-876069d9-0e48-4e3c-bab3-2adecaffa131",
             "image": "shopify://shop_images/supplement-3.jpg",
             "hover_image": true,
             "title": "Bundle Deal",
@@ -321,13 +321,13 @@
       ],
       "name": "Grid Banner",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-bf1336ec-67f5-491f-ad81-62eb821449c6",
         "width": "container",
         "add_top_line": true,
         "three_item_style": "style2",
         "padding_top": 0,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "quick_add_products": {
@@ -368,7 +368,7 @@
       ],
       "name": "Quick Add Products",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-ab315c3e-8454-4d21-bed1-704f08225a43",
         "width": "container",
         "background_image": "shopify://shop_images/bg-supplement-product.jpg",
         "title": "Featured Products",
@@ -394,7 +394,7 @@
           "settings": {
             "image": "shopify://shop_images/tes-supplement-1.jpg",
             "rating": 5,
-            "title": "testimonial",
+            "title": "TESTIMONIAL",
             "review": "Great selection and expert advice! Virento has everything I need for my training. I've seen real improvements in performance and recovery since I started shopping here.",
             "author": "Sarah T.",
             "product_link": "shopify://products/nike-air-max-plus",
@@ -406,7 +406,7 @@
           "settings": {
             "image": "shopify://shop_images/tes-sport2.jpg",
             "rating": 5,
-            "title": "testimonial",
+            "title": "TESTIMONIAL",
             "review": "Great selection and expert advice! Virento has everything I need for my training. I've seen real improvements in performance and recovery since I started shopping here.",
             "author": "John D.",
             "product_link": "shopify://products/nike-victori-one",
@@ -420,7 +420,7 @@
       ],
       "name": "t:sections.testimonial-swiper.presets.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "width": "container",
         "layout": "layout-2",
         "show_arrows": true,
@@ -430,7 +430,7 @@
         "space_between_desktop": 24,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "blog_carousel_tiazLz": {
@@ -441,7 +441,7 @@
         "description": "Explore our most popular pieces that customers can't get enough of",
         "layout_style": "layout2",
         "width": "boxed",
-        "color_scheme": "",
+        "color_scheme": "scheme-4f13680d-14d0-4c84-bde2-fab759f65f63",
         "border_radius": 0,
         "blog": "tricks-tips",
         "posts_to_show": 6,
@@ -460,7 +460,7 @@
         "show_pagination": true,
         "padding_top": 0,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     }
   },

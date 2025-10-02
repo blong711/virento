@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "sections": {
     "slider": {
       "type": "main-slider",
@@ -15,7 +15,7 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-792ecf6c-83a1-4343-a1ac-af5fa3b92f1f",
             "image": "shopify://shop_images/slider-furniture-1.jpg",
             "heading": "Every Room Elevated",
             "heading_size": "display-md",
@@ -26,13 +26,14 @@
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "shopify://collections",
-            "button_text": "Shop Collection"
+            "button_text": "Shop Collection",
+            "heading_max_width": 400
           }
         },
         "slide-2": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-792ecf6c-83a1-4343-a1ac-af5fa3b92f1f",
             "image": "shopify://shop_images/slider-furniture-2.jpg",
             "heading": "Transform Your Space",
             "heading_size": "display-md",
@@ -43,13 +44,14 @@
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "shopify://collections",
-            "button_text": "Shop Collection"
+            "button_text": "Shop Collection",
+            "heading_max_width": 450
           }
         },
         "slide-3": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-792ecf6c-83a1-4343-a1ac-af5fa3b92f1f",
             "image": "shopify://shop_images/slider-furniture-3.jpg",
             "heading": "Luxury Living",
             "heading_size": "display-md",
@@ -60,7 +62,8 @@
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "shopify://collections",
-            "button_text": "Shop Collection"
+            "button_text": "Shop Collection",
+            "heading_max_width": 400
           }
         }
       },
@@ -70,7 +73,7 @@
         "slide-3"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-792ecf6c-83a1-4343-a1ac-af5fa3b92f1f",
         "layout_style": "style-2",
         "width": "",
         "height": "adapt-first",
@@ -101,7 +104,9 @@
             "custom_svg": "",
             "icon_size": 40,
             "title": "FREE SHIPPING",
-            "description": "Enjoy free shipping on all orders"
+            "title_size": 20,
+            "description": "Enjoy free shipping on all orders",
+            "description_size": 14
           }
         },
         "icon_box_hNNyPK": {
@@ -111,7 +116,9 @@
             "custom_svg": "",
             "icon_size": 40,
             "title": "FREE RETURNS",
-            "description": "Within 14 days for a return"
+            "title_size": 20,
+            "description": "Within 14 days for a return",
+            "description_size": 14
           }
         },
         "icon_box_WPRThM": {
@@ -121,7 +128,9 @@
             "custom_svg": "",
             "icon_size": 40,
             "title": "SUPPORT ONLINE",
-            "description": "Outstanding premium support"
+            "title_size": 20,
+            "description": "Outstanding premium support",
+            "description_size": 14
           }
         }
       },
@@ -139,12 +148,12 @@
         "show_dots_mobile": true,
         "products_per_row_desktop": 3,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
+        "products_per_row_mobile": 1,
         "icon_style": "style-border",
         "show_border": false,
         "padding_top": 60,
         "padding_bottom": 60,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 80
       }
     },
     "featured_product_carousel_r9mPVq": {
@@ -176,7 +185,7 @@
         "products_per_row_mobile": 2,
         "padding_top": 0,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "grid_collection_XxY7aK": {
@@ -296,6 +305,7 @@
         "title_tag": "h4",
         "subtitle": "Discover a selection of timeless designs and trends that match your style, all in one place.",
         "subtitle_size": "text-md",
+        "image_shape": "circle",
         "image_size_type": "px",
         "image_size_px": 180,
         "show_arrows": true,
@@ -305,7 +315,7 @@
         "items_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "banner_swiper_ABC123": {
@@ -348,8 +358,9 @@
         "space_between": 12,
         "space_between_tablet": 12,
         "space_between_desktop": 24,
-        "padding_top": 60,
-        "padding_bottom": 60,
+        "layout": "layout1",
+        "padding_top": 0,
+        "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
     },
@@ -397,7 +408,7 @@
         "banner_image": "shopify://shop_images/furniture_330c7932-2b82-41dd-b52d-aa039d49ce97.jpg",
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "testimonial_swiper_FURNI": {
@@ -433,8 +444,9 @@
         "testimonial_2"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-cef46d03-e425-46eb-be6f-b525d91895c1",
         "width": "container",
+        "layout": "layout-1",
         "show_arrows": true,
         "show_pagination": false,
         "space_between": 12,
@@ -442,7 +454,7 @@
         "space_between_desktop": 24,
         "padding_top": 0,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 80
       }
     }
   },

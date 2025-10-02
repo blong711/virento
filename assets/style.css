@@ -29154,3 +29154,8 @@ shopify-accelerated-checkout {
       gap: 20px;
   }
 }
+@media (max-width: 767px) {
+  #header .nav-icon .nav-account, #header .nav-icon .nav-wishlist, #header .nav-icon .nav-compare {
+      display: none;
+  }
+}

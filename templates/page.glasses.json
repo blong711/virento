@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-{
+ {
   "sections": {
     "slider": {
       "type": "main-slider",
@@ -15,35 +15,37 @@
         "slide-1": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-8cdf18b8-a1d0-4576-9bd0-64d27375fe9c",
             "image": "shopify://shop_images/slider-1.jpg",
             "heading": "Find Your Perfect Frame",
             "heading_size": "display-md",
-            "heading_weight": "fw-semibold",
+            "heading_weight": "fw-normal",
             "description": "Explore our curated collection of eyeglasses and sunglasses — crafted for comfort, clarity, and standout style.",
             "subheading": "See Clearly. Look Sharp.",
             "box_bg_class": "bg-yellow-8",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "/collections/all",
-            "button_text": "Shop Now"
+            "button_text": "Shop Now",
+            "heading_max_width": 400
           }
         },
         "slide-2": {
           "type": "slide",
           "settings": {
-            "color_scheme": "scheme-1",
+            "color_scheme": "scheme-8cdf18b8-a1d0-4576-9bd0-64d27375fe9c",
             "image": "shopify://shop_images/slider-1.jpg",
             "heading": "Elevate Your Everyday",
             "heading_size": "display-md",
-            "heading_weight": "fw-semibold",
+            "heading_weight": "fw-normal",
             "description": "Premium frames and lenses designed to fit your lifestyle.",
             "subheading": "Style Meets Clarity",
             "box_bg_class": "bg-yellow-8",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
             "text_size": "text-md",
             "button_link": "/collections/all",
-            "button_text": "Shop Now"
+            "button_text": "Shop Now",
+            "heading_max_width": 400
           }
         }
       },
@@ -52,7 +54,7 @@
         "slide-2"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-8cdf18b8-a1d0-4576-9bd0-64d27375fe9c",
         "layout_style": "style-2",
         "width": "",
         "height": "adapt-first",
@@ -86,7 +88,7 @@
             "subtitle": "PROMOTION",
             "subtitle_size": "medium",
             "link": "shopify://collections",
-            "button_label": "View Collection",
+            "button_label": "Shop Collection",
             "button_style": "primary"
           }
         },
@@ -100,7 +102,7 @@
             "subtitle": "PROMOTION",
             "subtitle_size": "medium",
             "link": "shopify://collections",
-            "button_label": "Explore Now",
+            "button_label": "Shop Collection",
             "button_style": "primary"
           }
         },
@@ -114,7 +116,7 @@
             "subtitle": "PROMOTION",
             "subtitle_size": "medium",
             "link": "shopify://collections",
-            "button_label": "Explore Now",
+            "button_label": "Shop Collection",
             "button_style": "primary"
           }
         }
@@ -132,14 +134,14 @@
         "three_item_style": "style1",
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "collection_slider_TgbDxK": {
       "type": "collection-slider",
       "name": "t:sections.collection_slider.presets.name",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-fe4c14f3-b59c-4c39-9383-849b0965fd9a",
         "width": "container",
         "title_alignment": "start",
         "title": "Shop frames by lens type",
@@ -160,14 +162,14 @@
         "space_between_mobile": 12,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "split_collection_banner_8X9K2L": {
       "type": "split-collection-banner",
       "name": "Split Collection Banner",
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-c08439f4-7f37-43bc-921f-7a33c3d2ea98",
         "width": "",
         "banner_image": "shopify://shop_images/glasses_ae565cb0-7df8-4f83-90cc-46b395ebc093.jpg",
         "image_alt": "Fresh Frames Collection",
@@ -190,10 +192,10 @@
         "title_alignment": "center",
         "title": "Our Products",
         "title_tag": "h4",
-        "title_font": "",
+        "title_font": "font-14",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
-        "subtitle_font": "",
+        "subtitle_font": "font-main",
         "featured_collection": "",
         "product_list": [
           "billie",
@@ -210,7 +212,7 @@
         "products_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 50
       }
     },
     "shop_gram_p7JjYi": {
@@ -280,6 +282,7 @@
         "heading": "Inspiration",
         "heading_size": "medium",
         "heading_font": "",
+        "heading_font_weight": "fw-regular",
         "content_align": "left",
         "heading_spacing": 48,
         "border_radius": 0,
@@ -303,10 +306,11 @@
           "settings": {
             "icon_class": "icon-shipping",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
-            "title": "FREE DELIVERY",
-            "description": "Enjoy free delivery on all orders"
+            "icon_size": 28,
+            "title": "Free Shipping",
+            "title_size": 20,
+            "description": "Enjoy free delivery on all orders",
+            "description_size": 14
           }
         },
         "icon_box_6gtxAc": {
@@ -314,10 +318,11 @@
           "settings": {
             "icon_class": "icon-gift",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_size": 28,
             "title": "Gift Package",
-            "description": "Perfectly packaged for gifting"
+            "title_size": 20,
+            "description": "Perfectly packaged for gifting",
+            "description_size": 14
           }
         },
         "icon_box_jnj3Ek": {
@@ -325,10 +330,11 @@
           "settings": {
             "icon_class": "icon-return",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
-            "title": "EASY RETURNS",
-            "description": "Within 14 days for a return"
+            "icon_size": 28,
+            "title": "Easy Returns",
+            "title_size": 20,
+            "description": "Within 14 days for a return",
+            "description_size": 14
           }
         },
         "icon_box_LTwFNX": {
@@ -336,10 +342,11 @@
           "settings": {
             "icon_class": "icon-support",
             "custom_svg": "",
-            "icon_width": 64,
-            "icon_width_mobile": 64,
+            "icon_size": 28,
             "title": "Support Online",
-            "description": "Outstanding premium support"
+            "title_size": 20,
+            "description": "Outstanding premium support",
+            "description_size": 14
           }
         }
       },
@@ -358,12 +365,12 @@
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
-        "products_per_row_mobile": 2,
+        "products_per_row_mobile": 1,
         "icon_style": "default",
         "show_border": true,
         "padding_top": 44,
         "padding_bottom": 44,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 95
       }
     }
   },
