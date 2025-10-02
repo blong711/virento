@@ -588,7 +588,7 @@
                                   <div class="variant-picker-label">
                                     <div>
                                       {{ option.name }}:
-                                      <span class="variant-picker-label-value value-current{{ option.name }}">
+                                      <span class="variant-picker-label-value value-current{{ option.name }} {% if option.name == 'Shoe size' %}value-currentSize{% endif %}">
                                         {{- option.selected_value -}}
                                       </span>
                                     </div>
@@ -795,7 +795,6 @@
                                           {% if show_value %}
                                             <span
                                               class="size-btn{% if value == option.selected_value %} active{% endif %} "
-                                              {% comment %} style="{% if is_out_of_stock %}opacity: 0.6; cursor: not-allowed; {% endif %} " {% endcomment %}
                                               data-size="{{ value | handle }}"
                                               data-option="{{ option.name | handle }}"
                                               data-value="{{ value | handle }}"

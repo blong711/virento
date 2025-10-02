@@ -15711,7 +15711,7 @@ button.animate-btn::after,
 }
 
 .tf-product-info-wrap .variant-color .color-btn:not(.select-item).active {
-  border-color: var(--dark-2);
+  border-color: var(--dark-2) !important;
 }
 
 .tf-product-info-wrap .variant-color .color-btn.style-image {
