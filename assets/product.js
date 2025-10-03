@@ -612,6 +612,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const mainAddToCartBtns = document.querySelectorAll(
           '.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button):not([data-product-handle])'
         );
+
         mainAddToCartBtns.forEach((addToCartBtn) => {
           addToCartBtn.dataset.variantId = variant.id;
           addToCartBtn.dataset.selectedVariant = variant.id;
@@ -625,10 +626,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
           // Check if variant is available and update button state
           if (variant.available === false) {
-            addToCartBtn.textContent = window.translations?.outOfStock || 'Out of Stock';
+            const outOfStockText = window.translations?.outOfStock || 'Out of Stock';
+            addToCartBtn.textContent = outOfStockText;
             addToCartBtn.classList.add('disabled', 'btn-out-stock');
             addToCartBtn.style.pointerEvents = 'none';
             addToCartBtn.style.opacity = '0.6';
+
+
+            if (addToCartBtn.textContent !== outOfStockText) {
+              // Force update again
+              addToCartBtn.textContent = outOfStockText;
+              addToCartBtn.classList.add('disabled', 'btn-out-stock');
+              addToCartBtn.style.pointerEvents = 'none';
+              addToCartBtn.style.opacity = '0.6';
+            }
+
+            setTimeout(() => {
+              if (addToCartBtn.textContent !== outOfStockText) {
+                // Force update again
+                addToCartBtn.textContent = outOfStockText;
+                addToCartBtn.classList.add('disabled', 'btn-out-stock');
+                addToCartBtn.style.pointerEvents = 'none';
+                addToCartBtn.style.opacity = '0.6';
+              }
+            }, 50);
           } else if (variant.isPreOrder) {
             addToCartBtn.textContent = window.translations?.preOrder || 'Pre Order';
             addToCartBtn.classList.remove('disabled', 'btn-out-stock');
@@ -910,7 +931,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Use event delegation for color swatch clicks
   document.addEventListener('click', function (e) {
     try {
-      const btn = e.target.closest('.color-btn, .btn-scroll-target');
+      const btn = e.target.closest('[data-scroll]');
       if (!btn) return;
 
       const color = btn.getAttribute('data-scroll');
@@ -918,17 +939,41 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
 
-      const variant = findVariantByColor(color);
-      if (variant) {
-        // Find the main add-to-cart button in the same section as the clicked color swatch
-        const mainSection = btn.closest('.tf-product-info, .product-info, .product-details');
-        const targetButton = mainSection
-          ? mainSection.querySelector('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)')
-          : null;
+      // Update active class immediately (exactly like size logic)
+      document.querySelectorAll('[data-scroll]').forEach((colorBtn) => colorBtn.classList.remove('active'));
+      btn.classList.add('active');
 
-        updateVariantSelection(variant, false, targetButton);
+      // Update selected options
+      selectedOptions['color'] = color;
+
+      // Get the currently selected size
+      const selectedSize = getSelectedSize();
+
+      // Find and update variant (exactly like size logic)
+      const variants = window.productVariants || [];
+      if (!Array.isArray(variants)) {
+        alert(translations.variantError);
+        return;
+      }
+
+      let variant = null;
+      if (selectedSize) {
+        variant = variants.find(
+          (v) =>
+            v &&
+            v.option1 &&
+            v.option1.toLowerCase() === color.toLowerCase() &&
+            v.option2 &&
+            v.option2.toLowerCase() === selectedSize.toLowerCase()
+        );
       } else {
-        const selectedSize = getSelectedSize();
+        variant = variants.find((v) => v && v.option1 && v.option1.toLowerCase() === color.toLowerCase());
+      }
+
+      if (variant) {
+        // Don't pass targetButton - use same logic as size (updates all buttons)
+        updateVariantSelection(variant, false, null);
+      } else {
         alert(selectedSize ? translations.variantNotAvailable : translations.colorNotAvailable);
       }
     } catch (error) {
