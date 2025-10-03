@@ -12,7 +12,7 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
-        "background_image": "shopify://shop_images/page-title_1.jpg",
+        "background_image": "shopify://shop_images/page-title.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
@@ -31,7 +31,7 @@
         "show_on_sale": true,
         "on_sale_limit": 3,
         "show_collection_banner": true,
-        "collection_banner_image": "shopify://shop_images/sb-banner_1.jpg",
+        "collection_banner_image": "shopify://shop_images/sb-banner_5ce8d6b5-3602-4a87-94cd-d2c35ebac8e7.jpg",
         "collection_banner_title": "Elevate Your Style",
         "collection_banner_button_text": "Shop Now",
         "collection_banner_button_url": "",
@@ -57,8 +57,8 @@
         "show_extra_links": true,
         "links_prefix_text": "Looking for more? Don't miss out on our other exciting collections for",
         "and_text": "and",
-        "collection1_link_url": "phones",
-        "collection2_link_url": "cables",
+        "collection1_link_url": "spring-steps",
+        "collection2_link_url": "summer-soes",
         "padding_top": 0,
         "padding_bottom": 100,
         "padding_mobile_rate": 75
