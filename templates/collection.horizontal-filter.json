@@ -111,7 +111,7 @@
       ],
       "name": "t:sections.icon-box.name",
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-1",
         "width": "container",
         "icon_position_center": true,
         "line_top": true,
