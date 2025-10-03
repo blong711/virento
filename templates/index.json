@@ -448,6 +448,7 @@
         "heading": "Shop by @Vineta",
         "heading_size": "large",
         "heading_font": "font-7",
+        "heading_font_weight": "fw-semibold",
         "content_align": "center",
         "heading_spacing": 48,
         "border_radius": 8,
