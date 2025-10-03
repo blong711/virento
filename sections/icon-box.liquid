@@ -314,7 +314,7 @@
 {% endschema %}
 
 <div
-  class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
+  class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} flat-wrap-iconbox"
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
