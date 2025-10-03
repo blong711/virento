@@ -352,7 +352,7 @@
       {% for block in section.blocks %}
         {% if block.type == 'icon_box' %}
           <div class="swiper-slide" {{ block.shopify_attributes }}>
-            <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-lg{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %}">
+            <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' and section.settings.show_border != true %}style-lg{% elsif section.settings.icon_position_center and section.settings.show_border == true and section.settings.icon_style != 'style-border' %} style-2{% else %}{% endif %} {% if section.settings.show_border == true and section.settings.icon_style == 'style-border' %}style-border{% endif %}">
               <div
                 class="box-icon"
                 style="--icon-size: {{ block.settings.icon_size | default: 28 }}px; --border-size: {{ block.settings.border_size | default: 36 }}px; background-color: rgb(var(--color-background2));"
