@@ -236,6 +236,17 @@
           "default": 28
         },
         {
+          "type": "range",
+          "id": "border_size",
+          "min": 20,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "label": "t:sections.icon-box.blocks.icon_box.settings.border_size.label",
+          "default": 64,
+          "visible_if": "{{ section.settings.show_border == true }}"
+        },
+        {
           "type": "text",
           "id": "title",
           "label": "t:sections.icon-box.blocks.icon_box.settings.title.label",
@@ -314,7 +325,7 @@
 {% endschema %}
 
 <div
-  class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} flat-wrap-iconbox"
+  class="{% if section.settings.icon_style == 'default' %}line-top{% endif %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}"
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
@@ -341,10 +352,10 @@
       {% for block in section.blocks %}
         {% if block.type == 'icon_box' %}
           <div class="swiper-slide" {{ block.shopify_attributes }}>
-            <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-lg{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %} {% if section.settings.show_border == true %}style-border{% endif %}">
+            <div class="tf-icon-box {% if section.settings.icon_style == 'style-border' %}style-lg{% elsif section.settings.icon_position_center %} style-2{% else %} style-3{% endif %}">
               <div
                 class="box-icon"
-                style="--icon-size: {{ block.settings.icon_size | default: 28 }}px; background-color: rgb(var(--color-background2));"
+                style="--icon-size: {{ block.settings.icon_size | default: 28 }}px; --border-size: {{ block.settings.border_size | default: 36 }}px; background-color: rgb(var(--color-background2));"
               >
                 {% if block.settings.custom_svg != blank %}
                   <div class="icon">{{ block.settings.custom_svg }}</div>
@@ -408,8 +419,6 @@
       flex-shrink: 0;
       {% if section.settings.show_border %}border: 1px solid rgb(var(--color-button-outline));{% endif %}
       border-radius: 50%;
-      width: calc(var(--icon-size, 28px) + 36px);
-      height: calc(var(--icon-size, 28px) + 36px);
   }
 
   #shopify-section-{{ section.id }} .tf-icon-box .box-icon .icon {
@@ -425,5 +434,9 @@
   }
   #shopify-section-{{ section.id }} .tf-icon-box .box-icon .icon {
     font-size: var(--icon-size, 28px);
+  }
+  #shopify-section-{{ section.id }} .tf-icon-box .box-icon {
+    width:  var(--border-size, 64px);
+    height:  var(--border-size, 64px);
   }
 </style>

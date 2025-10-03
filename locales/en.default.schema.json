@@ -5437,6 +5437,9 @@
             "icon_size": {
               "label": "Icon Size",
             },
+            "border_size": {
+              "label": "Border Size"
+            },
             "title": {
               "label": "Title",
               "info": "The main text to display below the icon"
