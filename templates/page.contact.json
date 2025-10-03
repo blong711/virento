@@ -12,7 +12,6 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
-        "background_image": "shopify://shop_images/page-title_1.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
@@ -55,7 +54,7 @@
             "address": "15 Yarran st, Punchbowl, NSW, Australia",
             "address_url": "https://www.google.com/maps?q=15Yarranst,Punchbowl,NSW,Australia",
             "phone": "+1 234 567",
-            "email": "contact@gravitech.com",
+            "email": "contact@virento.com",
             "hours": "8am - 7pm, Mon - Sat"
           }
         },
