@@ -453,14 +453,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 
                 // Check if product is in wishlist
-                const isInWishlist = window.arr_wishlist_list && window.arr_wishlist_list.includes(productId);
+                const isInWishlist = arr_wishlist_list && arr_wishlist_list.includes(productId);
                 
                 if (isInWishlist) {
                     // Remove from wishlist
-                    const index = window.arr_wishlist_list.indexOf(productId);
+                    const index = arr_wishlist_list.indexOf(productId);
                     if (index > -1) {
-                        window.arr_wishlist_list.splice(index, 1);
-                        localStorage.setItem('gravio:wishlist:id', window.arr_wishlist_list.toString());
+                        arr_wishlist_list.splice(index, 1);
+                        localStorage.setItem('gravio:wishlist:id', arr_wishlist_list.toString());
                     }
                     
                     // Update button state
@@ -476,12 +476,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 } else {
                     // Add to wishlist
-                    if (!window.arr_wishlist_list) window.arr_wishlist_list = [];
-                    if (window.arr_wishlist_list.length >= 50) {
-                        window.arr_wishlist_list.splice(49, 1);
+                    if (!arr_wishlist_list) arr_wishlist_list = [];
+                    if (arr_wishlist_list.length >= 50) {
+                        arr_wishlist_list.splice(49, 1);
                     }
-                    window.arr_wishlist_list.unshift(productId);
-                    localStorage.setItem('gravio:wishlist:id', window.arr_wishlist_list.toString());
+                    arr_wishlist_list.unshift(productId);
+                    localStorage.setItem('gravio:wishlist:id', arr_wishlist_list.toString());
                     
                     // Update button state
                     const icon = newWishlistButton.querySelector('.icon');
@@ -499,8 +499,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Dispatch event
                 document.dispatchEvent(new CustomEvent('gravio:wishlist:update', {
                     bubbles: true,
-                    detail: window.arr_wishlist_list
+                    detail: arr_wishlist_list
                 }));
+                
+                // Update wishlist count in mobile toolbar
+                if (typeof updateWishlistCount === 'function') {
+                    updateWishlistCount();
+                }
             });
         }
         

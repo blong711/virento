@@ -13530,6 +13530,10 @@ button.animate-btn::after,
   line-height: 16.8px;
 }
 
+.modal-compare {
+  z-index: 1080;
+}
+
 .modal-compare .modal-dialog {
   max-width: 1194px;
 }
