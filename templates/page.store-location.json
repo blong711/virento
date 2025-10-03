@@ -12,7 +12,6 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
-        "background_image": "shopify://shop_images/page-title_1.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
@@ -27,7 +26,7 @@
             "store_name": "Store 1 Sydney",
             "address": "15 Yarran st, Punchbowl, NSW, Australia",
             "phone": "+1 234 567",
-            "email": "contact@vince.com",
+            "email": "contact@virento.com",
             "open_time": "8am - 7pm, Mon - Sat",
             "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27294.62418958524!2d151.25730233429948!3d-33.82005608618041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ab8bc95a137f%3A0x358f04a7f6f5f6a6!2sGrotto%20Point%20Lighthouse!5e0!3m2!1sen!2s!4v1733976867160!5m2!1sen!2s\" width=\"100%\" height=\"589px\" style=\"border:none;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
           }
@@ -38,7 +37,7 @@
             "store_name": "Store 2 Melbourne",
             "address": "2/300 Swanston St, Melbourne, Australia",
             "phone": "+1 499 075",
-            "email": "contact@gravitech.com",
+            "email": "contact@virento.com",
             "open_time": "8am - 7pm, Mon - Sat",
             "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.42441908905!2d151.0467274757111!3d-33.92606517320474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12bbff3cb96e71%3A0xad3243fb988463dc!2s15%20Yarran%20St%2C%20Punchbowl%20NSW%202196%2C%20%C3%9Ac!5e1!3m2!1svi!2s!4v1755079120196!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
           }
@@ -49,7 +48,7 @@
             "store_name": "Store 3 Canberra",
             "address": "2/300 Swanston St, Canberra, Australia",
             "phone": "+1 448 720",
-            "email": "contact@gravitech.com",
+            "email": "contact@virento.com",
             "open_time": "8am - 7pm, Mon - Sat",
             "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.42441908905!2d151.0467274757111!3d-33.92606517320474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12bbff3cb96e71%3A0xad3243fb988463dc!2s15%20Yarran%20St%2C%20Punchbowl%20NSW%202196%2C%20%C3%9Ac!5e1!3m2!1svi!2s!4v1755079196786!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
           }
@@ -60,7 +59,7 @@
             "store_name": "Store 4 Brisbane",
             "address": "4/10 Boeing Pl, Caboolture, Australia",
             "phone": " +1 549 214",
-            "email": "contact@gravitech.com",
+            "email": "contact@virento.com",
             "open_time": "8am - 7pm, Mon - Sat",
             "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.42441908905!2d151.0467274757111!3d-33.92606517320474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12bbff3cb96e71%3A0xad3243fb988463dc!2s15%20Yarran%20St%2C%20Punchbowl%20NSW%202196%2C%20%C3%9Ac!5e1!3m2!1svi!2s!4v1755079196786!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
           }
@@ -71,7 +70,7 @@
             "store_name": "Store 5 Perth",
             "address": "34 Oxleigh Dr, Malaga WA, Australia",
             "phone": " +1 931 989",
-            "email": "contact@store.com",
+            "email": "contact@virento.com",
             "open_time": "8am - 7pm, Mon - Sat",
             "map_iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2517.42441908905!2d151.0467274757111!3d-33.92606517320474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12bbff3cb96e71%3A0xad3243fb988463dc!2s15%20Yarran%20St%2C%20Punchbowl%20NSW%202196%2C%20%C3%9Ac!5e1!3m2!1svi!2s!4v1755079196786!5m2!1svi!2s\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>"
           }
