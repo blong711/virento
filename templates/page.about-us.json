@@ -152,10 +152,11 @@
           "settings": {
             "icon_class": "icon-precision",
             "custom_svg": "",
-            "icon_width": 72,
-            "icon_width_mobile": 72,
+            "icon_size": 28,
             "title": "Precision in Every Stitch",
-            "description": "At GraviTech, we use only premium materials, ensuring our collections offer superior comfort and lasting durability. Every piece is crafted with care and attention to detail."
+            "title_size": 16,
+            "description": "At GraviTech, we use only premium materials, ensuring our collections offer superior comfort and lasting durability. Every piece is crafted with care and attention to detail.",
+            "description_size": 14
           }
         },
         "icon_box_wwRFgw": {
@@ -163,10 +164,11 @@
           "settings": {
             "icon_class": "icon-elegance",
             "custom_svg": "",
-            "icon_width": 72,
-            "icon_width_mobile": 72,
+            "icon_size": 28,
             "title": "Effortless Elegance",
-            "description": "Our designs embrace simplicity at its finest. GraviTech’s understated yet refined style captures the essence of modern fashion, making a statement."
+            "title_size": 16,
+            "description": "Our designs embrace simplicity at its finest. GraviTech’s understated yet refined style captures the essence of modern fashion, making a statement.",
+            "description_size": 14
           }
         },
         "icon_box_JTwRXY": {
@@ -174,10 +176,11 @@
           "settings": {
             "icon_class": "icon-fashion-body",
             "custom_svg": "",
-            "icon_width": 72,
-            "icon_width_mobile": 72,
+            "icon_size": 28,
             "title": "Fashion for Every Body",
-            "description": "We celebrate individuality with a diverse range of sizes, offering clothing that fits and flatters every body type. At GraviTech, fashion is for everyone."
+            "title_size": 16,
+            "description": "We celebrate individuality with a diverse range of sizes, offering clothing that fits and flatters every body type. At GraviTech, fashion is for everyone.",
+            "description_size": 14
           }
         }
       },
