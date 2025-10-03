@@ -12,7 +12,7 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
-        "background_image": "shopify://shop_images/page-title_1.jpg",
+        "background_image": "shopify://shop_images/page-title.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
@@ -90,10 +90,11 @@
       ],
       "name": "t:sections.heading-with-text-vertical.presets.default",
       "settings": {
-        "width": "boxed",
         "color_scheme": "",
+        "width": "boxed",
         "padding_top": 80,
-        "padding_bottom": 100
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
       }
     }
   },
