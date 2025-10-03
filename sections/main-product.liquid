@@ -153,13 +153,21 @@
                         >
                           {% case media.media_type %}
                             {% when 'image' %}
-                              <img
-                                class=" lazyload"
-                                src="{{ media | image_url: width: 800 }}"
-                                alt="{{ media.alt | default: product.title }}"
-                                width="auto"
-                                height="auto"
+                              <a
+                                href="{{ media | image_url: width: 800 }}"
+                                target="_blank"
+                                class="item"
+                                data-pswp-width="552px"
+                                data-pswp-height="827px"
                               >
+                                <img
+                                  class=" lazyload"
+                                  src="{{ media | image_url: width: 800 }}"
+                                  alt="{{ media.alt | default: product.title }}"
+                                  width="auto"
+                                  height="auto"
+                                >
+                              </a>
                             {% when 'video' %}
                               <div class="item position-relative">
                                 <video
