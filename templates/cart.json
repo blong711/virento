@@ -12,7 +12,7 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
-        "background_image": "shopify://shop_images/page-title_1.jpg",
+        "background_image": "shopify://shop_images/page-title.jpg",
         "show_description": false,
         "custom_description": "",
         "description_truncate_length": 120
@@ -111,7 +111,7 @@
         "testimonials_NwMq8J": {
           "type": "testimonials",
           "settings": {
-            "testimonial_1_author": "GraviTech P.",
+            "testimonial_1_author": "Virento P.",
             "testimonial_1_image": "shopify://shop_images/avt-1.png",
             "testimonial_1_content": "\"Stylish, comfortable, and perfect for any occasion! My new favorite fashion destination.\"",
             "testimonial_2_author": "David N.",
@@ -151,16 +151,17 @@
         "title_alignment": "center",
         "title": "You May Also Like",
         "title_tag": "h4",
+        "title_font": "",
         "subtitle": "",
         "subtitle_size": "text-md",
+        "subtitle_font": "",
         "featured_collection": "",
         "product_list": [
-          "10000mah-power-go-power-bank",
-          "apple-iphone-16-promax",
-          "apple-magsafe-charger",
-          "apple-smart-keyboard",
-          "glass-elite-am-screen-protector",
-          "glass-elite-privacy-screen-protector"
+          "nike-air-force-1-07",
+          "nike-air-max-plus",
+          "nike-p-6000",
+          "nike-victori-one",
+          "green-lines"
         ],
         "products_to_show": 6,
         "show_navigation": true,
