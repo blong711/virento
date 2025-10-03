@@ -79,6 +79,40 @@
       "label": "t:sections.icon-box.settings.products_per_row_mobile.label"
     },
     {
+      "type": "header",
+      "content": "t:sections.icon-box.settings.spacing_settings.content"
+    },
+    {
+      "type": "range",
+      "id": "space_between_mobile",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 12,
+      "label": "t:sections.icon-box.settings.space_between_mobile.label"
+    },
+    {
+      "type": "range",
+      "id": "space_between_tablet",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24,
+      "label": "t:sections.icon-box.settings.space_between_tablet.label"
+    },
+    {
+      "type": "range",
+      "id": "space_between_desktop",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 24,
+      "label": "t:sections.icon-box.settings.space_between_desktop.label"
+    },
+    {
       "type": "select",
       "id": "icon_style",
       "label": "t:sections.icon-box.settings.icon_style.label",
@@ -342,9 +376,9 @@
           "observeParents": true,
           "pagination": { "el": ".sw-pagination-iconbox", "clickable": true },
           "breakpoints": {
-              "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": 12, "slidesPerGroup": {{ section.settings.products_per_row_mobile }}},
-              "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_tablet }}},
-              "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 42, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
+              "575": { "slidesPerView": {{ section.settings.products_per_row_mobile }}, "spaceBetween": {{ section.settings.space_between_mobile }}, "slidesPerGroup": {{ section.settings.products_per_row_mobile }}},
+              "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": {{ section.settings.space_between_tablet }}, "slidesPerGroup": {{ section.settings.products_per_row_tablet }}},
+              "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": {{ section.settings.space_between_desktop }}, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
           }
       }
     '>

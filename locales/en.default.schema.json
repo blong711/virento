@@ -5411,6 +5411,18 @@
           "label": "Items per row (Mobile)",
           "info": "Number of items to show per row on mobile screens"
         },
+        "spacing_settings": {
+          "content": "Spacing Settings"
+        },
+        "space_between_mobile": {
+          "label": "Space between items (Mobile)"
+        },
+        "space_between_tablet": {
+          "label": "Space between items (Tablet)"
+        },
+        "space_between_desktop": {
+          "label": "Space between items (Desktop)"
+        },
         "show_border": {
           "label": "Show icon border"
         },
