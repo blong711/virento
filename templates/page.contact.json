@@ -31,7 +31,8 @@
         "map": "",
         "padding_top": 64,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 75,
+        "padding_tablet_rate": 100
       }
     },
     "contact_form_with_text": {
@@ -80,7 +81,8 @@
         "form_subheading": "Please submit all general enquiries in the contact form below and we look forward to hearing from you soon.",
         "padding_top": 0,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 75,
+        "padding_tablet_rate": 100
       }
     }
   },
