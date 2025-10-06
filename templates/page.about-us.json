@@ -204,7 +204,7 @@
         "line_top": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": 3,
-        "products_per_row_tablet": 2,
+        "products_per_row_tablet": 3,
         "products_per_row_mobile": 1,
         "space_between_mobile": 12,
         "space_between_tablet": 24,
@@ -229,7 +229,7 @@
         "padding_top": 20,
         "padding_bottom": 100,
         "padding_mobile_rate": 80,
-        "padding_tablet_rate": 60
+        "padding_tablet_rate": 100
       }
     }
   },
