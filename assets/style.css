@@ -29177,3 +29177,12 @@ shopify-accelerated-checkout {
 .main-product-quickadd .item-product-group-btn .atc {
   flex-grow: 1;
 }
+@media (min-width: 768px) {
+  .grid-cls-v1 {
+      grid-template-areas:
+      "aa bb"
+      "aa cc";
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+  }
+}
