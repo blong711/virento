@@ -2716,9 +2716,27 @@
             },
             "right": {
               "label": "Right"
+            },
+            "bottom": {
+              "label": "Bottom"
             }
           },
           "info": "Choose the position of thumbnails in default layout"
+        },
+        "zoom_type": {
+          "label": "Zoom image type",
+          "options": {
+            "no_zoom": {
+              "label": "No Zoom"
+            },
+            "external_zoom": {
+              "label": "External Zoom"
+            },
+            "inner_zoom": {
+              "label": "Inner Zoom"
+            }
+          },
+          "default": "no_zoom"
         },
         "show_sticky_cart": {
           "label": "Show Sticky Add to Cart"
@@ -3028,6 +3046,9 @@
                 },
                 "dropdown": {
                   "label": "Dropdown"
+                },
+                "swatch_image": {
+                  "label": "Color swatch image"
                 }
               }
             },
@@ -3042,6 +3063,17 @@
                 },
                 "large": {
                   "label": "Large"
+                }
+              }
+            },
+            "size_button_style": {
+              "label": "Size button style",
+              "options": {
+                "default": {
+                  "label": "Default"
+                },
+                "dropdown": {
+                  "label": "Dropdown"
                 }
               }
             }

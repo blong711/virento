@@ -95,34 +95,7 @@
   .btn-wishlist .icon {
     margin-right: 5px;
   }
-  
-  /* Image Zoom Styles */
-  .tf-image-zoom,
-  .tf-image-zoom-inner {
-    cursor: zoom-in;
-    transition: opacity 0.3s ease;
-  }
-  
-  @media (max-width: 991px) {
-    .tf-zoom-main {
-      display: none !important;
-    }
-  }
-  
-  /* Image Zoom at Cursor */
-  .tf-image-zoom,
-  .tf-image-zoom-inner {
-    transition: transform 0.4s cubic-bezier(.4,0,.2,1);
-    will-change: transform;
-    cursor: pointer;
-  }
-  
-  .tf-image-zoom.zoomed,
-  .tf-image-zoom-inner.zoomed {
-    transform: scale(2);
-    z-index: 2;
-    cursor: pointer;
-  }
+
   
   /* Variant Picker Dropdown Styles */
   .option-dropdown, 
