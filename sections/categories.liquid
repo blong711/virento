@@ -281,6 +281,7 @@
 <div class="container-full">
   <section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding section-{{ section.id }}">
   <div class="{{ section.settings.width }}">
+    {% if section.settings.title != blank or section.settings.subtitle != blank %}
     <div class="flat-title text-{{ section.settings.title_alignment }} wow fadeInUp">
       <{{ section.settings.title_tag }} class="title" style="color: rgb(var(--color-foreground));">
         {{- section.settings.title -}}
@@ -291,6 +292,7 @@
         </p>
       {% endif %}
     </div>
+    {% endif %}
     <div class="fl-control-sw2 pos1">
       <div
         dir="ltr"

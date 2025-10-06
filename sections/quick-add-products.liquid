@@ -193,6 +193,17 @@
       "label": "t:sections.top_bar.settings.padding_mobile_rate.label",
       "default": 75,
       "info": "t:sections.top_bar.settings.padding_mobile_rate.info"
+    },
+    {
+      "type": "range",
+      "id": "padding_tablet_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_tablet_rate.label",
+      "default": 60,
+      "info": "t:sections.top_bar.settings.padding_tablet_rate.info"
     }
   ],
   "blocks": [
@@ -267,7 +278,14 @@
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_tablet_rate | divided_by: 100.0 }});
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_tablet_rate | divided_by: 100.0 }});
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -581,20 +599,3 @@
   </section>
 {% endif %}
 
-{% if section.settings.layout == 'layout-1' %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Initialize SimpleParallax for the background image (Layout 1 only)
-  const parallaxElements = document.querySelectorAll('.section-{{ section.id }} .effect-paralax');
-  if (parallaxElements.length > 0 && window.SimpleParallax) {
-    new SimpleParallax(parallaxElements, {
-      orientation: 'down',
-      scale: 1.3,
-      overflow: true,
-      delay: 0.4,
-      transition: 'cubic-bezier(0,0,0,1)'
-    });
-  }
-});
-</script>
-{% endif %}
