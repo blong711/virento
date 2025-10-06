@@ -653,8 +653,8 @@
                                               class="select-item{% if value == option.selected_value %} active{% endif %}"
                                               data-value="{{ value | handle }}"
                                               data-option="{{ option.name | handle }}"
-                                              data-scroll="{{ value | handle }}"
                                               {% if option.name == 'Color' %}
+                                                data-scroll="{{ value | handle }}"
                                                 data-color="{{ value | handle }}"
                                               {% endif %}
                                               {% if option.name == 'Size' or option.name == 'Shoe size' %}
