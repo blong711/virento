@@ -2716,6 +2716,21 @@
           },
           "info": "Choose the position of thumbnails in default layout"
         },
+        "zoom_type": {
+          "label": "Zoom image type",
+          "options": {
+            "no_zoom": {
+              "label": "No Zoom"
+            },
+            "external_zoom": {
+              "label": "External Zoom"
+            },
+            "inner_zoom": {
+              "label": "Inner Zoom"
+            }
+          },
+          "default": "no_zoom"
+        },
         "show_sticky_cart": {
           "label": "Show Sticky Add to Cart"
         },

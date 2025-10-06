@@ -143,7 +143,7 @@
                   </div>
                 {% endif %}
                 <div class="flat-wrap-media-product">
-                  <div dir="ltr" class="swiper tf-product-media-main " id="gallery-swiper-started">
+                  <div dir="ltr" class="swiper tf-product-media-main {% if section.settings.zoom_type == 'inner_zoom' %}tf-product-zoom-inner {% endif %}" id="gallery-swiper-started">
                     <div class="swiper-wrapper">
                       {% for media in product.media %}
                         <div
@@ -161,7 +161,9 @@
                                 data-pswp-height="827px"
                               >
                                 <img
-                                  class=" lazyload"
+                                  class="{% if section.settings.zoom_type == 'external_zoom' %}tf-image-zoom {% elsif section.settings.zoom_type == 'inner_zoom' %}tf-image-zoom-inner {% endif %} lazyload"
+                                  data-zoom="{{ media | image_url: width: 1200 }}"
+                                  data-src="{{ media | image_url: width: 800 }}"
                                   src="{{ media | image_url: width: 800 }}"
                                   alt="{{ media.alt | default: product.title }}"
                                   width="auto"
@@ -335,7 +337,7 @@
                   {% case media.media_type %}
                     {% when 'image' %}
                       <img
-                        class="tf-image-zoom lazyload"
+                        class="{% if section.settings.zoom_type == 'external_zoom' %}tf-image-zoom {% elsif section.settings.zoom_type == 'inner_zoom' %}tf-image-zoom-inner {% endif %} lazyload"
                         data-zoom="{{ media | image_url: width: 1200 }}"
                         data-src="{{ media | image_url: width: 400 }}"
                         src="{{ media | image_url: width: 200 }}"
@@ -348,7 +350,7 @@
                         <i class="icon icon-video"></i>
                       </div>
                       <img
-                        class="tf-image-zoom lazyload"
+                        class="{% if section.settings.zoom_type == 'external_zoom' %}tf-image-zoom {% elsif section.settings.zoom_type == 'inner_zoom' %}tf-image-zoom-inner {% endif %} lazyload"
                         data-zoom="{{ media.preview_image | image_url: width: 1200 }}"
                         data-src="{{ media.preview_image | image_url: width: 400 }}"
                         src="{{ media.preview_image | image_url: width: 200 }}"
@@ -361,7 +363,7 @@
                         <i class="icon icon-btn3d"></i>
                       </div>
                       <img
-                        class="tf-image-zoom lazyload"
+                        class="{% if section.settings.zoom_type == 'external_zoom' %}tf-image-zoom {% elsif section.settings.zoom_type == 'inner_zoom' %}tf-image-zoom-inner {% endif %} lazyload"
                         data-zoom="{{ media.preview_image | image_url: width: 1200 }}"
                         data-src="{{ media.preview_image | image_url: width: 400 }}"
                         src="{{ media.preview_image | image_url: width: 200 }}"
@@ -391,8 +393,8 @@
 
         <!-- Product Information -->
         <div class="col-md-6">
+          <div class="tf-zoom-main"></div>
           <div class="tf-product-info">
-            <div class="tf-zoom-main"></div>
             <div class="tf-product-info-wrap sticky-top  other-image-zoom">
               <div class="tf-product-info-list">
                 <!-- Remove the following line to disable the external zoom box -->
@@ -1759,6 +1761,26 @@
       ],
       "default": "left",
       "info": "t:sections.main-product.settings.thumbnail_position.info"
+    },
+    {
+      "type": "select",
+      "id": "zoom_type",
+      "label": "t:sections.main-product.settings.zoom_type.label",
+      "options": [
+        {
+          "value": "no_zoom",
+          "label": "t:sections.main-product.settings.zoom_type.options.no_zoom.label"
+        },
+        {
+          "value": "external_zoom",
+          "label": "t:sections.main-product.settings.zoom_type.options.external_zoom.label"
+        },
+        {
+          "value": "inner_zoom",
+          "label": "t:sections.main-product.settings.zoom_type.options.inner_zoom.label"
+        }
+      ],
+      "default": "no_zoom"
     },
     {
       "type": "checkbox",

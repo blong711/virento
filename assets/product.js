@@ -632,7 +632,6 @@ document.addEventListener('DOMContentLoaded', function () {
             addToCartBtn.style.pointerEvents = 'none';
             addToCartBtn.style.opacity = '0.6';
 
-
             if (addToCartBtn.textContent !== outOfStockText) {
               // Force update again
               addToCartBtn.textContent = outOfStockText;
@@ -1225,27 +1224,27 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Initialize image zoom
-  const zoomMain = document.querySelector('.tf-zoom-main');
-  const zoomImages = document.querySelectorAll('.tf-image-zoom');
+  // const zoomMain = document.querySelector('.tf-zoom-main');
+  // const zoomImages = document.querySelectorAll('.tf-image-zoom');
 
-  zoomImages.forEach((image) => {
-    image.addEventListener('mousemove', function (e) {
-      const rect = this.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+  // zoomImages.forEach((image) => {
+  //   image.addEventListener('mousemove', function (e) {
+  //     const rect = this.getBoundingClientRect();
+  //     const x = e.clientX - rect.left;
+  //     const y = e.clientY - rect.top;
 
-      const xPercent = (x / rect.width) * 100;
-      const yPercent = (y / rect.height) * 100;
+  //     const xPercent = (x / rect.width) * 100;
+  //     const yPercent = (y / rect.height) * 100;
 
-      zoomMain.style.backgroundImage = `url(${this.getAttribute('data-zoom')})`;
-      zoomMain.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
-      zoomMain.style.display = 'block';
-    });
+  //     zoomMain.style.backgroundImage = `url(${this.getAttribute('data-zoom')})`;
+  //     zoomMain.style.backgroundPosition = `${xPercent}% ${yPercent}%`;
+  //     zoomMain.style.display = 'block';
+  //   });
 
-    image.addEventListener('mouseleave', function () {
-      zoomMain.style.display = 'none';
-    });
-  });
+  //   image.addEventListener('mouseleave', function () {
+  //     zoomMain.style.display = 'none';
+  //   });
+  // });
 
   // Initialize wishlist buttons state
   if (window.wishlistCompare) {
@@ -1256,21 +1255,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Remove .tf-zoom-main logic (no longer needed)
   // Add new zoom-at-cursor logic for all .tf-image-zoom and .tf-image-zoom-inner
-  if (window.enableImageZoom) {
-    document.querySelectorAll('.tf-image-zoom, .tf-image-zoom-inner').forEach((image) => {
-      image.addEventListener('mousemove', function (e) {
-        const rect = this.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        this.style.transformOrigin = `${x}% ${y}%`;
-        this.classList.add('zoomed');
-      });
-      image.addEventListener('mouseleave', function () {
-        this.classList.remove('zoomed');
-        this.style.transformOrigin = 'center center';
-      });
-    });
-  }
+  // if (window.enableImageZoom) {
+  //   document.querySelectorAll('.tf-image-zoom, .tf-image-zoom-inner').forEach((image) => {
+  //     image.addEventListener('mousemove', function (e) {
+  //       const rect = this.getBoundingClientRect();
+  //       const x = ((e.clientX - rect.left) / rect.width) * 100;
+  //       const y = ((e.clientY - rect.top) / rect.height) * 100;
+  //       this.style.transformOrigin = `${x}% ${y}%`;
+  //       this.classList.add('zoomed');
+  //     });
+  //     image.addEventListener('mouseleave', function () {
+  //       this.classList.remove('zoomed');
+  //       this.style.transformOrigin = 'center center';
+  //     });
+  //   });
+  // }
 
   document.querySelectorAll('.tf-model-viewer-ui-button .icon-btn3d').forEach(function (icon) {
     icon.addEventListener('click', function () {
