@@ -76,7 +76,6 @@
           "type": "quantity_and_buy",
           "settings": {
             "show_dynamic_checkout": true,
-            "show_more_payment": true,
             "more_payment_text": "More payment options"
           }
         },
@@ -93,9 +92,9 @@
           "type": "special_deal",
           "settings": {
             "title": "Special Deal",
-            "buy_product": "10000mah-power-go-power-bank",
+            "buy_product": "billie",
             "buy_quantity": "1",
-            "get_product": "magnetic-wireless-power-bank",
+            "get_product": "eleanor",
             "get_quantity": "1",
             "discount_percent": "20",
             "button_text": "Grab this deal"
@@ -130,6 +129,7 @@
           "type": "size_guide",
           "settings": {
             "size_guide_text": "Size Guide",
+            "size_guide_source": "page",
             "size_guide_page": ""
           }
         }
