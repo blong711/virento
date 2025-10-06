@@ -3897,6 +3897,10 @@
           "label": "Mobile Padding Rate",
           "info": "Percentage of desktop padding to use on mobile devices"
         },
+        "padding_tablet_rate": {
+          "label": "Tablet Padding Rate",
+          "info": "Percentage of desktop padding to use on tablet devices"
+        },
         "block_visibility_settings": {
           "content": "Block visibility settings"
         },
