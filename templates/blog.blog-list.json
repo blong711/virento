@@ -12,6 +12,7 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
+        "background_image": "shopify://shop_images/page-title.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
