@@ -8127,6 +8127,18 @@
         "padding_mobile_rate": {
           "label": "Mobile padding rate",
           "info": "Percentage of desktop padding to apply on mobile"
+        },
+        "typography_settings": { "content": "Typography Settings" },
+        "title_font": { "label": "Title font" },
+        "title_font_weight": { 
+          "label": "Title font weight",
+          "options": {
+            "fw-light": "Light",
+            "fw-normal": "Normal", 
+            "fw-medium": "Medium",
+            "fw-semibold": "Semi Bold",
+            "fw-bold": "Bold"
+          }
         }
       },
       "blocks": {

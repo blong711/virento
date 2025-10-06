@@ -4,7 +4,14 @@
     padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_mobile_rate | divided_by: 100.0 }});
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px * {{ section.settings.padding_tablet_rate | divided_by: 100.0 }});
+      padding-bottom: calc({{ section.settings.padding_bottom }}px * {{ section.settings.padding_tablet_rate | divided_by: 100.0 }});
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -131,8 +138,19 @@
       "step": 5,
       "unit": "%",
       "label": "t:sections.single-testimonial.settings.padding_mobile_rate.label",
-      "default": 75,
+      "default": 50,
       "info": "t:sections.single-testimonial.settings.padding_mobile_rate.info"
+    },
+    {
+      "type": "range",
+      "id": "padding_tablet_rate",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "t:sections.top_bar.settings.padding_tablet_rate.label",
+      "default": 60,
+      "info": "t:sections.top_bar.settings.padding_tablet_rate.info"
     }
   ],
   "presets": [

@@ -38,7 +38,10 @@
       { "type": "range", "id": "padding_top", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:sections.testimonial-swiper.settings.padding_top.label", "default": 0 },
       { "type": "range", "id": "padding_bottom", "min": 0, "max": 120, "step": 4, "unit": "px", "label": "t:sections.testimonial-swiper.settings.padding_bottom.label", "default": 0 },
       { "type": "range", "id": "padding_mobile_rate", "min": 0, "max": 100, "step": 5, "unit": "%", "label": "t:sections.testimonial-swiper.settings.padding_mobile_rate.label", "default": 75, "info": "t:sections.testimonial-swiper.settings.padding_mobile_rate.info" },
-      { "type": "range", "id": "padding_tablet_rate", "min": 0, "max": 100, "step": 5, "unit": "%", "label": "t:sections.top_bar.settings.padding_tablet_rate.label", "default": 60, "info": "t:sections.top_bar.settings.padding_tablet_rate.info" }
+      { "type": "range", "id": "padding_tablet_rate", "min": 0, "max": 100, "step": 5, "unit": "%", "label": "t:sections.top_bar.settings.padding_tablet_rate.label", "default": 60, "info": "t:sections.top_bar.settings.padding_tablet_rate.info" },
+      { "type": "header", "content": "t:sections.testimonial-swiper.settings.typography_settings.content" },
+      { "type": "select", "id": "title_font", "label": "t:sections.testimonial-swiper.settings.title_font.label", "options": [ { "value": "", "label": "Default" }, { "value": "font-main", "label": "Poppins" }, { "value": "font-2", "label": "Albert Sans" }, { "value": "font-3", "label": "Playfair Display" }, { "value": "font-4", "label": "DM Sans" }, { "value": "font-5", "label": "Baloo" }, { "value": "font-6", "label": "Be Vietnam Pro" }, { "value": "font-7", "label": "Oswald" }, { "value": "font-8", "label": "Grandstander" }, { "value": "font-9", "label": "Jost" }, { "value": "font-10", "label": "Agbalumo" }, { "value": "font-11", "label": "Manrope" }, { "value": "font-12", "label": "Open Sans" }, { "value": "font-13", "label": "Inter" }, { "value": "font-14", "label": "Gloock" } ] },
+      { "type": "select", "id": "title_font_weight", "label": "t:sections.testimonial-swiper.settings.title_font_weight.label", "options": [ { "value": "fw-light", "label": "t:sections.testimonial-swiper.settings.title_font_weight.options.fw-light" }, { "value": "fw-normal", "label": "t:sections.testimonial-swiper.settings.title_font_weight.options.fw-normal" }, { "value": "fw-medium", "label": "t:sections.testimonial-swiper.settings.title_font_weight.options.fw-medium" }, { "value": "fw-semibold", "label": "t:sections.testimonial-swiper.settings.title_font_weight.options.fw-semibold" }, { "value": "fw-bold", "label": "t:sections.testimonial-swiper.settings.title_font_weight.options.fw-bold" } ], "default": "fw-medium" }
     ],
     "blocks": [
       {
@@ -98,8 +101,8 @@
                               {% endfor %}
                             {% endif %}
                           </div>
-                          <div class="display-lg-2 fw-medium font-7">{{ block.settings.title }}</div>
-                          <p class="text-review font-13 display-xs">{{ block.settings.review }}</p>
+                          <div class="display-lg-2 {{ section.settings.title_font }} {{ section.settings.title_font_weight }}">{{ block.settings.title }}</div>
+                          <p class="text-review display-xs">{{ block.settings.review }}</p>
                           <div class="box-author">
                             <div class="img d-md-none">
                               {% if block.settings.image %}
@@ -218,7 +221,7 @@
                               {% endfor %}
                             {% endif %}
                           </div>
-                          <div class="title-review">{{ block.settings.title }}</div>
+                          <div class="title-review {{ section.settings.title_font }} {{ section.settings.title_font_weight }}">{{ block.settings.title }}</div>
                           <p class="text-review display-xs">{{ block.settings.review }}</p>
                           <div class="box-author">
                             <div class="img d-md-none">
