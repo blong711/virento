@@ -1292,36 +1292,36 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // Handle dropdown changes for variant picker
-  document.querySelectorAll('.option-dropdown, .color-dropdown').forEach(function (select) {
-    select.addEventListener('change', function () {
-      const optionName = this.getAttribute('data-option-name');
-      const value = this.value;
-      if (optionName) {
-        selectedOptions[optionName.toLowerCase()] = value.toLowerCase();
-      }
-      // Find the matching variant
-      const variants = window.productVariants || [];
-      const options = window.productOptions || [];
-      // Build an array of selected values in order
-      const selectedValues = options.map(function (opt) {
-        return selectedOptions[opt.toLowerCase()];
-      });
-      const matchingVariant = variants.find(function (variant) {
-        return variant.options.every(function (optValue, idx) {
-          return optValue && optValue.toLowerCase() === selectedValues[idx];
-        });
-      });
-      if (matchingVariant) {
-        // Find the main add-to-cart button in the same section as the dropdown
-        const mainSection = this.closest('.tf-product-info, .product-info, .product-details');
-        const targetButton = mainSection
-          ? mainSection.querySelector('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)')
-          : null;
+  // document.querySelectorAll('.option-dropdown, .color-dropdown').forEach(function (select) {
+  //   select.addEventListener('change', function () {
+  //     const optionName = this.getAttribute('data-option-name');
+  //     const value = this.value;
+  //     if (optionName) {
+  //       selectedOptions[optionName.toLowerCase()] = value.toLowerCase();
+  //     }
+  //     // Find the matching variant
+  //     const variants = window.productVariants || [];
+  //     const options = window.productOptions || [];
+  //     // Build an array of selected values in order
+  //     const selectedValues = options.map(function (opt) {
+  //       return selectedOptions[opt.toLowerCase()];
+  //     });
+  //     const matchingVariant = variants.find(function (variant) {
+  //       return variant.options.every(function (optValue, idx) {
+  //         return optValue && optValue.toLowerCase() === selectedValues[idx];
+  //       });
+  //     });
+  //     if (matchingVariant) {
+  //       // Find the main add-to-cart button in the same section as the dropdown
+  //       const mainSection = this.closest('.tf-product-info, .product-info, .product-details');
+  //       const targetButton = mainSection
+  //         ? mainSection.querySelector('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)')
+  //         : null;
 
-        updateVariantSelection(matchingVariant, false, targetButton);
-      }
-    });
-  });
+  //       updateVariantSelection(matchingVariant, false, targetButton);
+  //     }
+  //   });
+  // });
 
   // Handle custom swatch dropdown for color selection
   document.querySelectorAll('.tf-variant-dropdown .select-item').forEach(function (btn) {

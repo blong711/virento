@@ -598,11 +598,11 @@
                                   <div class="variant-picker-label">
                                     <div>
                                       {{ option.name }}:
-                                      <span class="variant-picker-label-value value-current{{ option.name }} {% if option.name == 'Shoe size' %}value-currentSize{% endif %}">
+                                      <span class="variant-picker-label-value {% if option.name == 'Shoe size' %}value-currentSize{% else %}value-current{{ option.name }}{% endif %}">
                                         {{- option.selected_value -}}
                                       </span>
                                     </div>
-                                    {% if option.name == 'Size' %}
+                                    {% if option.name == 'Size' or option.name == 'Shoe size' %}
                                       {% for block2 in section.blocks %}
                                         {% if block2.type == 'size_guide' %}
                                           <a
@@ -621,10 +621,12 @@
                                     and option.name == 'Color'
                                     or block.settings.color_selector_type == 'dropdown'
                                     and option.name == 'Size'
+                                    or block.settings.color_selector_type == 'dropdown'
+                                    and option.name == 'Shoe size'
                                   %}
                                     <div class="tf-variant-dropdown full" data-bs-toggle="dropdown">
                                       <div class="btn-select">
-                                        <span class="text-sort-value value-current{{ option.name }}">
+                                        <span class="text-sort-value  {% if option.name == 'Shoe size' %}value-currentSize{% else %}value-current{{ option.name }}{% endif %}">
                                           {{- option.selected_value -}}
                                         </span>
                                         <span class="icon icon-arrow-down"></span>
@@ -651,10 +653,11 @@
                                               class="select-item{% if value == option.selected_value %} active{% endif %}"
                                               data-value="{{ value | handle }}"
                                               data-option="{{ option.name | handle }}"
+                                              data-scroll="{{ value | handle }}"
                                               {% if option.name == 'Color' %}
                                                 data-color="{{ value | handle }}"
                                               {% endif %}
-                                              {% if option.name == 'Size' %}
+                                              {% if option.name == 'Size' or option.name == 'Shoe size' %}
                                                 data-size="{{ value | handle }}"
                                               {% endif %}
                                             >
@@ -732,7 +735,7 @@
                                             </div>
                                           {% endif %}
                                         {% endfor %}
-                                      {% elsif option.name == 'Shoe size' or option.name == 'Size' %}
+                                      {% elsif option.name == 'Shoe size' or option.name == 'Size' or option.name == 'Shoe size' %}
                                         <span class="value-currentSize" style="display: none;">
                                           {{- option.selected_value -}}
                                         </span>
@@ -804,7 +807,7 @@
                                             </div>
                                           {% endif %}
                                         {% endfor %}
-                                      {% elsif option.name == 'Size' %}
+                                      {% elsif option.name == 'Size' or option.name == 'Shoe size' %}
                                         <span class="value-currentSize" style="display: none;">
                                           {{- option.selected_value -}}
                                         </span>
@@ -825,7 +828,7 @@
                                       {% else %}
                                         <div class="tf-variant-dropdown full" data-bs-toggle="dropdown">
                                           <div class="btn-select">
-                                            <span class="text-sort-value value-current{{ option.name }}">
+                                            <span class="text-sort-value  {% if option.name == 'Shoe size' %}value-currentSize{% else %}value-current{{ option.name }}{% endif %}">
                                               {{- option.selected_value -}}
                                             </span>
                                             <span class="icon icon-arrow-down"></span>

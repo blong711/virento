@@ -310,11 +310,23 @@ const variantPicker = () => {
       const label = btn.querySelector('.text-value-item')?.textContent || value;
 
       if (value) {
-        // Update dropdown label
-        const dropdown = btn.closest('.tf-variant-dropdown');
-        if (dropdown) {
-          const labelSpan = dropdown.querySelector('.text-sort-value');
-          if (labelSpan) labelSpan.textContent = label;
+        // Update dropdown label and picker label - use parent picker item to ensure we only update the correct dropdown
+        const pickerItem = btn.closest('.variant-picker-item');
+        if (pickerItem) {
+          // Update dropdown button text
+          const dropdown = pickerItem.querySelector('.tf-variant-dropdown');
+          if (dropdown) {
+            const labelSpan = dropdown.querySelector('.text-sort-value');
+            if (labelSpan) {
+              labelSpan.textContent = label;
+            }
+          }
+
+          // Update picker label text
+          const labelValue = pickerItem.querySelector('.variant-picker-label-value');
+          if (labelValue) {
+            labelValue.textContent = label;
+          }
         }
 
         // Set active class
@@ -323,22 +335,170 @@ const variantPicker = () => {
         });
         btn.classList.add('active');
 
-        // Update the corresponding value display
+        // Update global value displays based on option type
         if (option === 'color') {
           document.querySelectorAll('.value-currentColor').forEach((el) => {
             el.textContent = value;
           });
-        } else if (option === 'size') {
+        } else if (option === 'size' || option === 'shoe-size') {
           document.querySelectorAll('.value-currentSize').forEach((el) => {
             el.textContent = value;
           });
         }
 
-        // Update the label value for the option
-        const pickerItem = btn.closest('.variant-picker-item');
-        if (pickerItem) {
-          const labelValue = pickerItem.querySelector('.variant-picker-label-value');
-          if (labelValue) labelValue.textContent = label;
+        // Update the label within the same picker item (already handled above in dropdown update)
+
+        // *** FIX: Update variant selection and add to cart button ***
+        // Find the matching variant based on all selected options
+        if (window.productVariants && Array.isArray(window.productVariants)) {
+          const activeColorBtn = document.querySelector(
+            '.color-btn.active, .btn-scroll-target.active, .select-item[data-option="color"].active'
+          );
+          const activeSizeBtn = document.querySelector(
+            '.size-btn.active, .select-item[data-option="size"].active, .select-item[data-option="shoe-size"].active'
+          );
+
+          // Get selected color
+          let selectedColor = null;
+          if (activeColorBtn) {
+            if (
+              activeColorBtn.classList.contains('color-btn') ||
+              activeColorBtn.classList.contains('btn-scroll-target')
+            ) {
+              selectedColor = activeColorBtn.getAttribute('data-scroll') || activeColorBtn.getAttribute('data-color');
+            } else {
+              // For dropdown, ALWAYS use text content (original value, not handle)
+              const textElement = activeColorBtn.querySelector('.text-value-item');
+              selectedColor = textElement ? textElement.textContent.trim() : null;
+            }
+          }
+
+          // Get selected size
+          let selectedSize = null;
+          if (activeSizeBtn) {
+            if (activeSizeBtn.classList.contains('size-btn')) {
+              selectedSize = activeSizeBtn.getAttribute('data-size') || activeSizeBtn.getAttribute('data-value');
+            } else {
+              // For dropdown, ALWAYS use text content (original value, not handle)
+              const textElement = activeSizeBtn.querySelector('.text-value-item');
+              selectedSize = textElement ? textElement.textContent.trim() : null;
+            }
+          }
+
+          // Find matching variant - Use same logic as product.js
+          let matchingVariant = null;
+
+          if (selectedColor && selectedSize) {
+            // Both color and size selected
+            matchingVariant = window.productVariants.find(
+              (v) =>
+                v &&
+                v.option1 &&
+                v.option1.toLowerCase().trim() === selectedColor.toLowerCase().trim() &&
+                v.option2 &&
+                v.option2.toLowerCase().trim() === selectedSize.toLowerCase().trim()
+            );
+          } else if (selectedColor && !selectedSize) {
+            // Only color selected - find first available variant with this color
+            matchingVariant = window.productVariants.find(
+              (v) =>
+                v &&
+                v.option1 &&
+                v.option1.toLowerCase().trim() === selectedColor.toLowerCase().trim() &&
+                (v.available || v.isPreOrder)
+            );
+            // If no available variant, get any variant with this color
+            if (!matchingVariant) {
+              matchingVariant = window.productVariants.find(
+                (v) => v && v.option1 && v.option1.toLowerCase().trim() === selectedColor.toLowerCase().trim()
+              );
+            }
+          } else if (!selectedColor && selectedSize) {
+            // Only size selected
+            matchingVariant = window.productVariants.find(
+              (v) => v && v.option2 && v.option2.toLowerCase().trim() === selectedSize.toLowerCase().trim()
+            );
+          }
+
+          // Update all add to cart buttons with the new variant
+          if (matchingVariant) {
+            const addToCartBtns = document.querySelectorAll(
+              '.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button):not([data-product-handle])'
+            );
+
+            addToCartBtns.forEach((addToCartBtn) => {
+              addToCartBtn.dataset.variantId = matchingVariant.id;
+              addToCartBtn.dataset.selectedVariant = matchingVariant.id;
+
+              // Update quantity if available
+              const quantityInput = addToCartBtn.closest('form, .tf-product-info')?.querySelector('.quantity-product');
+              if (quantityInput) {
+                const quantity = parseInt(quantityInput.value) || 1;
+                addToCartBtn.dataset.quantity = quantity;
+              }
+
+              // Check if variant is available and update button state
+              const isAvailable = matchingVariant.available || matchingVariant.isPreOrder;
+
+              if (!isAvailable) {
+                addToCartBtn.disabled = true;
+                addToCartBtn.classList.add('disabled');
+                // Try multiple ways to update button text
+                const btnText = addToCartBtn.querySelector('.btn-text');
+                if (btnText) {
+                  btnText.textContent = window.translations?.outOfStock || 'Sold Out';
+                } else if (addToCartBtn.tagName === 'A' || addToCartBtn.tagName === 'BUTTON') {
+                  // For simple buttons/links, get the first text node and update it
+                  for (let i = 0; i < addToCartBtn.childNodes.length; i++) {
+                    const node = addToCartBtn.childNodes[i];
+                    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                      node.textContent = ' ' + (window.translations?.outOfStock || 'Sold Out') + ' ';
+                      break;
+                    }
+                  }
+                }
+              } else {
+                addToCartBtn.disabled = false;
+                addToCartBtn.classList.remove('disabled');
+                // Try multiple ways to update button text
+                const btnText = addToCartBtn.querySelector('.btn-text');
+                if (btnText) {
+                  btnText.textContent = window.translations?.addToCart || 'Add to Cart';
+                } else if (addToCartBtn.tagName === 'A' || addToCartBtn.tagName === 'BUTTON') {
+                  // For simple buttons/links, get the first text node and update it
+                  for (let i = 0; i < addToCartBtn.childNodes.length; i++) {
+                    const node = addToCartBtn.childNodes[i];
+                    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                      node.textContent = ' ' + (window.translations?.addToCart || 'Add to Cart') + ' ';
+                      break;
+                    }
+                  }
+                }
+              }
+            });
+
+            // Update price if available
+            if (matchingVariant.price !== undefined) {
+              const priceElements = document.querySelectorAll('.price-on-sale .price-item');
+              priceElements.forEach((priceEl) => {
+                const formattedPrice = window.Shopify?.formatMoney
+                  ? window.Shopify.formatMoney(matchingVariant.price, window.moneyFormat || '${{amount}}')
+                  : `$${(matchingVariant.price / 100).toFixed(2)}`;
+                priceEl.textContent = formattedPrice;
+              });
+
+              // Update compare at price if available
+              if (matchingVariant.compare_at_price && matchingVariant.compare_at_price > matchingVariant.price) {
+                const compareElements = document.querySelectorAll('.compare-at-price .price-item');
+                compareElements.forEach((compareEl) => {
+                  const formattedComparePrice = window.Shopify?.formatMoney
+                    ? window.Shopify.formatMoney(matchingVariant.compare_at_price, window.moneyFormat || '${{amount}}')
+                    : `$${(matchingVariant.compare_at_price / 100).toFixed(2)}`;
+                  compareEl.textContent = formattedComparePrice;
+                });
+              }
+            }
+          }
         }
       }
     });
