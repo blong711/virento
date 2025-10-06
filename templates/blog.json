@@ -12,7 +12,6 @@
     "page_breadcrumb": {
       "type": "page-breadcrumb",
       "settings": {
-        "background_image": "shopify://shop_images/page-title_1.jpg",
         "show_description": true,
         "custom_description": "",
         "description_truncate_length": 120
@@ -26,7 +25,7 @@
           "settings": {
             "category_name": "Accessories",
             "blog_handle": "accessories",
-            "category_image": "shopify://shop_images/category-1.webp",
+            "category_image": "shopify://shop_images/category-1.jpg",
             "button_text": "View all",
             "category_url": "",
             "show_overlay": true
@@ -70,7 +69,18 @@
           "settings": {
             "category_name": "Tricks & Tips",
             "blog_handle": "tricks-tips",
-            "category_image": "shopify://shop_images/category-5_da008680-86cc-4a31-9915-57652eeada35.jpg",
+            "category_image": "shopify://shop_images/category-5.jpg",
+            "button_text": "View all",
+            "category_url": "",
+            "show_overlay": true
+          }
+        },
+        "category_6XrXYT": {
+          "type": "category",
+          "settings": {
+            "category_name": "Dresses",
+            "blog_handle": "dresses",
+            "category_image": "shopify://shop_images/dresses.jpg",
             "button_text": "View all",
             "category_url": "",
             "show_overlay": true
@@ -82,7 +92,8 @@
         "category_2",
         "category_3",
         "category_4",
-        "category_5"
+        "category_5",
+        "category_6XrXYT"
       ],
       "settings": {
         "width": "boxed",
@@ -105,7 +116,6 @@
         "blog_content": {
           "type": "blog_content",
           "settings": {
-            "layout": "list",
             "blog_source": "current",
             "specific_blog": "design",
             "article_limit": 3,
@@ -124,6 +134,7 @@
         "blog_sidebar": {
           "type": "blog_sidebar",
           "settings": {
+            "show_categories": true,
             "show_recent_posts": true,
             "show_tags": true,
             "sidebar_banner_image": "shopify://shop_images/sb-banner.jpg",
@@ -142,7 +153,8 @@
         "color_scheme": "background-1",
         "padding_top": 36,
         "padding_bottom": 100,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 75,
+        "layout": "list"
       }
     }
   },
