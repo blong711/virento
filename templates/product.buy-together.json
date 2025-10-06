@@ -1,0 +1,257 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_breadcrumb": {
+      "type": "product-breadcrumb",
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "show_collection": true,
+        "show_navigation": true,
+        "go_back_url": "shopify://collections",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "main_product": {
+      "type": "main-product",
+      "blocks": {
+        "vendor_zHTgQB": {
+          "type": "vendor",
+          "settings": {}
+        },
+        "title_UVUbbt": {
+          "type": "title",
+          "settings": {}
+        },
+        "price_miqWQM": {
+          "type": "price",
+          "settings": {}
+        },
+        "sold_count_FhTTRW": {
+          "type": "sold_count",
+          "settings": {
+            "in_stock_text": "In Stock",
+            "out_of_stock_text": "Out of Stock",
+            "sold_count_text": "{count} sold in last 24 hours",
+            "min_sold_count": 20,
+            "max_sold_count": 50
+          }
+        },
+        "stock_count_HLePWd": {
+          "type": "stock_count",
+          "settings": {
+            "stock_count_text": "HURRY UP!",
+            "show_inventory_count": true,
+            "show_progress_bar": true,
+            "stock_threshold": 50
+          }
+        },
+        "countdown_timer_K4UDNT": {
+          "type": "countdown_timer",
+          "settings": {
+            "hurry_text": "HURRY UP!",
+            "label": "Sale ends in:"
+          }
+        },
+        "variant_picker_CFdTLh": {
+          "type": "variant_picker",
+          "settings": {
+            "pick_mode": "first_available",
+            "hide_sold_out": false,
+            "color_selector_type": "swatch_rounded",
+            "color_selector_size": "medium"
+          }
+        },
+        "quantity_and_buy_Vc7GaM": {
+          "type": "quantity_and_buy",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "more_payment_text": "More payment options"
+          }
+        },
+        "extra_links_WWFndr": {
+          "type": "extra_links",
+          "settings": {
+            "show_wishlist": true,
+            "show_compare": true,
+            "show_ask_question": true,
+            "show_share": true
+          }
+        },
+        "sku_CwEeQx": {
+          "type": "sku",
+          "settings": {}
+        },
+        "trust_and_payment_W3rWmf": {
+          "type": "trust_and_payment",
+          "settings": {
+            "trust_seal_text": "Guarantee Safe Checkout:",
+            "svg_list": "visa,paypal,master,american_express,diners_club"
+          }
+        },
+        "delivery_info_ifqrMR": {
+          "type": "delivery_info",
+          "settings": {
+            "delivery_icon": "icon-car2",
+            "delivery_label": "Estimated delivery time:",
+            "delivery_time": "3-5 days international",
+            "show_delivery_info": true,
+            "shipping_icon": "icon-shipping3",
+            "shipping_label": "Free shipping on",
+            "free_shipping_text": "all orders over $150",
+            "show_free_shipping": true,
+            "icon_size": 24
+          }
+        },
+        "fbt_BjrkCe": {
+          "type": "fbt",
+          "settings": {
+            "fbt_title": "Frequently Bought Together",
+            "fbt_source": "manual",
+            "fbt_products": [
+              "10000mah-power-go-power-bank",
+              "apple-iphone-16-promax",
+              "apple-magsafe-charger"
+            ],
+            "max_products": 3,
+            "fbt_margin_top": 0,
+            "fbt_margin_bottom": 0
+          }
+        },
+        "size_guide_NiAE8e": {
+          "type": "size_guide",
+          "settings": {
+            "size_guide_text": "Size Guide",
+            "size_guide_source": "page",
+            "size_guide_page": "size-guide"
+          }
+        }
+      },
+      "block_order": [
+        "vendor_zHTgQB",
+        "title_UVUbbt",
+        "price_miqWQM",
+        "sold_count_FhTTRW",
+        "stock_count_HLePWd",
+        "countdown_timer_K4UDNT",
+        "variant_picker_CFdTLh",
+        "quantity_and_buy_Vc7GaM",
+        "extra_links_WWFndr",
+        "sku_CwEeQx",
+        "trust_and_payment_W3rWmf",
+        "delivery_info_ifqrMR",
+        "fbt_BjrkCe",
+        "size_guide_NiAE8e"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2d291039-1404-48e2-8fe5-1e54f84416aa",
+        "width": "container",
+        "layout": "default",
+        "thumbnail_position": "left",
+        "show_sticky_cart": true,
+        "enable_video_loop": true,
+        "enable_video_autoplay": true,
+        "enable_variant_by_image": true,
+        "show_slider_nav": true,
+        "enable_image_zoom": true,
+        "padding_top": 0,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
+    },
+    "product_description": {
+      "type": "product-description",
+      "blocks": {
+        "description_block": {
+          "type": "description",
+          "settings": {
+            "title": "Description"
+          }
+        },
+        "materials_block": {
+          "type": "materials",
+          "settings": {
+            "title": "Materials & Care"
+          }
+        },
+        "additional_info_block": {
+          "type": "additional_info",
+          "settings": {
+            "title": "Additional Information",
+            "show_default_info": true,
+            "brand_label": "Brand",
+            "type_label": "Type",
+            "tags_label": "Tags"
+          }
+        }
+      },
+      "block_order": [
+        "description_block",
+        "materials_block",
+        "additional_info_block"
+      ],
+      "settings": {
+        "color_scheme": "",
+        "width": "container",
+        "layout": "accordion",
+        "padding_top": 0,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
+    },
+    "related_products": {
+      "type": "related-products",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "heading": "People Also Bought",
+        "products_to_show": 5,
+        "show_navigation": true,
+        "show_mobile_dots": true,
+        "items_per_row_desktop": "4",
+        "items_per_row_tablet": "3",
+        "items_per_row_mobile": "2",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_mobile_rate": 75
+      }
+    },
+    "recently_viewed": {
+      "type": "recently-viewed",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "width": "container",
+        "show_title": true,
+        "title": "Recently Viewed",
+        "products_to_show": 8,
+        "slides_per_view_mobile": "2",
+        "slides_per_view_tablet": "3",
+        "slides_per_view_desktop": "4",
+        "space_between": 12,
+        "space_between_desktop": 24,
+        "show_navigation": true,
+        "show_pagination": true,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "padding_mobile_rate": 75
+      }
+    }
+  },
+  "order": [
+    "product_breadcrumb",
+    "main_product",
+    "product_description",
+    "related_products",
+    "recently_viewed"
+  ]
+}
