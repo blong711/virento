@@ -1639,7 +1639,7 @@
           "default": "Search product"
         },
         "show_account": {
-          "label": "Show account icon"
+          "label": "Enable account icon"
         },
         "contact_information": {
           "content": "Contact Information"
