@@ -3042,13 +3042,13 @@
               "label": "Selector type",
               "options": {
                 "swatch_rounded": {
-                  "label": "Color swatch rounded"
+                  "label": "swatch rounded"
                 },
                 "dropdown": {
                   "label": "Dropdown"
                 },
                 "swatch_image": {
-                  "label": "Color swatch image"
+                  "label": "swatch image"
                 }
               }
             },
