@@ -20,7 +20,7 @@
             "messages": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer",
             "enable_countdown": true,
             "countdown_prefix": "WINTER SALE 75% OFF. Ends in:",
-            "countdown_start": "2025-10-11 00:00:00",
+            "countdown_start": "2025-10-09 00:00:00",
             "countdown_end": "2025-12-31 23:59:59",
             "countdown_labels": "DAYS : , HOURS : , MINUTES : , SECONDS"
           }
