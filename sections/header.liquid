@@ -2,7 +2,8 @@
   assign show_categories = section.settings.show_categories
   assign categories_style = ''
   assign layout_type = section.settings.layout_type
-  
+  assign logo_width = settings.logo_width
+
   if layout_type == 'layout_1'
     assign header_classes = 'header-default header-search'
     assign show_header_top = true
@@ -14,170 +15,176 @@
   endif
 %}
 
+{% style %}
+  .logo-header img {
+    width: {{ logo_width }}px;
+  }
+{% endstyle %}
+
 {% if layout_type == 'layout_2' %}
   {% render 'header-layout-2', section: section %}
 {% else %}
-<header
-  id="header"
-  class="{{ header_classes }} color-{{ section.settings.color_scheme }}"
-  data-sticky-type="{{ section.settings.sticky_header }}"
->
-  <!-- Predictive Search Settings -->
-  <meta name="predictive-search-enabled" content="{{ settings.predictive_search_enabled }}">
-  <meta name="predictive-search-show-price" content="{{ settings.predictive_search_show_price }}">
-  {% if show_header_top %}
-  <!-- Header Top -->
-  <div class="header-top line-bt">
-    <div class="container">
-      <div class="row wrapper-header align-items-center">
-        <!-- Mobile Menu Button -->
-        <div class="col-md-4 col-3 d-xl-none">
-          <a
-            href="#mobileMenu"
-            class="mobile-menu"
-            data-bs-toggle="offcanvas"
-            aria-controls="mobileMenu"
-            aria-label="Open mobile menu"
-          >
-            <i class="icon icon-categories1" aria-hidden="true"></i>
-          </a>
-        </div>
+  <header
+    id="header"
+    class="{{ header_classes }} color-{{ section.settings.color_scheme }}"
+    data-sticky-type="{{ section.settings.sticky_header }}"
+  >
+    <!-- Predictive Search Settings -->
+    <meta name="predictive-search-enabled" content="{{ settings.predictive_search_enabled }}">
+    <meta name="predictive-search-show-price" content="{{ settings.predictive_search_show_price }}">
+    {% if show_header_top %}
+      <!-- Header Top -->
+      <div class="header-top line-bt">
+        <div class="container">
+          <div class="row wrapper-header align-items-center">
+            <!-- Mobile Menu Button -->
+            <div class="col-md-4 col-3 d-xl-none">
+              <a
+                href="#mobileMenu"
+                class="mobile-menu"
+                data-bs-toggle="offcanvas"
+                aria-controls="mobileMenu"
+                aria-label="Open mobile menu"
+              >
+                <i class="icon icon-categories1" aria-hidden="true"></i>
+              </a>
+            </div>
 
-        <!-- Logo -->
-        <div class="col-xl-3 col-md-4 col-6">
-          <a href="{{ routes.root_url }}" class="logo-header">
-            {% if settings.logo != blank %}
-              {% assign logo_width = settings.logo_width %}
-              {{
-                settings.logo
-                | image_url: width: logo_width
-                | image_tag:
-                  class: 'logo',
-                  width: logo_width,
-                  alt: shop.name,
-                  loading: 'eager',
-                  fetchpriority: 'high',
-                  decoding: 'sync'
-              }}
-            {% else %}
-              <span class="h2">{{ shop.name }}</span>
-            {% endif %}
-          </a>
-        </div>
+            <!-- Logo -->
+            <div class="col-xl-3 col-md-4 col-6">
+              <a href="{{ routes.root_url }}" class="logo-header">
+                {% if settings.logo != blank %}
+                  {% assign logo_width = settings.logo_width %}
+                  {{
+                    settings.logo
+                    | image_url: width: logo_width
+                    | image_tag:
+                      class: 'logo',
+                      width: logo_width,
+                      alt: shop.name,
+                      loading: 'eager',
+                      fetchpriority: 'high',
+                      decoding: 'sync'
+                  }}
+                {% else %}
+                  <span class="h2">{{ shop.name }}</span>
+                {% endif %}
+              </a>
+            </div>
 
-        <!-- Search Form -->
-        {% if section.settings.show_search %}
-          <div class="col-xl-5 d-none d-xl-block text-center">
-            <div class="tf-form-search">
-              <form class="form-search" action="{{ routes.search_url }}" method="get">
-                <input type="hidden" name="type" value="product">
-                <input
-                  type="text"
-                  name="q"
-                  value="{{ search.terms | escape }}"
-                  placeholder="{{ section.settings.search_placeholder }}"
-                  tabindex="0"
-                  aria-required="true"
-                  required
-                >
-                <button type="submit" class="btn-search" aria-label="Search">
-                  <i class="icon icon-search" aria-hidden="true"></i>
-                </button>
-              </form>
-              <!-- Search Suggestions -->
-              {% if settings.suggestion_products != blank %}
-                <div class="search-suggests-results">
-                  <div class="search-suggests-results-inner">
-                    <ul>
-                      {% for suggestion_product in settings.suggestion_products %}
-                        {% if suggestion_product and suggestion_product.available %}
-                          <li>
-                            <a class="search-result-item" href="{{ suggestion_product.url }}">
-                              <div class="img-box">
-                                {% if suggestion_product.featured_image %}
-                                  <img
-                                    class="lazyload"
-                                    data-src="{{ suggestion_product.featured_image | image_url: width: 60 }}"
-                                    src="{{ suggestion_product.featured_image | image_url: width: 60 }}"
-                                    alt="{{ suggestion_product.title }}"
-                                    width="60"
-                                    height="60"
-                                  >
-                                {% endif %}
-                              </div>
-                              <div class="box-content">
-                                <p class="title link">{{ suggestion_product.title }}</p>
-                                <div class="price">
-                                  {% if suggestion_product.compare_at_price > suggestion_product.price %}
-                                    <span class="new-price">{{ suggestion_product.price | money }}</span>
-                                    <span class="old-price old-line">
-                                      {{- suggestion_product.compare_at_price | money -}}
-                                    </span>
-                                  {% else %}
-                                    <span class="new-price">{{ suggestion_product.price | money }}</span>
-                                  {% endif %}
-                                </div>
-                              </div>
-                            </a>
-                          </li>
-                        {% endif %}
-                      {% endfor %}
-                    </ul>
-                  </div>
+            <!-- Search Form -->
+            {% if section.settings.show_search %}
+              <div class="col-xl-5 d-none d-xl-block text-center">
+                <div class="tf-form-search">
+                  <form class="form-search" action="{{ routes.search_url }}" method="get">
+                    <input type="hidden" name="type" value="product">
+                    <input
+                      type="text"
+                      name="q"
+                      value="{{ search.terms | escape }}"
+                      placeholder="{{ section.settings.search_placeholder }}"
+                      tabindex="0"
+                      aria-required="true"
+                      required
+                    >
+                    <button type="submit" class="btn-search" aria-label="Search">
+                      <i class="icon icon-search" aria-hidden="true"></i>
+                    </button>
+                  </form>
+                  <!-- Search Suggestions -->
+                  {% if settings.suggestion_products != blank %}
+                    <div class="search-suggests-results">
+                      <div class="search-suggests-results-inner">
+                        <ul>
+                          {% for suggestion_product in settings.suggestion_products limit: 5 %}
+                            {% if suggestion_product and suggestion_product.available %}
+                              <li>
+                                <a class="search-result-item" href="{{ suggestion_product.url }}">
+                                  <div class="img-box">
+                                    {% if suggestion_product.featured_image %}
+                                      <img
+                                        class="lazyload"
+                                        data-src="{{ suggestion_product.featured_image | image_url: width: 60 }}"
+                                        src="{{ suggestion_product.featured_image | image_url: width: 60 }}"
+                                        alt="{{ suggestion_product.title }}"
+                                        width="60"
+                                        height="60"
+                                      >
+                                    {% endif %}
+                                  </div>
+                                  <div class="box-content">
+                                    <p class="title link">{{ suggestion_product.title }}</p>
+                                    <div class="price">
+                                      {% if suggestion_product.compare_at_price > suggestion_product.price %}
+                                        <span class="new-price">{{ suggestion_product.price | money }}</span>
+                                        <span class="old-price old-line">
+                                          {{- suggestion_product.compare_at_price | money -}}
+                                        </span>
+                                      {% else %}
+                                        <span class="new-price">{{ suggestion_product.price | money }}</span>
+                                      {% endif %}
+                                    </div>
+                                  </div>
+                                </a>
+                              </li>
+                            {% endif %}
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  {% endif %}
                 </div>
-              {% endif %}
+              </div>
+            {% endif %}
+
+            <!-- Header Icons -->
+            <div class="col-xl-4 col-md-4 col-3">
+              <ul class="nav-icon d-flex justify-content-end align-items-center">
+                {% if section.settings.show_account %}
+                  <li class="nav-account">
+                    {% if customer %}
+                      <a href="{{ routes.account_url }}" class="nav-icon-item" aria-label="Account">
+                        <i class="icon icon-user" aria-hidden="true"></i>
+                        <span class="text d-none d-xl-block">{{ 'customer.account.title' | t }}</span>
+                      </a>
+                    {% else %}
+                      <a href="#login" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Login">
+                        <i class="icon icon-user" aria-hidden="true"></i>
+                        <span class="text d-none d-xl-block">{{ 'customer.login.title' | t }}</span>
+                      </a>
+                    {% endif %}
+                  </li>
+                {% endif %}
+
+                {% if section.settings.show_wishlist %}
+                  <li class="nav-wishlist">
+                    <a href="{{ routes.search_url }}/?view=wishlist" class="nav-icon-item" aria-label="Wishlist">
+                      <i class="icon icon-heart" aria-hidden="true"></i>
+                      <span class="text d-none d-xl-block">{{ 'general.wishlist.title' | t }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+
+                {% if section.settings.show_cart %}
+                  <li class="nav-cart">
+                    <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Shopping cart">
+                      <i class="icon icon-cart" aria-hidden="true"></i>
+                      <span class="text d-none d-xl-block">{{ 'general.cart.title' | t }}</span>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
             </div>
           </div>
-        {% endif %}
-
-        <!-- Header Icons -->
-        <div class="col-xl-4 col-md-4 col-3">
-          <ul class="nav-icon d-flex justify-content-end align-items-center">
-            {% if section.settings.show_account %}
-              <li class="nav-account">
-                {% if customer %}
-                  <a href="{{ routes.account_url }}" class="nav-icon-item" aria-label="Account">
-                    <i class="icon icon-user" aria-hidden="true"></i>
-                    <span class="text d-none d-xl-block">{{ 'customer.account.title' | t }}</span>
-                  </a>
-                {% else %}
-                  <a href="#login" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Login">
-                    <i class="icon icon-user" aria-hidden="true"></i>
-                    <span class="text d-none d-xl-block">{{ 'customer.login.title' | t }}</span>
-                  </a>
-                {% endif %}
-              </li>
-            {% endif %}
-
-            {% if section.settings.show_wishlist %}
-              <li class="nav-wishlist">
-                <a href="{{ routes.search_url }}/?view=wishlist" class="nav-icon-item" aria-label="Wishlist">
-                  <i class="icon icon-heart" aria-hidden="true"></i>
-                  <span class="text d-none d-xl-block">{{ 'general.wishlist.title' | t }}</span>
-                </a>
-              </li>
-            {% endif %}
-
-            {% if section.settings.show_cart %}
-              <li class="nav-cart">
-                <a href="#shoppingCart" class="nav-icon-item" data-bs-toggle="offcanvas" aria-label="Shopping cart">
-                  <i class="icon icon-cart" aria-hidden="true"></i>
-                  <span class="text d-none d-xl-block">{{ 'general.cart.title' | t }}</span>
-                </a>
-              </li>
-            {% endif %}
-          </ul>
         </div>
       </div>
-    </div>
-  </div>
-  {% endif %}
+    {% endif %}
 
-  {% if show_header_bottom %}
-  <!-- Header Bottom Navigation -->
-  {% render 'header-bottom-layout-1', section: section %}
-  {% endif %}
-</header>
+    {% if show_header_bottom %}
+      <!-- Header Bottom Navigation -->
+      {% render 'header-bottom-layout-1', section: section %}
+    {% endif %}
+  </header>
 {% endif %}
 
 {%- style %}
