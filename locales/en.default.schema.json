@@ -3963,6 +3963,28 @@
               "label": "Announcement Messages",
               "default": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer",
               "info": "Enter messages separated by commas"
+            },
+            "enable_countdown": {
+              "label": "Enable countdown"
+            },
+            "countdown_prefix": {
+              "label": "Countdown prefix text",
+              "default": "WINTER SALE 75% OFF. Ends in:"
+            },
+            "countdown_start": {
+              "label": "Countdown start date/time",
+              "info": "Format: YYYY-MM-DD HH:MM:SS (e.g., 2024-12-01 00:00:00)",
+              "default": "2025-12-01 00:00:00"
+            },
+            "countdown_end": {
+              "label": "Countdown end date/time",
+              "info": "Format: YYYY-MM-DD HH:MM:SS (e.g., 2024-12-31 23:59:59)",
+              "default": "2025-12-31 23:59:59"
+            },
+            "countdown_labels": {
+              "label": "Countdown labels (comma-separated)",
+              "default": " DAYS : , HOURS : , MINUTES : , SECONDS",
+              "info": "Must include days, hours, minutes, and seconds"
             }
           }
         },
