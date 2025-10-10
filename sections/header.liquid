@@ -2,7 +2,8 @@
   assign show_categories = section.settings.show_categories
   assign categories_style = ''
   assign layout_type = section.settings.layout_type
-  
+  assign logo_width = settings.logo_width
+
   if layout_type == 'layout_1'
     assign header_classes = 'header-default header-search'
     assign show_header_top = true
@@ -17,6 +18,12 @@
 {% if layout_type == 'layout_2' %}
   {% render 'header-layout-2', section: section %}
 {% else %}
+
+{% style %}
+  .logo-header img {
+    width: {{  logo_width }}px;
+}
+{% endstyle %}
 <header
   id="header"
   class="{{ header_classes }} color-{{ section.settings.color_scheme }}"
@@ -47,7 +54,7 @@
         <div class="col-xl-3 col-md-4 col-6">
           <a href="{{ routes.root_url }}" class="logo-header">
             {% if settings.logo != blank %}
-              {% assign logo_width = settings.logo_width %}
+              
               {{
                 settings.logo
                 | image_url: width: logo_width
