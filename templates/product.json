@@ -68,7 +68,7 @@
           "settings": {
             "pick_mode": "first_available",
             "hide_sold_out": false,
-            "color_selector_type": "swatch_rounded",
+            "color_selector_type": "dropdown",
             "color_selector_size": "medium"
           }
         },
