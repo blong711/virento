@@ -13,7 +13,7 @@
       "name": "Theme active",
       "settings": {
         "welcome_message": {
-          "content": "Start your business journey with GraviTech"
+          "content": "Start your business journey with Virento"
         },
         "purchase_code": {
           "label": "Purchase code"
@@ -3977,7 +3977,7 @@
           "settings": {
             "email": {
               "label": "Email Address",
-              "default": "Support@vineta.com"
+              "default": "Support@virento.com"
             }
           }
         },
@@ -4653,7 +4653,7 @@
             },
             "title": {
               "label": "Title",
-              "default": "GraviTech Store"
+              "default": "Virento Store"
             },
             "address": {
               "label": "Address",
@@ -4661,7 +4661,7 @@
             },
             "email": {
               "label": "Email",
-              "default": "support@gravitech.com"
+              "default": "support@virento.com"
             },
             "phone": {
               "label": "Phone",
@@ -7865,7 +7865,7 @@
         },
         "heading": {
           "label": "Heading",
-          "default": "Shop by @Vineta"
+          "default": "Shop by @Virento"
         },
         "heading_size": {
           "label": "Heading size",

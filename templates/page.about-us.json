@@ -15,7 +15,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "text": "Welcome to GraviTech",
+            "text": "Welcome to Virento",
             "size": "medium"
           }
         },
@@ -29,7 +29,7 @@
         "content": {
           "type": "content",
           "settings": {
-            "text": "At GraviTech, we bring you thoughtfully curated collections that blend contemporary\ndesigns with timeless elegance. With over 15 years of experience, we cater to\nfashion enthusiasts who appreciate quality, style, and versatility.",
+            "text": "At Virento, we bring you thoughtfully curated collections that blend contemporary\ndesigns with timeless elegance. With over 15 years of experience, we cater to\nfashion enthusiasts who appreciate quality, style, and versatility.",
             "size": "medium"
           }
         }
@@ -71,14 +71,14 @@
           "type": "content_item",
           "settings": {
             "title": "Ethics & Responsibility",
-            "content": "At GraviTech, we are dedicated to upholding the highest ethical standards in production. We ensure mindful manufacturing through regular audits, training, and a strong focus on responsible sourcing."
+            "content": "At Virento, we are dedicated to upholding the highest ethical standards in production. We ensure mindful manufacturing through regular audits, training, and a strong focus on responsible sourcing."
           }
         },
         "content_item_2": {
           "type": "content_item",
           "settings": {
             "title": "Style Meets Durability",
-            "content": "From classic tailoring to casual staples, our GraviTech collections embrace the latest trends while prioritizing comfort and long-lasting quality."
+            "content": "From classic tailoring to casual staples, our Virento collections embrace the latest trends while prioritizing comfort and long-lasting quality."
           }
         },
         "content_item_3": {
@@ -97,7 +97,7 @@
       "settings": {
         "width": "boxed",
         "color_scheme": "background-1",
-        "heading": "Why Choose GraviTech",
+        "heading": "Why Choose Virento",
         "subheading": "Our products are crafted with innovation and an eye for the latest trends. We push the boundaries of traditional fashion, delivering bold, fresh designs that inspire confidence and individuality.",
         "heading_size": "small",
         "subheading_size": "medium",
@@ -173,7 +173,7 @@
             "border_size": 74,
             "title": "Effortless Elegance",
             "title_size": 24,
-            "description": "Our designs embrace simplicity at its finest. GraviTech’s understated yet refined style captures the essence of modern fashion, making a statement.",
+            "description": "Our designs embrace simplicity at its finest. Virento’s understated yet refined style captures the essence of modern fashion, making a statement.",
             "description_size": 14
           }
         },
@@ -186,7 +186,7 @@
             "border_size": 74,
             "title": "Fashion for Every Body",
             "title_size": 24,
-            "description": "We celebrate individuality with a diverse range of sizes, offering clothing that fits and flatters every body type. At GraviTech, fashion is for everyone.",
+            "description": "We celebrate individuality with a diverse range of sizes, offering clothing that fits and flatters every body type. At Virento, fashion is for everyone.",
             "description_size": 14
           }
         }

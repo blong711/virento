@@ -32,7 +32,7 @@
           "type": "text_item",
           "settings": {
             "title": "2. Processing and Cancellation Time",
-            "content": "<p>Orders are typically processed and shipped within [...] business days after payment confirmation. Please note that orders placed on weekends or holidays will be processed on the next business day. </p><p>Please note that once your order is processed for shipping with a tracking number, we are unable to cancel your order. <br/>You can cancel the order within 6 hours after the order was placed by contacting us via email address: [contact@gravitech.com]</p>"
+            "content": "<p>Orders are typically processed and shipped within [...] business days after payment confirmation. Please note that orders placed on weekends or holidays will be processed on the next business day. </p><p>Please note that once your order is processed for shipping with a tracking number, we are unable to cancel your order. <br/>You can cancel the order within 6 hours after the order was placed by contacting us via email address: [contact@virento.com]</p>"
           }
         },
         "text_item_XXdXDj": {
@@ -46,7 +46,7 @@
           "type": "text_item",
           "settings": {
             "title": "4. International Shipping",
-            "content": "<p>For international orders, please note that customs duties, taxes, and any additional fees imposed by the destination country are the responsibility of the customer. We are not responsible for delays due to customs clearance processes.</p><p>We reserve the right to update our shipping policy at any time. Any changes to our shipping policy will be communicated on our website.<br/>We kindly ask our customers to read and take notes before making a purchase. We will automatically assume that the customer has accepted all the terms outlined above.</p><p>If you have any questions or concerns regarding our shipping policy, please feel free to contact us at <a href=\"mailto:contact@gravitech.com\">contact@gravitech.com</a>.</p>"
+            "content": "<p>For international orders, please note that customs duties, taxes, and any additional fees imposed by the destination country are the responsibility of the customer. We are not responsible for delays due to customs clearance processes.</p><p>We reserve the right to update our shipping policy at any time. Any changes to our shipping policy will be communicated on our website.<br/>We kindly ask our customers to read and take notes before making a purchase. We will automatically assume that the customer has accepted all the terms outlined above.</p><p>If you have any questions or concerns regarding our shipping policy, please feel free to contact us at <a href=\"mailto:contact@virento.com\">contact@virento.com</a>.</p>"
           }
         }
       },
