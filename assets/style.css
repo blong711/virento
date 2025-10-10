@@ -11054,7 +11054,7 @@ button.animate-btn::after,
 
 .tf-form-search .search-suggests-results-inner li:not(:last-child) .search-result-item {
   padding-bottom: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   border-bottom: solid 1px var(--line);
 }
 
