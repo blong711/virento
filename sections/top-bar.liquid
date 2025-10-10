@@ -256,7 +256,7 @@
                     <div class="initial-child-container">
                       {%- assign messages = block.settings.messages | split: ',' -%}
                       {%- if block.settings.enable_countdown -%}
-                        {% for i in (1..8) %}
+                        {% for i in (1..100) %}
                           <div class="marquee-child-item">
                             {{ block.settings.countdown_prefix | escape }}&nbsp;
                             <div class="js-countdown d-flex justify-content-center" data-countdown-start="{{ block.settings.countdown_start }}" data-countdown-end="{{ block.settings.countdown_end }}" data-labels="{{ block.settings.countdown_labels }}"></div>
