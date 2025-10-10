@@ -89,7 +89,7 @@
                 <div class="search-suggests-results">
                   <div class="search-suggests-results-inner">
                     <ul>
-                      {% for suggestion_product in settings.suggestion_products limit: 5 %}
+                      {% for suggestion_product in settings.suggestion_products %}
                         {% if suggestion_product and suggestion_product.available %}
                           <li>
                             <a class="search-result-item" href="{{ suggestion_product.url }}">
