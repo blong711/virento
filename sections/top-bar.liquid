@@ -71,10 +71,18 @@
           "default": "WINTER SALE 75% OFF. Ends in:"
         },
         {
-          "type": "number",
-          "id": "countdown_seconds",
-          "label": "Countdown seconds (total)",
-          "default": 900610
+          "type": "text",
+          "id": "countdown_start",
+          "label": "Countdown start date/time",
+          "info": "Format: YYYY-MM-DD HH:MM:SS (e.g., 2024-12-01 00:00:00)",
+          "default": "2024-12-01 00:00:00"
+        },
+        {
+          "type": "text",
+          "id": "countdown_end",
+          "label": "Countdown end date/time",
+          "info": "Format: YYYY-MM-DD HH:MM:SS (e.g., 2024-12-31 23:59:59)",
+          "default": "2024-12-31 23:59:59"
         },
         {
           "type": "text",
@@ -250,7 +258,7 @@
                         {% for i in (1..8) %}
                           <div class="marquee-child-item">
                             {{ block.settings.countdown_prefix | escape }}&nbsp;
-                            <div class="js-countdown d-flex justify-content-center" data-timer="{{ block.settings.countdown_seconds }}" data-labels="{{ block.settings.countdown_labels }}"></div>
+                            <div class="js-countdown d-flex justify-content-center" data-countdown-start="{{ block.settings.countdown_start }}" data-countdown-end="{{ block.settings.countdown_end }}" data-labels="{{ block.settings.countdown_labels }}"></div>
                           </div>
                         {% endfor %}
                       {%- else -%}

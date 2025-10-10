@@ -58,13 +58,65 @@ class CountDown {
       return Number(this.element.getAttribute('data-timer')) * 1000 + new Date().getTime();
     } else if (this.element.getAttribute('data-countdown')) {
       return Number(new Date(this.element.getAttribute('data-countdown')).getTime());
+    } else if (this.element.getAttribute('data-countdown-end')) {
+      return Number(new Date(this.element.getAttribute('data-countdown-end')).getTime());
     }
     return null;
   }
 
+  getStartTime() {
+    if (this.element.getAttribute('data-countdown-start')) {
+      return Number(new Date(this.element.getAttribute('data-countdown-start')).getTime());
+    }
+    return null;
+  }
+
+  isCountdownActive() {
+    const startTime = this.getStartTime();
+    const currentTime = new Date().getTime();
+    
+    // If no start time is set, always show the countdown
+    if (!startTime) {
+      return true;
+    }
+    
+    // Show countdown only if current time is after start time
+    return currentTime >= startTime;
+  }
+
   initCountDown() {
+    // Check if countdown should be active
+    if (!this.isCountdownActive()) {
+      this.hideCountdown();
+      // Set up a check for when countdown should start
+      this.checkStartTime();
+      return;
+    }
+
     this.intervalId = setInterval(() => this.updateCountDown(false), 1000);
     this.updateCountDown(true);
+  }
+
+  hideCountdown() {
+    // Hide the countdown element if it hasn't started yet
+    this.element.style.display = 'none';
+  }
+
+  showCountdown() {
+    // Show the countdown element when it should start
+    this.element.style.display = 'flex';
+  }
+
+  checkStartTime() {
+    // Check every minute if countdown should start
+    const checkInterval = setInterval(() => {
+      if (this.isCountdownActive()) {
+        this.showCountdown();
+        this.intervalId = setInterval(() => this.updateCountDown(false), 1000);
+        this.updateCountDown(true);
+        clearInterval(checkInterval);
+      }
+    }, 60000); // Check every minute
   }
 
   updateCountDown(bool) {
