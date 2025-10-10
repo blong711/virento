@@ -1,4 +1,11 @@
-<header id="header" class="header-default">
+<header 
+  id="header" 
+  class="header-default color-{{ section.settings.color_scheme }}"
+  data-sticky-type="{{ section.settings.sticky_header }}"
+>
+  <!-- Predictive Search Settings -->
+  <meta name="predictive-search-enabled" content="{{ settings.predictive_search_enabled }}">
+  <meta name="predictive-search-show-price" content="{{ settings.predictive_search_show_price }}">
   <div class="container">
     <div class="row wrapper-header align-items-center">
       <div class="col-md-4 col-3 d-xl-none">
