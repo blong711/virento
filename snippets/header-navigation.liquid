@@ -7,16 +7,7 @@
 <ul class="box-nav-menu" style="gap: {{ section.settings.menu_item_spacing }}px;">
   {% for link in linklists[menu].links %}
     {%- assign menu_title = link.title | downcase -%}
-    {% assign has_block_config = false %}
-    {% for block in section.blocks %}
-      {% assign menu_match = block.settings.menu_item_match | strip | downcase %}
-      {% assign link_match = link.title | strip | downcase %}
-      {% if menu_match == link_match and menu_match != blank %}
-        {% assign has_block_config = true %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-    <li class="menu-item {% if link.links.size > 0 and has_block_config == false or menu_title == 'pages' or menu_title == 'blog' %} position-relative {% endif %}">
+    <li class="menu-item {% if menu_title == 'pages' or menu_title == 'blog' %} position-relative {% endif %}">
       <a href="{{ link.url }}" class="item-link">
         <span class="title-text">{{ link.title }}</span>
         {% if link.links.size > 0 or menu_title == 'home' %}<i class="icon icon-arr-down"></i>{% endif %}
@@ -357,7 +348,7 @@
           {% if has_grandchildren %}
             <!-- Use the same structure as mega_shop but without collections -->
             <div
-              class="sub-menu mega-menu mega-shop"
+              class="sub-menu mega-menu mega-shop simple-dropdown"
               style="grid-template-columns: 1fr !important; max-width: 600px; padding: 32px 60px;"
             >
               {% comment %} Check if we need wrapper-sub-menu: only when there are more than 1 child {% endcomment %}
@@ -432,6 +423,20 @@
 </ul>
 
 {% style %}
+  /* Ensure each menu item is a containing block for its submenu */
+  .box-nav-menu .menu-item {
+    position: relative;
+  }
+
+  /* Position only simple/fallback dropdowns below their parent */
+  .box-nav-menu .menu-item > .sub-menu.sub-menu-style-2.no-banner,
+  .box-nav-menu .menu-item > .sub-menu.sub-menu-style-3.no-blog,
+  .box-nav-menu .menu-item > .sub-menu.simple-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
   .wrapper-sub-blog .list-recent-blog img {
     height: 100%;
   }
