@@ -157,7 +157,7 @@
         "color_scheme": "scheme-2d291039-1404-48e2-8fe5-1e54f84416aa",
         "width": "container",
         "layout": "default",
-        "thumbnail_position": "bottom",
+        "thumbnail_position": "left",
         "zoom_type": "external_zoom",
         "show_sticky_cart": true,
         "enable_video_loop": true,
