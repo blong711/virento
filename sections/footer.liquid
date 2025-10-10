@@ -9,7 +9,16 @@
           <div class="footer-col-block s1 border-0">
             <div class="footer-logo mb_32">
               <a href="{{ routes.root_url }}">
-                {%- if settings.logo != blank -%}
+                {%- if section.settings.footer_logo != blank -%}
+                  <img
+                    src="{{ section.settings.footer_logo | image_url: width: settings.logo_width }}"
+                    class="logo"
+                    alt="{{ shop.name }}"
+                    width="{{ settings.logo_width }}"
+                    height="auto"
+                    loading="lazy"
+                  >
+                {%- elsif settings.logo != blank -%}
                   <img
                     src="{{ settings.logo | image_url: width: settings.logo_width }}"
                     class="logo"
@@ -305,7 +314,16 @@
         <div class="footer-top-wrap">
           <div class="footer-logo">
             <a href="{{ routes.root_url }}">
-              {%- if settings.logo != blank -%}
+              {%- if section.settings.footer_logo != blank -%}
+                <img
+                  src="{{ section.settings.footer_logo | image_url: width: settings.logo_width }}"
+                  class="logo"
+                  alt="{{ shop.name }}"
+                  width="{{ settings.logo_width }}"
+                  height="auto"
+                  loading="lazy"
+                >
+              {%- elsif settings.logo != blank -%}
                 <img
                   src="{{ settings.logo | image_url: width: settings.logo_width }}"
                   class="logo"
@@ -665,6 +683,11 @@
 {
   "name": "Footer",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "footer_logo",
+      "label": "t:sections.footer.settings.footer_logo"
+    },
     {
       "type": "select",
       "id": "footer_layout",
