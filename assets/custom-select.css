@@ -140,6 +140,10 @@
   color: #ff6f61 !important;
 }
 
+.custom-select-option .option-text {
+  line-height: 1.2 !important;
+}
+
 .custom-select-arrow {
   border: 0;
   position: absolute;
