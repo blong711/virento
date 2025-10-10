@@ -130,7 +130,6 @@
   padding: 8px 20px !important;
   border-radius: 0 !important;
   font-weight: normal;
-  line-height: 1.2 !important;
   transition: background 0.2s;
   cursor: pointer;
 }
@@ -141,7 +140,7 @@
 }
 
 .custom-select-option .option-text {
-  line-height: 1.2 !important;
+  line-height: 1.4 !important;
 }
 
 .custom-select-arrow {
