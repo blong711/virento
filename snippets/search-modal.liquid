@@ -59,6 +59,11 @@
                                     "observeParents": true,
                                     "slidesPerGroup": 2,
                                     "pagination": { "el": ".sw-pagination-search", "clickable": true },
+                                    "navigation": {
+                                        "clickable": true,
+                                        "nextEl": ".nav-next-search",
+                                        "prevEl": ".nav-prev-search"
+                                    },
                                     "breakpoints": {
                                     "768": { "slidesPerView": 3, "spaceBetween": 12, "slidesPerGroup": 3 },
                                     "1200": { "slidesPerView": 4, "spaceBetween": 24, "slidesPerGroup": 4}
@@ -92,6 +97,30 @@
                                         {% endif %}
                                     {% endif %}
                                 </div>
+                                {% assign product_count = 0 %}
+                                {% if settings.suggestion_products != blank %}
+                                    {% for suggestion_product in settings.suggestion_products limit: 8 %}
+                                        {% if suggestion_product and suggestion_product.available %}
+                                            {% assign product_count = product_count | plus: 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {% assign featured_collection = collections['frontpage'] %}
+                                    {% if featured_collection == nil or featured_collection.products_count == 0 %}
+                                        {% assign featured_collection = collections['all'] %}
+                                    {% endif %}
+                                    {% if featured_collection and featured_collection.products_count > 0 %}
+                                        {% assign product_count = featured_collection.products_count %}
+                                        {% if product_count > 8 %}
+                                            {% assign product_count = 8 %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                                
+                                {% if product_count > 4 %}
+                                    <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-search"></div>
+                                    <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-search"></div>
+                                {% endif %}
                                 <div
                                     class="d-flex d-xl-none sw-dot-default sw-pagination-search justify-content-center">
                                 </div>
