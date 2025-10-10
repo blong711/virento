@@ -158,7 +158,7 @@
         "width": "container",
         "layout": "default",
         "thumbnail_position": "bottom",
-        "zoom_type": "external_zoom",
+        "zoom_type": "no_zoom",
         "show_sticky_cart": true,
         "enable_video_loop": true,
         "enable_video_autoplay": true,
