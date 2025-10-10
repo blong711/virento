@@ -339,8 +339,8 @@
                       <img
                         class="{% if section.settings.zoom_type == 'external_zoom' %}tf-image-zoom {% elsif section.settings.zoom_type == 'inner_zoom' %}tf-image-zoom-inner {% endif %} lazyload"
                         data-zoom="{{ media | image_url: width: 1200 }}"
-                        data-src="{{ media | image_url: width: 400 }}"
-                        src="{{ media | image_url: width: 200 }}"
+                        data-src="{{ media | image_url: width: 700 }}"
+                        src="{{ media | image_url: width: 700 }}"
                         alt="{{ media.alt | default: product.title }}"
                         width="{{ media.width }}"
                         height="{{ media.height }}"
@@ -352,8 +352,8 @@
                       <img
                         class="{% if section.settings.zoom_type == 'external_zoom' %}tf-image-zoom {% elsif section.settings.zoom_type == 'inner_zoom' %}tf-image-zoom-inner {% endif %} lazyload"
                         data-zoom="{{ media.preview_image | image_url: width: 1200 }}"
-                        data-src="{{ media.preview_image | image_url: width: 400 }}"
-                        src="{{ media.preview_image | image_url: width: 200 }}"
+                        data-src="{{ media.preview_image | image_url: width: 700 }}"
+                        src="{{ media.preview_image | image_url: width: 700 }}"
                         alt="{{ 'sections.product.video_thumbnail' | t }}"
                         width="{{ media.preview_image.width }}"
                         height="{{ media.preview_image.height }}"
@@ -365,8 +365,8 @@
                       <img
                         class="{% if section.settings.zoom_type == 'external_zoom' %}tf-image-zoom {% elsif section.settings.zoom_type == 'inner_zoom' %}tf-image-zoom-inner {% endif %} lazyload"
                         data-zoom="{{ media.preview_image | image_url: width: 1200 }}"
-                        data-src="{{ media.preview_image | image_url: width: 400 }}"
-                        src="{{ media.preview_image | image_url: width: 200 }}"
+                        data-src="{{ media.preview_image | image_url: width: 700 }}"
+                        src="{{ media.preview_image | image_url: width: 700 }}"
                         alt="{{ 'sections.product.model_thumbnail' | t }}"
                         width="{{ media.preview_image.width }}"
                         height="{{ media.preview_image.height }}"
