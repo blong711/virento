@@ -1728,7 +1728,7 @@ a:hover {
 }
 
 .asp-ratio-1 {
-  aspect-ratio: 1/1;
+  aspect-ratio: 1/1 !important;
 }
 
 .asp-ratio-0 {
@@ -6902,10 +6902,6 @@ a:hover {
   -webkit-box-orient: vertical;
   display: -webkit-box;
   overflow: hidden;
-}
-
-.asp-ratio-1 {
-  aspect-ratio: 1/1;
 }
 
 .asp-ratio-0 {
