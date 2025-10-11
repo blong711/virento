@@ -230,8 +230,8 @@
         "color_scheme": "scheme-df5096e5-9412-4cdf-82ea-1adacc1c4967",
         "width": "container",
         "gap_desktop": 0,
-        "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_top": 44,
+        "padding_bottom": 44,
         "padding_mobile_rate": 75,
         "padding_tablet_rate": 60
       }
