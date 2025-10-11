@@ -35,7 +35,7 @@
             {%- for block in section.blocks -%}
               {%- if block.type == 'contact_info' -%}
                 <div
-                  class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %} font-13 d-sm-none d-flex"
+                  class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-md{% elsif section.settings.heading_size == 'medium' %}text-lg{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %} d-sm-none d-flex"
                   {{ block.shopify_attributes }}
                 >
                   {{ block.settings.contact_heading }}
@@ -174,7 +174,7 @@
             {%- for block in section.blocks -%}
               {%- if block.type == 'link_list' -%}
                 <div class="footer-col-block inner-col" {{ block.shopify_attributes }}>
-                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %} font-7">
+                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-md{% elsif section.settings.heading_size == 'medium' %}text-lg{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
                     {{ block.settings.heading | escape }}
                   </div>
                   <div class="tf-collapse-content">
@@ -201,7 +201,7 @@
             {%- for block in section.blocks -%}
               {%- if block.type == 'newsletter' -%}
                 <div
-                  class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %} font-7"
+                  class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-md{% elsif section.settings.heading_size == 'medium' %}text-lg{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}"
                   {{ block.shopify_attributes }}
                 >
                   {{ block.settings.newsletter_heading | escape }}
@@ -293,7 +293,7 @@
             <ul class="d-flex gap-48 flex-wrap">
               {%- for link in section.settings.footer_links.links -%}
                 <li>
-                  <a class="link font-13 color-footer-link" href="{{ link.url }}">{{ link.title }}</a>
+                  <a class="link color-footer-link" href="{{ link.url }}">{{ link.title }}</a>
                 </li>
               {%- endfor -%}
             </ul>
@@ -440,7 +440,7 @@
             {%- case block.type -%}
               {%- when 'contact_info' -%}
                 <div class="footer-col-block s1" {{ block.shopify_attributes }}>
-                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
+                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-md{% elsif section.settings.heading_size == 'medium' %}text-lg{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
                     {{ block.settings.contact_heading | escape }}
                   </div>
                   <div class="tf-collapse-content">
@@ -520,7 +520,7 @@
                 </div>
               {%- when 'newsletter' -%}
                 <div class="footer-inner-wrap footer-col-block s2" {{ block.shopify_attributes }}>
-                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
+                  <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-md{% elsif section.settings.heading_size == 'medium' %}text-lg{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
                     {{ block.settings.newsletter_heading | escape }}
                   </div>
                   <div class="tf-collapse-content">
@@ -598,7 +598,7 @@
               {%- if block.type == 'link_list' -%}
                 <div class="footer-col-block inner-col" {{ block.shopify_attributes }}>
                   {%- if block.settings.heading != blank -%}
-                    <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-sm{% elsif section.settings.heading_size == 'medium' %}text-md{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
+                    <div class="footer-heading footer-heading-mobile {% if section.settings.heading_size == 'small' %}text-md{% elsif section.settings.heading_size == 'medium' %}text-lg{% else %}text-xl{% endif %} {% if section.settings.heading_weight == 'normal' %}fw-normal{% elsif section.settings.heading_weight == 'bold' %}fw-semibold{% elsif section.settings.heading_weight == 'extrabold' %}fw-bold{% else %}fw-medium{% endif %}">
                       {{ block.settings.heading | escape }}
                     </div>
                   {%- endif -%}
