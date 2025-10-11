@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "slider": {
       "type": "main-slider",
@@ -103,6 +103,7 @@
             "icon_class": "icon-shipping",
             "custom_svg": "",
             "icon_size": 40,
+            "border_size": 64,
             "title": "FREE SHIPPING",
             "title_size": 20,
             "description": "Enjoy free shipping on all orders",
@@ -115,6 +116,7 @@
             "icon_class": "icon-return",
             "custom_svg": "",
             "icon_size": 40,
+            "border_size": 64,
             "title": "FREE RETURNS",
             "title_size": 20,
             "description": "Within 14 days for a return",
@@ -127,6 +129,7 @@
             "icon_class": "icon-support",
             "custom_svg": "",
             "icon_size": 40,
+            "border_size": 64,
             "title": "SUPPORT ONLINE",
             "title_size": 20,
             "description": "Outstanding premium support",
@@ -149,11 +152,15 @@
         "products_per_row_desktop": 3,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 1,
+        "space_between_mobile": 12,
+        "space_between_tablet": 24,
+        "space_between_desktop": 24,
         "icon_style": "style-border",
         "show_border": false,
         "padding_top": 60,
         "padding_bottom": 60,
-        "padding_mobile_rate": 80
+        "padding_mobile_rate": 80,
+        "padding_tablet_rate": 60
       }
     },
     "featured_product_carousel_r9mPVq": {
@@ -185,7 +192,8 @@
         "products_per_row_mobile": 2,
         "padding_top": 0,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "grid_collection_XxY7aK": {
@@ -219,12 +227,13 @@
         "grid_item_3"
       ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-df5096e5-9412-4cdf-82ea-1adacc1c4967",
         "width": "container",
-        "gap_desktop": 24,
+        "gap_desktop": 0,
         "padding_top": 0,
         "padding_bottom": 0,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 75,
+        "padding_tablet_rate": 60
       }
     },
     "categories_A4YnKF": {
@@ -315,7 +324,8 @@
         "items_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "banner_swiper_ABC123": {
@@ -361,7 +371,8 @@
         "layout": "layout1",
         "padding_top": 0,
         "padding_bottom": 0,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 75,
+        "padding_tablet_rate": 60
       }
     },
     "lookbook_banner_wy9JnQ": {
@@ -408,7 +419,8 @@
         "banner_image": "shopify://shop_images/furniture_330c7932-2b82-41dd-b52d-aa039d49ce97.jpg",
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "testimonial_swiper_FURNI": {
@@ -454,7 +466,10 @@
         "space_between_desktop": 24,
         "padding_top": 0,
         "padding_bottom": 100,
-        "padding_mobile_rate": 80
+        "padding_mobile_rate": 80,
+        "padding_tablet_rate": 60,
+        "title_font": "",
+        "title_font_weight": "fw-medium"
       }
     }
   },
