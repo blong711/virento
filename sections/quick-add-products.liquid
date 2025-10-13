@@ -488,7 +488,7 @@
             {{ section.settings.title }}
           </{{ section.settings.title_tag }}>
           {% if section.settings.subtitle != blank %}
-            <p class="desc text-white fs-16">
+            <p class="desc text-white {{ section.settings.subtitle_size }}">
               {{ section.settings.subtitle }}
             </p>
           {% endif %}
