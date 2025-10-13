@@ -428,4 +428,10 @@
     color: rgba(var(--color-link-hover)) !important;
     border-color: rgba(var(--color-link-hover)) !important;
   }
+
+  /* Fix for row class negative margins in full-width top bar */
+  #shopify-section-{{ section.id }} .container-full .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
 {%- endstyle -%}
