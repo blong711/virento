@@ -35,8 +35,8 @@
           "decorations"
         ],
         "collections_limit": 8,
-        "slides_per_view_mobile": 1,
-        "slides_per_view_tablet": 2,
+        "slides_per_view_mobile": 3,
+        "slides_per_view_tablet": 4,
         "slides_per_view_desktop": 8,
         "space_between": 12,
         "show_navigation": true,
