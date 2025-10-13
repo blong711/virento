@@ -90,6 +90,13 @@
           "label": "t:sections.top_bar.blocks.announcement.settings.countdown_labels.label",
           "default": "t:sections.top_bar.blocks.announcement.settings.countdown_labels.default",
           "info": "t:sections.top_bar.blocks.announcement.settings.countdown_labels.info"
+        },
+        {
+          "type": "text",
+          "id": "countdown_end_message",
+          "label": "t:sections.top_bar.blocks.announcement.settings.countdown_end_message.label",
+          "default": "t:sections.top_bar.blocks.announcement.settings.countdown_end_message.default",
+          "info": "t:sections.top_bar.blocks.announcement.settings.countdown_end_message.info"
         }
       ],
       "limit": 1
@@ -259,7 +266,7 @@
                         {% for i in (1..100) %}
                           <div class="marquee-child-item">
                             {{ block.settings.countdown_prefix | escape }}&nbsp;
-                            <div class="js-countdown d-flex justify-content-center" data-countdown-start="{{ block.settings.countdown_start }}" data-countdown-end="{{ block.settings.countdown_end }}" data-labels="{{ block.settings.countdown_labels }}"></div>
+                            <div class="js-countdown d-flex justify-content-center" data-countdown-start="{{ block.settings.countdown_start }}" data-countdown-end="{{ block.settings.countdown_end }}" data-labels="{{ block.settings.countdown_labels }}" data-countdown-end-message="{{ block.settings.countdown_end_message }}"></div>
                           </div>
                         {% endfor %}
                       {%- else -%}
@@ -443,5 +450,13 @@
   #shopify-section-{{ section.id }} .container-full .row {
     margin-left: 0;
     margin-right: 0;
+  }
+
+  /* Countdown end message styling */
+  #shopify-section-{{ section.id }} .countdown-end-message {
+    color: rgba(var(--color-foreground)) !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 {%- endstyle -%}

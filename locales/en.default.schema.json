@@ -3986,6 +3986,11 @@
               "label": "Countdown labels (comma-separated)",
               "default": " DAYS : , HOURS : , MINUTES : , SECONDS",
               "info": "Must include days, hours, minutes, and seconds"
+            },
+            "countdown_end_message": {
+              "label": "Countdown end message",
+              "default": "Sale Ended",
+              "info": "Message to display when countdown expires"
             }
           }
         },

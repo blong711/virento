@@ -120,6 +120,13 @@ class CountDown {
   }
 
   updateCountDown(bool) {
+    // Check if end time is valid
+    if (!this.endTime || isNaN(this.endTime)) {
+      clearInterval(this.intervalId);
+      this.showCountdownErrorMessage();
+      return;
+    }
+
     const time = parseInt((this.endTime - new Date().getTime()) / 1000);
 
     if (isNaN(time) || time < 0) {
@@ -163,7 +170,47 @@ class CountDown {
   }
 
   emitEndEvent() {
+    // Hide the countdown and show end message
+    this.showCountdownEndMessage();
     this.element.dispatchEvent(new CustomEvent('countDownFinished'));
+  }
+
+  showCountdownEndMessage() {
+    // Get the end message from data attribute
+    const endMessage = this.element.getAttribute('data-countdown-end-message') || 'Sale Ended';
+    
+    // Hide the countdown timer
+    const timerElement = this.element.querySelector('.countdown__timer');
+    if (timerElement) {
+      timerElement.style.display = 'none';
+    }
+    
+    // Create and show the end message
+    const endMessageElement = document.createElement('span');
+    endMessageElement.textContent = endMessage;
+    endMessageElement.classList.add('countdown-end-message');
+    endMessageElement.style.fontWeight = 'bold';
+    
+    // Insert the end message
+    this.element.appendChild(endMessageElement);
+  }
+
+  showCountdownErrorMessage() {
+    // Hide the countdown timer
+    const timerElement = this.element.querySelector('.countdown__timer');
+    if (timerElement) {
+      timerElement.style.display = 'none';
+    }
+    
+    // Create and show error message
+    const errorMessageElement = document.createElement('span');
+    errorMessageElement.textContent = 'Countdown Error';
+    errorMessageElement.classList.add('countdown-end-message');
+    errorMessageElement.style.fontWeight = 'bold';
+    errorMessageElement.style.color = '#ff4444';
+    
+    // Insert the error message
+    this.element.appendChild(errorMessageElement);
   }
 }
 
