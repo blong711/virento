@@ -62,10 +62,10 @@
 								<div class="info">
 									{% if pinned_product %}
 									<a href="{{ pinned_product.url }}" class="text-md fw-medium text-line-clamp-1 link">{{ pinned_product.title }}</a>
-									<p class="price-wrap text-md fw-medium">
-										<span class="price-new text-primary">{{ pinned_product.price | money }}</span>
+									<p class="price-wrap text-md fw-medium" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+										<span class="price-new text-primary" style="white-space: nowrap; flex-shrink: 0;">{{ pinned_product.price | money }}</span>
 										{% if pinned_product.compare_at_price > pinned_product.price %}
-										<span class="price-old">{{ pinned_product.compare_at_price | money }}</span>
+										<span class="price-old" style="white-space: nowrap; flex-shrink: 0;">{{ pinned_product.compare_at_price | money }}</span>
 										{% endif %}
 									</p>
 									{% endif %}
@@ -83,7 +83,8 @@
 									data-product-images="{% for image in pinned_product.images %}{{ image | image_url: width: 600 }}{% unless forloop.last %},{% endunless %}{% endfor %}"
 									data-product-variants="{{ pinned_product.variants | json | escape }}"
 									data-product-options="{{ pinned_product.options_with_values | json | escape }}"
-									aria-label="Quick view of {{ pinned_product.title }}">
+									aria-label="Quick view of {{ pinned_product.title }}"
+									style="position: absolute; top: 50%; right: 8px; transform: translateY(-50%); flex-shrink: 0;">
 									<i class="icon icon-view" aria-hidden="true"></i>
 									<span class="tooltip">{{ 'snippets.product-card.quick_view' | t }}</span>
 								</div>
@@ -115,6 +116,50 @@
 		.section-{{ section.id }}-padding {
 			padding-top: {{ section.settings.padding_top }}px;
 			padding-bottom: {{ section.settings.padding_bottom }}px;
+		}
+	}
+
+	/* Fix for lookbook dropdown menu overflow */
+	.section-{{ section.id }} .lookbook-item .dropdown-menu {
+		position: relative;
+		overflow: visible;
+		min-width: 280px;
+		max-width: 320px;
+	}
+
+	.section-{{ section.id }} .lookbook-item .loobook-product {
+		position: relative;
+		padding: 12px;
+		overflow: visible;
+	}
+
+	.section-{{ section.id }} .lookbook-item .content {
+		position: relative;
+		padding-right: 40px;
+		flex: 1;
+		min-width: 0;
+	}
+
+	.section-{{ section.id }} .lookbook-item .price-wrap {
+		word-break: break-word;
+		overflow-wrap: break-word;
+	}
+
+	.section-{{ section.id }} .lookbook-item .btn-quickview {
+		position: absolute !important;
+		top: 50% !important;
+		right: 8px !important;
+		transform: translateY(-50%) !important;
+		z-index: 10;
+		flex-shrink: 0;
+	}
+
+	/* Ensure dropdown doesn't overflow on mobile */
+	@media screen and (max-width: 749px) {
+		.section-{{ section.id }} .lookbook-item .dropdown-menu {
+			max-width: 280px;
+			left: 50% !important;
+			transform: translateX(-50%) !important;
 		}
 	}
 {% endstyle %}
