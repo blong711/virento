@@ -245,6 +245,7 @@
         "title_tag": "h4",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
         "subtitle_size": "text-md",
+        "enable_border_radius": true,
         "show_navigation": true,
         "show_mobile_dots": true,
         "items_per_row_desktop": 6,
@@ -548,7 +549,8 @@
         "show_border": true,
         "padding_top": 44,
         "padding_bottom": 44,
-        "padding_mobile_rate": 80
+        "padding_mobile_rate": 80,
+        "padding_tablet_rate": 60
       }
     }
   },
