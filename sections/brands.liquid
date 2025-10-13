@@ -97,6 +97,12 @@
     },
     {
       "type": "checkbox",
+      "id": "enable_border_radius",
+      "label": "t:sections.brands.settings.enable_border_radius.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
       "id": "show_navigation",
       "label": "t:sections.brands.settings.show_arrows.label",
       "default": true
@@ -312,7 +318,7 @@
         {% for block in section.blocks %}
           {% if block.type == 'brand' %}
             <div class="swiper-slide" {{ block.shopify_attributes }}>
-              <div class="brand-item wow fadeInLeft"{% if forloop.index0 > 0 %} data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"{% endif %}>
+              <div class="brand-item wow fadeInLeft{% if section.settings.enable_border_radius %} radius-8{% endif %}"{% if forloop.index0 > 0 %} data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"{% endif %}>
                 {% if block.settings.brand_link != blank %}
                   <a href="{{ block.settings.brand_link }}">
                 {% endif %}
