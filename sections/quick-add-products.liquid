@@ -109,7 +109,12 @@
       "type": "header",
       "content": "t:sections.quick-add-products.settings.slider_settings_header.content"
     },
-    
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "t:sections.quick-add-products.settings.show_navigation.label",
+      "default": true
+    },
     {
       "type": "checkbox",
       "id": "show_dots_mobile",
@@ -312,6 +317,13 @@
             "observer": true,
             "observeParents": true,
             "slidesPerGroup": {{ section.settings.products_per_row_mobile }},
+            {% if section.settings.show_navigation %}
+            "navigation": {
+              "clickable": true,
+              "nextEl": ".nav-next-quick-add",
+              "prevEl": ".nav-prev-quick-add"
+            },
+            {% endif %}
             {% if section.settings.show_dots_mobile %}
             "pagination": { "el": ".sw-pagination-featured", "clickable": true },
             {% endif %}
@@ -430,6 +442,10 @@
         {% if section.settings.show_dots_mobile %}
           <div class="d-flex d-xl-none sw-dot-default sw-pagination-featured justify-content-center swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock"></div>
         {% endif %}
+        {% if section.settings.show_navigation %}
+          <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-quick-add"></div>
+          <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-quick-add"></div>
+        {% endif %}
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
       </div>
     </div>
@@ -472,6 +488,13 @@
               "spaceBetween": 12,
               "speed": 800,
               "slidesPerGroup": 2,
+              {% if section.settings.show_navigation %}
+              "navigation": {
+                "clickable": true,
+                "nextEl": ".nav-next-quick-add-layout1",
+                "prevEl": ".nav-prev-quick-add-layout1"
+              },
+              {% endif %}
               {% if section.settings.show_dots_mobile %}
               "pagination": { "el": ".sw-pagination-seller1", "clickable": true },
               {% endif %}
@@ -590,6 +613,10 @@
             </div>
             {% if section.settings.show_dots_mobile %}
               <div class="d-flex d-xl-none mt_5 sw-dot-default style-white sw-pagination-seller1 justify-content-center swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock"></div>
+            {% endif %}
+            {% if section.settings.show_navigation %}
+              <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-quick-add-layout1"></div>
+              <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-quick-add-layout1"></div>
             {% endif %}
             <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
           </div>

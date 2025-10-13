@@ -8226,6 +8226,9 @@
     "quick-add-products": {
       "name": "Quick Add Products",
       "settings": {
+        "show_navigation": {
+          "label": "Show Navigation",
+        },
         "background_image": {
           "label": "Background Image",
           "info": "Background image for the section"
