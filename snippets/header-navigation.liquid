@@ -469,34 +469,6 @@
     left: 50%;
   }
 
-  /* Fix dropdown gap issue when logo is taller than menu padding */
-  .box-nav-menu .menu-item .item-link::after {
-    height: 120px !important; /* Increased height to bridge gap */
-  }
-
-  /* Ensure the pseudo-element extends downward to connect with dropdown */
-  .header-default .header-bottom .item-link::after {
-    height: 120px !important;
-  }
-
-  /* Add a connecting bridge between menu item and dropdown */
-  .box-nav-menu .menu-item .item-link::before {
-    position: absolute;
-    content: '';
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 20px; /* Bridge height */
-    background: transparent;
-    z-index: 998; /* Just below dropdown but above other content */
-    display: none;
-  }
-
-  .box-nav-menu .menu-item:hover .item-link::before {
-    display: block;
-  }
-
   @media screen and (max-width: 1540px) {
     .box-nav-menu .mega-product {
       padding: 32px 40px;

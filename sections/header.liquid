@@ -19,6 +19,24 @@
   .logo-header img {
     width: {{ logo_width }}px;
   }
+  
+  /* Dynamic menu padding based on logo height */
+  .header-default .box-nav-menu .menu-item {
+    padding: var(--menu-item-padding, 33px) 0px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Calculate menu padding based on logo height - fallback for when JS is disabled */
+  .header-default .wrapper-header {
+    --menu-item-padding: max(33px, calc({{ logo_width }}px * 0.4));
+  }
+  
+  /* Ensure menu items have proper alignment when padding changes */
+  .header-default .box-nav-menu {
+    align-items: center;
+  }
 {% endstyle %}
 
 {% if layout_type == 'layout_2' %}
@@ -187,6 +205,49 @@
   </header>
 {% endif %}
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Function to adjust menu padding based on actual logo height
+  function adjustMenuPaddingBasedOnLogo() {
+    const logoImg = document.querySelector('.logo-header img');
+    const menuItems = document.querySelectorAll('.header-default .box-nav-menu .menu-item');
+    
+    if (logoImg && menuItems.length > 0) {
+      // Wait for logo to load
+      if (logoImg.complete) {
+        updateMenuPadding();
+      } else {
+        logoImg.addEventListener('load', updateMenuPadding);
+      }
+    }
+    
+    function updateMenuPadding() {
+      const logoHeight = logoImg.offsetHeight;
+      const minPadding = 33; // Minimum padding in pixels
+      const calculatedPadding = Math.max(minPadding, logoHeight * 0.6); // 60% of logo height
+      
+      // Apply padding to all menu items
+      menuItems.forEach(item => {
+        item.style.paddingTop = calculatedPadding + 'px';
+        item.style.paddingBottom = calculatedPadding + 'px';
+      });
+      
+      // Also update the CSS custom property for consistency
+      const headerWrapper = document.querySelector('.header-default .wrapper-header');
+      if (headerWrapper) {
+        headerWrapper.style.setProperty('--menu-item-padding', calculatedPadding + 'px');
+      }
+    }
+  }
+  
+  // Run on load
+  adjustMenuPaddingBasedOnLogo();
+  
+  // Run on window resize (in case logo size changes)
+  window.addEventListener('resize', adjustMenuPaddingBasedOnLogo);
+});
+</script>
+
 {%- style %}
   /* Layout 1 Styles */
   .wrapper-header-bottom .call-us {
@@ -242,29 +303,6 @@
   .tf-form-search .search-suggests-results-inner .search-result-item .img-box img {
     object-fit: cover;
     height: 60px;
-  }
-
-  /* Fix for dropdown gap issue when logo is taller than menu padding */
-  .header-default .box-nav-menu .menu-item .item-link::after {
-    height: 120px !important;
-  }
-
-  /* Ensure dropdown hover area extends to bridge any gap */
-  .header-default .box-nav-menu .menu-item .item-link::before {
-    position: absolute;
-    content: '';
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 20px;
-    background: transparent;
-    z-index: 998;
-    display: none;
-  }
-
-  .header-default .box-nav-menu .menu-item:hover .item-link::before {
-    display: block;
   }
 {%- endstyle %}
 
