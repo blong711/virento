@@ -373,6 +373,19 @@
   .section-{{ section.id }} .swiper-button-prev {
     left: -54px;
   }
+  /* Override hover behavior to make navigation buttons always visible */
+  .section-{{ section.id }} .hover-sw-nav .nav-swiper {
+    visibility: visible !important;
+  }
+  /* Disable hover animations and transitions */
+  .section-{{ section.id }} .hover-sw-nav:hover .nav-swiper {
+    visibility: visible !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+  }
+  .section-{{ section.id }} .nav-swiper {
+    transition: none !important;
+  }
 {% endstyle %}
 
 <div class="flat-spacing section-{{ section.id }} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
@@ -500,22 +513,17 @@
           <div class="d-flex d-xl-none sw-dot-default sw-pagination-top-pick justify-content-center"></div>
         {% endif %}
       </div>
-      {% if section.settings.show_navigation %}
-        {%- assign total_products = 0 -%}
-        {%- if section.settings.product_list != blank -%}
-          {%- assign total_products = section.settings.product_list.size -%}
-        {%- elsif section.settings.featured_collection != blank -%}
-          {%- assign collection = collections[section.settings.featured_collection] -%}
-          {%- assign total_products = collection.products.size -%}
-          {%- if total_products > section.settings.products_to_show -%}
-            {%- assign total_products = section.settings.products_to_show -%}
-          {%- endif -%}
-        {%- endif -%}
-        
-        {%- unless total_products <= section.settings.products_per_row_desktop -%}
-          <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-top-pick"></div>
-          <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-top-pick"></div>
-        {%- endunless -%}
+      {% if section.settings.product_list != blank %}
+        {% assign total_products = section.settings.product_list | size %}
+      {% elsif section.settings.featured_collection != blank %}
+        {% assign collection = collections[section.settings.featured_collection] %}
+        {% assign total_products = collection.products_count %}
+      {% else %}
+        {% assign total_products = 0 %}
+      {% endif %}
+      {% if section.settings.show_navigation and total_products > section.settings.products_per_row_desktop %}
+        <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-top-pick"></div>
+        <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-top-pick"></div>
       {% endif %}
     </div>
   </div>
