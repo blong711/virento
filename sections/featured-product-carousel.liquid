@@ -389,7 +389,7 @@
         {% endif %}
       </div>
     </div>
-    <div>
+    <div class="{% if section.settings.show_navigation %}hover-sw-nav{% endif %}">
       <div
         dir="ltr"
         class="swiper tf-swiper"
@@ -499,11 +499,11 @@
         {% if section.settings.show_dots_mobile %}
           <div class="d-flex d-xl-none sw-dot-default sw-pagination-top-pick justify-content-center"></div>
         {% endif %}
-        {% if section.settings.show_navigation %}
-          <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-top-pick"></div>
-          <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-top-pick"></div>
-        {% endif %}
       </div>
+      {% if section.settings.show_navigation %}
+        <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-top-pick"></div>
+        <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-top-pick"></div>
+      {% endif %}
     </div>
   </div>
 </div>
