@@ -5,7 +5,7 @@
   assign layout_style = section.settings.layout_style | default: 'layout1'
 
   # Carousel settings
-  assign slides_per_view_mobile = section.settings.slides_mobile | default: 1
+  assign slides_per_view_mobile =  1
   assign slides_per_view_tablet = section.settings.slides_tablet | default: 2
   assign slides_per_view_desktop = section.settings.slides_desktop | default: 3
   assign space_between = section.settings.space_between | default: 24
@@ -39,12 +39,9 @@
     }
   }
 
+  .aspect-ratio-layout2,
   .aspect-ratio-layout1 {
     aspect-ratio: 4/3.4;
-  }
-
-  .aspect-ratio-layout2 {
-    aspect-ratio: 4 / 2.777;
   }
 
   .entry-tag .style-list a {
@@ -86,7 +83,7 @@
               "speed": {{ section.settings.animation_speed | default: 800 }},
               "observer": true,
               "observeParents": true,
-              "slidesPerGroup": 1,
+              "slidesPerGroup": {{ slides_per_view_mobile }},
               {% if section.settings.show_navigation and show_navigation_buttons -%}
               "navigation": {
                   "clickable": true,
@@ -98,8 +95,8 @@
               "pagination": { "el": ".sw-pagination-blog-{{ section.id }}", "clickable": true },
               {% endif -%}
               "breakpoints": {
-              "577": { "slidesPerView": {{ slides_per_view_tablet }}, "spaceBetween": 12, "slidesPerGroup": 2 },
-              "1200": { "slidesPerView": {{ slides_per_view_desktop }}, "spaceBetween": {{ space_between }}, "slidesPerGroup": 4}
+              "577": { "slidesPerView": {{ slides_per_view_tablet }}, "spaceBetween": 12, "slidesPerGroup": {{ slides_per_view_tablet }} },
+              "1200": { "slidesPerView": {{ slides_per_view_desktop }}, "spaceBetween": {{ space_between }}, "slidesPerGroup": {{ slides_per_view_desktop }}}
               }
           }
         '
@@ -213,7 +210,7 @@
               {%- else -%}
                 <!-- Layout 2 -->
                 <div class="news-item hover-img">
-                  <a href="{{ article.url }}" class="img-style">
+                  <a href="{{ article.url }}" class="img-style aspect-ratio-layout2">
                     {%- if article.image -%}
                       <img
                         src="{{ article.image | image_url: width: 400 }}"
@@ -228,9 +225,9 @@
                   <div class="content">
                     <a
                       href="{{ article.url }}"
-                      class="title fw-medium link text-xl text-line-clamp-2 font-7"
+                      class="title fw-medium link text-xl text-line-clamp-1"
                     >
-                      {{ article.title }}
+                      {{ article.title}}
                     </a>
                     {%- if section.settings.show_read_more -%}
                       <a href="{{ article.url }}" class="btn-readmore link">
@@ -376,6 +373,7 @@
       "id": "show_tags",
       "label": "t:sections.blog-carousel.show_tags",
       "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout1' }}"
 
     },
     {
@@ -419,15 +417,6 @@
     },
     {
       "type": "range",
-      "id": "slides_mobile",
-      "label": "t:sections.blog-carousel.slides_per_view_mobile",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "default": 1
-    },
-    {
-      "type": "range",
       "id": "slides_tablet",
       "label": "t:sections.blog-carousel.slides_per_view_tablet",
       "min": 1,
@@ -440,7 +429,7 @@
       "id": "slides_desktop",
       "label": "t:sections.blog-carousel.slides_per_view_desktop",
       "min": 1,
-      "max": 6,
+      "max": 5,
       "step": 1,
       "default": 3
     },
@@ -537,7 +526,6 @@
         "show_author": true,
         "show_date": true,
         "show_comments": true,
-        "slides_mobile": 1,
         "slides_tablet": 2,
         "slides_desktop": 3,
         "show_navigation": true,
