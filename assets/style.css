@@ -14828,8 +14828,8 @@ button.animate-btn::after,
 
 .wg-cls.style-circle-md .image {
   border-radius: 50%;
-  width: 99px;
-  height: 99px;
+  /* width: 99px;
+  height: 99px; */
   margin-left: auto;
   margin-right: auto;
   display: block;
