@@ -185,6 +185,15 @@ class CountDown {
       timerElement.style.display = 'none';
     }
     
+    // Hide the prefix text (find it in the parent container)
+    const parentContainer = this.element.closest('.marquee-child-item');
+    if (parentContainer) {
+      const prefixText = parentContainer.querySelector('.countdown-prefix-text');
+      if (prefixText) {
+        prefixText.style.display = 'none';
+      }
+    }
+    
     // Create and show the end message
     const endMessageElement = document.createElement('span');
     endMessageElement.textContent = endMessage;
@@ -199,6 +208,15 @@ class CountDown {
     const timerElement = this.element.querySelector('.countdown__timer');
     if (timerElement) {
       timerElement.style.display = 'none';
+    }
+    
+    // Hide the prefix text (find it in the parent container)
+    const parentContainer = this.element.closest('.marquee-child-item');
+    if (parentContainer) {
+      const prefixText = parentContainer.querySelector('.countdown-prefix-text');
+      if (prefixText) {
+        prefixText.style.display = 'none';
+      }
     }
     
     // Create and show error message

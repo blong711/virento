@@ -265,6 +265,7 @@
                       {%- if block.settings.enable_countdown -%}
                         {% for i in (1..100) %}
                           <div class="marquee-child-item">
+                            <span class="countdown-prefix-text">{{ block.settings.countdown_prefix | escape }}</span>&nbsp;
                             <div class="js-countdown d-flex justify-content-center" data-countdown-start="{{ block.settings.countdown_start }}" data-countdown-end="{{ block.settings.countdown_end }}" data-labels="{{ block.settings.countdown_labels }}" data-countdown-end-message="{{ block.settings.countdown_end_message }}"></div>
                           </div>
                         {% endfor %}
