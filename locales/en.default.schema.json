@@ -417,13 +417,13 @@
       },
       "blocks": {
         "text": {
-          "name": "Title",
+          "name": "Heading",
           "settings": {
             "text": {
-              "label": "Title text"
+              "label": "Heading text"
             },
             "size": {
-              "label": "Title size"
+              "label": "Heading size"
             }
           }
         },
@@ -637,11 +637,11 @@
               }
             },
             "title": {
-              "label": "Title",
+              "label": "Heading",
               "default": "Banner Title"
             },
             "title_tag": {
-              "label": "Title Size",
+              "label": "Heading Size",
               "options": {
                 "h5": "Small",
                 "h4": "Medium",
@@ -649,7 +649,7 @@
               }
             },
             "title_weight": {
-              "label": "Title Weight",
+              "label": "Heading Weight",
               "options": {
                 "fw-light": "Light",
                 "fw-normal": "Regular",
@@ -1374,7 +1374,7 @@
           }
         },
         "title": {
-          "name": "Title"
+          "name": "Heading"
         },
         "price": {
           "name": "Price"
@@ -1551,8 +1551,8 @@
       },
       "blocks": {
         "text": {
-          "name": "Title",
-          "size": "Title size"
+          "name": "Heading",
+          "size": "Heading size"
         },
         "text_2": {
           "name": "Subtext",
@@ -2643,7 +2643,7 @@
       },
       "infos": {
         "name": "Infos",
-        "title": "Title",
+        "title": "Heading",
         "description": "Description",
         "title_default": "I'm new here",
         "description_default": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails."
@@ -2794,7 +2794,7 @@
           "name": "Special Deal",
           "settings": {
             "title": {
-              "label": "Title",
+              "label": "Heading",
               "default": "Special Deal"
             },
             "buy_product": {
@@ -2976,7 +2976,7 @@
           "name": "Product Bundle",
           "settings": {
             "fbt_title": {
-              "label": "Section Title",
+              "label": "Heading",
               "default": "Frequently Bought Together"
             },
             "fbt_source": {
@@ -6179,15 +6179,15 @@
       "settings": {
         "banner_image": "Banner Image",
         "banner_image_mobile": "Mobile Banner Image",
-        "title": "Title",
+        "title": "Heading",
         "title_default": "Limited Time Deals",
-        "title_font_size": "Title Font Size",
+        "title_font_size": "Heading Font Size",
         "title_font_size_options": {
           "display-sm": "Small",
           "display-md": "Medium",
           "display-lg": "Large"
         },
-        "title_font_weight": "Title Font Weight",
+        "title_font_weight": "Heading Font Weight",
         "title_font_weight_options": {
           "fw-light": "Light",
           "fw-regular": "Regular",
@@ -6195,9 +6195,9 @@
           "fw-semibold": "Semi Bold",
           "fw-bold": "Bold"
         },
-        "subtitle": "Subtitle",
+        "subtitle": "Subheading",
         "subtitle_default": "Shop the latest activewear designed for maximum comfort and style.",
-        "subtitle_font_size": "Subtitle Font Size",
+        "subtitle_font_size": "Subheading Font Size",
         "subtitle_font_size_options": {
           "text-sm": "Small",
           "text-md": "Medium",
@@ -6471,11 +6471,11 @@
       "name": "Recently Viewed",
       "settings": {
         "title": {
-          "label": "Section Title",
+          "label": "Heading",
           "default": "Recently Viewed"
         },
         "show_title": {
-          "label": "Show Section Title"
+          "label": "Show Heading"
         },
         "products_to_show": {
           "label": "Number of Products to Show"
@@ -6542,11 +6542,11 @@
           "content": "Heading"
         },
         "title": {
-          "label": "Title",
+          "label": "Heading",
           "default": "Hot Deals"
         },
         "heading_tag": {
-          "label": "Title Size",
+          "label": "Heading Size",
           "options": {
             "small": "Small",
             "medium": "Medium",
@@ -6554,14 +6554,14 @@
           }
         },
         "subtitle": {
-          "content": "Subtitle"
+          "content": "Subheading"
         },
         "subtitle_text": {
-          "label": "Subtitle",
+          "label": "Subheading",
           "default": "Explore our most popular pieces that customers can't get enough of"
         },
         "subtitle_size": {
-          "label": "Subtitle Size",
+          "label": "Subheading Size",
           "options": {
             "small": "Small",
             "medium": "Medium",
@@ -7663,15 +7663,15 @@
       "name": "Featured Products List",
       "settings": {
         "title": {
-          "label": "Section Title",
+          "label": "Heading",
           "default": "Hot Deals"
         },
         "description": {
-          "label": "Section Description",
+          "label": "Subheading",
           "default": "Explore our most popular pieces that customers can't get enough of"
         },
         "title_tag": {
-          "label": "Title tag size",
+          "label": "Heading Size",
           "options": {
             "small": "Small",
             "medium": "Medium",
@@ -7679,7 +7679,7 @@
           }
         },
         "description_size": {
-          "label": "Description text size",
+          "label": "Subheading Size",
           "options": {
             "small": "Small",
             "medium": "Medium",
@@ -8017,10 +8017,10 @@
           "content": "Content Settings"
         },
         "subtitle": {
-          "label": "Subtitle"
+          "label": "Subheading"
         },
         "title": {
-          "label": "Title"
+          "label": "Heading"
         },
         "description": {
           "label": "Description"
@@ -8231,11 +8231,11 @@
           "info": "Background image for the section"
         },
         "title": {
-          "label": "Section Title",
+          "label": "Heading",
           "default": "Featured Products"
         },
         "title_tag": {
-          "label": "Title Size",
+          "label": "Heading Size",
           "options": {
             "small": { "label": "Small" },
             "medium": { "label": "Medium" },
@@ -8243,11 +8243,11 @@
           }
         },
         "subtitle": {
-          "label": "Section Subtitle",
+          "label": "Subheading",
           "default": "Explore our most popular pieces that customers can't get enough of"
         },
         "subtitle_size": {
-          "label": "Subtitle Size",
+          "label": "Subheading Size",
           "options": {
             "small": { "label": "Small" },
             "medium": { "label": "Medium" },
