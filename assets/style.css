@@ -15381,13 +15381,13 @@ button.animate-btn::after,
 .thumbs-bottom .tf-product-media-thumbs {
   order: 1;
   width: 100% !important;
-  max-height: none !important;
-  height: auto !important;
+  /* max-height: none !important;
+  height: auto !important; */
   /* flex-direction: row !important;
   display: flex !important; */
-  gap: 10px;
+  /* gap: 10px;
   overflow-x: auto;
-  padding: 10px 0;
+  padding: 10px 0; */
 }
 
 .thumbs-bottom .tf-product-media-thumbs .swiper-wrapper {
@@ -15429,7 +15429,7 @@ button.animate-btn::after,
 
 .thumbs-bottom .flat-wrap-media-product {
   width: 100%;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .tf-product-media-thumbs {
