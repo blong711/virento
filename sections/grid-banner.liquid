@@ -48,7 +48,7 @@
                 {% if section.blocks.size == 3 %}
                   {% if section.settings.three_item_style == 'style1' %}
                     <div class="cls-btn wow fadeInUp">
-                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md{% when 'large' %}display-lg{% else %}display-md-2{% endcase %} mb_16 text-white font-14">{{ block.settings.title }}</div>
+                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %} mb_16 text-white font-14">{{ block.settings.title }}</div>
                       {% if block.settings.button_style == 'primary' %}
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
                           <a href="{{ block.settings.link }}" class="tf-btn btn-cls btn-white animate-btn animate-dark">
