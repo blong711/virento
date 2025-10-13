@@ -5321,22 +5321,22 @@
       "name": "Featured Product Carousel",
       "settings": {
         "title": {
-          "label": "Title",
+          "label": "Heading",
           "default": "Top Picks"
         },
         "subtitle": {
-          "label": "Subtitle",
+          "label": "Subheading",
           "default": "Explore our most popular pieces that customers can't get enough of"
         },
         "title_alignment": {
-          "label": "Title Alignment",
+          "label": "Heading Alignment",
           "options": {
             "default": "Left",
             "center": "Center"
           }
         },
         "title_tag": {
-          "label": "Title Size",
+          "label": "Heading Size",
           "options": {
             "small": "Small",
             "medium": "Medium",
@@ -5344,7 +5344,7 @@
           }
         },
         "subtitle_size": {
-          "label": "Subtitle Size",
+          "label": "Subheading Size",
           "options": {
             "small": "Small",
             "medium": "Medium",
@@ -5387,10 +5387,10 @@
           "label": "Products per row on mobile"
         },
         "title_font": {
-          "label": "Title font family"
+          "label": "Heading font family"
         },
         "subtitle_font": {
-          "label": "Subtitle font family"
+          "label": "Subheading font family"
         }
       }
     },
