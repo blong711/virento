@@ -39,12 +39,9 @@
     }
   }
 
+  .aspect-ratio-layout2,
   .aspect-ratio-layout1 {
     aspect-ratio: 4/3.4;
-  }
-
-  .aspect-ratio-layout2 {
-    aspect-ratio: 4 / 2.777;
   }
 
   .entry-tag .style-list a {
@@ -213,7 +210,7 @@
               {%- else -%}
                 <!-- Layout 2 -->
                 <div class="news-item hover-img">
-                  <a href="{{ article.url }}" class="img-style">
+                  <a href="{{ article.url }}" class="img-style aspect-ratio-layout2">
                     {%- if article.image -%}
                       <img
                         src="{{ article.image | image_url: width: 400 }}"
@@ -228,9 +225,9 @@
                   <div class="content">
                     <a
                       href="{{ article.url }}"
-                      class="title fw-medium link text-xl text-line-clamp-2 font-7"
+                      class="title fw-medium link text-xl text-line-clamp-1"
                     >
-                      {{ article.title }}
+                      {{ article.title}}
                     </a>
                     {%- if section.settings.show_read_more -%}
                       <a href="{{ article.url }}" class="btn-readmore link">
@@ -376,6 +373,7 @@
       "id": "show_tags",
       "label": "t:sections.blog-carousel.show_tags",
       "default": true,
+      "visible_if": "{{ section.settings.layout_style == 'layout1' }}"
 
     },
     {
