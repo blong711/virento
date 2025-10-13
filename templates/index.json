@@ -258,17 +258,43 @@
     },
     "collection_slider": {
       "type": "collection-slider",
+      "blocks": {
+        "collection_q9bwn6": {
+          "type": "collection",
+          "settings": {
+            "collection": "spring-steps",
+            "title": "",
+            "link": ""
+          }
+        },
+        "collection_njtVEc": {
+          "type": "collection",
+          "settings": {
+            "collection": "summer-soes",
+            "title": "",
+            "link": ""
+          }
+        },
+        "collection_gcMN4L": {
+          "type": "collection",
+          "settings": {
+            "collection": "autumn-edge",
+            "title": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_q9bwn6",
+        "collection_njtVEc",
+        "collection_gcMN4L"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
         "width": "container",
         "title_alignment": "start",
         "title": "",
         "title_tag": "h4",
-        "collection_list": [
-          "spring-steps",
-          "summer-soes",
-          "autumn-edge"
-        ],
         "show_collection_title": true,
         "show_mobile_dots": true,
         "slides_per_view_desktop": "3",
