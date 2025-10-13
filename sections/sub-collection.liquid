@@ -129,22 +129,16 @@
               "pagination": { "el": ".sw-pagination-cls", "clickable": true },
               {%- endif -%}
               "breakpoints": {
-                "575": { "slidesPerView": 5, "spaceBetween": 12 ,"slidesPerGroup": 3 },
-                "768": { "slidesPerView": {{ section.settings.slides_per_view_tablet }}, "spaceBetween": 24, "slidesPerGroup": 3 },
-                "1200": { "slidesPerView": {{ section.settings.slides_per_view_desktop }}, "spaceBetween": 45, "slidesPerGroup": 3}
+                "575": { "slidesPerView": 5, "spaceBetween": {{ section.settings.space_between }} ,"slidesPerGroup": 3 },
+                "768": { "slidesPerView": {{ section.settings.slides_per_view_tablet }}, "spaceBetween": {{ section.settings.space_between }}, "slidesPerGroup": 3 },
+                "1200": { "slidesPerView": {{ section.settings.slides_per_view_desktop }}, "spaceBetween": {{ section.settings.space_between }}, "slidesPerGroup": 3}
               }
             }
           '
         >
           <div class="swiper-wrapper">
-            {%- if section.settings.show_shop_all -%}
-              {%- assign available_collections = section.settings.selected_collections.size -%}
-              {%- assign max_collections = section.settings.collections_limit | minus: 1 -%}
-              {%- if available_collections > max_collections -%}
-                {%- assign display_limit = max_collections -%}
-              {%- else -%}
-                {%- assign display_limit = available_collections -%}
-              {%- endif -%}
+            {%- if section.settings.show_shop_all and section.settings.shop_all_image != blank -%}
+              {%- assign display_limit = section.settings.collections_limit | minus: 1 -%}
             {%- else -%}
               {%- assign display_limit = section.settings.collections_limit -%}
             {%- endif -%}
@@ -171,7 +165,7 @@
               </div>
             {%- endfor -%}
 
-            {%- if section.settings.show_shop_all -%}
+            {%- if section.settings.show_shop_all and section.settings.shop_all_image != blank -%}
               <!-- Shop All Item -->
               <div class="swiper-slide">
                 <div class="wg-cls style-circle-md hover-img">
@@ -308,15 +302,15 @@
               "pagination": { "el": ".sw-pagination-cls", "clickable": true },
               {%- endif -%}
               "breakpoints": {
-                "575": { "slidesPerView": 5, "spaceBetween": 12 ,"slidesPerGroup": 3 },
-                "768": { "slidesPerView": {{ section.settings.slides_per_view_tablet }}, "spaceBetween": 24, "slidesPerGroup": 3 },
-                "1200": { "slidesPerView": {{ section.settings.slides_per_view_desktop }}, "spaceBetween": 45, "slidesPerGroup": 3}
+                "575": { "slidesPerView": 5, "spaceBetween": {{ section.settings.space_between }} ,"slidesPerGroup": 3 },
+                "768": { "slidesPerView": {{ section.settings.slides_per_view_tablet }}, "spaceBetween": {{ section.settings.space_between }}, "slidesPerGroup": 3 },
+                "1200": { "slidesPerView": {{ section.settings.slides_per_view_desktop }}, "spaceBetween": {{ section.settings.space_between }}, "slidesPerGroup": 3}
               }
             }
           '
         >
           <div class="swiper-wrapper">
-            {%- if section.settings.show_shop_all -%}
+            {%- if section.settings.show_shop_all and section.settings.shop_all_image != blank -%}
               {%- assign placeholder_limit = section.settings.collections_limit | minus: 1 -%}
             {%- else -%}
               {%- assign placeholder_limit = section.settings.collections_limit -%}
@@ -335,7 +329,7 @@
               </div>
             {%- endfor -%}
 
-            {%- if section.settings.show_shop_all -%}
+            {%- if section.settings.show_shop_all and section.settings.shop_all_image != blank -%}
               <!-- Shop All Item (Placeholder) -->
               <div class="swiper-slide">
                 <div class="wg-cls style-circle-md hover-img">
@@ -463,7 +457,7 @@
       "max": 40,
       "step": 4,
       "default": 12,
-      "label": "t:sections.sub-collection.settings.space_between.label"
+      "label": "t:sections.sub-collection.settings.space_between.label",
     },
     {
       "type": "checkbox",
