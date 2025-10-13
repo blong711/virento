@@ -7,19 +7,7 @@
 <ul class="box-nav-menu" style="gap: {{ section.settings.menu_item_spacing }}px;">
   {% for link in linklists[menu].links %}
     {%- assign menu_title = link.title | downcase -%}
-    
-    {% comment %} Check if this menu item has a matching block {% endcomment %}
-    {% assign has_mega_menu = false %}
-    {% for block in section.blocks %}
-      {% assign menu_match = block.settings.menu_item_match | strip | downcase %}
-      {% assign link_match = link.title | strip | downcase %}
-      {% if menu_match == link_match and menu_match != blank %}
-        {% assign has_mega_menu = true %}
-        {% break %}
-      {% endif %}
-    {% endfor %}
-    
-    <li class="menu-item {% if menu_title == 'pages' or menu_title == 'blog' or has_mega_menu == false %} position-relative {% endif %}">
+    <li class="menu-item {% if menu_title == 'pages' or menu_title == 'blog' %} position-relative {% endif %}">
       <a href="{{ link.url }}" class="item-link">
         <span class="title-text">{{ link.title }}</span>
         {% if link.links.size > 0 or menu_title == 'home' %}<i class="icon icon-arr-down"></i>{% endif %}
@@ -336,6 +324,16 @@
       {% endfor %}
 
       <!-- Fallback: Show dropdown with same structure as mega menus but without extra content -->
+      {% assign has_mega_menu = false %}
+      {% for block in section.blocks %}
+        {% assign menu_match = block.settings.menu_item_match | strip | downcase %}
+        {% assign link_match = link.title | strip | downcase %}
+        {% if menu_match == link_match and menu_match != blank %}
+          {% assign has_mega_menu = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+
       {% unless has_mega_menu %}
         {% if link.links.size > 0 %}
           {% comment %} Check if any child has grandchildren {% endcomment %}
