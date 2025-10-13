@@ -7,7 +7,7 @@
 <ul class="box-nav-menu" style="gap: {{ section.settings.menu_item_spacing }}px;">
   {% for link in linklists[menu].links %}
     {%- assign menu_title = link.title | downcase -%}
-    <li class="menu-item {% if menu_title == 'pages' or menu_title == 'blog' %} position-relative {% endif %}">
+    <li class="menu-item">
       <a href="{{ link.url }}" class="item-link">
         <span class="title-text">{{ link.title }}</span>
         {% if link.links.size > 0 or menu_title == 'home' %}<i class="icon icon-arr-down"></i>{% endif %}
@@ -437,7 +437,8 @@
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 25px;
     min-width: 500px;
-    left: -60px;
+    width: auto;
+    left: 60%;
   }
   .box-nav-menu .sub-menu-style-2.no-banner .menu-list {
     width: auto;
@@ -447,13 +448,27 @@
     width: max-content !important;
     min-width: auto !important;
     justify-content: flex-start;
-    left: -30px;
+    left: 50%;
   }
   .box-nav-menu .sub-menu-style-3.no-blog .menu-list {
     width: auto !important;
     min-width: auto !important;
     max-width: none;
   }
+
+  /* Make sub-menus size to content while being properly positioned */
+  .box-nav-menu .sub-menu-style-2:not(.no-banner) {
+    width: auto;
+    min-width: 750px;
+    left: 40%;
+  }
+  
+  .box-nav-menu .sub-menu-style-3:not(.no-blog) {
+    width: auto;
+    min-width: 552px;
+    left: 50%;
+  }
+
   @media screen and (max-width: 1540px) {
     .box-nav-menu .mega-product {
       padding: 32px 40px;
