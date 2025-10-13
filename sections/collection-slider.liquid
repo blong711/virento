@@ -66,15 +66,6 @@
       "default": "h4"
     },
     {
-      "type": "header",
-      "content": "t:sections.collection_slider.settings.collection_settings.content"
-    },
-    {
-      "type": "collection_list",
-      "id": "collection_list",
-      "label": "t:sections.collection_slider.settings.collection_list.label"
-    },
-    {
       "type": "checkbox",
       "id": "show_collection_title",
       "label": "t:sections.collection_slider.settings.show_collection_title.label",
@@ -224,10 +215,52 @@
       "info": "t:sections.top_bar.settings.padding_tablet_rate.info"
     }
   ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "t:sections.collection_slider.blocks.collection.name",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "t:sections.collection_slider.blocks.collection.settings.collection.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.collection_slider.blocks.collection.settings.image.label",
+          "info": "t:sections.collection_slider.blocks.collection.settings.image.info"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:sections.collection_slider.blocks.collection.settings.title.label",
+          "info": "t:sections.collection_slider.blocks.collection.settings.title.info"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.collection_slider.blocks.collection.settings.link.label",
+          "info": "t:sections.collection_slider.blocks.collection.settings.link.info"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "t:sections.collection_slider.presets.name",
-      "category": "t:sections.collection_slider.presets.category"
+      "category": "t:sections.collection_slider.presets.category",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
     }
   ]
 }
@@ -301,22 +334,51 @@
         }'
       >
         <div class="swiper-wrapper">
-          {% for collection in section.settings.collection_list %}
-            <div class="swiper-slide">
+          {% for block in section.blocks %}
+            {% assign collection = block.settings.collection %}
+            {% assign custom_image = block.settings.image %}
+            {% assign custom_title = block.settings.title %}
+            {% assign custom_link = block.settings.link %}
+            
+            {% if custom_image != blank %}
+              {% assign display_image = custom_image %}
+            {% elsif collection.image != blank %}
+              {% assign display_image = collection.image %}
+            {% else %}
+              {% assign display_image = blank %}
+            {% endif %}
+            
+            {% if custom_title != blank %}
+              {% assign display_title = custom_title %}
+            {% elsif collection.title != blank %}
+              {% assign display_title = collection.title %}
+            {% else %}
+              {% assign display_title = '' %}
+            {% endif %}
+            
+            {% if custom_link != blank %}
+              {% assign display_url = custom_link %}
+            {% elsif collection.url != blank %}
+              {% assign display_url = collection.url %}
+            {% else %}
+              {% assign display_url = '#' %}
+            {% endif %}
+            
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
               <div class="wg-cls style-abs{% unless section.settings.slides_per_view_desktop == '4' %} asp-1{% endunless %} hover-img">
-                <a href="{{ collection.url }}" class="image img-style d-block">
-                  {% if collection.image != blank %}
+                <a href="{{ display_url }}" class="image img-style d-block">
+                  {% if display_image != blank %}
                     <img 
-                      src="{{ collection.image | image_url: width: 600 }}"
+                      src="{{ display_image | image_url: width: 600 }}"
                       srcset="
-                        {{ collection.image | image_url: width: 400 }} 400w,
-                        {{ collection.image | image_url: width: 600 }} 600w,
-                        {{ collection.image | image_url: width: 800 }} 800w
+                        {{ display_image | image_url: width: 400 }} 400w,
+                        {{ display_image | image_url: width: 600 }} 600w,
+                        {{ display_image | image_url: width: 800 }} 800w
                       "
                       sizes="(min-width: 1200px) calc((100vw - 48px) / 3), (min-width: 768px) calc((100vw - 24px) / 3), calc((100vw - 12px) / 2)"
-                      alt="{{ collection.title | escape }}"
-                      width="{{ collection.image.width | default: 600 }}"
-                      height="{{ collection.image.height | default: 600 }}"
+                      alt="{{ display_title | escape }}"
+                      width="{{ display_image.width | default: 600 }}"
+                      height="{{ display_image.height | default: 600 }}"
                       loading="lazy"
                     >
                   {% else %}
@@ -325,8 +387,8 @@
                 </a>
                 {% if section.settings.show_collection_title %}
                   <div class="cls-btn text-center">
-                    <a href="{{ collection.url }}" class="tf-btn btn-cls btn-white hover-dark hover-icon-2">
-                      {{ collection.title }}
+                    <a href="{{ display_url }}" class="tf-btn btn-cls btn-white hover-dark hover-icon-2">
+                      {{ display_title }}
                       <i class="icon icon-arrow-top-left"></i>
                     </a>
                   </div>

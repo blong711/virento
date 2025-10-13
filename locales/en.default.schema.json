@@ -5218,6 +5218,28 @@
           "info": "Percentage of desktop padding applied on mobile"
         }
       },
+      "blocks": {
+        "collection": {
+          "name": "Collection",
+          "settings": {
+            "collection": {
+              "label": "Collection"
+            },
+            "image": {
+              "label": "Custom image",
+              "info": "Override collection image"
+            },
+            "title": {
+              "label": "Custom title",
+              "info": "Override collection title"
+            },
+            "link": {
+              "label": "Custom link",
+              "info": "Override collection link"
+            }
+          }
+        }
+      },
       "presets": {
         "name": "Collection Slider",
         "category": "Banner"
