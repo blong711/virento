@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "icon-box": {
       "type": "icon-box",
@@ -18,6 +18,7 @@
             "icon_class": "icon-shipping",
             "custom_svg": "",
             "icon_size": 22,
+            "border_size": 64,
             "title": "Low Price Guarantee",
             "title_size": 16,
             "description": "",
@@ -30,6 +31,7 @@
             "icon_class": "icon-gift",
             "custom_svg": "",
             "icon_size": 22,
+            "border_size": 64,
             "title": "Free Delivery Worldwide",
             "title_size": 16,
             "description": "",
@@ -42,6 +44,7 @@
             "icon_class": "icon-return",
             "custom_svg": "",
             "icon_size": 22,
+            "border_size": 64,
             "title": "30 Day Online Return",
             "title_size": 16,
             "description": "",
@@ -54,6 +57,7 @@
             "icon_class": "icon-support",
             "custom_svg": "",
             "icon_size": 22,
+            "border_size": 64,
             "title": "24/7 Support Online",
             "title_size": 16,
             "description": "",
@@ -76,11 +80,15 @@
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 1,
+        "space_between_mobile": 12,
+        "space_between_tablet": 24,
+        "space_between_desktop": 24,
         "icon_style": "default",
         "show_border": true,
         "padding_top": 32,
         "padding_bottom": 32,
-        "padding_mobile_rate": 100
+        "padding_mobile_rate": 100,
+        "padding_tablet_rate": 60
       }
     },
     "main-slider": {
@@ -228,7 +236,8 @@
         "items_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 116,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "featured_product_carousel_WCCACY": {
@@ -255,14 +264,14 @@
         ],
         "products_to_show": 6,
         "show_navigation": true,
-        "navigation_style": "individual",
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 2,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "grid_banner_FkKW9K": {
@@ -327,7 +336,8 @@
         "three_item_style": "style2",
         "padding_top": 0,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "quick_add_products": {
@@ -368,22 +378,24 @@
       ],
       "name": "Quick Add Products",
       "settings": {
-        "color_scheme": "scheme-ab315c3e-8454-4d21-bed1-704f08225a43",
+        "color_scheme": "scheme-df5096e5-9412-4cdf-82ea-1adacc1c4967",
         "width": "container",
         "background_image": "shopify://shop_images/bg-supplement-product.jpg",
         "title": "Featured Products",
         "title_tag": "h4",
         "subtitle": "Explore our most popular pieces that customers can't get enough of",
-        "subtitle_size": "text-md",
-        "layout": "layout-1",
+        "subtitle_size": "text-sm",
+        "layout": "layout-2",
+        "show_navigation": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": "3",
         "products_per_row_tablet": "3",
         "products_per_row_mobile": "1",
         "show_product_features": true,
-        "padding_top": 120,
+        "padding_top": 0,
         "padding_bottom": 116,
-        "padding_mobile_rate": 75
+        "padding_mobile_rate": 75,
+        "padding_tablet_rate": 60
       }
     },
     "testimonial_swiper_YeRbPX": {
@@ -425,12 +437,12 @@
         "layout": "layout-2",
         "show_arrows": true,
         "show_pagination": false,
-        "space_between": 12,
-        "space_between_tablet": 12,
-        "space_between_desktop": 24,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60,
+        "title_font": "",
+        "title_font_weight": "fw-medium"
       }
     },
     "blog_carousel_tiazLz": {
@@ -460,7 +472,8 @@
         "show_pagination": true,
         "padding_top": 0,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     }
   },
