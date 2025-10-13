@@ -3924,7 +3924,7 @@
           }
         },
         "capitalize_text": {
-          "label": "Capitalize announcement text"
+          "label": "Uppercase announcement text"
         },
         "padding_mobile_rate": {
           "label": "Mobile Padding Rate",
