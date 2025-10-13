@@ -289,7 +289,7 @@
     {% endif %}
     <div
       dir="ltr"
-      class="swiper tf-swiper sw-brand"
+      class="swiper tf-swiper sw-brand border-0"
       data-swiper='
         {
             "slidesPerView": {{ section.settings.items_per_row_mobile }},
@@ -318,7 +318,7 @@
         {% for block in section.blocks %}
           {% if block.type == 'brand' %}
             <div class="swiper-slide" {{ block.shopify_attributes }}>
-              <div class="brand-item wow fadeInLeft{% if section.settings.enable_border_radius %} radius-8{% endif %}"{% if forloop.index0 > 0 %} data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"{% endif %}>
+              <div class="brand-item line{% if section.settings.enable_border_radius %} radius-8{% endif %} wow fadeInLeft"{% if forloop.index0 > 0 %} data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"{% endif %}>
                 {% if block.settings.brand_link != blank %}
                   <a href="{{ block.settings.brand_link }}">
                 {% endif %}
