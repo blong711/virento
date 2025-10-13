@@ -501,8 +501,21 @@
         {% endif %}
       </div>
       {% if section.settings.show_navigation %}
-        <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-top-pick"></div>
-        <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-top-pick"></div>
+        {%- assign total_products = 0 -%}
+        {%- if section.settings.product_list != blank -%}
+          {%- assign total_products = section.settings.product_list.size -%}
+        {%- elsif section.settings.featured_collection != blank -%}
+          {%- assign collection = collections[section.settings.featured_collection] -%}
+          {%- assign total_products = collection.products.size -%}
+          {%- if total_products > section.settings.products_to_show -%}
+            {%- assign total_products = section.settings.products_to_show -%}
+          {%- endif -%}
+        {%- endif -%}
+        
+        {%- unless total_products <= section.settings.products_per_row_desktop -%}
+          <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-top-pick"></div>
+          <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-top-pick"></div>
+        {%- endunless -%}
       {% endif %}
     </div>
   </div>
