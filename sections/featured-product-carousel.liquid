@@ -367,6 +367,12 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
       }
   }
+  section-{{ section.id }} .swiper-button-next {
+    right: -54px;
+  }
+  section-{{ section.id }} .swiper-button-prev {
+    left: -54px;
+  }
 {% endstyle %}
 
 <div class="flat-spacing section-{{ section.id }} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
