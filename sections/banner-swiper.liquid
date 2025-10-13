@@ -87,6 +87,35 @@
       "default": "layout1"
     },
     {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "t:sections.banner-swiper.settings.image_ratio.label",
+      "options": [
+        {
+          "value": "natural",
+          "label": "t:sections.banner-swiper.settings.image_ratio.options.natural"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.banner-swiper.settings.image_ratio.options.square"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.banner-swiper.settings.image_ratio.options.portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "t:sections.banner-swiper.settings.image_ratio.options.landscape"
+        },
+        {
+          "value": "widescreen",
+          "label": "t:sections.banner-swiper.settings.image_ratio.options.widescreen"
+        }
+      ],
+      "default": "natural",
+      "info": "t:sections.banner-swiper.settings.image_ratio.info"
+    },
+    {
       "type": "header",
       "content": "t:sections.banner-swiper.settings.section_padding.content"
     },
@@ -314,9 +343,9 @@
                 {% if section.settings.layout == 'layout2' %}
                   <div class="banner-shop style-bottom style-bottom2 hover-img">
                     {% if block.settings.link != blank %}
-                      <a href="{{ block.settings.link }}" class="img-style d-block">
+                      <a href="{{ block.settings.link }}" class="img-style d-block aspect-ratio-{{ section.settings.image_ratio }}">
                     {% else %}
-                      <div class="img-style d-block">
+                      <div class="img-style d-block aspect-ratio-{{ section.settings.image_ratio }}">
                     {% endif %}
                       {% if block.settings.image %}
                         {{
@@ -351,9 +380,9 @@
                 {% else %}
                   <div class="wg-cls-2 hover-img">
                     {% if block.settings.link != blank %}
-                      <a href="{{ block.settings.link }}" class="img-style img-box">
+                      <a href="{{ block.settings.link }}" class="img-style img-box aspect-ratio-{{ section.settings.image_ratio }}">
                     {% else %}
-                      <div class="img-style img-box">
+                      <div class="img-style img-box aspect-ratio-{{ section.settings.image_ratio }}">
                     {% endif %}
                       {% if block.settings.image %}
                         {{
@@ -421,5 +450,41 @@
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
+  }
+
+  .section-{{ section.id }} .aspect-ratio-square,
+  .section-{{ section.id }} .aspect-ratio-portrait,
+  .section-{{ section.id }} .aspect-ratio-landscape,
+  .section-{{ section.id }} .aspect-ratio-widescreen {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-{{ section.id }} .aspect-ratio-square {
+    padding-bottom: 100%; /* 1:1 */
+  }
+
+  .section-{{ section.id }} .aspect-ratio-portrait {
+    padding-bottom: 133.33%; /* 3:4 */
+  }
+
+  .section-{{ section.id }} .aspect-ratio-landscape {
+    padding-bottom: 75%; /* 4:3 */
+  }
+
+  .section-{{ section.id }} .aspect-ratio-widescreen {
+    padding-bottom: 56.25%; /* 16:9 */
+  }
+
+  .section-{{ section.id }} .aspect-ratio-square img,
+  .section-{{ section.id }} .aspect-ratio-portrait img,
+  .section-{{ section.id }} .aspect-ratio-landscape img,
+  .section-{{ section.id }} .aspect-ratio-widescreen img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 {%- endstyle -%}

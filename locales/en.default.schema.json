@@ -8107,6 +8107,17 @@
             "layout2": "Layout 2"
           }
         },
+        "image_ratio": {
+          "label": "Image ratio",
+          "info": "Choose the aspect ratio for banner images",
+          "options": {
+            "natural": "Natural",
+            "square": "Square (1:1)",
+            "portrait": "Portrait (3:4)",
+            "landscape": "Landscape (4:3)",
+            "widescreen": "Widescreen (16:9)"
+          }
+        },
         "slider_settings": {
           "content": "Slider Settings"
         },
