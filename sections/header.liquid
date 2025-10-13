@@ -243,6 +243,29 @@
     object-fit: cover;
     height: 60px;
   }
+
+  /* Fix for dropdown gap issue when logo is taller than menu padding */
+  .header-default .box-nav-menu .menu-item .item-link::after {
+    height: 120px !important;
+  }
+
+  /* Ensure dropdown hover area extends to bridge any gap */
+  .header-default .box-nav-menu .menu-item .item-link::before {
+    position: absolute;
+    content: '';
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 20px;
+    background: transparent;
+    z-index: 998;
+    display: none;
+  }
+
+  .header-default .box-nav-menu .menu-item:hover .item-link::before {
+    display: block;
+  }
 {%- endstyle %}
 
 {% schema %}
