@@ -189,7 +189,6 @@ class CountDown {
     const endMessageElement = document.createElement('span');
     endMessageElement.textContent = endMessage;
     endMessageElement.classList.add('countdown-end-message');
-    endMessageElement.style.fontWeight = 'bold';
     
     // Insert the end message
     this.element.appendChild(endMessageElement);
@@ -206,7 +205,6 @@ class CountDown {
     const errorMessageElement = document.createElement('span');
     errorMessageElement.textContent = 'Countdown Error';
     errorMessageElement.classList.add('countdown-end-message');
-    errorMessageElement.style.fontWeight = 'bold';
     errorMessageElement.style.color = '#ff4444';
     
     // Insert the error message
@@ -214,7 +212,49 @@ class CountDown {
   }
 }
 
+// Initialize countdowns
+function initializeCountdowns() {
+  // Clear existing countdowns to prevent duplicates
+  document.querySelectorAll('.js-countdown').forEach((element) => {
+    // Remove existing countdown instances
+    if (element.countdownInstance) {
+      if (element.countdownInstance.intervalId) {
+        clearInterval(element.countdownInstance.intervalId);
+      }
+      element.countdownInstance = null;
+    }
+    // Clear any existing content
+    element.innerHTML = '';
+  });
+  
+  // Initialize new countdowns
+  document.querySelectorAll('.js-countdown').forEach((element) => {
+    element.countdownInstance = new CountDown(element);
+  });
+}
+
 // Initialize countdowns when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.js-countdown').forEach((element) => new CountDown(element));
+document.addEventListener('DOMContentLoaded', initializeCountdowns);
+
+// Reinitialize countdowns when theme customizer updates
+if (typeof Shopify !== 'undefined' && Shopify.theme) {
+  // Listen for theme customizer events
+  document.addEventListener('shopify:section:load', initializeCountdowns);
+  document.addEventListener('shopify:section:unload', () => {
+    document.querySelectorAll('.js-countdown').forEach((element) => {
+      if (element.countdownInstance && element.countdownInstance.intervalId) {
+        clearInterval(element.countdownInstance.intervalId);
+      }
+    });
+  });
+  document.addEventListener('shopify:section:select', initializeCountdowns);
+  document.addEventListener('shopify:section:deselect', initializeCountdowns);
+  document.addEventListener('shopify:block:select', initializeCountdowns);
+  document.addEventListener('shopify:block:deselect', initializeCountdowns);
+}
+
+// Also listen for window resize and other events that might affect the countdown
+window.addEventListener('resize', () => {
+  // Reinitialize if needed (optional)
+  setTimeout(initializeCountdowns, 100);
 });
