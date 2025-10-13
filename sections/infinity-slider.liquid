@@ -173,13 +173,11 @@
             <p class="display-2xl fw-semibold {{ block.settings.text_class }}">{{ block.settings.text }}</p>
           </div>
           
-          {% unless forloop.last %}
             <div class="brand-item icon-item">
               <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M42 18.9H26.04L37.38 7.56L34.44 4.62L23.1 15.96V0H18.9V15.96L7.56 4.62L4.62 7.56L15.96 18.9H0V23.1H15.96L4.62 34.44L7.56 37.38L18.9 26.04V42H23.1V26.04L34.44 37.38L37.38 34.44L26.04 23.1H42V18.9Z" fill="{{ section.settings.icon_color }}"></path>
               </svg>
             </div>
-          {% endunless %}
         {% endif %}
       {% endfor %}      
     </div>
