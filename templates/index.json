@@ -111,7 +111,7 @@
           "nike-victori-one"
         ],
         "products_to_show": 6,
-        "show_navigation": false,
+        "show_navigation": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
