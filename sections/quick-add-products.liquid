@@ -32,7 +32,7 @@
       "label": "t:sections.quick-add-products.settings.background_image.label",
       "info": "t:sections.quick-add-products.settings.background_image.info"
     },
-    
+
     {
       "type": "text",
       "id": "title",
@@ -109,7 +109,12 @@
       "type": "header",
       "content": "t:sections.quick-add-products.settings.slider_settings_header.content"
     },
-    
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "t:sections.quick-add-products.settings.show_navigation.label",
+      "default": true
+    },
     {
       "type": "checkbox",
       "id": "show_dots_mobile",
@@ -295,70 +300,90 @@
 
 {% if section.settings.layout == 'layout-2' %}
   <!-- Layout 2: Featured Products Style -->
-  <section class="flat-spacing-3 pt-0 section-{{ section.id }} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+  <section class="flat-spacing-3 section-{{ section.id }} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
     <div class="container">
-      <{{ section.settings.title_tag }} class="flat-title-2 text-center text-dark-10">
-        {{ section.settings.title }}
-      </{{ section.settings.title_tag }}>
-      {% if section.settings.subtitle != blank %}
-        <p class="text-center {{ section.settings.subtitle_size }} text-grey-3 mt-2">
-          {{ section.settings.subtitle }}
-        </p>
-      {% endif %}
-      <div dir="ltr" class="swiper tf-swiper swiper-initialized swiper-horizontal swiper-backface-hidden" data-swiper='{
-            "slidesPerView": {{ section.settings.products_per_row_mobile }},
-            "spaceBetween": 12,
-            "speed": 800,
-            "observer": true,
-            "observeParents": true,
-            "slidesPerGroup": {{ section.settings.products_per_row_mobile }},
-            {% if section.settings.show_dots_mobile %}
-            "pagination": { "el": ".sw-pagination-featured", "clickable": true },
-            {% endif %}
-            "breakpoints": {
-            "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_tablet }} },
-            "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
-            }
-        }'>
+      <div class="flat-title wow fadeInUp">
+        <{{ section.settings.title_tag }} class="text-center text-dark-10">
+          {{ section.settings.title }}
+        </{{ section.settings.title_tag }}>
+        {% if section.settings.subtitle != blank %}
+          <p class="text-center {{ section.settings.subtitle_size }} text-grey-3 mt-2">
+            {{ section.settings.subtitle }}
+          </p>
+        {% endif %}
+      </div>
+      <div
+        dir="ltr"
+        class="swiper tf-swiper swiper-initialized swiper-horizontal swiper-backface-hidden"
+        data-swiper='
+          {
+              "slidesPerView": {{ section.settings.products_per_row_mobile }},
+              "spaceBetween": 12,
+              "speed": 800,
+              "observer": true,
+              "observeParents": true,
+              "slidesPerGroup": {{ section.settings.products_per_row_mobile }},
+              {% if section.settings.show_navigation %}
+              "navigation": {
+                "clickable": true,
+                "nextEl": ".nav-next-quick-add",
+                "prevEl": ".nav-prev-quick-add"
+              },
+              {% endif %}
+              {% if section.settings.show_dots_mobile %}
+              "pagination": { "el": ".sw-pagination-featured", "clickable": true },
+              {% endif %}
+              "breakpoints": {
+              "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_tablet }} },
+              "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 24, "slidesPerGroup": {{ section.settings.products_per_row_desktop }}}
+              }
+          }
+        '
+      >
         <div class="swiper-wrapper" aria-live="polite">
           {%- if section.blocks.size > 0 -%}
             {%- for block in section.blocks -%}
               {%- if block.type == 'product' and block.settings.product != blank -%}
                 {%- assign product = block.settings.product -%}
-                <div class="swiper-slide" role="group" aria-label="{{ forloop.index }} / {{ section.blocks.size }}" {{ block.shopify_attributes }}>
+                <div
+                  class="swiper-slide"
+                  role="group"
+                  aria-label="{{ forloop.index }} / {{ section.blocks.size }}"
+                  {{ block.shopify_attributes }}
+                >
                   <div class="card-product style-wishlist style-3 style-bg">
                     <div class="card-product-wrapper asp-ratio-1">
                       <a href="{{ product.url }}" class="product-img">
                         {% if block.settings.custom_image %}
-                          <img 
-                            class="img-product ls-is-cached lazyloaded" 
-                            data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                            src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                          <img
+                            class="img-product ls-is-cached lazyloaded"
+                            data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                            src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}"
                             alt="{{ block.settings.custom_image.alt | escape }}"
                             width="460"
                             height="460"
                           >
-                          <img 
-                            class="img-hover ls-is-cached lazyloaded" 
-                            data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                            src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                          <img
+                            class="img-hover ls-is-cached lazyloaded"
+                            data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                            src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}"
                             alt="{{ block.settings.custom_image.alt | escape }}"
                             width="460"
                             height="460"
                           >
                         {% elsif product.featured_image %}
-                          <img 
-                            class="img-product ls-is-cached lazyloaded" 
-                            data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                            src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                          <img
+                            class="img-product ls-is-cached lazyloaded"
+                            data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                            src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
                             alt="{{ product.featured_image.alt | escape }}"
                             width="460"
                             height="460"
                           >
-                          <img 
-                            class="img-hover ls-is-cached lazyloaded" 
-                            data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                            src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                          <img
+                            class="img-hover ls-is-cached lazyloaded"
+                            data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                            src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
                             alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
                             width="460"
                             height="460"
@@ -428,7 +453,13 @@
           {%- endif -%}
         </div>
         {% if section.settings.show_dots_mobile %}
-          <div class="d-flex d-xl-none sw-dot-default sw-pagination-featured justify-content-center swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock"></div>
+          <div
+            class="d-flex d-xl-none sw-dot-default sw-pagination-featured justify-content-center swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock"
+          ></div>
+        {% endif %}
+        {% if section.settings.show_navigation %}
+          <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-quick-add"></div>
+          <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-quick-add"></div>
         {% endif %}
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
       </div>
@@ -440,9 +471,9 @@
     <div class="flat-spacing-33 bg-brown-17 overflow-hidden relative section-{{ section.id }}-padding">
       {% if section.settings.background_image %}
         <div class="tf-overlay">
-          <img 
-            src="{{ section.settings.background_image | image_url: width: 1920 }}" 
-            alt="{{ section.settings.background_image.alt | escape }}" 
+          <img
+            src="{{ section.settings.background_image | image_url: width: 1920 }}"
+            alt="{{ section.settings.background_image.alt | escape }}"
             class="effect-paralax"
             style="width: 100%; height: 100%; object-fit: cover;"
             width="1920"
@@ -450,76 +481,93 @@
           >
         </div>
       {% endif %}
-      
+
       <div class="{{ section.settings.width }} position-relative">
         <div class="flat-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
           <{{ section.settings.title_tag }} class="title text-white">
             {{ section.settings.title }}
           </{{ section.settings.title_tag }}>
           {% if section.settings.subtitle != blank %}
-            <p class="desc text-white fs-16">
+            <p class="desc text-white {{ section.settings.subtitle_size }}">
               {{ section.settings.subtitle }}
             </p>
           {% endif %}
         </div>
-        
-        <div class="fl-control-sw2 wrap-pos-nav sw-over-product wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-          <div 
-            dir="ltr" 
-            class="swiper tf-swiper wrap-sw-over swiper-initialized swiper-horizontal swiper-backface-hidden" 
-            data-swiper='{
-              "slidesPerView": {{ section.settings.products_per_row_mobile }},
-              "spaceBetween": 12,
-              "speed": 800,
-              "slidesPerGroup": 2,
-              {% if section.settings.show_dots_mobile %}
-              "pagination": { "el": ".sw-pagination-seller1", "clickable": true },
-              {% endif %}
-              "breakpoints": {
-                "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 12, "slidesPerGroup": 3 },
-                "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 24, "slidesPerGroup": 3 }
+
+        <div
+          class="fl-control-sw2 wrap-pos-nav sw-over-product wow fadeInUp"
+          style="visibility: visible; animation-name: fadeInUp;"
+        >
+          <div
+            dir="ltr"
+            class="swiper tf-swiper wrap-sw-over swiper-initialized swiper-horizontal swiper-backface-hidden"
+            data-swiper='
+              {
+                "slidesPerView": {{ section.settings.products_per_row_mobile }},
+                "spaceBetween": 12,
+                "speed": 800,
+                "slidesPerGroup": 2,
+                {% if section.settings.show_navigation %}
+                "navigation": {
+                  "clickable": true,
+                  "nextEl": ".nav-next-quick-add-layout1",
+                  "prevEl": ".nav-prev-quick-add-layout1"
+                },
+                {% endif %}
+                {% if section.settings.show_dots_mobile %}
+                "pagination": { "el": ".sw-pagination-seller1", "clickable": true },
+                {% endif %}
+                "breakpoints": {
+                  "768": { "slidesPerView": {{ section.settings.products_per_row_tablet }}, "spaceBetween": 12, "slidesPerGroup": 3 },
+                  "1200": { "slidesPerView": {{ section.settings.products_per_row_desktop }}, "spaceBetween": 24, "slidesPerGroup": 3 }
+                }
               }
-            }'
+            '
           >
             <div class="swiper-wrapper" aria-live="polite">
               {%- if section.blocks.size > 0 -%}
                 {%- for block in section.blocks -%}
                   {%- if block.type == 'product' and block.settings.product != blank -%}
                     {%- assign product = block.settings.product -%}
-                    <div class="swiper-slide" role="group" aria-label="{{ forloop.index }} / {{ section.blocks.size }}" {{ block.shopify_attributes }}>
+                    <div
+                      class="swiper-slide"
+                      role="group"
+                      aria-label="{{ forloop.index }} / {{ section.blocks.size }}"
+                      {{ block.shopify_attributes }}
+                    >
                       <div class="card-product">
                         <div class="card-product-wrapper rounded-0">
                           <a href="{{ product.url }}" class="product-img">
                             {% if block.settings.custom_image %}
-                              <img 
-                                class="img-product ls-is-cached lazyloaded" 
-                                data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                                src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              <img
+                                class="img-product ls-is-cached lazyloaded"
+                                data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                                src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}"
                                 alt="{{ block.settings.custom_image.alt | escape }}"
                                 width="460"
                                 height="460"
                               >
-                              <img 
-                                class="img-hover ls-is-cached lazyloaded" 
-                                data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                                src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              <img
+                                class="img-hover ls-is-cached lazyloaded"
+                                data-src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                                src="{{ block.settings.custom_image | image_url: width: 460, height: 460, crop: 'center' }}"
                                 alt="{{ block.settings.custom_image.alt | escape }}"
                                 width="460"
                                 height="460"
                               >
                             {% elsif product.featured_image %}
-                              <img 
-                                class="img-product ls-is-cached lazyloaded" 
-                                data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                                src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              <img
+                                class="img-product ls-is-cached lazyloaded"
+                                data-src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                                src="{{ product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
                                 alt="{{ product.featured_image.alt | escape }}"
                                 width="460"
                                 height="460"
                               >
-                              <img 
-                                class="img-hover ls-is-cached lazyloaded" 
-                                data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
-                                src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}" 
+                              <img
+                                class="img-hover ls-is-cached lazyloaded"
+                                data-src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
+                                src="{{ product.images[1] | default: product.featured_image | image_url: width: 460, height: 460, crop: 'center' }}"
                                 alt="{{ product.images[1].alt | default: product.featured_image.alt | escape }}"
                                 width="460"
                                 height="460"
@@ -528,21 +576,31 @@
                           </a>
                           {% if product.available %}
                             <ul class="list-product-btn">
-                              {% render 'product-wishlist-button', product: product, card_style:  %}
-                              {% render 'product-quickview-button', product: product, card_style:  %}
-                              {% render 'product-compare-button', product: product, card_style:  %}
+                              {% render 'product-wishlist-button', product: product, card_style: %}
+                              {% render 'product-quickview-button', product: product, card_style: %}
+                              {% render 'product-compare-button', product: product, card_style: %}
                             </ul>
                           {% endif %}
                         </div>
-                        <div class="card-product-info text-center pb-0" style="background-color: rgb(var(--color-background2));">
+                        <div
+                          class="card-product-info text-center pb-0"
+                          style="background-color: rgb(var(--color-background2));"
+                        >
                           {%- assign display_vendor = block.settings.custom_vendor | default: product.vendor -%}
                           {% if display_vendor != blank %}
-                            <div class="sub fw-semibold font-13 text-xs fs-13" style="color: rgb(var(--color-foreground2));">
+                            <div
+                              class="sub fw-semibold font-13 text-xs fs-13"
+                              style="color: rgb(var(--color-foreground2));"
+                            >
                               {{ display_vendor | upcase }}
                             </div>
                           {% endif %}
                           {%- assign display_title = block.settings.custom_title | default: product.title -%}
-                          <a href="{{ product.url }}" class="name-product link fw-medium display-xs font-7 d-block mx-auto" style="max-width: 330px;">
+                          <a
+                            href="{{ product.url }}"
+                            class="name-product link fw-medium display-xs font-7 d-block mx-auto"
+                            style="max-width: 330px;"
+                          >
                             {{ display_title }}
                           </a>
                           <p class="price-wrap fw-medium d-flex justify-content-center align-items-center gap-8">
@@ -566,7 +624,7 @@
                             {% endif %}
                           </p>
                           {% if section.settings.show_product_features and block.settings.product_features != blank %}
-                          <div class="line-top"></div>
+                            <div class="line-top"></div>
                             <ul class="list-infor pb-30">
                               {%- assign features = block.settings.product_features | split: '.' -%}
                               {%- for feature in features -%}
@@ -574,7 +632,9 @@
                                 {%- if trimmed_feature != blank -%}
                                   <li class="item">
                                     <img src="{{ 'check.svg' | asset_url }}" alt="" width="16" height="16">
-                                    <div class="text-sm text-grey-3" style="color: rgb(var(--color-foreground3));">{{ trimmed_feature }}</div>
+                                    <div class="text-sm text-grey-3" style="color: rgb(var(--color-foreground3));">
+                                      {{ trimmed_feature }}
+                                    </div>
                                   </li>
                                 {%- endif -%}
                               {%- endfor -%}
@@ -589,7 +649,13 @@
               {%- endif -%}
             </div>
             {% if section.settings.show_dots_mobile %}
-              <div class="d-flex d-xl-none mt_5 sw-dot-default style-white sw-pagination-seller1 justify-content-center swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock"></div>
+              <div
+                class="d-flex d-xl-none mt_5 sw-dot-default style-white sw-pagination-seller1 justify-content-center swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock"
+              ></div>
+            {% endif %}
+            {% if section.settings.show_navigation %}
+              <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-quick-add-layout1"></div>
+              <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-quick-add-layout1"></div>
             {% endif %}
             <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
           </div>
@@ -598,4 +664,3 @@
     </div>
   </section>
 {% endif %}
-
