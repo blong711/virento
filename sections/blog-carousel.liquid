@@ -86,7 +86,7 @@
               "speed": {{ section.settings.animation_speed | default: 800 }},
               "observer": true,
               "observeParents": true,
-              "slidesPerGroup": 1,
+              "slidesPerGroup": {{ slides_per_view_mobile }},
               {% if section.settings.show_navigation and show_navigation_buttons -%}
               "navigation": {
                   "clickable": true,
@@ -98,8 +98,8 @@
               "pagination": { "el": ".sw-pagination-blog-{{ section.id }}", "clickable": true },
               {% endif -%}
               "breakpoints": {
-              "577": { "slidesPerView": {{ slides_per_view_tablet }}, "spaceBetween": 12, "slidesPerGroup": 2 },
-              "1200": { "slidesPerView": {{ slides_per_view_desktop }}, "spaceBetween": {{ space_between }}, "slidesPerGroup": 4}
+              "577": { "slidesPerView": {{ slides_per_view_tablet }}, "spaceBetween": 12, "slidesPerGroup": {{ slides_per_view_tablet }} },
+              "1200": { "slidesPerView": {{ slides_per_view_desktop }}, "spaceBetween": {{ space_between }}, "slidesPerGroup": {{ slides_per_view_desktop }}}
               }
           }
         '
@@ -440,7 +440,7 @@
       "id": "slides_desktop",
       "label": "t:sections.blog-carousel.slides_per_view_desktop",
       "min": 1,
-      "max": 6,
+      "max": 5,
       "step": 1,
       "default": 3
     },
