@@ -131,12 +131,6 @@
           },
           {
             "type": "color",
-            "id": "text_hover",
-            "label": "Text Hover Color",
-            "default": "#666666"
-          },
-          {
-            "type": "color",
             "id": "button",
             "label": "t:settings_schema.colors.settings.button_background.label",
             "default": "#121212"
