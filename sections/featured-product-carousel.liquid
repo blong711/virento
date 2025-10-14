@@ -550,7 +550,8 @@
       {% else %}
         {% assign total_products = 0 %}
       {% endif %}
-      {% if section.settings.show_navigation and total_products > section.settings.products_per_row_desktop %}
+      {% assign desktop_products = section.settings.products_per_row_desktop | plus: 0 %}
+      {% if section.settings.show_navigation and total_products > desktop_products %}
         <div class="d-none d-xl-flex swiper-button-prev nav-swiper nav-prev-top-pick"></div>
         <div class="d-none d-xl-flex swiper-button-next nav-swiper nav-next-top-pick"></div>
       {% endif %}
