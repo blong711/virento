@@ -543,10 +543,10 @@
         {% endif %}
       </div>
       {% if section.settings.product_list != blank %}
-        {% assign total_products = section.settings.product_list | size %}
+        {% assign total_products = section.settings.product_list | size | plus: 0 %}
       {% elsif section.settings.featured_collection != blank %}
         {% assign collection = collections[section.settings.featured_collection] %}
-        {% assign total_products = collection.products_count %}
+        {% assign total_products = collection.products_count | plus: 0 %}
       {% else %}
         {% assign total_products = 0 %}
       {% endif %}
