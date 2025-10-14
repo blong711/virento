@@ -385,6 +385,49 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Debug: Setting is disabled or user_select mode, NOT adding click handlers for grid/stacked images');
   }
 
+  // Add click handler for thumbnail gallery images to select variants (only when setting is enabled and not in user_select mode)
+  if (
+    window.enableVariantByImage &&
+    (!window.variantPickerSettings || window.variantPickerSettings.pickMode !== 'user_select')
+  ) {
+    document.querySelectorAll('.tf-product-media-thumbs .swiper-slide').forEach((thumbSlide) => {
+      thumbSlide.addEventListener('click', function () {
+        const mediaId = parseInt(this.getAttribute('data-media-id'));
+        const productMedia = window.productMedia || [];
+        const media = productMedia.find((m) => m.id === mediaId);
+
+        if (media) {
+          const variants = window.productVariants || [];
+          let matchedVariant = null;
+
+          // Try to find variant by variant_ids
+          if (media.variant_ids && media.variant_ids.length > 0) {
+            matchedVariant = variants.find((v) => media.variant_ids.includes(v.id));
+          }
+
+          // If no match found, try to match by src
+          if (!matchedVariant && media.src) {
+            matchedVariant = variants.find((v) => v.featured_image && v.featured_image.src === media.src);
+          }
+
+          if (matchedVariant) {
+            // Find the main add-to-cart button in the main product section
+            const mainSection = document.querySelector('.tf-product-info, .product-info, .product-details');
+            const targetButton = mainSection
+              ? mainSection.querySelector('.product-cart-button:not(.tf-sticky-btn-atc .product-cart-button)')
+              : null;
+
+            updateVariantSelection(matchedVariant, false, targetButton);
+          } else {
+            console.log('Debug: No matching variant found for thumbnail media:', media);
+          }
+        }
+      });
+    });
+  } else {
+    console.log('Debug: Setting is disabled or user_select mode, NOT adding click handlers for thumbnail images');
+  }
+
   // Disable navigation buttons when at start/end
   function updateNavigationButtons() {
     const prevButton = document.querySelector('.thumbs-prev');
