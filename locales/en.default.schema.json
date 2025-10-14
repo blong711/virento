@@ -7846,7 +7846,8 @@
             "button_label": "Button label",
             "button_style": "Button style",
             "button_primary": "Primary button",
-            "button_link": "Text link"
+            "button_link": "Text link",
+            "show_icon": "Show icon"
           }
         }
       }
