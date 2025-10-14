@@ -15,7 +15,7 @@
         "item1": {
           "type": "grid_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-a8ee762a-2f43-4b89-8b05-39d52b0cba43",
             "image": "shopify://shop_images/footwear-1.jpg",
             "hover_image": true,
             "title": "New Arrivals",
@@ -30,7 +30,7 @@
         "grid_item_R74HLH": {
           "type": "grid_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-a8ee762a-2f43-4b89-8b05-39d52b0cba43",
             "image": "shopify://shop_images/footwear-2.jpg",
             "hover_image": true,
             "title": "Sneakers",
@@ -45,7 +45,7 @@
         "grid_item_DAWKtU": {
           "type": "grid_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-a8ee762a-2f43-4b89-8b05-39d52b0cba43",
             "image": "shopify://shop_images/footwear-3.jpg",
             "hover_image": true,
             "title": "Sandals",
@@ -60,7 +60,7 @@
         "grid_item_yD43xf": {
           "type": "grid_item",
           "settings": {
-            "color_scheme": "",
+            "color_scheme": "scheme-a8ee762a-2f43-4b89-8b05-39d52b0cba43",
             "image": "shopify://shop_images/footwear-4.jpg",
             "hover_image": true,
             "title": "Boots",
