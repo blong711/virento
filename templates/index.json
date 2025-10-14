@@ -24,7 +24,8 @@
             "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "View Collection",
-            "button_style": "primary"
+            "button_style": "primary",
+            "show_icon": true
           }
         },
         "grid_item_R74HLH": {
@@ -39,7 +40,8 @@
             "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Explore Now",
-            "button_style": "link"
+            "button_style": "link",
+            "show_icon": true
           }
         },
         "grid_item_DAWKtU": {
@@ -54,7 +56,8 @@
             "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Explore Now",
-            "button_style": "link"
+            "button_style": "link",
+            "show_icon": true
           }
         },
         "grid_item_yD43xf": {
@@ -69,7 +72,8 @@
             "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Explore Now",
-            "button_style": "link"
+            "button_style": "link",
+            "show_icon": true
           }
         }
       },
@@ -114,7 +118,7 @@
         "show_navigation": true,
         "show_dots_mobile": true,
         "products_per_row_desktop": 4,
-        "products_per_row_tablet": 3,
+        "products_per_row_tablet": 4,
         "products_per_row_mobile": 2,
         "padding_top": 4,
         "padding_bottom": 120,
