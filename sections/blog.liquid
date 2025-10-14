@@ -41,7 +41,7 @@
             {%- assign content_align = block.settings.Content_align | default: 'start' -%}
 
             {% comment %} Parse color list for tags {% endcomment %}
-            {%- assign color_list_string = block.settings.color_list -%}
+            {%- assign color_list_string = section.settings.color_list -%}
             {%- assign color_array = color_list_string | split: ',' -%}
             {%- assign parsed_colors = '' -%}
             {%- for color in color_array -%}
@@ -821,6 +821,13 @@
       ],
       "default": "list",
       "label": "t:sections.blog.blocks.blog_content.settings.layout.label"
+    },
+    {
+      "type": "text",
+      "id": "color_list",
+      "label": "t:sections.blog_content.settings.color_list.label",
+      "default": "#ffe1e1, #ede2ff, #c5ffbb, #c3dbff",
+      "info": "t:sections.blog_content.settings.color_list.info"
     }
   ],
   "blocks": [
@@ -1023,13 +1030,6 @@
           ],
           "label": "t:sections.blog_content.image_ratio.label",
           "default": "-adapt_image"
-        },
-        {
-          "type": "text",
-          "id": "color_list",
-          "label": "t:sections.blog_content.settings.color_list.label",
-          "default": "#ffe1e1, #ede2ff, #c5ffbb, #c3dbff",
-          "info": "t:sections.blog_content.settings.color_list.info"
         }
       ]
     },
