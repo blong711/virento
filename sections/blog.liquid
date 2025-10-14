@@ -518,11 +518,13 @@
     {% endfor %}
   </div>
 </div>
+{% if has_sidebar %}
 <div class="btn-sidebar-mb d-lg-none right">
   <button data-bs-toggle="offcanvas" data-bs-target="#mbAccount">
     <i class="icon icon-sidebar"></i>
   </button>
 </div>
+{% endif %}
 {% render 'blog-sidebar' %}
 
 {% style %}
