@@ -48,7 +48,7 @@
                 {% if section.blocks.size == 3 %}
                   {% if section.settings.three_item_style == 'style1' %}
                     <div class="cls-btn wow fadeInUp">
-                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %} mb_16 text-white font-14">{{ block.settings.title }}</div>
+                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %} mb_16 font-14">{{ block.settings.title }}</div>
                       {% if block.settings.button_style == 'primary' %}
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
                           <a href="{{ block.settings.link }}" class="tf-btn btn-cls animate-btn animate-dark">
@@ -87,7 +87,7 @@
                           {% endif %}
                         {% else %}
                           {% if block.settings.button_label != blank and block.settings.link != blank %}
-                            <a href="{{ block.settings.link }}" class="d-flex align-items-center text-white text-md fw-medium gap-10 link">
+                            <a href="{{ block.settings.link }}" class="d-flex align-items-center text-md fw-medium gap-10 link">
                               <span class="text-transform-none">
                                 {{ block.settings.button_label }}
                               </span>
@@ -101,21 +101,21 @@
                 {% else %}
                   <div class="content">
                     <div class="box-title">
-                      <div class="text-white {% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %}">
+                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %}">
                         {{ block.settings.title }}
                       </div>
                     </div>
                     <div class="box-btn">
                       {% if block.settings.button_style == 'primary' %}
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
-                          <a href="{{ block.settings.link }}" class="tf-btn btn-white hover-primary">
+                          <a href="{{ block.settings.link }}" class="tf-btn hover-primary">
                               {{ block.settings.button_label }}
                               <i class="icon icon-arrow-top-left"></i>
                           </a>
                         {% endif %}
                       {% else %}
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
-                          <a href="{{ block.settings.link }}" class="d-flex align-items-center text-white text-md fw-medium gap-10 link">
+                          <a href="{{ block.settings.link }}" class="d-flex align-items-center text-md fw-medium gap-10 link">
                               <span class="text-transform-none">
                               {{ block.settings.button_label }}
                               </span>
