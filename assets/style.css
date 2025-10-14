@@ -17722,9 +17722,9 @@ button.animate-btn::after,
 }
 
 .entry-tag .style-list a:hover {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  color: var(--white);
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--white) !important;
 }
 
 .entry-tag .style-list .type-life {

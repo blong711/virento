@@ -40,6 +40,20 @@
             {% comment %} Generate content alignment class {% endcomment %}
             {%- assign content_align = block.settings.Content_align | default: 'start' -%}
 
+            {% comment %} Parse color list for tags {% endcomment %}
+            {%- assign color_list_string = block.settings.color_list -%}
+            {%- assign color_array = color_list_string | split: ',' -%}
+            {%- assign parsed_colors = '' -%}
+            {%- for color in color_array -%}
+              {%- assign trimmed_color = color | strip -%}
+              {%- if parsed_colors == '' -%}
+                {%- assign parsed_colors = trimmed_color -%}
+              {%- else -%}
+                {%- assign parsed_colors = parsed_colors | append: '|' | append: trimmed_color -%}
+              {%- endif -%}
+            {%- endfor -%}
+            {%- assign final_color_array = parsed_colors | split: '|' -%}
+
             {% comment %} Generate responsive grid classes {% endcomment %}
             {%- assign grid_dk = block.settings.items_per_row_dk | default: '2' -%}
             {%- assign grid_tb = block.settings.items_per_row_tb | default: '2' -%}
@@ -140,10 +154,13 @@
                               {% if current_blog.all_tags.size > 0 %}
                                 <ul class="tag-blog-list style-list">
                                   {% for tag in current_blog.all_tags limit: 8 %}
+                                    {%- assign color_index = forloop.index0 | modulo: final_color_array.size -%}
+                                    {%- assign tag_color = final_color_array[color_index] -%}
                                     <li>
                                       <a
                                         href="{{ current_blog.url }}/tagged/{{ tag | handle }}"
                                         class="type-{{ tag | handle }}"
+                                        style="background-color: {{ tag_color }};"
                                       >
                                         {{ tag }}
                                       </a>
@@ -256,11 +273,22 @@
                           <div class="blog-content blog-content--{{ content_align }}">
                             <div class="entry-tag">
                               <ul class="style-list">
-                                {% for tag in article.tags limit: 1 %}
+                                {% for tag in article.tags limit: 3 %}
+                                  {%- assign all_tags_array = current_blog.all_tags -%}
+                                  {%- assign tag_position = 0 -%}
+                                  {%- for blog_tag in all_tags_array -%}
+                                    {%- if blog_tag == tag -%}
+                                      {%- assign tag_position = forloop.index0 -%}
+                                      {%- break -%}
+                                    {%- endif -%}
+                                  {%- endfor -%}
+                                  {%- assign color_index = tag_position | modulo: final_color_array.size -%}
+                                  {%- assign tag_color = final_color_array[color_index] -%}
                                   <li>
                                     <a
                                       href="{{ current_blog.url }}/tagged/{{ tag | handle }}"
                                       class="type-{{ tag | handle }}"
+                                      style="background-color: {{ tag_color }};"
                                     >
                                       {{ tag }}
                                     </a>
@@ -458,8 +486,13 @@
                               {% if current_blog.all_tags.size > 0 %}
                                 <ul class="tag-blog-list style-list">
                                   {% for tag in current_blog.all_tags limit: 8 %}
+                                    {%- assign color_index = forloop.index0 | modulo: final_color_array.size -%}
+                                    {%- assign tag_color = final_color_array[color_index] -%}
                                     <li>
-                                      <a href="{{ current_blog.url }}/tagged/{{ tag | handle }}">
+                                      <a 
+                                        href="{{ current_blog.url }}/tagged/{{ tag | handle }}"
+                                        style="background-color: {{ tag_color }};"
+                                      >
                                         {{ tag }}
                                       </a>
                                     </li>
@@ -990,6 +1023,13 @@
           ],
           "label": "t:sections.blog_content.image_ratio.label",
           "default": "-adapt_image"
+        },
+        {
+          "type": "text",
+          "id": "color_list",
+          "label": "t:sections.blog_content.settings.color_list.label",
+          "default": "#ffe1e1, #ede2ff, #c5ffbb, #c3dbff",
+          "info": "t:sections.blog_content.settings.color_list.info"
         }
       ]
     },
