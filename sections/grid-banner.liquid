@@ -51,13 +51,13 @@
                       <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %} mb_16 text-white font-14">{{ block.settings.title }}</div>
                       {% if block.settings.button_style == 'primary' %}
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
-                          <a href="{{ block.settings.link }}" class="tf-btn btn-cls btn-white animate-btn animate-dark">
+                          <a href="{{ block.settings.link }}" class="tf-btn btn-cls animate-btn animate-dark">
                             {{ block.settings.button_label }}
                           </a>
                         {% endif %}
                       {% else %}
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
-                          <a href="{{ block.settings.link }}" class="d-flex align-items-center text-white text-md fw-medium gap-10 link">
+                          <a href="{{ block.settings.link }}" class="d-flex align-items-center text-md fw-medium gap-10 link">
                             <span class="text-transform-none">
                               {{ block.settings.button_label }}
                             </span>
