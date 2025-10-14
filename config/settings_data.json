@@ -230,6 +230,28 @@
           "primary_input": "#ffffff",
           "secondary_input": "#f5f5f5"
         }
+      },
+      "scheme-a8ee762a-2f43-4b89-8b05-39d52b0cba43": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "background2": "#f5f5f5",
+          "text": "#ffffff",
+          "link": "#ffffff",
+          "link_hover": "#ff6f61",
+          "text2": "#545454",
+          "text3": "#8f6dff",
+          "text_hover": "#ff6f61",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "button_outline": "#ffffff",
+          "button_hover": "#ff6f61",
+          "button_label_hover": "#ffffff",
+          "button_outline_hover": "#ff6f61",
+          "shadow": "#121212",
+          "primary_input": "#ffffff",
+          "secondary_input": "#f5f5f5"
+        }
       }
     }
   },
