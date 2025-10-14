@@ -8072,6 +8072,12 @@
         },
         "gap_desktop": {
           "label": "Grid gap"
+        },
+        "gap_tablet": {
+          "label": "Grid gap (tablet)"
+        },
+        "gap_mobile": {
+          "label": "Grid gap (mobile)"
         }
       },
       "blocks": {

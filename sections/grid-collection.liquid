@@ -29,6 +29,26 @@
       "default": 24
     },
     {
+      "type": "range",
+      "id": "gap_tablet",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.grid-collection.settings.gap_tablet.label",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.grid-collection.settings.gap_mobile.label",
+      "default": 12
+    },
+    {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
     },
@@ -119,7 +139,20 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-  @media (min-width: 768px) {
+  /* Mobile gap */
+  #shopify-section-{{ section.id }} .grid-cls {
+    gap: {{ section.settings.gap_mobile }}px;
+  }
+
+  /* Tablet gap */
+  @media screen and (min-width: 768px) and (max-width: 1199px) {
+    #shopify-section-{{ section.id }} .grid-cls {
+      gap: {{ section.settings.gap_tablet }}px;
+    }
+  }
+
+  /* Desktop gap */
+  @media screen and (min-width: 1200px) {
     #shopify-section-{{ section.id }} .grid-cls {
       gap: {{ section.settings.gap_desktop }}px;
     }
