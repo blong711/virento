@@ -28927,10 +28927,10 @@ shopify-accelerated-checkout {
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1px #1f1f1f;
 }
-.banner-space-1 .box-content {
+/* .banner-space-1 .box-content {
   margin: 0;
   padding: 24px 86px;
-}
+} */
 @media (min-width: 1200px) {
   .s-banner-colection .box-content {
       padding: 40px 60px;
