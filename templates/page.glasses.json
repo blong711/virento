@@ -21,10 +21,10 @@
             "heading_size": "display-md",
             "heading_weight": "fw-normal",
             "description": "Explore our curated collection of eyeglasses and sunglasses — crafted for comfort, clarity, and standout style.",
+            "text_size": "text-md",
             "subheading": "See Clearly. Look Sharp.",
             "box_bg_class": "bg-yellow-8",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
-            "text_size": "text-md",
             "button_link": "/collections/all",
             "button_text": "Shop Now",
             "heading_max_width": 400
@@ -39,10 +39,10 @@
             "heading_size": "display-md",
             "heading_weight": "fw-normal",
             "description": "Premium frames and lenses designed to fit your lifestyle.",
+            "text_size": "text-md",
             "subheading": "Style Meets Clarity",
             "box_bg_class": "bg-yellow-8",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
-            "text_size": "text-md",
             "button_link": "/collections/all",
             "button_text": "Shop Now",
             "heading_max_width": 400
@@ -180,7 +180,7 @@
         "button_text": "Shop New Arrival",
         "button_link": "/collections/all",
         "padding_top": 0,
-        "padding_bottom": 36,
+        "padding_bottom": 0,
         "padding_mobile_rate": 75
       }
     },
