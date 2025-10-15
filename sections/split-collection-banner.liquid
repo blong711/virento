@@ -34,12 +34,6 @@
       "label": "t:sections.split-collection-banner.settings.banner_image.label"
     },
     {
-      "type": "text",
-      "id": "image_alt",
-      "label": "t:sections.split-collection-banner.settings.image_alt.label",
-      "default": "Collection Banner"
-    },
-    {
       "type": "header",
       "content": "t:sections.split-collection-banner.settings.content_settings.content"
     },
@@ -145,7 +139,7 @@
               {{ section.settings.banner_image | image_url: width: 1200 }} 1200w
             "
             sizes="(min-width: 1200px) 50vw, 100vw"
-            alt="{{ section.settings.image_alt | escape }}"
+            alt=""
             width="{{ section.settings.banner_image.width | default: 800 }}"
             height="{{ section.settings.banner_image.height | default: 600 }}"
             loading="lazy"
