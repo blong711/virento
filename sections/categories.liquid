@@ -445,4 +445,18 @@
     object-fit: cover;
     border-radius: 0;
   }
+
+  /* Fix text cutoff issues for collection titles */
+  .section-{{ section.id }} .wg-cls .cls-content {
+    padding-top: 12px;
+    min-height: auto;
+    overflow: visible;
+  }
+  .section-{{ section.id }} .wg-cls .cls-content .link {
+    display: block;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
 {%- endstyle -%}
