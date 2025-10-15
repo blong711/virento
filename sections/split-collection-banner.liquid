@@ -123,6 +123,20 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .tf-btn {
+    background-color: transparent !important;
+    color: rgb(var(--color-link)) !important;
+    border: none !important;
+  }
+
+  .tf-btn:hover {
+    color: rgb(var(--color-link-hover)) !important;
+  }
+
+  .tf-btn.btn-line-dark::after {
+    background-color: rgb(var(--color-link));
+  }
 {% endstyle %}
 
 <section class="s-banner-colection banner-space-1 color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
