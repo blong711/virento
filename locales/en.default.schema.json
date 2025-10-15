@@ -818,7 +818,7 @@
               "label": "Box background class",
             },
             "content_alignment": {
-              "label": "Content Alignment",
+              "label": "Content Position",
               "options": {
                 "left": "Left",
                 "center": "Center",
