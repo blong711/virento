@@ -5765,6 +5765,10 @@
     "blog_content": {
       "name": "Blog Content",
       "settings": {
+        "color_list": {
+          "label": "Color list",
+          "info": "Enter colors (comma separated)"
+        },
         "header_content": "Content Settings",
         "content_align": {
           "label": "Content align",
