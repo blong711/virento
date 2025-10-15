@@ -254,22 +254,46 @@
       "category": "t:sections.categories.presets.category",
       "blocks": [
         {
-          "type": "category"
+          "type": "category",
+          "settings": {
+            "title": "T-Shirts",
+            "image": "shopify://shop_images/category-tshirt.jpg"
+          }
         },
         {
-          "type": "category"
+          "type": "category",
+          "settings": {
+            "title": "Jeans",
+            "image": "shopify://shop_images/category-jeans.jpg"
+          }
         },
         {
-          "type": "category"
+          "type": "category",
+          "settings": {
+            "title": "Dresses",
+            "image": "shopify://shop_images/category-dress.jpg"
+          }
         },
         {
-          "type": "category"
+          "type": "category",
+          "settings": {
+            "title": "Shoes",
+            "image": "shopify://shop_images/category-shoes.jpg"
+          }
         },
         {
-          "type": "category"
+          "type": "category",
+          "settings": {
+            "title": "Accessories",
+            "image": "shopify://shop_images/category-accessories.jpg"
+          }
         },
         {
-          "type": "category"
+          "type": "category",
+          "settings": {
+            "title": "Jackets",
+            "image": "shopify://shop_images/category-jacket.jpg"
+          }
         }
       ]
     }
@@ -391,7 +415,15 @@
           <div class="d-flex d-xl-none sw-dot-default sw-pagination-categories justify-content-center"></div>
         {% endif %}
       </div>
-      {% if section.settings.show_arrows %}
+      {% assign has_categories = false %}
+      {% for block in section.blocks %}
+        {% if block.type == 'category' and block.settings.collection != blank %}
+          {% assign has_categories = true %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if section.settings.show_arrows and has_categories %}
         <div class="swiper-button-next d-none d-xl-flex nav-swiper nav-next-categories"></div>
         <div class="swiper-button-prev d-none d-xl-flex nav-swiper nav-prev-categories"></div>
       {% endif %}
