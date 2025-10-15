@@ -256,43 +256,37 @@
         {
           "type": "category",
           "settings": {
-            "title": "T-Shirts",
-            "image": "shopify://shop_images/category-tshirt.jpg"
+            "title": "T-Shirts"
           }
         },
         {
           "type": "category",
           "settings": {
-            "title": "Jeans",
-            "image": "shopify://shop_images/category-jeans.jpg"
+            "title": "Jeans"
           }
         },
         {
           "type": "category",
           "settings": {
-            "title": "Dresses",
-            "image": "shopify://shop_images/category-dress.jpg"
+            "title": "Dresses"
           }
         },
         {
           "type": "category",
           "settings": {
-            "title": "Shoes",
-            "image": "shopify://shop_images/category-shoes.jpg"
+            "title": "Shoes"
           }
         },
         {
           "type": "category",
           "settings": {
-            "title": "Accessories",
-            "image": "shopify://shop_images/category-accessories.jpg"
+            "title": "Accessories"
           }
         },
         {
           "type": "category",
           "settings": {
-            "title": "Jackets",
-            "image": "shopify://shop_images/category-jacket.jpg"
+            "title": "Jackets"
           }
         }
       ]
@@ -389,15 +383,15 @@
                           block.settings.image
                           | image_url: width: image_size
                           | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
-                          | default: collection.title
                         }}
-                      {% else %}
+                      {% elsif collection.image %}
                         {{
                           collection.image
                           | image_url: width: image_size
                           | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
-                          | default: collection.title
                         }}
+                      {% else %}
+                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                       {% endif %}
                     </a>
                     <div class="cls-content text-center">
