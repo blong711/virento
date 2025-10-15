@@ -350,7 +350,7 @@
               {% assign collection = block.settings.collection %}
               {% if collection != blank %}
                 <div class="swiper-slide">
-                  <div class="wg-cls {% if section.settings.image_shape == 'circle' %}style-circle{% endif %} hover-img ">
+                  <div class="wg-cls {% if section.settings.image_shape == 'circle' %}style-circle{% elsif section.settings.image_shape == 'square' %}style-square{% endif %} hover-img ">
                     {% assign link = block.settings.link | default: collection.url %}
                     <a
                       href="{{ link }}"
@@ -432,5 +432,17 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* Square image shape styling */
+  .section-{{ section.id }} .wg-cls.style-square .image {
+    border-radius: 0;
+    aspect-ratio: 1 / 1;
+  }
+  .section-{{ section.id }} .wg-cls.style-square .image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
   }
 {%- endstyle -%}
