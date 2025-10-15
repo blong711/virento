@@ -365,9 +365,7 @@
         <div class="swiper-wrapper wow fadeInUp">
           {% for block in section.blocks %}
             {% if block.type == 'category' %}
-              {% assign collection = block.settings.collection %}
-              {% if collection != blank %}
-                <div class="swiper-slide">
+              {% assign collection = block.settings.collection %}                <div class="swiper-slide">
                   <div class="wg-cls {% if section.settings.image_shape == 'circle' %}style-circle{% elsif section.settings.image_shape == 'square' %}style-square{% endif %} hover-img ">
                     {% assign link = block.settings.link | default: collection.url %}
                     <a
@@ -410,7 +408,6 @@
                     </div>
                   </div>
                 </div>
-              {% endif %}
             {% endif %}
           {% endfor %}
         </div>
