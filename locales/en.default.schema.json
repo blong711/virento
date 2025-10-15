@@ -724,7 +724,7 @@
           }
         },
         "button_animate": {
-          "label": "Enable button animation"
+          "label": "Enable button hover animation"
         },
         "pagination_dots_style": {
           "label": "Pagination dots style",
@@ -818,7 +818,7 @@
               "label": "Box background class",
             },
             "content_alignment": {
-              "label": "Content Alignment",
+              "label": "Content Position",
               "options": {
                 "left": "Left",
                 "center": "Center",
@@ -826,7 +826,7 @@
               }
             },
             "text_size": {
-              "label": "Text Size",
+              "label": "Description Size",
               "options": {
                 "small": "Small",
                 "medium": "Medium",
@@ -8254,7 +8254,7 @@
           "settings": {
             "image": { "label": "Author image" },
             "rating": { "label": "Rating (1–5)" },
-            "title": { "label": "Headline", "default": "Great quality and design" },
+            "title": { "label": "Title", "default": "Great quality and design" },
             "review": { "label": "Review text", "default": "This product transformed my space. Highly recommend!" },
             "author": { "label": "Author name", "default": "John D." },
             "product_link": { "label": "Product link URL" },

@@ -283,6 +283,26 @@
           "default": "t:sections.main_slider.blocks.slide.settings.description.default"
         },
         {
+          "type": "radio",
+          "id": "text_size",
+          "label": "t:sections.main_slider.blocks.slide.settings.text_size.label",
+          "options": [
+            {
+              "value": "text-sm",
+              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.small"
+            },
+            {
+              "value": "text-md",
+              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.medium"
+            },
+            {
+              "value": "text-lg",
+              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.large"
+            }
+          ],
+          "default": "text-md"
+        },
+        {
           "type": "text",
           "id": "subheading",
           "label": "t:sections.main_slider.blocks.slide.settings.subheading.label"
@@ -312,26 +332,6 @@
             }
           ],
           "default": "col-12 col-sm-6 col-lg-5"
-        },
-        {
-          "type": "radio",
-          "id": "text_size",
-          "label": "t:sections.main_slider.blocks.slide.settings.text_size.label",
-          "options": [
-            {
-              "value": "text-sm",
-              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.small"
-            },
-            {
-              "value": "text-md",
-              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.medium"
-            },
-            {
-              "value": "text-lg",
-              "label": "t:sections.main_slider.blocks.slide.settings.text_size.options.large"
-            }
-          ],
-          "default": "text-md"
         },
         {
           "type": "url",
@@ -548,6 +548,22 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Placeholder image styling for slider */
+  #shopify-section-{{ section.id }} .slider-wrap .image .placeholder-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(var(--color-background));
+  }
+  #shopify-section-{{ section.id }} .slider-wrap .image .placeholder-image svg {
+    width: 100%;
+    height: 100%;
+    fill: rgb(var(--color-foreground));
+    opacity: 0.3;
+  }
 {% endstyle %}
 
 <section class="tf-slideshow {% if section.settings.layout_style == 'style-2' %}slider-viewport slider-style-2{% else %}slider-supplement slider-default{% endif %} color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -641,6 +657,16 @@
                               {{ block.settings.image | image_url: width: 767 | image_tag: class: mobile_image_class, alt: block.settings.heading, loading: 'lazy', decoding: 'async' }}
                             {% endif %}
                           {% endif %}
+                        {% else %}
+                          {% assign placeholder_index = forloop.index %}
+                          <div class="placeholder-image">
+                            {% if placeholder_index == 1 %}{{ 'lifestyle-1' | placeholder_svg_tag }}
+                            {% elsif placeholder_index == 2 %}{{ 'lifestyle-2' | placeholder_svg_tag }}
+                            {% elsif placeholder_index == 3 %}{{ 'lifestyle-3' | placeholder_svg_tag }}
+                            {% elsif placeholder_index == 4 %}{{ 'lifestyle-1' | placeholder_svg_tag }}
+                            {% else %}{{ 'lifestyle-2' | placeholder_svg_tag }}
+                            {% endif %}
+                          </div>
                         {% endif %}
                       </div>
                     </div>
@@ -725,6 +751,16 @@
                               }}
                             {% endif %}
                           {% endif %}
+                        {% else %}
+                          {% assign placeholder_index = forloop.index %}
+                          <div class="placeholder-image">
+                            {% if placeholder_index == 1 %}{{ 'lifestyle-1' | placeholder_svg_tag }}
+                            {% elsif placeholder_index == 2 %}{{ 'lifestyle-2' | placeholder_svg_tag }}
+                            {% elsif placeholder_index == 3 %}{{ 'lifestyle-3' | placeholder_svg_tag }}
+                            {% elsif placeholder_index == 4 %}{{ 'lifestyle-1' | placeholder_svg_tag }}
+                            {% else %}{{ 'lifestyle-2' | placeholder_svg_tag }}
+                            {% endif %}
+                          </div>
                         {% endif %}
                       </div>
                       <div class="box-content">
