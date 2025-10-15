@@ -724,7 +724,7 @@
           }
         },
         "button_animate": {
-          "label": "Enable button animation"
+          "label": "Enable button hover animation"
         },
         "pagination_dots_style": {
           "label": "Pagination dots style",
