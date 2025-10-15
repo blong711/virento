@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "slider": {
       "type": "main-slider",
@@ -81,6 +81,7 @@
         "grid_item_8KAjXA": {
           "type": "grid_item",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/cls-1_1.jpg",
             "hover_image": true,
             "title": "Visionary Vibes",
@@ -89,12 +90,14 @@
             "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Shop Collection",
-            "button_style": "primary"
+            "button_style": "primary",
+            "show_icon": true
           }
         },
         "grid_item_4T3X3H": {
           "type": "grid_item",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/cls-2_1.jpg",
             "hover_image": true,
             "title": "Timeless Optics",
@@ -103,12 +106,14 @@
             "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Shop Collection",
-            "button_style": "primary"
+            "button_style": "primary",
+            "show_icon": true
           }
         },
         "grid_item_P3Mf9t": {
           "type": "grid_item",
           "settings": {
+            "color_scheme": "",
             "image": "shopify://shop_images/cls-3_1.jpg",
             "hover_image": true,
             "title": "Clear Edge Collection",
@@ -117,7 +122,8 @@
             "subtitle_size": "medium",
             "link": "shopify://collections",
             "button_label": "Shop Collection",
-            "button_style": "primary"
+            "button_style": "primary",
+            "show_icon": true
           }
         }
       },
@@ -134,7 +140,8 @@
         "three_item_style": "style1",
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "collection_slider_TgbDxK": {
@@ -146,12 +153,6 @@
         "title_alignment": "start",
         "title": "Shop frames by lens type",
         "title_tag": "h4",
-        "collection_list": [
-          "blue-light",
-          "progessives",
-          "anti-fatigue",
-          "light-responsive"
-        ],
         "show_collection_title": true,
         "show_mobile_dots": true,
         "slides_per_view_desktop": "4",
@@ -162,24 +163,24 @@
         "space_between_mobile": 12,
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "split_collection_banner_8X9K2L": {
       "type": "split-collection-banner",
       "name": "Split Collection Banner",
       "settings": {
-        "color_scheme": "scheme-c08439f4-7f37-43bc-921f-7a33c3d2ea98",
+        "color_scheme": "scheme-3",
         "width": "",
         "banner_image": "shopify://shop_images/glasses_ae565cb0-7df8-4f83-90cc-46b395ebc093.jpg",
-        "image_alt": "Fresh Frames Collection",
         "subtitle": "Fresh Frames, Just In",
         "title": "See What's New. Style That Speaks.",
         "description": "Discover our latest arrivals — from bold statement pieces to minimalist must-haves. Designed to elevate your look and sharpen your vision.",
         "button_text": "Shop New Arrival",
         "button_link": "/collections/all",
         "padding_top": 0,
-        "padding_bottom": 0,
+        "padding_bottom": 36,
         "padding_mobile_rate": 75
       }
     },
@@ -205,14 +206,14 @@
         ],
         "products_to_show": 6,
         "show_navigation": false,
-        "navigation_style": "boxed",
         "show_dots_mobile": true,
         "products_per_row_desktop": "4",
         "products_per_row_tablet": "3",
         "products_per_row_mobile": "2",
         "padding_top": 120,
         "padding_bottom": 120,
-        "padding_mobile_rate": 50
+        "padding_mobile_rate": 50,
+        "padding_tablet_rate": 60
       }
     },
     "shop_gram_p7JjYi": {
@@ -307,6 +308,7 @@
             "icon_class": "icon-shipping",
             "custom_svg": "",
             "icon_size": 28,
+            "border_size": 64,
             "title": "Free Shipping",
             "title_size": 20,
             "description": "Enjoy free delivery on all orders",
@@ -319,6 +321,7 @@
             "icon_class": "icon-gift",
             "custom_svg": "",
             "icon_size": 28,
+            "border_size": 64,
             "title": "Gift Package",
             "title_size": 20,
             "description": "Perfectly packaged for gifting",
@@ -331,6 +334,7 @@
             "icon_class": "icon-return",
             "custom_svg": "",
             "icon_size": 28,
+            "border_size": 64,
             "title": "Easy Returns",
             "title_size": 20,
             "description": "Within 14 days for a return",
@@ -343,6 +347,7 @@
             "icon_class": "icon-support",
             "custom_svg": "",
             "icon_size": 28,
+            "border_size": 64,
             "title": "Support Online",
             "title_size": 20,
             "description": "Outstanding premium support",
@@ -366,11 +371,15 @@
         "products_per_row_desktop": 4,
         "products_per_row_tablet": 3,
         "products_per_row_mobile": 1,
+        "space_between_mobile": 12,
+        "space_between_tablet": 24,
+        "space_between_desktop": 24,
         "icon_style": "default",
         "show_border": true,
         "padding_top": 44,
         "padding_bottom": 44,
-        "padding_mobile_rate": 95
+        "padding_mobile_rate": 95,
+        "padding_tablet_rate": 60
       }
     }
   },
