@@ -391,7 +391,14 @@
                           | image_tag: class: 'lazyload', alt: block.settings.title, loading: 'lazy', decoding: 'async'
                         }}
                       {% else %}
-                        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% assign placeholder_index = forloop.index %}
+                        {% if placeholder_index == 1 %}{{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% elsif placeholder_index == 2 %}{{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% elsif placeholder_index == 3 %}{{ 'collection-3' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% elsif placeholder_index == 4 %}{{ 'collection-4' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% elsif placeholder_index == 5 %}{{ 'collection-5' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% else %}{{ 'collection-6' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
                       {% endif %}
                     </a>
                     <div class="cls-content text-center">
@@ -484,5 +491,13 @@
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
+  }
+
+  /* Placeholder SVG styling */
+  .section-{{ section.id }} .wg-cls .image .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    fill: rgb(var(--color-foreground));
+    opacity: 0.5;
   }
 {%- endstyle -%}
