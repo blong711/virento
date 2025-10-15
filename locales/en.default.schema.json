@@ -826,7 +826,7 @@
               }
             },
             "text_size": {
-              "label": "Text Size",
+              "label": "Description Size",
               "options": {
                 "small": "Small",
                 "medium": "Medium",
