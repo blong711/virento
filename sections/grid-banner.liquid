@@ -110,7 +110,7 @@
                 {% else %}
                   <div class="content">
                     <div class="box-title">
-                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %}">
+                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %} {{ block.settings.title_font }}">
                         {{ block.settings.title }}
                       </div>
                     </div>
