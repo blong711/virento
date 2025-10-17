@@ -48,7 +48,7 @@
                 {% if section.blocks.size == 3 %}
                   {% if section.settings.three_item_style == 'style1' %}
                     <div class="cls-btn wow fadeInUp">
-                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %} mb_16 font-14">{{ block.settings.title }}</div>
+                      <div class="{% case block.settings.title_size %}{% when 'small' %}display-md-2{% when 'large' %}display-lg{% else %}display-md{% endcase %} mb_16 {{ block.settings.title_font }}">{{ block.settings.title }}</div>
                       {% if block.settings.button_style == 'primary' %}
                         {% if block.settings.button_label != blank and block.settings.link != blank %}
                           <a href="{{ block.settings.link }}" class="tf-btn btn-cls animate-btn animate-dark">
@@ -74,16 +74,16 @@
                   {% else %}
                     <div class="content">
                       <div class="box-title">
-                        <p class="{% case block.settings.subtitle_size %}{% when 'small' %}text-sm{% when 'large' %}text-lg{% else %}text-md{% endcase %} font-13 fw-semibold" style="color: rgb(var(--color-foreground2));">{{ block.settings.subtitle }}</p>
+                        <p class="{% case block.settings.subtitle_size %}{% when 'small' %}text-sm{% when 'large' %}text-lg{% else %}text-md{% endcase %} {{ block.settings.subtitle_font }} fw-semibold" style="color: rgb(var(--color-foreground2));">{{ block.settings.subtitle }}</p>
                         {% capture heading_tag %}{% case block.settings.title_size %}{% when 'small' %}h5{% when 'large' %}h3{% else %}h4{% endcase %}{% endcapture %}
-                        <{{ heading_tag }} class="font-7 fw-medium">
+                        <{{ heading_tag }} class="{{ block.settings.title_font }} fw-medium">
                           {{ block.settings.title }}
                         </{{ heading_tag }}>
                       </div>
                       <div class="box-btn">
                         {% if block.settings.button_style == 'primary' %}
                           {% if block.settings.button_label != blank and block.settings.link != blank %}
-                            <a href="{{ block.settings.link }}" class="tf-btn fw-normal animate-btn font-13 btn-purple-1 border-0">
+                            <a href="{{ block.settings.link }}" class="tf-btn fw-normal animate-btn btn-purple-1 border-0">
                               {{ block.settings.button_label }}
                               {% if block.settings.show_icon %}
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -328,6 +328,143 @@
             }
           ],
           "default": "medium",
+          "visible_if": "{{section.settings.three_item_style == 'style2'}}"
+        },
+        {
+          "type": "select",
+          "id": "title_font",
+          "label": "t:sections.grid-banner.blocks.grid_item.settings.title_font",
+          "options": [
+            {
+              "value": "",
+              "label": "Default"
+            },
+            {
+              "value": "font-main",
+              "label": "Poppins"
+            },
+            {
+              "value": "font-2",
+              "label": "Albert Sans"
+            },
+            {
+              "value": "font-3",
+              "label": "Playfair Display"
+            },
+            {
+              "value": "font-4",
+              "label": "DM Sans"
+            },
+            {
+              "value": "font-5",
+              "label": "Baloo"
+            },
+            {
+              "value": "font-6",
+              "label": "Be Vietnam Pro"
+            },
+            {
+              "value": "font-7",
+              "label": "Oswald"
+            },
+            {
+              "value": "font-8",
+              "label": "Grandstander"
+            },
+            {
+              "value": "font-9",
+              "label": "Jost"
+            },
+            {
+              "value": "font-10",
+              "label": "Agbalumo"
+            },
+            {
+              "value": "font-11",
+              "label": "Manrope"
+            },
+            {
+              "value": "font-12",
+              "label": "Open Sans"
+            },
+            {
+              "value": "font-13",
+              "label": "Inter"
+            },
+            {
+              "value": "font-14",
+              "label": "Gloock"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "select",
+          "id": "subtitle_font",
+          "label": "t:sections.grid-banner.blocks.grid_item.settings.subtitle_font",
+          "options": [
+            {
+              "value": "",
+              "label": "Default"
+            },
+            {
+              "value": "font-main",
+              "label": "Poppins"
+            },
+            {
+              "value": "font-2",
+              "label": "Albert Sans"
+            },
+            {
+              "value": "font-3",
+              "label": "Playfair Display"
+            },
+            {
+              "value": "font-4",
+              "label": "DM Sans"
+            },
+            {
+              "value": "font-5",
+              "label": "Baloo"
+            },
+            {
+              "value": "font-6",
+              "label": "Be Vietnam Pro"
+            },
+            {
+              "value": "font-7",
+              "label": "Oswald"
+            },
+            {
+              "value": "font-8",
+              "label": "Grandstander"
+            },
+            {
+              "value": "font-9",
+              "label": "Jost"
+            },
+            {
+              "value": "font-10",
+              "label": "Agbalumo"
+            },
+            {
+              "value": "font-11",
+              "label": "Manrope"
+            },
+            {
+              "value": "font-12",
+              "label": "Open Sans"
+            },
+            {
+              "value": "font-13",
+              "label": "Inter"
+            },
+            {
+              "value": "font-14",
+              "label": "Gloock"
+            }
+          ],
+          "default": "",
           "visible_if": "{{section.settings.three_item_style == 'style2'}}"
         },
         {

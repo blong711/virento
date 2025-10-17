@@ -7851,7 +7851,9 @@
             "button_style": "Button style",
             "button_primary": "Primary button",
             "button_link": "Text link",
-            "show_icon": "Show icon"
+            "show_icon": "Show icon",
+            "title_font": "Title font",
+            "subtitle_font": "Subtitle font"
           }
         }
       }
