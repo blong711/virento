@@ -275,7 +275,7 @@
         <div class="footer-bottom-wrap">
           {%- if section.settings.show_copyright -%}
             {%- assign current_year = 'now' | date: '%Y' -%}
-            <p class="text-dark-8 {% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
+            <p class="{% if section.settings.copyright_text_size == 'small' %}text-sm{% elsif section.settings.copyright_text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
               {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
             </p>
           {%- endif -%}
@@ -522,7 +522,10 @@
                   <div class="tf-collapse-content">
                     <div class="footer-newsletter">
                       {%- if block.settings.newsletter_text != blank -%}
-                        <div class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}" style="color: rgba(var(--color-foreground2))">
+                        <div
+                          class="{% if section.settings.text_size == 'small' %}text-sm{% elsif section.settings.text_size == 'medium' %}text-md{% else %}text-lg{% endif %}"
+                          style="color: rgba(var(--color-foreground2))"
+                        >
                           {{ block.settings.newsletter_text }}
                         </div>
                       {%- endif -%}
@@ -621,7 +624,7 @@
         <div class="footer-bottom-wrap">
           {%- if section.settings.show_copyright -%}
             {%- assign current_year = 'now' | date: '%Y' -%}
-            <p class="text-dark">
+            <p class="{% if section.settings.copyright_text_size == 'small' %}text-sm{% elsif section.settings.copyright_text_size == 'medium' %}text-md{% else %}text-lg{% endif %}">
               {{ 'sections.footer.copyright_html' | t: year: current_year, site_name: shop.name }}
             </p>
           {%- endif -%}
@@ -666,11 +669,15 @@
 
     .footer-heading-mobile::before, .footer-heading-mobile::after {
       background-color: rgb(var(--color-foreground));
-  }
+    }
 
     .tf-social-icon.social-size .social-item {
       width: 47px;
       height: 47px;
+      color: rgb(var(--color-foreground));
+    }
+
+    .footer-info .item a {
       color: rgb(var(--color-foreground));
     }
 {% endstyle %}
@@ -781,6 +788,26 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "copyright_text_size",
+      "label": "t:sections.footer.settings.copyright_text_size",
+      "options": [
+        {
+          "value": "small",
+          "label": "t:sections.footer.settings.copyright_text_size_small"
+        },
+        {
+          "value": "medium",
+          "label": "t:sections.footer.settings.copyright_text_size_medium"
+        },
+        {
+          "value": "large",
+          "label": "t:sections.footer.settings.copyright_text_size_large"
+        }
+      ],
+      "default": "medium"
+    },
+    {
       "type": "text",
       "id": "payment_svg_list",
       "label": "t:sections.footer.settings.payment_svg_list",
@@ -822,7 +849,7 @@
         {
           "type": "text",
           "id": "contact_heading",
-          "label": "t:sections.footer.blocks.contact_info.contact_heading",
+          "label": "t:sections.footer.blocks.contact_info.contact_heading"
         },
         {
           "type": "text",
@@ -848,7 +875,7 @@
         {
           "type": "text",
           "id": "map_button_text",
-          "label": "t:sections.footer.blocks.contact_info.map_button_text",
+          "label": "t:sections.footer.blocks.contact_info.map_button_text"
         },
         {
           "type": "url",
@@ -865,12 +892,12 @@
         {
           "type": "text",
           "id": "newsletter_heading",
-          "label": "t:sections.footer.blocks.newsletter.newsletter_heading",
+          "label": "t:sections.footer.blocks.newsletter.newsletter_heading"
         },
         {
           "type": "text",
           "id": "newsletter_text",
-          "label": "t:sections.footer.blocks.newsletter.newsletter_text",
+          "label": "t:sections.footer.blocks.newsletter.newsletter_text"
         }
       ]
     },

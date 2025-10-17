@@ -3755,11 +3755,11 @@ header.header-bg {
   gap: 15px;
 }
 
-.footer-bottom-wrap p,
+/* .footer-bottom-wrap p,
 .footer-bottom-wrap a {
   font-size: 14px;
   line-height: 20px;
-}
+} */
 
 .footer-bottom-wrap .image-select.style-default {
   border-radius: 4px !important;
@@ -8919,11 +8919,11 @@ header.header-bg {
   gap: 15px;
 }
 
-.footer-bottom-wrap p,
+/* .footer-bottom-wrap p,
 .footer-bottom-wrap a {
   font-size: 14px;
   line-height: 20px;
-}
+} */
 
 .footer-bottom-wrap .image-select.style-default {
   border-radius: 4px !important;

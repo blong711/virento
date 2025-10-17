@@ -1520,6 +1520,10 @@
         "svg_height": "SVG Size",
         "footer_bottom": "Footer Bottom",
         "show_copyright": "Show copyright",
+        "copyright_text_size": "Copyright text size",
+        "copyright_text_size_small": "Small",
+        "copyright_text_size_medium": "Medium",
+        "copyright_text_size_large": "Large",
         "payment_svg_list_paragraph": "Review the [list of available values](https://github.com/activemerchant/payment_icons/tree/master/app/assets/images/payment_icons) and copy the name of each icon that you need from that list, without the .svg extension."
       },
       "blocks": {
@@ -1530,8 +1534,8 @@
           "phone_label": "Phone Number",
           "email_label": "Email Address",
           "show_map_button": "Show map button",
-          "map_button_text": "Get direction",
-          "map_button_link": "Map link"
+          "map_button_text": "Map button label",
+          "map_button_link": "Map button link"
         },
         "newsletter": {
           "title": "Newsletter",
