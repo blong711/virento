@@ -7846,7 +7846,7 @@
             "size_large": "Large",
             "subtitle": "Subtitle",
             "subtitle_size": "Subtitle Size",
-            "link": "Link",
+            "link": "Button link",
             "button_label": "Button label",
             "button_style": "Button style",
             "button_primary": "Primary button",
