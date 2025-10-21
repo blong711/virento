@@ -374,7 +374,7 @@
   style="{% unless section.settings.line_top %}border-top: none !important;{% endunless %}"
 >
   <div class="{{ section.settings.width }}">
-    <div{% if section.settings.icon_position_center == true and section.settings.icon_style == 'default' and section.settings.show_border == true %} class="mw-1 mx-auto"{% endif %}>    
+    <div{% if section.settings.icon_position_center == true and section.settings.icon_style == 'default' and section.settings.show_border == true %} class="{%if section.settings.width == 'container' %}mw-1{% endif %} mx-auto"{% endif %}>    
       <div
     dir="ltr"
     class="swiper tf-swiper"
