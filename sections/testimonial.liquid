@@ -39,11 +39,27 @@
   }
 
   .text-review {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    /* Removed line-clamp to allow full richtext content with lists and formatting */
+  }
+
+  .text-review ul,
+  .text-review ol {
+    margin: 10px 0;
+    padding-left: 20px;
+  }
+
+  .text-review li {
+    margin-bottom: 5px;
+  }
+
+  .text-review em,
+  .text-review i {
+    font-style: italic;
+  }
+
+  .text-review strong,
+  .text-review b {
+    font-weight: bold;
   }
 
   .author-image {
