@@ -40,33 +40,10 @@
 
   .text-review {
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  @media screen and (max-width: 574px) {
-    .text-review {
-      -webkit-line-clamp: 4;
-    }
-    
-    .wg-testimonial.style-2.type-2 {
-      padding: 16px;
-    }
-    
-    .content-top {
-      margin-bottom: 12px;
-    }
-    
-    .box-author {
-      margin-top: 8px;
-    }
-    
-    .name-item {
-      font-size: 14px;
-      line-height: 1.3;
-    }
   }
 
   .author-image {
@@ -108,12 +85,12 @@
       class="swiper tf-swiper"
       data-swiper='
         {
-            "slidesPerView": {{ section.settings.items_mobile }},
-            "spaceBetween": 8,
+            "slidesPerView": 1,
+            "spaceBetween": 12,
             "speed": 800,
             "observer": true,
             "observeParents": true,
-            "slidesPerGroup": {{ section.settings.items_mobile }},
+            "slidesPerGroup": 1,
             "navigation": {
                   "clickable": true,
                   "nextEl": ".nav-next-testimonial",
@@ -125,9 +102,9 @@
             {% endif %}
             "breakpoints": {
               "575": {
-                "slidesPerView": {{ section.settings.items_mobile }},
-                "spaceBetween": 8,
-                "slidesPerGroup": {{ section.settings.items_mobile }}
+                "slidesPerView": 1,
+                "spaceBetween": 12,
+                "slidesPerGroup": 1
               },
               "768": {
                 "slidesPerView": {{ section.settings.items_tablet }},
@@ -357,16 +334,6 @@
       "default": "2"
     },
     {
-      "type": "select",
-      "id": "items_mobile",
-      "label": "t:sections.testimonial.settings.items_mobile.label",
-      "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
-      ],
-      "default": "1"
-    },
-    {
       "type": "header",
       "content": "t:sections.testimonial.settings.padding_group.content"
     },
@@ -453,13 +420,13 @@
       "category": "t:sections.testimonial.presets.category",
       "blocks": [
         {
-          "type": "testimonial_item"
+          "type": "testimonial_item",
         },
         {
-          "type": "testimonial_item"
+          "type": "testimonial_item",
         },
         {
-          "type": "testimonial_item"
+          "type": "testimonial_item",
         }
       ]
     }
