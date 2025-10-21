@@ -7558,7 +7558,7 @@
           }
         },
         "content_align": {
-          "label": "Content align",
+          "label": "Heading align",
           "options": {
             "left": { "label": "Left" },
             "center": { "label": "Center" },
