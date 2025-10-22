@@ -583,6 +583,8 @@
         "space_between_desktop": 42,
         "icon_style": "default",
         "show_border": true,
+        "title_font": "",
+        "description_font": "font-2",
         "padding_top": 44,
         "padding_bottom": 44,
         "padding_mobile_rate": 80,
