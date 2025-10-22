@@ -63,7 +63,7 @@
 									{% if pinned_product %}
 									<a href="{{ pinned_product.url }}" class="text-md fw-medium text-line-clamp-1 link">{{ pinned_product.title }}</a>
 									<p class="price-wrap text-md fw-medium" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
-										<span class="price-new text-primary" style="white-space: nowrap; flex-shrink: 0;">{{ pinned_product.price | money }}</span>
+										<span class="price-new" style="white-space: nowrap; flex-shrink: 0;">{{ pinned_product.price | money }}</span>
 										{% if pinned_product.compare_at_price > pinned_product.price %}
 										<span class="price-old" style="white-space: nowrap; flex-shrink: 0;">{{ pinned_product.compare_at_price | money }}</span>
 										{% endif %}
