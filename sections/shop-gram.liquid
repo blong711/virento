@@ -11,6 +11,16 @@
     }
   }
 
+  #shopify-section-{{ section.id }} .flat-title {
+    margin-bottom: {{ section.settings.heading_spacing_mobile | default: 30 }}px !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    #shopify-section-{{ section.id }} .flat-title {
+      margin-bottom: {{ section.settings.heading_spacing_desktop | default: 48 }}px !important;
+    }
+  }
+
   #shopify-section-{{ section.id }} .gallery-item,
   .section-{{ section.id }} .gallery-item {
     border-radius: {{ section.settings.border_radius | default: 8 }}px !important;
@@ -20,7 +30,7 @@
 <section class="flat-spacing-8 pt-0 section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
   <div class="{% if section.settings.width == 'boxed' %}container{% endif %}">
     {% if section.settings.heading != blank %}
-      <div class="flat-title wow fadeInUp text-{{ section.settings.content_align }}" style="margin-bottom: {{ section.settings.heading_spacing }}px;">
+      <div class="flat-title wow fadeInUp text-{{ section.settings.content_align }}">
         {% case section.settings.heading_size %}
           {% when 'small' %}
             <h5 class="title {{ section.settings.heading_font_weight }} letter-0 {{ section.settings.heading_font }}">{{ section.settings.heading }}</h5>
@@ -183,13 +193,23 @@
     },
     {
       "type": "range",
-      "id": "heading_spacing",
-      "label": "t:sections.shop-gram.settings.heading_spacing.label",
+      "id": "heading_spacing_desktop",
+      "label": "t:sections.shop-gram.settings.heading_spacing_desktop.label",
       "min": 0,
       "max": 100,
       "step": 2,
       "unit": "px",
-      "default": 16
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_spacing_mobile",
+      "label": "t:sections.shop-gram.settings.heading_spacing_mobile.label",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 30
     },
     {
       "type": "range",
