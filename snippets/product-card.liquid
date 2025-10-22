@@ -123,7 +123,7 @@
           {%- endif -%}
         </span>
         {% if product.compare_at_price > product.price %}
-          <span class="price-old old-line">
+          <span class="price-old">
             {%- if settings.currency_code_enabled -%}
               {{- product.compare_at_price | money }}
               {{ shop.currency -}}
@@ -331,7 +331,7 @@
           {%- endif -%}
         </span>
         {% if product.compare_at_price > product.price %}
-          <span class="price-old text-sm old-line">
+          <span class="price-old text-sm">
             {%- if settings.currency_code_enabled -%}
               {{- product.compare_at_price | money }}
               {{ shop.currency -}}
@@ -451,7 +451,7 @@
           {%- endif -%}
         </span>
         {% if product.compare_at_price > product.price %}
-          <span class="price-old old-line">
+          <span class="price-old">
             {%- if settings.currency_code_enabled -%}
               {{- product.compare_at_price | money }}
               {{ shop.currency -}}
