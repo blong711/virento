@@ -29238,3 +29238,9 @@ shopify-accelerated-checkout {
       gap: 12px;
   }
 }
+
+/* Footer map button link styling */
+.footer-default a.color-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
