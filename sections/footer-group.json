@@ -23,7 +23,7 @@
             "email": "support@example.com",
             "show_map_button": true,
             "map_button_text": "Get direction",
-            "map_button_link": ""
+            "map_button_link": "https://www.google.com/maps?q=15Yarranst,Punchbowl,NSW,Australia"
           }
         },
         "newsletter_677nVh": {
@@ -61,6 +61,7 @@
         "heading_weight": "medium",
         "text_size": "medium",
         "show_copyright": true,
+        "copyright_text_size": "medium",
         "payment_svg_list": "visa,paypal,master,american_express,diners_club",
         "svg_height": 25,
         "footer_links": "footer-link"
