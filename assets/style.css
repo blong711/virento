@@ -29244,3 +29244,7 @@ shopify-accelerated-checkout {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+.footer-bottom-wrap p, .footer-bottom-wrap a {
+  font-size: 14px;
+  line-height: 20px;
+}
