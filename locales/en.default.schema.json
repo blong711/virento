@@ -5525,6 +5525,15 @@
             "default": "Default",
             "border": "Border"
           }
+        },
+        "typography_settings": {
+          "content": "Typography Settings"
+        },
+        "title_font": {
+          "label": "Title Font"
+        },
+        "description_font": {
+          "label": "Description Font"
         }
       },
       "blocks": {

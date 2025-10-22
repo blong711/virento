@@ -136,6 +136,146 @@
     },
     {
       "type": "header",
+      "content": "t:sections.icon-box.settings.typography_settings.content"
+    },
+    {
+      "type": "select",
+      "id": "title_font",
+      "label": "t:sections.icon-box.settings.title_font.label",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "font-main",
+          "label": "Poppins"
+        },
+        {
+          "value": "font-2",
+          "label": "Albert Sans"
+        },
+        {
+          "value": "font-3",
+          "label": "Playfair Display"
+        },
+        {
+          "value": "font-4",
+          "label": "DM Sans"
+        },
+        {
+          "value": "font-5",
+          "label": "Baloo"
+        },
+        {
+          "value": "font-6",
+          "label": "Be Vietnam Pro"
+        },
+        {
+          "value": "font-7",
+          "label": "Oswald"
+        },
+        {
+          "value": "font-8",
+          "label": "Grandstander"
+        },
+        {
+          "value": "font-9",
+          "label": "Jost"
+        },
+        {
+          "value": "font-10",
+          "label": "Agbalumo"
+        },
+        {
+          "value": "font-11",
+          "label": "Manrope"
+        },
+        {
+          "value": "font-12",
+          "label": "Open Sans"
+        },
+        {
+          "value": "font-13",
+          "label": "Inter"
+        },
+        {
+          "value": "font-14",
+          "label": "Gloock"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "description_font",
+      "label": "t:sections.icon-box.settings.description_font.label",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "font-main",
+          "label": "Poppins"
+        },
+        {
+          "value": "font-2",
+          "label": "Albert Sans"
+        },
+        {
+          "value": "font-3",
+          "label": "Playfair Display"
+        },
+        {
+          "value": "font-4",
+          "label": "DM Sans"
+        },
+        {
+          "value": "font-5",
+          "label": "Baloo"
+        },
+        {
+          "value": "font-6",
+          "label": "Be Vietnam Pro"
+        },
+        {
+          "value": "font-7",
+          "label": "Oswald"
+        },
+        {
+          "value": "font-8",
+          "label": "Grandstander"
+        },
+        {
+          "value": "font-9",
+          "label": "Jost"
+        },
+        {
+          "value": "font-10",
+          "label": "Agbalumo"
+        },
+        {
+          "value": "font-11",
+          "label": "Manrope"
+        },
+        {
+          "value": "font-12",
+          "label": "Open Sans"
+        },
+        {
+          "value": "font-13",
+          "label": "Inter"
+        },
+        {
+          "value": "font-14",
+          "label": "Gloock"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
     },
     {
@@ -411,14 +551,14 @@
               <div class="content">
                 {% if block.settings.title != blank %}
                   {% if section.settings.icon_style == 'default' %}
-                    <div class="title heading-font" style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</div>
+                    <div class="title heading-font {{ section.settings.title_font }}" style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</div>
                   {% else %}
-                    <h6 style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</h6>
+                    <h6 class="{{ section.settings.title_font }}" style="font-size: {{ block.settings.title_size | default: 16 }}px;">{{ block.settings.title }}</h6>
                   {% endif %}
                 {% endif %}
                 {% if block.settings.description != blank %}
                   <p
-                    class="{% if section.settings.icon_style == 'default' %}desc{% else %}text-sm text-main text-line-clamp-4{% endif %}"
+                    class="{% if section.settings.icon_style == 'default' %}desc{% else %}text-sm text-main text-line-clamp-4{% endif %} {{ section.settings.description_font }}"
                     style="color: rgb(var(--color-foreground2)); max-width: 400px; font-size: {{ block.settings.description_size | default: 14 }}px;"
                   >
                     {{ block.settings.description }}
