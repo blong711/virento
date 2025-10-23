@@ -21,10 +21,10 @@
             "heading_size": "display-md",
             "heading_weight": "fw-semibold",
             "description": "Don't miss our new collection with deals...",
+            "text_size": "text-md",
             "subheading": "",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
-            "text_size": "text-md",
             "button_link": "shopify://collections",
             "button_text": "Shop Collection",
             "heading_max_width": 400
@@ -39,10 +39,10 @@
             "heading_size": "display-md",
             "heading_weight": "fw-semibold",
             "description": "Stylish and functional furniture to enhance your home.",
+            "text_size": "text-md",
             "subheading": "",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
-            "text_size": "text-md",
             "button_link": "shopify://collections",
             "button_text": "Shop Collection",
             "heading_max_width": 450
@@ -57,10 +57,10 @@
             "heading_size": "display-md",
             "heading_weight": "fw-semibold",
             "description": "Bring elegance and comfort to every room.",
+            "text_size": "text-md",
             "subheading": "",
             "box_bg_class": "",
             "content_alignment": "col-12 col-sm-6 col-lg-5",
-            "text_size": "text-md",
             "button_link": "shopify://collections",
             "button_text": "Shop Collection",
             "heading_max_width": 400
@@ -157,10 +157,12 @@
         "space_between_desktop": 24,
         "icon_style": "style-border",
         "show_border": false,
+        "title_font": "",
+        "description_font": "",
         "padding_top": 60,
         "padding_bottom": 60,
-        "padding_mobile_rate": 80,
-        "padding_tablet_rate": 60
+        "padding_mobile_rate": 65,
+        "padding_tablet_rate": 100
       }
     },
     "featured_product_carousel_r9mPVq": {
