@@ -32,7 +32,7 @@
           "new-in",
           "outdoor",
           "chairs",
-          "decorations"
+          "equipments"
         ],
         "collections_limit": 8,
         "slides_per_view_mobile": 3,
@@ -161,6 +161,8 @@
         "space_between_desktop": 24,
         "icon_style": "default",
         "show_border": false,
+        "title_font": "",
+        "description_font": "",
         "padding_top": 44,
         "padding_bottom": 44,
         "padding_mobile_rate": 75,
