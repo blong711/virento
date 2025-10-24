@@ -31,7 +31,7 @@
         "announcement_b4ry97"
       ],
       "settings": {
-        "width": "container",
+        "width": "container-full",
         "show_border_bottom": true,
         "color_scheme": "scheme-df5096e5-9412-4cdf-82ea-1adacc1c4967",
         "capitalize_text": false
