@@ -27,12 +27,28 @@
       "default": "container-full"
     },
     {
+      "type": "select",
+      "id": "layout",
+      "label": "t:sections.quick-add-products.settings.layout.label",
+      "options": [
+        {
+          "value": "layout-1",
+          "label": "t:sections.quick-add-products.settings.layout.options.layout_1.label"
+        },
+        {
+          "value": "layout-2",
+          "label": "t:sections.quick-add-products.settings.layout.options.layout_2.label"
+        }
+      ],
+      "default": "layout-1"
+    },
+    {
       "type": "image_picker",
       "id": "background_image",
       "label": "t:sections.quick-add-products.settings.background_image.label",
-      "info": "t:sections.quick-add-products.settings.background_image.info"
+      "info": "t:sections.quick-add-products.settings.background_image.info",
+      "visible_if": "{{ section.settings.layout == 'layout-1' }}"
     },
-
     {
       "type": "text",
       "id": "title",
@@ -84,26 +100,6 @@
         }
       ],
       "default": "text-md"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.quick-add-products.settings.product_blocks_header.content"
-    },
-    {
-      "type": "select",
-      "id": "layout",
-      "label": "t:sections.quick-add-products.settings.layout.label",
-      "options": [
-        {
-          "value": "layout-1",
-          "label": "t:sections.quick-add-products.settings.layout.options.layout_1.label"
-        },
-        {
-          "value": "layout-2",
-          "label": "t:sections.quick-add-products.settings.layout.options.layout_2.label"
-        }
-      ],
-      "default": "layout-1"
     },
     {
       "type": "header",
