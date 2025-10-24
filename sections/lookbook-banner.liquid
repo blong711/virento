@@ -4,7 +4,7 @@
   - Lookbook pins as blocks with product selection and pin position (top/left percentages)
 {% endcomment %}
 
-<section class="flat-spacing color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding" data-section-id="{{ section.id }}">
+<section class="flat-spacing-3 color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding" data-section-id="{{ section.id }}">
 	<div class="{{ section.settings.width }}">
 		{% if section.settings.heading != blank or section.settings.subheading != blank %}
 		<div class="flat-title wow fadeInUp">
@@ -38,7 +38,7 @@
 
 			{% for block in section.blocks %}
 			{% assign pinned_product = block.settings.product %}
-			<div class="lookbook-item" style="position: absolute; top: {{ block.settings.top_pct }}%; left: {{ block.settings.left_pct }}%; transform: translate(-50%, -50%);" {{ block.shopify_attributes }}>
+			<div class="lookbook-item" style="position: absolute; top: {{ block.settings.top_pct }}%; left: {{ block.settings.left_pct }}%;" {{ block.shopify_attributes }}>
 				<div class="dropdown dropup-center dropdown-custom">
 					<div role="dialog" class="tf-pin-btn" data-bs-toggle="dropdown" aria-expanded="false">
 						<span></span>
