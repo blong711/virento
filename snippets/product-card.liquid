@@ -105,6 +105,24 @@
           {% render 'product-compare-button', product: product, card_style: card_style %}
         </ul>
       {% endif %}
+      {% assign countdown_end_date = product.metafields.countdown.end_date %}
+      {% if countdown_end_date != blank %}
+        {% assign countdown_timestamp = countdown_end_date | date: '%s' %}
+        {% assign current_timestamp = 'now' | date: '%s' %}
+        {% assign time_remaining = countdown_timestamp | minus: current_timestamp %}
+        {% if time_remaining > 0 %}
+          <div class="countdown-box pos1">
+            <div class="js-countdown" data-timer="{{ time_remaining }}" data-labels="D  :,H  :,M  :,S">
+              <div aria-hidden="true" class="countdown__timer">
+                <span class="countdown__item">
+                  <span class="countdown__value countdown__value--0 js-countdown__value--0">00</span>
+                  <span class="countdown__label">D  :</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
     </div>
     <div class="card-product-info text-{{ card_text_alignment }}">
       <a
