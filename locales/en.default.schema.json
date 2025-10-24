@@ -7969,8 +7969,11 @@
             "right": "Right"
           }
         },
-        "heading_spacing": {
-          "label": "Heading bottom spacing"
+        "heading_spacing_desktop": {
+          "label": "Heading bottom spacing (desktop)"
+        },
+        "heading_spacing_mobile": {
+          "label": "Heading bottom spacing (mobile)"
         },
         "slider_settings": {
           "content": "Slider settings"
