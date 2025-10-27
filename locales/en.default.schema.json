@@ -3965,7 +3965,7 @@
           "name": "Announcement Messages",
           "settings": {
             "messages": {
-              "label": "Announcement Messages",
+              "label": "Announcement text",
               "default": "Return extended to 60 days, Life-time Guarantee, Limited-Time Offer",
               "info": "Enter messages separated by commas"
             },
