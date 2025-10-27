@@ -291,7 +291,7 @@
             <ul class="d-flex gap-48 flex-wrap">
               {%- for link in section.settings.footer_links.links -%}
                 <li>
-                  <a class="link color-footer-link" href="{{ link.url }}">{{ link.title }}</a>
+                  <a class="link color-footer-link {% if section.settings.copyright_text_size == 'small' %}text-sm{% elsif section.settings.copyright_text_size == 'medium' %}text-md{% else %}text-lg{% endif %}" href="{{ link.url }}">{{ link.title }}</a>
                 </li>
               {%- endfor -%}
             </ul>
