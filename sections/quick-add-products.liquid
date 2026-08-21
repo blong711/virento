@@ -572,9 +572,9 @@
                           </a>
                           {% if product.available %}
                             <ul class="list-product-btn">
-                              {% render 'product-wishlist-button', product: product, card_style: %}
-                              {% render 'product-quickview-button', product: product, card_style: %}
-                              {% render 'product-compare-button', product: product, card_style: %}
+                              {% render 'product-wishlist-button', product: product %}
+                              {% render 'product-quickview-button', product: product %}
+                              {% render 'product-compare-button', product: product %}
                             </ul>
                           {% endif %}
                         </div>
@@ -660,3 +660,19 @@
     </div>
   </section>
 {% endif %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-wishlist-button', product: product, card_style: %}"
+  to: "{% render 'product-wishlist-button', product: product %}"
+  position: 24480..24536
+- from: "{% render 'product-quickview-button', product: product, card_style: %}"
+  to: "{% render 'product-quickview-button', product: product %}"
+  position: 24567..24624
+- from: "{% render 'product-compare-button', product: product, card_style: %}"
+  to: "{% render 'product-compare-button', product: product %}"
+  position: 24655..24710
+{% endcomment %}
